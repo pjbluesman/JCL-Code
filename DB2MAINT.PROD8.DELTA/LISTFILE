@@ -1,0 +1,10 @@
+//DT0072X JOB ,'RDL RM102',CLASS=S,MSGCLASS=X,NOTIFY=DT0072             00000100
+//STEP01  EXEC PGM=IDCAMS                                               00011001
+//SYSPRINT DD SYSOUT=*                                                  00011100
+//SYSUDUMP DD SYSOUT=*                                                  00011200
+//IN1      DD DSN=SSXDT.PLATINUM.TEST.DATA.SDMDATA,DISP=SHR             00011303
+//SYSIN DD *                                                            00011500
+ PRINT INFILE(IN1) CHARACTER                                            00011604
+/*                                                                      00012000
+//                                                                      00020000
+//IN1      DD DSN=SSXDP.PLATINUM.DETECTOR.CONTROL,DISP=SHR              00030003

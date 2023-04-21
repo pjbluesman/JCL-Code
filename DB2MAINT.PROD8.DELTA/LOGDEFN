@@ -1,0 +1,31 @@
+//UXD000M JOB ,'DB2 A3 ANNEX',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID         00000001
+//**********************************************************************
+//******* TO ADD ADDITIONAL ACTIVE LOG DATASETS:
+//********    1. DEFINE THE NEW VSAM DATASETS
+//********    2. RUN DSNJLOGF TO PREFORMAT THE ACTIVE LOG DATASETS
+//********    3. RUN DSNJU003 TO REGISTER NEW DATASETS IN BSDS
+//**********************************************************************
+//DSNTIC  EXEC PGM=IDCAMS                                               00540000
+//SYSPRINT DD SYSOUT=*                                                  00550000
+//SYSUDUMP DD SYSOUT=*                                                  00560000
+//SYSIN    DD  *                                                        00740000
+   DEFINE CLUSTER -                                                     01080001
+         ( NAME (DB2E.DSNDBEG.LOGCOPY1.DS06) -                          01080002
+           VOLUMES(E3D2E2)      -                                       01080003
+           REUSE                         -                              01080004
+           TRACKS(16500)              -                                 01080005
+           LINEAR )                      -                              01080006
+      DATA                             -                                01080007
+         ( NAME (DB2E.DSNDBEG.LOGCOPY1.DS06.DATA)  -                    01080008
+                   )    CATALOG(DB2E)                                   01080009
+                                                                        01080010
+   DEFINE CLUSTER -                                                     01080011
+         ( NAME (DB2E.DSNDBEG.LOGCOPY2.DS06) -                          01080012
+           VOLUMES(E3D1E1)    -                                         01080013
+           REUSE                       -                                01080014
+           TRACKS(16500)            -                                   01080015
+           LINEAR )                      -                              01080016
+      DATA                             -                                01080017
+         ( NAME (DB2E.DSNDBEG.LOGCOPY2.DS06.DATA)  -                    01080018
+               )    CATALOG(DB2E)                                       01080019
+                                                                        01080020

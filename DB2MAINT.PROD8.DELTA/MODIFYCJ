@@ -1,0 +1,27 @@
+//PXD503M  JOB  D-813-000-N-00,'105',CLASS=S,MSGCLASS=U                 00010000
+/*ROUTE PRINT MVS                                                       00011000
+//UTIL EXEC DSNUPROR,SYSTEM=DB6R,UID='MODIFY',UTPROC=''                 00013000
+//*                                                                     00014000
+//*****************************************************************     00015000
+//*                                                                     00016000
+//*  JCL EXECUTES THE MODIFY UTILITY                                    00017000
+//**********    DELETE ALL ENTRIES FOR CATALOG AND DIRECTORY            00018000
+//**********    PRIOR TO 65 DAYS BEFORE TODAY                           00019000
+//******************************************************************    00020000
+//*                                                                     00021000
+//DSNUPROR.SYSIN   DD  *                                                00022000
+MODIFY RECOVERY TABLESPACE DSNDB06.SYSDBASE  DELETE AGE (130)           00023001
+MODIFY RECOVERY TABLESPACE DSNDB06.SYSUSER   DELETE AGE (130)           00024001
+MODIFY RECOVERY TABLESPACE DSNDB06.SYSPLAN   DELETE AGE (130)           00025001
+MODIFY RECOVERY TABLESPACE DSNDB06.SYSGROUP  DELETE AGE (130)           00026001
+MODIFY RECOVERY TABLESPACE DSNDB06.SYSDBAUT  DELETE AGE (130)           00027001
+MODIFY RECOVERY TABLESPACE DSNDB06.SYSVIEWS  DELETE AGE (130)           00028001
+MODIFY RECOVERY TABLESPACE DSNDB06.SYSGPAUT  DELETE AGE (130)           00029001
+MODIFY RECOVERY TABLESPACE DSNDB06.SYSSTR    DELETE AGE (130)           00030001
+MODIFY RECOVERY TABLESPACE DSNDB06.SYSPKAGE  DELETE AGE (130)           00031001
+MODIFY RECOVERY TABLESPACE DSNDB06.SYSSTATS  DELETE AGE (130)           00031101
+MODIFY RECOVERY TABLESPACE DSNDB01.SCT02     DELETE AGE (130)           00032001
+MODIFY RECOVERY TABLESPACE DSNDB01.SYSLGRNX  DELETE AGE (130)           00033001
+MODIFY RECOVERY TABLESPACE DSNDB01.SPT01     DELETE AGE (130)           00034001
+//*                                                                     00035000
+//                                                                      00051000

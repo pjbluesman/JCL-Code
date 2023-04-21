@@ -1,0 +1,22 @@
+//UXD000M JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X                          00000100
+//STEP1  EXEC PGM=IDCAMS                                                00000200
+//SYSPRINT DD SYSOUT=X                                                  00000210
+//AMSDUMP DD SYSOUT=X                                                   00000220
+//SYSIN   DD *                                                          00000300
+    LISTCAT LEVEL (DQMD.DSNDBD.DSQDBCTL) ALL                            00000400
+    LISTCAT LEVEL (DQMT.DSNDBD.DSQDBCTL) ALL                            00000400
+    LISTCAT LEVEL (DQMA.DSNDBD.DSQDBCTL) ALL                            00000400
+    LISTCAT LEVEL (DQMM.DSNDBD.DSQDBCTL) ALL                            00000400
+    LISTCAT LEVEL (DB2P.DSNDBD.DSQDBCTL) ALL                            00000400
+    LISTCAT LEVEL (DB2D.DSNDBD.PTDB) ALL                                00000400
+    LISTCAT LEVEL (DB2T.DSNDBD.PTDB) ALL                                00000400
+    LISTCAT LEVEL (DSNA.DSNDBD.PTDB) ALL                                00000400
+    LISTCAT LEVEL (DB2P.DSNDBD.PTDB) ALL                                00000400
+    LISTCAT LEVEL (DB2M.DSNDBD.PTDB) ALL                                00000400
+    LISTCAT LEVEL (DQMT.DSNDBD.DSQDBDEF)                                00000400
+    LISTCAT LEVEL (DQMD.DSNDBD.DSQDBDEF)                                00000400
+    LISTCAT LEVEL (DQMA.DSNDBD.DSQDBDEF)                                00000400
+    LISTCAT LEVEL (DQMM.DSNDBD.DSQDBDEF)                                00000400
+    LISTCAT LEVEL (DB2P.DSNDBD.DSQDBDEF)                                00000400
+/*                                                                      00001600
+//                                                                      00001700

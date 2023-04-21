@@ -1,0 +1,67 @@
+//D73294TM JOB (,102),'CJR',CLASS=S,MSGCLASS=X
+//*
+//DSNTIC  EXEC PGM=IDCAMS                                               00420000
+//SYSPRINT DD SYSOUT=X                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//SYSIN    DD  *                                                        01730000
+   ALTER -                                                              01900000
+   DB2D.LOGCOPY2.DS01 -
+   NEWNAME(DB2D.OLD.LOGCOPY2.DS01)
+   ALTER -                                                              01900000
+   DB2D.LOGCOPY2.DS01.DATA -
+   NEWNAME(DB2D.OLD.LOGCOPY2.DS01.DATA)
+   ALTER -                                                              01900000
+   DB2D.LOGCOPY2.DS02 -
+   NEWNAME(DB2D.OLD.LOGCOPY2.DS02)
+   ALTER -                                                              01900000
+   DB2D.LOGCOPY2.DS02.DATA  -
+   NEWNAME(DB2D.OLD.LOGCOPY2.DS02.DATA)
+   ALTER -                                                              01900000
+   DB2D.LOGCOPY2.DS03 -
+   NEWNAME(DB2D.OLD.LOGCOPY2.DS03)
+   ALTER -                                                              01900000
+   DB2D.LOGCOPY2.DS03.DATA -
+   NEWNAME(DB2D.OLD.LOGCOPY2.DS03.DATA)
+   ALTER -                                                              01900000
+   DB2D.LOGCOPY2.DS04 -
+   NEWNAME(DB2D.OLD.LOGCOPY2.DS04)
+   ALTER -                                                              01900000
+   DB2D.LOGCOPY2.DS04.DATA -
+   NEWNAME(DB2D.OLD.LOGCOPY2.DS04.DATA)
+   ALTER -                                                              01900000
+   DB2D.LOGCOPY2.DS05 -
+   NEWNAME(DB2D.OLD.LOGCOPY2.DS05)
+   ALTER -                                                              01900000
+   DB2D.LOGCOPY2.DS05.DATA -
+   NEWNAME(DB2D.OLD.LOGCOPY2.DS05.DATA)
+   ALTER-
+   DB2D.NEW.LOGCOPY2.DS01 -
+   NEWNAME(DB2D.LOGCOPY2.DS01)
+   ALTER-
+   DB2D.NEW.LOGCOPY2.DS01.DATA -
+   NEWNAME(DB2D.LOGCOPY2.DS01.DATA)
+   ALTER -                                                              01900000
+   DB2D.NEW.LOGCOPY2.DS02 -
+   NEWNAME(DB2D.LOGCOPY2.DS02)
+   ALTER -                                                              01900000
+   DB2D.NEW.LOGCOPY2.DS02.DATA -
+   NEWNAME(DB2D.LOGCOPY2.DS02.DATA)
+   ALTER -                                                              01900000
+   DB2D.NEW.LOGCOPY2.DS03-
+   NEWNAME(DB2D.LOGCOPY2.DS03)
+   ALTER -                                                              01900000
+   DB2D.NEW.LOGCOPY2.DS03.DATA -
+   NEWNAME(DB2D.LOGCOPY2.DS03.DATA)
+   ALTER -                                                              01900000
+   DB2D.NEW.LOGCOPY2.DS04-
+   NEWNAME(DB2D.LOGCOPY2.DS04)
+   ALTER -                                                              01900000
+   DB2D.NEW.LOGCOPY2.DS04.DATA -
+   NEWNAME(DB2D.LOGCOPY2.DS04.DATA)
+   ALTER -                                                              01900000
+   DB2D.NEW.LOGCOPY2.DS05 -
+   NEWNAME(DB2D.LOGCOPY2.DS05)
+   ALTER -                                                              01900000
+   DB2D.NEW.LOGCOPY2.DS05.DATA -
+   NEWNAME(DB2D.LOGCOPY2.DS05.DATA)
+//*                                                                     08290000

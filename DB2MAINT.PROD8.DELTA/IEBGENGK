@@ -1,0 +1,12 @@
+//D54808TA JOB (,105),'GLK ',                                           00010001
+//             CLASS=S,MSGCLASS=X,MSGLEVEL=(1,1)                        00040000
+//*                                                           /*JCTRL*/ 00050000
+//UNLOAD EXEC PGM=IEBGENER
+//SYSUT1 DD DISP=SHR,DSN=PTRP.UNLOAD.CNTL,
+//          UNIT=NONSILO,VOL=SER=96117A,LABEL=1
+//SYSUT2 DD DISP=(NEW,CATLG,DELETE),
+//          DSN=SSXDT.PLATINUM.TEST.NEW.CNTL.T96117A,
+//          UNIT=SYSDA,SPACE=(TRK,(1,1),RLSE)
+//SYSPRINT  DD  SYSOUT=X
+//SYSIN DD DUMMY
+//

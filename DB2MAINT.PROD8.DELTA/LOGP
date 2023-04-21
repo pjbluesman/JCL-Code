@@ -1,0 +1,12 @@
+//UXD120M JOB ,'CJR RM 105',CLASS=S,MSGCLASS=X                          00000100
+//STEP1  EXEC PGM=DSN1LOGP                                              00000200
+//STEPLIB DD DSN=SSXDP.DB2P.V3.SDSNLOAD,UNIT=SYSDA,DISP=SHR             00000210
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSSUMRY DD SYSOUT=X
+//SYSABEND DD SYSOUT=*                                                  00000500
+//ARCHIVE DD  DSN=DB2P.ARCHLOG1.D95164.T1109158.A0004489,               00000600
+//            UNIT=CART,VOL=SER=065958,DISP=(OLD,KEEP),LABEL=(2,SL)
+//SYSIN   DD *
+  SUMMARY(ONLY)
+/*
+//                                                                      00001700

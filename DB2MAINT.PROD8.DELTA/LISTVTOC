@@ -1,0 +1,14 @@
+//UXD000M  JOB (,105),'C ROSS',CLASS=O,MSGCLASS=X
+//********************************************************************
+//*  PRODUCES A VTOC DATASET LIST FROM THE VTOC ON THE SPECIFIED VOL *
+//*  CHANGE ==> VOLDD...VOL=SER=''''''  <-- VOLSER OF VOLUME TO LIST *
+//*             VOL=SYSDA=''''''  <-- VOLSER OF VOLUME TO LIST       *
+//********************************************************************
+//*
+//STEP1    EXEC PGM=IEHLIST
+//SYSPRINT DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//VOLDD    DD DSN=FORMAT4.DSCB,VOL=SER=A3D2A2,UNIT=SYSALLDA,DISP=SHR
+//SYSIN    DD *
+ LISTVTOC FORMAT,VOL=SYSALLDA=A3D2A2
+/*

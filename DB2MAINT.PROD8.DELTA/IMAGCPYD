@@ -1,0 +1,32 @@
+//UXD001M  JOB ,'DB2 RM 102',CLASS=S,MSGCLASS=X,REGION=4M,
+//         USER=SYSADM,PASSWORD=PRO911
+//*
+//*   IMAGE COPY OF SYSCOPY FOR DB2M
+//*
+//*
+//JOBLIB DD DSN=SSXDP.DB2M.V2R3.DSNLOAD,DISP=SHR
+//*
+//SYSPKAGE EXEC  PGM=DSNUTILB,                                          00170000
+//             PARM='DB2M,IMAGCOPY'                                     00171000
+//CPY15    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00172000
+//             DISP=(NEW,CATLG,DELETE),                                 00173000
+//             DSN=PSSXD.XD001M.DB2M.IMAGCPY.SYSPKAG(+1),               00174001
+//             SPACE=(CYL,(10,10),RLSE),                                00176000
+//             UNIT=CART                                                00177000
+//CPY15B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00178100
+//             DISP=(NEW,CATLG,DELETE),                                 00178200
+//             DSN=PSSXD.XD001M.DB2M.IMAGCPY2.SYSPKAG(+1),              00178301
+//             SPACE=(CYL,(10,10),RLSE),                                00178500
+//             UNIT=CART                                                00178600
+//CPY15R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00178801
+//             DISP=(NEW,CATLG,DELETE),                                 00178901
+//             DSN=PSSXD.XD001M.DB2M.IMAGCPYR.SYSPKAG(+1),              00179001
+//             SPACE=(CYL,(10,10),RLSE),                                00179201
+//             UNIT=CART                                                00179301
+//SYSPRINT DD SYSOUT=*                                                  00179500
+//SYSUDUMP DD SYSOUT=*                                                  00180000
+//SYSIN    DD *
+  COPY TABLESPACE  DSNDB06.SYSPKAGE  COPYDDN CPY15,CPY15B
+                                 RECOVERYDDN CPY15R
+/*
+//

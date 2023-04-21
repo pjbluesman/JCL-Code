@@ -1,0 +1,12 @@
+//UXD123M JOB ,'GLK RM 105',CLASS=S,MSGCLASS=X                          00000100
+//STEP1  EXEC PGM=DSN1LOGP                                              00000200
+//STEPLIB DD DSN=SSXDP.DB2P.V3.SDSNLOAD,UNIT=SYSDA,DISP=SHR             00000210
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSSUMRY DD SYSOUT=X
+//SYSABEND DD SYSOUT=*                                                  00000500
+//BSDS    DD  DSN=DB2P.BSDS01,DISP=SHR                                  00000600
+//SYSIN   DD *
+  RBASTART (02EE38485EDC) RBAEND (02EF93DBFBD9)
+  DBID (124) OBID (1C)
+/*
+//                                                                      00001700

@@ -1,0 +1,89 @@
+/* REXX */
+/*                                                            */
+/* INPUT IS PLAN.SPUFI                                        */
+/* OUTOUT IS PLAN.CLIST                                       */
+/*                                                            */
+/* program to convert sysibm.sysdbrm to bind plan             */
+/*  SELECT '*P*', B.NAME, A.NAME, B.CREATOR, B.VALIDATE,      */
+/*         B.ISOLOATION, B.ACQUIRE, B.RELEASE                 */
+/*  FROM SYSIBM.SYSDBRM A,                                    */
+/*       SYSIBM.SYSPLAN B                                     */
+/*  WHERE A.PLNAME = B.NAME                                   */
+/*    AND CREATOR IN ('FAU001','INSTPRA')                     */
+/*  ORDER BY 1,2;                                             */
+arg p1 p2 p3 .
+collection = strip(p1)
+
+Trace Off
+
+'DELETE PLAN.CLIST'
+
+'ALLOC FI(SPUFIN)  DA(PLAN.SPUFI) OLD'
+'ALLOC FI(PLANOUT) DA(PLAN.CLIST) NEW
+    LRECL(80) TRACKS SPACE(15 15) RECFM(F B)'
+
+'EXECIO * DISKR SPUFIN (FINIS'
+if rc ^=0 then say 'Cannot find input file'
+if rc ^=0 then signal done
+/*   */
+firsttime= 'Y'
+rowcount = queued()
+do i=1 to rowcount
+
+  parse pull rflag plan dbrm owner validate isolation acquire release .
+
+  plan      = strip(plan)
+  dbrm      = strip(dbrm)
+  owner     = strip(owner  )
+  validate  = strip(validate)
+  isolation = strip(isolation)
+  acquire   = strip(acquire)
+  release   = strip(release)
+
+  if rflag = '*P*' then do
+
+    if lastplan <> plan
+     then do
+      if validate = 'B' then validate = 'BIND'
+      if validate = 'R' then validate = 'RUN'
+      if isolation = 'R' then isolation = 'RR'
+      if isolation = 'S' then isolation = 'CS'
+      if acquire = 'U' then acquire = 'USE'
+      if acquire = 'A' then acquire = 'ALLOCATE'
+      if release = 'C' then release = 'COMMIT'
+      if release = 'D' then release = 'DEALLOCATE'
+
+      if firsttime = 'N'
+       then do
+        push '     ) ACTION(REPLACE) RETAIN'
+        'EXECIO 1 DISKW PLANOUT'
+      end
+      firsttime = 'N'
+
+      push 'BIND PLAN('plan') OWNER('owner') VALIDATE('validate') -'
+      'EXECIO 1 DISKW PLANOUT'
+      push '     CACHESIZE(256) RELEASE('release') -'
+      'EXECIO 1 DISKW PLANOUT'
+      push '     ISOLATION('isolation') ACQUIRE('acquire') - '
+      'EXECIO 1 DISKW PLANOUT'
+      push '     VALIDATE('validate') PKLIST('collection'.'dbrm'   -'
+      'EXECIO 1 DISKW PLANOUT'
+    end
+    else do
+
+      push '                          ,'collection'.'dbrm' -'
+      'EXECIO 1 DISKW PLANOUT'
+
+    end
+
+    lastplan = plan
+    lastdbrm = dbrm
+  end
+
+end i
+
+  'EXECIO 0 DISKW PLANOUT (FINIS'
+  'FREE FI(PLANOUT)'
+  'FREE FI(SPUFIN)'
+
+exit

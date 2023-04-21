@@ -1,0 +1,59 @@
+//PKZ9003M JOB ,'PROD TS SPACE RPT',                                    00010000
+//             CLASS=A,MSGCLASS=U,REGION=0M,LINES=99999,                00020000
+//             MSGLEVEL=(1,1),TIME=1440                                 00030000
+//*                                                                     00040000
+//*$AVRS C= PROD TABLESPACE USAGE                                       00050000
+/*ROUTE PRINT MVS                                                       00060000
+//*                                                                     00070000
+//**********************************************************************00080000
+//* THIS JOB RUNS A BATCH SPUFI QUERY TO REPORT PRODUCTION              00090000
+//* TABLESPACES IN EBK% DATABASES THAT ARE APPROACHING SPACE LIMITS.    00100000
+//* THE REPORT IS EMAILED TO THE DB2 DBA MAILBOX                        00110000
+//*                                                                     00120000
+//* JOB CREATED  BY IBM:  SYLVIA HILTON 10/27/2008                      00130000
+//* JOB MODIFIED BY IBM:  SYLVIA HILTON 10/28/2008                      00140000
+//*                       CREATED SUKDP.TS.SPACERPT.SQL TO USE AS       00150000
+//*                       INPUT TO THE BATCH SPUFI STEP STEP001         00160000
+//* JOB MODIFIED BY IBM:  SYLVIA HILTON 09/24/2009                      00161000
+//*                       CHANGED MAILSTEP TO USE %XMITIP               00162000
+//*                       INSTEAD OF %SMTPNOTE                          00163000
+//**********************************************************************00170000
+//JOBLIB   DD  DSN=SDB2R.SDSNLOAD,DISP=SHR                              00180000
+//         DD  DSN=SSXDP.DB2R.SDSNEXIT,DISP=SHR                         00190000
+//         DD  DSN=SSXDP.DB2R.RUNLIB.LOAD,DISP=SHR                      00200000
+//         DD  DISP=SHR,DSN=SYS1.CEE.SCEERUN                            00210000
+//**********************************************************************00220000
+//** DELETE OUTPUT FILE TO BE MAILED                                    00230000
+//**********************************************************************00240000
+//S1DELETE EXEC PGM=IDCAMS,COND=(4,LT)                                  00250000
+//SYSPRINT DD SYSOUT=*                                                  00260000
+//SYSIN    DD *                                                         00270000
+    DELETE SUKDP.TS.SPACERPT                                            00280000
+/*                                                                      00290000
+//**********************************************************************00300000
+//STEP001  EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                    00310000
+//SYSTSPRT DD SYSOUT=*                                                  00320000
+//SYSPRINT DD DSN=SUKDP.TS.SPACERPT,DISP=(NEW,CATLG,CATLG),             00330000
+//            UNIT=SYSDA,SPACE=(CYL,(1,1),RLSE)                         00340000
+//SYSUDUMP DD SYSOUT=*                                                  00350000
+//SYSOUT   DD SYSOUT=*                                                  00360000
+//SYSTSIN  DD  *                                                        00370000
+ DSN SYSTEM(DBRG)                                                       00380000
+ RUN  PROGRAM(DSNTEP2) PLAN(DSNTEP2)                                    00390000
+ END                                                                    00400000
+//*                                                                     00410000
+//SYSIN    DD DSN=SUKDP.TS.SPACERPT.SQL,DISP=SHR                        00420000
+/*                                                                      00430000
+//********************************************************************  00440000
+//* SEND AN EMAIL                                                       00450000
+//********************************************************************  00460000
+//MAILSTEP EXEC PGM=IKJEFT1B                                            00471000
+//SYSEXEC   DD DSN=SSXQT.TCPISPF.EXEC,DISP=SHR                          00472000
+//SYSPRINT  DD SYSOUT=*                                                 00473000
+//SYSTSPRT  DD SYSOUT=*                                                 00474000
+//SYSTSIN   DD *                                                        00475000
+%XMITIP (DT_DATASVSDB2@DELTA.COM)-                                      00476000
+ SUBJECT 'PROD - Tablespaces Space Usage Report for EBK% Databases'-    00477000
+ MSGDS 'SUKDp.TS.SPACERPT'                                              00478000
+/*                                                                      00479000
+//                                                                      00479100

@@ -1,0 +1,10 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,REGION=0M,    00010012
+//         NOTIFY=&SYSUID                                               00020000
+//ICEMAN  EXEC PGM=IPOUPDTE,PARM='UPDATE'                               00040001
+//SYSOUT  DD SYSOUT=*                                                   00050000
+//SYSPRINT DD SYSOUT=*                                                  00051001
+//@LIBRARY DD DISP=SHR,DSN=SSXDP.DB2MAINT                               00060012
+//SYSIN DD *                                                            00080000
+MSGCLASS=A<MSGCLASS=X<                                                  00090012
+SYSOUT=A<SYSOUT=*<                                                      00091012
+/*                                                                      00140001

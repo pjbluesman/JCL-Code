@@ -1,0 +1,9 @@
+//UXD001M JOB (,102),'CJR ',                                            00010001
+//             CLASS=S,MSGCLASS=X,MSGLEVEL=(1,1)                        00040000
+//*                                                           /*JCTRL*/ 00050000
+//UPDT EXEC PGM=IEBGENER
+//SYSUT1 DD DISP=SHR,DSN=SSXDT.DB2R23.GLOBAL.SMPGLOG
+//SYSUT2 DD DISP=OLD,DSN=SSXDP.DB2V3.GLOBAL.GLOGA
+//SYSPRINT  DD  SYSOUT=X
+//SYSIN DD DUMMY
+//

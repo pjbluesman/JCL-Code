@@ -1,0 +1,1267 @@
+
+--==============================================================================
+-- VRCM061      CA-DB2   RC/ALTER      ANALYSIS REPORT      07-03-01 14:15
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> RCUPDATE  DESCRIPTION  ===> RC/UPDATE ALTERATION
+--CREATOR  ==> DT0072    SHARE OPTION ===> N (U,Y,N,X,L)  SRC SSID ===> DB2U
+--
+--ALTERED OBJECTS:
+--   OBJECT TYPE       NAME                 CREATOR
+--   TABLE             ES_TKDC_EXCG_RLN     EBKDD01
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> O (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> CATALOG
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> D36660E
+--
+--  SECURITY          ===> N             STATISTICS   ===> Y
+--  DEFAULT SQLID     ===>               CHECK DATA   ===> Y
+--                                       IMAGE COPY   ===> Y
+--                                       BIND/REBIND  ===> R
+--  ALL ROWS          ===> Y             REORG        ===> N
+--  NUMBER ROWS       ===>               RECOVER IX   ===> Y
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS         ===> Y             VSAM DEFINES  ===> Y
+--  SQL ONLY          ===> N             VSAM DELETES  ===> Y
+--  COMMIT ASAP       ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> Y
+--  DELETE TEMPORARY DATASETS ===> N
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+.SYSTEM UNLOADS
+.CONNECT DB2U
+
+
+.CALL UTLGLCTL PARM(DB2U,)                                             +
+   INDDN(SYSIN) OUTDDN(PTIMSG)
+.ALLOC FI(SYSREC01)                                                    +
+       DA('DT0072.EBKDD01.ES$TKDC$.EXCG$RLN.DATA')                     +
+       TRACKS                                                          +
+       SPACE(28,38)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.DATA
+  FASTUNLOAD
+   UNLDDN          SYSREC
+   LIMIT           0
+   OUTPUT-FORMAT   DSNTIAUL
+   INPUT-FORMAT    TABLE
+   VSAM-BUFFERS    80
+   SORTNUM         2
+   SORTDEVT        SYSDA
+   ESTIMATED-ROWS  15671
+   SQL-ACCESS      EXTENSION
+   SELECT NEW_TKT_DOC_NB, NEW_TKT_DOC_ISS_DT, NEW_TKT_DOC_SQ_NB,
+   EXCGD_TKT_DOC_NB, EXCGD_TKDC_ISS_DT, EXCGD_TKDC_SQ_NB,
+   ET_STLMT_AUTH_ID, NEW_TKT_VOID_IND, ORGL_FOP_TXT,
+   ORGL_ISS_CVTKT_TXT, ORGL_ISSG_CTY_TXT, ORGL_ISS_FOP_TXT,
+   ORGL_ISS_INFO_TXT, OISSG_AGT_ID_TXT, OISSG_LOC_TXT,
+   OISSG_TKTG_LOC_TXT, ORGL_TKT_NB_TXT, OTKT_NB_ISS_DT_TXT,
+   PRMY_TKDC_EXCG_IND, RPTD_STLMT_AUTH_ID, TEXCPN_AMT, TEXCPN_CURR_CD
+   , TEXTKT_AMT, TEXTKT_CURR_CD, LST_UPDT_USR_ID, LST_UPDT_TS,
+   PRTTN_KEY_ID
+   INTO NEW_TKT_DOC_NB, NEW_TKT_DOC_ISS_DT, NEW_TKT_DOC_SQ_NB,
+   EXCGD_TKT_DOC_NB, EXCGD_TKDC_ISS_DT, EXCGD_TKDC_SQ_NB,
+   ET_STLMT_AUTH_ID, NEW_TKT_VOID_IND, ORGL_FOP_TXT,
+   ORGL_ISS_CVTKT_TXT, ORGL_ISSG_CTY_TXT, ORGL_ISS_FOP_TXT,
+   ORGL_ISS_INFO_TXT, OISSG_AGT_ID_TXT, OISSG_LOC_TXT,
+   OISSG_TKTG_LOC_TXT, ORGL_TKT_NB_TXT, OTKT_NB_ISS_DT_TXT,
+   PRMY_EXCG_TKDC_IND, RPTD_STLMT_AUTH_ID, TEXCPN_AMT, TEXCPN_CURR_CD
+   , TEXTKT_AMT, TEXTKT_CURR_CD, LST_UPDT_USR_ID, LST_UPDT_TS,
+   PRTTN_KEY_ID
+   FROM EBKDD01.ES_TKDC_EXCG_RLN ORDER BY PRTTN_KEY_ID
+   ;
+.ENDDATA
+.FREE FILE(SYSREC01)
+
+.SYNC 5         'UNLOAD TABLE EBKDD01.ES_TKDC_EXCG_RLN'
+
+.SYSTEM SQLDDL
+.CONNECT DB2U
+
+    DROP TABLESPACE EBKD1D01.TSKD0025;
+
+.SYNC 10        'DROP TABLESPACE EBKD1D01.TSKD0025'
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLESPACE CREATE AND ALTER STATEMENTS                     *
+-- *                                                            *
+-- **************************************************************
+
+
+-- EBKD1D01.TSKD0025 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'EBKDD01';
+
+    CREATE LARGE TABLESPACE TSKD0025
+           IN EBKD1D01
+           NUMPARTS   40
+          (PART 1
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 2
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 3
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 4
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 5
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 6
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 7
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 8
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 9
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 10
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 11
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 12
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 13
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 14
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 15
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 16
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 17
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 18
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 19
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 20
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 21
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 22
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 23
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 24
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 25
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 26
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 27
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 28
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 29
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 30
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 31
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 32
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 33
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 34
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 35
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 36
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 37
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 38
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 39
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 40
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 432
+                                    SECQTY 432
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          )
+           BUFFERPOOL BP3
+           LOCKSIZE ANY
+           CLOSE YES
+           LOCKMAX SYSTEM
+           CCSID ASCII
+    ;
+
+.SYNC 15        'CREATE TABLESPACE EBKD1D01.TSKD0025'
+    SET CURRENT SQLID = USER;
+
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- EBKDD01.ES_TKDC_EXCG_RLN WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DT0072';
+
+CREATE TABLE EBKDD01.ES_TKDC_EXCG_RLN
+   (NEW_TKT_DOC_NB         CHAR(15   )                 NOT NULL
+   ,NEW_TKT_DOC_ISS_DT     DATE                        NOT NULL
+   ,NEW_TKT_DOC_SQ_NB      SMALLINT                    NOT NULL
+   ,EXCGD_TKT_DOC_NB       CHAR(15   )                 NOT NULL
+   ,EXCGD_TKDC_ISS_DT      DATE                        NOT NULL
+   ,EXCGD_TKDC_SQ_NB       SMALLINT                    NOT NULL
+   ,ET_STLMT_AUTH_ID       CHAR(15   )
+   ,NEW_TKT_VOID_IND       CHAR(1    )
+   ,ORGL_FOP_TXT           CHAR(21   )
+   ,ORGL_ISS_CVTKT_TXT     CHAR(15   )
+   ,ORGL_ISSG_CTY_TXT      CHAR(5    )
+   ,ORGL_ISS_FOP_TXT       CHAR(10   )
+   ,ORGL_ISS_INFO_TXT      CHAR(17   )
+   ,OISSG_AGT_ID_TXT       CHAR(3    )
+   ,OISSG_LOC_TXT          CHAR(4    )
+   ,OISSG_TKTG_LOC_TXT     CHAR(8    )
+   ,ORGL_TKT_NB_TXT        CHAR(15   )
+   ,OTKT_NB_ISS_DT_TXT     CHAR(7    )
+   ,PRMY_EXCG_TKDC_IND     CHAR(1    )
+   ,RPTD_STLMT_AUTH_ID     CHAR(14   )
+   ,TEXCPN_AMT             DECIMAL(24    , 8    )
+   ,TEXCPN_CURR_CD         CHAR(5    )
+   ,TEXTKT_AMT             DECIMAL(24    , 8    )
+   ,TEXTKT_CURR_CD         CHAR(5    )
+   ,LST_UPDT_USR_ID        CHAR(8    )                 NOT NULL
+          WITH DEFAULT  USER
+   ,LST_UPDT_TS            TIMESTAMP                   NOT NULL
+          WITH DEFAULT
+   ,PRTTN_KEY_ID           DECIMAL(3     , 0    )      NOT NULL
+   ,PRIMARY KEY
+   (NEW_TKT_DOC_NB
+   ,NEW_TKT_DOC_ISS_DT
+   ,NEW_TKT_DOC_SQ_NB
+   ,EXCGD_TKT_DOC_NB
+   ,EXCGD_TKDC_ISS_DT
+   ,EXCGD_TKDC_SQ_NB
+   )
+   )
+   IN EBKD1D01.TSKD0025
+   CCSID ASCII
+   ;
+
+.SYNC 20        'CREATE TABLE EBKDD01.ES_TKDC_EXCG_RLN'
+    SET CURRENT SQLID = USER;
+
+
+-- **************************************************************
+-- *                                                            *
+-- * INDEX CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- EBKDD01.IX1KD025 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        UNIQUE INDEX EBKDD01.IX1KD025
+           ON EBKDD01.ES_TKDC_EXCG_RLN
+          (NEW_TKT_DOC_NB       ASC
+          ,NEW_TKT_DOC_ISS_DT   ASC
+          ,NEW_TKT_DOC_SQ_NB    ASC
+          ,EXCGD_TKT_DOC_NB     ASC
+          ,EXCGD_TKDC_ISS_DT    ASC
+          ,EXCGD_TKDC_SQ_NB     ASC
+          )
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 5232
+                                    SECQTY 5232
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+           BUFFERPOOL BP2
+           CLOSE YES
+           PIECESIZE 4194304K
+    ;
+
+.SYNC 25        'CREATE INDEX EBKDD01.IX1KD025'
+
+
+-- EBKDD01.IXCKD025 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX EBKDD01.IXCKD025
+           ON EBKDD01.ES_TKDC_EXCG_RLN
+          (PRTTN_KEY_ID         ASC
+          )
+           CLUSTER
+          (PART 1
+           VALUES
+          (
+           25.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 2
+           VALUES
+          (
+           50.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 3
+           VALUES
+          (
+           75.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 4
+           VALUES
+          (
+           100.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 5
+           VALUES
+          (
+           125.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 6
+           VALUES
+          (
+           150.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 7
+           VALUES
+          (
+           175.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 8
+           VALUES
+          (
+           200.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 9
+           VALUES
+          (
+           225.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 10
+           VALUES
+          (
+           250.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 11
+           VALUES
+          (
+           275.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 12
+           VALUES
+          (
+           300.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 13
+           VALUES
+          (
+           325.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 14
+           VALUES
+          (
+           350.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 15
+           VALUES
+          (
+           375.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 16
+           VALUES
+          (
+           400.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 17
+           VALUES
+          (
+           425.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 18
+           VALUES
+          (
+           450.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 19
+           VALUES
+          (
+           475.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 20
+           VALUES
+          (
+           500.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 21
+           VALUES
+          (
+           525.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 22
+           VALUES
+          (
+           550.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 23
+           VALUES
+          (
+           575.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 24
+           VALUES
+          (
+           600.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 25
+           VALUES
+          (
+           625.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 26
+           VALUES
+          (
+           650.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 27
+           VALUES
+          (
+           675.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 28
+           VALUES
+          (
+           700.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 29
+           VALUES
+          (
+           725.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 30
+           VALUES
+          (
+           750.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 31
+           VALUES
+          (
+           775.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 32
+           VALUES
+          (
+           800.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 33
+           VALUES
+          (
+           825.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 34
+           VALUES
+          (
+           850.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 35
+           VALUES
+          (
+           875.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 36
+           VALUES
+          (
+           900.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 37
+           VALUES
+          (
+           925.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 38
+           VALUES
+          (
+           950.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 39
+           VALUES
+          (
+           975.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 40
+           VALUES
+          (
+           999.)
+                     USING STOGROUP EBKDSGD1
+                                    PRIQTY 72
+                                    SECQTY 72
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          )
+           BUFFERPOOL BP9
+           CLOSE NO
+    ;
+
+.SYNC 30        'CREATE INDEX EBKDD01.IXCKD025'
+
+
+-- **************************************************************
+-- *                                                            *
+-- * ALTERS FOR TABLE FOREIGN KEYS                              *
+-- *                                                            *
+-- **************************************************************
+
+
+    ALTER TABLE EBKDD01.ES_TKDC_CPN_EXRLN FOREIGN KEY F2KD0034
+            (NEW_TKT_DOC_NB
+            ,NEW_TKT_DOC_ISS_DT
+            ,NEW_TKT_DOC_SQ_NB
+            ,EXCGD_TKT_DOC_NB
+            ,EXCGD_TKDC_ISS_DT
+            ,EXCGD_TKDC_SQ_NB
+            )
+        REFERENCES EBKDD01.ES_TKDC_EXCG_RLN
+        ON DELETE RESTRICT;
+
+.SYNC 35        'ALTER TABLE EBKDD01.ES_TKDC_CPN_EXRLN'
+
+
+    ALTER TABLE EBKDD01.ES_TKDC_EXCG_RLN FOREIGN KEY F2KD0025
+            (EXCGD_TKT_DOC_NB
+            ,EXCGD_TKDC_ISS_DT
+            ,EXCGD_TKDC_SQ_NB
+            )
+        REFERENCES EBKDD01.ES_TKT_DOC
+        ON DELETE RESTRICT;
+
+.SYNC 40        'ALTER TABLE EBKDD01.ES_TKDC_EXCG_RLN'
+
+
+    ALTER TABLE EBKDD01.ES_TKDC_EXCG_RLN FOREIGN KEY F1KD0025
+            (NEW_TKT_DOC_NB
+            ,NEW_TKT_DOC_ISS_DT
+            ,NEW_TKT_DOC_SQ_NB
+            )
+        REFERENCES EBKDD01.ES_TKT_DOC
+        ON DELETE RESTRICT;
+
+.SYNC 45        'ALTER TABLE EBKDD01.ES_TKDC_EXCG_RLN'
+
+.DISCONN
+
+.SYNC 50        'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+.CALL UTLGLCTL PARM(DB2U,)                                             +
+   INDDN(SYSIN) OUTDDN(PTIMSG)
+.ALLOC FI(SYSULD)                                                      +
+   DA('DT0072.EBKDD01.ES$TKDC$.EXCG$RLN.DATA')                         +
+   SHR
+.ALLOC FI(SYSERR)                                                      +
+   DA('DT0072.EBKDD01.ES$TKDC$.EXCG$RLN.DATA.E')                       +
+   SPACE(2,3) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(SYSDISC)                                                     +
+   DA('DT0072.EBKDD01.ES$TKDC$.EXCG$RLN.DATA.D')                       +
+   SPACE(10,19) TRACKS RLSE                                            +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(PTIREC)                                                      +
+   DA('DT0072.EBKDD01.ES$TKDC$.EXCG$RLN.DATA.U')                       +
+   SPACE(29,39) TRACKS RLSE                                            +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(SYSMAP)                                                      +
+   DA('DT0072.EBKDD01.ES$TKDC$.EXCG$RLN.DATA.M')                       +
+   SPACE(15,19) TRACKS RLSE                                            +
+   UNIT(SYSDA) MOD CATALOG LRECL(145) BLKSIZE(14500)                   +
+   RECFM(F,B)
+.ALLOC FI(PTIUT1)                                                      +
+   DA('DT0072.EBKDD01.ES$TKDC$.EXCG$RLN.DATA.W')                       +
+   SPACE(2,3) CYL RLSE                                                 +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(ST01MSG) SYSOUT(*)
+.DATA
+  FASTLOAD
+   INPUT-FORMAT    SEQ
+   OUTPUT-CONTROL  ALL
+   INDDN           SYSULD
+   WORKDDN         PTIUT1
+   UNLDDN          PTIREC
+   RESUME          NO
+   SORTNUM         2
+   SORTDEVT        SYSDA
+   ESTIMATED-ROWS  15671
+   INTO TABLE      EBKDD01.ES_TKDC_EXCG_RLN
+   (
+    NEW_TKT_DOC_NB     POSITION(      1:    15 )
+      CHAR               (    15)
+          ,
+    NEW_TKT_DOC_ISS_DT POSITION(     16:    25 )
+      DATE EXTERNAL      (    10)
+          ,
+    NEW_TKT_DOC_SQ_NB  POSITION(     26:    27 )
+      SMALLINT
+          ,
+    EXCGD_TKT_DOC_NB   POSITION(     28:    42 )
+      CHAR               (    15)
+          ,
+    EXCGD_TKDC_ISS_DT  POSITION(     43:    52 )
+      DATE EXTERNAL      (    10)
+          ,
+    EXCGD_TKDC_SQ_NB   POSITION(     53:    54 )
+      SMALLINT
+          ,
+    ET_STLMT_AUTH_ID   POSITION(     55:    69 )
+      CHAR               (    15)
+        NULLIF(    70 ) = '?'
+          ,
+    NEW_TKT_VOID_IND   POSITION(     71:    71 )
+      CHAR               (     1)
+        NULLIF(    72 ) = '?'
+          ,
+    ORGL_FOP_TXT       POSITION(     73:    93 )
+      CHAR               (    21)
+        NULLIF(    94 ) = '?'
+          ,
+    ORGL_ISS_CVTKT_TXT POSITION(     95:   109 )
+      CHAR               (    15)
+        NULLIF(   110 ) = '?'
+          ,
+    ORGL_ISSG_CTY_TXT  POSITION(    111:   115 )
+      CHAR               (     5)
+        NULLIF(   116 ) = '?'
+          ,
+    ORGL_ISS_FOP_TXT   POSITION(    117:   126 )
+      CHAR               (    10)
+        NULLIF(   127 ) = '?'
+          ,
+    ORGL_ISS_INFO_TXT  POSITION(    128:   144 )
+      CHAR               (    17)
+        NULLIF(   145 ) = '?'
+          ,
+    OISSG_AGT_ID_TXT   POSITION(    146:   148 )
+      CHAR               (     3)
+        NULLIF(   149 ) = '?'
+          ,
+    OISSG_LOC_TXT      POSITION(    150:   153 )
+      CHAR               (     4)
+        NULLIF(   154 ) = '?'
+          ,
+    OISSG_TKTG_LOC_TXT POSITION(    155:   162 )
+      CHAR               (     8)
+        NULLIF(   163 ) = '?'
+          ,
+    ORGL_TKT_NB_TXT    POSITION(    164:   178 )
+      CHAR               (    15)
+        NULLIF(   179 ) = '?'
+          ,
+    OTKT_NB_ISS_DT_TXT POSITION(    180:   186 )
+      CHAR               (     7)
+        NULLIF(   187 ) = '?'
+          ,
+    PRMY_EXCG_TKDC_IND POSITION(    188:   188 )
+      CHAR               (     1)
+        NULLIF(   189 ) = '?'
+          ,
+    RPTD_STLMT_AUTH_ID POSITION(    190:   203 )
+      CHAR               (    14)
+        NULLIF(   204 ) = '?'
+          ,
+    TEXCPN_AMT         POSITION(    205:   217 )
+      DECIMAL PACKED
+        NULLIF(   218 ) = '?'
+          ,
+    TEXCPN_CURR_CD     POSITION(    219:   223 )
+      CHAR               (     5)
+        NULLIF(   224 ) = '?'
+          ,
+    TEXTKT_AMT         POSITION(    225:   237 )
+      DECIMAL PACKED
+        NULLIF(   238 ) = '?'
+          ,
+    TEXTKT_CURR_CD     POSITION(    239:   243 )
+      CHAR               (     5)
+        NULLIF(   244 ) = '?'
+          ,
+    LST_UPDT_USR_ID    POSITION(    245:   252 )
+      CHAR               (     8)
+          ,
+    LST_UPDT_TS        POSITION(    253:   278 )
+      TIMESTAMP EXTERNAL (    26)
+          ,
+    PRTTN_KEY_ID       POSITION(    279:   280 )
+      DECIMAL PACKED
+   )
+.ENDDATA
+.FREE FI(SYSULD)
+.FREE FI(SYSERR)
+.FREE FI(ST01MSG)
+.FREE FI(PTIREC)
+.FREE FI(SYSDISC)
+.FREE FI(PTIUT1)
+.FREE FI(SYSMAP)
+
+.SYNC 55        'LOAD TABLE EBKDD01.ES_TKDC_EXCG_RLN'
+
+.CALL LOADDEL
+.DATA
+  DSN(DT0072.EBKDD01.ES$TKDC$.EXCG$RLN.DATA)
+.ENDDATA
+
+.SYNC 60        'DELETE UNLOAD/TEMP DATASETS'
+
+
+.CALL UTIL CHECK PARM(DB2U)
+.ALLOC FI(SYSERR)                                                      +
+   DA('DT0072.EBKD1D01.TSKD0034.CHECK')                                +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(5,3) BLK(4096) RLSE
+.ALLOC FI(PTIUT1) UNIT(SYSDA)                                          +
+   SPACE(2,1) CYL
+.ALLOC FI(PTIOUT) UNIT(SYSDA)                                          +
+   SPACE(2,1) CYL
+.DATA
+   CHECK DATA TABLESPACE EBKD1D01.TSKD0034
+         ERRDDN   SYSERR
+         WORKDDN  (PTIUT1,PTIOUT)
+         SORTDEVT SYSDA
+         SORTNUM  2
+.ENDDATA
+.FREE FI(SYSERR)
+.FREE FI(PTIUT1)
+.FREE FI(PTIOUT)
+
+.SYNC 65        'CHECK TABLESPACE EBKD1D01.TSKD0034'
+
+.CALL UTIL CHECK PARM(DB2U)
+.ALLOC FI(SYSERR)                                                      +
+   DA('DT0072.EBKD1D01.TSKD0025.CHECK')                                +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(5,3) BLK(4096) RLSE
+.ALLOC FI(PTIUT1) UNIT(SYSDA)                                          +
+   SPACE(2,1) CYL
+.ALLOC FI(PTIOUT) UNIT(SYSDA)                                          +
+   SPACE(2,1) CYL
+.DATA
+   CHECK DATA TABLESPACE EBKD1D01.TSKD0025
+         ERRDDN   SYSERR
+         WORKDDN  (PTIUT1,PTIOUT)
+         SORTDEVT SYSDA
+         SORTNUM  2
+.ENDDATA
+.FREE FI(SYSERR)
+.FREE FI(PTIUT1)
+.FREE FI(PTIOUT)
+
+.SYNC 70        'CHECK TABLESPACE EBKD1D01.TSKD0025'
+
+.CALL UTLGLCTL  PARM(DB2U,)                                            +
+   INDDN(SYSIN) OUTDDN(PTIMSG)
+.ALLOC FI(SYSCP101)                                                    +
+       DA('DT0072.EBKD1D01.TSKD0025.COPY')                             +
+   NEW CATALOG UNIT(SYSDA)                                             +
+   SPACE(5,3) BLK(4096) RLSE
+.DATA
+  COPY TABLESPACE EBKD1D01.TSKD0025
+       COPIES COPY01(Y,SYSCP101)
+       COPY-BUFFERS 40
+       MODIFYBITS YES
+       LINEAR NO
+       FULL   YES
+.ENDDATA
+.FREE FI(SYSCP101)
+
+.SYNC 75        'COPY TABLESPACE EBKD1D01.TSKD0025'
+
+.CALL UTIL RUNSTATS PARM(DB2U)
+.DATA
+   RUNSTATS TABLESPACE (EBKD1D01.TSKD0025) TABLE INDEX
+.ENDDATA
+
+.SYNC 80        'RUNSTATS TABLESPACE EBKD1D01.TSKD0025'
+
+--RMA073W TABLE EBKDD01.ES_TKDC_EXCG_RLN IS ALSO EDITED
+--      IN STRATEGY A25653E.RENAME
+
+--RMA073W TABLE EBKDD01.ES_TKDC_EXCG_RLN IS ALSO EDITED
+--      IN STRATEGY D71018E.ESPHAS1B
+
+--RMA073W TABLE EBKDD01.ES_TKDC_EXCG_RLN IS ALSO EDITED
+--      IN STRATEGY D71018E.PHS1BMOR
+
+--RMA073W TABLE EBKDD01.ES_TKDC_EXCG_RLN IS ALSO EDITED
+--      IN STRATEGY D71018E.PH1BTEMP
+
+--RMA073W TABLE EBKDD01.ES_TKDC_EXCG_RLN IS ALSO EDITED
+--      IN STRATEGY D71018E.PRTNKEYE
+
+--RMA073W TABLE EBKDD01.ES_TKDC_EXCG_RLN IS ALSO EDITED
+--      IN STRATEGY D71018E.RIMIGRAT
+
+--RMA073W TABLE EBKDD01.ES_TKDC_EXCG_RLN IS ALSO EDITED
+--      IN STRATEGY D71018E.TKNULLS
+
+--==============================================================================
+-- VRCM061        CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      07-03-01 14:15
+--==============================================================================
+--
+--  OBJECT TYPE: TABLESPACE                 TOTAL:                1
+--
+--      OBJECT NAME/DBNAME        EDITED         NEW NAME/DBNAME
+--
+--      TSKD0025           EBKD1D01
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                1
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      ES_TKDC_EXCG_RLN   EBKDD01      Y
+--
+--  OBJECT TYPE: INDEX                      TOTAL:                2
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      IX1KD025           EBKDD01
+--      IXCKD025           EBKDD01

@@ -1,0 +1,3 @@
+INSERT INTO DT0072.ROGERS_IDENTITY                                      00010000
+  SELECT DEPTNAME, MGRNO, ADMRDEPT, LOCATION                            00020000
+     FROM DSN8610.DEPT ;                                                00030000

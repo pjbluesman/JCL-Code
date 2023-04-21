@@ -1,0 +1,2 @@
+ SET CURRENT SQLID='LSEBDB2';                                           00001004
+  GRANT DBADM ON DATABASE DB2PM TO LSEOS;                               00002009

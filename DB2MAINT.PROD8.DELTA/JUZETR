@@ -1,0 +1,350 @@
+//UXD001M JOB ,'GLK RM102',CLASS=S,MSGCLASS=X                           00000001
+//*********************************************************************/00010000
+//* CHANGE HISTORY:                                                   */
+//* 1.  PER ETR 91529 - SET PARAMDEG TO 4 (RECOMMENDED IN RANGE3-5)   */
+//* 2. ADDED CLAIMDTA=YES PER PTF UK01429 HOLDDATA - CJR DYNAM-4/11   */
+//* 3. CHANGED BOTH APPENSCH AND ENSCHEME TO EBCDIC INSTEAD OF ASCII  */
+//*    WITH DOWNTIME  - CJR 4/23/05                                   */
+//* 4. CHANGED LOBVALA FROM 2048 TO 256000 - CJR DYNAM- 6/16          */
+//* JOB NAME = DSNTIJUZ                                               */00020000
+//*                                                                   */00030000
+//* DESCRIPTIVE NAME = INSTALLATION JOB STREAM                        */00040000
+//*                                                                   */00050000
+//*    LICENSED MATERIALS - PROPERTY OF IBM                           */00060000
+//*    5675-DB2                                                       */00070000
+//*    (C) COPYRIGHT 1982, 2000 IBM CORP.  ALL RIGHTS RESERVED.       */00080000
+//*                                                                   */00090000
+//*    STATUS = VERSION 7                                             */00100000
+//*                                                                   */00110000
+//* FUNCTION = DSNZPARM AND DSNHDECP UPDATES                          */00120000
+//*                                                                   */00130000
+//* PSEUDOCODE =                                                      */00140000
+//*   DSNTIZA  STEP  ASSEMBLE DSN6.... MACROS, CREATE DSNZPARM        */00150000
+//*   DSNTIZL  STEP  LINK EDIT DSNZPARM                               */00160000
+//*   DSNTLOG  STEP  UPDATE PASSWORDS                                 */00170000
+//*   DSNTIZP  STEP  ASSEMBLE DSNHDECP DATA-ONLY LOAD MODULE          */00180000
+//*   DSNTIZQ  STEP  LINK EDIT DSNHDECP LOAD MODULE                   */00190000
+//*   DSNTIMQ  STEP  SMP/E PROCESSING FOR DSNHDECP                    */00200000
+//*                                                                   */00210000
+//* NOTES = STEP DSNTIMQ MUST BE CUSTOMIZED FOR SMP.  SEE THE NOTES   */00212000
+//*         NOTES PRECEDING STEP DSNTIMQ BEFORE RUNNING THIS JOB.     */00214000
+//*                                                                   */00217000
+//* CHANGED STATIME FROM 30 TO 5 PER UK04393 10-05-05                 */00217000
+//*********************************************************************/00220000
+//*                                                                     00225000
+//DSNTIZA EXEC PGM=ASMA90,PARM='OBJECT,NODECK'                          00230000
+//SYSLIB   DD  DISP=SHR,                                                00240000
+//         DSN=SSXDT.DSNDBVG.DB2V.SDSNMACS                              00250000
+//         DD  DISP=SHR,                                                00260000
+//         DSN=SYS1.MACLIB                                              00270000
+//SYSLIN   DD  DSN=&&LOADSET(DSNTILMM),DISP=(NEW,PASS),                 00280000
+//             UNIT=SYSDA,                                              00290000
+//             SPACE=(800,(50,50,2)),DCB=(BLKSIZE=800)                  00300000
+//SYSPRINT DD  SYSOUT=*                                                 00310000
+//SYSUDUMP DD  SYSOUT=*                                                 00320000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(800,(50,50),,,ROUND)                   00330000
+//SYSUT2   DD  UNIT=SYSDA,SPACE=(800,(50,50),,,ROUND)                   00340000
+//SYSUT3   DD  UNIT=SYSDA,SPACE=(800,(50,50),,,ROUND)                   00350000
+//SYSIN    DD  *                                                        00360000
+    DSN6ENV    MVS=XA                                                   00370000
+    DSN6SPRM   RESTART,                                                X00370001
+               ALL,                                                    X00370002
+               ABEXP=YES,                                              X00370003
+               ABIND=YES,                                              X00370004
+               AUTH=YES,                                               X00370005
+               AUTHCACH=1024,                                          X00370006
+               BINDNV=BINDADD,                                         X00370007
+               BMPTOUT=4,                                              X00370008
+               CACHEDYN=YES,                                           X00370009
+               CACHEPAC=32768,                                         X00370010
+               CACHERAC=32768,                                         X00370011
+               CATALOG=DB2V,                                           X00370012
+               CDSSRDEF=ANY,                                           X00370013
+               CHGDC=NO,                                               X00370014
+               CLAIMDTA=YES,                                           X00370014
+               CONTSTOR=NO,                                            X00370015
+               DBACRVW=NO,                                             X00370016
+               DECDIV3=NO,                                             X00370017
+               DEFLTID=IBMUSER,                                        X00370018
+               DESCSTAT=YES,                                           X00370019
+               DLITOUT=6,                                              X00370020
+               DSMAX=20000,                                            X00370021
+               EDMBFIT=NO,                                             X00370022
+               EDMPOOL=100000,                                         X00370023
+               EDMDSMAX=100000,                                        X00370024
+               EDMDSPAC=100000,                                        X00370025
+               EDPROP=NO,                                              X00370026
+               EVALUNC=NO,                                             X00370027
+               HOPAUTH=BOTH,                                           X00370028
+               IRLMAUT=YES,                                            X00370029
+               IRLMPRC=DB2VIRLM,                                       X00370030
+               IRLMSID=VRLM,                                           X00370031
+               IRLMRWT=30,                                             X00370032
+               IRLMSWT=300,                                            X00370033
+               LEMAX=20,                                               X00370034
+               MAXRBLK=400000,                                         X00370035
+               MAXKEEPD=5000,                                          X00370036
+               MINDVSCL=NONE,                                          X00370037
+               MINSTOR=NO,                                             X00370038
+               NPGTHRSH=0,                                             X00370039
+               NUMLKTS=0,                                              X00370040
+               NUMLKUS=0,                                              X00370041
+               OPTHINTS=YES,                                           X00370042
+               PARAMDEG=4,                                             X00370043
+               PARTKEYU=YES,                                           X00370044
+               PKGLDTOL=NO,                                            X00370045
+               RECALL=YES,                                             X00370046
+               RECALLD=300,                                            X00370047
+               RELCURHL=YES,                                           X00370048
+               RETLWAIT=0,                                             X00370049
+               RETVLCFK=NO,                                            X00370050
+               RGFCOLID=DSNRGCOL,                                      X00370051
+               RGFDBNAM=DSNRGFDB,                                      X00370052
+               RGFDEDPL=NO,                                            X00370053
+               RGFDEFLT=ACCEPT,                                        X00370054
+               RGFESCP=,                                               X00370055
+               RGFFULLQ=YES,                                           X00370056
+               RGFINSTL=NO,                                            X00370057
+               RGFNMORT=DSN_REGISTER_OBJT,                             X00370058
+               RGFNMPRT=DSN_REGISTER_APPL,                             X00370059
+               RRULOCK=NO,                                             X00370060
+               SEQCACH=SEQ,                                            X00370061
+               SEQPRES=YES,                                            X00370062
+               SITETYP=LOCALSITE,                                      X00370063
+               SJTABLES=10,                                            X00370064
+               SRTPOOL=2000,                                           X00370065
+               STARJOIN=DISABLE,                                       X00370066
+               STATHIST=NONE,                                          X00370067
+               STATROLL=NO,                                            X00370068
+               STATSINT=30,                                            X00370069
+               SUPERRS=YES,                                            X00370070
+               SYSADM=      ,                                          X00370071
+               SYSADM2=       ,                                        X00370072
+               SYSOPR1=      ,                                         X00370073
+               SYSOPR2=      ,                                         X00370074
+               TRKRSITE=NO,                                            X00370075
+               UTIMOUT=6,                                              X00370076
+               XLKUPDLT=NO                                              00370077
+   DSN6ARVP    ALCUNIT=BLK,                                            X00370078
+               ARCWRTC=(1,3,4),                                        X00370079
+               ARCWTOR=YES,                                            X00370080
+               ARCPFX1=SSXDT.DB2V.ARCHLOG1,                            X00370081
+               ARCPFX2=SSXDT.DB2V.ARCHLOG2,                            X00370082
+               ARCRETN=21,                                             X00370083
+               BLKSIZE=24576,                                          X00370084
+               CATALOG=YES,                                            X00370085
+               COMPACT=NO,                                             X00370086
+               PRIQTY=33000,                                           X00370087
+               PROTECT=NO,                                             X00370088
+               QUIESCE=585,                                            X00370089
+               SECQTY=5000,                                            X00370090
+               SVOLARC=NO,                                             X00370091
+               TSTAMP=YES,                                             X00370092
+               UNIT=3390,                                              X00370093
+               UNIT2=                                                   00370094
+   DSN6LOGP    DEALLCT=(0),                                            X00370095
+               MAXARCH=1000,                                           X00370096
+               MAXRTU=2,                                               X00370097
+               OUTBUFF=12288,                                          X00370098
+               TWOACTV=YES,                                            X00370099
+               TWOARCH=YES,                                            X00370100
+               ARC2FRST=NO                                              00370101
+   DSN6SYSP    AUDITST=NO,                                             X00370102
+               BACKODUR=5,                                             X00370103
+               CHKFREQ=10000000,                                       X00370104
+               CONDBAT=1999,                                           X00370105
+               CTHREAD=400,                                            X00370106
+               DBPROTCL=DRDA,                                          X00370107
+               DLDFREQ=12,                                             X00370108
+               DSSTIME=5,                                              X00370109
+               EXTRAREQ=100,                                           X00370110
+               EXTRASRV=100,                                           X00370111
+               EXTSEC=NO,                                              X00370112
+               IDBACK=180,                                             X00370113
+               IDFORE=90,                                              X00370114
+               IDXBPOOL=BP3,                                           X00370115
+               LBACKOUT=AUTO,                                          X00370116
+               LOBVALA=256000,                                         X00370117
+               LOBVALS=2048,                                           X00370118
+               LOGAPSTG=10,                                            X00370119
+               MAXDBAT=1000,                                           X00370120
+               MON=NO,                                                 X00370121
+               MONSIZE=500000,                                         X00370122
+               PCLOSEN=5,                                              X00370123
+               PCLOSET=10,                                             X00370124
+               RLF=NO,                                                 X00370125
+               RLFTBL=01,                                              X00370126
+               RLFERR=NOLIMIT,                                         X00370127
+               RLFAUTH=SYSIBM,                                         X00370128
+               ROUTCDE=(1),                                            X00370129
+               SMFACCT=NO,                                             X00370130
+               SMFSTAT=(1,3),                                          X00370131
+               STATIME=5,                                              X00370132
+               STORMXAB=0,                                             X00370133
+               STORPROC=DB2VSPAS,                                      X00370134
+               STORTIME=180,                                           X00370135
+               SYNCVAL=NO,                                             X00370136
+               TBSBPOOL=BP1,                                           X00370137
+               TRACSTR=NO,                                             X00370138
+               TRACTBL=16,                                             X00370139
+               URCHKTH=0,                                              X00370140
+               URLGWTH=0,                                              X00370141
+               WLMENV=                                                  00370142
+    DSN6FAC    DDF=AUTO,                                               X00370143
+               CMTSTAT=INACTIVE,                                       X00370144
+               IDTHTOIN=300,                                           X00370145
+               RESYNC=2,                                               X00370146
+               RLFERRD=NOLIMIT,                                        X00370147
+               TCPALVER=NO,                                            X00370148
+               MAXTYPE1=0,                                             X00370149
+               TCPKPALV=ENABLE,                                        X00370150
+               POOLINAC=120                                             00370151
+    DSN6GRP    DSHARE=YES,                                             X00370152
+               GRPNAME=DSNDBVG,                                        X00370153
+               MEMBNAME=DB2V,                                          X00370154
+               COORDNTR=YES,                                           X00370155
+               ASSIST=YES,                                             X00370156
+               IMMEDWRI=NO                                              00370157
+    END                                                                 01370000
+//********************************************************************* 01380000
+//* LINK EDIT THE NEW DSNZPARM MEMBER.  PUT LOAD MODULE IN SDSNEXIT.  * 01390000
+//********************************************************************* 01400000
+//DSNTIZL EXEC PGM=IEWL,PARM='LIST,XREF,LET,RENT',                      01410000
+//             COND=(4,LT)                                              01420000
+//ADSNLOAD DD  DISP=SHR,                                                01430000
+//         DSN=SSXDT.DSNDBVG.DB2V.SDSNLOAD                              01440000
+//         DD  DISP=SHR,                                                01450000
+//         DSN=SSXDT.DSNDBVG.DB2V.ADSNLOAD                              01460000
+//SYSPUNCH DD  DSN=&&LOADSET(DSNTILMM),DISP=(OLD,DELETE)                01470000
+//SYSLMOD  DD  DISP=SHR,                                                01480000
+//         DSN=SSXDT.DSNDBVG.DB2V.SDSNEXIT                              01490000
+//SYSPRINT DD  SYSOUT=*                                                 01500000
+//SYSUDUMP DD  SYSOUT=*                                                 01510000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(1024,(50,50))                          01520000
+//SYSLIN   DD  *                                                        01530000
+   INCLUDE SYSPUNCH(DSNTILMM)                                           01540000
+   INCLUDE ADSNLOAD(DSNZPARM)                                           01550000
+   ORDER DSNAA                                                          01560000
+   INCLUDE ADSNLOAD(DSNAA)                                              01570000
+   INCLUDE ADSNLOAD(DSNFSYSP)                                           01580000
+   INCLUDE ADSNLOAD(DSNJARVP)                                           01590000
+   INCLUDE ADSNLOAD(DSNJLOGP)                                           01600000
+   INCLUDE ADSNLOAD(DSNTSPRM)                                           01610000
+   INCLUDE ADSNLOAD(DSNVDIR1)                                           01620000
+   INCLUDE ADSNLOAD(DSNZMSTR)                                           01630000
+   INCLUDE ADSNLOAD(DSN3DIR1)                                           01640000
+   INCLUDE ADSNLOAD(DSN7GRP)                                            01650000
+   ENTRY   DSNZMSTR                                                     01660000
+   NAME    DSNZPEEM(R)                                                  01670000
+//*                                                                     01680000
+//*        CHANGE LOG INVENTORY:                                        01690000
+//*        UPDATE BSDS                                                  01700000
+//*                                                                     01720000
+//*//DSNTLOG EXEC PGM=DSNJU003,COND=(4,LT)                              01730000
+//*//STEPLIB  DD  DISP=SHR,DSN=SSXDT.DSNDBVG.DB2V.SDSNLOAD              01740000
+//*//SYSUT1   DD  DISP=OLD,DSN=DB2V.DSNDBVG.BSDS01                      01750000
+//*//SYSUT2   DD  DISP=OLD,DSN=DB2V.DSNDBVG.BSDS02                      01760000
+//*//SYSPRINT DD  SYSOUT=*                                              01770000
+//*//SYSUDUMP DD  SYSOUT=*                                              01780000
+//*//SYSIN    DD  *                                                     01790000
+//* DDF    LOCATION=DBVG,LUNAME=LUDB2V,                                 01790001
+//*        NOPASSWD,RESPORT=5028,PORT=454                               01790002
+/*                                                                      02630000
+//********************************************************************* 02640000
+//*   ASSEMBLE AND LINK EDIT DATA-ONLY LOAD MODULE DSNHDECP.            02650000
+//*   THE FOLLOWING STEPS ARE NEEDED ONLY IF THE                        02660000
+//*   VALUES ARE CHANGED FROM THOSE WHICH ARE SHIPPED.                  02670000
+//********************************************************************* 02680000
+//DSNTIZP EXEC PGM=ASMA90,PARM='OBJECT,NODECK',COND=(4,LT)              02690000
+//SYSLIB   DD  DISP=SHR,                                                02700000
+//         DSN=SSXDT.DSNDBVG.DB2V.SDSNMACS                              02710000
+//SYSLIN   DD  DSN=&&LOADSET(DSNHDECA),DISP=(NEW,PASS),UNIT=SYSDA,      02720000
+//             SPACE=(80,(50,50,2)),DCB=(BLKSIZE=80)                    02730000
+//SYSPRINT DD  SYSOUT=*                                                 02740000
+//SYSUDUMP DD  SYSOUT=*                                                 02750000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(800,(50,50),,,ROUND)                   02760000
+//SYSUT2   DD  UNIT=SYSDA,SPACE=(800,(50,50),,,ROUND)                   02770000
+//SYSUT3   DD  UNIT=SYSDA,SPACE=(800,(50,50),,,ROUND)                   02780000
+//SYSIN    DD  *                                                        02790000
+   DSNHDECM    CHARSET=ALPHANUM,                                       X02790001
+               ASCCSID=819,                                            X02790002
+               AMCCSID=65534,                                          X02790003
+               AGCCSID=65534,                                          X02790004
+               SCCSID=500,                                             X02790005
+               MCCSID=65534,                                           X02790006
+               GCCSID=65534,                                           X02790007
+               USCCSID=367,                                            X02790008
+               UMCCSID=1208,                                           X02790009
+               UGCCSID=1200,                                           X02790010
+               ENSCHEME=EBCDIC,                                        X02790011
+               APPENSCH=EBCDIC,                                        X02790012
+               DATE=ISO,                                               X02790013
+               DATELEN=0,                                              X02790014
+               DECARTH=DEC15,                                          X02790015
+               DECIMAL=PERIOD,                                         X02790016
+               DEFLANG=COB2,                                           X02790017
+               DELIM=DEFAULT,                                          X02790018
+               MIXED=NO,                                               X02790019
+               SQLDELI=DEFAULT,                                        X02790020
+               DSQLDELI=APOST,                                         X02790021
+               SSID=DBVG,                                              X02790022
+               STDSQL=NO,                                              X02790023
+               TIME=ISO,                                               X02790024
+               TIMELEN=0,                                              X02790025
+               DYNRULS=YES,                                            X02790026
+               LC_CTYPE=,                                              X02790027
+               COMPAT=OFF                                               02790028
+     END                                                                02970000
+//*                                                                     02980000
+//********************************************************************* 02990000
+//*   LINK EDIT DSNHDECP.                                             * 03000000
+//*   DSNHDECP IS A DATA-ONLY LOAD MODULE CONTAINING DEFAULT VALUES   * 03010000
+//*   REQUIRED BY DB2 AND APPLICATION PROGRAMS.                       * 03020000
+//*   THIS STEP IS CREATED ONLY WHEN THE DEFAULTS SUPPLIED IN         * 03030000
+//*   DSNHDECP ARE NOT SUITABLE.                                      * 03040000
+//********************************************************************* 03050000
+//DSNTIZQ EXEC PGM=IEWL,PARM='LIST,XREF,LET,RENT',                      03060000
+//             COND=(4,LT)                                              03070000
+//ADSNLOAD DD  DISP=SHR,                                                03080000
+//         DSN=SSXDT.DSNDBVG.DB2V.SDSNEXIT                              03090000
+//         DD  DISP=SHR,                                                03100000
+//         DSN=SSXDT.DSNDBVG.DB2V.SDSNLOAD                              03110000
+//         DD  DISP=SHR,                                                03100000
+//         DSN=SSXDT.DSNDBVG.DB2V.ADSNLOAD                              03110000
+//SYSPUNCH DD  DSN=&&LOADSET(DSNHDECA),DISP=(OLD,DELETE)                03120000
+//SYSLMOD  DD  DISP=SHR,                                                03130000
+//         DSN=SSXDT.DSNDBVG.DB2V.SDSNEXIT                              03140000
+//SYSPRINT DD  SYSOUT=*                                                 03150000
+//SYSUDUMP DD  SYSOUT=*                                                 03160000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(1024,(50,50))                          03170000
+//SYSLIN   DD  *                                                        03180000
+   INCLUDE SYSPUNCH(DSNHDECA)                                           03190000
+   ORDER   DSNAA                                                        03200000
+   INCLUDE ADSNLOAD(DSNAA)                                              03210000
+   INCLUDE ADSNLOAD(DSNARIB)                                            03220000
+   INCLUDE ADSNLOAD(DSNHDECP)                                           03230000
+   ENTRY   DSNHDECP                                                     03240000
+   MODE    AMODE(24),RMODE(24)                                          03250000
+   NAME    DSNHDECP(R)                                                  03260000
+//*                                                                     03270000
+//********************************************************************* 03280000
+//* DO SMP/E PROCESSING TO TRACK DSNHDECP CHANGES.                    * 03290000
+//* THIS STEP IS ONLY USED WHEN THE DEFAULT DSNHDECP IS NOT SUITABLE. * 03300000
+//*                                                                   * 03301000
+//* NOTE: THIS STEP MUST BE CUSTOMIZED AS FOLLOWS FOR SMP:            * 03302000
+//* 1. LOCATE AND CHANGE THE FOLLOWING STRINGS TO THE VALUES YOU      * 03303000
+//*    SPECIFIED FOR THEM IN JOB DSNTIJAE:                            * 03304000
+//*    A.'?SMPPRE?' TO THE PREFIX OF YOUR SMP LIBRARY NAME.           * 03305000
+//*    B.'?SMPMLQ?' TO THE MIDDLE LEVEL QUALIFIER OF YOUR SMP CSI     * 03306000
+//* 2. UPDATE SYSOUT CLASSES AS DESIRED (DEFAULT IS '*')              * 03308000
+//********************************************************************* 03310000
+//**NTIMQ EXEC PGM=GIMSMP,PARM='CSI=?SMPPRE?.?SMPMLQ?.CSI',             03320000
+//**           REGION=4096K,COND=(2,LT)                                 03325000
+//**SPRINT DD  SYSOUT=*                                                 03330000
+//**SUDUMP DD  SYSOUT=*                                                 03335000
+//**PCNTL DD *                                                          03340000
+//**SET BDY(DSNTARG).                                                   03350000
+//**JCLIN.                                                              03360000
+//**PJCLIN DD DISP=SHR,                                                 03370000
+//**          DSN=SSXDT.DSNDBVG.DB2V.NEW.SDSNSAMP(DSNTIJUZ)             03380000
+//*                                                                     03390000

@@ -1,0 +1,26 @@
+//UXD000M  JOB CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID
+//**********************************************************************
+//**                                                                  **
+//** UPDATE PSSXP.LOGREC.lpar.DAY.GxxxxV00 and DATE and TIME ranges   **
+//**                                                                  **
+//**********************************************************************
+//REPORT   EXEC PGM=IFCEREP1,REGION=6M,
+//             PARM='CARD'
+//*            PARM=('LINECT=60,TABSIZE=128K,ACC=N,HIST=N',
+//*            'ZERO=N,SYSEXN=Y,SYSSUM')
+//ACCIN    DD  DISP=SHR,DSN=PSSXP.LOGREC.MVSR.DAY.G4335V00,
+//             RECFM=VB,LRECL=2000,BLKSIZE=6144
+//DIRECTWK DD  UNIT=SYSALLDA,SPACE=(CYL,(5,5))
+//EREPPT   DD  SYSOUT=*,DCB=BLKSIZE=133
+//TOURIST  DD  SYSOUT=*,DCB=BLKSIZE=133
+//SYSIN    DD  *
+     LINECT=60
+     TABSIZE=128K
+     DATE=(14008,14008)
+     TIME=(0945,1115)
+     ACC=N
+     ZERO=N
+     HIST=Y
+     PRINT=AL
+     TYPE=S
+/*

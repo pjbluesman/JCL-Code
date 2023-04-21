@@ -1,0 +1,10 @@
+//UXD002M JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X                          00010005
+//JOBLIB  DD  DSN=SSXDP.DB4R.SDSNEXIT,DISP=SHR                          00020008
+//        DD  DSN=SDB4R.SDSNLOAD,DISP=SHR                               00021008
+//STEP01  EXEC DSNUPROR,PARM='DBRG,MODIFY'                              00030008
+//DSNUPROR.SYSIN DD  *                                                  00040008
+ MODIFY RECOVERY TABLESPACE DSNDB06.SYSOBJ DELETE AGE(120)              00078006
+ MODIFY RECOVERY TABLESPACE DSNDB06.SYSDDF DELETE AGE(120)              00079006
+ MODIFY RECOVERY TABLESPACE DSNDB06.SYSPKAGE DELETE AGE(120)            00080008
+/*                                                                      00084000
+//                                                                      00090000

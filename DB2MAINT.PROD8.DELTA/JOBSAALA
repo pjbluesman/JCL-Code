@@ -1,0 +1,180 @@
+/* REXX
+   SAVEJOBS - SALVA A SYSOUT DE TODOS OS JOBS DE UM ID (OWNER)
+   NUM DATASET PDS (ID.SAVEJOBS)
+   GRAVA MEMBRO @JOBINDX  - INDICE DE JOBNAME JOBID
+                                            PAULINHO  -  07/07/2011   */
+CALL DEIMBED
+
+ADDRESS ISPEXEC "LIBDEF ISPPLIB LIBRARY ID("||$DDN||") STACK"
+SHOWPANEL:
+ADDRESS ISPEXEC "DISPLAY PANEL("||MBR||")"
+IF RC > 0 THEN
+   do
+    ADDRESS ISPEXEC "LIBDEF ISPPLIB"
+    "FREE FI("||$DDN||")"
+    EXIT
+  end
+RC=ISFCALLS('ON')
+     /* ACCESS THE ST DISPLAY */
+ISFPREFIX = ''
+ISFOWNER = OWNER
+IF SYSDSN("'"||DSNLIB||"'") ^= 'OK' THEN
+   IF VOLUME <> '' THEN
+      DO
+         ADDRESS TSO "ALLOC DA('"DSNLIB"') NEW SP(500 100) CYL,
+                RECFM(V B A) DSORG(PO) DSNTYPE(LIBRARY) UNIT(3390),
+                LRECL(240) VOL("VOLUME") REU"
+      END
+   ELSE
+      DO
+         ADDRESS TSO "ALLOC DA('"DSNLIB"') NEW SP(500 100) CYL,
+                RECFM(V B A) DSORG(PO) DSNTYPE(LIBRARY) UNIT(3390),
+                LRECL(240) REU"
+      END
+ISFPRTDISP = 'SHR'
+X = MSG('OFF')
+ISFPRTDSNAME    = '"'DSNLIB'"'
+IF ISFOWNER = '' THEN
+   ISFOWNER  = SYSVAR('SYSUID')
+ISFPRTDIRBLKS = 100
+
+ADDRESS SDSF "ISFEXEC ST"
+LRC = RC
+IF LRC > 1 THEN
+   DO
+     CALL MSGRTN
+     EXIT 20
+   END
+     /* ISSUE AN XSC ACTION AGAINST THE ROW TO BE PRINTED */
+IF JNAME.0 = 0 THEN
+   DO
+      SAY "NO JOBS FOUND FOR THIS OWNER"
+      EXIT
+   END
+N = 1
+JOBSIND.N = " JOBNAME  JOBNUM"
+DO IX=1 TO JNAME.0
+      IF JNAME.IX = ISFOWNER THEN ITERATE
+      N = N + 1
+      JOBSIND.N = ' 'LEFT(JNAME.IX,8)' 'JOBID.IX
+      ISFPRTMEMBER = JOBID.IX
+      ADDRESS SDSF "ISFACT ST TOKEN('"TOKEN.IX"') PARM(NP XDC)"
+      LRC=RC
+      IF LRC > 1 THEN
+         DO
+           CALL MSGRTN
+           EXIT 20
+         END
+      IF ISFPRTDISP = 'NEW' THEN
+         ISFPRTDISP = 'SHR'
+END
+JOBSIND.0 = N
+ADDRESS TSO
+MINDEX = '$' || OWNER
+"ALLOC DA('"DSNLIB"("MINDEX")') F(DDSAV) SHR REU"
+LRC=RC
+"EXECIO * DISKW DDSAV (FINIS STEM JOBSIND.)"
+"FREE DA('"DSNLIB"') F(DDSAV)"
+ADDRESS ISPEXEC "BROWSE DATASET('"DSNLIB"')"
+SIGNAL SHOWPANEL
+     /* SUBROUTINE TO LIST ERROR MESSAGES */
+MSGRTN: PROCEDURE EXPOSE ISFMSG ISFMSG2.
+     /* THE ISFMSG VARIABLE CONTAINS A SHORT MESSAGE */
+IF ISFMSG<>"" THEN
+  SAY "ISFMSG IS:" ISFMSG
+     /* THE ISFMSG2 STEM CONTAINS ADDITIONAL DESCRIPTIVE */
+     /* ERROR MESSAGES                                   */
+DO IX=1 TO ISFMSG2.0
+  SAY "ISFMSG2."IX "IS:" ISFMSG2.IX
+END
+RETURN
+/* REXX
+   PARSE OUT THE EMBEDDED COMPONENTS AT THE BACK OF THE SOURCE CODE.
+.  ----------------------------------------------------------------- */
+DEIMBED:
+   ADDRESS TSO
+   FB80PO.0  = "NEW UNIT(VIO) SPACE(5 5) TRACKS DIR(40)",
+                   "RECFM(F B) LRECL(80) BLKSIZE(0)"
+   LASTLN   = SOURCELINE()
+   CURRLN   = LASTLN                   /*                            */
+   IF LEFT(SOURCELINE(CURRLN),2) <> "*/" THEN RETURN
+   CURRLN = CURRLN - 1                 /* PREVIOUS LINE              */
+   "NEWSTACK"
+   DO WHILE SOURCELINE(CURRLN) <> "/*"
+      TEXT = SOURCELINE(CURRLN)        /* SAVE WITH A SHORT NAME !   */
+      IF LEFT(TEXT,3) = ")))" THEN DO  /* PACKAGE THE QUEUE          */
+         PARSE VAR TEXT ")))" DDN MBR .   /* PLIB PANL001  MAYBE     */
+         IF POS(DDN,DDNLIST) = 0 THEN DO  /* DOESN'T EXIST           */
+            DDNLIST = DDNLIST DDN      /* KEEP TRACK                 */
+            $DDN = DDN
+            $DDN.DDN = $DDN
+            "ALLOC FI("$DDN")" FB80PO.0
+            ADDRESS ISPEXEC "LMINIT DATAID(DAID) DDNAME("$DDN")"
+            DAID.DDN = DAID
+            END
+         DAID = DAID.DDN
+         ADDRESS ISPEXEC "LMOPEN DATAID("DAID") OPTION(OUTPUT)"
+         DO QUEUED()
+            PARSE PULL LINE
+            ADDRESS ISPEXEC "LMPUT DATAID("DAID") MODE(INVAR)",
+                            "DATALOC(LINE) DATALEN(80)"
+        END
+         ADDRESS ISPEXEC "LMMADD DATAID("DAID") MEMBER("MBR")"
+         ADDRESS ISPEXEC "LMCLOSE DATAID("DAID")"
+         END                           /* PACKAGE THE QUEUE          */
+      ELSE PUSH TEXT                   /* ONTO THE TOP OF THE STACK  */
+      CURRLN = CURRLN - 1              /* PREVIOUS LINE              */
+   END                                 /* WHILE                      */
+   "DELSTACK"
+RETURN                                 /*@ DEIMBED                   */
+/*
+)))ISPP JOBSAVE
+)ATTR DEFAULT(%+_)
+  $ TYPE(INPUT) INTENS(LOW) PAD(_)    /* input field padded with '_' */
+  # TYPE(INPUT) INTENS(NON)           /* input field padded with '_' */
+)BODY expand(//)
++-/-/-%JOB SAVER+/-/
++Command ===>_ZCMD                                                             +
++
++/ /Saves the Jobs output from SDSF based on Job Owner/ /
++
++  Enter the fully qualified ta Set name where the output will be stored
++
++   Dsname: $DSNLIB                                     +(without quotes)
++
++  For a new data set enter the volume (if not necessary , left it blank)
++
++   Volser: $VOLUME+
++
++  Enter the owner of jobs you want to save
++
++   Owner : $OWNER  +
++
++ #Z+
++
++/ /Press%Enter+to continue  or %PF3+ Cancel/ /
++
+)INIT
+  .ZVARS = '(DSNRC)'
+  IF (&OWNER = &Z)
+     &OWNER = &ZUSER
+)PROC
+  VER(&DSNLIB,NB,DSNAME)
+  *REXX(*)
+  /*TRACE I */
+  IF DSNLIB <> '' THEN
+  DO
+    IF SYSDSN("'"||DSNLIB||"'") = 'OK' THEN
+       DO
+         DSNRC = 0
+       END
+    ELSE DO
+           DSNRC = 8
+         END
+    RETURN
+  END
+  *ENDREXX
+  IF (&VOLUME ^= &Z)
+      VER(&VOLUME,PICT,CCCCCC)
+)END
+*/

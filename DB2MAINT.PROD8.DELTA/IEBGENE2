@@ -1,0 +1,11 @@
+//D73294TA JOB (,102),'CJR ',                                           00010001
+//             CLASS=S,MSGCLASS=X,MSGLEVEL=(1,1)                        00040000
+//*                                                           /*JCTRL*/ 00050000
+//UPDT EXEC PGM=IEBGENER
+//SYSUT1 DD DISP=(SHR,KEEP),UNIT=CTAPE,LABEL=(,SL),
+//          VOL=SER=CP9227,DSN=SSXDT.DB2.DSNJU001
+//SYSUT2 DD DISP=(NEW,KEEP,KEEP),DSN=SSXDT.DSNJU001,
+//          UNIT=SYSDA,DCB=*.SYSUT1,SPACE=(TRK,(10,1))
+//SYSPRINT  DD  SYSOUT=X
+//SYSIN DD DUMMY
+//
