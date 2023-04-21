@@ -1,0 +1,17 @@
+//UXD104M  JOB (D-813-000-N-00,114),'RECOVER IX1TS343',                 00010000
+//        CLASS=S,MSGCLASS=X,TIME=1440                                  00011000
+//*$AVRS C= RECOVER IX1TS343                                            00013000
+//**********************************************************************
+//* RECOVER INDEX                                           ************
+//**********************************************************************
+//JSTEP10  EXEC DSNUPROP,
+//             COND=(4,LT),
+//             UID='UFZ9915M.RECOVER',
+//             UTPROC=''
+//SYSUT1   DD  UNIT=(SYSDA,6),
+//             DISP=(,PASS),
+//             SPACE=(CYL,(60,30)),
+//             MGMTCLAS=MC4NBK,
+//             VOL=(,,,16)
+//DSNUPROP.SYSIN DD *
+ RECOVER INDEX (FZDBAP3.IX1TS343,FZDBAP3.IX2TS343)

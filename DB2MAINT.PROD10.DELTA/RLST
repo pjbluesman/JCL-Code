@@ -1,0 +1,40 @@
+--*********************************************************************/00010000
+--* JOB NAME = DSNTIJSG                                               */00020000
+--* ***  ONLY THE DSNRLST STEPS CONTAINED HEREIN - COPIED FROM        */00030000
+--*     DSNTIJSG IN SDB2U.SDSNSAMP                                    */00040000
+--*                                                                   */00050000
+SET CURRENT SQLID = 'SYSPRO';                                           00060006
+   CREATE DATABASE DSNRLST CCSID EBCDIC;                                00780000
+   CREATE TABLESPACE DSNRLS01 IN DSNRLST CLOSE NO CCSID EBCDIC;         00790000
+   CREATE TABLE SYSIBM.DSNRLST01                                        00800002
+         (AUTHID         VARCHAR(128) NOT NULL WITH DEFAULT,            00810000
+          PLANNAME       CHAR( 8)     NOT NULL WITH DEFAULT,            00817000
+          ASUTIME        INTEGER,                                       00824000
+          LUNAME         CHAR( 8)     NOT NULL WITH DEFAULT,            00831000
+          RLFFUNC        CHAR( 1)     NOT NULL WITH DEFAULT,            00838000
+          RLFBIND        CHAR( 1)     NOT NULL WITH DEFAULT,            00845000
+          RLFCOLLN       VARCHAR(128) NOT NULL WITH DEFAULT,            00852000
+          RLFPKG         VARCHAR(128) NOT NULL WITH DEFAULT,            00859000
+          RLFASUERR      INTEGER,                                       00866000
+          RLFASUWARN     INTEGER,                                       00874000
+          RLF_CATEGORY_B CHAR( 1)     NOT NULL WITH DEFAULT)            00882000
+      IN DSNRLST.DSNRLS01 CCSID EBCDIC;                                 00890000
+   CREATE UNIQUE INDEX SYSIBM.DSNARL01                                  00900005
+      ON SYSIBM.DSNRLST01                                               00910003
+         (RLFFUNC, AUTHID DESC, PLANNAME DESC,                          00920000
+          RLFCOLLN DESC, RLFPKG DESC, LUNAME DESC)                      00925000
+      CLUSTER CLOSE NO;                                                 00930000
+--**********************************************************************00940000
+--* HERE ARE TWO SAMPLE INSERT STATEMENTS FOR INITIALIZING THE          00950000
+--* RESOURCE LIMIT FACILITY'S RESOURCE LIMIT SPECIFICATION TABLE (RLST).00960000
+--* IF YOU WANT TO INITIALIZE THE RLST, BUILD YOUR OWN INSERTS          00970000
+--* AND ADD THEM TO THE BOTTOM OF THE PREVIOUS STEP.                    00980000
+--*                                                                     00990000
+--*    INSERT INTO DSNRLST01                                            01000000
+--*                (LUNAME,     AUTHID,     PLANNAME,   ASUTIME)        01010000
+--*         VALUES ('        ', 'MYUSERID', 'MYPLAN',   10);            01020000
+--*    INSERT INTO DSNRLST01                                            01030000
+--*                (LUNAME,     AUTHID,     PLANNAME,   ASUTIME)        01040000
+--*         VALUES ('        ', '        ', 'DEPTPLAN', 30);            01050000
+--**********************************************************************01060000
+--*                                                                     01070000

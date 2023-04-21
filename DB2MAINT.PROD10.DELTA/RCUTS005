@@ -1,0 +1,1017 @@
+
+--==============================================================================
+-- VRCM6.1.5    CA-DB2   RC/ALTER      ANALYSIS REPORT      11-27-02 09:53
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> RCUPDATE  DESCRIPTION  ===> RC/UPDATE ALTERATION
+--CREATOR  ==> DT0072    SHARE OPTION ===> N (U,Y,N,X,L)  SRC SSID ===> DB2V
+--
+--ALTERED OBJECTS:
+--   OBJECT TYPE       NAME                 CREATOR
+--   TABLESPACE        DMRPRTAD             DMRPRDB1
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> O (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> CATALOG - LIMITED
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> D36660E
+--
+--  SECURITY          ===> N             STATISTICS   ===> N
+--  DEFAULT SQLID     ===>               CHECK DATA   ===> N
+--                                       IMAGE COPY   ===> N
+--                                       BIND/REBIND  ===> N
+--  ALL ROWS          ===> Y             REORG        ===> B
+--  NUMBER ROWS       ===>               RECOVER IX   ===> N
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS         ===> N             VSAM DEFINES  ===> Y
+--  SQL ONLY          ===> N             VSAM DELETES  ===> Y
+--  COMMIT ASAP       ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> N
+--  DELETE TEMPORARY DATASETS ===> N
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+.SYSTEM UNLOADS
+.CONNECT DB2V
+
+.AUTH DT0072
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DT0072.DMRPR.DMRACDTL.DATA')                                +
+       BLKSIZE(6336) LRECL(72)                                         +
+       LABEL(1,SL)                                                     +
+       UNIT(CART)                                                      +
+       RETAIN                                                          +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SYSTEMID, SUBSYSTEM, PLANNAME, AUTHID, "CONNECTION",
+  CORRID, ORIGPRIMID, LUWIDNID, LUWIDLUNM, LUWIDINST, LUWIDCOMIT,
+  CONNTYPE, DATETIME, DATE, "YEAR", "MONTH", "DAY", TIME, "HOUR",
+  DAYOFWEEK#, DAYOFWEEK, WEEK#, LOCATION, GROUPNAME, MEMBERNAME,
+  FIRSTPKG, ACCTTOKN, ENDUSERID, ENDUSERTX, ENDUSERWN, TRACEMASK,
+  PSTNUMBER, PSBNAME, CICSTRAN, CORRNAME, REQLOCATION, REQPROD,
+  REQPRODREL, NETWORKID, INTERVAL, TRANSCNT, IFCIDSEQ#, THDSTART,
+  ELAPSETOD, ELAPSETCB, ELAPSESRB, REASON, P2COMMITS, ABORTS,
+  EDB2TOD, EDB2TCB, EDB2SRB, EWAITIO, EWAITLAL, ENTEXEVNT,
+  WAITEVNT, WAITREADIO, WAITWRITEIO, WAITSYNCEVENT, WAITARCLOG,
+  WEVLOCK, WEVREAD, WEVWRITE, WEVSYNCH, ARCLOG, DRAINLKRND,
+  DRAINLKWDR, CLAIMRLWCL, CLAIMRLRNC, ARCHREADWAR, ARCHREADNAR,
+  OPENCLSELAP, SYSLGRNGELAP, DATASETELAP, OTHERSWELAP,
+  OPENCLSEVNT, SYSLGRNGEVNT, DATASETEVNT, OTHERSWEVNT,
+  LATCHCNTWTP, LATCHCNTRNH, GBLMSGELAP, GBLMSGEVNT, GBLLOKELAP,
+  GBLLOKEVNT, SPTCB, SPTCBINDB2, SPEVNT, SPWAITELAP, SPWAITCNT,
+  PARATASKS, PARALLTASKS, CPUSUCONV, LOGWRTEVNT, LOGWRTELAP,
+  WLMSVCCLASS, LOGRECORDS, LOGBYTES, FUNCTCB, FUNCSQLTCB,
+  FUNCSQLEVNT, FUNCWAIT, FUNCELAP, FUNCSQLELAP, TRIGGERTCB,
+  TRIGGERELAP, PREENCTCB, PREENCSQLTCB, SPROCELAP, SPROCSQLELAP,
+  ENCTRIGGERTCB, ENCTRIGGERELAP, ALLIEDCNT, ALLIEDDISTCNT,
+  DBATCNT, DBATDISTCNT, NOPKGCNT, NORMTERMCNT, ABNORMTERMCNT,
+  SVPOINTREQ, SVPOINTREL, SVPOROLLBK, WTELAWTK, WTELAWTM,
+  WTELAWTN, WTELAWTO, WTELAWTQ, WTEVARNK, WTEVARNM, WTEVARNN,
+  WTEVARNO, WTEVARNQ, WTELAWFC, WTEVFCCT, WTELIXLT, WTEVIXLE,
+  SETCURPREC, DCLGLOBALTT, PARAGLOBALTT, SELECTS, INSERTS,
+  UPDATES, DELETES, DESCRIBES, PREPARES, OPENS, FETCHES, CLOSES,
+  CREATETBL, CREATEINDX, CREATETSP, CREATESYN, CREATEDB, CREATESG,
+  CREATEVU, DROPINDX, DROPTBL, DROPTSP, DROPDB, DROPSYN, DROPSG,
+  DROPVU, ALTERSG, ALTERTSP, ALTERTBL, ALTERINDX, COMMENTON,
+  LOCKTBL, GRANTS, REVOKES, INCRBINDS, LABELON, SETSQLID,
+  CREATEALIAS, DROPALIAS, MULTINDEXYES, MULTINDEXNOS,
+  MULTINDEXNOM, SETHOSTV, ALTERDB, DROPPKG, DESCRBTABL,
+  PARAMAXDEG, PARATOTGRP, PARADEGCUR, PARADEGESA, PARADEGBUF,
+  PARAREDGRP, PARANORGRP, PARACON1NO, PARACON2NO, PARARELNO,
+  PARASETCON, PARASETCDG, PARADEGENC, PARARLFDISABLE, SETCURRULES,
+  SQLCALL, SQLCALLAB, SQLCALLTO, SQLCALLRJ, PARACOORNO, PARAISORR,
+  SQLCRGTT, REOPTIMIZE, PARAXDSGRP, PARACSKIP, ASSOCLOCR,
+  ALLOCCUR, PREPFND, PREPNOTFND, PREPIMPLICIT, PREPNOIMPLICIT,
+  PREPDISCMAX, PREPDISCPROG, RENAMETBL, CREATETRIGGER,
+  DROPTRIGGER, SETCURRPATH, DROPUDF, DROPPROC, CREATEDISTINCT,
+  DROPDISTINCT, CREATEFUNC, CREATEPROC, HOLDLOCATOR, FREELOCATOR,
+  PARACONFIG, PARANOBP, CREATEAUXTBL, MAXLOBSTG, ALTERFUNC,
+  ALTERPROC, DIRECTROW, DIRECTROWIX, DIRECTROWTS, STMTTRIGGER,
+  ROWTRIGGER, SQLERRTRIGGER, MAXSQLCASCADE, FUNC, FUNCAB, FUNCTO,
+  FUNCRJ, BPGETPAGE, BPPGUPDAT, BPSYNCRD, BPPREFET, BPSYNCWR,
+  BPLISTPREF, BPDPF, BPHRE, BPHRF, BPHWR, BPHWF, BPNGT, BPSIO,
+  BPHPG, DEADLOCKS, SUSPENDS, TIMEOUTS, LOCKESHR, LOCKEXCL,
+  MAXPGLOCKS, SUSPLATCH, SUSPOTHER, LOCKREQS, CLAIMREQ,
+  CLAIMREQUN, DRAINREQ, DRAINREQUN, DB2MBRMAX, MBRCORR1, MBRCORR2,
+  MBRCORR3, MBRCORR4, MBRCORR5, MBRCORR6, MBRCORR7, MBRCORR8,
+  DMRACSHARE, GBPREADINVBD, GBPREADINVBR, GBPREADINVBN,
+  GBPREADNOPGD, GBPREADNOPGR, GBPREADNOPGN, GBPWRITCHG,
+  GBPWRITCLEAN, GBPUNREGPG, GBPEXPLICITXI, GBPWRITCHG2,
+  GBPWRITCHK2, GBPASYNPRIM, GBPASYNSEC, GBPDEPGETPG, GBPPLKSPMAP,
+  GBPPLKDATA, GBPPLKIDX, GBPPLKUNLK, GBPPSUSSPMAP, GBPPSUSDATA,
+  GBPPSUSIDX, GLPLOCKLK, GLPLOCKCHG, GLPLOCKUNLK, GLXESSYNCLK,
+  GLXESSYNCCHG, GLXESSYNCUNLK, GLSUSPIRLM, GLSUSPXES, GLSUSPFALSE,
+  GLINCOMPAT, GLNOTFYSENT, DMRAUTOCUST, RLFTABLEID, RLFLIMDET,
+  RLFSULIMIT, RLFCPULIMIT, RLFCPULIMITU, RLFCPUUSED, RLFCPUUSEDU,
+  UNLOCKREQS, QUERYREQS, CHNGREQS, IRLMREQS, IFIELAPSED,
+  IFITCBCPU, IFIELAPDTC, IFIELAPEXT, IFIENTRIES, IFILOGREAD,
+  IFILOGREC, IFILOGRTN, IFIDATAROW, IFIDATADSC, IFIDATACAP,
+  IFITABLRTN
+  FROM DMRPR.DMRACDTL
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 5         'UNLOAD TABLE DMRPR.DMRACDTL'
+
+.SYSTEM SQLDDL
+.CONNECT DB2V
+
+.AUTH DT0072
+
+    DROP TABLESPACE DMRPRDB1.DMRPRTAD;
+
+.SYNC 10        'DROP TABLESPACE DMRPRDB1.DMRPRTAD'
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLESPACE CREATE AND ALTER STATEMENTS                     *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DMRPRDB1.DMRPRTAD WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  DT0072
+    SET CURRENT SQLID = 'SYSPRO';
+
+    CREATE TABLESPACE DMRPRTAD
+           IN DMRPRDB1
+                     USING STOGROUP DMRPRSG1
+                                    PRIQTY 72000
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+           BUFFERPOOL BP3
+           LOCKSIZE ANY
+           CLOSE NO
+           SEGSIZE 32
+           LOCKMAX SYSTEM
+           CCSID EBCDIC
+    ;
+
+.SYNC 15        'CREATE TABLESPACE DMRPRDB1.DMRPRTAD'
+    SET CURRENT SQLID = USER;
+
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DMRPR.DMRACDTL WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  DT0072
+
+CREATE TABLE DMRPR.DMRACDTL
+   (SYSTEMID               CHAR(4    )                 NOT NULL
+   ,SUBSYSTEM              CHAR(4    )                 NOT NULL
+   ,PLANNAME               CHAR(8    )                 NOT NULL
+   ,AUTHID                 CHAR(8    )                 NOT NULL
+   ,"CONNECTION"           CHAR(8    )                 NOT NULL
+   ,CORRID                 CHAR(12   )                 NOT NULL
+   ,ORIGPRIMID             CHAR(8    )                 NOT NULL
+   ,LUWIDNID               CHAR(8    )                 NOT NULL
+   ,LUWIDLUNM              CHAR(8    )                 NOT NULL
+   ,LUWIDINST              CHAR(6    )                 NOT NULL
+   ,LUWIDCOMIT             REAL                        NOT NULL
+   ,CONNTYPE               CHAR(8    )                 NOT NULL
+   ,DATETIME               TIMESTAMP                   NOT NULL
+   ,DATE                   DATE                        NOT NULL
+   ,"YEAR"                 CHAR(4    )                 NOT NULL
+   ,"MONTH"                CHAR(2    )                 NOT NULL
+   ,"DAY"                  CHAR(2    )                 NOT NULL
+   ,TIME                   TIME                        NOT NULL
+   ,"HOUR"                 CHAR(2    )                 NOT NULL
+   ,DAYOFWEEK#             SMALLINT                    NOT NULL
+   ,DAYOFWEEK              CHAR(3    )                 NOT NULL
+   ,WEEK#                  INTEGER                     NOT NULL
+   ,LOCATION               CHAR(16   )                 NOT NULL
+   ,GROUPNAME              CHAR(8    )                 NOT NULL
+   ,MEMBERNAME             CHAR(8    )                 NOT NULL
+   ,FIRSTPKG               CHAR(18   )                 NOT NULL
+   ,ACCTTOKN               CHAR(22   )                 NOT NULL
+   ,ENDUSERID              CHAR(16   )                 NOT NULL
+   ,ENDUSERTX              CHAR(32   )                 NOT NULL
+   ,ENDUSERWN              CHAR(18   )                 NOT NULL
+   ,TRACEMASK              INTEGER                     NOT NULL
+   ,PSTNUMBER              CHAR(4    )                 NOT NULL
+   ,PSBNAME                CHAR(8    )                 NOT NULL
+   ,CICSTRAN               CHAR(4    )                 NOT NULL
+   ,CORRNAME               CHAR(8    )                 NOT NULL
+   ,REQLOCATION            CHAR(16   )                 NOT NULL
+   ,REQPROD                CHAR(8    )                 NOT NULL
+   ,REQPRODREL             CHAR(8    )                 NOT NULL
+   ,NETWORKID              CHAR(16   )                 NOT NULL
+   ,INTERVAL               INTEGER                     NOT NULL
+   ,TRANSCNT               INTEGER                     NOT NULL
+   ,IFCIDSEQ#              INTEGER                     NOT NULL
+   ,THDSTART               TIMESTAMP                   NOT NULL
+   ,ELAPSETOD              DECIMAL(15    , 6    )      NOT NULL
+   ,ELAPSETCB              DECIMAL(15    , 6    )      NOT NULL
+   ,ELAPSESRB              DECIMAL(15    , 6    )      NOT NULL
+   ,REASON                 INTEGER                     NOT NULL
+   ,P2COMMITS              REAL                        NOT NULL
+   ,ABORTS                 REAL                        NOT NULL
+   ,EDB2TOD                DECIMAL(15    , 6    )      NOT NULL
+   ,EDB2TCB                DECIMAL(15    , 6    )      NOT NULL
+   ,EDB2SRB                DECIMAL(15    , 6    )      NOT NULL
+   ,EWAITIO                DECIMAL(15    , 6    )      NOT NULL
+   ,EWAITLAL               DECIMAL(15    , 6    )      NOT NULL
+   ,ENTEXEVNT              REAL                        NOT NULL
+   ,WAITEVNT               REAL                        NOT NULL
+   ,WAITREADIO             DECIMAL(15    , 6    )      NOT NULL
+   ,WAITWRITEIO            DECIMAL(15    , 6    )      NOT NULL
+   ,WAITSYNCEVENT          DECIMAL(15    , 6    )      NOT NULL
+   ,WAITARCLOG             DECIMAL(15    , 6    )      NOT NULL
+   ,WEVLOCK                REAL                        NOT NULL
+   ,WEVREAD                REAL                        NOT NULL
+   ,WEVWRITE               REAL                        NOT NULL
+   ,WEVSYNCH               REAL                        NOT NULL
+   ,ARCLOG                 REAL                        NOT NULL
+   ,DRAINLKRND             REAL                        NOT NULL
+   ,DRAINLKWDR             DECIMAL(15    , 6    )      NOT NULL
+   ,CLAIMRLWCL             DECIMAL(15    , 6    )      NOT NULL
+   ,CLAIMRLRNC             REAL                        NOT NULL
+   ,ARCHREADWAR            DECIMAL(15    , 6    )      NOT NULL
+   ,ARCHREADNAR            REAL                        NOT NULL
+   ,OPENCLSELAP            DECIMAL(15    , 6    )      NOT NULL
+   ,SYSLGRNGELAP           DECIMAL(15    , 6    )      NOT NULL
+   ,DATASETELAP            DECIMAL(15    , 6    )      NOT NULL
+   ,OTHERSWELAP            DECIMAL(15    , 6    )      NOT NULL
+   ,OPENCLSEVNT            REAL                        NOT NULL
+   ,SYSLGRNGEVNT           REAL                        NOT NULL
+   ,DATASETEVNT            REAL                        NOT NULL
+   ,OTHERSWEVNT            REAL                        NOT NULL
+   ,LATCHCNTWTP            DECIMAL(15    , 6    )      NOT NULL
+   ,LATCHCNTRNH            REAL                        NOT NULL
+   ,GBLMSGELAP             DECIMAL(15    , 6    )      NOT NULL
+   ,GBLMSGEVNT             REAL                        NOT NULL
+   ,GBLLOKELAP             DECIMAL(15    , 6    )      NOT NULL
+   ,GBLLOKEVNT             REAL                        NOT NULL
+   ,SPTCB                  DECIMAL(15    , 6    )      NOT NULL
+   ,SPTCBINDB2             DECIMAL(15    , 6    )      NOT NULL
+   ,SPEVNT                 REAL                        NOT NULL
+   ,SPWAITELAP             DECIMAL(15    , 6    )      NOT NULL
+   ,SPWAITCNT              REAL                        NOT NULL
+   ,PARATASKS              REAL                        NOT NULL
+   ,PARALLTASKS            INTEGER                     NOT NULL
+   ,CPUSUCONV              INTEGER                     NOT NULL
+   ,LOGWRTEVNT             REAL                        NOT NULL
+   ,LOGWRTELAP             DECIMAL(15    , 6    )      NOT NULL
+   ,WLMSVCCLASS            CHAR(8    )                 NOT NULL
+   ,LOGRECORDS             REAL                        NOT NULL
+   ,LOGBYTES               REAL                        NOT NULL
+   ,FUNCTCB                DECIMAL(15    , 6    )      NOT NULL
+   ,FUNCSQLTCB             DECIMAL(15    , 6    )      NOT NULL
+   ,FUNCSQLEVNT            REAL                        NOT NULL
+   ,FUNCWAIT               DECIMAL(15    , 6    )      NOT NULL
+   ,FUNCELAP               DECIMAL(15    , 6    )      NOT NULL
+   ,FUNCSQLELAP            DECIMAL(15    , 6    )      NOT NULL
+   ,TRIGGERTCB             DECIMAL(15    , 6    )      NOT NULL
+   ,TRIGGERELAP            DECIMAL(15    , 6    )      NOT NULL
+   ,PREENCTCB              DECIMAL(15    , 6    )      NOT NULL
+   ,PREENCSQLTCB           DECIMAL(15    , 6    )      NOT NULL
+   ,SPROCELAP              DECIMAL(15    , 6    )      NOT NULL
+   ,SPROCSQLELAP           DECIMAL(15    , 6    )      NOT NULL
+   ,ENCTRIGGERTCB          DECIMAL(15    , 6    )      NOT NULL
+   ,ENCTRIGGERELAP         DECIMAL(15    , 6    )      NOT NULL
+   ,ALLIEDCNT              INTEGER                     NOT NULL
+   ,ALLIEDDISTCNT          INTEGER                     NOT NULL
+   ,DBATCNT                INTEGER                     NOT NULL
+   ,DBATDISTCNT            INTEGER                     NOT NULL
+   ,NOPKGCNT               INTEGER                     NOT NULL
+   ,NORMTERMCNT            INTEGER                     NOT NULL
+   ,ABNORMTERMCNT          INTEGER                     NOT NULL
+   ,SVPOINTREQ             REAL                        NOT NULL
+   ,SVPOINTREL             REAL                        NOT NULL
+   ,SVPOROLLBK             REAL                        NOT NULL
+   ,WTELAWTK               DECIMAL(15    , 6    )      NOT NULL
+   ,WTELAWTM               DECIMAL(15    , 6    )      NOT NULL
+   ,WTELAWTN               DECIMAL(15    , 6    )      NOT NULL
+   ,WTELAWTO               DECIMAL(15    , 6    )      NOT NULL
+   ,WTELAWTQ               DECIMAL(15    , 6    )      NOT NULL
+   ,WTEVARNK               REAL                        NOT NULL
+   ,WTEVARNM               REAL                        NOT NULL
+   ,WTEVARNN               REAL                        NOT NULL
+   ,WTEVARNO               REAL                        NOT NULL
+   ,WTEVARNQ               REAL                        NOT NULL
+   ,WTELAWFC               DECIMAL(15    , 6    )      NOT NULL
+   ,WTEVFCCT               REAL                        NOT NULL
+   ,WTELIXLT               DECIMAL(15    , 6    )      NOT NULL
+   ,WTEVIXLE               REAL                        NOT NULL
+   ,SETCURPREC             REAL                        NOT NULL
+   ,DCLGLOBALTT            REAL                        NOT NULL
+   ,PARAGLOBALTT           REAL                        NOT NULL
+   ,SELECTS                REAL                        NOT NULL
+   ,INSERTS                REAL                        NOT NULL
+   ,UPDATES                REAL                        NOT NULL
+   ,DELETES                REAL                        NOT NULL
+   ,DESCRIBES              REAL                        NOT NULL
+   ,PREPARES               REAL                        NOT NULL
+   ,OPENS                  REAL                        NOT NULL
+   ,FETCHES                REAL                        NOT NULL
+   ,CLOSES                 REAL                        NOT NULL
+   ,CREATETBL              REAL                        NOT NULL
+   ,CREATEINDX             REAL                        NOT NULL
+   ,CREATETSP              REAL                        NOT NULL
+   ,CREATESYN              REAL                        NOT NULL
+   ,CREATEDB               REAL                        NOT NULL
+   ,CREATESG               REAL                        NOT NULL
+   ,CREATEVU               REAL                        NOT NULL
+   ,DROPINDX               REAL                        NOT NULL
+   ,DROPTBL                REAL                        NOT NULL
+   ,DROPTSP                REAL                        NOT NULL
+   ,DROPDB                 REAL                        NOT NULL
+   ,DROPSYN                REAL                        NOT NULL
+   ,DROPSG                 REAL                        NOT NULL
+   ,DROPVU                 REAL                        NOT NULL
+   ,ALTERSG                REAL                        NOT NULL
+   ,ALTERTSP               REAL                        NOT NULL
+   ,ALTERTBL               REAL                        NOT NULL
+   ,ALTERINDX              REAL                        NOT NULL
+   ,COMMENTON              REAL                        NOT NULL
+   ,LOCKTBL                REAL                        NOT NULL
+   ,GRANTS                 REAL                        NOT NULL
+   ,REVOKES                REAL                        NOT NULL
+   ,INCRBINDS              REAL                        NOT NULL
+   ,LABELON                REAL                        NOT NULL
+   ,SETSQLID               REAL                        NOT NULL
+   ,CREATEALIAS            REAL                        NOT NULL
+   ,DROPALIAS              REAL                        NOT NULL
+   ,MULTINDEXYES           REAL                        NOT NULL
+   ,MULTINDEXNOS           REAL                        NOT NULL
+   ,MULTINDEXNOM           REAL                        NOT NULL
+   ,SETHOSTV               REAL                        NOT NULL
+   ,ALTERDB                REAL                        NOT NULL
+   ,DROPPKG                REAL                        NOT NULL
+   ,DESCRBTABL             REAL                        NOT NULL
+   ,PARAMAXDEG             INTEGER                     NOT NULL
+   ,PARATOTGRP             REAL                        NOT NULL
+   ,PARADEGCUR             REAL                        NOT NULL
+   ,PARADEGESA             REAL                        NOT NULL
+   ,PARADEGBUF             REAL                        NOT NULL
+   ,PARAREDGRP             REAL                        NOT NULL
+   ,PARANORGRP             REAL                        NOT NULL
+   ,PARACON1NO             REAL                        NOT NULL
+   ,PARACON2NO             REAL                        NOT NULL
+   ,PARARELNO              REAL                        NOT NULL
+   ,PARASETCON             REAL                        NOT NULL
+   ,PARASETCDG             REAL                        NOT NULL
+   ,PARADEGENC             REAL                        NOT NULL
+   ,PARARLFDISABLE         REAL                        NOT NULL
+   ,SETCURRULES            REAL                        NOT NULL
+   ,SQLCALL                REAL                        NOT NULL
+   ,SQLCALLAB              REAL                        NOT NULL
+   ,SQLCALLTO              REAL                        NOT NULL
+   ,SQLCALLRJ              REAL                        NOT NULL
+   ,PARACOORNO             REAL                        NOT NULL
+   ,PARAISORR              REAL                        NOT NULL
+   ,SQLCRGTT               REAL                        NOT NULL
+   ,REOPTIMIZE             REAL                        NOT NULL
+   ,PARAXDSGRP             REAL                        NOT NULL
+   ,PARACSKIP              REAL                        NOT NULL
+   ,ASSOCLOCR              REAL                        NOT NULL
+   ,ALLOCCUR               REAL                        NOT NULL
+   ,PREPFND                REAL                        NOT NULL
+   ,PREPNOTFND             REAL                        NOT NULL
+   ,PREPIMPLICIT           REAL                        NOT NULL
+   ,PREPNOIMPLICIT         REAL                        NOT NULL
+   ,PREPDISCMAX            REAL                        NOT NULL
+   ,PREPDISCPROG           REAL                        NOT NULL
+   ,RENAMETBL              REAL                        NOT NULL
+   ,CREATETRIGGER          REAL                        NOT NULL
+   ,DROPTRIGGER            REAL                        NOT NULL
+   ,SETCURRPATH            REAL                        NOT NULL
+   ,DROPUDF                REAL                        NOT NULL
+   ,DROPPROC               REAL                        NOT NULL
+   ,CREATEDISTINCT         REAL                        NOT NULL
+   ,DROPDISTINCT           REAL                        NOT NULL
+   ,CREATEFUNC             REAL                        NOT NULL
+   ,CREATEPROC             REAL                        NOT NULL
+   ,HOLDLOCATOR            REAL                        NOT NULL
+   ,FREELOCATOR            REAL                        NOT NULL
+   ,PARACONFIG             REAL                        NOT NULL
+   ,PARANOBP               REAL                        NOT NULL
+   ,CREATEAUXTBL           REAL                        NOT NULL
+   ,MAXLOBSTG              REAL                        NOT NULL
+   ,ALTERFUNC              REAL                        NOT NULL
+   ,ALTERPROC              REAL                        NOT NULL
+   ,DIRECTROW              REAL                        NOT NULL
+   ,DIRECTROWIX            REAL                        NOT NULL
+   ,DIRECTROWTS            REAL                        NOT NULL
+   ,STMTTRIGGER            REAL                        NOT NULL
+   ,ROWTRIGGER             REAL                        NOT NULL
+   ,SQLERRTRIGGER          REAL                        NOT NULL
+   ,MAXSQLCASCADE          REAL                        NOT NULL
+   ,FUNC                   REAL                        NOT NULL
+   ,FUNCAB                 REAL                        NOT NULL
+   ,FUNCTO                 REAL                        NOT NULL
+   ,FUNCRJ                 REAL                        NOT NULL
+   ,BPGETPAGE              REAL                        NOT NULL
+   ,BPPGUPDAT              REAL                        NOT NULL
+   ,BPSYNCRD               REAL                        NOT NULL
+   ,BPPREFET               REAL                        NOT NULL
+   ,BPSYNCWR               REAL                        NOT NULL
+   ,BPLISTPREF             REAL                        NOT NULL
+   ,BPDPF                  REAL                        NOT NULL
+   ,BPHRE                  REAL                        NOT NULL
+   ,BPHRF                  REAL                        NOT NULL
+   ,BPHWR                  REAL                        NOT NULL
+   ,BPHWF                  REAL                        NOT NULL
+   ,BPNGT                  REAL                        NOT NULL
+   ,BPSIO                  REAL                        NOT NULL
+   ,BPHPG                  REAL                        NOT NULL
+   ,DEADLOCKS              REAL                        NOT NULL
+   ,SUSPENDS               REAL                        NOT NULL
+   ,TIMEOUTS               REAL                        NOT NULL
+   ,LOCKESHR               REAL                        NOT NULL
+   ,LOCKEXCL               REAL                        NOT NULL
+   ,MAXPGLOCKS             INTEGER                     NOT NULL
+   ,SUSPLATCH              REAL                        NOT NULL
+   ,SUSPOTHER              REAL                        NOT NULL
+   ,LOCKREQS               REAL                        NOT NULL
+   ,CLAIMREQ               REAL                        NOT NULL
+   ,CLAIMREQUN             REAL                        NOT NULL
+   ,DRAINREQ               REAL                        NOT NULL
+   ,DRAINREQUN             REAL                        NOT NULL
+   ,DB2MBRMAX              INTEGER                     NOT NULL
+   ,MBRCORR1               CHAR(8    )                 NOT NULL
+   ,MBRCORR2               CHAR(8    )                 NOT NULL
+   ,MBRCORR3               CHAR(8    )                 NOT NULL
+   ,MBRCORR4               CHAR(8    )                 NOT NULL
+   ,MBRCORR5               CHAR(8    )                 NOT NULL
+   ,MBRCORR6               CHAR(8    )                 NOT NULL
+   ,MBRCORR7               CHAR(8    )                 NOT NULL
+   ,MBRCORR8               CHAR(8    )                 NOT NULL
+   ,DMRACSHARE             INTEGER                     NOT NULL
+   ,GBPREADINVBD           REAL                        NOT NULL
+   ,GBPREADINVBR           REAL                        NOT NULL
+   ,GBPREADINVBN           REAL                        NOT NULL
+   ,GBPREADNOPGD           REAL                        NOT NULL
+   ,GBPREADNOPGR           REAL                        NOT NULL
+   ,GBPREADNOPGN           REAL                        NOT NULL
+   ,GBPWRITCHG             REAL                        NOT NULL
+   ,GBPWRITCLEAN           REAL                        NOT NULL
+   ,GBPUNREGPG             REAL                        NOT NULL
+   ,GBPEXPLICITXI          REAL                        NOT NULL
+   ,GBPWRITCHG2            REAL                        NOT NULL
+   ,GBPWRITCHK2            REAL                        NOT NULL
+   ,GBPASYNPRIM            REAL                        NOT NULL
+   ,GBPASYNSEC             REAL                        NOT NULL
+   ,GBPDEPGETPG            REAL                        NOT NULL
+   ,GBPPLKSPMAP            REAL                        NOT NULL
+   ,GBPPLKDATA             REAL                        NOT NULL
+   ,GBPPLKIDX              REAL                        NOT NULL
+   ,GBPPLKUNLK             REAL                        NOT NULL
+   ,GBPPSUSSPMAP           REAL                        NOT NULL
+   ,GBPPSUSDATA            REAL                        NOT NULL
+   ,GBPPSUSIDX             REAL                        NOT NULL
+   ,GLPLOCKLK              REAL                        NOT NULL
+   ,GLPLOCKCHG             REAL                        NOT NULL
+   ,GLPLOCKUNLK            REAL                        NOT NULL
+   ,GLXESSYNCLK            REAL                        NOT NULL
+   ,GLXESSYNCCHG           REAL                        NOT NULL
+   ,GLXESSYNCUNLK          REAL                        NOT NULL
+   ,GLSUSPIRLM             REAL                        NOT NULL
+   ,GLSUSPXES              REAL                        NOT NULL
+   ,GLSUSPFALSE            REAL                        NOT NULL
+   ,GLINCOMPAT             REAL                        NOT NULL
+   ,GLNOTFYSENT            REAL                        NOT NULL
+   ,DMRAUTOCUST            INTEGER                     NOT NULL
+   ,RLFTABLEID             CHAR(2    )                 NOT NULL
+   ,RLFLIMDET              INTEGER                     NOT NULL
+   ,RLFSULIMIT             INTEGER                     NOT NULL
+   ,RLFCPULIMIT            INTEGER                     NOT NULL
+   ,RLFCPULIMITU           DECIMAL(15    , 6    )      NOT NULL
+   ,RLFCPUUSED             INTEGER                     NOT NULL
+   ,RLFCPUUSEDU            DECIMAL(15    , 6    )      NOT NULL
+   ,UNLOCKREQS             REAL                        NOT NULL
+   ,QUERYREQS              REAL                        NOT NULL
+   ,CHNGREQS               REAL                        NOT NULL
+   ,IRLMREQS               REAL                        NOT NULL
+   ,IFIELAPSED             DECIMAL(15    , 6    )      NOT NULL
+   ,IFITCBCPU              DECIMAL(15    , 6    )      NOT NULL
+   ,IFIELAPDTC             DECIMAL(15    , 6    )      NOT NULL
+   ,IFIELAPEXT             DECIMAL(15    , 6    )      NOT NULL
+   ,IFIENTRIES             REAL                        NOT NULL
+   ,IFILOGREAD             REAL                        NOT NULL
+   ,IFILOGREC              REAL                        NOT NULL
+   ,IFILOGRTN              REAL                        NOT NULL
+   ,IFIDATAROW             REAL                        NOT NULL
+   ,IFIDATADSC             REAL                        NOT NULL
+   ,IFIDATACAP             REAL                        NOT NULL
+   ,IFITABLRTN             REAL                        NOT NULL
+   )
+   IN DMRPRDB1.DMRPRTAD
+   CCSID EBCDIC
+   ;
+
+.SYNC 20        'CREATE TABLE DMRPR.DMRACDTL'
+
+
+-- **************************************************************
+-- *                                                            *
+-- * INDEX CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DMRPRDB1.ACDTINDX WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  DT0072
+
+    CREATE        UNIQUE INDEX DMRPRDB1.ACDTINDX
+           ON DMRPR.DMRACDTL
+          (DATE                 ASC
+          ,LOCATION             ASC
+          ,SUBSYSTEM            ASC
+          ,PLANNAME             ASC
+          ,AUTHID               ASC
+          ,DATETIME             ASC
+          ,IFCIDSEQ#            ASC
+          ,"CONNECTION"         ASC
+          ,CORRID               ASC
+          ,ORIGPRIMID           ASC
+          ,LUWIDNID             ASC
+          ,LUWIDLUNM            ASC
+          ,LUWIDINST            ASC
+          ,LUWIDCOMIT           ASC
+          )
+                     USING STOGROUP DMRPRSG1
+                                    PRIQTY 7000
+                                    SECQTY 2000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+           BUFFERPOOL BP2
+           CLOSE NO
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 25        'CREATE INDEX DMRPRDB1.ACDTINDX'
+
+
+.AUTH
+.DISCONN
+
+.SYNC 30        'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+.CALL UTIL LOAD PARM(DB2V)
+.ALLOC FI(PTILOAD)                                                     +
+   DA('DT0072.DMRPR.DMRACDTL.DATA')                                    +
+   RETAIN                                                              +
+   SHR
+.ALLOC FI(SYSDISC)                                                     +
+   DA('DT0072.DMRPR.DMRACDTL.DATA.D')                                  +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(460,920) TRACKS RLSE
+.ALLOC FI(SYSERR)                                                      +
+   DA('DT0072.DMRPR.DMRACDTL.DATA.E')                                  +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(852,1136) BLK(4096) RLSE
+.ALLOC FI(SYSMAP)                                                      +
+   DA('DT0072.DMRPR.DMRACDTL.DATA.M')                                  +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(171,227) BLK(4096) RLSE
+.ALLOC FI(PTIUT1) UNIT(SYSDA)                                          +
+   DA('DT0072.DMRPR.DMRACDTL.DATA.U')                                  +
+   SPACE(1,1) CYL                                                      +
+   MOD CATALOG
+.ALLOC FI(PTIOUT) UNIT(SYSDA)                                          +
+   DA('DT0072.DMRPR.DMRACDTL.DATA.O')                                  +
+   SPACE(1,1) CYL                                                      +
+   MOD CATALOG
+.DATA
+   LOAD DATA INDDN PTILOAD RESUME NO      LOG NO   ENFORCE CONSTRAINTS
+    DISCARDDN SYSDISC
+    ERRDDN   SYSERR
+    MAPDDN   SYSMAP
+    WORKDDN  (PTIUT1,PTIOUT)
+    SORTDEVT SYSDA
+    CONTINUEIF (72) = X'FF'
+    INTO TABLE DMRPR.DMRACDTL
+    (SYSTEMID             POSITION(     1) CHAR(     4)
+    ,SUBSYSTEM            POSITION(     *) CHAR(     4)
+    ,PLANNAME             POSITION(     *) CHAR(     8)
+    ,AUTHID               POSITION(     *) CHAR(     8)
+    ,"CONNECTION"         POSITION(     *) CHAR(     8)
+    ,CORRID               POSITION(     *) CHAR(    12)
+    ,ORIGPRIMID           POSITION(     *) CHAR(     8)
+    ,LUWIDNID             POSITION(     *) CHAR(     8)
+    ,LUWIDLUNM            POSITION(     *) CHAR(     8)
+    ,LUWIDINST            POSITION(     *) CHAR(     6)
+    ,LUWIDCOMIT           POSITION(     *) REAL
+    ,CONNTYPE             POSITION(     *) CHAR(     8)
+    ,DATETIME             POSITION(     *) TIMESTAMP EXTERNAL(    26)
+    ,DATE                 POSITION(     *) DATE EXTERNAL(    10)
+    ,"YEAR"               POSITION(     *) CHAR(     4)
+    ,"MONTH"              POSITION(     *) CHAR(     2)
+    ,"DAY"                POSITION(     *) CHAR(     2)
+    ,TIME                 POSITION(     *) TIME EXTERNAL(     8)
+    ,"HOUR"               POSITION(     *) CHAR(     2)
+    ,DAYOFWEEK#           POSITION(     *) SMALLINT
+    ,DAYOFWEEK            POSITION(     *) CHAR(     3)
+    ,WEEK#                POSITION(     *) INTEGER
+    ,LOCATION             POSITION(     *) CHAR(    16)
+    ,GROUPNAME            POSITION(     *) CHAR(     8)
+    ,MEMBERNAME           POSITION(     *) CHAR(     8)
+    ,FIRSTPKG             POSITION(     *) CHAR(    18)
+    ,ACCTTOKN             POSITION(     *) CHAR(    22)
+    ,ENDUSERID            POSITION(     *) CHAR(    16)
+    ,ENDUSERTX            POSITION(     *) CHAR(    32)
+    ,ENDUSERWN            POSITION(     *) CHAR(    18)
+    ,TRACEMASK            POSITION(     *) INTEGER
+    ,PSTNUMBER            POSITION(     *) CHAR(     4)
+    ,PSBNAME              POSITION(     *) CHAR(     8)
+    ,CICSTRAN             POSITION(     *) CHAR(     4)
+    ,CORRNAME             POSITION(     *) CHAR(     8)
+    ,REQLOCATION          POSITION(     *) CHAR(    16)
+    ,REQPROD              POSITION(     *) CHAR(     8)
+    ,REQPRODREL           POSITION(     *) CHAR(     8)
+    ,NETWORKID            POSITION(     *) CHAR(    16)
+    ,INTERVAL             POSITION(     *) INTEGER
+    ,TRANSCNT             POSITION(     *) INTEGER
+    ,IFCIDSEQ#            POSITION(     *) INTEGER
+    ,THDSTART             POSITION(     *) TIMESTAMP EXTERNAL(    26)
+    ,ELAPSETOD            POSITION(     *) DECIMAL
+    ,ELAPSETCB            POSITION(     *) DECIMAL
+    ,ELAPSESRB            POSITION(     *) DECIMAL
+    ,REASON               POSITION(     *) INTEGER
+    ,P2COMMITS            POSITION(     *) REAL
+    ,ABORTS               POSITION(     *) REAL
+    ,EDB2TOD              POSITION(     *) DECIMAL
+    ,EDB2TCB              POSITION(     *) DECIMAL
+    ,EDB2SRB              POSITION(     *) DECIMAL
+    ,EWAITIO              POSITION(     *) DECIMAL
+    ,EWAITLAL             POSITION(     *) DECIMAL
+    ,ENTEXEVNT            POSITION(     *) REAL
+    ,WAITEVNT             POSITION(     *) REAL
+    ,WAITREADIO           POSITION(     *) DECIMAL
+    ,WAITWRITEIO          POSITION(     *) DECIMAL
+    ,WAITSYNCEVENT        POSITION(     *) DECIMAL
+    ,WAITARCLOG           POSITION(     *) DECIMAL
+    ,WEVLOCK              POSITION(     *) REAL
+    ,WEVREAD              POSITION(     *) REAL
+    ,WEVWRITE             POSITION(     *) REAL
+    ,WEVSYNCH             POSITION(     *) REAL
+    ,ARCLOG               POSITION(     *) REAL
+    ,DRAINLKRND           POSITION(     *) REAL
+    ,DRAINLKWDR           POSITION(     *) DECIMAL
+    ,CLAIMRLWCL           POSITION(     *) DECIMAL
+    ,CLAIMRLRNC           POSITION(     *) REAL
+    ,ARCHREADWAR          POSITION(     *) DECIMAL
+    ,ARCHREADNAR          POSITION(     *) REAL
+    ,OPENCLSELAP          POSITION(     *) DECIMAL
+    ,SYSLGRNGELAP         POSITION(     *) DECIMAL
+    ,DATASETELAP          POSITION(     *) DECIMAL
+    ,OTHERSWELAP          POSITION(     *) DECIMAL
+    ,OPENCLSEVNT          POSITION(     *) REAL
+    ,SYSLGRNGEVNT         POSITION(     *) REAL
+    ,DATASETEVNT          POSITION(     *) REAL
+    ,OTHERSWEVNT          POSITION(     *) REAL
+    ,LATCHCNTWTP          POSITION(     *) DECIMAL
+    ,LATCHCNTRNH          POSITION(     *) REAL
+    ,GBLMSGELAP           POSITION(     *) DECIMAL
+    ,GBLMSGEVNT           POSITION(     *) REAL
+    ,GBLLOKELAP           POSITION(     *) DECIMAL
+    ,GBLLOKEVNT           POSITION(     *) REAL
+    ,SPTCB                POSITION(     *) DECIMAL
+    ,SPTCBINDB2           POSITION(     *) DECIMAL
+    ,SPEVNT               POSITION(     *) REAL
+    ,SPWAITELAP           POSITION(     *) DECIMAL
+    ,SPWAITCNT            POSITION(     *) REAL
+    ,PARATASKS            POSITION(     *) REAL
+    ,PARALLTASKS          POSITION(     *) INTEGER
+    ,CPUSUCONV            POSITION(     *) INTEGER
+    ,LOGWRTEVNT           POSITION(     *) REAL
+    ,LOGWRTELAP           POSITION(     *) DECIMAL
+    ,WLMSVCCLASS          POSITION(     *) CHAR(     8)
+    ,LOGRECORDS           POSITION(     *) REAL
+    ,LOGBYTES             POSITION(     *) REAL
+    ,FUNCTCB              POSITION(     *) DECIMAL
+    ,FUNCSQLTCB           POSITION(     *) DECIMAL
+    ,FUNCSQLEVNT          POSITION(     *) REAL
+    ,FUNCWAIT             POSITION(     *) DECIMAL
+    ,FUNCELAP             POSITION(     *) DECIMAL
+    ,FUNCSQLELAP          POSITION(     *) DECIMAL
+    ,TRIGGERTCB           POSITION(     *) DECIMAL
+    ,TRIGGERELAP          POSITION(     *) DECIMAL
+    ,PREENCTCB            POSITION(     *) DECIMAL
+    ,PREENCSQLTCB         POSITION(     *) DECIMAL
+    ,SPROCELAP            POSITION(     *) DECIMAL
+    ,SPROCSQLELAP         POSITION(     *) DECIMAL
+    ,ENCTRIGGERTCB        POSITION(     *) DECIMAL
+    ,ENCTRIGGERELAP       POSITION(     *) DECIMAL
+    ,ALLIEDCNT            POSITION(     *) INTEGER
+    ,ALLIEDDISTCNT        POSITION(     *) INTEGER
+    ,DBATCNT              POSITION(     *) INTEGER
+    ,DBATDISTCNT          POSITION(     *) INTEGER
+    ,NOPKGCNT             POSITION(     *) INTEGER
+    ,NORMTERMCNT          POSITION(     *) INTEGER
+    ,ABNORMTERMCNT        POSITION(     *) INTEGER
+    ,SVPOINTREQ           POSITION(     *) REAL
+    ,SVPOINTREL           POSITION(     *) REAL
+    ,SVPOROLLBK           POSITION(     *) REAL
+    ,WTELAWTK             POSITION(     *) DECIMAL
+    ,WTELAWTM             POSITION(     *) DECIMAL
+    ,WTELAWTN             POSITION(     *) DECIMAL
+    ,WTELAWTO             POSITION(     *) DECIMAL
+    ,WTELAWTQ             POSITION(     *) DECIMAL
+    ,WTEVARNK             POSITION(     *) REAL
+    ,WTEVARNM             POSITION(     *) REAL
+    ,WTEVARNN             POSITION(     *) REAL
+    ,WTEVARNO             POSITION(     *) REAL
+    ,WTEVARNQ             POSITION(     *) REAL
+    ,WTELAWFC             POSITION(     *) DECIMAL
+    ,WTEVFCCT             POSITION(     *) REAL
+    ,WTELIXLT             POSITION(     *) DECIMAL
+    ,WTEVIXLE             POSITION(     *) REAL
+    ,SETCURPREC           POSITION(     *) REAL
+    ,DCLGLOBALTT          POSITION(     *) REAL
+    ,PARAGLOBALTT         POSITION(     *) REAL
+    ,SELECTS              POSITION(     *) REAL
+    ,INSERTS              POSITION(     *) REAL
+    ,UPDATES              POSITION(     *) REAL
+    ,DELETES              POSITION(     *) REAL
+    ,DESCRIBES            POSITION(     *) REAL
+    ,PREPARES             POSITION(     *) REAL
+    ,OPENS                POSITION(     *) REAL
+    ,FETCHES              POSITION(     *) REAL
+    ,CLOSES               POSITION(     *) REAL
+    ,CREATETBL            POSITION(     *) REAL
+    ,CREATEINDX           POSITION(     *) REAL
+    ,CREATETSP            POSITION(     *) REAL
+    ,CREATESYN            POSITION(     *) REAL
+    ,CREATEDB             POSITION(     *) REAL
+    ,CREATESG             POSITION(     *) REAL
+    ,CREATEVU             POSITION(     *) REAL
+    ,DROPINDX             POSITION(     *) REAL
+    ,DROPTBL              POSITION(     *) REAL
+    ,DROPTSP              POSITION(     *) REAL
+    ,DROPDB               POSITION(     *) REAL
+    ,DROPSYN              POSITION(     *) REAL
+    ,DROPSG               POSITION(     *) REAL
+    ,DROPVU               POSITION(     *) REAL
+    ,ALTERSG              POSITION(     *) REAL
+    ,ALTERTSP             POSITION(     *) REAL
+    ,ALTERTBL             POSITION(     *) REAL
+    ,ALTERINDX            POSITION(     *) REAL
+    ,COMMENTON            POSITION(     *) REAL
+    ,LOCKTBL              POSITION(     *) REAL
+    ,GRANTS               POSITION(     *) REAL
+    ,REVOKES              POSITION(     *) REAL
+    ,INCRBINDS            POSITION(     *) REAL
+    ,LABELON              POSITION(     *) REAL
+    ,SETSQLID             POSITION(     *) REAL
+    ,CREATEALIAS          POSITION(     *) REAL
+    ,DROPALIAS            POSITION(     *) REAL
+    ,MULTINDEXYES         POSITION(     *) REAL
+    ,MULTINDEXNOS         POSITION(     *) REAL
+    ,MULTINDEXNOM         POSITION(     *) REAL
+    ,SETHOSTV             POSITION(     *) REAL
+    ,ALTERDB              POSITION(     *) REAL
+    ,DROPPKG              POSITION(     *) REAL
+    ,DESCRBTABL           POSITION(     *) REAL
+    ,PARAMAXDEG           POSITION(     *) INTEGER
+    ,PARATOTGRP           POSITION(     *) REAL
+    ,PARADEGCUR           POSITION(     *) REAL
+    ,PARADEGESA           POSITION(     *) REAL
+    ,PARADEGBUF           POSITION(     *) REAL
+    ,PARAREDGRP           POSITION(     *) REAL
+    ,PARANORGRP           POSITION(     *) REAL
+    ,PARACON1NO           POSITION(     *) REAL
+    ,PARACON2NO           POSITION(     *) REAL
+    ,PARARELNO            POSITION(     *) REAL
+    ,PARASETCON           POSITION(     *) REAL
+    ,PARASETCDG           POSITION(     *) REAL
+    ,PARADEGENC           POSITION(     *) REAL
+    ,PARARLFDISABLE       POSITION(     *) REAL
+    ,SETCURRULES          POSITION(     *) REAL
+    ,SQLCALL              POSITION(     *) REAL
+    ,SQLCALLAB            POSITION(     *) REAL
+    ,SQLCALLTO            POSITION(     *) REAL
+    ,SQLCALLRJ            POSITION(     *) REAL
+    ,PARACOORNO           POSITION(     *) REAL
+    ,PARAISORR            POSITION(     *) REAL
+    ,SQLCRGTT             POSITION(     *) REAL
+    ,REOPTIMIZE           POSITION(     *) REAL
+    ,PARAXDSGRP           POSITION(     *) REAL
+    ,PARACSKIP            POSITION(     *) REAL
+    ,ASSOCLOCR            POSITION(     *) REAL
+    ,ALLOCCUR             POSITION(     *) REAL
+    ,PREPFND              POSITION(     *) REAL
+    ,PREPNOTFND           POSITION(     *) REAL
+    ,PREPIMPLICIT         POSITION(     *) REAL
+    ,PREPNOIMPLICIT       POSITION(     *) REAL
+    ,PREPDISCMAX          POSITION(     *) REAL
+    ,PREPDISCPROG         POSITION(     *) REAL
+    ,RENAMETBL            POSITION(     *) REAL
+    ,CREATETRIGGER        POSITION(     *) REAL
+    ,DROPTRIGGER          POSITION(     *) REAL
+    ,SETCURRPATH          POSITION(     *) REAL
+    ,DROPUDF              POSITION(     *) REAL
+    ,DROPPROC             POSITION(     *) REAL
+    ,CREATEDISTINCT       POSITION(     *) REAL
+    ,DROPDISTINCT         POSITION(     *) REAL
+    ,CREATEFUNC           POSITION(     *) REAL
+    ,CREATEPROC           POSITION(     *) REAL
+    ,HOLDLOCATOR          POSITION(     *) REAL
+    ,FREELOCATOR          POSITION(     *) REAL
+    ,PARACONFIG           POSITION(     *) REAL
+    ,PARANOBP             POSITION(     *) REAL
+    ,CREATEAUXTBL         POSITION(     *) REAL
+    ,MAXLOBSTG            POSITION(     *) REAL
+    ,ALTERFUNC            POSITION(     *) REAL
+    ,ALTERPROC            POSITION(     *) REAL
+    ,DIRECTROW            POSITION(     *) REAL
+    ,DIRECTROWIX          POSITION(     *) REAL
+    ,DIRECTROWTS          POSITION(     *) REAL
+    ,STMTTRIGGER          POSITION(     *) REAL
+    ,ROWTRIGGER           POSITION(     *) REAL
+    ,SQLERRTRIGGER        POSITION(     *) REAL
+    ,MAXSQLCASCADE        POSITION(     *) REAL
+    ,FUNC                 POSITION(     *) REAL
+    ,FUNCAB               POSITION(     *) REAL
+    ,FUNCTO               POSITION(     *) REAL
+    ,FUNCRJ               POSITION(     *) REAL
+    ,BPGETPAGE            POSITION(     *) REAL
+    ,BPPGUPDAT            POSITION(     *) REAL
+    ,BPSYNCRD             POSITION(     *) REAL
+    ,BPPREFET             POSITION(     *) REAL
+    ,BPSYNCWR             POSITION(     *) REAL
+    ,BPLISTPREF           POSITION(     *) REAL
+    ,BPDPF                POSITION(     *) REAL
+    ,BPHRE                POSITION(     *) REAL
+    ,BPHRF                POSITION(     *) REAL
+    ,BPHWR                POSITION(     *) REAL
+    ,BPHWF                POSITION(     *) REAL
+    ,BPNGT                POSITION(     *) REAL
+    ,BPSIO                POSITION(     *) REAL
+    ,BPHPG                POSITION(     *) REAL
+    ,DEADLOCKS            POSITION(     *) REAL
+    ,SUSPENDS             POSITION(     *) REAL
+    ,TIMEOUTS             POSITION(     *) REAL
+    ,LOCKESHR             POSITION(     *) REAL
+    ,LOCKEXCL             POSITION(     *) REAL
+    ,MAXPGLOCKS           POSITION(     *) INTEGER
+    ,SUSPLATCH            POSITION(     *) REAL
+    ,SUSPOTHER            POSITION(     *) REAL
+    ,LOCKREQS             POSITION(     *) REAL
+    ,CLAIMREQ             POSITION(     *) REAL
+    ,CLAIMREQUN           POSITION(     *) REAL
+    ,DRAINREQ             POSITION(     *) REAL
+    ,DRAINREQUN           POSITION(     *) REAL
+    ,DB2MBRMAX            POSITION(     *) INTEGER
+    ,MBRCORR1             POSITION(     *) CHAR(     8)
+    ,MBRCORR2             POSITION(     *) CHAR(     8)
+    ,MBRCORR3             POSITION(     *) CHAR(     8)
+    ,MBRCORR4             POSITION(     *) CHAR(     8)
+    ,MBRCORR5             POSITION(     *) CHAR(     8)
+    ,MBRCORR6             POSITION(     *) CHAR(     8)
+    ,MBRCORR7             POSITION(     *) CHAR(     8)
+    ,MBRCORR8             POSITION(     *) CHAR(     8)
+    ,DMRACSHARE           POSITION(     *) INTEGER
+    ,GBPREADINVBD         POSITION(     *) REAL
+    ,GBPREADINVBR         POSITION(     *) REAL
+    ,GBPREADINVBN         POSITION(     *) REAL
+    ,GBPREADNOPGD         POSITION(     *) REAL
+    ,GBPREADNOPGR         POSITION(     *) REAL
+    ,GBPREADNOPGN         POSITION(     *) REAL
+    ,GBPWRITCHG           POSITION(     *) REAL
+    ,GBPWRITCLEAN         POSITION(     *) REAL
+    ,GBPUNREGPG           POSITION(     *) REAL
+    ,GBPEXPLICITXI        POSITION(     *) REAL
+    ,GBPWRITCHG2          POSITION(     *) REAL
+    ,GBPWRITCHK2          POSITION(     *) REAL
+    ,GBPASYNPRIM          POSITION(     *) REAL
+    ,GBPASYNSEC           POSITION(     *) REAL
+    ,GBPDEPGETPG          POSITION(     *) REAL
+    ,GBPPLKSPMAP          POSITION(     *) REAL
+    ,GBPPLKDATA           POSITION(     *) REAL
+    ,GBPPLKIDX            POSITION(     *) REAL
+    ,GBPPLKUNLK           POSITION(     *) REAL
+    ,GBPPSUSSPMAP         POSITION(     *) REAL
+    ,GBPPSUSDATA          POSITION(     *) REAL
+    ,GBPPSUSIDX           POSITION(     *) REAL
+    ,GLPLOCKLK            POSITION(     *) REAL
+    ,GLPLOCKCHG           POSITION(     *) REAL
+    ,GLPLOCKUNLK          POSITION(     *) REAL
+    ,GLXESSYNCLK          POSITION(     *) REAL
+    ,GLXESSYNCCHG         POSITION(     *) REAL
+    ,GLXESSYNCUNLK        POSITION(     *) REAL
+    ,GLSUSPIRLM           POSITION(     *) REAL
+    ,GLSUSPXES            POSITION(     *) REAL
+    ,GLSUSPFALSE          POSITION(     *) REAL
+    ,GLINCOMPAT           POSITION(     *) REAL
+    ,GLNOTFYSENT          POSITION(     *) REAL
+    ,DMRAUTOCUST          POSITION(     *) INTEGER
+    ,RLFTABLEID           POSITION(     *) CHAR(     2)
+    ,RLFLIMDET            POSITION(     *) INTEGER
+    ,RLFSULIMIT           POSITION(     *) INTEGER
+    ,RLFCPULIMIT          POSITION(     *) INTEGER
+    ,RLFCPULIMITU         POSITION(     *) DECIMAL
+    ,RLFCPUUSED           POSITION(     *) INTEGER
+    ,RLFCPUUSEDU          POSITION(     *) DECIMAL
+    ,UNLOCKREQS           POSITION(     *) REAL
+    ,QUERYREQS            POSITION(     *) REAL
+    ,CHNGREQS             POSITION(     *) REAL
+    ,IRLMREQS             POSITION(     *) REAL
+    ,IFIELAPSED           POSITION(     *) DECIMAL
+    ,IFITCBCPU            POSITION(     *) DECIMAL
+    ,IFIELAPDTC           POSITION(     *) DECIMAL
+    ,IFIELAPEXT           POSITION(     *) DECIMAL
+    ,IFIENTRIES           POSITION(     *) REAL
+    ,IFILOGREAD           POSITION(     *) REAL
+    ,IFILOGREC            POSITION(     *) REAL
+    ,IFILOGRTN            POSITION(     *) REAL
+    ,IFIDATAROW           POSITION(     *) REAL
+    ,IFIDATADSC           POSITION(     *) REAL
+    ,IFIDATACAP           POSITION(     *) REAL
+    ,IFITABLRTN           POSITION(     *) REAL
+    )
+.ENDDATA
+.FREE FI(PTILOAD)
+.FREE FI(SYSDISC)
+.FREE FI(SYSERR)
+.FREE FI(SYSMAP)
+.FREE FI(PTIUT1)
+.FREE FI(PTIOUT)
+
+.SYNC 35        'LOAD TABLE DMRPR.DMRACDTL'
+
+--==============================================================================
+-- VRCM6.1.5      CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      11-27-02 09:53
+--==============================================================================
+--
+--  OBJECT TYPE: TABLESPACE                 TOTAL:                1
+--
+--      OBJECT NAME/DBNAME        EDITED         NEW NAME/DBNAME
+--
+--      DMRPRTAD           DMRPRDB1     Y
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                1
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      DMRACDTL           DMRPR
+--
+--  OBJECT TYPE: INDEX                      TOTAL:                1
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      ACDTINDX           DMRPRDB1
+--
+--==============================================================================
+--= VRCM6.1.5  CA-DB2 ALTERATION CHANGE ANALYSIS REPORT   11-27-02 09:53       =
+--==============================================================================
+--
+--************************** SELECTED OBJECTS **********************************
+--   OBJECT TYPE          NAME                         CREATOR
+--   -----------          ----                         -------
+--     TS                 DMRPRTAD                     DMRPRDB1
+--
+--                             TOTAL SELECTED OBJECTS:         1
+--
+--+++++++++++++++++++++++++ NO DROPPED OBJECTS +++++++++++++++++++++++++++++++++
+--
+--+++++++++++++++++++++++++++ NO NEW OBJECTS +++++++++++++++++++++++++++++++++++
+--
+--+++++++++++++++++++++++++++ ALTERED OBJECTS ++++++++++++++++++++++++++++++++++
+--
+--  Tablespace DMRPRDB1.DMRPRTAD Changes:
+--
+--  Field       Currently                       Changed To
+--  -----       ---------                       ----------
+--  SEGSIZE     00                              32
+--
+--  ------------ Tablespace Partition Changes ------------
+--
+--  Field       Currently                       Changed To
+--  -----       ---------                       ----------
+--  PARTITION   0001                            0001
+--  PRIMARY     70000                           72000
+--  SECONDARY   20000                           7200
+--
+--                             TOTAL ALTERED OBJECTS:          1
+--
+--======================= END OF ANALYSIS REPORT ===============================

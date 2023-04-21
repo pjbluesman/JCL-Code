@@ -1,0 +1,10 @@
+//U477625 JOB (,105),'DB2N V8 REBUILDX',CLASS=S,MSGCLASS=X,
+//     REGION=0M,NOTIFY=&SYSUID
+//****************************************************************
+//* STEP REBUILD INDEXES
+//****************************************************************
+//REBUINX EXEC DSNUPRON,SYSTEM=DB2N,
+//             UID='DSNREBIX'
+//DSNUPRON.SYSIN  DD  *
+REBUILD INDEX(ALL) TABLESPACE DSNDB06.SYSDBASE
+  SORTDEVT SYSDA SORTNUM 4

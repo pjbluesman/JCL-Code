@@ -1,0 +1,14 @@
+//UXD001M  JOB ,'GIL RM102',CLASS=S,MSGCLASS=X,                         00010000
+//  REGION=0M,TIME=1440
+//STEP01 EXEC DSNUPROE,SYSTEM=DB2E,UID='RECVDB2E',UTPROC=''
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2F      *
+//*                                                        *
+//*  REBUILD ALL INDEXES ON DSNDB01.SYSUTILX               *
+//*                                                        *
+//**********************************************************
+//DSNUPROE.SYSIN    DD  *
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSDBASE
+/*
+//

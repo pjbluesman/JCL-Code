@@ -1,0 +1,14 @@
+//UXD001M  JOB ,'DB2 GROUP',CLASS=S,MSGCLASS=X,                         00010000
+//  REGION=0M,TIME=1440
+//STEP01 EXEC DSNUPROV,SYSTEM=DB3V,UID='LOGONLY',UTPROC=''
+//**********************************************************
+//*                                                        *
+//*  RECOVER BOOKINGS TABLE                                *
+//*                                                        *
+//*                                                        *
+//*                                                        *
+//**********************************************************
+//DSNUPROV.SYSIN    DD  *
+RECOVER TABLESPACE EBKA1S01.TSKA0021 DSNUM 20 LOGONLY
+/*
+//

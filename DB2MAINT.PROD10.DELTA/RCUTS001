@@ -1,0 +1,145 @@
+
+--==============================================================================
+-- VP411AD      PLATINUM RC/ALTER      ANALYSIS REPORT      12-01-95 10:02
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> RCUPDATE  DESCRIPTION  ===> RC/UPDATE ALTERATION
+--CREATOR  ==> D54808T   SHARE OPTION ===> N (U,Y,N)  SRC SSID ===> DSNA
+--
+--ALTERED OBJECTS:
+--   OBJECT TYPE       NAME                 CREATOR
+--   TABLESPACE        SCDLT109             WRDL5R00
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> O (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> CATALOG
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> D73294T
+--
+--  SECURITY          ===> N             STATISTICS   ===> N
+--  DEFAULT SQLID     ===>               CHECK DATA   ===> N
+--                                       IMAGE COPY   ===> N
+--                                       BIND/REBIND  ===> N
+--  ALL ROWS          ===> Y             REORG        ===> B
+--  NUMBER ROWS       ===>               RECOVER IX   ===> Y
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS         ===> N
+--  SQL ONLY          ===> N
+--  COMMIT ASAP       ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> N
+--  DELETE TEMPORARY DATASETS ===> N
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+.SYSTEM SQLDDL
+.CONNECT DSNA
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLESPACE CREATE AND ALTER STATEMENTS                     *
+-- *                                                            *
+-- **************************************************************
+
+
+-- WRDL5R00.SCDLT109 WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    .AUTH D66179T
+
+
+    .CALL DSN PARM(DSNA)
+    .DATA
+        -STO DB(WRDL5R00) SPACE(SCDLT109)
+    .ENDDATA
+
+    ALTER TABLESPACE WRDL5R00.SCDLT109
+                     USING STOGROUP W5RDLTSG
+                                    PRIQTY 120000
+                                    SECQTY 12000
+    ;
+
+
+    .CALL DSN PARM(DSNA)
+    .DATA
+        -STA DB(WRDL5R00) SPACE(SCDLT109) ACCESS(RW)
+    .ENDDATA
+
+.SYNC 5     'ALTER TABLESPACE WRDL5R00.SCDLT109'
+
+.AUTH
+.DISCONN
+
+.SYNC 10    'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+.ALLOC FI(ROUNLDDN)                                                    +
+   DA('D54808T.WRDL5R00.SCDLT109.REORG')                               +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) CYL RLSE
+.ALLOC FI(PTIUT1) UNIT(SYSDA)                                          +
+   DA('D54808T.WRDL5R00.SCDLT109.U')                                   +
+   SPACE(1,1) CYL                                                      +
+   MOD CATALOG
+.ALLOC FI(PTIOUT) UNIT(SYSDA)                                          +
+   DA('D54808T.WRDL5R00.SCDLT109.O')                                   +
+   SPACE(1,1) CYL                                                      +
+   MOD CATALOG
+.CALL UTIL REORG PARM(DSNA)
+.DATA
+   REORG TABLESPACE WRDL5R00.SCDLT109
+         LOG NO
+         UNLDDN   ROUNLDDN
+         WORKDDN  (PTIUT1,PTIOUT)
+         SORTDEVT SYSDA
+.ENDDATA
+.FREE FI(ROUNLDDN)
+.FREE FI(PTIUT1)
+.FREE FI(PTIOUT)
+
+
+.SYNC 15    'REORG TABLESPACE WRDL5R00.SCDLT109'
+
+
+--==============================================================================
+-- VP411AD      PLATINUM RC/MIGRATOR IMPACT ANALYSIS      12-01-95 10:02
+--==============================================================================
+--
+--  OBJECT TYPE: TABLESPACE                 TOTAL:                1
+--
+--      OBJECT NAME/DBNAME        EDITED         NEW NAME/DBNAME
+--
+--      SCDLT109           WRDL5R00     Y
+--
+--==============================================================================
+--= VP411AD  PLATINUM ALTERATION CHANGE ANALYSIS REPORT   12-01-95 10:02       =
+--==============================================================================
+--
+--************************** SELECTED OBJECTS **********************************
+--   OBJECT TYPE          NAME                         CREATOR
+--   -----------          ----                         -------
+--     TS                 SCDLT109                     WRDL5R00
+--
+--+++++++++++++++++++++++++ NO DROPPED OBJECTS +++++++++++++++++++++++++++++++++
+--
+--+++++++++++++++++++++++++++ NO NEW OBJECTS +++++++++++++++++++++++++++++++++++
+--
+--+++++++++++++++++++++++++++ ALTERED OBJECTS ++++++++++++++++++++++++++++++++++
+--
+--  Tablespace WRDL5R00.SCDLT109 Changes:
+--
+--  ------------ Tablespace Partition Changes ------------
+--  Field       Currently                       Changed To
+--  -----       ---------                       ----------
+--  PARTITION   01                              01
+--  PRIMARY     2060                            120000
+--  SECONDARY   500                             12000
+--
+--======================= END OF ANALYSIS REPORT ===============================

@@ -1,0 +1,461 @@
+//UXD000M  JOB ,'GIL DB2',CLASS=S,MSGCLASS=X,                           00010000
+//  REGION=0M,TIME=1440
+//STEP01 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB01.SYSUTILX                              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB01.SYSUTILX
+/*
+//STEP02 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  REBUILD ALL INDEXES ON DSNDB01.SYSUTILX               *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+REBUILD INDEX (ALL) TABLESPACE DSNDB01.SYSUTILX
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP03 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB01.DBD01                                 *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB01.DBD01
+/*
+//STEP04 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSCOPY                               *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSCOPY
+/*
+//STEP05 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER ALL INDEXES FOR DSNDB06.SYSCOPY               *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSCOPY
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP06 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB01.SYSLGRNX                              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB01.SYSLGRNX
+/*
+//STEP07 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER ALL INDEXES FOR DSNDB01.SYSLGRNX              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+REBUILD INDEX (ALL) TABLESPACE DSNDB01.SYSLGRNX
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP08 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSDBAUT                              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSDBAUT
+/*
+//STEP09 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER ALL INDEXES FOR DSNDB06.SYSDBAUT              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSDBAUT
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP10 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSUSER                               *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSUSER
+/*
+//STEP11 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSDBASE                              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSDBASE
+/*
+//STEP12 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER ALL SYSTEM INDEXES FOR DSNDB06.SYSDBASE       *
+//*              SYSTEM INDEXES FOR DSNDB06.SYSUSER        *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+REBUILD INDEX
+            ( SYSIBM.DSNDSX01,
+              SYSIBM.DSNDTX01,
+              SYSIBM.DSNDTX02,
+              SYSIBM.DSNDPX01,
+              SYSIBM.DSNDPX02,
+              SYSIBM.DSNATX01,
+              SYSIBM.DSNATX02,
+              SYSIBM.DSNATX03,
+              SYSIBM.DSNDYX01,
+              SYSIBM.DSNDLX01,
+              SYSIBM.DSNDKX01,
+              SYSIBM.DSNDRX01,
+              SYSIBM.DSNDRX02,
+              SYSIBM.DSNDXX01,
+              SYSIBM.DSNDXX02,
+              SYSIBM.DSNDXX03,
+              SYSIBM.DSNDCX01,
+              SYSIBM.DSNDCX02
+            )
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  5
+REBUILD INDEX
+            ( SYSIBM.DSNAUH01,
+              SYSIBM.DSNAUX02
+            )
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  5
+/*
+//STEP14 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSGROUP AND ALL INDEXES              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSGROUP
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSGROUP
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP15 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSGPAUT AND ALL INDEXES              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSGPAUT
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSGPAUT
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP16 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSPLAN  AND ALL INDEXES              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSPLAN
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSPLAN
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP17 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSPKAGE AND ALL INDEXES              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSPKAGE
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSPKAGE
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP18 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSSTATS AND ALL INDEXES              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSSTATS
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSSTATS
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP19 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSSTR   AND ALL INDEXES              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSSTR
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSSTR
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP20 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSVIEWS AND ALL INDEXES              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSVIEWS
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSVIEWS
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP21 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSOBJ   AND ALL INDEXES              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSOBJ
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSOBJ
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP22 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSDDF   AND ALL INDEXES              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSDDF
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSDDF
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP23 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSSEQ   AND ALL INDEXES              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSSEQ
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSSEQ
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+//STEP24 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSSEQ2   AND ALL INDEXES             *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSSEQ2
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSSEQ2
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP25 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSHIST   AND ALL INDEXES             *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSHIST
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSHIST
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP26 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSJAUXA  AND ALL INDEXES             *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSJAUXA
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSJAUXA
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP27 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB06.SYSJAUXB  AND ALL INDEXES             *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSJAUXB
+REBUILD INDEX (ALL) TABLESPACE DSNDB06.SYSJAUXB
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP28 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB01.SCT02    AND ALL INDEXES              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB01.SCT02
+REBUILD INDEX (ALL) TABLESPACE DSNDB01.SCT02
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//STEP29 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER DSNDB01.SPT01    AND ALL INDEXES              *
+//*                                                        *
+//**********************************************************
+//DSNUPROR.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB01.SPT01
+REBUILD INDEX (ALL) TABLESPACE DSNDB01.SPT01
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//*//STEP30 EXEC DSNUPROR,SYSTEM=DB2R,UID='RECVDB2R',UTPROC=''
+//*
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2R      *
+//*                                                        *
+//*  RECOVER ALL USER   INDEXES FOR DSNDB06.SYSDBASE       *
+//*              USER   INDEXES FOR DSNDB06.SYSUSER        *
+//*                                                        *
+//**********************************************************
+//*//DSNUPROR.SYSIN    DD  *
+//*REBUILD INDEX (SAPR3."SYSTBLSP~0"   ,
+//*               SAPR3."SYSTABLE~0"   ,
+//*               D54808E.PMSYSKEYS1   ,
+//*               D54808E.PMSYSFIELDS1 )
+//*        SORTKEYS
+//*        SORTDEVT 3390
+//*        SORTNUM  6
+//*/*
+//

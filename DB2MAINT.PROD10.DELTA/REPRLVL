@@ -1,0 +1,30 @@
+//UXD000M  JOB D-813-000-N-00,'DB2 SYSTEM   ',      /* MJJOBCD
+//   CLASS=S,MSGCLASS=X
+//********************************************************************  00001000
+//*                                                                     00010000
+//*  REPAIR UTILITY                                                     00020000
+//*                                                                     00030000
+//********************************************************************  00040000
+//* 1) REPAIR UTILITY - DELETE RID                                      00060000
+//********************************************************************  00070000
+//*                                                                     00090000
+//UTIL0001  EXEC PGM=DSNUTILB,
+//         PARM='DB2N,REPAIR1'                                          00110000
+//STEPLIB  DD  DSN=SSXDT.DB2N.SDSNEXIT,DISP=SHR                         00120000
+//         DD  DSN=SSXDT.DB2N.RUNLIB.LOAD,DISP=SHR                      00130000
+//         DD  DSN=SDB2N.SDSNLOAD,DISP=SHR                              00130000
+//SYSABEND DD  SYSOUT=*                                                 00140000
+//SYSPRINT DD  SYSOUT=*                                                 00150000
+//UTPRINT  DD  SYSOUT=*                                                 00160000
+//SORTWK01 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00170000
+//SORTWK02 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00180000
+//SORTWK03 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00190000
+//SORTWK04 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00200000
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00210000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00220000
+//SYSIN    DD  *                                                        00230000
+REPAIR                                                                  00240000
+LEVELID TABLESPACE A130XS0C.DB2GLOT
+REPAIR                                                                  00240000
+LEVELID TABLESPACE A100X592.DB2QW02
+//*                                                                     00010000

@@ -1,0 +1,22 @@
+//UXC401ME JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID          00010005
+/*JOBPARM SYSAFF=MVSI                                                   00020006
+//*                                                                     00030000
+//*                                                                     00170000
+//JOBLIB  DD  DSN=SDB2G.SDSNLOAD,DISP=SHR                               00180006
+//*                                                                     08360000
+//*        STEP  1: GRANT SYSADM AUTHORITY TO SAP BASIS INDIVIDUAL      08370002
+//*                                                                     08380000
+//PH01S06 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     08390000
+//SYSTSPRT DD  SYSOUT=*                                                 08400000
+//SYSTSIN  DD  *                                                        08410000
+  DSN SYSTEM(DB2G)                                                      08420007
+  RUN  PROGRAM(DSNTIAD) PLAN(DSNTIAD) -                                 08430000
+       LIB('SSXDP.DB2G.RUNLIB.LOAD')                                    08440008
+//SYSPRINT DD  SYSOUT=*                                                 08450000
+//SYSUDUMP DD  SYSOUT=*                                                 08460000
+//SYSIN    DD  *                                                        08470000
+  SET CURRENT SQLID = 'LSEBDB2';                                        08480000
+  REVOKE SYSADM FROM T646172 ;                                          09520008
+  COMMIT;                                                               09530000
+/*                                                                      15290002
+//                                                                      15291002

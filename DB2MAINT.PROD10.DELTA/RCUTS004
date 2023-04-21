@@ -1,0 +1,141 @@
+
+--==============================================================================
+-- VRCM6.1.5    CA-DB2   RC/ALTER      ANALYSIS REPORT      10-31-02 14:28
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> RCUPDATE  DESCRIPTION  ===> RC/UPDATE ALTERATION
+--CREATOR  ==> DT0072    SHARE OPTION ===> N (U,Y,N,X,L)  SRC SSID ===> DB2R
+--
+--ALTERED OBJECTS:
+--   OBJECT TYPE       NAME                 CREATOR
+--   TABLESPACE        TSKD0200             EBKD2P02
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> O (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> CATALOG
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> DT0072
+--
+--  SECURITY          ===> N             STATISTICS   ===> N
+--  DEFAULT SQLID     ===>               CHECK DATA   ===> N
+--                                       IMAGE COPY   ===> N
+--                                       BIND/REBIND  ===> N
+--  ALL ROWS          ===> N             REORG        ===> B
+--  NUMBER ROWS       ===>               RECOVER IX   ===> N
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS         ===> N             VSAM DEFINES  ===> Y
+--  SQL ONLY          ===> N             VSAM DELETES  ===> Y
+--  COMMIT ASAP       ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> N
+--  DELETE TEMPORARY DATASETS ===> N
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+.SYSTEM SQLDDL
+.CONNECT DB2R
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLESPACE CREATE AND ALTER STATEMENTS                     *
+-- *                                                            *
+-- **************************************************************
+
+
+-- EBKD2P02.TSKD0200 WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+    .AUTH DT0037
+
+
+    ALTER TABLESPACE EBKD2P02.TSKD0200
+                     FREEPAGE 20
+                     PCTFREE 10
+    ;
+
+.SYNC 5         'ALTER TABLESPACE EBKD2P02.TSKD0200'
+
+.AUTH
+.DISCONN
+
+.SYNC 10        'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+
+  .ALLOC FI(RRUNLD)                                                    +
+     DA('DT0072.EBKD2P02.TSKD0200.REORG')                              +
+     NEW CATALOG UNIT(SYSDA)                                           +
+     SPACE(2,1) CYL RLSE
+  .ALLOC FI(PTIUT1) UNIT(SYSDA)                                        +
+     DA('DT0072.EBKD2P02.TSKD0200.U')                                  +
+     SPACE(6,4) CYL                                                    +
+     MOD CATALOG
+  .ALLOC FI(PTIUT101) UNIT(SYSDA)                                      +
+     DA('DT0072.EBKD2P02.TSKD0200.U101')                               +
+     SPACE(2,2) CYL                                                    +
+     MOD CATALOG
+  .ALLOC FI(PTIOUT) UNIT(SYSDA)                                        +
+     DA('DT0072.EBKD2P02.TSKD0200.O')                                  +
+     SPACE(6,4) CYL                                                    +
+     MOD CATALOG
+  .CALL UTLGLCTL PARM(DB2R,)                                           +
+                 INDDN(SYSIN) OUTDDN(PTIMSG)
+.DATA
+   REORG TABLESPACE EBKD2P02.TSKD0200
+         UNLDDN   RRUNLD
+         WORKDDN  PTIUT1
+.ENDDATA
+  .FREE  FI(RRUNLD)
+  .FREE  FI(PTIUT1)
+  .FREE  FI(PTIUT101)
+  .FREE  FI(PTIOUT)
+
+.SYNC 15        'REORG TABLESPACE EBKD2P02.TSKD0200'
+
+--==============================================================================
+-- VRCM6.1.5      CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      10-31-02 14:28
+--==============================================================================
+--
+--  OBJECT TYPE: TABLESPACE                 TOTAL:                1
+--
+--      OBJECT NAME/DBNAME        EDITED         NEW NAME/DBNAME
+--
+--      TSKD0200           EBKD2P02     Y
+--
+--==============================================================================
+--= VRCM6.1.5  CA-DB2 ALTERATION CHANGE ANALYSIS REPORT   10-31-02 14:28       =
+--==============================================================================
+--
+--************************** SELECTED OBJECTS **********************************
+--   OBJECT TYPE          NAME                         CREATOR
+--   -----------          ----                         -------
+--     TS                 TSKD0200                     EBKD2P02
+--
+--                             TOTAL SELECTED OBJECTS:         1
+--
+--+++++++++++++++++++++++++ NO DROPPED OBJECTS +++++++++++++++++++++++++++++++++
+--
+--+++++++++++++++++++++++++++ NO NEW OBJECTS +++++++++++++++++++++++++++++++++++
+--
+--+++++++++++++++++++++++++++ ALTERED OBJECTS ++++++++++++++++++++++++++++++++++
+--
+--  Tablespace EBKD2P02.TSKD0200 Changes:
+--
+--  ------------ Tablespace Partition Changes ------------
+--
+--  Field       Currently                       Changed To
+--  -----       ---------                       ----------
+--  PARTITION   0001                            0001
+--  FREEPAGE    5                               20
+--  PCTFREE     40                              10
+--
+--                             TOTAL ALTERED OBJECTS:          1
+--
+--======================= END OF ANALYSIS REPORT ===============================

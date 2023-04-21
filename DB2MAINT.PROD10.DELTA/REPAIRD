@@ -1,0 +1,36 @@
+//YDB001R  JOB ,'ELP RM 112',CLASS=S,                                   00001001
+//  MSGCLASS=X,REGION=4096K,USER=SYSADM,PASSWORD=EXPERT,                00001101
+//  TIME=1440                                                           00001200
+//*                                                                     00001300
+//JOBLIB  DD  DSN=SSXDT.DSNA.V2R3.DSNLOAD,DISP=SHR                      00001400
+//        DD  DSN=SSXDT.DSNA.V2R3.RUNLIB.LOAD,DISP=SHR                  00001500
+//**********************************************************************00001600
+//* 1) REPAIR UTILITY - GET INFO ABOUT CATALOG, DIRECTORY               00001700
+//**********************************************************************00001800
+//*                                                                     00001900
+//REPAIR   EXEC PGM=DSNUTILB,                                           00002000
+//         PARM='DSNA,REPAIR1'                                          00003001
+//SYSABEND DD  SYSOUT=*                                                 00004000
+//SYSPRINT DD  SYSOUT=*                                                 00005000
+//UTPRINT  DD  SYSOUT=*                                                 00006000
+//SORTWK01 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00007000
+//SORTWK02 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00008000
+//SORTWK03 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00009000
+//SORTWK04 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00010000
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00020000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00030000
+//SYSIN    DD  *                                                        00040000
+REPAIR DBD DIAGNOSE DATABASE DBMT0001                                   00050000
+//REPAIR2  EXEC PGM=DSNUTILB,                                           00060001
+//         PARM='DSNA,REPAIR3'                                          00070001
+//SYSABEND DD  SYSOUT=*                                                 00080001
+//SYSPRINT DD  SYSOUT=*                                                 00090001
+//UTPRINT  DD  SYSOUT=*                                                 00100001
+//SORTWK01 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00110001
+//SORTWK02 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00120001
+//SORTWK03 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00130001
+//SORTWK04 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00140001
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00150001
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00160001
+//SYSIN    DD  *                                                        00170001
+REPAIR DBD DIAGNOSE DATABASE DBMT0003                                   00180001

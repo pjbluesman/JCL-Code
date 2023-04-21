@@ -1,0 +1,20 @@
+//UXX401M JOB ,'DB2 REBIND',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID
+//STEP01   EXEC PGM=IKJEFT01
+//STEPLIB  DD  DISP=SHR,DSN=SSXDT.DB2N.SDSNLOAD
+//SYSPRINT DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB2N)
+     REBIND PACKAGE ( NULLID.*.(*) ) ;
+//
+                                             QUALIFIER ( LSEBDB2  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+

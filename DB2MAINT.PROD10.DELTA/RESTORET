@@ -1,0 +1,103 @@
+//U477625  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=T477625
+/*JOBPARM SYSAFF=MVSN
+//RESTORE  EXEC  PGM=ADRDSSU,REGION=4M ,PARM='TYPRUN=NORUN'
+//SYSPRINT DD SYSOUT=*
+//**** TOOLKIT TIMESTAMP 23/07/2012 ************************************
+//DUMPDS   DD DISP=SHR,DSN=SSXDT.DFDSSDMP.TOOLKIT.D120723.MVSX
+//OUTDD    DD UNIT=SYSDA
+//**OUTDD    DD UNIT=SYSDA,VOL=SER=S7S2T4,STORCLAS=NONSMS
+//SYSIN    DD  *
+   RESTORE -
+        INDDNAME(DUMPDS) -
+        ODD(OUTDD) -
+        DATASET(INCLUDE -
+          (**.**)) -
+        RENAMEU( -
+         (T477625.**            , -
+          SSXDT.**)) -
+        CANCELERROR -
+        CATALOG -
+        NMC -
+        NSC -
+        TOLERATE(ENQF)
+/*
+//**** DB2ADM V10 ******************************************************
+//RESTORE2 EXEC  PGM=ADRDSSU,REGION=4M ,PARM='TYPRUN=NORUN'
+//SYSPRINT DD SYSOUT=*
+//DUMPDS   DD DISP=SHR,DSN=SSXDT.DFDSSDMP.DB2TOOLS.ADB10BT.MVSX
+//SYSIN    DD  *
+   RESTORE -
+        INDDNAME(DUMPDS) -
+        ODY(S7S2T4,SYSDA) -
+        DATASET(INCLUDE -
+          (**.**)) -
+        RENAMEU( -
+         (T477625.**            , -
+          SYS2.**)) -
+        CANCELERROR -
+        CATALOG -
+        NMC -
+        NSC -
+        TOLERATE(ENQF)
+/*
+//
+//***** SQLPA V410 *****************************************************
+//DUMPDS   DD DISP=SHR,DSN=T477625.DB2TOOLS.ANL41AT
+//OUTDD    DD UNIT=SYSDA,VOL=SER=S7S2T5,STORCLAS=NONSMS
+//* SPACE=(CYL,(2,1),RLSE)
+//SYSIN    DD  *
+   RESTORE -
+        INDDNAME(DUMPDS) -
+        OUTDD(OUTDD) -
+        DATASET(INCLUDE(**.**) -
+          EXCLUDE(T477625.DB2TOOLS.ANL41AT.#JCL)) -
+        RENAMEU( -
+         (T477625.DB2TOOLS.ANL41AT.**, -
+          SYS2.DB2TOOLS.PROD.**)) -
+        CANCELERROR -
+        CATALOG -
+        NMC -
+        NSC -
+        TOLERATE(ENQF)
+/*
+//
+//
+//DUMPDS   DD DISP=SHR,DSN=T477625.DB2TOOLS.ANL41AT
+//OUTDD    DD UNIT=SYSDA,VOL=SER=S7S2T4,SPACE=(CYL,(2,1),RLSE),
+//  STORCLAS=NONSMS
+//SYSIN    DD  *
+   RESTORE -
+        INDDNAME(DUMPDS) -
+        OUTDD(OUTDD) -
+        DATASET(INCLUDE -
+          (**.**)) -
+        RENAMEU( -
+         (T477625.DB2TOOLS.ANL41AT.**, -
+          SYS2.DB2TOOLS.TEST.**)) -
+        CANCELERROR -
+        CATALOG -
+        IMPORT -
+        NMC -
+        NSC -
+        TOLERATE(ENQF)
+/*
+//
+//DUMPDS   DD DISP=SHR,DSN=T477625.DUMP.ANLV3R2
+//DISCO    DD UNIT=SYSDA
+//SYSIN    DD  *
+   RESTORE -
+        INDDNAME(DUMPDS) -
+        ODD(DISCO) -
+        DATASET(INCLUDE -
+          (**.**)) -
+        RENAMEU( -
+         (SYS2.**            , -
+          T477625.**)) -
+        CANCELERROR -
+        CATALOG -
+        NMC -
+        NSC -
+        TOLERATE(ENQF)
+/*
+//

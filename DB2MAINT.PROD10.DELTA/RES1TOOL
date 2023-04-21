@@ -1,0 +1,30 @@
+//UXC401N  JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID     00010001
+/*JOBPARM SYSAFF=MVSR                                                   00020001
+//********************************************************************* 00030401
+//*                                                                   * 00030501
+//* RESTORE                                                           * 00030601
+//*   DB2 TOOLS DATASETS  FROM PREVIOUS BACKUP                        * 00030703
+//*                                                                   * 00030801
+//********************************************************************* 00030901
+//RESTORE  EXEC PGM=ADRDSSU,COND=(4,LT)                                 00035001
+//SYSPRINT DD  SYSOUT=*                                                 00036001
+//INDD     DD  DISP=SHR,DSN=SSXDT.DB2TOOLS.C28375.D110720.BACKUP1       00037005
+//**           UNIT=CART,VOL=SER=(417655),LABEL=(1,SL)                  00037104
+//OUTDD    DD  DISP=SHR,UNIT=SYSDA,VOL=SER=E7SU03                       00038001
+//SYSIN    DD  *                                                        00039001
+ RESTORE INDDNAME(INDD)   -                                             00040001
+         OUTDDNAME(OUTDD) -                                             00050001
+         CATALOG          -                                             00060001
+         DATASET(INCLUDE(SSXDT.DB2PMV7.SDGOLOAD)) -                     00080001
+         RENAMEU( (SSXDT.DB2PMV7.SDGOLOAD, -                            00081001
+                             SSXDT.DB2PMV7.SDGOLOAD.TEST) )             00082001
+//                                                                      00091001
+//** SAMPLE TO RESTORE ALL DATASETS                                     00091104
+   RESTORE INDDNAME(INDD)   -                                           00092001
+           OUTDDNAME(OUTDD) -                                           00093001
+           CATALOG          -                                           00094001
+           REPLACE          -                                           00095001
+           DATASET(INCLUDE(**)) -                                       00096001
+                  )                                                     00097001
+  //                                                                    00098001
+         REPLACE          -                                             00099002

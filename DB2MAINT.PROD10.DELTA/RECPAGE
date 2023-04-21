@@ -1,0 +1,14 @@
+//UXD001M  JOB ,'GIL RM102',CLASS=S,MSGCLASS=X,                         00010000
+//  REGION=0M,TIME=1440
+//STEP01 EXEC DSNUPROU,SYSTEM=DB2U,UID='RECVDB2U',UTPROC=''
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2U      *
+//*                                                        *
+//*  RECOVER DSNDB01.SYSUTILX                              *
+//*                                                        *
+//**********************************************************
+//DSNUPROU.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB06.SYSUSER
+/*
+//

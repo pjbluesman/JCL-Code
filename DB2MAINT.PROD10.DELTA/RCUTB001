@@ -1,0 +1,275 @@
+
+--==============================================================================
+-- VP411AD      PLATINUM RC/ALTER      ANALYSIS REPORT      11-30-95 14:09
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> RCUPDATE  DESCRIPTION  ===> RC/UPDATE ALTERATION
+--CREATOR  ==> D73294T   SHARE OPTION ===> N (U,Y,N)  SRC SSID ===> DB2D
+--
+--ALTERED OBJECTS:
+--   OBJECT TYPE       NAME                 CREATOR
+--   TABLE             DBMS_MIRS_INTF_TBL   XMZ001C
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> O (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> CATALOG
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> D73294T
+--
+--  SECURITY          ===> N             STATISTICS   ===> N
+--  DEFAULT SQLID     ===>               CHECK DATA   ===> N
+--                                       IMAGE COPY   ===> N
+--                                       BIND/REBIND  ===> N
+--  ALL ROWS          ===> Y             REORG        ===> B
+--  NUMBER ROWS       ===>               RECOVER IX   ===> Y
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS         ===> N
+--  SQL ONLY          ===> N
+--  COMMIT ASAP       ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> N
+--  DELETE TEMPORARY DATASETS ===> N
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+.SYSTEM UNLOADS
+.CONNECT DB2D
+
+.AUTH XMZ001C
+
+.ALLOC FI(PTIUNLD) DA('D73294T.XMZ001C.DBMS$MIR.S$INTF$T.BL.DATA')     +
+       BLKSIZE(6336) LRECL(72)                                         +
+       SPACE(14,11)                                                    +
+       TRACKS NEW CATALOG                                              +
+       UNIT(SYSDA)
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT FTN_NBR, SHOP_ORDER_NBR, DBMS_TRACKING_NBR, DAL_PART_NBR,
+  MFG_PART_NBR, DBMS_SERIAL_NBR, DBMS_STATUS, DBMS_CURRENT_LOC,
+  CURR_LOC_DT_TM, DBMS_PREV_LOC, PREV_LOC_DT_TM, DBMS_DESTINATION,
+  TRANSIT_DT_TM, LAST_UPD_USER_ID, LAST_UPD_DT_TM
+  FROM XMZ001C.DBMS_MIRS_INTF_TBL
+  ORDER BY FTN_NBR , SHOP_ORDER_NBR
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+  PAGESIZE(4)
+  COLUMNS(FTN_NBR,,,,,
+         ,SHOP_ORDER_NBR,,,,,
+         ,DBMS_TRACKING_NBR,,,,,
+         ,DAL_PART_NBR,,,,,
+         ,MFG_PART_NBR,,,,,
+         ,DBMS_SERIAL_NBR,,,,,
+         ,DBMS_STATUS,,,,,
+         ,DBMS_CURRENT_LOC,,,,,
+         ,CURR_LOC_DT_TM,,,,,
+         ,,ROSS_JUNK,TIMESTMP,N,,
+         ,DBMS_PREV_LOC,,,,,
+         ,PREV_LOC_DT_TM,,,,,
+         ,DBMS_DESTINATION,,,,,
+         ,TRANSIT_DT_TM,,,,,
+         ,LAST_UPD_USER_ID,,,,,
+         ,LAST_UPD_DT_TM,,,,,
+         )
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 5     'UNLOAD TABLE XMZ001C.DBMS_MIRS_INTF_TBL'
+
+.SYSTEM SQLDDL
+.CONNECT DB2D
+
+.AUTH XMZ001C
+
+    DROP TABLE XMZ001C.DBMS_MIRS_INTF_TBL;
+
+.SYNC 10    'DROP TABLE XMZ001C.DBMS_MIRS_INTF_TBL'
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- XMZ001C.DBMS_MIRS_INTF_TBL WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  XMZ001C
+    SET CURRENT SQLID = 'D73294T';
+
+CREATE TABLE XMZ001C.DBMS_MIRS_INTF_TBL
+   (FTN_NBR                CHAR(6    )             NOT NULL
+   ,SHOP_ORDER_NBR         CHAR(7    )             NOT NULL
+   ,DBMS_TRACKING_NBR      CHAR(6    )             NOT NULL
+   ,DAL_PART_NBR           CHAR(9    )             NOT NULL
+   ,MFG_PART_NBR           CHAR(22   )             NOT NULL
+   ,DBMS_SERIAL_NBR        CHAR(16   )             NOT NULL
+   ,DBMS_STATUS            CHAR(3    )             NOT NULL
+   ,DBMS_CURRENT_LOC       CHAR(7    )             NOT NULL
+   ,CURR_LOC_DT_TM         TIMESTAMP               NOT NULL
+   ,ROSS_JUNK              TIMESTAMP               NOT NULL
+   ,DBMS_PREV_LOC          CHAR(7    )             NOT NULL
+   ,PREV_LOC_DT_TM         TIMESTAMP               NOT NULL
+   ,DBMS_DESTINATION       CHAR(7    )             NOT NULL
+   ,TRANSIT_DT_TM          TIMESTAMP               NOT NULL
+   ,LAST_UPD_USER_ID       CHAR(8    )             NOT NULL
+   ,LAST_UPD_DT_TM         TIMESTAMP               NOT NULL
+   ,PRIMARY KEY
+   (FTN_NBR
+   ,SHOP_ORDER_NBR
+   )
+   )
+   IN DBMZ0002.TSMZM012
+   ;
+
+.SYNC 15    'CREATE TABLE XMZ001C.DBMS_MIRS_INTF_TBL'
+    SET CURRENT SQLID = USER;
+
+
+-- **************************************************************
+-- *                                                            *
+-- * INDEX CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- XMZ001C.INMR0121 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  XMZ001C
+
+    CREATE UNIQUE INDEX XMZ001C.INMR0121
+           ON XMZ001C.DBMS_MIRS_INTF_TBL
+          (FTN_NBR              ASC
+          ,SHOP_ORDER_NBR       ASC
+          )
+                     USING STOGROUP SGMZ0003
+                                    PRIQTY 384
+                                    SECQTY 48
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+           CLUSTER
+           SUBPAGES 4
+           BUFFERPOOL BP0
+           CLOSE NO
+    ;
+
+.SYNC 20    'CREATE INDEX XMZ001C.INMR0121'
+
+
+.AUTH
+.DISCONN
+
+.SYNC 25    'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+.CALL UTIL LOAD PARM(DB2D)
+.ALLOC FI(PTILOAD)                                                     +
+   DA('D73294T.XMZ001C.DBMS$MIR.S$INTF$T.BL.DATA') SHR
+.ALLOC FI(SYSDISC)                                                     +
+   DA('D73294T.XMZ001C.DBMS$MIR.S$INTF$T.BL.DATA.D')                   +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) TRACKS RLSE
+.ALLOC FI(SYSERR)                                                      +
+   DA('D73294T.XMZ001C.DBMS$MIR.S$INTF$T.BL.DATA.E')                   +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) BLK(4096) RLSE
+.ALLOC FI(SYSMAP)                                                      +
+   DA('D73294T.XMZ001C.DBMS$MIR.S$INTF$T.BL.DATA.M')                   +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) BLK(4096) RLSE
+.ALLOC FI(PTIUT1) UNIT(SYSDA)                                          +
+   DA('D73294T.XMZ001C.DBMS$MIR.S$INTF$T.BL.DATA.U')                   +
+   SPACE(2,1) CYL                                                      +
+   MOD CATALOG
+.ALLOC FI(PTIOUT) UNIT(SYSDA)                                          +
+   DA('D73294T.XMZ001C.DBMS$MIR.S$INTF$T.BL.DATA.O')                   +
+   SPACE(2,1) CYL                                                      +
+   MOD CATALOG
+.DATA
+   LOAD DATA INDDN PTILOAD RESUME YES     LOG NO   ENFORCE CONSTRAINTS
+    DISCARDDN SYSDISC
+    ERRDDN   SYSERR
+    MAPDDN   SYSMAP
+    WORKDDN  (PTIUT1,PTIOUT)
+    SORTDEVT SYSDA
+    CONTINUEIF (72) = X'FF'
+    INTO TABLE XMZ001C.DBMS_MIRS_INTF_TBL
+    (FTN_NBR              POSITION(     1) CHAR(     6)
+    ,SHOP_ORDER_NBR       POSITION(     *) CHAR(     7)
+    ,DBMS_TRACKING_NBR    POSITION(     *) CHAR(     6)
+    ,DAL_PART_NBR         POSITION(     *) CHAR(     9)
+    ,MFG_PART_NBR         POSITION(     *) CHAR(    22)
+    ,DBMS_SERIAL_NBR      POSITION(     *) CHAR(    16)
+    ,DBMS_STATUS          POSITION(     *) CHAR(     3)
+    ,DBMS_CURRENT_LOC     POSITION(     *) CHAR(     7)
+    ,CURR_LOC_DT_TM       POSITION(     *) TIMESTAMP EXTERNAL(    26)
+    ,DBMS_PREV_LOC        POSITION(     *) CHAR(     7)
+    ,PREV_LOC_DT_TM       POSITION(     *) TIMESTAMP EXTERNAL(    26)
+    ,DBMS_DESTINATION     POSITION(     *) CHAR(     7)
+    ,TRANSIT_DT_TM        POSITION(     *) TIMESTAMP EXTERNAL(    26)
+    ,LAST_UPD_USER_ID     POSITION(     *) CHAR(     8)
+    ,LAST_UPD_DT_TM       POSITION(     *) TIMESTAMP EXTERNAL(    26)
+    ,ROSS_JUNK            POSITION(     *) TIMESTAMP EXTERNAL(    26)
+    )
+.ENDDATA
+.FREE FI(PTILOAD)
+.FREE FI(SYSDISC)
+.FREE FI(SYSERR)
+.FREE FI(SYSMAP)
+.FREE FI(PTIUT1)
+.FREE FI(PTIOUT)
+
+.SYNC 30    'LOAD TABLE XMZ001C.DBMS_MIRS_INTF_TBL'
+
+--==============================================================================
+-- VP411AD      PLATINUM RC/MIGRATOR IMPACT ANALYSIS      11-30-95 14:09
+--==============================================================================
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                1
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      DBMS_MIRS_INTF_TBL XMZ001C      Y
+--
+--  OBJECT TYPE: INDEX                      TOTAL:                1
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      INMR0121           XMZ001C
+--
+--==============================================================================
+--= VP411AD  PLATINUM ALTERATION CHANGE ANALYSIS REPORT   11-30-95 14:09       =
+--==============================================================================
+--
+--************************** SELECTED OBJECTS **********************************
+--   OBJECT TYPE          NAME                         CREATOR
+--   -----------          ----                         -------
+--     T                  DBMS_MIRS_INTF_TBL           XMZ001C
+--
+--+++++++++++++++++++++++++ NO DROPPED OBJECTS +++++++++++++++++++++++++++++++++
+--
+--+++++++++++++++++++++++++++ NO NEW OBJECTS +++++++++++++++++++++++++++++++++++
+--
+--+++++++++++++++++++++++++++ ALTERED OBJECTS ++++++++++++++++++++++++++++++++++
+--
+--  Table XMZ001C.DBMS_MIRS_INTF_TBL Changes:
+--
+--  ------------ Table Column Changes --------------------
+--  Field       Currently                       Changed To
+--  -----       ---------                       ----------
+--  NAME        (INSERTED)                      ROSS_JUNK
+--  TYPE                                        TIMESTMP
+--  SIZE                                        10
+--  NULLS                                       N
+--
+--======================= END OF ANALYSIS REPORT ===============================

@@ -1,0 +1,17 @@
+//UXC401M4 JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSE
+//* *******************************************************************/
+//* JOB TO COPY VSAM DATASET                                          */
+//* *******************************************************************/
+//UNLOAD EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSOUT DD SYSOUT=*
+//CNTLFILE DD DSN=SSXDT.DB2TOOLS.HAA.CONTROL,DISP=SHR
+//OUTPUT DD DSN=SSXDT.DB2TOOLS.HAA.UNLOAD,
+// DISP=(NEW,CATLG,DELETE),
+// UNIT=SYSDA,SPACE=(CYL,(20,5),RLSE),
+// DCB=(RECFM=FB,LRECL=1024)
+//SYSIN DD *
+REPRO INFILE(CNTLFILE) OUTFILE(OUTPUT)
+/*

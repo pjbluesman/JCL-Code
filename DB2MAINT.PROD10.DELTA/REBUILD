@@ -1,0 +1,16 @@
+//UFZ0030M JOB (,903),CLASS=P,MSGCLASS=X,
+//     REGION=0M,TIME=1440
+/*JOBPARM SYSAFF=MVSF
+//*
+//**********************************************************************
+//* STEP RECOVER: REBUILD INDEXES
+//**********************************************************************
+//RECOVER EXEC DSNUPROF,SYSTEM=DB2F,
+//             UID='T102001'
+//DSNUPROF.SYSUT1 DD DSN=SURIP.T102001.SYSUT1,
+//             DISP=(MOD,DELETE,CATLG),
+//* DB2 ADMIN GENERATED JOB TO REBUILD INDEXES
+//             UNIT=SYSDA
+//DSNUPROF.SYSIN  DD  *
+ REBUILD INDEX("SAPR3"."SGOSHIST~0")
+   SORTDEVT SYSDA SORTNUM 4

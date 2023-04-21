@@ -1,0 +1,299 @@
+.CONTROL SN(D73294C,RCUBATCH)
+
+--==============================================================================
+-- VP411AD      PLATINUM RC/MIGRATOR   ANALYSIS REPORT      11-30-95 14:30
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> RCUBATCH  DESCRIPTION  ===> RC/UPDATE ALTERATION
+--CREATOR  ==> D73294C   SHARE OPTION ===> N (U,Y,N)  SRC SSID ===> DB2M
+--
+--ALTERED OBJECTS:
+--   OBJECT TYPE       NAME                 CREATOR
+--   TABLE             MAVJ_BAR_CODE_TBL    MIRSTB1
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> B (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> VSAM
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> D73294C
+--
+--  SECURITY          ===> N             STATISTICS   ===> N
+--  DEFAULT SQLID     ===>               CHECK DATA   ===> N
+--  NO SET SQLID STMT ===> N             IMAGE COPY   ===> N
+--                                       BIND/REBIND  ===> N
+--  ALL ROWS          ===> Y             REORG        ===> B
+--  NUMBER ROWS       ===>               RECOVER IX   ===> Y
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS         ===> N
+--  SQL ONLY          ===> N
+--  COMMIT ASAP       ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> N
+--  DELETE TEMPORARY DATASETS ===> N
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+.SYSTEM UNLOADS
+.CONNECT DB2M
+
+.AUTH MIRSTB1
+
+.CALL UTLGLCTL PARM(DB2M,)                                             +
+   INDDN(SYSIN) OUTDDN(PTIMSG)
+.ALLOC FI(SYSREC01)                                                    +
+       DA('D73294C.MIRSTB1.MAVJ$BAR.$CODE$TB.L.DATA')                  +
+       UNIT(SYSDA)                                                     +
+       SPACE(9,12)                                                     +
+       TRACKS                                                          +
+       NEW CATALOG
+.DATA
+  FASTUNLOAD
+   UNLDDN          SYSREC
+   LIMIT           0
+   OUTPUT-FORMAT   DSNTIAUL
+   INPUT-FORMAT    TABLE
+   VSAM-BUFFERS    80
+   SORTNUM         2
+   SORTDEVT        SYSDA
+   ESTIMATED-ROWS  8581
+   SQL-ACCESS      EXTENSION
+   SELECT BAR_CODE_NBR, WORK_ORDER_NBR, VISIT_NBR, TASK_CODE, TASK_NBR
+   , TRACK_NBR, FTN_NBR, DAL_PART_NBR, MFG_PART_NBR, PART_SERIAL_NBR,
+   SHOP_ORDER_NBR, LAST_UPD_USER_ID, LAST_UPD_DT_TM, '1900-01-01-01.01.
+01.000000'
+   INTO BAR_CODE_NBR, WORK_ORDER_NBR, VISIT_NBR, TASK_CODE, TASK_NBR,
+   TRACK_NBR, FTN_NBR, DAL_PART_NBR, MFG_PART_NBR, PART_SERIAL_NBR,
+   SHOP_ORDER_NBR, LAST_UPD_USER_ID, LAST_UPD_DT_TM, CJR_TEMP
+   TIMESTAMP  NOTNULL
+   FROM MIRSTB1.MAVJ_BAR_CODE_TBL ORDER  BY  BAR_CODE_NBR
+   ;
+.ENDDATA
+.FREE FILE(SYSREC01)
+
+.SYNC 5     'UNLOAD TABLE MIRSTB1.MAVJ_BAR_CODE_TBL'
+
+.SYSTEM SQLDDL
+.CONNECT DB2M
+
+.AUTH MIRSTB1
+
+    DROP TABLE MIRSTB1.MAVJ_BAR_CODE_TBL;
+
+.SYNC 10    'DROP TABLE MIRSTB1.MAVJ_BAR_CODE_TBL'
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- MIRSTB1.MAVJ_BAR_CODE_TBL WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  MIRSTB1
+    SET CURRENT SQLID = 'D73294C';
+
+CREATE TABLE MIRSTB1.MAVJ_BAR_CODE_TBL
+   (BAR_CODE_NBR           CHAR(25   )             NOT NULL
+   ,WORK_ORDER_NBR         CHAR(8    )             NOT NULL
+   ,VISIT_NBR              CHAR(2    )             NOT NULL
+   ,TASK_CODE              CHAR(3    )             NOT NULL
+   ,TASK_NBR               CHAR(25   )             NOT NULL
+   ,TRACK_NBR              CHAR(6    )             NOT NULL
+   ,FTN_NBR                CHAR(6    )             NOT NULL
+   ,DAL_PART_NBR           CHAR(9    )             NOT NULL
+   ,MFG_PART_NBR           CHAR(22   )             NOT NULL
+   ,PART_SERIAL_NBR        CHAR(16   )             NOT NULL
+   ,SHOP_ORDER_NBR         CHAR(7    )             NOT NULL
+   ,LAST_UPD_USER_ID       CHAR(8    )             NOT NULL
+   ,LAST_UPD_DT_TM         TIMESTAMP               NOT NULL
+   ,CJR_TEMP               TIMESTAMP               NOT NULL
+   ,PRIMARY KEY
+   (BAR_CODE_NBR
+   )
+   )
+   IN TOGO0002.TSMPM136
+   ;
+
+.SYNC 15    'CREATE TABLE MIRSTB1.MAVJ_BAR_CODE_TBL'
+    SET CURRENT SQLID = USER;
+
+
+-- **************************************************************
+-- *                                                            *
+-- * INDEX CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- MIRSTB1.INMP1361 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  MIRSTB1
+
+    CREATE UNIQUE INDEX MIRSTB1.INMP1361
+           ON MIRSTB1.MAVJ_BAR_CODE_TBL
+          (BAR_CODE_NBR         ASC
+          )
+                     USING STOGROUP TOGOSG02
+                                    PRIQTY 6768
+                                    SECQTY 720
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+           CLUSTER
+           SUBPAGES 4
+           BUFFERPOOL BP0
+           CLOSE NO
+    ;
+
+.SYNC 20    'CREATE INDEX MIRSTB1.INMP1361'
+
+
+.AUTH
+.DISCONN
+
+.SYNC 25    'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+.CALL UTLGLCTL PARM(DB2M,)                                             +
+   INDDN(SYSIN) OUTDDN(PTIMSG)
+.ALLOC FI(SYSERR)                                                      +
+   DA('D73294C.MIRSTB1.MAVJ$BAR.$CODE$TB.L.DATA.E')                    +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(SYSDISC)                                                     +
+   DA('D73294C.MIRSTB1.MAVJ$BAR.$CODE$TB.L.DATA.D')                    +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(SYSULD)                                                      +
+   DA('D73294C.MIRSTB1.MAVJ$BAR.$CODE$TB.L.DATA')                      +
+   SHR
+.ALLOC FI(PTIREC)                                                      +
+   DA('D73294C.MIRSTB1.MAVJ$BAR.$CODE$TB.L.DATA.U')                    +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(SYSMAP)                                                      +
+   DA('D73294C.MIRSTB1.MAVJ$BAR.$CODE$TB.L.DATA.M')                    +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG LRECL(145) BLKSIZE(14500)                   +
+   RECFM(F,B)
+.ALLOC FI(PTIUT1)                                                      +
+   DA('D73294C.MIRSTB1.MAVJ$BAR.$CODE$TB.L.DATA.W')                    +
+   SPACE(1,2) CYL RLSE                                                 +
+   UNIT(SYSDA) MOD CATALOG
+.DATA
+  FASTLOAD
+   INPUT-FORMAT    SEQ
+   OUTPUT-CONTROL  ALL
+   INDDN           SYSULD
+   WORKDDN         PTIUT1
+   UNLDDN          PTIREC
+   RESUME          YES
+   SORTNUM         2
+   SORTDEVT        SYSDA
+   ESTIMATED-ROWS  0
+   INTO TABLE      MIRSTB1.MAVJ_BAR_CODE_TBL
+   (
+    BAR_CODE_NBR       POSITION(      1:    25 )
+      CHAR               (    25)
+          ,
+    WORK_ORDER_NBR     POSITION(     26:    33 )
+      CHAR               (     8)
+          ,
+    VISIT_NBR          POSITION(     34:    35 )
+      CHAR               (     2)
+          ,
+    TASK_CODE          POSITION(     36:    38 )
+      CHAR               (     3)
+          ,
+    TASK_NBR           POSITION(     39:    63 )
+      CHAR               (    25)
+          ,
+    TRACK_NBR          POSITION(     64:    69 )
+      CHAR               (     6)
+          ,
+    FTN_NBR            POSITION(     70:    75 )
+      CHAR               (     6)
+          ,
+    DAL_PART_NBR       POSITION(     76:    84 )
+      CHAR               (     9)
+          ,
+    MFG_PART_NBR       POSITION(     85:   106 )
+      CHAR               (    22)
+          ,
+    PART_SERIAL_NBR    POSITION(    107:   122 )
+      CHAR               (    16)
+          ,
+    SHOP_ORDER_NBR     POSITION(    123:   129 )
+      CHAR               (     7)
+          ,
+    LAST_UPD_USER_ID   POSITION(    130:   137 )
+      CHAR               (     8)
+          ,
+    LAST_UPD_DT_TM     POSITION(    138:   163 )
+      TIMESTAMP EXTERNAL (    26)
+          ,
+    CJR_TEMP           POSITION(    164:   189 )
+      TIMESTAMP EXTERNAL (    26)
+   )
+.ENDDATA
+.FREE FI(SYSERR)
+.FREE FI(PTIREC)
+.FREE FI(SYSDISC)
+.FREE FI(SYSULD)
+.FREE FI(PTIUT1)
+.FREE FI(SYSMAP)
+
+.SYNC 30    'LOAD TABLE MIRSTB1.MAVJ_BAR_CODE_TBL'
+
+--==============================================================================
+-- VP411AD      PLATINUM RC/MIGRATOR IMPACT ANALYSIS      11-30-95 14:30
+--==============================================================================
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                1
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      MAVJ_BAR_CODE_TBL  MIRSTB1      Y
+--
+--  OBJECT TYPE: INDEX                      TOTAL:                1
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      INMP1361           MIRSTB1
+--
+--==============================================================================
+--= VP411AD  PLATINUM ALTERATION CHANGE ANALYSIS REPORT   11-30-95 14:30       =
+--==============================================================================
+--
+--************************** SELECTED OBJECTS **********************************
+--   OBJECT TYPE          NAME                         CREATOR
+--   -----------          ----                         -------
+--     T                  MAVJ_BAR_CODE_TBL            MIRSTB1
+--
+--+++++++++++++++++++++++++ NO DROPPED OBJECTS +++++++++++++++++++++++++++++++++
+--
+--+++++++++++++++++++++++++++ NO NEW OBJECTS +++++++++++++++++++++++++++++++++++
+--
+--+++++++++++++++++++++++++++ ALTERED OBJECTS ++++++++++++++++++++++++++++++++++
+--
+--  Table MIRSTB1.MAVJ_BAR_CODE_TBL Changes:
+--
+--  ------------ Table Column Changes --------------------
+--  Field       Currently                       Changed To
+--  -----       ---------                       ----------
+--  NAME        (INSERTED)                      CJR_TEMP
+--  TYPE                                        TIMESTMP
+--  SIZE                                        10
+--  NULLS                                       N
+--  DEFLT VALUE                                 1900-01-01-01.01.01.000000
+--
+--======================= END OF ANALYSIS REPORT ===============================

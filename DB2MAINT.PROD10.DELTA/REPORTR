@@ -1,0 +1,13 @@
+//UXD001M JOB ,'DB2',CLASS=S,MSGCLASS=X                                 00001000
+//UTIL EXEC DSNUPROR,SYSTEM=DBRG,UID='REPORT',UTPROC=''
+//*
+//**********************************************
+//*
+//*  JCL EXECUTES THE REPORT UTILITY (REPORT RECOVERY)
+//*
+//*REPORT RECOVERY TABLESPACE DSN8D23A.ACT RECOVERYSITE
+//**********************************************
+//*
+//DSNUPROR.SYSIN   DD  *
+REPORT RECOVERY TABLESPACE EBKD3P03.TSKD0027 INDEX ALL
+//

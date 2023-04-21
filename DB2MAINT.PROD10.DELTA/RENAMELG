@@ -1,0 +1,21 @@
+//UXD001M JOB (,DB2),'GLK',CLASS=S,MSGCLASS=X
+//*
+//*
+//* *************************************************************** */  00370000
+//DSNTIC  PROC                                                          00380000
+//* *************************************************************** */  00390000
+//* DIRECTORY/CATALOG MOVE (ALL REDEFINED TO DIFFERENT VOLUMES      */  00400000
+//* *************************************************************** */  00410000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)                                   00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//DSNTDIR EXEC DSNTIC                                                   01690000
+//* *********************************************                       01700000
+//*  RENAME SYS1LGRNG FROM DIRECTORY            *                       01710000
+//* *********************************************                       01720000
+//SYSIN    DD  *                                                        01730000
+   ALTER -                                                              01900000
+   SSXQT.FA.RDX.RELATE.INDEX-
+   NEWNAME(SSXQT.FA.RDX.RELATE.INDEX.OLD)
+//*                                                                     08290000

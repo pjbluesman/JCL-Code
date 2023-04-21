@@ -1,0 +1,26 @@
+//UXD001M  JOB ,'GLK RM 105',CLASS=S,                                   00001001
+//  MSGCLASS=X,REGION=4096K,                                            00001101
+//  TIME=1440                                                           00001200
+//*                                                                     00001300
+//JOBLIB  DD  DSN=SSXDP.DB2P.V3.SDSNLOAD,DISP=SHR                       00001401
+//        DD  DSN=SSXDP.DB2P.V3.RUNLIB.LOAD,DISP=SHR                    00001501
+//**********************************************************************00001600
+//* 1) REPAIR UTILITY - GET INFO ABOUT CATALOG, DIRECTORY               00001700
+//**********************************************************************00001800
+//*                                                                     00001900
+//REPAIR   EXEC PGM=DSNUTILB,                                           00002000
+//         PARM='DB2P,REPAIR1'                                          00003001
+//SYSABEND DD  SYSOUT=*                                                 00004000
+//SYSPRINT DD  SYSOUT=*                                                 00005000
+//UTPRINT  DD  SYSOUT=*                                                 00006000
+//SORTWK01 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00007000
+//SORTWK02 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00008000
+//SORTWK03 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00009000
+//SORTWK04 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00010000
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00020000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00030000
+//SYSIN    DD  *                                                        00040000
+REPAIR                                                                  00050001
+LOCATE TABLESPACE DSNDB06.SYSCOPY RID (X'00140814')                     00060001
+VERIFY OFFSET X'6' DATA 'WRAP5000SCE5100'                               00070001
+DELETE                                                                  00080002

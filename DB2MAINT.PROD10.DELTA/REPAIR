@@ -1,0 +1,14 @@
+//UXD00M  JOB (,SYS),CLASS=P,MSGCLASS=X,
+//     REGION=0M,TIME=1440
+/*JOBPARM SYSAFF=MVSF
+//*
+//**********************************************************************
+//* STEP REPAIR: REPAIR INDEX
+//**********************************************************************
+//REPAIR EXEC DSNUPROF,SYSTEM=DB2F,
+//             UID='       '
+//DSNUPROF.SYSIN  DD  *
+REPAIR LOCATE TABLESPACE A130XJ72.SGOSHIS RID (X'0001C63D5B')
+   DELETE
+//*************************************************************
+//*

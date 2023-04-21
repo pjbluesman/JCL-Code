@@ -1,0 +1,157 @@
+
+--==============================================================================
+-- VRCM6.1.5    CA-DB2   RC/ALTER      ANALYSIS REPORT      09-25-02 08:54
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> RCUPDATE  DESCRIPTION  ===> RC/UPDATE ALTERATION
+--CREATOR  ==> DT0072    SHARE OPTION ===> N (U,Y,N,X,L)  SRC SSID ===> DB2R
+--
+--ALTERED OBJECTS:
+--   OBJECT TYPE       NAME                 CREATOR
+--   TABLESPACE        TSKDW128             EBKD2P02
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> O (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> CATALOG
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> DT0072
+--
+--  SECURITY          ===> N             STATISTICS   ===> N
+--  DEFAULT SQLID     ===>               CHECK DATA   ===> N
+--                                       IMAGE COPY   ===> N
+--                                       BIND/REBIND  ===> N
+--  ALL ROWS          ===> N             REORG        ===> B
+--  NUMBER ROWS       ===>               RECOVER IX   ===> Y
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS         ===> Y             VSAM DEFINES  ===> Y
+--  SQL ONLY          ===> N             VSAM DELETES  ===> Y
+--  COMMIT ASAP       ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> N
+--  DELETE TEMPORARY DATASETS ===> N
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+.SYSTEM SQLDDL
+.CONNECT DB2R
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLESPACE CREATE AND ALTER STATEMENTS                     *
+-- *                                                            *
+-- **************************************************************
+
+
+-- EBKD2P02.TSKDW128 WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+    .CALL DSN PARM(DB2R)
+    .DATA
+        -STO DB(EBKD2P02) SPACE(TSKDW128) PART(1)
+        -STO DB(EBKD2P02) SPACE(TSKDW128) PART(2)
+        -STO DB(EBKD2P02) SPACE(TSKDW128) PART(3)
+        -STO DB(EBKD2P02) SPACE(TSKDW128) PART(4)
+        -STO DB(EBKD2P02) SPACE(TSKDW128) PART(5)
+    .ENDDATA
+
+    ALTER TABLESPACE EBKD2P02.TSKDW128
+           PART 1
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 500000
+    ;
+
+
+    ALTER TABLESPACE EBKD2P02.TSKDW128
+           PART 2
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 500000
+    ;
+
+
+    ALTER TABLESPACE EBKD2P02.TSKDW128
+           PART 3
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 500000
+    ;
+
+
+    ALTER TABLESPACE EBKD2P02.TSKDW128
+           PART 4
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 500000
+    ;
+
+
+    ALTER TABLESPACE EBKD2P02.TSKDW128
+           PART 5
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 500000
+    ;
+
+
+    .CALL DSN PARM(DB2R)
+    .DATA
+        -STA DB(EBKD2P02) SPACE(TSKDW128) ACCESS(RW) PART(1)
+        -STA DB(EBKD2P02) SPACE(TSKDW128) ACCESS(RW) PART(2)
+        -STA DB(EBKD2P02) SPACE(TSKDW128) ACCESS(RW) PART(3)
+        -STA DB(EBKD2P02) SPACE(TSKDW128) ACCESS(RW) PART(4)
+        -STA DB(EBKD2P02) SPACE(TSKDW128) ACCESS(RW) PART(5)
+    .ENDDATA
+
+.SYNC 5         'ALTER TABLESPACE EBKD2P02.TSKDW128'
+
+.DISCONN
+
+.SYNC 10        'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+
+  .ALLOC FI(RRUNLD)                                                    +
+     DA('DT0072.EBKD2P02.TSKDW128.P001$005.REORG')                     +
+     NEW CATALOG UNIT(SYSDA)                                           +
+     SPACE(6,4) CYL RLSE
+  .ALLOC FI(PTIUT1) UNIT(SYSDA)                                        +
+     DA('DT0072.EBKD2P02.TSKDW128.P001$005.U')                         +
+     SPACE(6,4) CYL                                                    +
+     MOD CATALOG
+  .ALLOC FI(PTIUT101) UNIT(SYSDA)                                      +
+     DA('DT0072.EBKD2P02.TSKDW128.P001$005.U101')                      +
+     SPACE(2,2) CYL                                                    +
+     MOD CATALOG
+  .ALLOC FI(PTIOUT) UNIT(SYSDA)                                        +
+     DA('DT0072.EBKD2P02.TSKDW128.P001$005.O')                         +
+     SPACE(6,4) CYL                                                    +
+     MOD CATALOG
+  .CALL UTLGLCTL PARM(DB2R,)                                           +
+                 INDDN(SYSIN) OUTDDN(PTIMSG)
+.DATA
+   REORG TABLESPACE EBKD2P02.TSKDW128
+         PART     001:005
+         UNLDDN   RRUNLD
+         WORKDDN  PTIUT1
+.ENDDATA
+  .FREE  FI(RRUNLD)
+  .FREE  FI(PTIUT1)
+  .FREE  FI(PTIUT101)
+  .FREE  FI(PTIOUT)
+
+.SYNC 15        'REORG TABLESPACE EBKD2P02.TSKDW128'
+
+--==============================================================================
+-- VRCM6.1.5      CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      09-25-02 08:54
+--==============================================================================
+--
+--  OBJECT TYPE: TABLESPACE                 TOTAL:                1
+--
+--      OBJECT NAME/DBNAME        EDITED         NEW NAME/DBNAME
+--
+--      TSKDW128           EBKD2P02     Y

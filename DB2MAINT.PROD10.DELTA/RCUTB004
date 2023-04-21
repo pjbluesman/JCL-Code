@@ -1,0 +1,1426 @@
+
+--==============================================================================
+-- VRCM6.1.5    CA-DB2   RC/ALTER      ANALYSIS REPORT      04-17-02 12:01
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> RCUPDATE  DESCRIPTION  ===> RC/UPDATE ALTERATION
+--CREATOR  ==> DT0072    SHARE OPTION ===> N (U,Y,N,X,L)  SRC SSID ===> DB2V
+--
+--ALTERED OBJECTS:
+--   OBJECT TYPE       NAME                 CREATOR
+--   TABLE             DEPT                 DSN8610
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> O (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> CATALOG
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> D36660E
+--
+--  SECURITY          ===> N             STATISTICS   ===> N
+--  DEFAULT SQLID     ===>               CHECK DATA   ===> N
+--                                       IMAGE COPY   ===> N
+--                                       BIND/REBIND  ===> N
+--  ALL ROWS          ===> Y             REORG        ===> B
+--  NUMBER ROWS       ===>               RECOVER IX   ===> Y
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS         ===> Y             VSAM DEFINES  ===> Y
+--  SQL ONLY          ===> N             VSAM DELETES  ===> Y
+--  COMMIT ASAP       ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> N
+--  DELETE TEMPORARY DATASETS ===> N
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+.SYSTEM UNLOADS
+.CONNECT DB2V
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DT0072.DSN8610.DEPT.DATA')                                  +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT DEPTNO, DEPTNAME, MGRNO, ADMRDEPT, LOCATION
+  FROM DSN8610.DEPT
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+  PAGESIZE(4)
+  COLUMNS(DEPTNO,,,,,
+         ,DEPTNAME,,,,,
+         ,MGRNO,,CHAR(9),,,
+         ,ADMRDEPT,,,,,
+         ,LOCATION,,,,,
+         )
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 5         'UNLOAD TABLE DSN8610.DEPT'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DT0072.DSN8610.EMP.DATA')                                   +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT EMPNO, FIRSTNME, MIDINIT, LASTNAME, WORKDEPT, PHONENO,
+  HIREDATE, JOB, EDLEVEL, SEX, BIRTHDATE, SALARY, BONUS, COMM
+  FROM DSN8610.EMP
+  ORDER BY EMPNO
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+  PAGESIZE(4)
+  COLUMNS(EMPNO,,CHAR(9),,,
+         ,FIRSTNME,,,,,
+         ,MIDINIT,,,,,
+         ,LASTNAME,,,,,
+         ,WORKDEPT,,,,,
+         ,PHONENO,,,,,
+         ,HIREDATE,,,,,
+         ,JOB,,,,,
+         ,EDLEVEL,,,,,
+         ,SEX,,,,,
+         ,BIRTHDATE,,,,,
+         ,SALARY,,,,,
+         ,BONUS,,,,,
+         ,COMM,,,,,
+         )
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 10        'UNLOAD TABLE DSN8610.EMP'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DT0072.DSN8610.EMPPROJA.CT.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT EMPNO, PROJNO, ACTNO, EMPTIME, EMSTDATE, EMENDATE
+  FROM DSN8610.EMPPROJACT
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+  PAGESIZE(4)
+  COLUMNS(EMPNO,,CHAR(9),,,
+         ,PROJNO,,,,,
+         ,ACTNO,,,,,
+         ,EMPTIME,,,,,
+         ,EMSTDATE,,,,,
+         ,EMENDATE,,,,,
+         )
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 15        'UNLOAD TABLE DSN8610.EMPPROJACT'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DT0072.DSN8610.PROJ.DATA')                                  +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT PROJNO, PROJNAME, DEPTNO, RESPEMP, PRSTAFF, PRSTDATE,
+  PRENDATE, MAJPROJ
+  FROM DSN8610.PROJ
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+  PAGESIZE(4)
+  COLUMNS(PROJNO,,,,,
+         ,PROJNAME,,,,,
+         ,DEPTNO,,,,,
+         ,RESPEMP,,CHAR(9),,,
+         ,PRSTAFF,,,,,
+         ,PRSTDATE,,,,,
+         ,PRENDATE,,,,,
+         ,MAJPROJ,,,,,
+         )
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 20        'UNLOAD TABLE DSN8610.PROJ'
+
+.SYSTEM SQLDDL
+.CONNECT DB2V
+
+    DROP TABLESPACE DSN8D61A.DSN8S61E;
+
+.SYNC 25        'DROP TABLESPACE DSN8D61A.DSN8S61E'
+
+    DROP TABLE DSN8610.DEPT;
+
+.SYNC 30        'DROP TABLE DSN8610.DEPT'
+
+    DROP TABLE DSN8610.EMPPROJACT;
+
+.SYNC 35        'DROP TABLE DSN8610.EMPPROJACT'
+
+    DROP TABLE DSN8610.PROJ;
+
+.SYNC 40        'DROP TABLE DSN8610.PROJ'
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLESPACE CREATE AND ALTER STATEMENTS                     *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DSN8D61A.DSN8S61E WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE TABLESPACE DSN8S61E
+           IN DSN8D61A
+           NUMPARTS    4
+          (PART 1
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 2
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 20
+                                    SECQTY 20
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          ,PART 3
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+          ,PART 4
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 20
+                                    SECQTY 20
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS YES
+          )
+           BUFFERPOOL BP20
+           LOCKSIZE PAGE
+           CLOSE NO
+           LOCKMAX SYSTEM
+           CCSID EBCDIC
+    ;
+
+.SYNC 45        'CREATE TABLESPACE DSN8D61A.DSN8S61E'
+    SET CURRENT SQLID = USER;
+
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DSN8610.DEPT WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DT0072';
+
+CREATE TABLE DSN8610.DEPT
+   (DEPTNO                 CHAR(3    )                 NOT NULL
+   ,DEPTNAME               VARCHAR(36   )              NOT NULL
+   ,MGRNO                  CHAR(9    )
+   ,ADMRDEPT               CHAR(3    )                 NOT NULL
+   ,LOCATION               CHAR(16   )
+   ,PRIMARY KEY
+   (DEPTNO
+   )
+   )
+   IN DSN8D61A.DSN8S61D
+   CCSID EBCDIC
+   ;
+
+.SYNC 50        'CREATE TABLE DSN8610.DEPT'
+    SET CURRENT SQLID = USER;
+
+
+-- DEPT  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM DEPT
+               FOR DSN8610.DEPT;
+
+.SYNC 55        'CREATE SYNONYM D36660E.DEPT'
+    SET CURRENT SQLID = USER;
+
+--RMA099W TABLE DSN8610.EMP HAS HAD
+--      ONE OR MORE OF ITS PRIMARY KEY COLUMNS CHANGED
+--      DUE TO REFERENTIAL INTEGRITY PROPAGATION
+
+-- DSN8610.EMP WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+CREATE TABLE DSN8610.EMP
+   (EMPNO                  CHAR(9    )                 NOT NULL
+   ,FIRSTNME               VARCHAR(12   )              NOT NULL
+   ,MIDINIT                CHAR(1    )                 NOT NULL
+   ,LASTNAME               VARCHAR(15   )              NOT NULL
+   ,WORKDEPT               CHAR(3    )
+   ,PHONENO                CHAR(4    )
+   ,HIREDATE               DATE
+   ,JOB                    CHAR(8    )
+   ,EDLEVEL                SMALLINT
+   ,SEX                    CHAR(1    )
+   ,BIRTHDATE              DATE
+   ,SALARY                 DECIMAL(9     , 2    )
+   ,BONUS                  DECIMAL(9     , 2    )
+   ,COMM                   DECIMAL(9     , 2    )
+   ,PRIMARY KEY
+   (EMPNO
+   )
+   ,CONSTRAINT NUMBER CHECK(PHONENO >= '0000' AND PHONENO <= '9999')
+   ,CONSTRAINT PERSON CHECK(SEX = 'M' OR SEX = 'F')
+   )
+   IN DSN8D61A.DSN8S61E
+   EDITPROC DSN8EAE1
+   CCSID EBCDIC
+   ;
+
+.SYNC 60        'CREATE TABLE DSN8610.EMP'
+
+
+-- EMP  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM EMP
+               FOR DSN8610.EMP;
+
+.SYNC 65        'CREATE SYNONYM D36660E.EMP'
+    SET CURRENT SQLID = USER;
+
+--RMA104W TABLE DSN8610.EMPPROJACT HAS HAD
+--      ONE OR MORE OF ITS FOREIGN KEY COLUMNS CHANGED
+--      DUE TO REFERENTIAL INTEGRITY PROPAGATION
+
+-- DSN8610.EMPPROJACT WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+CREATE TABLE DSN8610.EMPPROJACT
+   (EMPNO                  CHAR(9    )                 NOT NULL
+   ,PROJNO                 CHAR(6    )                 NOT NULL
+   ,ACTNO                  SMALLINT                    NOT NULL
+   ,EMPTIME                DECIMAL(5     , 2    )
+   ,EMSTDATE               DATE
+   ,EMENDATE               DATE
+   )
+   IN DSN8D61A.DSN8S61P
+   CCSID EBCDIC
+   ;
+
+.SYNC 70        'CREATE TABLE DSN8610.EMPPROJACT'
+
+
+-- EMPPROJACT  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM EMPPROJACT
+               FOR DSN8610.EMPPROJACT;
+
+.SYNC 75        'CREATE SYNONYM D36660E.EMPPROJACT'
+    SET CURRENT SQLID = USER;
+
+--RMA104W TABLE DSN8610.PROJ HAS HAD
+--      ONE OR MORE OF ITS FOREIGN KEY COLUMNS CHANGED
+--      DUE TO REFERENTIAL INTEGRITY PROPAGATION
+
+-- DSN8610.PROJ WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+CREATE TABLE DSN8610.PROJ
+   (PROJNO                 CHAR(6    )                 NOT NULL
+   ,PROJNAME               VARCHAR(24   )              NOT NULL
+          WITH DEFAULT
+                    'PROJECT NAME UNDEFINED'
+   ,DEPTNO                 CHAR(3    )                 NOT NULL
+   ,RESPEMP                CHAR(9    )                 NOT NULL
+   ,PRSTAFF                DECIMAL(5     , 2    )
+   ,PRSTDATE               DATE
+   ,PRENDATE               DATE
+   ,MAJPROJ                CHAR(6    )
+   ,PRIMARY KEY
+   (PROJNO
+   )
+   )
+   IN DSN8D61A.DSN8S61P
+   CCSID EBCDIC
+   ;
+
+.SYNC 80        'CREATE TABLE DSN8610.PROJ'
+
+
+-- PROJ  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM PROJ
+               FOR DSN8610.PROJ;
+
+.SYNC 85        'CREATE SYNONYM D36660E.PROJ'
+    SET CURRENT SQLID = USER;
+
+
+-- **************************************************************
+-- *                                                            *
+-- * INDEX CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DSN8610.XDEPT1 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        UNIQUE INDEX DSN8610.XDEPT1
+           ON DSN8610.DEPT
+          (DEPTNO               ASC
+          )
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+           BUFFERPOOL BP20
+           CLOSE NO
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 90        'CREATE INDEX DSN8610.XDEPT1'
+
+--RMA082W INDEXED COLUMNS HAVE BEEN CHANGED IN THE TABLE ASSOCIATED
+--      WITH PARTITIONED INDEX DSN8610.XEMP1
+
+-- DSN8610.XEMP1 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        UNIQUE INDEX DSN8610.XEMP1
+           ON DSN8610.EMP
+          (EMPNO                ASC
+          )
+           CLUSTER
+          (PART 1
+           VALUES
+          (
+           '099999')
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+          ,PART 2
+           VALUES
+          (
+           '199999')
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+          ,PART 3
+           VALUES
+          (
+           '299999')
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+          ,PART 4
+           VALUES
+          (
+           '999999')
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+          )
+           BUFFERPOOL BP20
+           CLOSE NO
+    ;
+
+.SYNC 95        'CREATE INDEX DSN8610.XEMP1'
+
+
+-- DSN8610.XPROJ1 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        UNIQUE INDEX DSN8610.XPROJ1
+           ON DSN8610.PROJ
+          (PROJNO               ASC
+          )
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+           BUFFERPOOL BP20
+           CLOSE NO
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 100       'CREATE INDEX DSN8610.XPROJ1'
+
+
+-- DSN8610.XDEPT2 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX DSN8610.XDEPT2
+           ON DSN8610.DEPT
+          (MGRNO                ASC
+          )
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+           BUFFERPOOL BP20
+           CLOSE NO
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 105       'CREATE INDEX DSN8610.XDEPT2'
+
+
+-- DSN8610.XDEPT3 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX DSN8610.XDEPT3
+           ON DSN8610.DEPT
+          (ADMRDEPT             ASC
+          )
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+           BUFFERPOOL BP20
+           CLOSE NO
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 110       'CREATE INDEX DSN8610.XDEPT3'
+
+
+-- DSN8610.XEMPPROJACT2 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX DSN8610.XEMPPROJACT2
+           ON DSN8610.EMPPROJACT
+          (EMPNO                ASC
+          )
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+           BUFFERPOOL BP20
+           CLOSE NO
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 115       'CREATE INDEX DSN8610.XEMPPROJACT2'
+
+
+-- DSN8610.XEMP2 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX DSN8610.XEMP2
+           ON DSN8610.EMP
+          (WORKDEPT             ASC
+          )
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+           BUFFERPOOL BP20
+           CLOSE NO
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 120       'CREATE INDEX DSN8610.XEMP2'
+
+
+-- DSN8610.XPROJ2 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX DSN8610.XPROJ2
+           ON DSN8610.PROJ
+          (RESPEMP              ASC
+          )
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+           BUFFERPOOL BP20
+           CLOSE NO
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 125       'CREATE INDEX DSN8610.XPROJ2'
+
+
+-- DSN8610.XEMPPROJACT1 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        UNIQUE INDEX DSN8610.XEMPPROJACT1
+           ON DSN8610.EMPPROJACT
+          (PROJNO               ASC
+          ,ACTNO                ASC
+          ,EMSTDATE             ASC
+          ,EMPNO                ASC
+          )
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+           BUFFERPOOL BP20
+           CLOSE NO
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 130       'CREATE INDEX DSN8610.XEMPPROJACT1'
+
+
+-- **************************************************************
+-- *                                                            *
+-- * VIEW CREATE AND ALTER STATEMENTS                           *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DSN8610.VPROJ WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VPROJ
+AS SELECT ALL PROJNO , PROJNAME , DEPTNO , RESPEMP , PRSTAFF , PRSTDATE
+, PRENDATE , MAJPROJ FROM DSN8610.PROJ
+;
+
+.SYNC 135       'CREATE VIEW DSN8610.VPROJ'
+
+
+-- VPROJ  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VPROJ
+               FOR DSN8610.VPROJ;
+
+.SYNC 140       'CREATE SYNONYM D36660E.VPROJ'
+    SET CURRENT SQLID = USER;
+
+
+-- DSN8610.VEMPPROJACT WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VEMPPROJACT
+AS SELECT ALL EMPNO , PROJNO , ACTNO , EMPTIME , EMSTDATE , EMENDATE
+FROM DSN8610.EMPPROJACT
+;
+
+.SYNC 145       'CREATE VIEW DSN8610.VEMPPROJACT'
+
+
+-- VEMPPROJACT  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VEMPPROJACT
+               FOR DSN8610.VEMPPROJACT;
+
+.SYNC 150       'CREATE SYNONYM D36660E.VEMPPROJACT'
+    SET CURRENT SQLID = USER;
+
+
+-- DSN8610.VEMPLP WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VEMPLP
+( EMPLOYEENUMBER , PHONENUMBER ) AS SELECT ALL EMPNO , PHONENO FROM
+DSN8610.EMP
+;
+
+.SYNC 155       'CREATE VIEW DSN8610.VEMPLP'
+
+
+-- VEMPLP  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VEMPLP
+               FOR DSN8610.VEMPLP;
+
+.SYNC 160       'CREATE SYNONYM D36660E.VEMPLP'
+    SET CURRENT SQLID = USER;
+
+
+--RMA050W ONE OR MORE COLUMNS REFERENCED IN THE WHERE CLAUSE OF VIEW
+--      DSN8610.VPROJRE1 HAS HAD ITS TYPE CHANGED
+
+-- DSN8610.VPROJRE1 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VPROJRE1
+( PROJNO , PROJNAME , PROJDEP , RESPEMP , FIRSTNME , MIDINIT , LASTNAME
+, MAJPROJ ) AS SELECT ALL PROJNO , PROJNAME , DEPTNO , EMPNO , FIRSTNME
+, MIDINIT , LASTNAME , MAJPROJ FROM DSN8610.PROJ , DSN8610.EMP WHERE
+RESPEMP = EMPNO
+;
+
+.SYNC 165       'CREATE VIEW DSN8610.VPROJRE1'
+
+
+-- VPROJRE1  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VPROJRE1
+               FOR DSN8610.VPROJRE1;
+
+.SYNC 170       'CREATE SYNONYM D36660E.VPROJRE1'
+    SET CURRENT SQLID = USER;
+
+
+-- DSN8610.VEMP WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VEMP
+AS SELECT ALL EMPNO , FIRSTNME , MIDINIT , LASTNAME , WORKDEPT FROM
+DSN8610.EMP
+;
+
+.SYNC 175       'CREATE VIEW DSN8610.VEMP'
+
+
+-- VEMP  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VEMP
+               FOR DSN8610.VEMP;
+
+.SYNC 180       'CREATE SYNONYM D36660E.VEMP'
+    SET CURRENT SQLID = USER;
+
+
+-- DSN8610.VPHONE WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VPHONE
+( LASTNAME , FIRSTNAME , MIDDLEINITIAL , PHONENUMBER , EMPLOYEENUMBER ,
+DEPTNUMBER , DEPTNAME ) AS SELECT ALL LASTNAME , FIRSTNME , MIDINIT ,
+VALUE ( PHONENO , '    ' ) , EMPNO , DEPTNO , DEPTNAME FROM DSN8610.EMP
+, DSN8610.DEPT WHERE WORKDEPT = DEPTNO
+;
+
+.SYNC 185       'CREATE VIEW DSN8610.VPHONE'
+
+
+-- VPHONE  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VPHONE
+               FOR DSN8610.VPHONE;
+
+.SYNC 190       'CREATE SYNONYM D36660E.VPHONE'
+    SET CURRENT SQLID = USER;
+
+
+-- DSN8610.VEMPDPT1 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VEMPDPT1
+( DEPTNO , DEPTNAME , EMPNO , FRSTINIT , MIDINIT , LASTNAME , WORKDEPT
+) AS SELECT ALL DEPTNO , DEPTNAME , EMPNO , SUBSTR ( FIRSTNME , 1 , 1 )
+, MIDINIT , LASTNAME , WORKDEPT FROM DSN8610.DEPT RIGHT OUTER JOIN
+DSN8610.EMP ON WORKDEPT = DEPTNO
+;
+
+.SYNC 195       'CREATE VIEW DSN8610.VEMPDPT1'
+
+
+-- VEMPDPT1  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VEMPDPT1
+               FOR DSN8610.VEMPDPT1;
+
+.SYNC 200       'CREATE SYNONYM D36660E.VEMPDPT1'
+    SET CURRENT SQLID = USER;
+
+
+-- DSN8610.VDEPMG1 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VDEPMG1
+( DEPTNO , DEPTNAME , MGRNO , FIRSTNME , MIDINIT , LASTNAME , ADMRDEPT
+) AS SELECT ALL DEPTNO , DEPTNAME , EMPNO , FIRSTNME , MIDINIT ,
+LASTNAME , ADMRDEPT FROM DSN8610.DEPT LEFT OUTER JOIN DSN8610.EMP ON
+MGRNO = EMPNO
+;
+
+.SYNC 205       'CREATE VIEW DSN8610.VDEPMG1'
+
+
+-- VDEPMG1  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VDEPMG1
+               FOR DSN8610.VDEPMG1;
+
+.SYNC 210       'CREATE SYNONYM D36660E.VDEPMG1'
+    SET CURRENT SQLID = USER;
+
+
+-- DSN8610.VHDEPT WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VHDEPT
+AS SELECT ALL DEPTNO , DEPTNAME , MGRNO , ADMRDEPT , LOCATION FROM
+DSN8610.DEPT
+;
+
+.SYNC 215       'CREATE VIEW DSN8610.VHDEPT'
+
+
+-- VHDEPT  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VHDEPT
+               FOR DSN8610.VHDEPT;
+
+.SYNC 220       'CREATE SYNONYM D36660E.VHDEPT'
+    SET CURRENT SQLID = USER;
+
+
+-- DSN8610.VDEPT WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VDEPT
+AS SELECT ALL DEPTNO , DEPTNAME , MGRNO , ADMRDEPT FROM DSN8610.DEPT
+;
+
+.SYNC 225       'CREATE VIEW DSN8610.VDEPT'
+
+
+-- VDEPT  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VDEPT
+               FOR DSN8610.VDEPT;
+
+.SYNC 230       'CREATE SYNONYM D36660E.VDEPT'
+    SET CURRENT SQLID = USER;
+
+
+--RMA050W ONE OR MORE COLUMNS REFERENCED IN THE WHERE CLAUSE OF VIEW
+--      DSN8610.VSTAFAC2 HAS HAD ITS TYPE CHANGED
+
+-- DSN8610.VSTAFAC2 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VSTAFAC2
+( PROJNO , ACTNO , ACTDESC , EMPNO , FIRSTNME , MIDINIT , LASTNAME ,
+EMPTIME , STDATE , ENDATE , TYPE ) AS SELECT ALL EP.PROJNO , EP.ACTNO ,
+AC.ACTDESC , EP.EMPNO , EM.FIRSTNME , EM.MIDINIT , EM.LASTNAME ,
+EP.EMPTIME , EP.EMSTDATE , EP.EMENDATE , '2' FROM DSN8610.EMPPROJACT EP
+, DSN8610.ACT AC , DSN8610.EMP EM WHERE EP.ACTNO = AC.ACTNO AND
+EP.EMPNO = EM.EMPNO
+;
+
+.SYNC 235       'CREATE VIEW DSN8610.VSTAFAC2'
+
+
+-- VSTAFAC2  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VSTAFAC2
+               FOR DSN8610.VSTAFAC2;
+
+.SYNC 240       'CREATE SYNONYM D36660E.VSTAFAC2'
+    SET CURRENT SQLID = USER;
+
+
+-- DSN8610.VFORPLA WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VFORPLA
+( PROJNO , PROJNAME , RESPEMP , PROJDEP , FRSTINIT , MIDINIT , LASTNAME
+) AS SELECT ALL F1.PROJNO , PROJNAME , RESPEMP , PROJDEP , SUBSTR (
+FIRSTNME , 1 , 1 ) , MIDINIT , LASTNAME FROM DSN8610.VPROJRE1 F1 LEFT
+OUTER JOIN DSN8610.EMPPROJACT F2 ON F1.PROJNO = F2.PROJNO
+;
+
+.SYNC 245       'CREATE VIEW DSN8610.VFORPLA'
+
+
+-- VFORPLA  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VFORPLA
+               FOR DSN8610.VFORPLA;
+
+.SYNC 250       'CREATE SYNONYM D36660E.VFORPLA'
+    SET CURRENT SQLID = USER;
+
+
+-- DSN8610.VASTRDE2 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VASTRDE2
+( DEPT1NO , DEPT1NAM , EMP1NO , EMP1FN , EMP1MI , EMP1LN , TYPE2 ,
+DEPT2NO , DEPT2NAM , EMP2NO , EMP2FN , EMP2MI , EMP2LN ) AS SELECT ALL
+D1.DEPTNO , D1.DEPTNAME , D1.MGRNO , D1.FIRSTNME , D1.MIDINIT ,
+D1.LASTNAME , '2' , D1.DEPTNO , D1.DEPTNAME , E2.EMPNO , E2.FIRSTNME ,
+E2.MIDINIT , E2.LASTNAME FROM DSN8610.VDEPMG1 D1 , DSN8610.EMP E2 WHERE
+D1.DEPTNO = E2.WORKDEPT
+;
+
+.SYNC 255       'CREATE VIEW DSN8610.VASTRDE2'
+
+
+-- VASTRDE2  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VASTRDE2
+               FOR DSN8610.VASTRDE2;
+
+.SYNC 260       'CREATE SYNONYM D36660E.VASTRDE2'
+    SET CURRENT SQLID = USER;
+
+
+-- DSN8610.VPSTRDE2 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VPSTRDE2
+( PROJ1NO , PROJ1NAME , RESP1NO , RESP1FN , RESP1MI , RESP1LN , PROJ2NO
+, PROJ2NAME , RESP2NO , RESP2FN , RESP2MI , RESP2LN ) AS SELECT ALL
+P1.PROJNO , P1.PROJNAME , P1.RESPEMP , P1.FIRSTNME , P1.MIDINIT ,
+P1.LASTNAME , P1.PROJNO , P1.PROJNAME , P1.RESPEMP , P1.FIRSTNME ,
+P1.MIDINIT , P1.LASTNAME FROM DSN8610.VPROJRE1 P1 WHERE NOT EXISTS (
+SELECT * FROM DSN8610.VPROJRE1 P2 WHERE P1.PROJNO = P2.MAJPROJ )
+;
+
+.SYNC 265       'CREATE VIEW DSN8610.VPSTRDE2'
+
+
+-- VPSTRDE2  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VPSTRDE2
+               FOR DSN8610.VPSTRDE2;
+
+.SYNC 270       'CREATE SYNONYM D36660E.VPSTRDE2'
+    SET CURRENT SQLID = USER;
+
+
+-- DSN8610.VPSTRDE1 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VPSTRDE1
+( PROJ1NO , PROJ1NAME , RESP1NO , RESP1FN , RESP1MI , RESP1LN , PROJ2NO
+, PROJ2NAME , RESP2NO , RESP2FN , RESP2MI , RESP2LN ) AS SELECT ALL
+P1.PROJNO , P1.PROJNAME , P1.RESPEMP , P1.FIRSTNME , P1.MIDINIT ,
+P1.LASTNAME , P2.PROJNO , P2.PROJNAME , P2.RESPEMP , P2.FIRSTNME ,
+P2.MIDINIT , P2.LASTNAME FROM DSN8610.VPROJRE1 P1 , DSN8610.VPROJRE1 P2
+WHERE P1.PROJNO = P2.MAJPROJ
+;
+
+.SYNC 275       'CREATE VIEW DSN8610.VPSTRDE1'
+
+
+-- VPSTRDE1  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VPSTRDE1
+               FOR DSN8610.VPSTRDE1;
+
+.SYNC 280       'CREATE SYNONYM D36660E.VPSTRDE1'
+    SET CURRENT SQLID = USER;
+
+
+-- DSN8610.VASTRDE1 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE VIEW DSN8610.VASTRDE1
+( DEPT1NO , DEPT1NAM , EMP1NO , EMP1FN , EMP1MI , EMP1LN , TYPE2 ,
+DEPT2NO , DEPT2NAM , EMP2NO , EMP2FN , EMP2MI , EMP2LN ) AS SELECT ALL
+D1.DEPTNO , D1.DEPTNAME , D1.MGRNO , D1.FIRSTNME , D1.MIDINIT ,
+D1.LASTNAME , '1' , D2.DEPTNO , D2.DEPTNAME , D2.MGRNO , D2.FIRSTNME ,
+D2.MIDINIT , D2.LASTNAME FROM DSN8610.VDEPMG1 D1 , DSN8610.VDEPMG1 D2
+WHERE D1.DEPTNO = D2.ADMRDEPT
+;
+
+.SYNC 285       'CREATE VIEW DSN8610.VASTRDE1'
+
+
+-- VASTRDE1  WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D36660E';
+
+    CREATE SYNONYM VASTRDE1
+               FOR DSN8610.VASTRDE1;
+
+.SYNC 290       'CREATE SYNONYM D36660E.VASTRDE1'
+    SET CURRENT SQLID = USER;
+
+
+-- **************************************************************
+-- *                                                            *
+-- * ALTERS FOR TABLE FOREIGN KEYS                              *
+-- *                                                            *
+-- **************************************************************
+
+
+    ALTER TABLE DSN8610.EMP FOREIGN KEY RED
+            (WORKDEPT
+            )
+        REFERENCES DSN8610.DEPT
+        ON DELETE SET NULL;
+
+.SYNC 295       'ALTER TABLE DSN8610.EMP'
+
+
+    ALTER TABLE DSN8610.PROJ FOREIGN KEY DEPTNO
+            (DEPTNO
+            )
+        REFERENCES DSN8610.DEPT
+        ON DELETE RESTRICT;
+
+.SYNC 300       'ALTER TABLE DSN8610.PROJ'
+
+
+    ALTER TABLE DSN8610.DEPT FOREIGN KEY RDD
+            (ADMRDEPT
+            )
+        REFERENCES DSN8610.DEPT
+        ON DELETE CASCADE;
+
+.SYNC 305       'ALTER TABLE DSN8610.DEPT'
+
+
+    ALTER TABLE DSN8610.PROJ FOREIGN KEY RESPEMP
+            (RESPEMP
+            )
+        REFERENCES DSN8610.EMP
+        ON DELETE RESTRICT;
+
+.SYNC 310       'ALTER TABLE DSN8610.PROJ'
+
+
+    ALTER TABLE DSN8610.DEPT FOREIGN KEY RDE
+            (MGRNO
+            )
+        REFERENCES DSN8610.EMP
+        ON DELETE SET NULL;
+
+.SYNC 315       'ALTER TABLE DSN8610.DEPT'
+
+
+    ALTER TABLE DSN8610.EMPPROJACT FOREIGN KEY REPAE
+            (EMPNO
+            )
+        REFERENCES DSN8610.EMP
+        ON DELETE RESTRICT;
+
+.SYNC 320       'ALTER TABLE DSN8610.EMPPROJACT'
+
+
+    ALTER TABLE DSN8610.PROJACT FOREIGN KEY RPAP
+            (PROJNO
+            )
+        REFERENCES DSN8610.PROJ
+        ON DELETE RESTRICT;
+
+.SYNC 325       'ALTER TABLE DSN8610.PROJACT'
+
+
+    ALTER TABLE DSN8610.PROJ FOREIGN KEY RPP
+            (MAJPROJ
+            )
+        REFERENCES DSN8610.PROJ
+        ON DELETE CASCADE;
+
+.SYNC 330       'ALTER TABLE DSN8610.PROJ'
+
+
+    ALTER TABLE DSN8610.EMPPROJACT FOREIGN KEY REPAPA
+            (PROJNO
+            ,ACTNO
+            ,EMSTDATE
+            )
+        REFERENCES DSN8610.PROJACT
+        ON DELETE RESTRICT;
+
+.SYNC 335       'ALTER TABLE DSN8610.EMPPROJACT'
+
+.DISCONN
+
+.SYNC 340       'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+--RMA197W CHILD TABLE DSN8610.DEPT MUST BE LOADED
+--      ENFORCE NO BECAUSE IT IS PART OF A CYCLICAL RI RELATIONSHIP.
+
+.CALL UTIL LOAD PARM(DB2V)
+.ALLOC FI(PTILOAD)                                                     +
+   DA('DT0072.DSN8610.DEPT.DATA')                                      +
+   SHR
+.ALLOC FI(SYSDISC)                                                     +
+   DA('DT0072.DSN8610.DEPT.DATA.D')                                    +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) TRACKS RLSE
+.ALLOC FI(SYSERR)                                                      +
+   DA('DT0072.DSN8610.DEPT.DATA.E')                                    +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) BLK(4096) RLSE
+.ALLOC FI(SYSMAP)                                                      +
+   DA('DT0072.DSN8610.DEPT.DATA.M')                                    +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) BLK(4096) RLSE
+.ALLOC FI(PTIUT1) UNIT(SYSDA)                                          +
+   DA('DT0072.DSN8610.DEPT.DATA.U')                                    +
+   SPACE(1,1) CYL                                                      +
+   MOD CATALOG
+.ALLOC FI(PTIOUT) UNIT(SYSDA)                                          +
+   DA('DT0072.DSN8610.DEPT.DATA.O')                                    +
+   SPACE(1,1) CYL                                                      +
+   MOD CATALOG
+.DATA
+   LOAD DATA INDDN PTILOAD RESUME YES     LOG NO   ENFORCE NO
+    DISCARDDN SYSDISC
+    ERRDDN   SYSERR
+    MAPDDN   SYSMAP
+    WORKDDN  (PTIUT1,PTIOUT)
+    SORTDEVT SYSDA
+    CONTINUEIF (72) = X'FF'
+    INTO TABLE DSN8610.DEPT
+    (DEPTNO               POSITION(     3) CHAR(     3)
+    ,DEPTNAME             POSITION(     *) VARCHAR
+    ,MGRNO                POSITION(     *) VARCHAR
+                              NULLIF(     1) = X'FF'
+    ,ADMRDEPT             POSITION(     *) CHAR(     3)
+    ,LOCATION             POSITION(     *) CHAR(    16)
+                              NULLIF(     2) = X'FF'
+    )
+.ENDDATA
+.FREE FI(PTILOAD)
+.FREE FI(SYSDISC)
+.FREE FI(SYSERR)
+.FREE FI(SYSMAP)
+.FREE FI(PTIUT1)
+.FREE FI(PTIOUT)
+
+.SYNC 345       'LOAD TABLE DSN8610.DEPT'
+
+.CALL UTIL LOAD PARM(DB2V)
+.ALLOC FI(PTILOAD)                                                     +
+   DA('DT0072.DSN8610.EMP.DATA')                                       +
+   SHR
+.ALLOC FI(SYSDISC)                                                     +
+   DA('DT0072.DSN8610.EMP.DATA.D')                                     +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) TRACKS RLSE
+.ALLOC FI(SYSERR)                                                      +
+   DA('DT0072.DSN8610.EMP.DATA.E')                                     +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) BLK(4096) RLSE
+.ALLOC FI(SYSMAP)                                                      +
+   DA('DT0072.DSN8610.EMP.DATA.M')                                     +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) BLK(4096) RLSE
+.ALLOC FI(PTIUT1) UNIT(SYSDA)                                          +
+   DA('DT0072.DSN8610.EMP.DATA.U')                                     +
+   SPACE(1,1) CYL                                                      +
+   MOD CATALOG
+.ALLOC FI(PTIOUT) UNIT(SYSDA)                                          +
+   DA('DT0072.DSN8610.EMP.DATA.O')                                     +
+   SPACE(1,1) CYL                                                      +
+   MOD CATALOG
+.DATA
+   LOAD DATA INDDN PTILOAD RESUME NO      LOG NO   ENFORCE CONSTRAINTS
+    DISCARDDN SYSDISC
+    ERRDDN   SYSERR
+    MAPDDN   SYSMAP
+    WORKDDN  (PTIUT1,PTIOUT)
+    SORTDEVT SYSDA
+    CONTINUEIF (72) = X'FF'
+    INTO TABLE DSN8610.EMP
+    (EMPNO                POSITION(    11) VARCHAR
+    ,FIRSTNME             POSITION(     *) VARCHAR
+    ,MIDINIT              POSITION(     *) CHAR(     1)
+    ,LASTNAME             POSITION(     *) VARCHAR
+    ,WORKDEPT             POSITION(     *) CHAR(     3)
+                              NULLIF(     1) = X'FF'
+    ,PHONENO              POSITION(     *) CHAR(     4)
+                              NULLIF(     2) = X'FF'
+    ,HIREDATE             POSITION(     *) DATE EXTERNAL(    10)
+                              NULLIF(     3) = X'FF'
+    ,JOB                  POSITION(     *) CHAR(     8)
+                              NULLIF(     4) = X'FF'
+    ,EDLEVEL              POSITION(     *) SMALLINT
+                              NULLIF(     5) = X'FF'
+    ,SEX                  POSITION(     *) CHAR(     1)
+                              NULLIF(     6) = X'FF'
+    ,BIRTHDATE            POSITION(     *) DATE EXTERNAL(    10)
+                              NULLIF(     7) = X'FF'
+    ,SALARY               POSITION(     *) DECIMAL
+                              NULLIF(     8) = X'FF'
+    ,BONUS                POSITION(     *) DECIMAL
+                              NULLIF(     9) = X'FF'
+    ,COMM                 POSITION(     *) DECIMAL
+                              NULLIF(    10) = X'FF'
+    )
+.ENDDATA
+.FREE FI(PTILOAD)
+.FREE FI(SYSDISC)
+.FREE FI(SYSERR)
+.FREE FI(SYSMAP)
+.FREE FI(PTIUT1)
+.FREE FI(PTIOUT)
+
+.SYNC 350       'LOAD TABLE DSN8610.EMP'
+
+.CALL UTIL LOAD PARM(DB2V)
+.ALLOC FI(PTILOAD)                                                     +
+   DA('DT0072.DSN8610.EMPPROJA.CT.DATA')                               +
+   SHR
+.ALLOC FI(SYSDISC)                                                     +
+   DA('DT0072.DSN8610.EMPPROJA.CT.DATA.D')                             +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) TRACKS RLSE
+.ALLOC FI(SYSERR)                                                      +
+   DA('DT0072.DSN8610.EMPPROJA.CT.DATA.E')                             +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) BLK(4096) RLSE
+.ALLOC FI(SYSMAP)                                                      +
+   DA('DT0072.DSN8610.EMPPROJA.CT.DATA.M')                             +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) BLK(4096) RLSE
+.ALLOC FI(PTIUT1) UNIT(SYSDA)                                          +
+   DA('DT0072.DSN8610.EMPPROJA.CT.DATA.U')                             +
+   SPACE(1,1) CYL                                                      +
+   MOD CATALOG
+.ALLOC FI(PTIOUT) UNIT(SYSDA)                                          +
+   DA('DT0072.DSN8610.EMPPROJA.CT.DATA.O')                             +
+   SPACE(1,1) CYL                                                      +
+   MOD CATALOG
+.DATA
+   LOAD DATA INDDN PTILOAD RESUME YES     LOG NO   ENFORCE CONSTRAINTS
+    DISCARDDN SYSDISC
+    ERRDDN   SYSERR
+    MAPDDN   SYSMAP
+    WORKDDN  (PTIUT1,PTIOUT)
+    SORTDEVT SYSDA
+    CONTINUEIF (72) = X'FF'
+    INTO TABLE DSN8610.EMPPROJACT
+    (EMPNO                POSITION(     4) VARCHAR
+    ,PROJNO               POSITION(     *) CHAR(     6)
+    ,ACTNO                POSITION(     *) SMALLINT
+    ,EMPTIME              POSITION(     *) DECIMAL
+                              NULLIF(     1) = X'FF'
+    ,EMSTDATE             POSITION(     *) DATE EXTERNAL(    10)
+                              NULLIF(     2) = X'FF'
+    ,EMENDATE             POSITION(     *) DATE EXTERNAL(    10)
+                              NULLIF(     3) = X'FF'
+    )
+.ENDDATA
+.FREE FI(PTILOAD)
+.FREE FI(SYSDISC)
+.FREE FI(SYSERR)
+.FREE FI(SYSMAP)
+.FREE FI(PTIUT1)
+.FREE FI(PTIOUT)
+
+.SYNC 355       'LOAD TABLE DSN8610.EMPPROJACT'
+
+--RMA197W CHILD TABLE DSN8610.PROJ MUST BE LOADED
+--      ENFORCE NO BECAUSE IT IS PART OF A CYCLICAL RI RELATIONSHIP.
+
+.CALL UTIL LOAD PARM(DB2V)
+.ALLOC FI(PTILOAD)                                                     +
+   DA('DT0072.DSN8610.PROJ.DATA')                                      +
+   SHR
+.ALLOC FI(SYSDISC)                                                     +
+   DA('DT0072.DSN8610.PROJ.DATA.D')                                    +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) TRACKS RLSE
+.ALLOC FI(SYSERR)                                                      +
+   DA('DT0072.DSN8610.PROJ.DATA.E')                                    +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) BLK(4096) RLSE
+.ALLOC FI(SYSMAP)                                                      +
+   DA('DT0072.DSN8610.PROJ.DATA.M')                                    +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1,1) BLK(4096) RLSE
+.ALLOC FI(PTIUT1) UNIT(SYSDA)                                          +
+   DA('DT0072.DSN8610.PROJ.DATA.U')                                    +
+   SPACE(1,1) CYL                                                      +
+   MOD CATALOG
+.ALLOC FI(PTIOUT) UNIT(SYSDA)                                          +
+   DA('DT0072.DSN8610.PROJ.DATA.O')                                    +
+   SPACE(1,1) CYL                                                      +
+   MOD CATALOG
+.DATA
+   LOAD DATA INDDN PTILOAD RESUME YES     LOG NO   ENFORCE NO
+    DISCARDDN SYSDISC
+    ERRDDN   SYSERR
+    MAPDDN   SYSMAP
+    WORKDDN  (PTIUT1,PTIOUT)
+    SORTDEVT SYSDA
+    CONTINUEIF (72) = X'FF'
+    INTO TABLE DSN8610.PROJ
+    (PROJNO               POSITION(     5) CHAR(     6)
+    ,PROJNAME             POSITION(     *) VARCHAR
+    ,DEPTNO               POSITION(     *) CHAR(     3)
+    ,RESPEMP              POSITION(     *) VARCHAR
+    ,PRSTAFF              POSITION(     *) DECIMAL
+                              NULLIF(     1) = X'FF'
+    ,PRSTDATE             POSITION(     *) DATE EXTERNAL(    10)
+                              NULLIF(     2) = X'FF'
+    ,PRENDATE             POSITION(     *) DATE EXTERNAL(    10)
+                              NULLIF(     3) = X'FF'
+    ,MAJPROJ              POSITION(     *) CHAR(     6)
+                              NULLIF(     4) = X'FF'
+    )
+.ENDDATA
+.FREE FI(PTILOAD)
+.FREE FI(SYSDISC)
+.FREE FI(SYSERR)
+.FREE FI(SYSMAP)
+.FREE FI(PTIUT1)
+.FREE FI(PTIOUT)
+
+.SYNC 360       'LOAD TABLE DSN8610.PROJ'
+
+--==============================================================================
+-- VRCM6.1.5      CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      04-17-02 12:01
+--==============================================================================
+--
+--  OBJECT TYPE: TABLESPACE                 TOTAL:                1
+--
+--      OBJECT NAME/DBNAME        EDITED         NEW NAME/DBNAME
+--
+--      DSN8S61E           DSN8D61A
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                4
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      DEPT               DSN8610      Y
+--      EMP                DSN8610
+--      EMPPROJACT         DSN8610
+--      PROJ               DSN8610
+--
+--  OBJECT TYPE: INDEX                      TOTAL:                9
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      XDEPT1             DSN8610
+--      XEMP1              DSN8610
+--      XPROJ1             DSN8610
+--      XDEPT2             DSN8610
+--      XDEPT3             DSN8610
+--      XEMPPROJACT2       DSN8610
+--      XEMP2              DSN8610
+--      XPROJ2             DSN8610
+--      XEMPPROJACT1       DSN8610
+--
+--  OBJECT TYPE: VIEW                       TOTAL:               16
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      VASTRDE1           DSN8610
+--      VASTRDE2           DSN8610
+--      VDEPMG1            DSN8610
+--      VDEPT              DSN8610
+--      VEMP               DSN8610
+--      VEMPDPT1           DSN8610
+--      VEMPLP             DSN8610
+--      VEMPPROJACT        DSN8610
+--      VFORPLA            DSN8610
+--      VHDEPT             DSN8610
+--      VPHONE             DSN8610
+--      VPROJ              DSN8610
+--      VPROJRE1           DSN8610
+--      VPSTRDE1           DSN8610
+--      VPSTRDE2           DSN8610
+--      VSTAFAC2           DSN8610
+--
+--  OBJECT TYPE: SYNONYM                    TOTAL:               20
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      DEPT               D36660E
+--      EMP                D36660E
+--      EMPPROJACT         D36660E
+--      PROJ               D36660E
+--      VASTRDE1           D36660E
+--      VASTRDE2           D36660E
+--      VDEPMG1            D36660E
+--      VDEPT              D36660E
+--      VEMP               D36660E
+--      VEMPDPT1           D36660E
+--      VEMPLP             D36660E
+--      VEMPPROJACT        D36660E
+--      VFORPLA            D36660E
+--      VHDEPT             D36660E
+--      VPHONE             D36660E
+--      VPROJ              D36660E
+--      VPROJRE1           D36660E
+--      VPSTRDE1           D36660E
+--      VPSTRDE2           D36660E
+--      VSTAFAC2           D36660E

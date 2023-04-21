@@ -1,0 +1,224 @@
+
+--==============================================================================
+-- VRCM6.1.5    CA-DB2   RC/ALTER      ANALYSIS REPORT      06-10-02 15:34
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> RCUPDATE  DESCRIPTION  ===> RC/UPDATE ALTERATION
+--CREATOR  ==> DT0072    SHARE OPTION ===> N (U,Y,N,X,L)  SRC SSID ===> DB2U
+--
+--ALTERED OBJECTS:
+--   OBJECT TYPE       NAME                 CREATOR
+--   TABLE             WT_CPN_ST            EBKDD02
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> O (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> CATALOG
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> D36660E
+--
+--  SECURITY          ===> Y             STATISTICS   ===> N
+--  DEFAULT SQLID     ===>               CHECK DATA   ===> Y
+--                                       IMAGE COPY   ===> N
+--                                       BIND/REBIND  ===> R
+--  ALL ROWS          ===> N             REORG        ===> N
+--  NUMBER ROWS       ===>               RECOVER IX   ===> N
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS         ===> Y             VSAM DEFINES  ===> Y
+--  SQL ONLY          ===> N             VSAM DELETES  ===> Y
+--  COMMIT ASAP       ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> Y
+--  DELETE TEMPORARY DATASETS ===> Y
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+--RMA233W NO UNLOADS HAVE BEEN GENERATED DURING THIS ANALYSIS.
+
+.SYSTEM SQLDDL
+.CONNECT DB2U
+
+    DROP TABLE EBKDD02.WT_CPN_ST;
+
+.SYNC 5         'DROP TABLE EBKDD02.WT_CPN_ST'
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- EBKDD02.WT_CPN_ST WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DT0072';
+
+CREATE TABLE EBKDD02.WT_CPN_ST
+   (TKT_DOC_NB             CHAR(15   )                 NOT NULL
+   ,TKT_DOC_ISS_LDT        DATE                        NOT NULL
+   ,TKT_DOC_SQ_NB          SMALLINT                    NOT NULL
+   ,CPN_NB                 SMALLINT                    NOT NULL
+   ,CPN_ST_TYP_CD          CHAR(1    )                 NOT NULL
+   ,CPN_SQ_NB              SMALLINT                    NOT NULL
+   ,AC_SEAT_ID             CHAR(3    )
+   ,ACS_OVRD_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,ASM_BUY_IND            CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,ASSD_DOC_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,BKG_ID                 CHAR(16   )
+   ,CA_ID                  CHAR(13   )
+   ,CNVLD_AFTR_LDT_TXT     CHAR(7    )
+   ,CNVLD_BFR_LDT_TXT      CHAR(7    )
+   ,CPN_BKG_STT_CD         CHAR(2    )
+   ,CPN_ENDT_TXT           CHAR(147  )
+   ,CPN_ITIN_TYP_CD        CHAR(1    )
+   ,CPN_PAX_CT             SMALLINT
+   ,CPN_USG_TYP_CD         CHAR(1    )
+   ,CPN_VAL_TXT            CHAR(12   )
+   ,CPN_VALDY_TYP_CD       CHAR(1    )
+   ,DEST_STPV_CD           CHAR(1    )
+   ,DL_MEAL_TYP_CD         CHAR(1    )
+   ,DRVD_COS_TXT           CHAR(2    )
+   ,ET_STLMT_AUTH_ID       CHAR(15   )
+   ,FF_CRR_CD              CHAR(3    )
+   ,FF_NB                  CHAR(25   )
+   ,FREE_BGG_ALWC_CD       CHAR(3    )
+   ,FREE_BGG_ALWC_CT       SMALLINT
+   ,FREE_BGG_ALWC_TXT      CHAR(3    )
+   ,LFTD_CPN_CRTN_GTS      TIMESTAMP
+   ,LGCY_HUB_RRGN_CD       CHAR(2    )
+   ,MDOC_ISSC_RSN_CD       CHAR(1    )
+   ,MOV_IND                CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,NEDRSB_IND             CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,NRFDB_IND              CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,ORIG_STPV_CD           CHAR(1    )
+   ,PNLTY_RSTN_IND         CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,PAX_STPV_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,PSNT_CRD_CARD_IND      CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,PVI_CHG_TYP_CD         CHAR(1    )
+   ,RAPD_LMO_NB            SMALLINT
+   ,RAPD_LYR_NB            SMALLINT
+   ,RFDD_TKDC_ISS_LDT      DATE
+   ,RFDD_TKT_DOC_NB        CHAR(15   )
+   ,RFDD_TKT_DOC_SQ_NB     SMALLINT
+   ,RPTD_STLMT_AUTH_ID     CHAR(14   )
+   ,SLD_CPN_FF_TXT         CHAR(16   )
+   ,SRFC_CPN_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,SVC_PVDR_INFO_TXT      CHAR(86   )
+   ,TKCP_QLTY_TYP_CD       CHAR(10   )
+   ,TKDC_RPTNS_TYP_CD      CHAR(4    )
+   ,TKDC_RTRNS_SQ_NB       SMALLINT
+   ,TKT_CPN_MDM_TYP_CD     CHAR(1    )
+   ,TRUE_HUB_RRGN_CD       CHAR(2    )
+   ,LST_RP_EVT_GTS         TIMESTAMP
+   ,LST_TRNS_EVT_GTS       TIMESTAMP
+   ,PRTTN_KEY_ID           DECIMAL(3     , 0    )      NOT NULL
+   ,ERROR_ID               INTEGER
+          WITH DEFAULT
+   )
+   IN EBKD2D02.TSKDW075
+   CCSID ASCII
+   ;
+
+.SYNC 10        'CREATE TABLE EBKDD02.WT_CPN_ST'
+    SET CURRENT SQLID = USER;
+
+
+    SET CURRENT SQLID = 'SYSPRO';
+
+    GRANT SELECT
+                    ON TABLE EBKDD02.WT_CPN_ST TO TQ0606;
+
+.SYNC 15        'GRANT TABLE EBKDD02.WT_CPN_ST'
+
+    SET CURRENT SQLID = USER;
+
+.DISCONN
+
+.SYNC 20        'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS020-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      VALIDATE(BIND)                                                -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 25        'REBIND PACKAGE TEDS020'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS075-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      VALIDATE(BIND)                                                -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 30        'REBIND PACKAGE TEDS075'
+
+
+--RMA073W TABLE EBKDD02.WT_CPN_ST IS ALSO EDITED
+--      IN STRATEGY DT0072.NOPKEY
+
+--RMA073W TABLE EBKDD02.WT_CPN_ST IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_CPN_ST IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDS12AF
+
+--==============================================================================
+-- VRCM6.1.5      CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      06-10-02 15:34
+--==============================================================================
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                1
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      WT_CPN_ST          EBKDD02      Y
+--
+--  OBJECT TYPE: PACKAGES REBOUND           TOTAL:                2
+--
+-- COLLECTION/NAME/VERSION
+--
+--      DELTA              TEDS020
+--      DELTA              TEDS075

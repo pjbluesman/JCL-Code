@@ -1,0 +1,15 @@
+//UXC401M4 JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSE
+//* *******************************************************************/
+//* JOB TO COPY VSAM DATASET                                          */
+//* *******************************************************************/
+//UNLOAD EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSOUT DD SYSOUT=*
+//INPUT1   DD DSN=SSXDP.CLONE.MVSFDB2F.SPUFI.CNVTUIXT.STEP0102,
+//         DISP=SHR
+//OUTPUT2 DD DSN=SSXDT.CLONE.DIOGO.SPUFI(ALTUIXT),DISP=SHR
+//SYSIN DD *
+REPRO INFILE(INPUT1) OUTFILE(OUTPUT2)
+/*

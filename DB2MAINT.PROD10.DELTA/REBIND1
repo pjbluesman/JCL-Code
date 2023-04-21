@@ -1,0 +1,1946 @@
+//UXD001R JOB ,'RDL RCC',CLASS=S,MSGCLASS=X,NOTIFY=DT0072
+//STEP01   EXEC PGM=IKJEFT01
+//STEPLIB  DD  DISP=SHR,DSN=SSXDT.DSNDBNG.DB2N.SDSNLOAD
+//SYSPRINT DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB2N)
+     REBIND PACKAGE ( AUTHPLAN_BSSP.PTASSP )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_BSSP.PTASSPA )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_BSSP.PTASSPE )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_BSSP.PTASSPI )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_BSSP.PTASSPI1 )                         -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_BSSP.PTASSPL )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_BSSP.PTASSPLD )                         -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_BSSP.PTASSPL1 )                         -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_BSSP.PTASSPR )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_BSSP.PTASSPS )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_BSSP.PTASSP1 )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.CSA$SQLP )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.CSAUSER2 )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAAACHK )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAADELE )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAAREAD )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAAWRIT )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTACAPIN )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTACBLD3 )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTADRVAC )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTADRVG@ )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTADRVR@ )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTADRVU@ )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAEDIT8 )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAGDEFM )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAGDEFV )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAGDEF2 )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTALBND )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTALDDL )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTALDD3 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTALDML )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTALINE )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTALIST2 )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAL3DB )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAL3I )                            -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAL3S )                            -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAL3SG )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAL3T )                            -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAL3TS )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAL3TV )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAL3V )                            -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTASADM )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTASPSR )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTASQLID )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTASYSAD )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.PTAUSER3 )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.USAFLDST )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.USALISTC )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.UTAGLD23 )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.UTAGLD31 )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.UTAGLD41 )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( AUTHPLAN_COM.UTAGLD51 )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.PTAUTLM )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAABL1 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAACON )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAAMPB )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAAPL )                            -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAAPLC )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACATB )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACBP# )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACBPB )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACBPD )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACBPE )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACBPS )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACPL )                            -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACPLE )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACUBD )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACUBI )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACUCB )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACUCL )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACUIX )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACUTB )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACUTS )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACVPRO )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACVQC )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACVUE )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAACVUR )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAEBP# )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAEBPB )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAEBPD )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAEBPR )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAEBPS )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAEPL )                            -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAESMN )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAICR )                            -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAALLST )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAMBLD )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAPDEX )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQBLK )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQHS1 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQHS2 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQHS3 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQIXA )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQIXD )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQIXF )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQIXS )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQIX1 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQIX2 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQIX3 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQIX4 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQIX5 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQIX6 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQIX7 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQIX8 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQIX9 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTBA )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTBD )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTB1 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTB2 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTB3 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTB4 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTB5 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTB6 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTB7 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTSF )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTS1 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTS2 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTS3 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTS4 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTS5 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTS6 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTS8 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQTS9 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAQVL1 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAARATH )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAARBP# )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAARBPB )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAARBPD )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAARBPR )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAARBPS )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAARPL )                            -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAASMAM )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAASMAP )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAASMBK )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAASMM )                            -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAASMRS )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAUBD5 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAUBD6 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAUBD7 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAUBD8 )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAUBP# )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAUBPB )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAUBPD )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAUBPM )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAUBPX )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAUBPY )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAUSER )                           -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAUSUBN )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+
+     REBIND PACKAGE ( RDPCPLAN_PDA.RAAUSUBP )                          -
+                                                                       -
+                                             QUALIFIER ( D36660E  )    -
+                                                                       -
+       RELEASE      ( COMMIT     )           ISOLATION ( CS )          -
+       VALIDATE     ( RUN  )                 EXPLAIN   ( NO  )         -
+                                                                       -
+       CURRENTDATA  ( NO  )                  DEGREE    ( 1   )         -
+       DYNAMICRULES (            )           NOREOPT   ( VARS  )       -
+       KEEPDYNAMIC  ( NO  )                                            -
+       DBPROTOCOL   ( PRIVATE   )            OPTHINT   ( '        ' )  -
+       PATHDEFAULT
+END
+/*
+//

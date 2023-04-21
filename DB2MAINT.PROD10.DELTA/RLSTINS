@@ -1,0 +1,49 @@
+--*********************************************************************/00010000
+--* JOB NAME = DSNTIJSG                                               */00020000
+--* ***  ONLY THE DSNRLST STEPS CONTAINED HEREIN - COPIED FROM        */00030000
+--*     DSNTIJSG IN SDB2U.SDSNSAMP                                    */00040000
+--*                                                                   */00050000
+--**********************************************************************00270000
+--* HERE ARE TWO SAMPLE INSERT STATEMENTS FOR INITIALIZING THE          00280000
+--* RESOURCE LIMIT FACILITY'S RESOURCE LIMIT SPECIFICATION TABLE (RLST).00290000
+--* IF YOU WANT TO INITIALIZE THE RLST, BUILD YOUR OWN INSERTS          00300000
+--* AND ADD THEM TO THE BOTTOM OF THE PREVIOUS STEP.                    00310000
+--*                                                                     00320000
+  INSERT INTO SYSIBM.DSNRLST01                                          00330006
+        (LUNAME,     AUTHID,     RLFPKG,   RLFFUNC)                     00340006
+        VALUES ('PUBLIC', 'SOFRSP', '      ',  '3');                    00350012
+  INSERT INTO SYSIBM.DSNRLST01                                          00350112
+        (LUNAME,     AUTHID,     RLFPKG,   RLFFUNC)                     00350212
+        VALUES ('PUBLIC', 'SOFRSP', '      ',  '4');                    00350312
+--INSERT INTO SYSIBM.DSNRLST01                                          00350412
+--      (LUNAME,     AUTHID,     RLFPKG,   RLFFUNC)                     00350512
+--      VALUES ('PUBLIC', 'T000736', '      ',  '2');                   00350612
+--INSERT INTO SYSIBM.DSNRLST01                                          00350712
+--      (LUNAME,     AUTHID,     RLFPKG,   RLFFUNC)                     00350812
+--      VALUES ('PUBLIC', 'SOFRSP', '      ',  '5');                    00350912
+--INSERT INTO SYSIBM.DSNRLST01                                          00351012
+--      (LUNAME,     AUTHID,     RLFPKG,   RLFFUNC)                     00351112
+--      VALUES ('PUBLIC', 'T002158', '      ',  '2');                   00351212
+--UPDATE  SYSIBM.DSNRLST01 SET ASUTIME = 8500000 WHERE                  00351312
+--LUNAME = 'PUBLIC' AND AUTHID = ' ' ;                                  00351412
+--RPADAPP                                                               00351512
+--T101369  JOHN S.                                                     00351612
+--T000840 - CAROL                                                       00351712
+--G104785  GREG N.                                                     00351812
+--T000736  CINDY                                                       00351912
+--T000360  LISA                                                        00352012
+--T002158  SYLVIA                                                      00352112
+--INSERT INTO SYSIBM.DSNRLST01                                          00352212
+--      (LUNAME,     AUTHID,     RLFPKG,   RLFFUNC)                     00352312
+--      VALUES ('PUBLIC', 'DB2DBA ', '      ',  '2');                   00352412
+--INSERT INTO SYSIBM.DSNRLST01                                          00352512
+--      (LUNAME,     AUTHID,     RLFPKG,   RLFFUNC)                     00352612
+--      VALUES ('PUBLIC', 'T000840', '      ',  '2');                   00352712
+--INSERT INTO SYSIBM.DSNRLST01                                          00352812
+--  (LUNAME,     AUTHID,     RLFPKG,   RLFFUNC,ASUTIME)                 00352912
+--      VALUES ('PUBLIC', '  ', '      ',  '2', 2500000);               00353007
+--*    INSERT INTO DSNRLST01                                            00360000
+--*                (LUNAME,     AUTHID,     PLANNAME,   ASUTIME)        00370000
+--*         VALUES ('        ', '        ', 'DEPTPLAN', 30);            00380000
+--**********************************************************************00390000
+--*                                                                     00400000

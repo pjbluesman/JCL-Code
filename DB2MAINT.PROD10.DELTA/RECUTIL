@@ -1,0 +1,28 @@
+//UXD001M  JOB ,'GIL RM102',CLASS=S,MSGCLASS=X,                         00010000
+//  REGION=0M,TIME=1440
+//STEP01 EXEC DSNUPROF,SYSTEM=DB2F,UID='RECVDB2F',UTPROC=''
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2F      *
+//*                                                        *
+//*  RECOVER DSNDB01.SYSUTILX                              *
+//*                                                        *
+//**********************************************************
+//DSNUPROF.SYSIN    DD  *
+RECOVER TABLESPACE DSNDB01.SYSUTILX
+/*
+//STEP02 EXEC DSNUPROF,SYSTEM=DB2F,UID='RECVDB2F',UTPROC=''
+//**********************************************************
+//*                                                        *
+//*  RECOVER CATALOG AND DIRECTORY FOR SUBSYSTEM DB2F      *
+//*                                                        *
+//*  REBUILD ALL INDEXES ON DSNDB01.SYSUTILX               *
+//*                                                        *
+//**********************************************************
+//DSNUPROF.SYSIN    DD  *
+REBUILD INDEX (ALL) TABLESPACE DSNDB01.SYSUTILX
+        SORTKEYS
+        SORTDEVT 3390
+        SORTNUM  6
+/*
+//
