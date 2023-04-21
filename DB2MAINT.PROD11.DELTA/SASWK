@@ -1,0 +1,709 @@
+    SET CURRENT SQLID = 'EBKDS02';
+
+    CREATE TABLESPACE TSKDW072
+           IN EBKD2S02
+           NUMPARTS   5
+          (PART 1
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 80000
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 2
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 80000
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 3
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 80000
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 4
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 80000
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 5
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 80000
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          )
+           BUFFERPOOL BP25
+           LOCKSIZE ANY
+           CLOSE YES
+           LOCKMAX SYSTEM
+           CCSID ASCII
+           LOCKPART YES
+    @
+
+
+    CREATE TABLESPACE TSKDW075
+           IN EBKD2S02
+           NUMPARTS   5
+          (PART 1
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 90000
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 2
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 90000
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 3
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 90000
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 4
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 90000
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 5
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 90000
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          )
+           BUFFERPOOL BP25
+           LOCKSIZE ANY
+           CLOSE YES
+           LOCKMAX SYSTEM
+           CCSID ASCII
+           LOCKPART YES
+    @
+
+
+    CREATE TABLESPACE TSKDW138
+           IN EBKD2S02
+           NUMPARTS   5
+          (PART 1
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 57600
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 2
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 57600
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 3
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 57600
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 4
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 57600
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 5
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 57600
+                                    SECQTY 8400
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          )
+           BUFFERPOOL BP25
+           LOCKSIZE ANY
+           CLOSE YES
+           LOCKMAX SYSTEM
+           CCSID ASCII
+           LOCKPART YES
+    @
+
+
+CREATE TABLE EBKDS02.WT_CPN
+   (PRTTN_KEY_ID           DECIMAL(3     , 0    )      NOT NULL
+   ,TKT_DOC_NB             CHAR(15   )                 NOT NULL
+   ,TKT_DOC_ISS_LDT        DATE                        NOT NULL
+   ,TKT_DOC_SQ_NB          SMALLINT                    NOT NULL
+   ,CPN_NB                 SMALLINT                    NOT NULL
+   ,CTRLG_CRR_CD           CHAR(3    )
+   ,FARE_BAS_CD            CHAR(8    )
+   ,FARE_PRD_CD            CHAR(3    )
+   ,FINL_STT_CRR_CD        CHAR(3    )
+   ,FBS_TKT_DSGTR_TXT      CHAR(15   )
+   ,PSDO_SFSC_FLS_IND      CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,SG_BKG_LDT             DATE
+   ,SRFC_CPN_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,TKT_CPN_ET_STT_CD      CHAR(1    )
+   ,TKT_DSGTR_CD           CHAR(5    )
+   ,TKT_SET_CPN_SQL_NB     SMALLINT
+   ,TPF_CPN_SQL_NB         SMALLINT
+   ,TKDC_UPDT_SQL_NB       SMALLINT
+   ,LST_RP_EVT_GTS         TIMESTAMP
+   ,LST_TRNS_EVT_GTS       TIMESTAMP
+   ,ERROR_ID               INTEGER      NOT NULL WITH DEFAULT
+   )
+   IN EBKD2S02.TSKDW138
+   CCSID ASCII
+   @
+
+
+CREATE TABLE EBKDS02.WT_CPN_ST
+   (PRTTN_KEY_ID           DECIMAL(3     , 0    )      NOT NULL
+   ,TKT_DOC_NB             CHAR(15   )                 NOT NULL
+   ,TKT_DOC_ISS_LDT        DATE                        NOT NULL
+   ,TKT_DOC_SQ_NB          SMALLINT                    NOT NULL
+   ,CPN_NB                 SMALLINT                    NOT NULL
+   ,CPN_ST_TYP_CD          CHAR(1    )                 NOT NULL
+   ,CPN_SQ_NB              SMALLINT                    NOT NULL
+   ,AC_SEAT_ID             CHAR(3    )
+   ,ACS_OVRD_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,ASM_BUY_IND            CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,ASSD_DOC_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,BKG_ID                 CHAR(16   )
+   ,CA_ID                  CHAR(13   )
+   ,CNVLD_AFTR_LDT_TXT     CHAR(7    )
+   ,CNVLD_BFR_LDT_TXT      CHAR(7    )
+   ,CPN_BKG_STT_CD         CHAR(2    )
+   ,CPN_ENDT_TXT           CHAR(147  )
+   ,CPN_ITIN_TYP_CD        CHAR(1    )
+   ,CPN_PAX_CT             SMALLINT
+   ,CPN_USG_TYP_CD         CHAR(1    )
+   ,CPN_VAL_TXT            CHAR(12   )
+   ,CPN_VALDY_TYP_CD       CHAR(1    )
+   ,DEST_STPV_CD           CHAR(1    )
+   ,DL_MEAL_TYP_CD         CHAR(1    )
+   ,DRVD_COS_TXT           CHAR(2    )
+   ,ET_STLMT_AUTH_ID       CHAR(15   )
+   ,FF_CRR_CD              CHAR(3    )
+   ,FF_NB                  CHAR(25   )
+   ,FREE_BGG_ALWC_CD       CHAR(3    )
+   ,FREE_BGG_ALWC_CT       SMALLINT
+   ,FREE_BGG_ALWC_TXT      CHAR(3    )
+   ,LFTD_CPN_CRTN_GTS      TIMESTAMP
+   ,LGCY_HUB_RRGN_CD       CHAR(2    )
+   ,MDOC_ISSC_RSN_CD       CHAR(1    )
+   ,MOV_IND                CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,NEDRSB_IND             CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,NRFDB_IND              CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,ORIG_STPV_CD           CHAR(1    )
+   ,PNLTY_RSTN_IND         CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,PAX_STPV_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,PSNT_CRD_CARD_IND      CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,PVI_CHG_TYP_CD         CHAR(1    )
+   ,RAPD_LMO_NB            SMALLINT
+   ,RAPD_LYR_NB            SMALLINT
+   ,RFDD_TKDC_ISS_LDT      DATE
+   ,RFDD_TKT_DOC_NB        CHAR(15   )
+   ,RFDD_TKT_DOC_SQ_NB     SMALLINT
+   ,RPTD_STLMT_AUTH_ID     CHAR(14   )
+   ,SLD_CPN_FF_TXT         CHAR(16   )
+   ,SRFC_CPN_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,SVC_PVDR_INFO_TXT      CHAR(86   )
+   ,TKCP_QLTY_TYP_CD       CHAR(10   )
+   ,TKDC_RPTNS_TYP_CD      CHAR(4    )
+   ,TKDC_RTRNS_SQ_NB       SMALLINT
+   ,TKT_CPN_MDM_TYP_CD     CHAR(1    )
+   ,TRUE_HUB_RRGN_CD       CHAR(2    )
+   ,LST_RP_EVT_GTS         TIMESTAMP
+   ,LST_TRNS_EVT_GTS       TIMESTAMP
+   ,ERROR_ID               INTEGER      NOT NULL WITH DEFAULT
+   )
+   IN EBKD2S02.TSKDW075
+   CCSID ASCII
+   @
+
+
+CREATE TABLE EBKDS02.WT_TKT_DOC
+   (PRTTN_KEY_ID           DECIMAL(3     , 0    )      NOT NULL
+   ,TKT_DOC_NB             CHAR(15   )                 NOT NULL
+   ,TKT_DOC_ISS_LDT        DATE                        NOT NULL
+   ,TKT_DOC_SQ_NB          SMALLINT                    NOT NULL
+   ,ADTR_TBTCH_SQL_NB      CHAR(3    )
+   ,ADTR_TRAY_BNK_NB       CHAR(3    )
+   ,ADTR_TRAY_BTCH_NB      CHAR(3    )
+   ,ADTR_TRAY_CYC_NB       CHAR(1    )
+   ,ADTR_TRAY_INVC_NB      CHAR(5    )
+   ,ADTR_TRAY_LMO_NB       CHAR(2    )
+   ,ADTR_TRAY_LWK_NB       CHAR(1    )
+   ,ADV_BKG_DY_CT          SMALLINT
+   ,ADV_PRCH_DY_CT         SMALLINT
+   ,AGSPT_DOC_TYP_CD       CHAR(2    )
+   ,AGY_MDATA_TYP_CD       CHAR(1    )
+   ,ASP_PMT_TYP_CD         CHAR(1    )
+   ,ASP_RCVD_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,ASP_REC_CRTN_GTS       TIMESTAMP
+   ,ASP_REC_SET_TYP_CD     CHAR(1    )
+   ,ASP_TKDC_PURP_CD       CHAR(2    )
+   ,ATP_PAX_TYP_CD         CHAR(3    )
+   ,BF_RPTD_CRCV_GTS       TIMESTAMP
+   ,BF_RPTD_CURR_CD        CHAR(5    )
+   ,BF_RPTD_STD_AMT        DECIMAL(24    , 8    )
+   ,BFRPD_EXCG_RT_ID       INTEGER
+   ,BS_FARE_AMT            DECIMAL(24    , 8    )
+   ,BS_FARE_CRCV_GTS       TIMESTAMP
+   ,BS_FARE_CURR_CD        CHAR(5    )
+   ,BS_FARE_EXCG_RT_ID     INTEGER
+   ,BS_FARE_RPTD_AMT       DECIMAL(24    , 8    )
+   ,BS_FARE_STD_AMT        DECIMAL(24    , 8    )
+   ,BS_FARE_TXT            CHAR(11   )
+   ,BSP_RCVD_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,BSP_REC_CRTN_GTS       TIMESTAMP
+   ,CMCL_AGMT_RFRN_TXT     CHAR(10   )
+   ,CMTV_RFND_RSS_AMT      DECIMAL(24    , 8    )
+   ,CRR_CLNT_ID            CHAR(8    )
+   ,CRR_CNFN_TXT           CHAR(20   )
+   ,CRRSS_CRCV_GTS         TIMESTAMP
+   ,CRRSS_CURR_CD          CHAR(5    )
+   ,CRRSS_EXCG_RT_ID       INTEGER
+   ,CRRSS_STD_AMT          DECIMAL(24    , 8    )
+   ,CRTN_GTS               TIMESTAMP
+   ,CUST_PD_AMT            DECIMAL(24    , 8    )
+   ,CUST_PD_CRCV_GTS       TIMESTAMP
+   ,CUST_PD_CURR_CD        CHAR(5    )
+   ,CUST_PD_EXCG_RT_ID     INTEGER
+   ,CUST_PD_STD_AMT        DECIMAL(24    , 8    )
+   ,CYC_PRSG_LMO_NB        SMALLINT
+   ,CYC_PRSG_NB            SMALLINT
+   ,CYC_PRSG_LWK_NB        SMALLINT
+   ,DL_PAX_TYP_CD          CHAR(1    )
+   ,DLM_CRTN_GTS           TIMESTAMP
+   ,DLRY_EDFSYS_CD         CHAR(3    )
+   ,DSCD_FARE_TYP_CD       CHAR(2    )
+   ,EADTR_TOT_CRCV_GTS     TIMESTAMP
+   ,EADTR_TOT_CURR_CD      CHAR(5    )
+   ,EADTR_TOT_STD_AMT      DECIMAL(24    , 8    )
+   ,EATOT_EXCG_RT_ID       INTEGER
+   ,EQFPD_EXCG_RT_ID       INTEGER
+   ,EQVT_FARE_PD_AMT       DECIMAL(24    , 8    )
+   ,EQVT_FARE_PD_TXT       CHAR(11   )
+   ,EQVT_FPD_CRCV_GTS      TIMESTAMP
+   ,EQVT_FPD_CURR_CD       CHAR(5    )
+   ,EQVT_FPD_STD_AMT       DECIMAL(24    , 8    )
+   ,ET_DB_STT_CD           CHAR(1    )
+   ,ET_RCVD_IND            CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,ET_REC_CRTN_GTS        TIMESTAMP
+   ,ET_SRC_TYP_CD          CHAR(1    )
+   ,ET_STLMT_AUTH_ID       CHAR(15   )
+   ,EXCGD_ADTR_TOT_AMT     DECIMAL(24    , 8    )
+   ,EXVL_BF_AMT            DECIMAL(24    , 8    )
+   ,EXVL_BF_CRCV_GTS       TIMESTAMP
+   ,EXVL_BF_CURR_CD        CHAR(5    )
+   ,EXVL_BF_STD_AMT        DECIMAL(24    , 8    )
+   ,EXVLBF_EXCG_RT_ID      INTEGER
+   ,FBRK_EXCG_RT           DECIMAL(4     , 0    )
+   ,FBRK_TKDC_CRCV_GTS     TIMESTAMP
+   ,FBRK_TKDC_CURR_CD      CHAR(5    )
+   ,FBRK_TKDC_STD_AMT      DECIMAL(24    , 8    )
+   ,FBRK_TKT_DOC_AMT       DECIMAL(24    , 8    )
+   ,FBTD_EXCG_RT_ID        INTEGER
+   ,FRCN_MODE_TYP_CD       CHAR(2    )
+   ,IATA_RSS_FMT_IND       CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,INTL_SL_TYP_CD         CHAR(4    )
+   ,LRPTY_AMT              DECIMAL(24    , 8    )
+   ,LRPTY_CRCV_GTS         TIMESTAMP
+   ,LRPTY_CURR_CD          CHAR(5    )
+   ,LRPTY_EXCG_RT_ID       INTEGER
+   ,LRPTY_STD_AMT          DECIMAL(24    , 8    )
+   ,LST_TRNS_EVT_GTS       TIMESTAMP
+   ,MISC_DOC_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,MT_TKT_DOC_TYP_CD      CHAR(6    )
+   ,NAFR_CRCV_GTS          TIMESTAMP
+   ,NADTR_FARE_CURR_CD     CHAR(5    )
+   ,NADTR_FARE_STD_AMT     DECIMAL(24    , 8    )
+   ,NADTR_ITFR_AMT         DECIMAL(24    , 8    )
+   ,NAIFR_CRCV_GTS         TIMESTAMP
+   ,NADTR_ITFR_CURR_CD     CHAR(5    )
+   ,NADTR_ITFR_STD_AMT     DECIMAL(24    , 8    )
+   ,NATKDC_CRCV_GTS        TIMESTAMP
+   ,NADTR_TKDC_CURR_CD     CHAR(5    )
+   ,NADTR_TKDC_STD_AMT     DECIMAL(24    , 8    )
+   ,NADTR_TKT_DOC_AMT      DECIMAL(24    , 8    )
+   ,NAFR_EXCG_RT_ID        INTEGER
+   ,NAIFR_EXCG_RT_ID       INTEGER
+   ,NATKDC_EXCG_RT_ID      INTEGER
+   ,NEF_CRCV_GTS           TIMESTAMP
+   ,NEF_CURR_CD            CHAR(5    )
+   ,NEF_EXCG_RT_ID         INTEGER
+   ,NEF_STD_AMT            DECIMAL(24    , 8    )
+   ,NET_BF_CRCV_GTS        TIMESTAMP
+   ,NET_BF_CURR_CD         CHAR(5    )
+   ,NET_BF_STD_AMT         DECIMAL(24    , 8    )
+   ,NET_BS_FARE_AMT        DECIMAL(24    , 8    )
+   ,NET_EQVT_FARE_AMT      DECIMAL(24    , 8    )
+   ,NET_TOT_AMT            DECIMAL(24    , 8    )
+   ,NET_TOT_CRCV_GTS       TIMESTAMP
+   ,NET_TOT_CURR_CD        CHAR(5    )
+   ,NET_TOT_EXCG_RT_ID     INTEGER
+   ,NET_TOT_STD_AMT        DECIMAL(24    , 8    )
+   ,NEW_ADTR_FARE_AMT      DECIMAL(24    , 8    )
+   ,NEW_TKT_FPEX_IND       CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,NOTC_RQD_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,NTBF_EXCG_RT_ID        INTEGER
+   ,NTRL_ISSG_SYS_CD       CHAR(4    )
+   ,ORIG_EDFSYS_CD         CHAR(3    )
+   ,PAX_FRST_NM            CHAR(50   )
+   ,PAX_FULL_NM            CHAR(100  )
+   ,PAX_INFO_TXT           CHAR(49   )
+   ,PAX_LST_NM             CHAR(50   )
+   ,PRMY_TKT_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,PROC_LDT_USKTK_IND     CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,RCVD_TKT_OD_TXT        CHAR(6    )
+   ,RND_TRP_IND            CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,RPTD_AUDT_IND          CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,RPTD_ISS_LDT           DATE
+   ,RPTD_STLMT_AUTH_ID     CHAR(14   )
+   ,RPTG_SYS_PVDR_CD       CHAR(4    )
+   ,RPTG_SYS_PVDR_NB       CHAR(4    )
+   ,SKLTL_IND              CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,SLD_CPN_CT             SMALLINT
+   ,SLS_RPTG_LOC_CD        CHAR(3    )
+   ,SM_ACCT_NB             CHAR(25   )
+   ,STATL_DOM_INTL_ID      CHAR(1    )
+   ,STATL_SLF_SL_ID        CHAR(2    )
+   ,SYS_VOID_TKT_IND       CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,TDISSC_SYS_TYP_CD      CHAR(1    )
+   ,TDRMTC_EXCG_RT_ID      INTEGER
+   ,TDTOT_EXCG_RT_ID       INTEGER
+   ,TDTRPD_CRCV_GTS        TIMESTAMP
+   ,TDTRPD_EXCG_RT_ID      INTEGER
+   ,TKCP_QLTY_TYP_CD       CHAR(10   )
+   ,TKDC_ASVC_CHRG_CT      SMALLINT
+   ,TKDC_MSFOP_TYP_CD      CHAR(1    )
+   ,TKDC_PRCG_TYP_CD       CHAR(1    )
+   ,TKDC_RCFMT_TYP_CD      CHAR(1    )
+   ,TKDC_RMTC_CRCV_GTS     TIMESTAMP
+   ,TKDC_RMTC_CURR_CD      CHAR(5    )
+   ,TKDC_RMTC_STD_AMT      DECIMAL(24    , 8    )
+   ,TKDC_RPTNS_TYP_CD      CHAR(4    )
+   ,TKDC_RSDL_CRCV_GTS     TIMESTAMP
+   ,TKDC_RSDL_CURR_CD      CHAR(5    )
+   ,TKDC_RSDL_STD_AMT      DECIMAL(24    , 8    )
+   ,TKDC_SLS_RPT_LDT       DATE
+   ,TKDC_SRPT_SL_LDT       DATE
+   ,TKDC_SRPT_CTRY_CD      CHAR(2    )
+   ,TKDC_SRPT_PRSG_LDT     DATE
+   ,TKDC_SRPT_PRSG_LTM     TIME
+   ,TKDC_SRPT_TRNS_NB      DECIMAL(6     , 0    )
+   ,TKDC_TOCM_IND          CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,TKDC_TOT_AMT_TXT       CHAR(11   )
+   ,TKDC_TOT_CRCV_GTS      TIMESTAMP
+   ,TKDC_TOT_CURR_CD       CHAR(5    )
+   ,TKDC_TOT_STD_AMT       DECIMAL(24    , 8    )
+   ,TKDC_TRPTD_AMT         DECIMAL(24    , 8    )
+   ,TKDC_TRPTD_CURR_CD     CHAR(5    )
+   ,TKDC_TRPTD_STD_AMT     DECIMAL(24    , 8    )
+   ,TKDC_UPDT_SQL_NB       SMALLINT
+   ,TKT_CPN_MDM_TYP_CD     CHAR(1    )
+   ,TKT_DOC_CLNT_ID        CHAR(15   )
+   ,TKT_DOC_CTRL_NB        CHAR(15   )
+   ,TKT_DOC_ET_TYP_CD      CHAR(3    )
+   ,TKT_DOC_EXCG_IND       CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,TKT_DOC_RMTC_AMT       DECIMAL(24    , 8    )
+   ,TKT_DOC_RSDL_AMT       DECIMAL(24    , 8    )
+   ,TKT_DOC_STT_CD         CHAR(3    )
+   ,TKT_DOC_TOT_AMT        DECIMAL(24    , 8    )
+   ,TKT_FORM_TYP_CD        CHAR(3    )
+   ,TKT_ITIN_TYP_CD        CHAR(1    )
+   ,TKTG_CRR_CD            CHAR(3    )
+   ,TKTG_CRR_NB            CHAR(3    )
+   ,TOT_PRRTD_AMT          DECIMAL(24    , 8    )
+   ,TOT_PRRTD_CURR_CD      CHAR(5    )
+   ,TOT_PRRTD_STD_AMT      DECIMAL(24    , 8    )
+   ,TOT_PRRTD_CRCV_GTS     TIMESTAMP
+   ,TOT_TKTRNS_CPN_CT      SMALLINT
+   ,TOT_TKTS_IN_SET_CT     SMALLINT
+   ,TOUR_CD_TXT            CHAR(20   )
+   ,TPRTD_EXCG_RT_ID       INTEGER
+   ,TRVL_DRTN_DY_CT        SMALLINT
+   ,TSRSD_EXCG_RT_ID       INTEGER
+   ,TVLAG_CUST_INVC_NB     CHAR(10   )
+   ,UNPD_MNR_AGE_NB        SMALLINT
+   ,VOID_CPN_TXT           CHAR(3    )
+   ,LST_RP_EVT_GTS         TIMESTAMP
+   ,ERROR_ID               INTEGER      NOT NULL WITH DEFAULT
+   )
+   IN EBKD2S02.TSKDW072
+   CCSID ASCII
+   @
+
+
+    CREATE        INDEX EBKDS02.IXCDW072
+           ON EBKDS02.WT_TKT_DOC
+          (PRTTN_KEY_ID         ASC
+          )
+           CLUSTER
+          (PART 1
+           VALUES
+          (
+           200.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 2
+           VALUES
+          (
+           400.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 3
+           VALUES
+          (
+           600.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 4
+           VALUES
+          (
+           800.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 5
+           VALUES
+          (
+           999.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          )
+           BUFFERPOOL BP9
+           CLOSE NO
+    @
+
+
+    CREATE        INDEX EBKDS02.IXCDW075
+           ON EBKDS02.WT_CPN_ST
+          (PRTTN_KEY_ID         ASC
+          )
+           CLUSTER
+          (PART 1
+           VALUES
+          (
+           200.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 2
+           VALUES
+          (
+           400.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 3
+           VALUES
+          (
+           600.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 4
+           VALUES
+          (
+           800.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 5
+           VALUES
+          (
+           999.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          )
+           BUFFERPOOL BP9
+           CLOSE NO
+    ;
+
+.SYNC 55        'CREATE INDEX EBKDS02.IXCDW075'
+
+
+-- EBKDS02.IXCDW138 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX EBKDS02.IXCDW138
+           ON EBKDS02.WT_CPN
+          (PRTTN_KEY_ID         ASC
+          )
+           CLUSTER
+          (PART 1
+           VALUES
+          (
+           200.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 2
+           VALUES
+          (
+           400.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 3
+           VALUES
+          (
+           600.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 4
+           VALUES
+          (
+           800.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 5
+           VALUES
+          (
+           999.)
+                     USING STOGROUP EBKDSGS2
+                                    PRIQTY 8400
+                                    SECQTY 840
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          )
+           BUFFERPOOL BP9
+           CLOSE NO
+    ;

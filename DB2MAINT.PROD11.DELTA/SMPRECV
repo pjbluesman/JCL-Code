@@ -1,0 +1,63 @@
+//DT0072X JOB ,'RDL RM102',CLASS=S,MSGCLASS=X,NOTIFY=DT0072             00000100
+//STEP01  EXEC PGM=IEBCOPY                                              00000200
+//SYSPRINT DD SYSOUT=*                                                  00000300
+//SYSUDUMP DD SYSOUT=*                                                  00000400
+//SYSUT3   DD UNIT=SYSDA,SPACE=(CYL,(1,1))                              00000500
+//SYSUT4   DD UNIT=SYSDA,SPACE=(CYL,(1,1))                              00000600
+//IN1      DD DSN=PTRP.UNLOAD.CNTL,DISP=(OLD,KEEP),UNIT=/24C0,          00000700
+//   VOL=(PRIVATE,,SER=C99BF1),LABEL=1                                  00000800
+//OUT1     DD DSN=SSXDT.DT0072.PLAT.CNTL,DISP=SHR                       00000900
+//SYSIN    DD *                                                         00002000
+  COPY INDD=IN1,OUTDD=OUT1                                              00003000
+/*                                                                      00010200
+//STEP02  EXEC PGM=GIMSMP,PARM='DATE=U',REGION=4096K                    00012600
+//* ----- SMP DATA SETS ---------------------------------------------   00012700
+//SMPCSI   DD  DSN=SSXDP.DB2V6.GLOBAL.CSI,                              00012800
+//             DISP=SHR                                                 00012900
+//SMPCNTL  DD  DDNAME=SYSIN                                             00013000
+//SMPHOLD  DD  DUMMY                                                    00013100
+//SMPSNAP  DD  SYSOUT=*                                                 00013200
+//SMPOUT   DD  SYSOUT=*                                                 00013300
+//SMPLIST  DD  SYSOUT=*                                                 00013400
+//SMPRPT   DD  SYSOUT=*                                                 00013500
+//SYSPRINT DD  SYSOUT=*                                                 00013600
+//* ----- SMP/E DATA SETS -------------------------------------------   00013700
+//SMPPTS   DD  DSN=SSXDP.DB2V6.GLOBAL.PTS,                              00015000
+//             DISP=SHR                                                 00015100
+//SMPLTS   DD  DSN=SSXDP.QMFV6.QMFTARG.LTS,                             00015200
+//             DISP=SHR                                                 00015300
+//SMPMTS   DD  DSN=SSXDP.QMFV6.QMFTARG.MTS,                             00015400
+//             DISP=SHR                                                 00015500
+//SMPSTS   DD  DSN=SSXDP.QMFV6.QMFTARG.STS,                             00015600
+//             DISP=SHR                                                 00015700
+//SMPSCDS  DD  DSN=SSXDP.QMFV6.QMFTARG.SCDS,                            00015800
+//             DISP=SHR                                                 00015900
+//SMPLOG   DD  SYSOUT=*                                                 00016000
+//SYSLIB   DD  DSN=SSXDP.QMFV6.QMFTARG.MTS,                             00016100
+//             DISP=SHR                                                 00016200
+//* ----- SMP/E TEMPORARY DATA SETS ---------------------------------   00016300
+//SMPWRK1  DD  UNIT=SYSALLDA,SPACE=(CYL,(10,5,250))                     00016400
+//SMPWRK2  DD  UNIT=SYSALLDA,SPACE=(CYL,(10,5,250))                     00016500
+//SMPWRK3  DD  UNIT=SYSALLDA,SPACE=(CYL,(10,5,250))                     00016600
+//SMPWRK4  DD  UNIT=SYSALLDA,SPACE=(CYL,(10,5,250))                     00016700
+//SMPWRK5  DD  UNIT=SYSALLDA,SPACE=(CYL,(10,5,250))                     00016800
+//SMPWRK6  DD  UNIT=SYSALLDA,SPACE=(CYL,(10,5,250))                     00016900
+//* ----- DD STATEMENTS FOR UTILITY DATA SETS -----------------------   00017000
+//SYSUT1   DD  UNIT=SYSALLDA,SPACE=(CYL,(5,1))                          00017100
+//SYSUT2   DD  UNIT=SYSALLDA,SPACE=(CYL,(5,1))                          00017200
+//SYSUT3   DD  UNIT=SYSALLDA,SPACE=(CYL,(5,1))                          00017300
+//SYSUT4   DD  UNIT=SYSALLDA,SPACE=(CYL,(5,1))                          00017400
+//* ----- DEFINE VOLUME TO CONTAIN RECEIVE OUTPUT -------------------   00017500
+//SMPTLIB  DD  UNIT=SYSALLDA,SPACE=(CYL,(20,5,250))                     00017600
+//* ----- QMF MAP AND CHART LIBRARIES -------------------------------   00017700
+//DSQMAPE  DD  DSN=SSXDT.QMFV6.DSQMAPE,                                 00017800
+//             DISP=OLD                                                 00017900
+//DSQCHART DD  DSN=SSXDT.QMFV6.DSQCHART,                                00018000
+//             DISP=OLD                                                 00018100
+//SMPPTFIN DD  DSN=SMPMCS,DISP=(OLD,KEEP),UNIT=/24C0,                   00018200
+//   VOL=(PRIVATE,,SER=SQ6610),LABEL=(1,SL)                             00018300
+//SYSIN    DD  *                                                        00018600
+    SET BDY(GLOBAL).                                                    00018700
+    RECEIVE SELECT ( HSQ6610 ).                                         00018800
+//*                                                                     00018900
+//                                                                      00019000

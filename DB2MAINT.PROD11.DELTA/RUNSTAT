@@ -1,0 +1,14 @@
+//UXD001M    JOB ,'CJR RM 102',CLASS=S,MSGCLASS=X                       00001000
+//UTIL EXEC DSNUPROR,SYSTEM=DBRG,UID='CJSTAT',UTPROC=''
+//*
+//**********************************************
+//*
+//*  GENERATING JCL FOR THE RUNSTATS UTILITY
+//*  DATE:  09/25/90          TIME:  15:57:32
+//*
+//**********************************************
+//*
+//DSNUPROR.SYSIN    DD  *
+RUNSTATS TABLESPACE (EBKD3P03.TSKD0901) INDEX (ALL)
+RUNSTATS TABLESPACE (EBKD3P03.TSKD0902) INDEX (ALL)
+//

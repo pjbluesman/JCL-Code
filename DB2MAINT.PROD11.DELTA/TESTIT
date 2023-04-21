@@ -1,0 +1,103 @@
+//DT0072X JOB ,'RDL RM102',CLASS=S,MSGCLASS=X,NOTIFY=DT0072
+//ASM     EXEC PGM=ASMA90,PARM='RENT,OBJECT,NODECK'
+//SYSLIB   DD  DSN=SYS1.MACLIB,DISP=SHR
+//         DD  DSN=SYS1.CEE.SCEERUN,DISP=SHR
+//         DD  DSN=SYS1.CEE.SCEEMAC,DISP=SHR
+//SYSLIN   DD  DSN=&&LOADSET,DISP=(MOD,PASS),UNIT=SYSDA,
+//             SPACE=(800,(5000,5000)),DCB=(BLKSIZE=800)
+//SYSPRINT DD  SYSOUT=*
+//SYSUDUMP DD  SYSOUT=*
+//SYSUT1   DD  SPACE=(800,(5000,5000),,,ROUND),UNIT=SYSDA
+//SYSIN    DD  *
+TESTIT CSECT
+TESTIT AMODE 31
+TESTIT RMODE ANY
+         STM   R14,R12,12(R13)     SAVE CALLERS REGISTERS
+         LR    R12,R15             LOAD BASE REG
+         USING TESTIT,R12          SET BASE REG
+         LA    R15,SAVEAREA        GET POINTER TO MY SAVEAREA
+         ST    R15,8(R13)          STORE IN USERS SAVEAREA
+         ST    R13,SAVEAREA+4      STORE CALLERS SAVEAREA
+         L     R7,FLD1DPTR      GET POINTER TO INPUT DATE FIELD         00090000
+         L     R6,SCRCHSZ       ACQUIRE 32 BYTE SCRATCH AREA            00100000
+         LA    R10,OUTDATE      LOAD ADDRESS OF OUTPUT DATE
+         GETMAIN R,LV=(6)                                               00110000
+         LR    R6,R1            LOAD ADDRESS OF SCRATCH AREA            00120000
+         USING SCRATCH,R6       ESTABLISH SCRATCH AREA DSECT BASE       00130000
+         MVC   FULLWORD,0(R7)   MOVE DATE INPUT TO SCRATCH AREA         00140000
+         L     R8,FULLWORD                                              00150000
+         CVD   R8,DECDATE           CONVERT INPUT DATE TO DECIMAL       00160000
+         UNPK  DSPDATE,DECDATE      UNPACK THE INPUT DATE               00170000
+         OI    DSPDATE+7,X'F0'      CLEAR SIGN                          00180000
+         MVC   0(4,R10),DSPDATE     MOVE TO OUTPUT DATA AREA            00190000
+         MVI   4(R10),C'-'                                              00191000
+         MVC   5(2,R10),DSPDATE+4                                       00192000
+         MVI   7(R10),C'-'                                              00193000
+         MVC   8(2,R10),DSPDATE+6                                       00194000
+         LR    R11,0
+         BR    R11
+         L     R11,SCRCHSZ       RELOAD SCRATCH AREA SIZE               00195000
+         FREEMAIN R,LV=(11),A=(R6)                                      00196000
+RETURN   EQU   *                                                        00197000
+         L     R13,SAVEAREA+4      RELOAD CALLERS SAVE AREA ADDRESS
+         L     R14,12(R13)         LOAD POINTER TO CALLER
+         LM    R1,R12,24(R13)      RELOAD CALLERS REGISTERS
+         BR    R14                 RETURN TO CALLER
+         EJECT                                                          00197300
+PARMNULL EQU   *                                                        00197400
+         MVC   0(2,R9),=H'-1'   SET OUTPUT RESULT INDICATOR TO NULL     00197500
+         B     RETURN           GO TO RETURN                            00197600
+         EJECT                                                          00197700
+*******************************************************************     00197800
+*  VARIABLE DECLARATIONS AND EQUATES                              *     00197900
+*******************************************************************     00198000
+R0       EQU   0               REGISTER 0                               00199000
+R1       EQU   1               REGISTER 1                               00200000
+R2       EQU   2               REGISTER 2                               00210000
+R3       EQU   3               REGISTER 3                               00220000
+R4       EQU   4               REGISTER 4                               00230000
+R5       EQU   5               REGISTER 5                               00240000
+R6       EQU   6               REGISTER 6                               00250000
+R7       EQU   7               REGISTER 7                               00251000
+R8       EQU   8               REGISTER 8                               00252000
+R9       EQU   9               REGISTER 9                               00253000
+R10      EQU   10              REGISTER 10                              00254000
+R11      EQU   11              REGISTER 11                              00255000
+R12      EQU   12              REGISTER 12                              00256000
+R13      EQU   13              REGISTER 13                              00257000
+R14      EQU   14              REGISTER 14                              00257000
+R15      EQU   15              REGISTER 15                              00257000
+         EJECT                                                          00258000
+SAVEAREA DS    18F                                                      00260500
+         DC    CL4'WK=>'
+SCRCHSZ  DC    F'32'           SCRATCH AREA SIZE                        00259000
+FLD1DPTR DC    A(INDATE)                                                00262000
+INDATE   DC    F'19990531'
+OUTDATE  DC    CL10'??????????'
+         EJECT                                                          00260000
+         LTORG ,               PLACE LITERAL POOL HERE                  00260100
+         EJECT                                                          00268000
+SCRATCH  DSECT                                                          00269000
+         DS    0D                                                       00270000
+DECDATE  DS    D                                                        00280000
+FULLWORD DS    F                                                        00290000
+DSPDATE  DS    CL8                                                      00300000
+         END   TESTIT                                                   00310000
+/*
+//*            LINKEDIT IF THE PRECOMPILER AND ASSEMBLER
+//*            RETURN CODES ARE 4 OR LESS
+//*
+//LKED    EXEC PGM=IEWL,PARM='XREF,RENT,AMODE(31),RMODE(ANY)',
+//             COND=(4,LT,ASM)
+//SYSLIB   DD  DSN=SYS1.CEE.SCEELKED,DISP=SHR
+//         DD  DSN=SSXDT.DSNDBUG.DB2U.SDSNLOAD,DISP=SHR
+//SYSLIN   DD  DSN=&&LOADSET,DISP=(OLD,DELETE)
+//         DD  DDNAME=SYSIN
+//SYSLMOD  DD DSN=DT0072.LOADLIB(TESTIT),DISP=SHR
+//SYSPRINT DD  SYSOUT=*
+//SYSUDUMP DD  SYSOUT=*
+//SYSUT1   DD  SPACE=(1024,(50,50)),UNIT=SYSDA
+//SYSIN    DD  *
+  NAME TESTIT(R)
+/*
+//

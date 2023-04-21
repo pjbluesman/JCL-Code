@@ -1,0 +1,10 @@
+--*******************************************************************
+--* SQL USED TO QUERY THE CURRENT WLM ENVIRONMENTS OF DB2 PRODUCTS
+--*******************************************************************
+   SELECT *
+     FROM SYSIBM.SYSROUTINES
+    WHERE WLM_ENVIRONMENT IN ('DB2GUTIL')
+    ORDER BY 1,2
+      FOR FETCH ONLY
+     WITH UR;
+--

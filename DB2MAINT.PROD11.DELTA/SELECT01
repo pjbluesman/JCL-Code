@@ -1,0 +1,2 @@
+SELECT * FROM EBKCP01.COUNTRY                                           00010004
+WHERE CTRY_CD IN ('US', 'UK' , 'AF', 'ZM', 'FR', 'AU' ) ;               00020004

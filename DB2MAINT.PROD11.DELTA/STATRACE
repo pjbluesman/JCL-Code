@@ -1,0 +1,21 @@
+//UXC401MR JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSR                                <= Change SYSAFF
+//*********************************************************************
+//* DESCRIPTIVE NAME = FORCE A SYSTEM CHECKPOINT
+//*********************************************************************
+//TRACE   EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDP.DB2R.RUNLIB.LOAD   <= Change DB2ID
+//        DD DISP=SHR,DSN=SDB2R.SDSNLOAD           <= Change DB2ID
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB2R)                /*               <= Change DB2ID   */
+  -START TRACE(ACCTG) CLASS(1,2,3,7,8) DEST(SMF)
+  -START TRACE(STAT)  CLASS(1,3,4,5,6) DEST(SMF)
+  -START TRACE(AUDIT) CLASS(1,2,3,7,8) DEST(SMF)
+  -START TRACE(AUDIT) CLASS(4,5,6) DEST(SMF)
+  -START TRACE(MON)   CLASS(1) DEST(SMF)
+  END

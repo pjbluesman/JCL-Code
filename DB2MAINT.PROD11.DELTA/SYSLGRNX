@@ -1,0 +1,25 @@
+//UXD001M JOB ,'DB2 A3',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID               00000003
+//*********************************************************************/00010000
+//*********************************************************************/00480000
+//*                                                                     00490000
+//DSNTIC  PROC                                                          00500000
+//* ***************************************************************** */00510000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE           */00520000
+//* ***************************************************************** */00530000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)                                   00540000
+//SYSPRINT DD SYSOUT=*                                                  00550000
+//SYSUDUMP DD SYSOUT=*                                                  00560000
+//DSNTIC  PEND                                                          00570000
+//DSNTDBL EXEC DSNTIC                                                   00730000
+//SYSIN    DD  *                                                        00740000
+   DEFINE CLUSTER                             -                         02510000
+         ( NAME(DB2R.DSNDBC.DSNDB01.SYSLGRNX.I0001.A006) -              02520005
+           LINEAR                             -                         02530000
+           REUSE                              -                         02540000
+           VOLUMES(E9D2RB)                    -                         02550003
+           CYLINDERS(2000 478)                -                         02560003
+           SHAREOPTIONS(3 3) )                -                         02570000
+      DATA                                    -                         02580000
+         ( NAME(DB2R.DSNDBD.DSNDB01.SYSLGRNX.I0001.A006) -              02590005
+                              )    CATALOG(DB2R)                        02600000
+                                                                        02610000

@@ -1,0 +1,28 @@
+//UXD000M  JOB CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID
+//**********************************************************************
+//** Send Weekly Report by e-mail for review                          **
+//** Alter email adress and the gdg for each of the 8 reports         **
+//**********************************************************************
+//XP8040M EXEC  SAS,OPTIONS='SOURCE',COND=(4,LT)
+//SYSIN    DD  *
+  filename send email
+     from =  'alaide@delta.com'
+       to = ('alaidef@br.ibm.com')
+  /* Hit PF11 to update date on the subject */
+  subject = "Generation of Audit Logs-SOX control 9C week end November 05, 2014"
+  attach = ("SSXMP.XP8040M.SAPSOX(0)" NAME='SSXMP.XP8040M.SAPSOX')
+  attach = ("SSXMP.XP8172M.EDSQSOX(0)" NAME='SSXMP.XP8172M.EDSQSOX')
+  attach = ("SSXMP.XP8182M.EDSRSOX(0)" NAME='SSXMP.XP8182M.EDSRSOX')
+  attach = ("SSXMP.XP8192M.EDSSSOX(0)" NAME='SSXMP.XP8192M.EDSSSOX')
+  attach = ("SSXMP.XP8212M.EDSUSOX(0)" NAME='SSXMP.XP8212M.EDSUSOX')
+  attach = ("SSXMP.XP8252M.EDS3SOX(0)" NAME='SSXMP.XP8252M.EDS3SOX')
+  attach = ("SSXMP.XP8262M.EDS4SOX(0)" NAME='SSXMP.XP8262M.EDS4SOX')
+  attach = ("SSXMP.XP9040M.PRODSOX(0)" NAME='SSXMP.XP9040M.PRODSOX');
+  data _null_;
+  file send;
+  infile 'SSXDP.DB2MAINT(SOX#TEXT)';
+  input @;
+  put _infile_;
+  endsas;
+  attach = ("SSXMP.XP8252M.EDS3SOX(-1)" NAME='SSXMP.XP8252M.EDS3SOX')
+/*

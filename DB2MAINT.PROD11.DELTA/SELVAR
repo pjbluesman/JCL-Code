@@ -1,0 +1,2 @@
+ SELECT SYSIBM.DATA_SHARING_GROUP_NAME                                  00010001
+   from sysibm.SYSDUMMY1                                                00020000

@@ -1,0 +1,55 @@
+//UXC401MF JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID     00010000
+/*JOBPARM SYSAFF=MVSF                                                   00020000
+//*************************************************************         00030000
+//** THIS JOB RUN A SQL                                                 00040000
+//*************************************************************         00050000
+//DSNTIAS EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     00060000
+//STEPLIB  DD  DISP=SHR,DSN=SDB2F.SDSNLOAD                              00070000
+//         DD  DISP=SHR,DSN=SSXDP.DB2F.RUNLIB.LOAD                      00071000
+//SYSTSPRT DD  SYSOUT=*                                                 00080000
+//SYSPRINT DD  SYSOUT=*                                                 00090000
+//SYSUDUMP DD  SYSOUT=*                                                 00100000
+//SYSTSIN  DD  *                                                        00110000
+  DSN SYSTEM(DB2F)                                                      00120000
+  RUN PROGRAM(DSNTEP2)  PLAN(DSNTEP2) PARMS('/ALIGN(LHS)')              00130000
+  END                                                                   00150000
+//*                                                                     00160000
+//SYSIN    DD  *                                                        00170000
+ SELECT 'DBFG',COUNT(*) AS DATABASES,SBCS_CCSID                         00180000
+ FROM SYSIBM.SYSDATABASE                                                00181000
+ WHERE ENCODING_SCHEME = 'E' GROUP BY SBCS_CCSID;                       00190000
+--                                                                      00191000
+ SELECT 'DBFG',CHAR(NAME,8) AS DATABASE,CHAR(CREATOR,10),SBCS_CCSID,    00192000
+   ENCODING_SCHEME                                                      00192100
+   FROM SYSIBM.SYSDATABASE WHERE                                        00193000
+   ENCODING_SCHEME = 'E' AND                                            00194000
+    NAME NOT LIKE 'DSN0%' AND                                           00195000
+   (NAME LIKE 'ADB%'     OR                                             00196000
+    NAME LIKE 'ANL%'     OR                                             00197000
+    NAME LIKE 'CC%'      OR                                             00198000
+    NAME LIKE 'DAT%'     OR                                             00199000
+    NAME LIKE 'DB2%'     OR                                             00199100
+    NAME LIKE 'DLC%'     OR                                             00199200
+    NAME LIKE 'DSN%'     OR                                             00199300
+    NAME LIKE 'WRK%'     OR                                             00199400
+    NAME LIKE 'SYS%')                                                   00199500
+  ORDER BY 1;                                                           00199600
+--                                                                      00199700
+ SELECT 'DBFG',COUNT(*)AS TABLESPACES, SBCS_CCSID                       00200000
+ FROM SYSIBM.SYSTABLESPACE                                              00201000
+ WHERE ENCODING_SCHEME = 'E' GROUP BY SBCS_CCSID;                       00210000
+--                                                                      00220000
+ SELECT 'DBFG',CHAR(NAME,10) AS TABLESPACE,CHAR(DBNAME,10),SBCS_CCSID   00230000
+ FROM SYSIBM.SYSTABLESPACE                                              00231000
+ WHERE ENCODING_SCHEME = 'E' AND                                        00240000
+     DBNAME NOT LIKE 'DSN0%' AND DBNAME <> 'DSNDB04' AND                00250000
+    (DBNAME LIKE 'ADB%'     OR                                          00260000
+     DBNAME LIKE 'ANL%'     OR                                          00270000
+     DBNAME LIKE 'CC%'      OR                                          00280000
+     DBNAME LIKE 'DAT%'     OR                                          00290000
+     DBNAME LIKE 'DB2%'     OR                                          00300000
+     DBNAME LIKE 'DLC%'     OR                                          00310000
+     DBNAME LIKE 'DSN%'     OR                                          00320000
+     DBNAME LIKE 'WRK%'     OR                                          00330000
+     DBNAME LIKE 'SYS%')                                                00340000
+  ORDER BY 1;                                                           00350000

@@ -1,0 +1,6 @@
+SELECT ' GRANT SELECT ON TABLE ' CONCAT                                 00010000
+       RTRIM(CREATOR) CONCAT '.' CONCAT NAME                            00020000
+       CONCAT ' TO PUBLIC   @ '                                         00030003
+FROM SYSIBM.SYSTABLES                                                   00040000
+WHERE DBNAME IN ('DSNDB01', 'DSNDB06' )                                 00050002
+  AND TYPE = 'T'          ;                                             00060001

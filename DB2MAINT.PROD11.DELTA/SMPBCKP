@@ -1,0 +1,22 @@
+//SMPBACKP JOB (,A3),'BACKUP SMP/E',NOTIFY=&SYSUID,REGION=122M,         00010000
+//         CLASS=S,MSGCLASS=X,MSGLEVEL=(1,1)                            00020004
+//************************************                                  00021002
+//* JOB PARA BACKUP DO SMP DB2 E TOOLS                                  00022002
+//************************************                                  00023002
+//STEP01   EXEC PGM=ADRDSSU,REGION=0M,TIME=1440                         00030000
+//SYSPRINT DD   SYSOUT=*                                                00040000
+//*DISCO    DD DSN=SYSPRO.DB2.BKPD1T1.D240408,UNIT=3390,   ** DB2 BKP   00050003
+//DISCO    DD DSN=SYSPRO.TOOLS.BKPD1T1.D240408,UNIT=3390,  ** TOOLS BKP 00051003
+//         DISP=(,CATLG,DELETE),                                        00060000
+//         SPACE=(CYL,(500,300))                                        00070000
+//SYSIN    DD   *                                                       00080000
+  DUMP DATASET(INCLUDE(                                 -               00090000
+          SSXDP.DB2V9.TOOLS.GLOBAL.CS*                  -               00100000
+          SSXDP.DBTV9T1.**                              -               00110000
+          SSXDP.DBTV9D1.**                              -               00111000
+                                             ))         -               00112000
+  OUTDD(DISCO) -                                                        00113000
+  ALLDATA(*) ALLEXCP  -                                                 00114000
+  SHR TOL(ENQF)                                                         00115000
+//                                                                      00116000
+//                                                                      00117000

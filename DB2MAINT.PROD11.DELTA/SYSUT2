@@ -1,0 +1,17 @@
+//UXD000M JOB ,'DB2 RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID              00000000
+//*********************************************************************/00010000
+//* JOB NAME = DSNTIJID                                               */00020000
+//JOBLIB  DD  DISP=SHR,                                                 00230000
+//            DSN=SSXDP.DSNDBFG.DB2F.SDSNLOAD                           00240000
+//DSNTIN  PROC SAMP=XX,LIB=XXXXXXXX,SUF=06                              00250000
+//DSNTIN  EXEC PGM=DSNUGICR,REGION=0M                                   00260000
+//SYSPRINT DD  SYSOUT=*                                                 00270000
+//SYSUDUMP DD  SYSOUT=*                                                 00280000
+//SYSUT1   DD  DSN=SSXDP.DSNDBFG.DB2F.SDSNSAMP(&SAMP),                  00290000
+//             DISP=OLD                                                 00300000
+//SYSUT2   DD  DSN=DB2F.DSNDBC.DSNDB&SUF..&LIB..I0001.A001,             00310000
+//             DISP=OLD                                                 00320000
+//DSNTIN  PEND                                                          00330000
+//DSNTU03 EXEC DSNTIN,SAMP=DSNTIS03,LIB=SYSUTILX,SUF=01                 00640000
+//DSNTU61 EXEC DSNTIN,SAMP=DSNTIS61,LIB=DSNLUX01,SUF=01                 00650000
+//DSNTU62 EXEC DSNTIN,SAMP=DSNTIS62,LIB=DSNLUX02,SUF=01                 00660000

@@ -1,0 +1,28 @@
+//UXD000M  JOB ,'CJR RM102',CLASS=S,MSGCLASS=X
+//DSNTIC  PROC                                                          00140000
+//* *************************************************************** */  00150000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE         */  00160000
+//*
+//* *************************************************************** */  00170000
+//DSNTIC  EXEC PGM=IDCAMS                                               00180000
+//SYSPRINT DD SYSOUT=*                                                  00200000
+//SYSUDUMP DD SYSOUT=*                                                  00210000
+//DSNTIC  PEND                                                          00220000
+//DSNTIDC EXEC DSNTIC                                                   00580000
+//SYSIN DD *                                                            00590000
+      DELETE -                                                          01730001
+             (DB2D.DSNDBC.DSNDB01.SCT02.I0001.A001) -                   01730002
+             CATALOG(DB2D)                                              01730003
+      DELETE -                                                          01730001
+             (DB2D.DSNDBC.DSNDB01.SCT02.I0001.A002) -                   01730002
+             CATALOG(DB2D)                                              01730003
+      DELETE -                                                          01730001
+             (DB2D.DSNDBC.DSNDB01.SCT02.I0001.A003) -                   01730002
+             CATALOG(DB2D)                                              01730003
+      DELETE -                                                          01730001
+             (DB2D.DSNDBC.DSNDB01.DSNSCT02.I0001.A001) -                01730002
+             CATALOG(DB2D)                                              01730003
+      DELETE -                                                          01730001
+             (DB2D.DSNDBC.DSNDB01.DSNSCT02.I0001.A002) -                01730002
+             CATALOG(DB2D)                                              01730003
+/*                                                                      01780000

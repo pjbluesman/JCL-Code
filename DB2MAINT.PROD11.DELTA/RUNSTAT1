@@ -1,0 +1,20 @@
+//UXD001M    JOB ,'DB2 SYS PROG',CLASS=S,MSGCLASS=X,                    00010003
+//           NOTIFY=&SYSUID                                             00011000
+/*JOBPARM S=MVSQ                                                        00012003
+//UTIL    EXEC DSNUPROC,SYSTEM=DB3R,UID='DB3R.SYSSTATS',UTPROC=''       00020003
+//SYSPRINT DD SYSOUT=X                                                  00030000
+//SYSPRINT DD SYSOUT=*                                                  00040000
+//RNPRIN01 DD SYSOUT=*                                                  00050000
+//STPRIN01 DD SYSOUT=*                                                  00060000
+//UTPRINT  DD SYSOUT=*                                                  00070000
+//DSNUPROC.SYSIN   DD *                                                 00080000
+  RUNSTATS TABLESPACE DSN8D81A.DSN8S81E                                 00090002
+           TABLE(DSN8810.EMP)                                           00100002
+           COLGROUP(WORKDEPT) FREQVAL COUNT 5                           00140003
+                   INDEX(ALL, KEYCARD)                                  00160000
+                   UPDATE (ALL)                                         00170000
+                   HISTORY (ALL)                                        00180000
+                   SORTDEVT SYSDA                                       00190000
+                   SORTNUM 8                                            00200000
+                   REPORT YES                                           00210000
+                   SHRLEVEL CHANGE                                      00220000

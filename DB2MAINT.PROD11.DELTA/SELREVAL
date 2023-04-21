@@ -1,0 +1,8 @@
+--                                                                      00001000
+SELECT JES_NODE,GROUP  FROM                                             00010000
+LSEBDB2.HLTHCHK_REVAL_GRP                                               00020001
+GROUP BY JES_NODE,GROUP ;                                               00030000
+--                                                                      00031000
+SELECT JES_NODE,AUTHID  FROM                                            00040000
+LSEBDB2.HLTHCHK_REVAL_AUTH                                              00050001
+GROUP BY JES_NODE, AUTHID ;                                             00060000

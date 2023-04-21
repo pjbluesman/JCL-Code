@@ -1,0 +1,75 @@
+//SQPADBRG JOB ,'DB2 SQLPA',CLASS=S,MSGCLASS=X,TIME=1440,
+// NOTIFY=&SYSUID,MSGLEVEL=(1,1),REGION=0M
+/*JOBPARM SYSAFF=MVS4
+/*
+//*
+//*######################################################################
+//*
+//* EXPLAIN JOB
+//* 1) update to your userid:
+//*    USEPLAN T032135
+//*    PARM('/T032135')
+//* 2) customize your SQL library:
+//*    //ANLIN    DD DSN=XXXXX.XXXXX.XXXXXX(MYSQL)
+//*
+//*######################################################################
+//ANLSTEP1 EXEC PGM=ANLSQLPA,PARM='/ACT=EEE,SSID=DBRG',REGION=0M
+//STEPLIB  DD DSN=SYS2.DB2TOOLS.PROD.SANLLOAD,DISP=SHR
+//         DD DSN=SDB2R.SDSNLOAD,DISP=SHR
+//         DD DSN=SYS1.CEE.SCEERUN,DISP=SHR
+//ANLINFO  DD *
+DBRMKEY +OFF+
+DEGREES ONE
+QUALIFY
+USEPLAN T032135
+EXPLAIN NEW
+EEECALL SPA
+QUERYNO ALL
+STOPQNO 999999999
+//ANLCNTL  DD DSN=SYS2.DB2TOOLS.PROD.SANLPARM(DBRGCNTL),DISP=SHR
+//ANLPARM  DD DSN=SYS2.DB2TOOLS.PROD.SANLPARM(DBRGPARM),DISP=SHR
+//ANLWORK  DD DSN=&ANLWORK,DISP=(,DELETE,DELETE),
+//         DCB=(LRECL=80,RECFM=FB,BLKSIZE=4000),
+//         SPACE=(CYL,(5,1),RLSE)
+//INPUT    DD DSN=&INPUT,DISP=(,PASS),
+//         DCB=(LRECL=80,RECFM=FB,BLKSIZE=9040),
+//         SPACE=(CYL,(1,1),RLSE)
+//*---------------------------------------------------------------------
+//ANLIN    DD DSN=XXXXX.XXXXX.XXXXXX(MYSQL),DISP=SHR
+//*---------------------------------------------------------------------
+//ANLPRINT DD SYSOUT=*,DCB=LRECL=133
+//*---------------------------------------------------------------------
+//SYSPRINT DD SYSOUT=*,DCB=LRECL=133
+//SYSTSPRT DD SYSOUT=*
+//ANLOUT   DD SYSOUT=*
+//ANLREP   DD SYSOUT=*,DCB=LRECL=132
+//QTRACE   DD SYSOUT=*,DCB=LRECL=120
+//QLIMIT   DD SYSOUT=*,DCB=LRECL=120
+//*
+//*######################################################################
+//ANLSTEP2 EXEC PGM=IKJEFT01
+//STEPLIB  DD DSN=SYS2.DB2TOOLS.PROD.SANLLOAD,DISP=SHR
+//         DD DSN=SDB2R.SDSNLOAD,DISP=SHR
+//SYSTSPRT DD SYSOUT=*,DCB=BLKSIZE=133
+//SYSPRINT DD SYSOUT=*
+//DEFAULT  DD DSN=SYS2.DB2TOOLS.PROD.SANLPARM(DBRGEEE),DISP=SHR
+//REPORT   DD SYSOUT=*
+//PLIDUMP  DD SYSOUT=*
+//CEEDUMP  DD SYSOUT=*
+//DSNTRACE DD SYSOUT=*
+//*---------------------------------------------------------------------
+//SYSTSIN  DD  *
+ DSN  SYSTEM(DBRG)
+ RUN  PROGRAM(ANLEEE) PLAN(ANLEEE)  -
+ PARM('/T032135')
+//*---------------------------------------------------------------------
+//INPUT   DD DSN=&INPUT,DISP=(OLD,PASS)
+//*
+//ANLSTEP3 EXEC PGM=IEBGENER
+//SYSPRINT DD   DUMMY
+//SYSIN    DD   DUMMY
+//SYSUT2   DD   SYSOUT=*
+//SYSUT1   DD   DSN=&INPUT,DISP=(OLD,DELETE),
+//         DCB=(LRECL=80,RECFM=FB,BLKSIZE=9040),
+//         SPACE=(CYL,(1,1),RLSE)
+//*

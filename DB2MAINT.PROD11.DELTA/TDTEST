@@ -1,0 +1,84 @@
+TODATE   CEEENTRY AUTO=WORKSIZE,MAIN=NO,PLIST=OS                        00009300
+         USING WORKAREA,R13                                             00009400
+         STM   R1,R12,SAVEAREA  SAVE REGISTERS FROM LE/370 INVOCATION   00009500
+         LR    R5,R1            LOAD INPUT PARAMETER LIST FROM DB2      00009700
+         USING PARMLIST,R5      ESTABLISH DSECT BASE REGISTER           00009800
+         L     R10,RES1DPTR     GET ADDRESS OF AREA FOR RESULT          00180000
+         L     R9,RES1IPTR      GET ADDRESS OF RESULT INDICATOR         00190000
+         XC    0(2,R9),R9       SET THE RESULTS INDICATOR TO X'0000'    00191000
+         L     R7,FLD1IPTR      GET POINTER TO INPUT DATE INDICATOR     00193000
+         XR    R8,R8            CLEAR REGISTER 8                        00193100
+         ICM   R8,B'0011',0(R7) LOAD DATE INDICATOR INTO REGISTER 8     00193200
+         LTR   R8,R8            IS THE INPUT DATE FIELD NULL?           00193300
+         BM    PARMNULL         YES -- GO TO PARMNULL                   00193700
+         L     R7,FLD2IPTR      GET POINTER TO INPUT FORMAT INDICATOR   00193900
+         ICM   R8,B'0011',0(R7) LOAD FORMAT INDICATOR INTO REGISTER 8   00194300
+         LTR   R8,R8            IS THE FORMAT FIELD NULL?               00194400
+         BM    PARMNULL         YES -- GO TO PARMNULL                   00194500
+         L     R7,FLD1DPTR      GET POINTER TO INPUT DATE FIELD         00194700
+         L     R6,=F'32'        ACQUIRE 32 BYTE SCRATCH AREA            00194800
+         GETMAIN R,LV=(6)                                               00194900
+         LR    R6,R1            LOAD ADDRESS OF SCRATCH AREA            00195000
+         USING SCRATCH,R6       ESTABLISH SCRATCH AREA DSECT BASE       00195100
+         MVC   FULLWORD,2(R7)   MOVE DATE INPUT TO SCRATCH AREA         00195300
+         L     R8,FULLWORD                                              00195400
+         CVD   R8,DECWORK            CONVERT BINARY TO DECIMAL          00195500
+         MVC   DSPWORK,EDITINTG      MOVE OUT CORRECT EDIT MASK         00195600
+         ED    DSPWORK,DECWORK       EDIT THE DECIMAL DATA              00195700
+         MVC   0(4,R10),DSPWORK+9    MOVE TO OUTPUT DATA AREA           00195800
+         MVI   4(R10),C'-'                                              00196700
+         MVC   5(2,R10),DSPWORK+13                                      00196800
+         MVI   7(R10),C'-'                                              00196900
+         MVC   8(2,R10),DSPWORK+15                                      00197000
+         FREEMAIN R,LV=(6)      FREE THE SCRATCH AREA                   00197100
+RETURN   EQU   *                                                        00197200
+         LM    R1,R12,SAVEAREA  RELOAD LE/370 REGISTERS                 00197300
+         CEETERM RC=0                                                   00197400
+         EJECT                                                          00197500
+PARMNULL EQU   *                                                        00197600
+         MVC   0(2,R9),=H'-1'   SET OUTPUT RESULT INDICATOR TO NULL     00197700
+         B     RETURN           GO TO RETURN                            00197800
+         EJECT                                                          00197900
+*******************************************************************     00198000
+*  VARIABLE DECLARATIONS AND EQUATES                              *     00198100
+*******************************************************************     00199000
+R0       EQU   0               REGISTER 0                               00200000
+R1       EQU   1               REGISTER 1                               00210000
+R2       EQU   2               REGISTER 2                               00220000
+R3       EQU   3               REGISTER 3                               00230000
+R4       EQU   4               REGISTER 4                               00240000
+R5       EQU   5               REGISTER 5                               00250000
+R6       EQU   6               REGISTER 6                               00251000
+R7       EQU   7               REGISTER 7                               00252000
+R8       EQU   8               REGISTER 8                               00253000
+R9       EQU   9               REGISTER 9                               00254000
+R10      EQU   10              REGISTER 10                              00255000
+R11      EQU   11              REGISTER 11                              00256000
+R12      EQU   12              REGISTER 12                              00257000
+R13      EQU   13              REGISTER 13                              00258000
+         EJECT                                                          00259900
+EDITINTG DC    X'404020202020202020202020202020212160'                  00260000
+         EJECT                                                          00260300
+         LTORG ,               PLACE LITERAL POOL HERE                  00260400
+PPA      CEEPPA  ,             CONSTANTS DESCRIBING THE CODE BL         00260500
+WORKAREA DSECT                                                          00261000
+         ORG   *+CEEDSASZ      LEAVE SPACE FOR THE DSA FIXED PA         00270000
+SAVEAREA DS    12F                                                      00360000
+         SPACE 2                                                        00361000
+WORKSIZE EQU   *-WORKAREA                                               00370000
+         CEEDSA  ,             MAPPING OF THE DYNAMIC SAVE AREA         00380000
+         CEECAA  ,             MAPPING OF THE COMMON ANCHOR AR          00390000
+PARMLIST DSECT                                                          00391000
+FLD1DPTR DS    A                                                        00392000
+FLD2DPTR DS    A                                                        00393000
+RES1DPTR DS    A                                                        00394000
+FLD1IPTR DS    A                                                        00395000
+FLD2IPTR DS    A                                                        00396000
+RES1IPTR DS    A                                                        00397000
+         SPACE 2                                                        00397100
+SCRATCH  DSECT                                                          00398000
+         DS    0D                                                       00399000
+DECWORK  DS    D                                                        00399100
+FULLWORD DS    F                                                        00399200
+DSPWORK  DS    CL18                                                     00399300
+         END   TODATE                                                   00400000

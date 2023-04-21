@@ -1,0 +1,1 @@
+SELECT * FROM SAPR3.USR01 WHERE BNAME = 'SAP*';                         00010000

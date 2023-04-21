@@ -1,0 +1,41 @@
+//UXC401MI JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID     00010001
+/*JOBPARM SYSAFF=MVSI                                                   00020001
+//*************************************************************         00030000
+//** THIS JOB RUN A SQL                                                 00040000
+//*************************************************************         00050000
+//DSNTIAS EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     00060000
+//STEPLIB  DD  DISP=SHR,DSN=SDB2G.SDSNLOAD                              00070001
+//         DD  DISP=SHR,DSN=SSXDP.DB2G.RUNLIB.LOAD                      00071001
+//SYSTSPRT DD  SYSOUT=*                                                 00080000
+//SYSPRINT DD  SYSOUT=*                                                 00090000
+//SYSUDUMP DD  SYSOUT=*                                                 00100000
+//SYSTSIN  DD  *                                                        00110000
+  DSN SYSTEM(DB2G)                                                      00120001
+  RUN PROGRAM(DSNTEP2)  PLAN(DSNTEP2) PARMS('/ALIGN(LHS)')              00130000
+  END                                                                   00150000
+//*                                                                     00160000
+//SYSIN    DD  *                                                        00170001
+   SELECT CURRENT TIMESTAMP AS CURRENT_TIMESTAMP, 'MVSI' AS LPAR,       00190001
+          SUBSTR(GETVARIABLE('SYSIBM.SYSTEM_NAME'),1,4)  AS SSID,       00200001
+          SUBSTR(GETVARIABLE('SYSIBM.VERSION'),1,8)      AS VERSION,    00210001
+          GETVARIABLE('SYSIBM.DATA_SHARING_GROUP_NAME')  AS GROUP_NAME  00220001
+     FROM SYSIBM.SYSDUMMY1;                                             00230001
+--*******************************************************************   00260001
+--* SQL USED TO QUERY THE CURRENT WLM ENVIRONMENTS OF DB2 PRODUCTS      00270001
+--*******************************************************************   00280001
+   SELECT CHAR(SCHEMA,8)   AS SCHEMA,                                   00290001
+          CHAR(NAME,25)    AS NAME,                                     00300001
+          CHAR(LANGUAGE,8) AS LANG,                                     00310001
+          ROUTINETYPE      AS TYPE,                                     00320001
+          CASE                                                          00330001
+          WHEN WLM_ENVIRONMENT = '   '                                  00340001
+               THEN  'RUNS IN SPAS'                                     00350001
+               ELSE  'RUNS IN WLM='                                     00360001
+          END ||                                                        00370001
+          RTRIM(CHAR(WLM_ENVIRONMENT,20)) AS WLM_ENVIRONMENT            00380001
+     FROM SYSIBM.SYSROUTINES                                            00390001
+    WHERE WLM_ENVIRONMENT IN ('DB2GUTIL')                               00400001
+    ORDER BY 1,2                                                        00410001
+      FOR FETCH ONLY                                                    00420001
+     WITH UR;                                                           00430001
+--                                                                      00440001

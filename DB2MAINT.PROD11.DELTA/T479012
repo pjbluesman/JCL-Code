@@ -1,0 +1,52 @@
+//TCAROLCJ JOB (DBA),'DB2 UTILITY',                                     JOB14215
+//*       RESTART=STEPNAME, <== FOR RESTART REMOVE * AND ENTER STEP NAME
+//         MSGCLASS=X,MSGLEVEL=(1,1),TIME=1440,REGION=0M,
+//         CLASS=S,NOTIFY=T700527
+/*JOBPARM S=MVS4
+//********************************************************************
+//*  SAVE DB2 SELECT TO DATASET
+//********************************************************************
+//JOBLIB  DD  DSN=SSXDP.DB2W.SDSNEXIT,DISP=SHR
+//        DD  DSN=SDB2W.SDSNLOAD,DISP=SHR
+//        DD  DSN=SYS1.CEE.SCEERUN,DISP=SHR
+//**JOBLIB   DD DISP=SHR,DSN=SSXDP.DB2W.RUNLIB.LOAD
+//**         DD DISP=SHR,DSN=SSXDP.DB2W.SDSNEXIT
+//**         DD DISP=SHR,DSN=SDB2W.SDSNLOAD
+//**         DD DISP=SHR,DSN=SYS2.DB2TOOLS.SADBLINK
+//**        DD DISP=SHR,DSN=SSXDT.DBA.REXX.EXEC(TEP2FILE)
+//********************************************************************
+//DELET1  EXEC PGM=IEFBR14
+//SYSPRINT  DD UNIT=SYSDA,DISP=(MOD,DELETE,DELETE),SPACE=(TRK,1),
+//             DSN=T700527.PERF.DB2W.DBTSDATA
+//OFILE     DD UNIT=SYSDA,DISP=(MOD,DELETE,DELETE),SPACE=(TRK,1),
+//             DSN=T700527.PERF.DB2W.DBTSDATA.TEP2FILE
+//**********************************************************************
+//STEP1    EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                    00005000
+//SYSPRINT DD DISP=(MOD,CATLG,DELETE),SPACE=(CYL,(1,50),RLSE),
+//            UNIT=SYSDA,
+//            DSN=T700527.PERF.DB2W.DBTSDATA
+//**SYSPRINT DD DISP=(MOD,CATLG,DELETE),SPACE=(CYL,(1,50),RLSE),
+//**            UNIT=SYSDA,DCB=(LRECL=80,RECFM=FB,BLKSIZE=0),
+//**            DSN=T700527.PERF.DB2W.DBTSDATA
+//SYSTSPRT DD  SYSOUT=*                                                 00005300
+//SYSUDUMP DD  SYSOUT=*                                                 00005400
+//SYSTSIN  DD  *                                                        00005500
+ DSN SYSTEM(DB2W)                                                       00005600
+ RUN  PROGRAM(DSNTEP2) PLAN(DSNTEP2) +                                  00005900
+      LIB('SSXDP.DB2W.RUNLIB.LOAD')
+ END                                                                    00006100
+//*                                                                     00006200
+//SYSIN    DD DISP=SHR,DSN=T700527.CAROLE.SQL(AUDTCSYX)
+//********************************************************************
+//TEP2FILE EXEC PGM=IKJEFT1A
+//SYSPRINT DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//SYSPROC  DD DISP=SHR,DSN=SSXDT.DBA.REXX.EXEC
+//IFILE    DD DISP=OLD,DSN=T700527.PERF.DB2W.DBTSDATA
+//OFILE    DD DISP=(MOD,CATLG,DELETE),SPACE=(CYL,(1,50),RLSE),
+//            UNIT=SYSDA,DCB=(RECFM=FB,LRECL=4096),
+//            DSN=T700527.PERF.DB2W.DBTSDATA.TEP2FILE
+//SYSTSIN  DD *
+PROF NOPREFIX
+TEP2FILE LIST
+/*

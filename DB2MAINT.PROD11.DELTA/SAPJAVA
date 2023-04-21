@@ -1,0 +1,3 @@
+ set current sqlid='LSEBDB2';                                           00001000
+ GRANT CREATETS, CREATETAB ON DATABASE DSNDB04 TO SAPJAVA;              00010000
+ GRANT USE OF STOGROUP SYSDEFLT TO SAPJAVA;                             00020000

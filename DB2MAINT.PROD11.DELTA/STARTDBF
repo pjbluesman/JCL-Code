@@ -1,0 +1,33 @@
+//DB3FSTS  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID,USER=SYSPRO
+/*JOBPARM SYSAFF=MVSF                                <= CHANGE SYSAFF
+//*********************************************************************
+//*STEP01 SET DATABASES IN UTILITY MODE BEFORE BEING REORG'D           *
+//**********************************************************************
+//STEP01   EXEC PWR9993
+//PWR9993.SYSTSIN  DD  *
+ DSN SYSTEM(DBFG)
+ -START DATABASE(A110XXHV) SPACENAM(VBDATA)
+ -START DATABASE(A120XD2E) SPACENAM(VAKGU)
+ -START DATABASE(PR30XC8)  SPACENAM(VBMOD)
+//
+ -START DATABASE(WRAP5000)                          ACCESS(RW)
+ -START DATABASE(WRAR5000)                          ACCESS(RW)
+ -START DATABASE(WRAR5001)                          ACCESS(RW)
+ -START DATABASE(WRCR5000)                          ACCESS(RW)
+ -START DATABASE(WRCR5001)                          ACCESS(RW)
+ -START DATABASE(WRDG5000)                          ACCESS(RW)
+ -START DATABASE(WRDL5000)                          ACCESS(RW)
+ -START DATABASE(WREN5000)                          ACCESS(RW)
+ -START DATABASE(WRFE5000)                          ACCESS(RW)
+ -START DATABASE(WRFE5000)                          ACCESS(RW)
+ -START DATABASE(WRFS5000)                          ACCESS(RW)
+ -START DATABASE(WRGL5000)                          ACCESS(RW)
+ -START DATABASE(WRPO5000)                          ACCESS(RW)
+ -START DATABASE(WRPR5000)                          ACCESS(RW)
+ -START DATABASE(WRRE5000)                          ACCESS(RW)
+ -START DATABASE(WRRR5000)                          ACCESS(RW)
+ -START DATABASE(WRSQ5000)                          ACCESS(RW)
+ -START DATABASE(WRSQ5000)                          ACCESS(RW)
+ -START DATABASE(WRSS5000)                          ACCESS(RW)
+ -START DATABASE(WRXT5000)                          ACCESS(RW)

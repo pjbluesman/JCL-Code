@@ -1,0 +1,57 @@
+//DT0072X JOB ,'RDL RM102',CLASS=S,MSGCLASS=X,NOTIFY=DT0072             00001000
+//STEP01   EXEC PGM=IDCAMS,COND=(2,LT)
+//SYSPRINT DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//SYSIN DD *
+ DEFINE CLUSTER                             -
+      ( NAME(DB2R.DSNDBC.DSNDB06.SYSSEQ.I0001.A001) -
+        LINEAR                             -
+        REUSE                              -
+        VOLUMES(E9D2R1)                    -
+        CYLINDERS(5 1)                   -
+        SHAREOPTIONS(3 3) )                -
+   DATA                                    -
+      ( NAME(DB2R.DSNDBD.DSNDB06.SYSSEQ.I0001.A001) -
+                           )
+ DEFINE CLUSTER                             -
+      ( NAME(DB2R.DSNDBC.DSNDB06.DSNSQX01.I0001.A001) -
+        LINEAR                             -
+        REUSE                              -
+        VOLUMES(E9D2R1)                    -
+        CYLINDERS(1 1)                   -
+        SHAREOPTIONS(3 3) )                -
+    DATA                                    -
+          ( NAME(DB2R.DSNDBD.DSNDB06.DSNSQX01.I0001.A001) -
+                               )
+    DEFINE CLUSTER                             -
+          ( NAME(DB2R.DSNDBC.DSNDB06.DSNSQX02.I0001.A001) -
+            LINEAR                             -
+            REUSE                              -
+            VOLUMES(E9D2R1)                    -
+            CYLINDERS(1 1)                   -
+            SHAREOPTIONS(3 3) )                -
+       DATA                                    -
+          ( NAME(DB2R.DSNDBD.DSNDB06.DSNSQX02.I0001.A001) -
+                               )
+ DEFINE CLUSTER                             -
+       ( NAME(DB2R.DSNDBC.DSNDB06.SYSSEQ2.I0001.A001) -
+         LINEAR                             -
+         REUSE                              -
+         VOLUMES(E9D2R1)                    -
+         CYLINDERS(5 1)                   -
+         SHAREOPTIONS(3 3) )                -
+    DATA                                    -
+       ( NAME(DB2R.DSNDBD.DSNDB06.SYSSEQ2.I0001.A001) -
+                            )
+ DEFINE CLUSTER                             -
+       ( NAME(DB2R.DSNDBC.DSNDB06.DSNSRX01.I0001.A001) -
+         LINEAR                             -
+         REUSE                              -
+         VOLUMES(E9D2R1)                    -
+         CYLINDERS(1 1)                   -
+         SHAREOPTIONS(3 3) )                -
+     DATA                                    -
+        ( NAME(DB2R.DSNDBD.DSNDB06.DSNSRX01.I0001.A001) -
+                             )
+/*
+//

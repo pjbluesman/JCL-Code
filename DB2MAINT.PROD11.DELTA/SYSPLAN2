@@ -1,0 +1,31 @@
+//SYSPLAN JOB (,114),'CJR',CLASS=S,MSGCLASS=X
+//*
+//*
+//* *************************************************************** */  00370000
+//DSNTIC  PROC                                                          00380000
+//* *************************************************************** */  00390000
+//* ALLOCATE A SECOND DATASET FOR DSND'S SYSPLAN TABLESPACE         */  00400000
+//*       FOR 3/23/92                                               */
+//*                                                                 */
+//* *************************************************************** */  00410000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)                                   00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//DSNTCPY EXEC DSNTIC                                                   02540000
+//* *********************************************                       06800000
+//*  DEFINE DB2  CATALOG/DIRECTORY TABLESPACE = SYSPLAN (23MAR92) *     06810000
+//* *********************************************                       06820000
+//SYSIN DD *                                                            06830000
+   DEFINE CLUSTER                             -                         06840000
+         ( NAME(DB2D.DSNDBC.DSNDB06.SYSPLAN.I0001.A002) -               06850000
+           LINEAR                             -                         06860000
+           REUSE                              -                         06870000
+           VOLUMES(D2SP04)                    -                         06880000
+           CYLINDERS(750 250)                 -                         06910000
+           SHAREOPTIONS(3 3) )                -                         06920000
+      DATA                                    -                         06930000
+         ( NAME(DB2D.DSNDBD.DSNDB06.SYSPLAN.I0001.A002) -               06940000
+                              )               -                         06970000
+      CATALOG(DB2D)                                                     06980000
+//*                                                                     08290000

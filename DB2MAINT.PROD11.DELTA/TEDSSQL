@@ -1,0 +1,147 @@
+CREATE PROCEDURE ROGER001
+    (INOUT COMMIT_ROWS INTEGER,
+     INOUT RETURN_CODE INTEGER,
+     INOUT SQL_CODE INTEGER)
+    DYNAMIC RESULT SET 1
+    LANGUAGE SQL
+    NOT DETERMINISTIC
+    NO DBINFO
+    MODIFIES SQL DATA
+    COLLID DT0072
+    WLM ENVIRONMENT ROGER
+    ASUTIME NO LIMIT
+    STAY RESIDENT NO
+    PROGRAM TYPE MAIN
+    SECURITY DB2
+    CALLED ON NULL INPUT
+    COMMIT ON RETURN YES
+    MAIN:  BEGIN
+       DECLARE   X_COL_1          CHAR(10);
+       DECLARE   X_COL_2            INTEGER ;
+       DECLARE   X_COL_3            DECIMAL(5,2);
+       DECLARE   X_COL_4            CHAR(6);
+       DECLARE   X_COL_5            VARCHAR(10);
+       DECLARE   X_COL_6            SMALLINT;
+       DECLARE   X_COL_7            DECIMAL(7);
+       DECLARE   X_LST_TRNS_EVT_GTS TIMESTAMP;
+       DECLARE   ERROR_ID           INTEGER   DEFAULT 0 ;
+       DECLARE   ERROR_SQLCODE      INTEGER   DEFAULT 0 ;
+       DECLARE   ERROR_MSG          CHAR(25)  DEFAULT 0 ;
+       DECLARE   SQLCODE            INTEGER   DEFAULT 0 ;
+       DECLARE   SQLWORK            INTEGER   DEFAULT 0 ;
+       DECLARE   COMMIT_FREQ        INTEGER   DEFAULT 9999999 ;
+       DECLARE   ROWS_FETCHED       INTEGER   DEFAULT 0 ;
+       DECLARE   BACK_LEVEL_ROWS    INTEGER   DEFAULT 0 ;
+
+       DECLARE WORK_CURSOR CURSOR FOR
+          SELECT COL_1,
+                 COL_2,
+                 COL_3,
+                 COL_4,
+                 COL_5,
+                 COL_6,
+                 COL_7,
+                 LST_TRNS_EVT_GTS
+          FROM WORK_TABLE
+          WHERE ERROR_ID IS NOT NULL ;
+
+       IF COMMIT_ROWS IS NOT NULL THEN
+          IF COMMIT_ROWS > 0 THEN
+             SET COMMIT_FREQ = COMMIT_ROWS ;
+          END IF;
+       END IF;
+
+       OPEN WORK_CURSOR ;
+       IF SQLCODE = 0 THEN
+          WHILE SQLWORK = 0 DO
+             FETCH WORK_CURSOR INTO  X_COL_1,
+                                     X_COL_2,
+                                     X_COL_3,
+                                     X_COL_4,
+                                     X_COL_5,
+                                     X_COL_6,
+                                     X_COL_7,
+                                     X_LST_TRNS_EVT_GTS;
+             IF SQLCODE = 0 THEN
+                SET ROWS_FETCHED = ROWS_FETCHED + 1 ;
+                UPDATE REAL_TABLE
+                   SET COL_1 = X_COL_1,
+                       COL_2 = X_COL_2,
+                       COL_3 = X_COL_3,
+                       COL_4 = X_COL_4,
+                       COL_5 = X_COL_5,
+                       COL_6 = X_COL_6,
+                       COL_7 = X_COL_7,
+                       LST_TRNS_EVT_GTS = X_LST_TRNS_EVT_GTS
+                    WHERE COL_1 = X_COL_1
+                      AND COL_2 = X_COL_2
+                      AND LST_TRNS_EVT_GTS = X_LST_TRNS_EVT_GTS ;
+                IF SQLCODE = 0 THEN
+                   DELETE FROM WORK_TABLE
+                   WHERE COL_1 = X_COL_1
+                     AND COL_2 = X_COL_2
+                     AND LST_TRNS_EVT_GTS = X_LST_TRNS_EVT_GTS ;
+                   IF SQLCODE <> 0  THEN
+                      SET ERROR_MSG = 'UNABLE TO DELETE WORK ROW' ;
+                      SET ERROR_SQLCODE = SQLCODE ;
+                      INSERT INTO TEDS_ERROR_LOG
+                         (ERROR_SQLCODE, ERROR_MSG)
+                         VALUES
+                         (ERROR_SQLCODE, ERROR_MSG) ;
+                   END IF ;
+                ELSEIF SQLCODE = 100 THEN
+                   SET BACK_LEVEL_ROWS = BACK_LEVEL_ROWS + 1   ;
+                   DELETE FROM WORK_TABLE
+                   WHERE COL_1 = X_COL_1
+                     AND COL_2 = X_COL_2
+                     AND LST_TRNS_EVT_GTS = X_LST_TRNS_EVT_GTS ;
+                   IF SQLCODE <> 0  THEN
+                      SET ERROR_MSG = 'UNABLE TO DELETE WORK ROW' ;
+                      SET ERROR_SQLCODE = SQLCODE ;
+                      INSERT INTO TEDS_ERROR_LOG
+                         (ERROR_SQLCODE, ERROR_MSG)
+                         VALUES
+                         (ERROR_SQLCODE, ERROR_MSG) ;
+                      IF SQLCODE <> 0 THEN
+                         SET SQLWORK = SQLCODE ;
+                         SET SQL_CODE = SQLCODE ;
+                         SET RETURN_CODE = 16 ;
+                      END IF ;
+                   END IF ;
+                ELSE
+                   SET ERROR_MSG = 'UPDATE FAILURE ENCOUNTERED' ;
+                   SET ERROR_SQLCODE = SQLCODE ;
+                   INSERT INTO TEDS_ERROR_LOG
+                      (ERROR_SQLCODE, ERROR_MSG)
+                      VALUES
+                      (ERROR_SQLCODE, ERROR_MSG) ;
+                   IF SQLCODE <> 0 THEN
+                      SET SQLWORK = SQLCODE ;
+                      SET SQL_CODE = SQLCODE ;
+                      SET RETURN_CODE = 16 ;
+                   END IF ;
+                END IF ;
+
+             ELSEIF SQLCODE = 100 THEN
+                   SET SQLWORK = SQLCODE ;
+                ELSE
+                   SET SQLWORK = SQLCODE ;
+                   SET ERROR_MSG = 'CURSOR FETCH ERROR ' ;
+                   SET ERROR_SQLCODE = SQLCODE ;
+                   INSERT INTO TEDS_ERROR_LOG
+                      (ERROR_SQLCODE, ERROR_MSG)
+                      VALUES
+                      (ERROR_SQLCODE, ERROR_MSG) ;
+                   IF SQLCODE <> 0 THEN
+                      SET SQLWORK = SQLCODE ;
+                      SET SQL_CODE = SQLCODE ;
+                      SET RETURN_CODE = 16 ;
+                   END IF ;
+             END IF ;
+          END WHILE ;
+
+       CLOSE WORK_CURSOR ;
+    END IF ;
+
+    END MAIN
+

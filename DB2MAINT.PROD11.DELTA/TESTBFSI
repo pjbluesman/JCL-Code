@@ -1,0 +1,25 @@
+//UXC401MT JOB ,'DB2 ANNEX',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSS
+//*********************************************************************/00280000
+//JOBLIB  DD  DISP=SHR,                                                 00290000
+//            DSN=SDB2V.SDSNLOAD                                        00300000
+//TESTDB2V EXEC PGM=IKJEFT01                                            01020000
+//SYSTSPRT DD  SYSOUT=*                                                 01040000
+//SYSPRINT DD  SYSOUT=*                                                 01050000
+//SYSUDUMP DD  SYSOUT=*                                                 01060000
+//SYSTSIN  DD  *                                                        01070000
+  DSN SYSTEM(DB2V)                                                      01080000
+  RUN PROGRAM(DSNTEP2)  PLAN(DSNTEP2) -                                 01100000
+       LIB('SSXDT.DB2V.RUNLIB.LOAD')                                    01110000
+  END                                                                   01130000
+//SYSIN    DD DSN=SSXDT.DB2V.FBK812V.TAILOR.SDSNSAMP(DSNTESD),DISP=SHR  01140000
+//TESTDB4R EXEC PGM=IKJEFT01                                            01020000
+//SYSTSPRT DD  SYSOUT=*                                                 01040000
+//SYSPRINT DD  SYSOUT=*                                                 01050000
+//SYSUDUMP DD  SYSOUT=*                                                 01060000
+//SYSTSIN  DD  *                                                        01070000
+  DSN SYSTEM(DB4V)                                                      01080000
+  RUN PROGRAM(DSNTEP2)  PLAN(DSNTEP2) -                                 01100000
+       LIB('SSXDT.DB4V.RUNLIB.LOAD')                                    01110000
+  END                                                                   01130000
+//SYSIN    DD DSN=SSXDT.DB2V.FBK812V.TAILOR.SDSNSAMP(DSNTESD),DISP=SHR  01140000

@@ -1,0 +1,136 @@
+//DT0072C  JOB ,'RDL RM102',CLASS=S,
+//   MSGCLASS=X,NOTIFY=DT0072
+//PC       EXEC PGM=DSNHPC,PARM='HOST(C),STDSQL(NO),SOURCE',
+//     REGION=4096K
+//DBRMLIB  DD DSN=SSXDT.DB2V.DBRMLIB.DATA(DBBOOK),
+//         DISP=SHR
+//STEPLIB  DD  DISP=SHR,DSN=SSXDT.DSNDBVG.DB2V.SDSNEXIT
+//         DD  DISP=SHR,DSN=SSXDT.DSNDBVG.DB2V.SDSNLOAD
+//SYSPRINT DD  SYSOUT=*
+//SYSTERM  DD  SYSOUT=*
+//SYSUDUMP DD  SYSOUT=*
+//SYSCIN   DD  DSN=DT0072.JCL.CNTL(CSRCOUT),DISP=SHR
+//SYSLIB   DD DSN=SSXDT.DB2V.DBRMLIB.DATA,
+//             DISP=SHR
+//SYSUT1   DD  SPACE=(800,(500,500),,,ROUND),UNIT=SYSDA
+//SYSUT2   DD  SPACE=(800,(500,500),,,ROUND),UNIT=SYSDA
+//SYSIN    DD  *
+
+int main(int argc, char **argv)
+{
+    EXEC SQL INCLUDE SQLCA ;
+
+    EXEC SQL BEGIN DECLARE SECTION;
+    char userid[9];
+    char passwd[19];
+    char database[19];
+
+    char          BookingID[17];
+    char          StateCode;
+    long          RevisionNumber;
+    char          PNRAddress[9];
+    long          NumberInParty;
+    char          CreationGMTTime[20];
+    long          PurgeTime;
+    long          VersionNumber;
+    char          GroupCustomerID[14];
+    char          RecordLocator[7];
+    char          GMTUpdateTime[20];
+    char          PurgeCarrierCode[4];
+    long          PurgeFlightNumber;
+    long          PurgeTripNumber;
+    char          IATATripDesignator[4];
+	long	      ParttnKey;
+
+    EXEC SQL END DECLARE SECTION;
+
+	int i, rc = 0;
+	char msgBuf[1024];
+
+	int startBkg = 20019999;
+	int uniqBkgId = 56781234;
+
+	int count = 0;
+
+    strcpy(userid, "bkngsi");
+    strcpy(passwd, "bedssi1");
+    strcpy(database, "DB2V");
+
+
+	if (argc > 1)
+	{
+		count = atoi(argv[1]);
+	}
+	else
+	{
+		count = 100;
+	}
+
+	printf ("Iterating %d times", count);
+
+	for (i= 0; i < count; i++)
+	{
+		uniqBkgId += count;
+		sprintf(BookingID, "%d%d", startBkg, uniqBkgId);
+		StateCode = 'A';
+		RevisionNumber = 2;
+		strcpy(PNRAddress ,"48159225");
+		NumberInParty = 99;
+		strcpy(CreationGMTTime, "20010929143700");
+		PurgeTime = 20010929;
+		VersionNumber = 2;
+		strcpy(GroupCustomerID, "2237606189");
+		strcpy(RecordLocator,"UABCPB");
+		strcpy(GMTUpdateTime, "20010929143700");
+		strcpy(PurgeCarrierCode,"DL");
+		PurgeFlightNumber = 1207;
+		PurgeTripNumber = 4;
+		strcpy(IATATripDesignator,"ABC");
+		ParttnKey = 1;
+
+		EXEC SQL INSERT INTO BOOKING
+                        (BKG_ID,
+                         BKG_ST_CD,
+                         BKG_UPDT_SQL_NB,
+                         TPF_PNR_FILE_ADR,
+                         BKG_PAX_CT,
+                         BKG_CRT_GMT_TS,
+                         BKG_PURG_DT,
+                         DB_STRC_VER_NB,
+                         REC_LOCR_ID,
+                         OA_LIS_AL_CD,
+                         IATA_TRPN_DSGTR_CD,
+                         OA_LIS_FLT_NB,
+                         LST_USED_OD_TRP_NB,
+                         GRP_CA_ID,
+                         BKG_LST_UPDT_TS,
+                         PRTTN_KEY_ID)
+               VALUES (:BookingID,
+					   :StateCode,
+					   :RevisionNumber,
+					   :PNRAddress,
+					   :NumberInParty,
+					   TIMESTAMP(:CreationGMTTime),
+					   :PurgeTime,
+					   :VersionNumber,
+					   :RecordLocator,
+					   :PurgeCarrierCode,
+					   :IATATripDesignator,
+					   :PurgeFlightNumber,
+					   :PurgeTripNumber,
+					   :GroupCustomerID,
+					   TIMESTAMP(:GMTUpdateTime),
+					   :ParttnKey);
+
+		printf("Successfully completed inserting #%d\n", i );
+	}
+
+dberr:
+    EXEC SQL WHENEVER SQLERROR CONTINUE;
+
+	rc = sqlaintp(msgBuf, 1024, 80, &sqlca);
+	printf("DB Error: %s", msgBuf);
+    return 0;
+}
+/*
+//

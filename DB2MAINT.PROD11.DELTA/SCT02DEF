@@ -1,0 +1,65 @@
+//UXD000M JOB (,114),'CJR',CLASS=S,MSGCLASS=X
+//*
+//*
+//* *************************************************************** */  00370000
+//DSNTIC  PROC                                                          00380000
+//* *************************************************************** */  00390000
+//* DIRECTORY/CATALOG DATASET DEFINITIONS FOR SUBSYSTEM DB2D        */  00400000
+//*       DATASET CREATED 20FEB92                                   */
+//*                                                                 */
+//* *************************************************************** */  00410000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)                                   00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//DSNTSCT EXEC DSNTIC                                                   01690000
+//* *********************************************                       01700000
+//*  DEFINE DB2  DIRECTORY TABLE SPACES         *                       01710000
+//* *********************************************                       01720000
+//SYSIN    DD  *                                                        01730000
+   DEFINE CLUSTER                             -                         01900000
+         ( NAME(DB2D.DSNDBC.DSNDB01.SCT02.I0001.A001) -                 01910000
+           LINEAR                             -                         01920000
+           REUSE                              -                         01930000
+           SHAREOPTIONS(3 3)                  -                         01940000
+                                 )            -                         01970000
+      DATA                                    -                         01980000
+         ( NAME(DB2D.DSNDBD.DSNDB01.SCT02.I0001.A001) -                 01990000
+           CYLINDERS(2640,845)                -                         02020000
+           VOLUMES(D2SP02,D2SP01))            -                         02030000
+      CATALOG(DB2D)                                                     02040000
+                                                                        02050000
+   DEFINE CLUSTER                             -                         01900000
+         ( NAME(DB2D.DSNDBC.DSNDB01.SCT02.I0001.A002) -                 01910000
+           LINEAR                             -                         01920000
+           REUSE                              -                         01930000
+           SHAREOPTIONS(3 3)                  -                         01940000
+                                 )            -                         01970000
+      DATA                                    -                         01980000
+         ( NAME(DB2D.DSNDBD.DSNDB01.SCT02.I0001.A002) -                 01990000
+           CYLINDERS(2000,500)                -                         02020000
+           VOLUMES(D2SP09,D2SP14))            -                         02030000
+      CATALOG(DB2D)                                                     02040000
+//DSNTINX EXEC DSNTIC                                                   06790000
+//* *********************************************                       02550000
+//*  DEFINE DB2  CATALOG (OR DIRECTORY) INDEX SPACES                    02560000
+//* *********************************************                       02570000
+                                                                        02210000
+   DEFINE CLUSTER                             -                         02060000
+         ( NAME(DB2D.DSNDBC.DSNDB01.DSNSCT02.I0001.A001) -              02070000
+           LINEAR                             -                         02080000
+           REUSE                              -                         02090000
+           VOLUMES(D2SP16)                    -                         02100000
+           CYLINDERS(150 50)                  -                         02130000
+           SHAREOPTIONS(3 3) )                -                         02140000
+      DATA                                    -                         02150000
+         ( NAME(DB2D.DSNDBD.DSNDB01.DSNSCT02.I0001.A001) -              02160000
+                              )               -                         02190000
+      CATALOG(DB2D)                                                     02200000
+//* *********************************************                       08220000
+//*  LIST THE CATALOG                           *                       08230000
+//* *********************************************                       08240000
+//DSNTILC EXEC DSNTIC                                                   08250000
+//SYSIN DD *                                                            08260000
+    LISTCAT LEVEL(DB2D.DSNDBC.DSNDB01) ALL                              08270000
+/*                                                                      08290000

@@ -1,0 +1,65 @@
+//UXDLIST JOB 'DB2 SUPPORT',MSGLEVEL=(1,1),REGION=0M,                   00010000
+//           CLASS=S,MSGCLASS=X                                         00011000
+//STEP1 EXEC PGM=GIMSMP                                                 00020000
+//SYSPRINT DD  SYSOUT=*                                                 00030000
+//SMPOUT   DD  SYSOUT=*                                                 00040000
+//*                                                                     00050000
+//* CHANGE "YOUR.GLOBAL.CSI" TO THE GLOBAL CSI                          00060000
+//* OF YOUR INSTALLATION                                                00070000
+//*                                                                     00080000
+//SMPCSI   DD  DSN=SSXDP.DB2V8.TOOLS.GLOBAL.CSI,DISP=SHR                00090000
+//*                                                                     00100000
+//* CHANGE "YOUR.FEATURE.LIST" TO A DATASET NAME                        00110000
+//* FOLLOWING YOUR DATASET NAMING STANDARDS.                            00120000
+//* THIS IS THE DATASET YOU NEED TO UPLOAD TO IBM                       00130000
+//*                                                                     00140000
+//* THIS IS THE DATASET YOU NEED TO UPLOAD TO IBM                       00150000
+//*                                                                     00160000
+//SMPLIST DD DSN=SSXDP.DB2V8.TOOLS.FEATURE.LIST,                        00170000
+//           DCB=(RECFM=FBA,LRECL=121,BLKSIZE=12100),                   00180000
+//           SPACE=(CYL,(1,1,)),                                        00190000
+//           DISP=(NEW,CATLG)                                           00200000
+//SMPCNTL  DD  *                                                        00210000
+    SET BDY(GLOBAL)      /* SET TO GLOBAL ZONE.      */.                00220000
+    LIST FEATURE.                                                       00230000
+/*                                                                      00240000
+//* TO ADD TO "YOUR.FEATURE.LIST" FROM ADDITIONAL GLOBAL ZONES,         00250000
+//* UNCOMMENT THE FOLLOWING STEP AND DUPLICATE IT FOR EACH              00260000
+//* ADDITIONAL GLOBAL ZONE.                                             00270000
+//*                                                                     00280000
+//*STEP2 EXEC PGM=GIMSMP                                                00290000
+//*SYSPRINT DD  SYSOUT=*                                                00300000
+//*SMPOUT   DD  SYSOUT=*                                                00310000
+//*                                                                     00320000
+//* CHANGE "ANOTHER.GLOBAL.CSI" TO A GLOBAL CSI                         00330000
+//* OF YOUR INSTALLATION                                                00340000
+//*                                                                     00350000
+//*SMPCSI   DD  DSN=ANOTHER.GLOBAL.CSI,DISP=SHR                         00360000
+//*                                                                     00370000
+//* CHANGE "YOUR.FEATURE.LIST" TO THE DATASET NAME                      00380000
+//* YOU SPECIFIED IN STEP1.                                             00390000
+//* THIS IS THE DATASET YOU NEED TO UPLOAD TO IBM.                      00400000
+//*                                                                     00410000
+//*SMPLIST DD DSN=YOUR.FEATURE.LIST,                                    00420000
+//*           DISP=MOD                                                  00430000
+//*SMPCNTL  DD  *                                                       00440000
+//*    SET BDY(GLOBAL)      /* SET TO GLOBAL ZONE.      */.             00450000
+//*    LIST FEATURE.                                                    00460000
+//*/*                                                                   00470000
+//*                                                                     00480000
+//* OPTIONALLY, UNCOMMENT AND EXECUTE THIS STEP TO COPY THE SOFTWARE    00490000
+//* INVENTORY CREATED IN STEP1 TO A DIRECTORY IN YOUR HFS THAT YOU      00500000
+//* HAVE MAPPED AS A NETWORK DRIVE ON YOUR WORKSTATION.  YOU MAY THEN   00510000
+//* POINT SHOPZSERIES RIGHT TO THIS FILE TO DO THE UPLOAD.              00520000
+//*                                                                     00530000
+//* UPDATE 'YOUR.FEATURE.LIST' AND                                      00540000
+//*        'HFS-DIRECTORY-WHICH-IS-MAPPED-AS-NETWORK-DRIVE/FILE-NAME'   00541000
+//*                                                                     00542000
+//*STEP3 EXEC PGM=IKJEFT01                                              00543000
+//*SYSTSPRT DD  SYSOUT=*                                                00544000
+//*SYSTSIN  DD  DATA,DLM=$$                                             00545000
+//*  OPUT 'YOUR.FEATURE.LIST' +                                         00546000
+//*      '/HFS-DIRECTORY-WHICH-IS-MAPPED-AS-NETWORK-DRIVE/FILE-NAME' +  00547000
+//*       TEXT                                                          00548000
+//*$$                                                                   00549000
+//                                                                      00550000

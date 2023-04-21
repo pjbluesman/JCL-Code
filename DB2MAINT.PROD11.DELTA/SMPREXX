@@ -1,0 +1,43 @@
+/* REXX */
+VAR1  = 0
+VAR2  = 0
+SSID  = 'SAPPLEX-DB2E'
+/* TRACE A */
+CALL LOAD_A
+CALL PROC_X
+CALL FIM
+EXIT
+FIM:
+ "EXECIO 0 DISKR INP1 (FINIS"
+ "EXECIO 0 DISKW OUT1 (FINIS"
+ "FREE F(INP1)"
+ "FREE F(OUT1)"
+ VAR1 = FILE1.0
+ SAY 'RECORDS READ   ' VAR1
+  SAY 'RECORDS WRITEN ' VAR2
+  RETURN
+  PROC_X:
+    DO ABC = 1 TO 2
+       PTF = T.ABC
+       REC2 = 'PTF ' || PTF || ' WAS '
+       PTFFOUND = 'NO'
+       DO X = 1 TO FILE1.0
+         REC1 = FILE1.X
+         IDY = POS(PTF,REC1)
+         IF IDY > 0 THEN
+           DO
+             PTFFOUND = 'YES'
+           END
+       END
+IF PTFFOUND = 'NO' THEN
+       DO
+         REC2 = REC2 || 'NOT FOUND IN DB2:'||SSID
+         PUSH REC2 ; "EXECIO 1 DISKW OUT1" ; VAR2 = VAR2 + 1
+       END
+  END
+RETURN
+LOAD_A:
+ T.1  = 'UK36683'
+ T.2  = 'UK29778'
+ "EXECIO * DISKR INP1 (FINIS STEM FILE1."
+RETURN

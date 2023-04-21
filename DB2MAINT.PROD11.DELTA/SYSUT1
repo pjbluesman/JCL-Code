@@ -1,0 +1,56 @@
+//UXD000M JOB ,'DB2 RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID              00000001
+//*********************************************************************/00010000
+//* JOB NAME = DSNTIJIN                                               */00020000
+//*                                                                     00490000
+//DSNTIC  PROC                                                          00500000
+//* ***************************************************************** */00510000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE           */00520000
+//* ***************************************************************** */00530000
+//DSNTIC  EXEC PGM=IDCAMS                                               00540000
+//SYSPRINT DD SYSOUT=*                                                  00550000
+//SYSUDUMP DD SYSOUT=*                                                  00560000
+//DSNTIC  PEND                                                          00570000
+//*
+//DSNTDBL EXEC DSNTIC                                                   00730000
+//SYSIN    DD  *                                                        01730000
+ ALTER                         -
+       DB2F.DSNDBC.DSNDB01.SYSUTILX.I0001.A001 -
+       NEWNAME(DB2F.DSNDBC.DSNDB01.SYSUTILX.I0001.BACK)
+ ALTER                         -
+       DB2F.DSNDBD.DSNDB01.DSNLUX01.I0001.A001 -
+       NEWNAME(DB2F.DSNDBD.DSNDB01.DSNLUX01.I0001.BACK)
+ ALTER                         -
+       DB2F.DSNDBD.DSNDB01.DSNLUX02.I0001.A001 -
+       NEWNAME(DB2F.DSNDBD.DSNDB01.DSNLUX02.I0001.BACK)
+                                                                        02720000
+   DEFINE CLUSTER                             -                         02730000
+         ( NAME(DB2F.DSNDBC.DSNDB01.SYSUTILX.I0001.A001) -              02740000
+           LINEAR                             -                         02750000
+           REUSE                              -                         02760000
+           VOLUMES(E9D2F1)                    -                         02770000
+           RECORDS(837 837)                     -                       02780000
+           SHAREOPTIONS(3 3) )                -                         02790000
+      DATA                                    -                         02800000
+         ( NAME(DB2F.DSNDBD.DSNDB01.SYSUTILX.I0001.A001) -              02810000
+                              )    CATALOG(DB2F)                        02820000
+   DEFINE CLUSTER                             -
+         ( NAME(DB2F.DSNDBC.DSNDB01.DSNLUX01.I0001.A001) -
+           LINEAR                             -
+           REUSE                              -
+           VOLUMES(E9D2F1)                    -
+           RECORDS(347 347)                     -
+           SHAREOPTIONS(3 3) )                -
+      DATA                                    -
+         ( NAME(DB2F.DSNDBD.DSNDB01.DSNLUX01.I0001.A001) -
+                              )    CATALOG(DB2F)
+  DEFINE CLUSTER                             -
+        ( NAME(DB2F.DSNDBC.DSNDB01.DSNLUX02.I0001.A001) -
+          LINEAR                             -
+          REUSE                              -
+          VOLUMES(E9D2F1)                    -
+          RECORDS(382 382)                     -
+          SHAREOPTIONS(3 3) )                -
+     DATA                                    -
+        ( NAME(DB2F.DSNDBD.DSNDB01.DSNLUX02.I0001.A001) -
+                             )    CATALOG(DB2F)
+//*                                                                     15110000

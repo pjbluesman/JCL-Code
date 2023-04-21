@@ -1,0 +1,2420 @@
+.CONTROL SN(DT0072,NOPKEY)
+
+--==============================================================================
+-- VRCM6.1.5    CA-DB2   RC/MIGRATOR   ANALYSIS REPORT      06-07-02 11:01
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> NOPKEY    DESCRIPTION  ===> DROP WORK PRIMARY KEYS
+--CREATOR  ==> DT0072    SHARE OPTION ===> N (U,Y,N,X,L)  SRC SSID ===> DB2U
+--
+--ALTERED OBJECTS:
+--   OBJECT TYPE       NAME                 CREATOR
+--   TABLE             WT_TKT_DOC_PMT       EBKDD02
+--   TABLE             WT_TKT_DOC_PMT_ERR   EBKDD02
+--   TABLE             WT_TKT_DOC_RLN       EBKDD02
+--   TABLE             WT_TKT_DOC_RSPN      EBKDD02
+--   TABLE             WT_TKT_DOC_SCHR      EBKDD02
+--   TABLE             WT_TKT_DOC_STPV      EBKDD02
+--   TABLE             WT_TKT_DOC_TOCM      EBKDD02
+--   TABLE             WT_TKT_DOC_TX_FAX    EBKDD02
+--   TABLE             WT_MISC_DOC          EBKDD02
+--   TABLE             WT_MISC_DOC_PRT_LN   EBKDD02
+--   TABLE             WT_SBCPN             EBKDD02
+--   TABLE             WT_SBCPN_PRTN        EBKDD02
+--   TABLE             WT_TDRT_FOP_RMRK     EBKDD02
+--   TABLE             WT_TKDC_BKG_RLOCR    EBKDD02
+--   TABLE             WT_TKDC_CPN_EXRLN    EBKDD02
+--   TABLE             WT_TKDC_ELCR_ADR     EBKDD02
+--   TABLE             WT_TKDC_EXCG_RLN     EBKDD02
+--   TABLE             WT_TKDC_FARE_CALTN   EBKDD02
+--   TABLE             WT_TKDC_FARE_DFTL    EBKDD02
+--   TABLE             WT_TKDC_FBDF_CPN     EBKDD02
+--   TABLE             WT_TKDC_FBRK_CPN     EBKDD02
+--   TABLE             WT_TKDC_FRCN_LN      EBKDD02
+--   TABLE             WT_TKDC_GPHC_ADR     EBKDD02
+--   TABLE             WT_TKDC_PLUP_OD      EBKDD02
+--   TABLE             WT_TKDC_PLUS_UP      EBKDD02
+--   TABLE             WT_TKDC_PMT_COLTN    EBKDD02
+--   TABLE             WT_TKDC_PMT_RMRK     EBKDD02
+--   TABLE             WT_TKDC_QLTY_RSN     EBKDD02
+--   TABLE             WT_TKDC_RTRNS_RLN    EBKDD02
+--   TABLE             WT_TKDC_SDSTT_RMRK   EBKDD02
+--   TABLE             WT_TKT_DOC           EBKDD02
+--   TABLE             WT_TKT_DOC_BTLOC     EBKDD02
+--   TABLE             WT_TKT_DOC_CHRG      EBKDD02
+--   TABLE             WT_TKT_DOC_CMSN      EBKDD02
+--   TABLE             WT_TKT_DOC_DFTL      EBKDD02
+--   TABLE             WT_TKT_DOC_ERR       EBKDD02
+--   TABLE             WT_TKT_DOC_EXVL      EBKDD02
+--   TABLE             WT_TKT_DOC_FBDF      EBKDD02
+--   TABLE             WT_TKT_DOC_FBRK      EBKDD02
+--   TABLE             WT_TKT_DOC_HST       EBKDD02
+--   TABLE             WT_TKT_DOC_MSG       EBKDD02
+--   TABLE             WT_TKT_DOC_PH_ADR    EBKDD02
+--   TABLE             WT_CPN_STPV_CHRG     EBKDD02
+--   TABLE             WT_CPN_ST            EBKDD02
+--   TABLE             WT_CPN_SCHR          EBKDD02
+--   TABLE             WT_CPN_RLN           EBKDD02
+--   TABLE             WT_CPN_QLTY_RSN      EBKDD02
+--   TABLE             WT_CPN_PRTN          EBKDD02
+--   TABLE             WT_CPN_PRT_LN        EBKDD02
+--   TABLE             WT_CPN_MSG           EBKDD02
+--   TABLE             WT_CPN_HST           EBKDD02
+--   TABLE             WT_CPN_CRR_ROLE      EBKDD02
+--   TABLE             WT_CPN               EBKDD02
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> O (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> CATALOG
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> D36660E
+--
+--  SECURITY          ===> Y             STATISTICS   ===> N
+--  DEFAULT SQLID     ===>               CHECK DATA   ===> Y
+--  NO SET SQLID STMT ===> N             IMAGE COPY   ===> N
+--                                       BIND/REBIND  ===> R
+--  ALL ROWS          ===> N             REORG        ===> N
+--  NUMBER ROWS       ===>               RECOVER IX   ===> N
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS         ===> Y             VSAM DEFINES  ===> N
+--  SQL ONLY          ===> N             VSAM DELETES  ===> N
+--  COMMIT ASAP       ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> Y
+--  DELETE TEMPORARY DATASETS ===> Y
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+--RMA233W NO UNLOADS HAVE BEEN GENERATED DURING THIS ANALYSIS.
+
+.SYSTEM SQLDDL
+.CONNECT DB2U
+
+-- **************************************************************
+-- *                                                            *
+-- * ALTERS FOR TABLE PRIMARY KEYS                              *
+-- *                                                            *
+-- **************************************************************
+
+-- EBKDD02.WT_CPN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_CPN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 265       'ALTER TABLE EBKDD02.WT_CPN'
+
+-- EBKDD02.WT_CPN_CRR_ROLE WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_CPN_CRR_ROLE
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 270       'ALTER TABLE EBKDD02.WT_CPN_CRR_ROLE'
+
+-- EBKDD02.WT_CPN_HST WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_CPN_HST
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 275       'ALTER TABLE EBKDD02.WT_CPN_HST'
+
+-- EBKDD02.WT_CPN_MSG WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_CPN_MSG
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 280       'ALTER TABLE EBKDD02.WT_CPN_MSG'
+
+-- EBKDD02.WT_CPN_PRT_LN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_CPN_PRT_LN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 285       'ALTER TABLE EBKDD02.WT_CPN_PRT_LN'
+
+-- EBKDD02.WT_CPN_PRTN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_CPN_PRTN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 290       'ALTER TABLE EBKDD02.WT_CPN_PRTN'
+
+-- EBKDD02.WT_CPN_QLTY_RSN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_CPN_QLTY_RSN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 295       'ALTER TABLE EBKDD02.WT_CPN_QLTY_RSN'
+
+-- EBKDD02.WT_CPN_RLN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_CPN_RLN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 300       'ALTER TABLE EBKDD02.WT_CPN_RLN'
+
+-- EBKDD02.WT_CPN_SCHR WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_CPN_SCHR
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 305       'ALTER TABLE EBKDD02.WT_CPN_SCHR'
+
+-- EBKDD02.WT_CPN_ST WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_CPN_ST
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 310       'ALTER TABLE EBKDD02.WT_CPN_ST'
+
+-- EBKDD02.WT_CPN_STPV_CHRG WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_CPN_STPV_CHRG
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 315       'ALTER TABLE EBKDD02.WT_CPN_STPV_CHRG'
+
+-- EBKDD02.WT_MISC_DOC WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_MISC_DOC
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 320       'ALTER TABLE EBKDD02.WT_MISC_DOC'
+
+-- EBKDD02.WT_MISC_DOC_PRT_LN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_MISC_DOC_PRT_LN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 325       'ALTER TABLE EBKDD02.WT_MISC_DOC_PRT_LN'
+
+-- EBKDD02.WT_SBCPN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_SBCPN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 330       'ALTER TABLE EBKDD02.WT_SBCPN'
+
+-- EBKDD02.WT_SBCPN_PRTN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_SBCPN_PRTN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 335       'ALTER TABLE EBKDD02.WT_SBCPN_PRTN'
+
+-- EBKDD02.WT_TDRT_FOP_RMRK WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TDRT_FOP_RMRK
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 340       'ALTER TABLE EBKDD02.WT_TDRT_FOP_RMRK'
+
+-- EBKDD02.WT_TKDC_BKG_RLOCR WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_BKG_RLOCR
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 345       'ALTER TABLE EBKDD02.WT_TKDC_BKG_RLOCR'
+
+-- EBKDD02.WT_TKDC_CPN_EXRLN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_CPN_EXRLN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 350       'ALTER TABLE EBKDD02.WT_TKDC_CPN_EXRLN'
+
+-- EBKDD02.WT_TKDC_ELCR_ADR WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_ELCR_ADR
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 355       'ALTER TABLE EBKDD02.WT_TKDC_ELCR_ADR'
+
+-- EBKDD02.WT_TKDC_EXCG_RLN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_EXCG_RLN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 360       'ALTER TABLE EBKDD02.WT_TKDC_EXCG_RLN'
+
+-- EBKDD02.WT_TKDC_FARE_CALTN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_FARE_CALTN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 365       'ALTER TABLE EBKDD02.WT_TKDC_FARE_CALTN'
+
+-- EBKDD02.WT_TKDC_FARE_DFTL WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_FARE_DFTL
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 370       'ALTER TABLE EBKDD02.WT_TKDC_FARE_DFTL'
+
+-- EBKDD02.WT_TKDC_FBDF_CPN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_FBDF_CPN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 375       'ALTER TABLE EBKDD02.WT_TKDC_FBDF_CPN'
+
+-- EBKDD02.WT_TKDC_FBRK_CPN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_FBRK_CPN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 380       'ALTER TABLE EBKDD02.WT_TKDC_FBRK_CPN'
+
+-- EBKDD02.WT_TKDC_FRCN_LN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_FRCN_LN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 385       'ALTER TABLE EBKDD02.WT_TKDC_FRCN_LN'
+
+-- EBKDD02.WT_TKDC_GPHC_ADR WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_GPHC_ADR
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 390       'ALTER TABLE EBKDD02.WT_TKDC_GPHC_ADR'
+
+-- EBKDD02.WT_TKDC_PLUP_OD WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_PLUP_OD
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 395       'ALTER TABLE EBKDD02.WT_TKDC_PLUP_OD'
+
+-- EBKDD02.WT_TKDC_PLUS_UP WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_PLUS_UP
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 400       'ALTER TABLE EBKDD02.WT_TKDC_PLUS_UP'
+
+-- EBKDD02.WT_TKDC_PMT_COLTN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_PMT_COLTN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 405       'ALTER TABLE EBKDD02.WT_TKDC_PMT_COLTN'
+
+-- EBKDD02.WT_TKDC_PMT_RMRK WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_PMT_RMRK
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 410       'ALTER TABLE EBKDD02.WT_TKDC_PMT_RMRK'
+
+-- EBKDD02.WT_TKDC_QLTY_RSN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_QLTY_RSN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 415       'ALTER TABLE EBKDD02.WT_TKDC_QLTY_RSN'
+
+-- EBKDD02.WT_TKDC_RTRNS_RLN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_RTRNS_RLN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 420       'ALTER TABLE EBKDD02.WT_TKDC_RTRNS_RLN'
+
+-- EBKDD02.WT_TKDC_SDSTT_RMRK WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKDC_SDSTT_RMRK
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 425       'ALTER TABLE EBKDD02.WT_TKDC_SDSTT_RMRK'
+
+-- EBKDD02.WT_TKT_DOC_BTLOC WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_BTLOC
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 430       'ALTER TABLE EBKDD02.WT_TKT_DOC_BTLOC'
+
+-- EBKDD02.WT_TKT_DOC_CHRG WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_CHRG
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 435       'ALTER TABLE EBKDD02.WT_TKT_DOC_CHRG'
+
+-- EBKDD02.WT_TKT_DOC_CMSN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_CMSN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 440       'ALTER TABLE EBKDD02.WT_TKT_DOC_CMSN'
+
+-- EBKDD02.WT_TKT_DOC_DFTL WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_DFTL
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 445       'ALTER TABLE EBKDD02.WT_TKT_DOC_DFTL'
+
+-- EBKDD02.WT_TKT_DOC_ERR WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_ERR
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 450       'ALTER TABLE EBKDD02.WT_TKT_DOC_ERR'
+
+-- EBKDD02.WT_TKT_DOC_EXVL WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_EXVL
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 455       'ALTER TABLE EBKDD02.WT_TKT_DOC_EXVL'
+
+-- EBKDD02.WT_TKT_DOC_FBDF WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_FBDF
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 460       'ALTER TABLE EBKDD02.WT_TKT_DOC_FBDF'
+
+-- EBKDD02.WT_TKT_DOC_FBRK WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_FBRK
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 465       'ALTER TABLE EBKDD02.WT_TKT_DOC_FBRK'
+
+-- EBKDD02.WT_TKT_DOC_HST WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_HST
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 470       'ALTER TABLE EBKDD02.WT_TKT_DOC_HST'
+
+-- EBKDD02.WT_TKT_DOC_MSG WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_MSG
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 475       'ALTER TABLE EBKDD02.WT_TKT_DOC_MSG'
+
+-- EBKDD02.WT_TKT_DOC_PH_ADR WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_PH_ADR
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 480       'ALTER TABLE EBKDD02.WT_TKT_DOC_PH_ADR'
+
+-- EBKDD02.WT_TKT_DOC_PMT WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_PMT
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 485       'ALTER TABLE EBKDD02.WT_TKT_DOC_PMT'
+
+-- EBKDD02.WT_TKT_DOC_PMT_ERR WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_PMT_ERR
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 490       'ALTER TABLE EBKDD02.WT_TKT_DOC_PMT_ERR'
+
+-- EBKDD02.WT_TKT_DOC_RLN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_RLN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 495       'ALTER TABLE EBKDD02.WT_TKT_DOC_RLN'
+
+-- EBKDD02.WT_TKT_DOC_RSPN WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_RSPN
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 500       'ALTER TABLE EBKDD02.WT_TKT_DOC_RSPN'
+
+-- EBKDD02.WT_TKT_DOC_SCHR WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_SCHR
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 505       'ALTER TABLE EBKDD02.WT_TKT_DOC_SCHR'
+
+-- EBKDD02.WT_TKT_DOC_STPV WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_STPV
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 510       'ALTER TABLE EBKDD02.WT_TKT_DOC_STPV'
+
+-- EBKDD02.WT_TKT_DOC_TOCM WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_TOCM
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 515       'ALTER TABLE EBKDD02.WT_TKT_DOC_TOCM'
+
+-- EBKDD02.WT_TKT_DOC_TX_FAX WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+ALTER TABLE EBKDD02.WT_TKT_DOC_TX_FAX
+            DROP PRIMARY KEY
+;
+
+
+.SYNC 520       'ALTER TABLE EBKDD02.WT_TKT_DOC_TX_FAX'
+
+.DISCONN
+
+.SYNC 525       'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS011-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 530       'REBIND PACKAGE TEDS011'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS012-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 535       'REBIND PACKAGE TEDS012'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS013-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 540       'REBIND PACKAGE TEDS013'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS014-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 545       'REBIND PACKAGE TEDS014'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS015-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 550       'REBIND PACKAGE TEDS015'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS016-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 555       'REBIND PACKAGE TEDS016'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS017-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 560       'REBIND PACKAGE TEDS017'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS018-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 565       'REBIND PACKAGE TEDS018'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS019-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 570       'REBIND PACKAGE TEDS019'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS020-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 575       'REBIND PACKAGE TEDS020'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS021-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 580       'REBIND PACKAGE TEDS021'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS030-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 585       'REBIND PACKAGE TEDS030'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS031-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 590       'REBIND PACKAGE TEDS031'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS032-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 595       'REBIND PACKAGE TEDS032'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS033-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 600       'REBIND PACKAGE TEDS033'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS034-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 605       'REBIND PACKAGE TEDS034'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS035-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 610       'REBIND PACKAGE TEDS035'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS036-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 615       'REBIND PACKAGE TEDS036'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS037-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 620       'REBIND PACKAGE TEDS037'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS038-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 625       'REBIND PACKAGE TEDS038'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS039-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 630       'REBIND PACKAGE TEDS039'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS040-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 635       'REBIND PACKAGE TEDS040'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS042-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 640       'REBIND PACKAGE TEDS042'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS043-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 645       'REBIND PACKAGE TEDS043'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS044-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 650       'REBIND PACKAGE TEDS044'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS045-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 655       'REBIND PACKAGE TEDS045'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS046-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 660       'REBIND PACKAGE TEDS046'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS047-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 665       'REBIND PACKAGE TEDS047'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS048-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 670       'REBIND PACKAGE TEDS048'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS050-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 675       'REBIND PACKAGE TEDS050'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS051-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 680       'REBIND PACKAGE TEDS051'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS052-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 685       'REBIND PACKAGE TEDS052'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS053-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 690       'REBIND PACKAGE TEDS053'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS054-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 695       'REBIND PACKAGE TEDS054'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS055-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 700       'REBIND PACKAGE TEDS055'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS056-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 705       'REBIND PACKAGE TEDS056'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS057-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 710       'REBIND PACKAGE TEDS057'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS058-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 715       'REBIND PACKAGE TEDS058'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS059-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 720       'REBIND PACKAGE TEDS059'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS060-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 725       'REBIND PACKAGE TEDS060'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS061-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 730       'REBIND PACKAGE TEDS061'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS062-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 735       'REBIND PACKAGE TEDS062'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS063-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 740       'REBIND PACKAGE TEDS063'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS064-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 745       'REBIND PACKAGE TEDS064'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS065-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 750       'REBIND PACKAGE TEDS065'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS066-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 755       'REBIND PACKAGE TEDS066'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DELTA.TEDS067-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 760       'REBIND PACKAGE TEDS067'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS001-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      VALIDATE(BIND)                                                -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(ANY)                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 765       'REBIND PACKAGE TEDS001'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS011-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 770       'REBIND PACKAGE TEDS011'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS012-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 775       'REBIND PACKAGE TEDS012'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS013-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 780       'REBIND PACKAGE TEDS013'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS014-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 785       'REBIND PACKAGE TEDS014'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS015-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 790       'REBIND PACKAGE TEDS015'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS016-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 795       'REBIND PACKAGE TEDS016'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS017-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 800       'REBIND PACKAGE TEDS017'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS018-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 805       'REBIND PACKAGE TEDS018'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS019-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 810       'REBIND PACKAGE TEDS019'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS020-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 815       'REBIND PACKAGE TEDS020'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS021-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 820       'REBIND PACKAGE TEDS021'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS030-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 825       'REBIND PACKAGE TEDS030'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS031-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 830       'REBIND PACKAGE TEDS031'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS032-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 835       'REBIND PACKAGE TEDS032'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS033-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 840       'REBIND PACKAGE TEDS033'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS034-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 845       'REBIND PACKAGE TEDS034'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS035-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 850       'REBIND PACKAGE TEDS035'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS036-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 855       'REBIND PACKAGE TEDS036'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS037-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 860       'REBIND PACKAGE TEDS037'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS038-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 865       'REBIND PACKAGE TEDS038'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS039-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 870       'REBIND PACKAGE TEDS039'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS040-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 875       'REBIND PACKAGE TEDS040'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS042-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 880       'REBIND PACKAGE TEDS042'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS043-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 885       'REBIND PACKAGE TEDS043'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS044-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 890       'REBIND PACKAGE TEDS044'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS045-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 895       'REBIND PACKAGE TEDS045'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS046-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 900       'REBIND PACKAGE TEDS046'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS047-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 905       'REBIND PACKAGE TEDS047'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS048-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 910       'REBIND PACKAGE TEDS048'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS050-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 915       'REBIND PACKAGE TEDS050'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS051-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 920       'REBIND PACKAGE TEDS051'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS052-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 925       'REBIND PACKAGE TEDS052'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS053-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 930       'REBIND PACKAGE TEDS053'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS054-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 935       'REBIND PACKAGE TEDS054'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS055-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 940       'REBIND PACKAGE TEDS055'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS056-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 945       'REBIND PACKAGE TEDS056'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS057-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 950       'REBIND PACKAGE TEDS057'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS058-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 955       'REBIND PACKAGE TEDS058'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS059-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 960       'REBIND PACKAGE TEDS059'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS060-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 965       'REBIND PACKAGE TEDS060'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS061-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 970       'REBIND PACKAGE TEDS061'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS062-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 975       'REBIND PACKAGE TEDS062'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS063-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 980       'REBIND PACKAGE TEDS063'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS064-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 985       'REBIND PACKAGE TEDS064'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS065-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 990       'REBIND PACKAGE TEDS065'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS066-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 995       'REBIND PACKAGE TEDS066'
+
+
+.CALL DSN PARM(DB2U)
+.DATA
+  REBIND PACKAGE(                                                      -
+    DT0072.TEDS067-
+    )                                                                  -
+      QUALIFIER(EBKDD02)                                            -
+      ISOLATION(CS)                                                 -
+      EXPLAIN(YES)                                                  -
+      DEGREE(1  )                                                   -
+    OWNER(DT0072)
+.ENDDATA
+
+.SYNC 1000      'REBIND PACKAGE TEDS067'
+
+
+--RMA073W TABLE EBKDD02.WT_CPN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_CPN_CRR_ROLE IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_CPN_HST IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_CPN_PRT_LN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_CPN_PRTN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_CPN_PRTN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDS12AF
+
+--RMA073W TABLE EBKDD02.WT_CPN_QLTY_RSN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_CPN_RLN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_CPN_SCHR IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_CPN_ST IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_CPN_ST IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDS12AF
+
+--RMA073W TABLE EBKDD02.WT_MISC_DOC IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_MISC_DOC_PRT_LN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_SBCPN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_SBCPN_PRTN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TDRT_FOP_RMRK IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_BKG_RLOCR IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_CPN_EXRLN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_ELCR_ADR IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_EXCG_RLN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_FARE_CALTN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_FARE_DFTL IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_FBDF_CPN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_FBRK_CPN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_FRCN_LN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_GPHC_ADR IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_PLUS_UP IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_PMT_COLTN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_PMT_RMRK IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_QLTY_RSN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_RTRNS_RLN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKDC_SDSTT_RMRK IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_BTLOC IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_CHRG IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_CMSN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_DFTL IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_ERR IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_EXVL IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_FBDF IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_FBRK IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_HST IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_PH_ADR IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_PMT IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_PMT_ERR IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_RLN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_RSPN IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_SCHR IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_STPV IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_TOCM IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--RMA073W TABLE EBKDD02.WT_TKT_DOC_TX_FAX IS ALSO EDITED
+--      IN STRATEGY D71018E.TEDDRPRI
+
+--==============================================================================
+-- VRCM6.1.5      CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      06-07-02 11:01
+--==============================================================================
+--
+--  OBJECT TYPE: TABLE                      TOTAL:               52
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      WT_CPN             EBKDD02      Y
+--      WT_CPN_CRR_ROLE    EBKDD02      Y
+--      WT_CPN_HST         EBKDD02      Y
+--      WT_CPN_MSG         EBKDD02      Y
+--      WT_CPN_PRT_LN      EBKDD02      Y
+--      WT_CPN_PRTN        EBKDD02      Y
+--      WT_CPN_QLTY_RSN    EBKDD02      Y
+--      WT_CPN_RLN         EBKDD02      Y
+--      WT_CPN_SCHR        EBKDD02      Y
+--      WT_CPN_ST          EBKDD02      Y
+--      WT_CPN_STPV_CHRG   EBKDD02      Y
+--      WT_MISC_DOC        EBKDD02      Y
+--      WT_MISC_DOC_PRT_LN EBKDD02      Y
+--      WT_SBCPN           EBKDD02      Y
+--      WT_SBCPN_PRTN      EBKDD02      Y
+--      WT_TDRT_FOP_RMRK   EBKDD02      Y
+--      WT_TKDC_BKG_RLOCR  EBKDD02      Y
+--      WT_TKDC_CPN_EXRLN  EBKDD02      Y
+--      WT_TKDC_ELCR_ADR   EBKDD02      Y
+--      WT_TKDC_EXCG_RLN   EBKDD02      Y
+--      WT_TKDC_FARE_CALTN EBKDD02      Y
+--      WT_TKDC_FARE_DFTL  EBKDD02      Y
+--      WT_TKDC_FBDF_CPN   EBKDD02      Y
+--      WT_TKDC_FBRK_CPN   EBKDD02      Y
+--      WT_TKDC_FRCN_LN    EBKDD02      Y
+--      WT_TKDC_GPHC_ADR   EBKDD02      Y
+--      WT_TKDC_PLUP_OD    EBKDD02      Y
+--      WT_TKDC_PLUS_UP    EBKDD02      Y
+--      WT_TKDC_PMT_COLTN  EBKDD02      Y
+--      WT_TKDC_PMT_RMRK   EBKDD02      Y
+--      WT_TKDC_QLTY_RSN   EBKDD02      Y
+--      WT_TKDC_RTRNS_RLN  EBKDD02      Y
+--      WT_TKDC_SDSTT_RMRK EBKDD02      Y
+--      WT_TKT_DOC_BTLOC   EBKDD02      Y
+--      WT_TKT_DOC_CHRG    EBKDD02      Y
+--      WT_TKT_DOC_CMSN    EBKDD02      Y
+--      WT_TKT_DOC_DFTL    EBKDD02      Y
+--      WT_TKT_DOC_ERR     EBKDD02      Y
+--      WT_TKT_DOC_EXVL    EBKDD02      Y
+--      WT_TKT_DOC_FBDF    EBKDD02      Y
+--      WT_TKT_DOC_FBRK    EBKDD02      Y
+--      WT_TKT_DOC_HST     EBKDD02      Y
+--      WT_TKT_DOC_MSG     EBKDD02      Y
+--      WT_TKT_DOC_PH_ADR  EBKDD02      Y
+--      WT_TKT_DOC_PMT     EBKDD02      Y
+--      WT_TKT_DOC_PMT_ERR EBKDD02      Y
+--      WT_TKT_DOC_RLN     EBKDD02      Y
+--      WT_TKT_DOC_RSPN    EBKDD02      Y
+--      WT_TKT_DOC_SCHR    EBKDD02      Y
+--      WT_TKT_DOC_STPV    EBKDD02      Y
+--      WT_TKT_DOC_TOCM    EBKDD02      Y
+--      WT_TKT_DOC_TX_FAX  EBKDD02      Y
+--
+--  OBJECT TYPE: PACKAGES REBOUND           TOTAL:               95
+--
+-- COLLECTION/NAME/VERSION
+--
+--      DELTA              TEDS011
+--      DELTA              TEDS012
+--      DELTA              TEDS013
+--      DELTA              TEDS014
+--      DELTA              TEDS015
+--      DELTA              TEDS016
+--      DELTA              TEDS017
+--      DELTA              TEDS018
+--      DELTA              TEDS019
+--      DELTA              TEDS020
+--      DELTA              TEDS021
+--      DELTA              TEDS030
+--      DELTA              TEDS031
+--      DELTA              TEDS032
+--      DELTA              TEDS033
+--      DELTA              TEDS034
+--      DELTA              TEDS035
+--      DELTA              TEDS036
+--      DELTA              TEDS037
+--      DELTA              TEDS038
+--      DELTA              TEDS039
+--      DELTA              TEDS040
+--      DELTA              TEDS042
+--      DELTA              TEDS043
+--      DELTA              TEDS044
+--      DELTA              TEDS045
+--      DELTA              TEDS046
+--      DELTA              TEDS047
+--      DELTA              TEDS048
+--      DELTA              TEDS050
+--      DELTA              TEDS051
+--      DELTA              TEDS052
+--      DELTA              TEDS053
+--      DELTA              TEDS054
+--      DELTA              TEDS055
+--      DELTA              TEDS056
+--      DELTA              TEDS057
+--      DELTA              TEDS058
+--      DELTA              TEDS059
+--      DELTA              TEDS060
+--      DELTA              TEDS061
+--      DELTA              TEDS062
+--      DELTA              TEDS063
+--      DELTA              TEDS064
+--      DELTA              TEDS065
+--      DELTA              TEDS066
+--      DELTA              TEDS067
+--      DT0072             TEDS001
+--      DT0072             TEDS011
+--      DT0072             TEDS012
+--      DT0072             TEDS013
+--      DT0072             TEDS014
+--      DT0072             TEDS015
+--      DT0072             TEDS016
+--      DT0072             TEDS017
+--      DT0072             TEDS018
+--      DT0072             TEDS019
+--      DT0072             TEDS020
+--      DT0072             TEDS021
+--      DT0072             TEDS030
+--      DT0072             TEDS031
+--      DT0072             TEDS032
+--      DT0072             TEDS033
+--      DT0072             TEDS034
+--      DT0072             TEDS035
+--      DT0072             TEDS036
+--      DT0072             TEDS037
+--      DT0072             TEDS038
+--      DT0072             TEDS039
+--      DT0072             TEDS040
+--      DT0072             TEDS042
+--      DT0072             TEDS043
+--      DT0072             TEDS044
+--      DT0072             TEDS045
+--      DT0072             TEDS046
+--      DT0072             TEDS047
+--      DT0072             TEDS048
+--      DT0072             TEDS050
+--      DT0072             TEDS051
+--      DT0072             TEDS052
+--      DT0072             TEDS053
+--      DT0072             TEDS054
+--      DT0072             TEDS055
+--      DT0072             TEDS056
+--      DT0072             TEDS057
+--      DT0072             TEDS058
+--      DT0072             TEDS059
+--      DT0072             TEDS060
+--      DT0072             TEDS061
+--      DT0072             TEDS062
+--      DT0072             TEDS063
+--      DT0072             TEDS064
+--      DT0072             TEDS065
+--      DT0072             TEDS066
+--      DT0072             TEDS067

@@ -1,0 +1,1 @@
+select count(*) from sapr3.cdcls with ur;                               00010000

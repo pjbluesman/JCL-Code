@@ -1,0 +1,9 @@
+//D73294TC JOB ,'DB2 RM 102',CLASS=N,MSGCLASS=X                         00000100
+//STEP1  EXEC PGM=IDCAMS                                                00000200
+//SYSPRINT DD SYSOUT=X                                                  00000210
+//AMSDUMP DD SYSOUT=X                                                   00000220
+//SYSIN   DD *                                                          00000300
+    LISTCAT LEVEL (DB2D.DSNDBD.DSNDB01.SCT02) ALL                       00000400
+    LISTCAT LEVEL (DB2D.DSNDBD.DSNDB01.DSNSCT02) ALL                    00000400
+/*                                                                      00001600
+//                                                                      00001700

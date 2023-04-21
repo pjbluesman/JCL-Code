@@ -1,0 +1,27 @@
+-----------------------------------------------------------------------
+   SELECT CURRENT TIMESTAMP AS CURRENT_TIMESTAMP, 'MVSI' AS LPAR,
+          SUBSTR(GETVARIABLE('SYSIBM.SYSTEM_NAME'),1,4)  AS SSID,
+          SUBSTR(GETVARIABLE('SYSIBM.VERSION'),1,8)      AS VERSION,
+          GETVARIABLE('SYSIBM.DATA_SHARING_GROUP_NAME')  AS GROUP_NAME
+     FROM SYSIBM.SYSDUMMY1;
+-----------------------------------------------------------------------
+   SET CURRENT SQLID = 'LSEBDB2';
+--*******************************************************************
+--* SQL USED TO QUERY THE CURRENT WLM ENVIRONMENTS OF DB2 PRODUCTS
+--*******************************************************************
+   SELECT CHAR(SCHEMA,8)   AS SCHEMA,
+          CHAR(NAME,25)    AS NAME,
+          CHAR(LANGUAGE,8) AS LANG,
+          ROUTINETYPE      AS TYPE,
+          CASE
+          WHEN WLM_ENVIRONMENT = '   '
+               THEN  'RUNS IN SPAS'
+               ELSE  'RUNS IN WLM='
+          END ||
+          RTRIM(WLM_ENVIRONMENT) AS WLM_ENVIRONMENT
+     FROM SYSIBM.SYSROUTINES
+    WHERE WLM_ENVIRONMENT IN ('DB2GUTIL')
+    ORDER BY 1,2
+      FOR FETCH ONLY
+     WITH UR;
+--
