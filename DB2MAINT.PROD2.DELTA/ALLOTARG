@@ -1,0 +1,32 @@
+//UXD002M  JOB (,105),'GLK - DB2',                                      00010006
+//             CLASS=S,MSGCLASS=X,MSGLEVEL=(1,1)                        00020000
+//*                                                                     00067000
+//CRTTZN  EXEC PGM=IDCAMS,REGION=1024K                                  00068000
+//SYSPRINT DD  SYSOUT=*                                                 00069000
+//SYSIN    DD  *                                                        00070000
+    DELETE SSXDP.DB2V6.DPMTARG.CSI CLUSTER     /* CHANGE HERE */        00080007
+    DEFINE CLUSTER                                       +              00090000
+              (NAME(SSXDP.DB2V6.DPMTARG.CSI)   /* CHANGE */     +       00100007
+              VOLUMES(A3D2Z0)    /* SPACE PERMITTING */  +              00110000
+              KEYS(24 0)                                 +              00120000
+              RECORDSIZE(24 143)                         +              00130000
+              FREESPACE(10,5)                            +              00140000
+              SHR(2)                                     +              00150000
+              UNIQUE                                     +              00160000
+              IMBED)                                     +              00170000
+         DATA (NAME(SSXDP.DB2V6.DPMTARG.CSI.DATA)    /*CHANGE*/ +       00180007
+              CONTROLINTERVALSIZE(4096)                  +              00190000
+              CYLINDERS(54 9))                           +              00200000
+        INDEX (NAME(SSXDP.DB2V6.DPMTARG.CSI.INDEX)   /*CHANGE*/ +       00210007
+              CYLINDERS(1 1))                                           00220000
+/*                                                                      00230000
+//********************************************************************* 00240007
+//* INITIALIZE (VSAM REPRO) CSI DATA SET                                00250007
+//********************************************************************* 00260007
+//REPRO  EXEC PGM=IDCAMS                                                00270007
+//SMPCSI   DD DSN=SSXDP.DB2V6.DPMTARG.CSI,DISP=OLD                      00280007
+//SYSPRINT DD SYSOUT=*                                                  00290007
+//ZPOOL    DD DISP=SHR,DSN=SYS1.MACLIB(GIMZPOOL)                        00300007
+//SYSIN DD  *                                                           00310007
+  REPRO OUTFILE(SMPCSI) INFILE(ZPOOL)                                   00320007
+//*                                                                     00330007

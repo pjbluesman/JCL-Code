@@ -1,0 +1,32 @@
+//UXD000M  JOB ,'CJR RCC',CLASS=S,MSGCLASS=X                            00001000
+//**********************************************************************00002000
+//*                                                                    *00003000
+//*  BATCH SPUFI                                                       *00004000
+//*                                                                    *00005000
+//**********************************************************************00006000
+//JOBLIB   DD  DISP=SHR,DSN=SSXDT.DB3V.SDSNEXIT                         00007000
+//         DD  DISP=SHR,DSN=SDB3V.SDSNLOAD                              00008000
+//*                                                                     00009000
+//PH01LS04 EXEC PGM=IKJEFT01,DYNAMNBR=20                                00010000
+//DBRMLIB  DD  DISP=SHR,DSN=SDB3V.SDSNSAMP                              00020000
+//SYSTSPRT DD  SYSOUT=*                                                 00030000
+//SYSPRINT DD  SYSOUT=*                                                 00040000
+//SYSUDUMP DD  SYSOUT=*                                                 00050000
+//SYSTSIN  DD  *                                                        00060000
+ DSN SYSTEM(DBRG)                                                       00070000
+ RUN  PROGRAM(DSNTEP2) PLAN(DSNTEP2) +                                  00080000
+      LIB('SSXDT.DB3V.RUNLIB.LOAD') +                                   00090000
+      PARMS('/ALIGN(MID)')                                              00100000
+ END                                                                    00110000
+//*                                                                     00120000
+//SYSIN    DD *                                                         00130000
+ DELETE                                                                 00140000
+ FROM EBKDS03.MT_CPN_ST                                                 00150000
+ WHERE                                                                  00160000
+ TKT_DOC_NB =                                                           00170000
+ '0067792406270'                                                        00180000
+ AND                                                                    00190000
+ TKT_DOC_ISS_LDT =                                                      00200000
+ '2006-10-23'                                                           00210000
+ ;                                                                      00220000
+//*                                                                     00320000

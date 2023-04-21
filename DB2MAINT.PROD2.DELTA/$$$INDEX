@@ -1,0 +1,5 @@
+DCOLLECT - Collect the information about all storage devices online.
+Use the ICETOOL job to take reports of the collected data.
+
+ICETOOL -  Take a report of dataset mask that you provided.
+It uses the SSXDP.DB2MAINT.MACLIB.

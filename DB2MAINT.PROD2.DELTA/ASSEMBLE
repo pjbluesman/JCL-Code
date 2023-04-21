@@ -1,0 +1,54 @@
+//UXD000M JOB ,'CJR-102',CLASS=S,MSGCLASS=X                             00010001
+//*                                                                     00020000
+//**********************************************************************00021000
+//*   JCL USED TO ASSEMBLE AND LINK-EDIT MEMBERS INTO DSNEXIT           00022000
+//*   ----> CHECK FOR CORRECT LIBRARIES (VIA SUBSYSTEM)                 00023000
+//*               CHANGE MEMBER NAME, ENTRY, AND NAME IN STEP1          00024000
+//*               ALL MEMBERS SHOULD BE IN SSXDP.DB2MAINT.SOURCE        00025000
+//*                                      CJR                            00026000
+//*                                                                     00027000
+//*                                                                     00028000
+//**********************************************************************00029000
+//*                                                                     00029100
+//ASMHPROC PROC WSPC=500,MEM=TEMPNAME                                   00030000
+//*                                                                     00040000
+//ASM     EXEC PGM=IEV90,PARM='OBJECT,NODECK'                           00050000
+//SYSIN    DD  DISP=SHR,                                                00060000
+//         DSN=SSXDP.DB2M.V2R3.DSNEXIT(&MEM)                            00070001
+//SYSLIB   DD  DSN=SYS1.MODGEN,DISP=SHR                                 00080001
+//         DD  DSN=SYS1.MACLIB,DISP=SHR                                 00090000
+//         DD  DISP=SHR,                                                00100000
+//         DSN=SSXDP.DB2M.V3.SDSNMACS                                   00110001
+//         DD  DISP=SHR,                                                00120000
+//         DSN=SSXDP.DB2M.V3.SDSNSAMP                                   00130001
+//SYSLIN   DD  DSN=&&LOADSET,DISP=(MOD,PASS),UNIT=SYSDA,                00140000
+//             SPACE=(800,(&WSPC,&WSPC)),DCB=(BLKSIZE=800)              00150000
+//SYSPRINT DD  SYSOUT=*                                                 00160000
+//SYSUDUMP DD  SYSOUT=*                                                 00170000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(800,(&WSPC,&WSPC),,,ROUND)             00180000
+//SYSUT2   DD  UNIT=SYSDA,SPACE=(800,(&WSPC,&WSPC),,,ROUND)             00190000
+//SYSUT3   DD  UNIT=SYSDA,SPACE=(800,(&WSPC,&WSPC),,,ROUND)             00200000
+//*                                                                     00210000
+//*            LINKEDIT IF THE ASSEMBLER                                00220000
+//*            RETURN CODE IS 4 OR LESS                                 00230000
+//*                                                                     00240000
+//LKED    EXEC PGM=IEWL,REGION=1024K,                                   00250000
+// PARM='SIZE=(900K,124K),LIST,XREF,RENT,OL,NCAL,AMODE=31,RMODE=ANY',   00260000
+//             COND=(4,LT,ASM)                                          00270000
+//SYSLIN   DD  DSN=&&LOADSET,DISP=(OLD,DELETE)                          00280000
+//DSNLOAD  DD  DSN=SSXDP.DB2M.V3.SDSNLOAD,DISP=SHR                      00290001
+//SYSLMOD  DD  DISP=SHR,                                                00300000
+//         DSN=SSXDP.DB2M.V3.SDSNEXIT                                   00310001
+//SYSPRINT DD  SYSOUT=*                                                 00320000
+//SYSUDUMP DD  SYSOUT=*                                                 00330000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(1024,(50,50))                          00340000
+//ASMHPROC PEND                                                         00350000
+//**********************************************************************00360000
+//* STEP 1 : ASSEMBLE AND LINK EDIT SIGNON EXIT                         00370000
+//**********************************************************************00380000
+//JEX0001 EXEC ASMHPROC,MEM=S30INTEL                                    00390001
+//LKED.SYSLIN DD                                                        00400000
+//            DD  *                                                     00410000
+  ENTRY S30INTEL                                                        00420001
+  NAME S30INTEL(R)                                                      00430001
+//*                                                                     00440000

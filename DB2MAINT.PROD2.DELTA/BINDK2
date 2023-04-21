@@ -1,0 +1,22 @@
+//UXD000M JOB ,'RDL RCC 2ND FLOOR',CLASS=S,MSGCLASS=X                   00010000
+//JOBLIB  DD  DSN=SSXDT.DSNDBVG.DB2K.SDSNLOAD,DISP=SHR                  00020002
+//STEP02  EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     00030000
+//SYSTSPRT DD SYSOUT=*                                                  00040000
+//SYSTSIN  DD *                                                         00050000
+ DSN SYSTEM(DB2K)                                                       00060001
+ RUN  PROGRAM(DSNTIAD) PLAN(DSNTIAD) -                                  00201000
+      LIB('SSXDT.DSNDBVG.DB2K.RUNLIB.LOAD')                             00202001
+ END                                                                    00210000
+/*                                                                      00220000
+//SYSPRINT DD SYSOUT=*                                                  00230000
+//SYSUDUMP DD SYSOUT=*                                                  00240000
+//SYSIN    DD  *                                                        00250000
+DSN SYSTEM(DB2K)                                                        00260001
+BIND PACKAGE(DSNADM) MEMBER(DSNADMCW) -                                 00261001
+     ACTION(REPLACE) ISOLATION(CS) ENCODING(EBCDIC)                     00262001
+     LIBRARY('SDB2K.SDSNDBRM')                                          00263001
+BIND PACKAGE(DSNADM) MEMBER(DSNADMCD) -                                 00264001
+     ACTION(REPLACE) ISOLATION(RR) ENCODING(EBCDIC)                     00265001
+     LIBRARYM'SDB2K.SDSNDBRM')                                          00266002
+//*                                                                     00270000
+//                                                                      00280000

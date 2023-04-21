@@ -1,0 +1,81 @@
+//DT0072X JOB ,'RDL RM102',CLASS=S,MSGCLASS=X,NOTIFY=DT0072             00001000
+//STEP1 EXEC PGM=ADRDSSU                                                00010000
+//PLDIGN DD DUMMY                                                       00020000
+//NOTAPE DD DUMMY                                                       00030000
+//DUMMY  DD DUMMY                                                       00040000
+//SYSPRINT DD SYSOUT=*                                                  00050000
+//SYSIN    DD *                                                         00060000
+  COPY DATASET(INCLUDE(   -                                             00070000
+    DB2RKD2.DSNDBC.EBKD2P02.TSKD0086.I0001.A001 -                       00080002
+         ))-                                                            00090000
+    OUTDYNAM(E9DR05)  -                                                 00100000
+    DELETE PURGE CATALOG -                                              00110000
+    ALLDATA(*) ALLEXCP SPHERE -                                         00120000
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00130000
+                                                                        00140000
+  COPY DATASET(INCLUDE(   -                                             00140102
+    DB2RKD2.DSNDBC.EBKD2P02.TSKD0086.I0001.A002 -                       00140202
+         ))-                                                            00140302
+    OUTDYNAM(E9DR05)  -                                                 00140402
+    DELETE PURGE CATALOG -                                              00140502
+    ALLDATA(*) ALLEXCP SPHERE -                                         00140602
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00140702
+                                                                        00140802
+  COPY DATASET(INCLUDE(   -                                             00140902
+    DB2RKD2.DSNDBC.EBKD2P02.TSKD0086.I0001.A003 -                       00141002
+         ))-                                                            00141102
+    OUTDYNAM(E9DR05)  -                                                 00141202
+    DELETE PURGE CATALOG -                                              00141302
+    ALLDATA(*) ALLEXCP SPHERE -                                         00141402
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00141502
+                                                                        00141602
+  COPY DATASET(INCLUDE(   -                                             00141702
+    DB2RKD2.DSNDBC.EBKD2P02.TSKD0086.I0001.A004 -                       00141802
+         ))-                                                            00141902
+    OUTDYNAM(E9DR05)  -                                                 00142002
+    DELETE PURGE CATALOG -                                              00142102
+    ALLDATA(*) ALLEXCP SPHERE -                                         00142202
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00142302
+                                                                        00142402
+  COPY DATASET(INCLUDE(   -                                             00142502
+    DB2RKD2.DSNDBC.EBKD2P02.TSKD0086.I0001.A010 -                       00142602
+         ))-                                                            00142702
+    OUTDYNAM(E9DR05)  -                                                 00142802
+    DELETE PURGE CATALOG -                                              00142902
+    ALLDATA(*) ALLEXCP SPHERE -                                         00143002
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00143102
+                                                                        00143202
+  COPY DATASET(INCLUDE(   -                                             00143302
+    DB2RKD2.DSNDBC.EBKD2P02.TSKD0086.I0001.A011 -                       00143402
+         ))-                                                            00143502
+    OUTDYNAM(E9DR05)  -                                                 00144002
+    DELETE PURGE CATALOG -                                              00145002
+    ALLDATA(*) ALLEXCP SPHERE -                                         00146002
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00147002
+                                                                        00147102
+  COPY DATASET(INCLUDE(   -                                             00147202
+    DB2RKD2.DSNDBC.EBKD2P02.TSKD0086.I0001.A012 -                       00147302
+         ))-                                                            00147402
+    OUTDYNAM(E9DR05)  -                                                 00147502
+    DELETE PURGE CATALOG -                                              00147602
+    ALLDATA(*) ALLEXCP SPHERE -                                         00147702
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00147802
+                                                                        00147902
+  COPY DATASET(INCLUDE(   -                                             00148002
+    DB2RKD2.DSNDBC.EBKD2P02.TSKD0086.I0001.A013 -                       00148102
+         ))-                                                            00148202
+    OUTDYNAM(E9DR05)  -                                                 00148302
+    DELETE PURGE CATALOG -                                              00148402
+    ALLDATA(*) ALLEXCP SPHERE -                                         00148502
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00148602
+                                                                        00149002
+  COPY DATASET(INCLUDE(   -                                             00149202
+    DB2RKD2.DSNDBC.EBKD2P02.TSKD0086.I0001.A014 -                       00149302
+         ))-                                                            00149402
+    OUTDYNAM(E9DR05)  -                                                 00149502
+    DELETE PURGE CATALOG -                                              00149602
+    ALLDATA(*) ALLEXCP SPHERE -                                         00149702
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00149802
+                                                                        00149902
+/*                                                                      00150002
+//                                                                      00160002

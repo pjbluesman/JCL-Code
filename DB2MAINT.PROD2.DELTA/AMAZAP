@@ -1,0 +1,304 @@
+//UXD001M JOB (,102),'MARCELO',CLASS=S,MSGCLASS=X,NOTIFY=T105132        00001013
+//*                                                                     00002012
+//*     PTF3  VERSAO 9.   09/11/2007                                    00002112
+//*                                                                     00002212
+//*                                                                     00002312
+//VERIFY   EXEC PGM=AMASPZAP,PARM=IGNIDRFULL                            00003002
+//SYSPRINT DD SYSOUT=*                                                  00004000
+//SYSLIB   DD DSN=SSXDT.CDB.LOADLIB,DISP=SHR                            00005012
+//SYSIN    DD *                                                         00006000
+       NAME CDBUTIL SVROTINT                                            00007012
+       VER  01E2  BF2F,9030                                             00008012
+       VER  03D8  C3D8,C3DA,C3DC,C3DE                                   00009012
+       VER  03E0  C3E0,C3E2                                             00010012
+       REP  01E2  4DE0,C3D8                                             00020012
+       REP  03D8  D703,9028,9028                                        00030012
+       REP  03DE  BF2F,9030                                             00040012
+       REP  03E2  07FE                                                  00050012
+       CHECKSUM 5F79FE95                                                00060012
+*                                                                       00070012
+       NAME CDBUTIL FEATURES    (APARID=16)                             00080012
+       VER  008F  00                                                    00090012
+       REP  008F  01                                                    00100012
+       CHECKSUM 8F900000                                                00110012
+*NUMBER:       B9050019                                                 00120012
+*                                                                       00130012
+*SEVERITY:     MED                                                      00140012
+*                                                                       00150012
+*                                                                       00160012
+*ABSTRACT:     OBJECTS ARE BEING HELD WHEN THE CONNECTION LIMIT         00170012
+*              IS REACHED BUT NEVER RELEASED.                           00180012
+*                                                                       00190012
+*APPLIES TO:   CDB/SUPERUTILITIES                                       00200012
+*                                                                       00210012
+*PREREQ:       PTF NONE                                                 00220012
+*                                                                       00230012
+*FIX:                                                                   00240012
+*                                                                       00250012
+       NAME CDBUTILA SVRMATRX                                           00260012
+       VER  0D0C  4110,702E                                             00270012
+       VER  0D10  A7E5,01A5                                             00280012
+       VER  0D8C  A708,0004                                             00290012
+       VER  0154  0000,0000,C158,C15A                                   00300012
+       VER  015C  C15C,C15E,C160,C162                                   00310012
+       VER  0164  C164,C166,C168,C16A                                   00320012
+       VER  016C  C16C,C16E,C170,C172                                   00330012
+       VER  0174  C174,C176,C178                                        00340012
+       REP  0D0C  BFFF,AEEC                                             00350012
+       REP  0D10  47F0,C154                                             00360012
+       REP  0D8C  A708,0008                                             00370012
+       REP  0154  BFEF,F784                                             00380012
+       REP  0158  A774,0004                                             00390012
+       REP  015C  4480,C15C                                             00400012
+       REP  0160  BF1F,EC00                                             00410012
+       REP  0164  5010,B004                                             00420012
+       REP  0168  4110,702E                                             00430012
+       REP  016C  A7E5,0777                                             00440012
+       REP  0170  D703,B004,B004                                        00450012
+       REP  0176  47F0,CD14                                             00460012
+       CHECKSUM   2413F461                                              00470012
+*                                                                       00480012
+       NAME CDBUTIL FEATURES    (APARID=19)                             00490012
+       VER  0092  00                                                    00500012
+       REP  0092  01                                                    00510012
+       CHECKSUM 92930000                                                00520012
+*NUMBER:       B9050022                                                 00530012
+*                                                                       00540012
+*SEVERITY:     MED                                                      00550012
+*                                                                       00560012
+*ABSTRACT:     HANDLE ROTATE WITH CONCURRENT REORG                      00570012
+*                                                                       00580012
+*APPLIES TO:   CDB/SUPERUTILITIES                                       00590012
+*                                                                       00600012
+*PREREQ:       PTF N/A                                                  00610012
+*                                                                       00620012
+*FIX:                                                                   00630012
+*                                                                       00640012
+       NAME CDBUTILA PATCH                                              00650012
+       VER  0000  0000,0002                                             00660012
+       REP  0000  47F0,F044,39E9,C1D7,F0F0,F0F2,F240,E5E7               00670012
+       REP  0010  40F1,F0F1,F8F6,40F0,F961,F0F5,61F0,F740               00680012
+       REP  0020  F0F3,4BF4,F140,4040,4040,4040,4040,4040               00690012
+       REP  0030  4040,4040,4040,4040,4040,4040,4040,0000               00700012
+       REP  0040  0000,0000,B240,00E0,18CF,1846,1B22,BF23               00710012
+       REP  0050  5030,8920,0003,5A44,204C,1946,A774,0004               00720012
+       REP  0060  4400,C110,9160,4000,A714,0004,4410,C110               00730012
+       REP  0070  9108,4000,A7E4,0023,1BEE,BFE3,403C,89E0               00740012
+       REP  0080  0003,1846,5A44,E04C,1946,A774,0004,4420               00750012
+       REP  0090  C110,88E0,0003,BDE3,4008,A784,0004,4430               00760012
+       REP  00A0  C110,9160,4000,A714,0004,4440,C110,9108               00770012
+       REP  00B0  4000,A7E4,0004,4450,C110,4800,404A,4110               00780012
+       REP  00C0  4080,D501,1018,5010,A784,000A,A71A,0068               00790012
+       REP  00D0  A706,FFF9,4810,5010,A7F4,0007,1310,4A10               00800012
+       REP  00E0  404A,A71A,0001,B249,00F0,0101,0000,0000               00810012
+       REP  00F0  C0F0,C0F2,C0F4,C0F6,C0F8,C0FA,C0FC,C0FE               00820012
+       REP  0100  C100,C102,C104,C106,C108,C10A,C10C,C10E               00830012
+       REP  0110  4400,C110                                             00840012
+CHECKSUM F614222E                                                       00850012
+*                                                                       00860012
+       NAME CDBUTILA RRGV8OBD                                           00870012
+       VER  1996  1B11,BF13,5010,A774,0004,44F0,C178                    00880012
+       VER  1AA2  1B11,BF13,5010,A774,0004,4470,C178                    00890012
+       REP  1996  58F0,C040,0DEF,0700,0700,0700,0700                    00900012
+       REP  1AA2  58F0,C040,0DEF,0700,0700,0700,0700                    00910012
+CHECKSUM 5B6142F8                                                       00920012
+*                                                                       00930012
+       NAME CDBUTIL FEATURES    (APARID=22)                             00940012
+       VER  0095  00                                                    00950012
+       REP  0095  01                                                    00960012
+CHECKSUM 95960000                                                       00970012
+*NUMBER:       F9050013                                                 00980012
+*                                                                       00990012
+*SEVERITY:     MED                                                      01000012
+*                                                                       01010012
+*ABSTRACT:     MASTER ENDS WITH RC=0 EVEN THOUGH SOME COPIES SKIPPED    01020012
+*              WITH THIS FIX, UNLESS THERE IS A PREVIOUS ERROR WITH     01030012
+*              A HIGHER RETURN CODE, SKIPPED COPIES WILL SET RC = 4     01040012
+*                                                                       01050012
+*                                                                       01060012
+*APPLIES TO:   CDB/SUPERREORG                                           01070012
+*                                                                       01080012
+*PREREQ:       N/A                                                      01090012
+*                                                                       01100012
+*FIX:                                                                   01110012
+*                                                                       01120012
+       NAME CDBUTIL RRGTSRRG                                            01130012
+*                                                                       01140012
+       VER  0D1A  9108,B49C                                             01150012
+       REP  0D1A  47F0,C2E8                                             01160012
+*                                                                       01170012
+       VER  02E8  C2E8,C2EA,C2EC,C2EE,C2F0,C2F2,C2F4,C2F6               01180012
+       VER  02F8  C2F8,C2FA,C2FC                                        01190012
+*                                                                       01200012
+       REP  02E8  4100,0000,58F0,AFF8,58FF,0750,0DEF,9108               01220012
+       REP  02F8  B49C,47F0,CD1E                                        01230012
+*                                                                       01240012
+       VER  0D60  4100,0000,58F0,AFF8,58FF,0750,0DEF                    01250012
+       REP  0D60  4700,0000,4700,AFF8,4700,0750,0700                    01260012
+*                                                                       01270012
+CHECKSUM 7361DC84                                                       01280012
+*                                                                       01290012
+       NAME  CDBUTILA CP9REPRT                                          01300012
+*                                                                       01310012
+       VER  00A8  C0A8,C0AA,C0AC,C0AE,C0B0,C0B2,C0B4,C0B6               01320012
+       VER  00B8  C0B8,C0BA,C0BC,C0BE,C0C0,C0C2,C0C4,C0C6               01330012
+       VER  03CC  5800,C06C                                             01340012
+       VER  056C  41F0,0000,58D0,D004,58E0,D00C,980C,D014               01350012
+*                                                                       01360012
+       REP  00A8  9500,8024,078F,58B0,AEEC,9504,B473,072F               01362013
+       REP  00B8  D200,B473,8024,5800,C06C,07FF                         01363013
+       REP  03CC  4DF0,C0A8                                             01364013
+       REP  056C  9204,8024,58D0,D004,98EC,D00C,41F0,0000               01365013
+*                                                                       01366013
+CHECKSUM 68B55CA8                                                       01370012
+*                                                                       01380012
+       NAME CDBUTIL FEATURES    (APARID=13)                             01390012
+       VER  008C  00                                                    01400012
+       REP  008C  01                                                    01410012
+CHECKSUM 8C8D0000                                                       01420012
+*NUMBER:       F9050017                                                 01430012
+*                                                                       01440012
+*SEVERITY:     MED                                                      01450012
+*                                                                       01460012
+*ABSTRACT:     ABEND IN RRG9P3WT+10FA BECAUSE WINDOWSIZE NOT MULT OF 16 01470012
+*                                                                       01480012
+*APPLIES TO:   CDB/SUPERREORG                                           01490012
+*                                                                       01500012
+*FIX:                                                                   01510012
+*                                                                       01520012
+       NAME CDBRRGV8 RRG9P3WT                                           01530012
+       VER  0428 A71A,0007                                              01540012
+       VER  042C 5410,C0DC                                              01550012
+       VER  013E 0000,C140                                              01560012
+       REP  0428 A71A,000F                                              01570012
+       REP  042C 5410,C13E                                              01580012
+       REP  013E FFFF,FFF0                                              01590012
+CHECKSUM 8742C597                                                       01600012
+*                                                                       01610012
+       NAME CDBUTIL FEATURES    (APARID=17)                             01620012
+       VER  0090  00                                                    01630012
+       REP  0090  01                                                    01640012
+CHECKSUM 90910000                                                       01650012
+*NUMBER:       F9050018                                                 01660012
+*                                                                       01670012
+*SEVERITY:     MED                                                      01680012
+*                                                                       01690012
+*ABSTRACT:     PRESERVE NON-0 RC VALUE WHEN COPY PROCESS FAILS          01700012
+*                                                                       01710012
+*APPLIES TO:   CDB/SUPERREORG                                           01720012
+*                                                                       01730012
+*PREREQ:       N/A                                                      01740012
+*                                                                       01750012
+*FIX:                                                                   01760012
+*                                                                       01770012
+       NAME CDBRRGV8 RRG9RGP5                                           01780012
+*                                                                       01790012
+       VER  01B6  0000,C1B8                                             01800012
+       VER  01BA  C1BA,C1BC                                             01810012
+*                                                                       01820012
+       REP  01B6  42F0,504D                                             01830012
+       REP  01BA  A7F4,0010                                             01840012
+*                                                                       01850012
+       VER  031A  A774,FF60                                             01860012
+       REP  031A  A774,FF4E                                             01870012
+*                                                                       01880012
+CHECKSUM 290FB20C                                                       01890012
+*                                                                       01900012
+       NAME CDBUTIL FEATURES    (APARID=18)                             01910012
+       VER  0091  00                                                    01920012
+       REP  0091  01                                                    01930012
+CHECKSUM 91920000                                                       01940012
+*NUMBER:       F9050020                                                 01950012
+*                                                                       01960012
+*SEVERITY:     MED                                                      01970012
+*                                                                       01980012
+*ABSTRACT:     S0C3 AT RRGV8BCD + 664                                   01990012
+*              DB2 TABLE OBDS ARE SOMETIMES INCONSISTENT.               02000012
+*              FLAG SAYS THE TABLE OBD EXTENSION IS VALID, BUT          02010012
+*              THE TABLE CREATOR AND NAME ARE ZEROS.                    02020012
+*                                                                       02030012
+*    THIS RESULTS IN INCONSISTENT VALUES FOR THE TABLE CREATOR.         02040012
+*                                                                       02050012
+*APPLIES TO:   CDB/SUPERREORG                                           02060012
+*                                                                       02070012
+*PREREQ:       NONE                                                     02080012
+*                                                                       02090012
+*FIX:                                                                   02100012
+*                                                                       02110012
+       NAME  CDBUTILA RRGV8WOB                                          02120012
+       VER  000E  E5F5,4040,40F7,F0F1,F9F2,40F0,F761,F3F1,61F0          02130012
+       VER  05E6  A784,004E                                             02140012
+       REP  000E  4780,C682,58F0,5040,9500,F000,4780,C682,07FE          02150012
+       REP  05E6  4DE0,C00E                                             02160012
+CHECKSUM 3F29B4F9                                                       02170012
+*                                                                       02180012
+       NAME CDBUTIL FEATURES    (APARID=20)                             02190012
+       VER  0093  00                                                    02200012
+       REP  0093  01                                                    02210012
+CHECKSUM 93940000                                                       02220012
+*NUMBER:       F9050021                                                 02230012
+*                                                                       02240012
+*SEVERITY:     MED                                                      02250012
+*                                                                       02260012
+*ABSTRACT:     S0C3 AT RRGV8NCD + 664                                   02270012
+*                                                                       02280012
+*APPLIES TO:   CDB/SUPERREORG                                           02290012
+*                                                                       02300012
+*PREREQ:       APAR 20                                                  02310012
+*                                                                       02320012
+*FIX:                                                                   02330012
+*                                                                       02340012
+*     DB2 TABLE OBDS ARE SOMETIMES INCONSISTENT.                        02350012
+*     FLAG SAYS THE TABLE OBD EXTENSION IS VALID, BUT                   02360012
+*     THE TABLE CREATOR AND NAME ARE ZEROS.                             02370012
+*                                                                       02380012
+*     THIS RESULTS IN INCONSISTENT VALUES FOR THE TABLE CREATOR.        02390012
+*                                                                       02400012
+       NAME  CDBUTILA RRGV8WOB                                          02410012
+       VER  000E  4780,C682,58F0,5040,9500,F000,4780,C682,07FE          02420012
+       VER  0020  F740,F2F2,4BF4,F8F6,F1F6,F0F7,F6F2,F4F0               02430012
+       VER  0030  F7F6,F3F0,F0F7                                        02440012
+       VER  05E6  4DE0,C00E                                             02450012
+       VER  0652  A7EA,0002                                             02460012
+       REP  000E  4780,C682,58F0,5040,9500,F000,4780,C682,07FE          02470012
+       REP  0020  A7EA,0001,5BE0,5040,42E0,5035,5AE0,5040               02480012
+       REP  0030  A7EA,0001,47F0,C656                                   02490012
+       REP  05E6  4DE0,C00E                                             02500012
+       REP  0652  47F0,C020                                             02510012
+CHECKSUM DDBFCEEE                                                       02520012
+*                                                                       02530012
+       NAME CDBUTIL FEATURES    (APARID=21)                             02540012
+       VER  0094  00                                                    02550012
+       REP  0094  01                                                    02560012
+CHECKSUM 94950000                                                       02570012
+*NUMBER:       F9050023                                                 02580012
+*                                                                       02590012
+*SEVERITY:     MED                                                      02600012
+*                                                                       02610012
+*ABSTRACT:     ADDITION TO APAR 21                                      02620012
+*                                                                       02630012
+*APPLIES TO:   CDB/SUPERREORG                                           02640012
+*                                                                       02650012
+*PREREQ:       APAR 21                                                  02660012
+*                                                                       02670012
+*FIX:                                                                   02680012
+*                                                                       02690012
+       NAME  CDBUTILA RRGV8WOB                                          02700012
+       VER  063A  41E0,F004,41E2,E001                                   02710012
+       REP  063A  58E0,C040,47F0,E114                                   02720012
+CHECKSUM 77112B50                                                       02730012
+*                                                                       02740012
+       NAME  CDBUTILA PATCH                                             02750012
+       VER  0114  0114,0116,0118,011A,011C,011E,0120,0122               02760012
+       REP  0114  41E0,F004,BEEF,5040,41E2,E001,47F0,C642               02770012
+CHECKSUM 9027EC03                                                       02780012
+*                                                                       02790012
+       NAME CDBUTIL FEATURES    (APARID=23)                             02800012
+       VER  0096  00                                                    02810012
+       REP  0096  01                                                    02820012
+CHECKSUM 96970000                                                       02830012
+*                                                                       02840012
+  NAME  CDBUTIL ZAPID #3                                                02850012
+  VER   0003 00                                                         02860012
+  REP   0003 03                                                         02870012
+  CHECKSUM 03060000                                                     02880012

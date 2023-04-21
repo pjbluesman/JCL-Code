@@ -1,0 +1,48 @@
+//DB2RDUMP JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID     00010003
+/*JOBPARM SYSAFF=MVS4                                                   00020000
+//********************************************************************* 00021003
+//* DUMP DB2 CATALOG                                                 *  00022003
+//********************************************************************* 00023003
+//DUMP     EXEC PGM=ADRDSSU,COND=(4,LT)                                 00030000
+//*OUTPUT   DD  DSN=SSXDP.DB2R.CC390.DBS.BKP.D150428,                   00040001
+//OUTPUT   DD  DSN=&&DB2R,                                              00040101
+//             DISP=(NEW,KEEP,DELETE),                                  00041001
+//             UNIT=SYSDA,SPACE=(CYL,(100,20),RLSE)                     00042000
+//SYSPRINT DD  SYSOUT=*                                                 00043000
+//SYSIN    DD  *                                                        00044000
+  DUMP OUTDD(OUTPUT) -                                                  00045000
+       COMPRESS      -                                                  00046000
+       OPTIMIZE(4)   -                                                  00047000
+       TOLERATE(ENQFAILURE) -                                           00048000
+       DATASET(INCLUDE( -                                               00049000
+                       DB2R.DSNDBC.CC390.**                 -           00050000
+                       DB2R.DSNDBC.DSNHMDB.**               -           00060000
+                       DB2R.DSNDBC.DSNATPDB.** -                        00061000
+                       DB2R.DSNDBC.DSNRLST.**  -                        00062000
+                       DB2R.DSNDBC.DSNADMDB.** -                        00063000
+                       DB2R.DSNDBC.DSNRGFDB.** -                        00064000
+                       DB2R.DSNDBC.DSN8*.**              -              00066000
+                       DB2R.DSNDBC.DSNDB04.CC*.**           -           00067000
+                       ) -                                              00070000
+              )                                                         00080000
+/*                                                                      00090001
+//*                    DB2R.DSNDBC.DSNRTSDB.** -                        00110001
+//********************************************************************* 00120001
+//* TERSE                                                            *  00121002
+//********************************************************************* 00122002
+//TRSDUMP  EXEC PGM=TRSMAIN,PARM='PACK',COND=(4,LT)                     00130001
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB                          00140001
+//SYSPRINT DD  SYSOUT=*                                                 00150001
+//INFILE   DD  DISP=SHR,DSN=&&DB2R                                      00160001
+//OUTFILE  DD  DISP=(NEW,CATLG,DELETE),                                 00170001
+//             DSN=SSXDP.DB2R.CC390.DBS.BKP.D161018.TRS,                00180001
+//             UNIT=SYSDA,SPACE=(CYL,(200,100),RLSE)                    00190001
+//********************************************************************* 00200002
+//* XMIT TO LABSAP                                                   *  00210002
+//********************************************************************* 00220002
+//XMIT01   EXEC PGM=IKJEFT01                                            00230002
+//SYSPRINT DD SYSOUT=*                                                  00240002
+//SYSTSPRT DD SYSOUT=*                                                  00250002
+//SYSOUT   DD SYSOUT=*                                                  00260002
+//SYSTSIN  DD *                                                         00270002
+  XMIT LABSAP.T032135 DS('SSXDP.DB2R.CC390.DBS.BKP.D161018.TRS')        00280002

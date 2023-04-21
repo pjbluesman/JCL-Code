@@ -1,0 +1,77 @@
+//UXD001M JOB ,'GLK RM102',CLASS=S,MSGCLASS=X                           00000001
+//*********************************************************************/00000100
+//* JOB NAME = DSNTIJSG                                               */00000200
+//*                                                                   */00000300
+//* DESCRIPTIVE NAME = INSTALLATION JOB STREAM                        */00000400
+//*                                                                   */00000500
+//*    LICENSED MATERIALS - PROPERTY OF IBM                           */00000600
+//*    5645-DB2                                                       */00000700
+//*    (C) COPYRIGHT 1982, 1998 IBM CORP.  ALL RIGHTS RESERVED.       */00000800
+//*                                                                   */00000900
+//*    STATUS = VERSION 6                                             */00001000
+//*                                                                   */00001100
+//* FUNCTION = CREATE USER MAINTAINED TABLES                          */00001200
+//*                                                                   */00001300
+//* PSEUDOCODE =                                                      */00001400
+//*   DSNTICU  STEP     CLEAN UP STEP TO PERMIT RERUNS                */00001500
+//*   DSNTIRU  STEP     CREATE STORAGE GROUPS.                        */00001600
+//*                     BIND DCLGEN, SPUFI AND FLAGGER FACILITIES     */00001700
+//*                     CREATE RESOURCE LIMIT FACILITY OBJECTS.       */00001800
+//*   DSNTIJD  STEP     INITIALIZE COMMUNICATIONS DATA BASE           */00001900
+//*   DSNTIJS  STEP     CREATE STORED PROCEDURES                      */00002000
+//*   DSNTIJR  STEP     CREATE DDL REGISTRATION DATA BASE             */00002100
+//*   DSNTIJG  STEP     PERMIT ACCESS TO NEW OBJECTS, PLANS.          */00002200
+//*                                                                   */00002300
+//*                                                                   */00002600
+//*                                                                   */00002700
+//*********************************************************************/00002800
+//JOBLIB  DD  DISP=SHR,                                                 00002900
+//            DSN=SSXDP.DSNDBFG.DB3F.SDSNLOAD                           00003000
+//*  //DSNTICU EXEC PGM=IKJEFT01,DYNAMNBR=20                            00003100
+//*  //SYSTSPRT DD  SYSOUT=*                                            00003200
+//*  //SYSPRINT DD  SYSOUT=*                                            00003300
+//*  //SYSUDUMP DD  SYSOUT=*                                            00003400
+//*  //SYSTSIN  DD  *                                                   00003500
+//*    DSN SYSTEM(DB3F)                                                 00003600
+//*    RUN PROGRAM(DSNTIAD)  PLAN(DSNTIAD) PARM('RC0') -                00003700
+//*         LIBRARY('SSXDP.DSNDBFG.DB3F.RUNLIB.LOAD')                   00003800
+//*    END                                                              00003900
+//*  //SYSIN    DD  *                                                   00004000
+//*     DROP DATABASE DSNRGFDB;                                         00004100
+//*     DROP DATABASE DSNRLST;                                          00004101
+//*     DROP STOGROUP SYSDEFLT;                                         00004102
+//*     DROP VIEW SYSCAT.PROCEDURES;                                    00004103
+//*     DROP PROCEDURE SYSPROC.DSNUTILS RESTRICT;                       00004200
+//*     DROP TABLE SYSIBM.SYSPRINT;                                     00004300
+//*                                                                     00004400
+//DSNTIRU EXEC PGM=IKJEFT01,DYNAMNBR=20                                 00004500
+//SYSTSPRT DD  SYSOUT=*                                                 00004600
+//SYSPRINT DD  SYSOUT=*                                                 00004700
+//SYSUDUMP DD  SYSOUT=*                                                 00004800
+//SYSTSIN  DD  *                                                        00004900
+  DSN SYSTEM(DB3F)                                                      00005000
+  BIND PACKAGE(DSNESPCS) MEMBER(DSNESM68) ACTION(REPLACE) ISOLATION(CS)-00005100
+       LIBRARY('SSXDP.DSNDBFG.DB3F.SDSNDBRM')                           00005200
+  BIND PLAN(DSNESPCS) PKLIST(DSNESPCS.DSNESM68) -                       00005300
+       ISOLATION(CS) ACTION(REPLACE)                                    00005400
+  BIND PACKAGE(DSNEDCL) MEMBER(DSNECP68) ACTION(REPLACE) ISOLATION(CS)- 00005900
+       LIBRARY('SSXDP.DSNDBFG.DB3F.SDSNDBRM')                           00006000
+  BIND PLAN(DSNEDCL)  PKLIST(DSNEDCL.DSNECP68) -                        00006100
+       ISOLATION(CS) ACTION(REPLACE)                                    00006200
+  BIND PACKAGE(DSNHYCRD) MEMBER(DSNHYCRD) ACTION(REPLACE) ISOLATION(CS)-00006300
+       LIBRARY('SSXDP.DSNDBFG.DB3F.SDSNDBRM')                           00006400
+  BIND PLAN(DSNHYCRD) PKLIST(DSNHYCRD.DSNHYCRD) -                       00006500
+       ISOLATION(CS) ACTION(REPLACE)                                    00006600
+  BIND PACKAGE(DSNWZP) MEMBER(DSNWZP) ACTION(REPLACE) ISOLATION(CS)-    00006700
+       CURRENTDATA(NO) VAL(BIND) LIBRARY('SSXDP.DSNDBFG.DB3F.SDSNDBRM') 00006800
+  BIND PLAN(DSNWZP) PKLIST(DSNWZP.DSNWZP) -                             00006900
+       ISOLATION(CS) ACTION(REPLACE)                                    00007000
+  RUN PROGRAM(DSNTIAD) PLAN(DSNTIAD) -                                  00007100
+       LIBRARY('SSXDP.DSNDBFG.DB3F.RUNLIB.LOAD')                        00007200
+  BIND PACKAGE(DSNUTILS) MEMBER(DSNUTILS) ACTION(REPLACE) ISOLATION(CS)-00007300
+       VALIDATE(BIND) CURRENTDATA(NO)-                                  00007400
+       LIBRARY('SSXDP.DSNDBFG.DB3F.SDSNDBRM')                           00007500
+  BIND PACKAGE(DSNACCOR) MEMBER(DSNACCOR) ACTION(REPLACE) ISOLATION(UR)-00007300
+       VALIDATE(BIND) ENCODING(EBCDIC)-                                 00007400
+       LIBRARY('SSXDP.DSNDBFG.DB3F.SDSNDBRM')                           00007500
+  END                                                                   00007600

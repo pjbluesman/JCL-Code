@@ -1,0 +1,16 @@
+//AD#CLONF JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID     00010000
+/*JOBPARM SYSAFF=MVSF                                                   00020001
+//DUMP     EXEC PGM=ADRDSSU,COND=(4,LT)                                 00030000
+//OUTPUT   DD  DSN=SSXDP.DBFG.DUMPDBFG.BKP.D140725,                     00040001
+//             DISP=(NEW,CATLG,DELETE),                                 00041000
+//             UNIT=SYSDA,SPACE=(CYL,(100,20),RLSE)                     00050000
+//SYSPRINT DD  SYSOUT=*                                                 00060000
+//SYSIN    DD  *                                                        00070000
+  DUMP OUTDD(OUTPUT) -                                                  00080000
+       COMPRESS      -                                                  00090000
+       OPTIMIZE(4)   -                                                  00100000
+       TOLERATE(ENQFAILURE) -                                           00110000
+       DATASET(INCLUDE( -                                               00120000
+                       SSXDP.CLONE.MVSFDB2F.**              -           00130001
+                       ) -                                              00212000
+              )                                                         00220000

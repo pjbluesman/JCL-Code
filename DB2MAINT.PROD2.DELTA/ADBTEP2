@@ -1,0 +1,54 @@
+//DBT9DIAG JOB (,A3),'ADBTEP2 DB2ADM TES',NOTIFY=&SYSUID,REGION=122M,   00000100
+//         CLASS=S,MSGCLASS=X,MSGLEVEL=(1,1)                            00000200
+/*JOBPARM S=MVSE                                                        00000300
+//******************************************************************    00000900
+//*    ADBTEP2  - SAMPLE JCL FOR EXECUTION OF PROGRAM ADBTEP2.     *    00001000
+//*    DATABASE 2 ADMINISTRATION TOOL.                             *    00001100
+//*    CUSTOMIZE THE JOB TO MEET YOUR LOCAL STANDARDS              *    00001200
+//*                                                                *    00001300
+//*    REFER TO THE DB2 ADMIN PROGRAM DIRECTORY FOR INSTRUCTIONS   *    00001400
+//*    ABOUT HOW TO MODIFY THIS JOB FOR YOUR INSTALLATION.         *    00001500
+//*                                                                *    00001600
+//*    EXPECTED RETURN CODES: STEP   NAME   RETURN CODE            *    00001700
+//*                            1    CRECAT     0                   *    00001800
+//*                                                                *    00001900
+//******************************************************************    00002000
+//*                                                                *    00002100
+//* @START_COPYRIGHT@                                              *    00002200
+//* STATEMENT:                                                     *    00002300
+//*      DATABASE 2 ADMINISTRATION TOOL                            *    00002400
+//*      5697-L90                                                  *    00002500
+//*      (C) COPYRIGHT IBM CORP. 1995, 2006 - ALL RIGHTS RESERVED  *    00002600
+//*       LICENSED MATERIALS - PROPERTY OF IBM                     *    00002700
+//*       US GOVERNMENT USERS RESTRICTED RIGHTS - USE,             *    00002800
+//*       DUPLICATION OR DISCLOSURE RESTRICTED BY GSA ADP          *    00002900
+//*       SCHEDULE CONTRACT WITH IBM CORP.                         *    00003000
+//*                                                                *    00003100
+//* STATUS:        VERSION 7 RELEASE 2                             *    00003200
+//*                                                                *    00003300
+//* @END_COPYRIGHT@                                                *    00003400
+//*                                                                *    00003500
+//******************************************************************    00003600
+//*        MODIFY LINES WITH "<===" FOR SYSTEM CUSTOMIZATION            00003700
+//**********************************************************************00003800
+//******************************************************************    00003900
+//*        RUN ADBTEP2                                                  00004000
+//**********************************************************************00004100
+//ADBTEP2     EXEC PGM=IKJEFT01,DYNAMNBR=100                            00004200
+//STEPLIB  DD DSN=SSXDT.DB2S.SDSNEXIT,DISP=SHR        <===              00004300
+//         DD DSN=SDB2S.SDSNLOAD,DISP=SHR        <===                   00004400
+//SYSEXEC DD DSN=DB2TOOLT.SADBEXEC,DISP=SHR     <===                    00004500
+//SYSTSPRT DD SYSOUT=*                                                  00004600
+//SYSPRINT DD SYSOUT=*                                                  00004700
+//SYSUDUMP DD SYSOUT=*                                                  00004800
+//SYSTSIN  DD *                                                         00004900
+ DSN SYSTEM(DB2S)                          /* <=== VERIFY DB2 SYSTEM */ 00005000
+ RUN  PROGRAM(ADBTEP2) PLAN(ADBTEP2) -                                  00005100
+      PARMS('/ALIGN(MID),WORKLIST(ADBTEP2R),RESTART(YES)') -            00005200
+              LIB('DB2TOOLT.SADBLLIB')     /* <=== VERIFY LOAD LIB   */ 00005300
+ END                                                                    00006000
+//SYSIN    DD *                                                         00590000
+                                                                        00600000
+ SELECT * FROM SYSIBM.SYSDUMMY1                                         00670000
+                                                                        00718000
+//*                                                                     00720000

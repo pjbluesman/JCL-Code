@@ -1,0 +1,48 @@
+//AD#RSU14 JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID     00010002
+/*JOBPARM SYSAFF=MVS4                                                   00020003
+//DUMP     EXEC PGM=ADRDSSU,COND=(4,LT)                                 00030000
+//OUTPUT   DD  DSN=SSXDP.DBRG.DUMPDBRG.BKP.D140724,                     00040004
+//             DISP=(NEW,CATLG,DELETE),                                 00041000
+//             UNIT=SYSDA,SPACE=(CYL,(100,20),RLSE)                     00050000
+//SYSPRINT DD  SYSOUT=*                                                 00060000
+//SYSIN    DD  *                                                        00070000
+  DUMP OUTDD(OUTPUT) -                                                  00080000
+       COMPRESS      -                                                  00090000
+       OPTIMIZE(4)   -                                                  00100000
+       TOLERATE(ENQFAILURE) -                                           00110000
+       DATASET(INCLUDE( -                                               00120000
+                       SSXDP.DB2R.DBRMLIB.DATA              -           00130003
+                       SSXDP.DB2R.TAILOR.SDSNSAMP           -           00160003
+                       SSXDP.DB2R.RUNLIB.LOAD               -           00180003
+                       SSXDP.DB2R.SDSNEXIT                  -           00190003
+                       SSXDP.DB2R.SRCLIB.DATA               -           00200003
+                       SSXDP.DB3R.TAILOR.SDSNSAMP           -           00202003
+                       SSXDP.DB3R.RUNLIB.LOAD               -           00204003
+                       SSXDP.DB3R.SDSNEXIT                  -           00205003
+                       SSXDP.DB4R.TAILOR.SDSNSAMP           -           00206003
+                       SSXDP.DB4R.RUNLIB.LOAD               -           00208003
+                       SSXDP.DB4R.SDSNEXIT                  -           00209003
+                       SSXDP.DB5R.TAILOR.SDSNSAMP           -           00209103
+                       SSXDP.DB5R.RUNLIB.LOAD               -           00209303
+                       SSXDP.DB5R.SDSNEXIT                  -           00209403
+                       SSXDP.DB6R.TAILOR.SDSNSAMP           -           00209503
+                       SSXDP.DB6R.RUNLIB.LOAD               -           00209703
+                       SSXDP.DB6R.SDSNEXIT                  -           00209803
+                       SSXDP.DB2R.SDSNEXIT                  -           00209903
+                       SSXDP.DB2R.STG812R.TAILOR.SDSNSAMP   -           00210003
+                       SSXDP.DB3R.STG813R.TAILOR.SDSNSAMP   -           00210103
+                       SSXDP.DB4R.STG814R.TAILOR.SDSNSAMP   -           00210203
+                       SSXDP.DB5R.STG815R.TAILOR.SDSNSAMP   -           00210303
+                       SSXDP.DB6R.STG816R.TAILOR.SDSNSAMP   -           00210403
+                       SSXDP.DSNDBRG.DB2R.RUNLIB.LOAD -                 00210504
+                       SSXDP.DSNDBRG.DB3R.RUNLIB.LOAD -                 00210604
+                       SSXDP.DSNDBRG.DB4R.RUNLIB.LOAD -                 00210704
+                       SSXDP.DSNDBRG.DB5R.RUNLIB.LOAD -                 00210804
+                       SSXDP.DSNDBRG.DB6R.RUNLIB.LOAD -                 00210904
+                       SSXDP.DSNDBRG.DB2R.SDSNEXIT    -                 00211004
+                       SSXDP.DSNDBRG.DB3R.SDSNEXIT    -                 00211104
+                       SSXDP.DSNDBRG.DB4R.SDSNEXIT    -                 00211204
+                       SSXDP.DSNDBRG.DB5R.SDSNEXIT    -                 00211304
+                       SSXDT.OLD2.**                  -                 00211404
+                       ) -                                              00212000
+              )                                                         00220000

@@ -1,0 +1,93 @@
+//UXD001M JOB ,'GLK RM102',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID            00000000
+//*********************************************************************/00010000
+//* JOB NAME = DSNTIJIN                                               */00020000
+//*                                                                   */00030000
+//* DESCRIPTIVE NAME = INSTALLATION JOB STREAM                        */00040000
+//*                                                                   */00050000
+//*    LICENSED MATERIALS - PROPERTY OF IBM                           */00060000
+//*    5645-DB2                                                       */00070000
+//*    (C) COPYRIGHT 1982, 1998 IBM CORP.  ALL RIGHTS RESERVED.       */00080000
+//*                                                                   */00090000
+//*    STATUS = VERSION 6                                             */00100000
+//*                                                                   */00110000
+//* FUNCTION = DEFINE DB2 DATA SETS                                   */00120000
+//*                                                                   */00130000
+//* PSEUDOCODE =                                                      */00140000
+//*   DSNTIC   PROC      FOR INVOKING AMS                             */00150000
+//*   DSNTNOV  STEP      DEFINES NON VSAM DATA SETS                   */00160000
+//*   DSNTDBL  STEP      DEFINES BOOTSTRAP DATA SETS                  */00170000
+//*                          AND ACTIVE LOG DATA SETS                 */00180000
+//*   DSNTDIR  STEP      AMS DEFINES - DIRECTORY TABLE SPACES         */00190000
+//*   DSNTCOP  STEP      AMS DEFINES - SYSCOPY  TABLE SPACE           */00200000
+//*   DSNTDBS  STEP      AMS DEFINES - SYSDBASE TABLE SPACE           */00210000
+//*   DSNTDBA  STEP      AMS DEFINES - SYSDBAUT TABLE SPACE           */00220000
+//*   DSNTGPA  STEP      AMS DEFINES - SYSGPAUT TABLE SPACE           */00230000
+//*   DSNTGRP  STEP      AMS DEFINES - SYSGROUP TABLE SPACE           */00240000
+//*   DSNTPKG  STEP      AMS DEFINES - SYSPKAGE TABLE SPACE           */00250000
+//*   DSNTPLN  STEP      AMS DEFINES - SYSPLAN  TABLE SPACE           */00260000
+//*   DSNTSTR  STEP      AMS DEFINES - SYSSTR   TABLE SPACE           */00270000
+//*   DSNTUSR  STEP      AMS DEFINES - SYSUSER  TABLE SPACE           */00280000
+//*   DSNTVTR  STEP      AMS DEFINES - SYSVIEWS TABLE SPACE           */00290000
+//*   DSNTSTA  STEP      AMS DEFINES - SYSSTATS TABLE SPACE           */00300000
+//*   DSNTDDF  STEP      AMS DEFINES - SYSDDF   TABLE SPACE           */00310000
+//*   DSNTOBJ  STEP      AMS DEFINES - SYSOBJ   TABLE SPACE           */00320000
+//*   DSNTILC  STEP      LIST THE CATALOG ENTRIES                     */00330000
+//*                                                                   */00340000
+//* NOTES =                                                           */00350000
+//*   1. THE INSTALL CLIST SHOULD DO MOST OF THE WORK,                */00360000
+//*      BUT THE INSTALLER MAY INSPECT THE AMS COMMANDS AND           */00370000
+//*      JCL  AND EDIT THEM WHERE NECESSARY                           */00380000
+//*      TO FIT LOCAL SITE REQUIREMENTS.                              */00390000
+//*   2. DSNAMES, CONTROL INTERVAL SIZE, RECORDSIZE,                  */00400000
+//*      LINEAR, NONORDERED, AND SHAREOPTIONS                         */00410000
+//*      MUST NOT BE CHANGED FOR DIRECTORY AND CATALOG DATA.          */00420000
+//*   3. MANY PARAMETERS DO NOT APPLY, INCLUDING SPANNED,             */00430000
+//*      EXCEPTIONEXIT, SPEED, BUFFERSPACE, AND                       */00440000
+//*      WRITECHECK FOR DIRECTORY AND CATALOG DATA.                   */00450000
+//*   4. DATA SET SIZES AND VOLUMES MAY BE CHANGED.                   */00460000
+//*                                                                   */00470000
+//*********************************************************************/00480000
+//*                                                                     00490000
+//DSNTIC  PROC                                                          00500000
+//* ***************************************************************** */00510000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE           */00520000
+//* ***************************************************************** */00530000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)                                   00540000
+//SYSPRINT DD SYSOUT=*                                                  00550000
+//SYSUDUMP DD SYSOUT=*                                                  00560000
+//DSNTIC  PEND                                                          00570000
+//DSNTDBL EXEC DSNTIC                                                   00730000
+//SYSIN    DD  *                                                        00740000
+   DEFINE CLUSTER                             -                         00750000
+         ( NAME(DB2A.DSNDBAG.BSDS01)               -                    00760000
+           VOLUMES(A3D2AO)                    -                         00770000
+           REUSE                              -                         00780000
+           SHAREOPTIONS(2 3) )                -                         00790000
+      DATA                                    -                         00800000
+         ( NAME(DB2A.DSNDBAG.BSDS01.DATA)          -                    00810000
+           RECORDS(180 20)                    -                         00820000
+           RECORDSIZE(4089 4089)              -                         00830000
+           CONTROLINTERVALSIZE(4096)          -                         00840000
+           FREESPACE(0 20)                    -                         00850000
+           KEYS(4 0) )                        -                         00860000
+      INDEX                                   -                         00870000
+         ( NAME(DB2A.DSNDBAG.BSDS01.INDEX)         -                    00880000
+           RECORDS(5 5)                       -                         00890000
+           CONTROLINTERVALSIZE(1024) )   CATALOG(DB2A)                  00900000
+                                                                        00910000
+   DEFINE CLUSTER                             -                         00920000
+         ( NAME(DB2A.DSNDBAG.BSDS02)               -                    00930000
+           VOLUMES(A3D2AM)                    -                         00940000
+           REUSE                              -                         00950000
+           SHAREOPTIONS(2 3) )                -                         00960000
+      DATA                                    -                         00970000
+         ( NAME(DB2A.DSNDBAG.BSDS02.DATA)          -                    00980000
+           RECORDS(180 20)                    -                         00990000
+           RECORDSIZE(4089 4089)              -                         01000000
+           CONTROLINTERVALSIZE(4096)          -                         01010000
+           FREESPACE(0 20)                    -                         01020000
+           KEYS(4 0) )                        -                         01030000
+      INDEX                                   -                         01040000
+         ( NAME(DB2A.DSNDBAG.BSDS02.INDEX)         -                    01050000
+           RECORDS(5 5)                       -                         01060000
+           CONTROLINTERVALSIZE(1024) )   CATALOG(DB2A)                  01070000

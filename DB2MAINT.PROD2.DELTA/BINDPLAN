@@ -1,0 +1,27 @@
+//DT0072B JOB ,'RDL RCC',CLASS=S,MSGCLASS=X,NOTIFY=DT0072
+//STEP01   EXEC PGM=IKJEFT01
+//STEPLIB  DD  DISP=SHR,DSN=SSXDT.DSNDBVG.DB3V.SDSNLOAD
+//SYSPRINT DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DBVG)
+ BIND PLAN      ( DPSUMLD  )             OWNER     ( SYSPRO   )    -
+      QUALIFIER ( SYSPRO   )             CACHESIZE ( 1024    )     -
+                                                                   -
+      ACTION    ( REPLACE )      RETAIN  VALIDATE  ( RUN  )        -
+      ISOLATION ( CS )                   ACQUIRE   ( USE      )    -
+      RELEASE   ( COMMIT     )           EXPLAIN   ( NO  )         -
+                                                                   -
+      LIBRARY   ( 'SSXBP.BMC.COMMON.MAINT2.BBSAMP'                )-
+      MEMBER    ( DPSPURGD, DPSQLDAD                            )  -
+                                                                   -
+      NODEFER   ( PREPARE )            CURRENTDATA ( YES )         -
+      DEGREE    ( 1   )                  SQLRULES  ( DB2 )         -
+      DISCONNECT( EXPLICIT    )       DYNAMICRULES (      )        -
+      NOREOPT   ( VARS )               KEEPDYNAMIC ( NO  )         -
+                                                                   -
+      DBPROTOCOL( DRDA    )                                        -
+ ;
+END
+/*
+//

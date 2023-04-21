@@ -1,0 +1,24 @@
+//UXD000M JOB (,105),'GLK',CLASS=S,MSGCLASS=X
+//*
+//DSNTIC  EXEC PGM=IDCAMS                                               00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//SYSIN    DD  *                                                        00620000
+   DEFINE CLUSTER                             -                         00630000
+         ( NAME(DB3A.DSNDBAG.BSDS02)       -                            00640000
+           VOLUMES(E3D2E1)                    -                         00660000
+           REUSE                              -                         00670000
+           SHAREOPTIONS(2 3) )                -                         00680000
+      DATA                                    -                         00690000
+         ( NAME(DB3A.DSNDBAG.BSDS02.DATA) -                             00700000
+           RECORDS(180 20)                    -                         00710000
+           RECORDSIZE(4089 4089)              -                         00720000
+           CONTROLINTERVALSIZE(4096)          -                         00740000
+           FREESPACE(0 20)                    -                         00750000
+           KEYS(4 0) )                        -                         00760000
+      INDEX                                   -                         00770000
+         ( NAME(DB3A.DSNDBAG.BSDS02.INDEX) -                            00780000
+           RECORDS(5 5)                       -                         00790000
+           CONTROLINTERVALSIZE(1024) )        -                         00800000
+      CATALOG(DB3A)                                                     00810000
+//*                                                                     08290000

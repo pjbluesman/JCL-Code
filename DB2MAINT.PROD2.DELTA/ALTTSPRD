@@ -1,0 +1,29 @@
+//UXC401AS JOB ,'DB2 ANNEX',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSR
+//*********************************************************************/00280000
+//JOBLIB  DD  DISP=SHR,                                                 00290000
+//            DSN=SDB2R.SDSNLOAD                                        00300000
+//STOPTS  EXEC PGM=IKJEFT01
+//SYSPRINT DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+ DSN SYSTEM(DB2R)
+-STO DB(DSN8D81A) SPACENAM(DSN8S81S)
+//ALTTS   EXEC PGM=IKJEFT01                                             01020000
+//SYSTSPRT DD  SYSOUT=*                                                 01040000
+//SYSPRINT DD  SYSOUT=*                                                 01050000
+//SYSUDUMP DD  SYSOUT=*                                                 01060000
+//SYSTSIN  DD  *                                                        01070000
+  DSN SYSTEM(DB2R)                                                      01080000
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIAD) -                                 01100000
+       LIB('SSXDP.DB2R.RUNLIB.LOAD')                                    01110000
+  END                                                                   01130000
+//SYSIN    DD  *                                                        01140000
+SET CURRENT SQLID='LSEBDB2';
+  ALTER TABLESPACE DSN8D81A.DSN8S81S BUFFERPOOL BP11;
+//STARTS  EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)
+//SYSPRINT DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+ DSN SYSTEM(DB2R)
+-STA DB(DSN8D81A) SPACENAM(DSN8S81S)

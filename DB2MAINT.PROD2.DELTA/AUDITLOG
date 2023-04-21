@@ -1,0 +1,128 @@
+
+--==============================================================================
+-- VRCM6.1.5    CA-DB2   RC/ALTER      ANALYSIS REPORT      06-21-02 22:00
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> RCUPDATE  DESCRIPTION  ===> RC/UPDATE ALTERATION
+--CREATOR  ==> DT0072    SHARE OPTION ===> N (U,Y,N,X,L)  SRC SSID ===> DB2R
+--
+--ALTERED OBJECTS:
+--   OBJECT TYPE       NAME                 CREATOR
+--   TABLE             TEDS_AUDIT_LOG       EBKDP02
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> O (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> CATALOG
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> DT0072
+--
+--  SECURITY          ===> Y             STATISTICS   ===> N
+--  DEFAULT SQLID     ===>               CHECK DATA   ===> N
+--                                       IMAGE COPY   ===> N
+--                                       BIND/REBIND  ===> N
+--  ALL ROWS          ===> N             REORG        ===> N
+--  NUMBER ROWS       ===>               RECOVER IX   ===> N
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS         ===> Y             VSAM DEFINES  ===> Y
+--  SQL ONLY          ===> N             VSAM DELETES  ===> Y
+--  COMMIT ASAP       ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> N
+--  DELETE TEMPORARY DATASETS ===> N
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+--RMA233W NO UNLOADS HAVE BEEN GENERATED DURING THIS ANALYSIS.
+
+.SYSTEM SQLDDL
+.CONNECT DB2R
+
+    DROP TABLE EBKDP02.TEDS_AUDIT_LOG;
+
+.SYNC 5         'DROP TABLE EBKDP02.TEDS_AUDIT_LOG'
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- EBKDP02.TEDS_AUDIT_LOG WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DT0072';
+
+CREATE TABLE EBKDP02.TEDS_AUDIT_LOG
+   (LOG_PROC               CHAR(8    )                 NOT NULL
+   ,LOG_TIMESTAMP          TIMESTAMP                   NOT NULL
+          WITH DEFAULT
+   ,LOG_MSG                VARCHAR(80   )              NOT NULL
+   ,LOG_ROWS_READ          INTEGER                     NOT NULL
+          WITH DEFAULT
+   ,LOG_ROWS_UPDATED       INTEGER                     NOT NULL
+          WITH DEFAULT
+   ,LOG_ROWS_INSERTED      INTEGER                     NOT NULL
+          WITH DEFAULT
+   ,LOG_WK_ROWS_BKLVL      INTEGER                     NOT NULL
+          WITH DEFAULT
+   ,LOG_WK_ROWS_DLTD       INTEGER                     NOT NULL
+          WITH DEFAULT
+   ,LOG_WK_ROWS_ERROR      INTEGER                     NOT NULL
+          WITH DEFAULT
+   )
+   IN EBKD2P02.TSKD0200
+   CCSID ASCII
+   ;
+
+.SYNC 10        'CREATE TABLE EBKDP02.TEDS_AUDIT_LOG'
+    SET CURRENT SQLID = USER;
+
+
+-- **************************************************************
+-- *                                                            *
+-- * INDEX CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- EBKDP02.IX1KD200 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX EBKDP02.IX1KD200
+           ON EBKDP02.TEDS_AUDIT_LOG
+          (LOG_PROC             ASC
+          ,LOG_TIMESTAMP        ASC
+          )
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 14400
+                                    SECQTY 720
+                                    ERASE NO
+                     FREEPAGE 1
+                     PCTFREE 10
+           BUFFERPOOL BP2
+           CLOSE YES
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 15        'CREATE INDEX EBKDP02.IX1KD200'
+
+
+.DISCONN
+
+--==============================================================================
+-- VRCM6.1.5      CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      06-21-02 22:00
+--==============================================================================
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                1
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      TEDS_AUDIT_LOG     EBKDP02      Y
+--
+--  OBJECT TYPE: INDEX                      TOTAL:                1
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      IX1KD200           EBKDP02

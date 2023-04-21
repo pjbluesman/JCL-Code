@@ -1,0 +1,60 @@
+//DT0072X JOB ,'RDL RM102',CLASS=S,MSGCLASS=X,NOTIFY=DT0072             00001000
+//STEP1 EXEC PGM=ADRDSSU                                                00002000
+//PLDIGN DD DUMMY                                                       00003000
+//NOTAPE DD DUMMY                                                       00004000
+//DUMMY  DD DUMMY                                                       00005000
+//SYSPRINT DD SYSOUT=*                                                  00006000
+//SYSIN    DD *                                                         00007000
+  COPY DATASET(INCLUDE(   -                                             00008000
+    DB2RKD2.DSNDBC.EBKD2P02.TSKDW138.I0001.A001 -                       00009002
+         ))-                                                            00010000
+    OUTDYNAM(E9DR05)  -                                                 00020000
+    DELETE PURGE CATALOG -                                              00030000
+    ALLDATA(*) ALLEXCP SPHERE -                                         00040000
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00050000
+                                                                        00060000
+  COPY DATASET(INCLUDE(   -                                             00061001
+    DB2RKD2.DSNDBC.EBKD2P02.TSKDW138.I0001.A002 -                       00062002
+         ))-                                                            00063001
+    OUTDYNAM(E9DR05)  -                                                 00064001
+    DELETE PURGE CATALOG -                                              00065001
+    ALLDATA(*) ALLEXCP SPHERE -                                         00066001
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00067001
+                                                                        00068001
+  COPY DATASET(INCLUDE(   -                                             00069101
+    DB2RKD2.DSNDBC.EBKD2P02.TSKDW138.I0001.A003 -                       00069202
+         ))-                                                            00069301
+    OUTDYNAM(E9DR05)  -                                                 00069401
+    DELETE PURGE CATALOG -                                              00069501
+    ALLDATA(*) ALLEXCP SPHERE -                                         00069601
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00069701
+                                                                        00069801
+  COPY DATASET(INCLUDE(   -                                             00069901
+    DB2RKD2.DSNDBC.EBKD2P02.TSKDW138.I0001.A004 -                       00070002
+         ))-                                                            00070101
+    OUTDYNAM(E9DR05)  -                                                 00070201
+    DELETE PURGE CATALOG -                                              00070301
+    ALLDATA(*) ALLEXCP SPHERE -                                         00070401
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00070501
+                                                                        00070601
+  COPY DATASET(INCLUDE(   -                                             00070701
+    DB2RKD2.DSNDBC.EBKD2P02.TSKDW138.I0001.A005 -                       00070802
+         ))-                                                            00070901
+    OUTDYNAM(E9DR05)  -                                                 00071001
+    DELETE PURGE CATALOG -                                              00071101
+    ALLDATA(*) ALLEXCP SPHERE -                                         00071201
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00071301
+                                                                        00074601
+/*                                                                      00075001
+//                                                                      00080000
+                                                                        00090001
+DB2RKD2.DSNDBD.EBKD2P02.TSKDW138.I0001.A001                             00100002
+DB2RKD2.DSNDBD.EBKD2P02.TSKDW138.I0001.A002                             00110002
+DB2RKD2.DSNDBD.EBKD2P02.TSKDW138.I0001.A003                             00120002
+DB2RKD2.DSNDBD.EBKD2P02.TSKDW138.I0001.A004                             00130002
+DB2RKD2.DSNDBD.EBKD2P02.TSKDW138.I0001.A005                             00140002
+                                                                        00150002
+                                                                        00160002
+                                                                        00170002
+                                                                        00180002
+                                                                        00190002

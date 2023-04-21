@@ -1,0 +1,17 @@
+//DT0072X JOB ,'RDL RM102',CLASS=S,MSGCLASS=X,NOTIFY=DT0072             00001000
+//STEP1 EXEC PGM=ADRDSSU                                                00010000
+//PLDIGN DD DUMMY                                                       00020000
+//NOTAPE DD DUMMY                                                       00030000
+//DUMMY  DD DUMMY                                                       00040000
+//SYSPRINT DD SYSOUT=*                                                  00050000
+//SYSIN    DD *                                                         00060000
+  COPY DATASET(INCLUDE(   -                                             00070000
+    DB2RKD2.DSNDBC.EBKD2P02.IX1KD070.I0001.A001 -                       00080000
+         ))-                                                            00090000
+    OUTDYNAM(E9DR05)  -                                                 00100000
+    DELETE PURGE CATALOG -                                              00110000
+    ALLDATA(*) ALLEXCP SPHERE -                                         00120000
+    TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2)                 00130000
+                                                                        00140000
+/*                                                                      00149500
+//                                                                      00150000

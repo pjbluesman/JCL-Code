@@ -1,0 +1,16 @@
+//UXD000M JOB ,'RDL RCC 2ND FLOOR',CLASS=S,MSGCLASS=X                   00010001
+//JOBLIB  DD  DSN=SSXDT.DSNDBVG.DB3V.SDSNLOAD,DISP=SHR                  00020001
+//STEP02  EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     00030000
+//SYSTSPRT DD SYSOUT=*                                                  00040000
+//SYSTSIN  DD *                                                         00050000
+ DSN SYSTEM(DB3V)                                                       00060001
+ RUN  PROGRAM(DSNTIAD) PLAN(DSNTIAD) -                                  00201000
+      LIB('SSXDT.DSNDBVG.DB3V.RUNLIB.LOAD')                             00202001
+ END                                                                    00210000
+/*                                                                      00220000
+//SYSPRINT DD SYSOUT=*                                                  00230000
+//SYSUDUMP DD SYSOUT=*                                                  00240000
+//SYSIN    DD  *                                                        00250000
+   SELECT DELTA.TODATE(CAST(1234 AS INTEGER)) FROM SYSIBM.SYSDUMMY1;    00260001
+//*                                                                     00270000
+//                                                                      00280000

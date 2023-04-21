@@ -1,0 +1,60 @@
+//MIBM16TB JOB ,'S PAYNE',CLASS=S,MSGCLASS=X,NOTIFY=MIBM16T             00001000
+//**********************************************************************00010000
+//*  NAME = DSNTEJ2A                                                   *00020000
+//*                                                                    *00030000
+//*  DESCRIPTIVE NAME = DB2 SAMPLE APPLICATION                         *00040000
+//*                     PHASE 2                                        *00050000
+//*                     ASSEMBLER                                      *00060000
+//*                                                                    *00070000
+//*    COPYRIGHT = 5665-DB2 (C) COPYRIGHT IBM CORP 1982, 1991          *00080000
+//*    SEE COPYRIGHT INSTRUCTIONS                                      *00086000
+//*    LICENSED MATERIALS - PROPERTY OF IBM                            *00093000
+//*                                                                    *00100000
+//*    STATUS = VERSION 2 RELEASE 3, LEVEL 0                           *00110000
+//*                                                                    *00120000
+//*  FUNCTION = THIS JCL PERFORMS THE PHASE 2 SETUP FOR THE SAMPLE     *00130000
+//*             APPLICATIONS.  IT PREPARES AND RUNS THE SAMPLE         *00140000
+//*             ASSEMBLER BATCH TABLE UNLOAD PROGRAM                   *00150000
+//*                                                                    *00160000
+//*             THIS JOB IS RUN AFTER PHASE 1.                         *00170000
+//**********************************************************************00190000
+//*                                                                     00210000
+//JOBLIB  DD  DSN=DB2D.V2R2.DSNLOAD,DISP=SHR                            00230000
+//*                                                                     00250000
+//* PRECOMPILE, ASSEMBLE, AND LINK EDIT THE UNLOAD PROGRAM              00260000
+//*                                                                     00270000
+//PREPUNL EXEC DSNHASMH,MEM=DSNTIAUL,                                   00280000
+//         PARM.PC='HOST(ASM),STDSQL(NO)',                              00290000
+//         PARM.ASM='RENT,OBJECT,NODECK',                               00300000
+//         PARM.LKED='RENT,XREF'                                        00310000
+//PC.DBRMLIB   DD DSN=SSXDP.DB2MAINT.DBRMLIB(DSNTIAUL),                 00320000
+//             DISP=SHR                                                 00326000
+//PC.SYSLIB    DD DSN=SSXDT.DB2T.V2R3.DSNSAMP,                          00332000
+//             DISP=SHR                                                 00338000
+//PC.SYSIN     DD DSN=SSXDT.DB2T.V2R3.DSNSAMP(DSNTIAUL),                00344000
+//             DISP=SHR                                                 00350000
+//ASM.SYSLIB   DD                                                       00356000
+//             DD DSN=SSXDT.DB2T.V2R3.DSNMACS,                          00358000
+//             DISP=SHR                                                 00360000
+//             DD DSN=SSXDT.DB2T.V2R3.DSNSAMP,                          00362000
+//             DISP=SHR                                                 00369000
+//LKED.SYSLMOD DD DSN=SSXDP.DB2MAINT.RUNLIB(DSNTIAUL),                  00376000
+//             DISP=SHR                                                 00383000
+//LKED.SYSIN   DD *                                                     00390000
+  INCLUDE SYSLIB(DSNELI)                                                00400000
+  NAME DSNTIAUL(R)                                                      00410000
+//*                                                                     00420000
+//* BIND THE UNLOAD PROGRAM AND GRANT EXECUTE AUTHORITY TO PUBLIC       00430000
+//*                                                                     00440000
+//BINDUNL EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     00450000
+//DBRMLIB  DD  DSN=SSXDP.DB2MAINT.DBRMLIB,                              00460000
+//             DISP=SHR                                                 00470000
+//SYSTSPRT DD  SYSOUT=*                                                 00480000
+//SYSPRINT DD  SYSOUT=*                                                 00490000
+//SYSUDUMP DD  SYSOUT=*                                                 00500000
+//SYSTSIN  DD  *                                                        00510000
+  DSN SYSTEM(DSND)                                                      00520000
+  BIND PLAN(DSNTIB23) MEM(DSNTIAUL) ACT(REP) ISOLATION(CS)  -           00530000
+       LIB('SSXDP.DB2MAINT.DBRMLIB')                                    00540000
+  END                                                                   00570000
+/*                                                                      00580000

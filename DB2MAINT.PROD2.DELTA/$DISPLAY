@@ -1,0 +1,33 @@
+//DB2DISP  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSI
+//*********************************************************************
+//* $DISPLAY                                                          *
+//*********************************************************************
+//         JCLLIB ORDER=SSXDT.TOOLKIT.PROCLIB
+//*
+//TSLOCK01 EXEC TSOBATCH
+//STEPLIB  DD  DISP=SHR,
+//             DSN=SSXDP.DWP1.SDSNEXIT
+//         DD  DISP=SHR,
+//             DSN=SDWP1.SDSNLOAD
+//SYSTSIN  DD  *
+  DSN SYSTEM(DWPG)
+  -DIS GBPOOL(*) GDETAIL(*) TYPE(GCONN)
+  END
+//
+//
+      -DISPLAY DATABASE(EBKD3P03) SPACENAM(IX4KD037)
+      -DISPLAY DATABASE(EBKD3P03) SPACENAM(TSKD0037) LIMIT(*) LOCKS
+      -DISPLAY DATABASE(EBKD3P03) SPACENAM(IX4KD037) LIMIT(*) LOCKS
+//TSUSE01  EXEC TSOBATCH
+//STEPLIB  DD  DISP=SHR,
+//             DSN=SSXDP.DB2R.SDSNEXIT
+//         DD  DISP=SHR,
+//             DSN=SDB2R.SDSNLOAD
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB2R)
+      -DISPLAY DATABASE(EBKD3P03) SPACENAM(TSKD0037)  LIMIT(*)  USE
+      -DISPLAY DATABASE(EBKD3P03) SPACENAM(IX4KD037)  LIMIT(*)  USE
+  END
+/*

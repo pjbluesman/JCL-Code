@@ -1,0 +1,155 @@
+/*REXX - MODEL */
+
+Trace Off                                  /* Tracing Off            */
+Address Ispexec                            /* Route commands to ISPF */
+"ISPEXEC CONTROL ERRORS RETURN"
+Parse Upper Arg parms "!" debug_option .
+Parse Source . . exec_name .
+rexx_cmd=Outtrap(msgs.)                 /* trap all console messages */
+If Abbrev("DEBUG",debug_option,5) Then Do
+   Trace ?I
+   rexx_cmd=Outtrap("OFF")
+   End
+If Abbrev("TRACE",debug_option,1) Then Do
+   Trace Results
+   rexx_cmd=Outtrap("OFF")
+   End
+Parse Value '' With loadlib proclib panels messages skeletons,
+  tables libdef_list file_list
+
+/* Set application dependent parameters ----------------------------- */
+
+/* Note: See LIBDEF for ISPLLIB */
+
+runs_on_systems="MOP"       /* Last character of valid sysid's  */
+"ISPEXEC VGET SYSID PROFILE"
+application="DB2 Utilities"
+/* QUALIFIER="SDB2Q" alias for SYS2.DB2V8  */
+QUALIFIER="SDB2Q"
+QUAL2="SSXDT.DB2Q"
+/* select="PANEL(DSNEPRI) NEWAPPL(DSNE) PASSLIB" */
+select="CMD(DSNECPRI) NEWAPPL(DSNE) PASSLIB"
+
+loadlib="SDSNLOAD" /* also DSNEXIT */
+proclib="SDSNCLST"
+panels="SDSNSPFP SDSNPFPE"
+messages="SDSNSPFM"
+skeletons="SDSNSPFS"
+tables="SDSNSPFT"
+/* ----------------------------------------------------------------- */
+
+/* Remove any blanks from qualifier and append a period to the end if
+   there is not one there already */
+
+"ISPEXEC VGET SYSID PROFILE"
+If Pos(Right(sysid,1),runs_on_systems)=0 Then Signal NOT_HERE_RTN
+qualifier=Space(qualifier,0)
+If Right(qualifier,1)^='.' Then qualifier=qualifier'.'
+If Right(QUAL2,1)^='.' Then QUAL2=QUAL2'.'
+
+/* Allocate & define application datasets -------------------------- */
+
+ddname="@DDNAME"
+dataset_name_qualifier="@DSNQUALIFIER"
+If Left(ddname,1)^="@" Then Do
+  Address TSO "ALLOCATE DD("ddname") DATASET('"qualifier,
+    ||dataset_name_qualifier"') SHR REUSE"
+   If Rc^=0 Then Call ALLOCATION_ERROR
+   file_list=file_list ddname
+   End
+
+/* ----------------------------------------------------------------- */
+
+/* Allocate & define application libraries ------------------------- */
+
+If proclib>'' Then Do
+   Address TSO "ALTLIB ACTIVATE APPLICATION(CLIST)",
+      "DATASET('"qualifier||proclib"') UNCOND"
+   If Rc^=0 Then Call SYSPROC_ERROR
+   End
+trace o
+If messages>''  Then Call LIBRARY_DEFINITION "ISPMLIB" messages
+If skeletons>'' Then Call LIBRARY_DEFINITION "ISPSLIB" skeletons
+If tables>''    Then Call LIBRARY_DEFINITION "ISPTLIB" tables
+If panels>''    Then Call LIBDEF_PANELS      "ISPPLIB" panels
+If loadlib>''   Then Do
+   "ISPEXEC LIBDEF ISPLLIB DATASET ID('"qual2"SDSNEXIT'",
+      "'"qualifier||loadlib"')"
+   If Rc^=0 Then Signal LIBDEF_ERROR
+   libdef_list=libdef_list "ISPLLIB"
+   End
+
+x=Outtrap("OFF")
+Drop msgs.
+
+/* ----------------------------------------------------------------- */
+
+"ISPEXEC SELECT" select
+/* ----------------------------------------------------------------- */
+
+CLEANUP_RTN: Trace O
+x=Outtrap(msgs.)
+If proclib>''   Then Address TSO "ALTLIB DEACTIVATE APPLICATION(CLIST)"
+Do i=Words(libdef_list) To 1 By -1
+   "ISPEXEC LIBDEF" Word(libdef_list,i)
+   End
+Address TSO
+Do i=1 To Words(file_list)
+   "FREE DD("Word(file_list,i)")"
+   End
+x=Outtrap("OFF")
+Exit
+
+LIBRARY_DEFINITION: Arg library library_qualifier
+"ISPEXEC LIBDEF" library "DATASET ID('"qualifier||library_qualifier"')"
+If Rc^=0 Then Signal LIBDEF_ERROR
+libdef_list=libdef_list library
+Return
+LIBDEF_PANELS:
+  Parse Arg library library_qualifier
+  dslist = ''
+  Do i = 1 to Words(Library_qualifier)
+     dslist = dslist " '"||qualifier||Word(library_qualifier,i)||"'"
+  End
+"ISPEXEC LIBDEF" library "DATASET ID("dslist")"
+If Rc^=0 Then Signal LIBDEF_ERROR
+libdef_list=libdef_list library
+trace o
+Return
+
+ALLOCATION_ERROR:
+Say
+Say Left(application "Error ",78,'*')
+Say
+Say "          Unable to ALLOCATE"
+Say "             DDName:"ddname
+Say "            Dataset:"qualifier||dataset_name_qualifier
+Say "        Return Code:"Rc
+Say
+Say Left(exec_name "Terminating ",78,'*')
+Say
+Signal CLEANUP_RTN
+
+SYSPROC_ERROR:
+library="SYSPROC"
+library_qualifier=proclib
+proclib=''
+Signal LIBDEF_ERROR
+
+LIBDEF_ERROR:
+Say
+Say Left(application "Error ",78,'*')
+Say
+Say "  Unable to access Library"
+Say "              Name:"library
+Say "           Dataset:"qualifier||library_qualifier
+Say "       Return Code:"Rc
+Say
+Say Left(exec_name "Terminating ",78,'*')
+Say
+Signal CLEANUP_RTN
+
+NOT_HERE_RTN:
+Say
+Say application "is not available on this system ("sysid")."
+Say

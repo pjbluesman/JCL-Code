@@ -1,0 +1,37 @@
+//UXD000M JOB (,102),'GLK',CLASS=S,MSGCLASS=X
+//*
+//*
+//* *************************************************************** */  00370000
+//DSNTIC  PROC                                                          00380000
+//* *************************************************************** */  00390000
+//* CREATE ACTIVE LOG VSAM DATASETS                                 */  00400000
+//*                                                                 */
+//*                                                                 */
+//* *************************************************************** */  00410000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)                                   00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//DSNTLOG EXEC DSNTIC                                                   01690000
+//SYSIN    DD  *                                                        01730000
+   DEFINE CLUSTER                             -                         01900000
+         ( NAME(DB2P.LOGCOPY1.DS08)           -                         01910000
+           LINEAR                             -                         01920000
+           REUSE                              -                         01930000
+           CYLINDERS(400 0)                   -                         01940000
+                                 )            -                         01970000
+      DATA                                    -                         01980000
+         ( NAME(DB2P.LOGCOPY1.DS08.DATA)      -                         01990000
+           VOLUMES(A3D2ZB) )                  -                         02030000
+      CATALOG(DB2P)                                                     02040000
+   DEFINE CLUSTER                             -                         01900000
+         ( NAME(DB2P.LOGCOPY2.DS08)           -                         01910000
+           LINEAR                             -                         01920000
+           REUSE                              -                         01930000
+           CYLINDERS(400 0)                   -                         01940000
+                                 )            -                         01970000
+      DATA                                    -                         01980000
+         ( NAME(DB2P.LOGCOPY2.DS08.DATA)      -                         01990000
+           VOLUMES(A3D2ZA) )                  -                         02030000
+      CATALOG(DB2P)                                                     02040000
+ *                                                                      08290000

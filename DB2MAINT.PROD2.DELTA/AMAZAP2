@@ -1,0 +1,32 @@
+//UXD001M JOB (,102),'G KELLY',CLASS=S,MSGCLASS=X                       00001000
+//*                                                                     00002000
+//VERIFY   EXEC PGM=AMASPZAP,PARM=IGNIDRFULL                            00003000
+//SYSPRINT DD SYSOUT=*                                                  00004000
+//SYSLIB   DD DSN=SSXDT.CDB.PTF19.LOADLIB,DISP=SHR                      00005000
+//SYSIN    DD *                                                         00006000
+        NAME CDBUTIL RRGM7DYN                                           00007000
+        VER  12FA  58F0,C040,A7FA,2EC2,0DEF,A7F4,FA95,0700              00008000
+        REP  12FA  9180,6034,A714,0006,9108,6032,A7E4,FA94              00009000
+CHECKSUM 2273D768                                                       00010000
+*                                                                       00020000
+        NAME CDBUTIL RRGMXDYN                                           00030000
+        VER  0CE0  58F0,C040,A7FA,2EC2,0DEF,47F0,C266,0700              00040000
+        REP  0CE0  9180,6034,4710,CCF0,9108,6032,47E0,C266              00050000
+CHECKSUM FC4E2DDB                                                       00060000
+*                                                                       00070000
+        NAME CDBUTIL PATCH                                              00080000
+        VER  2EC2  9500,5056,A784,0006,9504,5056,A774,000B              00090000
+        VER  2ED2  9120,5057,07EE,4810,5080,1A15,9120,1012              00100000
+        VER  2EE2  07EE,9180,6034,A714,0006,9108,6032,47E0              00110000
+        VER  2EF2  E000,47F0,E004                                       00120000
+        REP  2EC2  2EC2,2EC4,2EC6,2EC8,2ECA,2ECC,2ECE,2ED0              00130000
+        REP  2ED2  2ED2,2ED4,2ED6,2ED8,2EDA,2EDC,2EDE,2EE0              00140000
+        REP  2EE2  2EE2,2EE4,2EE6,2EE8,2EEA,2EEC,2EEE,2EF0              00150000
+        REP  2EF2  2EF2,2EF4,2EF6                                       00160000
+CHECKSUM 09769754                                                       00170000
+*                                                                       00180000
+       NAME CDBUTIL FEATURES    (APARID=498)                            00190000
+       VER  0271  00                                                    00200000
+       REP  0271  01                                                    00210000
+CHECKSUM 73720002                                                       00220000
+                                                                        00230000

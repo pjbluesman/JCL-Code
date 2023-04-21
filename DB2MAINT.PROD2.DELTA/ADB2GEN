@@ -1,0 +1,64 @@
+//DB2ZXADM  JOB ,'DB2 CHEKOUT',CLASS=S,MSGCLASS=X,
+//          NOTIFY=&SYSUID
+//*
+//* IVPS JOBS FOR DB2 CHECKOUT MVST DB2Z
+//*
+//*
+//**********************************************************************
+//*
+//* DB2 ADMIN GENERATED JOB
+//*
+//**********************************************************************
+//*
+//***********************************************************ADB2GEN2**
+//* STEP GENSQL: GENERATE SQL FROM DB2 CATALOG
+//**********************************************************************
+//GENSQL   EXEC PGM=IKJEFT1B,DYNAMNBR=100
+//STEPLIB  DD DISP=SHR,DSN=SSXDT.DB2TOOLS.ADM.SGOCLLIB
+//         DD DISP=SHR,DSN=SSXDT.DB2TOOLS.ADM.SADBLLIB
+//         DD DISP=SHR,DSN=SSXDT.DB2Z.SDSNEXIT
+//         DD DISP=SHR,DSN=SDB2Z.SDSNLOAD
+//         DD DISP=SHR,DSN=SSXDT.DB2TOOLS.ADM.SADBLINK
+//SYSTSPRT DD SYSOUT=*
+//SYSTSIN  DD *
+  DSN SYSTEM(DB2Z)
+  RUN PROG(ADB2GEN) PLAN(ADB2GEN) -
+  PARMS('/REBIND')
+  END
+/*
+//SYSPRINT DD SYSOUT=*
+//SQL      DD SYSOUT=*,DCB=(RECFM=FB,LRECL=80)
+//IN       DD *
+  DB2SYS   = 'DB2Z',
+  DB2ALOC  = '',
+  DB2SERV  = 'DB2Z',
+  DB2AUTH  = 'LSEBDB2',
+  DB2REL   = '915',
+  GENSG    = 'N',
+  GENDB    = '',
+  GENTS    = '',
+  GENTABLE = '',
+  GENVIEW  = '',
+  GENINDEX = '',
+  GENSYN   = 'N',
+  GENALIAS = 'N',
+  GENLABEL = 'N',
+  GENCOMM  = 'N',
+  GENRELS  = 'N',
+  GENTRIG  = 'N',
+  GRANTDB  = '',
+  GRANTTS  = 'N',
+  GRANTTAB = 'N',
+  GRANTVW  = 'N',
+  GRANTSG  = 'N',
+  NEWDB    = '',
+  NEWTSSG  = '',
+  NEWIXSG  = '',
+  NEWSQLID = '',
+  NEWGRANTOR = '',
+  SPCALLOC = 'DEFINED',
+  TGTDB2   = '';
+  DB='DSNRTSDB' ;
+  ;
+//
+  DB='DSNRTSDB',  TS='DSNRTSTS';

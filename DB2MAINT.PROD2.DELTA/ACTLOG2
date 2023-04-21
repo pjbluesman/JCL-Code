@@ -1,0 +1,77 @@
+//UXD000M JOB (,102),'CJR',CLASS=S,MSGCLASS=X
+//*
+//*
+//* *************************************************************** */  00370000
+//DSNTIC  PROC                                                          00380000
+//* *************************************************************** */  00390000
+//* CREATE NEW ACTIVE LOG VSAM DATASETS WITH GREATER ALLOCATIONS    */  00400000
+//* ON NEW DASD                                                     */
+//*                                                                 */
+//* *************************************************************** */  00410000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)                                   00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//DSNTLOG EXEC DSNTIC                                                   01690000
+//SYSIN    DD  *                                                        01730000
+   DEFINE CLUSTER                             -                         01900000
+         ( NAME(DB2D.NEW.LOGCOPY1.DS01)       -                         01910000
+           LINEAR                             -                         01920000
+           REUSE                              -                         01930000
+           CYLINDERS(280 0)                   -                         01940000
+                                 )            -                         01970000
+      DATA                                    -                         01980000
+         ( NAME(DB2D.NEW.LOGCOPY1.DS01.DATA)  -                         01990000
+           VOLUMES(A3D2Z2) )                  -                         02030000
+      CATALOG(DB2D)                                                     02040000
+   DEFINE CLUSTER                             -                         01900000
+         ( NAME(DB2D.NEW.LOGCOPY1.DS03)       -                         01910000
+           LINEAR                             -                         01920000
+           REUSE                              -                         01930000
+           CYLINDERS(280 0)                   -                         01940000
+                                 )            -                         01970000
+      DATA                                    -                         01980000
+         ( NAME(DB2D.NEW.LOGCOPY1.DS03.DATA)  -                         01990000
+           VOLUMES(A3D2Z2) )                  -                         02030000
+      CATALOG(DB2D)                                                     02040000
+   DEFINE CLUSTER                             -                         01900000
+         ( NAME(DB2D.NEW.LOGCOPY1.DS03)       -                         01910000
+           LINEAR                             -                         01920000
+           REUSE                              -                         01930000
+           CYLINDERS(280 0)                   -                         01940000
+                                 )            -                         01970000
+      DATA                                    -                         01980000
+         ( NAME(DB2D.NEW.LOGCOPY1.DS03.DATA)  -                         01990000
+           VOLUMES(A3D2Z2) )                  -                         02030000
+      CATALOG(DB2D)                                                     02040000
+   DEFINE CLUSTER                             -                         01900000
+         ( NAME(DB2D.NEW.LOGCOPY1.DS05)       -                         01910000
+           LINEAR                             -                         01920000
+           REUSE                              -                         01930000
+           CYLINDERS(280 0)                   -                         01940000
+                                 )            -                         01970000
+      DATA                                    -                         01980000
+         ( NAME(DB2D.NEW.LOGCOPY1.DS05.DATA)  -                         01990000
+           VOLUMES(A3D2Z2) )                  -                         02030000
+      CATALOG(DB2D)                                                     02040000
+   DEFINE CLUSTER                             -                         01900000
+         ( NAME(DB2D.NEW.LOGCOPY2.DS02)       -                         01910000
+           LINEAR                             -                         01920000
+           REUSE                              -                         01930000
+           CYLINDERS(280 0)                   -                         01940000
+                                 )            -                         01970000
+      DATA                                    -                         01980000
+         ( NAME(DB2D.NEW.LOGCOPY2.DS02.DATA)  -                         01990000
+           VOLUMES(A3D2Z2) )                  -                         02030000
+      CATALOG(DB2D)                                                     02040000
+   DEFINE CLUSTER                             -                         01900000
+         ( NAME(DB2D.NEW.LOGCOPY2.DS04)       -                         01910000
+           LINEAR                             -                         01920000
+           REUSE                              -                         01930000
+           CYLINDERS(280 0)                   -                         01940000
+                                 )            -                         01970000
+      DATA                                    -                         01980000
+         ( NAME(DB2D.NEW.LOGCOPY2.DS04.DATA)  -                         01990000
+           VOLUMES(A3D2Z2) )                  -                         02030000
+      CATALOG(DB2D)                                                     02040000
+ *                                                                      08290000

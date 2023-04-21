@@ -1,0 +1,21 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=T799172
+/*JOBPARM SYSAFF=MVSE
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR
+//*______________________________________________________________
+//* COMANDOS SDSF BATCH
+//*______________________________________________________________
+//SDSFBATC EXEC PGM=SDSF
+//SYSPRINT DD SYSOUT=*
+//ISFOUT   DD DUMMY
+//ISFIN    DD *
+  /D WLM,APPLENV=*
+  /D IPLINFO
+  /D PROG,LNKLST
+  LOG S
+  BOT
+  FIND 'UXC401M - STARTED' PREV
+    PRINT * 999
+    PRINT CLOSE
+/*
