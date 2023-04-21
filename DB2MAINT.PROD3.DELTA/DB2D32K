@@ -1,0 +1,46 @@
+//D73294T7   JOB ,'CJR RM 102',CLASS=S,MSGCLASS=X                       00001000
+//* *************************************************************** */  00180000
+//JOBLIB  DD  DISP=SHR,                                                 00190000
+//            DSN=SSXDT.DB2D.V2R3.DSNLOAD                               00200000
+//DSNTIC  PROC                                                          00210000
+//* *************************************************************** */  00220000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE         */  00230000
+//* *************************************************************** */  00240000
+//DSNTIC  EXEC PGM=IDCAMS                                               00250000
+//SYSPRINT DD SYSOUT=*                                                  00270000
+//SYSUDUMP DD SYSOUT=*                                                  00280000
+//DSNTIC  PEND                                                          00290000
+//DSNTTMP EXEC DSNTIC                                                   00720000
+//* ***********************************************                     00730000
+//*    CREATED 11/17/92 BY CJR
+//*         DELETES ALL 32K DATASETS IN DSNDB07 FOR DB2D AND
+//*            RE-ALLOCATES ONLY 2 32K DATASETS, WITH MORE SPACE
+//*
+//* ***********************************************                     00780000
+//SYSIN DD *                                                            01050000
+    DEFINE CLUSTER -                                                    01050001
+       ( NAME(DB2D.DSNDBC.DSNDB07.DSN32K03.I0001.A001) -                01050002
+            LINEAR     -                                                01050003
+            REUSE -                                                     01050004
+            VOLUMES(D2SP14) -                                           01050005
+            CYLINDERS(20 0) -                                           01050006
+            SHAREOPTIONS(3 3) ) -                                       01050007
+       DATA -                                                           01050008
+       ( NAME(DB2D.DSNDBD.DSNDB07.DSN32K03.I0001.A001) -                01050009
+                          ) -                                           01050010
+      CATALOG(DB2D)                                                     01050011
+                                                                        01050012
+    DEFINE CLUSTER -                                                    01050013
+       ( NAME(DB2D.DSNDBC.DSNDB07.DSN32K04.I0001.A001) -                01050014
+            LINEAR     -                                                01050015
+            REUSE -                                                     01050016
+            VOLUMES(D2SP14) -                                           01050017
+            CYLINDERS(20 10) -                                          01050018
+            SHAREOPTIONS(3 3) ) -                                       01050019
+       DATA -                                                           01050020
+       ( NAME(DB2D.DSNDBD.DSNDB07.DSN32K04.I0001.A001) -                01050021
+                          ) -                                           01050022
+      CATALOG(DB2D)                                                     01050023
+                                                                        01050024
+                                                                        01050060
+//*                                                                     01491000

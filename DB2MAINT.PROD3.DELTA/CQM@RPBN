@@ -1,0 +1,84 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00001000
+//         NOTIFY=&SYSUID                                               00002000
+/*JOBPARM SYSAFF=MVSR                                                   00003000
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU                 00004000
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR                        00005000
+//*                                                                     00030000
+//*******************************************************************/  00040000
+//*                                                                     00050000
+//* LICENSED MATERIALS - PROPERTY OF IBM                                00060000
+//* 5655-V42                                                            00070000
+//* (C) COPYRIGHT IBM CORP. 1999, 2011 ALL RIGHTS RESERVED.             00080000
+//* (C) COPYRIGHT ROCKET SOFTWARE, INC. 1999, 2011 ALL RIGHTS RESERVED. 00090000
+//* US GOVERNMENT USERS RESTRICTED RIGHTS - USE, DUPLICATION OR         00100000
+//* DISCLOSURE RESTRICTED BY GSA ADP SCHEDULE CONTRACT WITH IBM CORP.   00110000
+//*                                                                     00120000
+//*******************************************************************/  00130000
+//*                                                                     00140000
+//********************************************************************  00150000
+//* This job gives an example of a DB2 BIND and GRANT to allow DB2   *  00160000
+//*   access using DB2 QM Batch Reporting for z/OS.                  *  00170000
+//*                                                                  *  00180000
+//* You may need to make modifications for your environment and your *  00190000
+//*   installed product set.  This example code is meant to be       *  00200000
+//*   illustrative only and has not been thoroughly tested under     *  00210000
+//*   all possible operating conditions.                             *  00220000
+//*                                                                  *  00230000
+//********************************************************************  00240000
+//*                                                                     00250000
+//********************************************************************  00260000
+//* THIS JOB MUST BE RUN FOR EACH DB2 THAT WILL BE ACCESSED WITH     *  00270000
+//* DB2 QM BATCH REPORTING FOR Z/OS.                                 *  00280000
+//*                                                                  *  00290000
+//*                                                                  *  00300000
+//* THE FOLLOWING CHANGES MUST BE MADE TO THIS JOB BEFORE SUBMITTING:*  00310000
+//*                                                                  *  00320000
+//* 1. CHANGE "DB2.LOADLIB" TO THE NAME OF YOUR DB2 LOAD LIBRARY     *  00330000
+//* 2. CHANGE "#SSID#" TO THE SUBSYSTEM ID OF YOUR DB2 SUBSYSTEM     *  00340000
+//* 3. CHANGE "PLANOWNER" TO THE SITE SPECIFIC OWNER                 *  00350000
+//* 4. CHANGE "CQMHLQ.SCQMDBRM" TO THE NAME OF YOUR DATA MASK & COPY *  00360000
+//*    DBRM LIBRARY                                                  *  00370000
+//* 5. CHANGE "DB2.RUNLIB.LOAD" TO THE DATA SET CONTAINING DSNTEP2   *  00380000
+//* 6. IF YOU DO NOT WISH TO USE THE GRANT BELOW, YOU MAY COMMENT IT *  00390000
+//*    OUT.                                                          *  00400000
+//*                                                                  *  00410000
+//********************************************************************  00420000
+//*                                                                     00430000
+//* BIND PLAN FOR BATCH REPORTS                                         00440000
+//*                                                                     00450000
+//BIND     EXEC PGM=IKJEFT01,DYNAMNBR=20                                00460000
+//STEPLIB  DD  DISP=SHR,DSN=SDB2R.SDSNLOAD                              00470000
+//         DD  DISP=SHR,DSN=SYS2.DB2TOOLS.PROD.SCQMLOAD                 00480000
+//SYSTSIN  DD  *                                                        00490000
+   DSN SYSTEM(DB2R)                                                     00500000
+   BIND PLAN (CQMPLAN2)   -                                             00510000
+      MEMBER (CQMDB2RX)   -                                             00520000
+      PKLIST(*.CQMCOL1.*) -                                             00530000
+      ACTION (ADD)        -                                             00540000
+      EXPLAIN    (NO)     -                                             00560000
+      ISOLATION  (CS)     -                                             00570000
+      SQLRULES   (DB2)    -                                             00580000
+      OWNER(LSEBDB2)                                                    00590000
+   END                                                                  00600000
+/*                                                                      00610000
+//DBRMLIB  DD  DISP=SHR,DSN=SYS2.DB2TOOLS.PROD.SCQMDBRM                 00620000
+//SYSPRINT DD  SYSOUT=*                                                 00630000
+//SYSTSPRT DD  SYSOUT=*                                                 00640000
+//*                                                                     00650000
+//* GRANT EXECUTE AUTHORITY ON PLAN TO PUBLIC                           00660000
+//*                                                                     00670000
+//GRANT    EXEC PGM=IKJEFT01,DYNAMNBR=20                                00680000
+//STEPLIB  DD  DISP=SHR,DSN=SDB2R.SDSNLOAD                              00690000
+//         DD  DISP=SHR,DSN=SSXDP.DB2R.RUNLIB.LOAD                      00700000
+//SYSTSIN  DD  *                                                        00710000
+   DSN SYSTEM(DB2R)                                                     00720000
+   RUN PROGRAM(DSNTEP2) PLAN(DSNTEP2)                                   00730000
+   END                                                                  00740000
+//*                                                                     00750000
+//SYSIN    DD  *                                                        00760000
+  SET CURRENT SQLID('LSEBDB2');                                         00761001
+   GRANT EXECUTE ON PLAN CQMPLAN2 TO PUBLIC;                            00770000
+/*                                                                      00780000
+//SYSTSPRT DD  SYSOUT=*                                                 00790000
+//SYSPRINT DD  SYSOUT=*                                                 00800000
+//                                                                      00810000

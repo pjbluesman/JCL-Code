@@ -1,0 +1,32 @@
+//UXD000M JOB (,102),'CJR',CLASS=S,MSGCLASS=X
+//*
+//*
+//* *************************************************************** */  00370000
+//DSNTIC  PROC                                                          00380000
+//* *************************************************************** */  00390000
+//* DIRECTORY/CATALOG DATASET DEFINITIONS                           */  00400000
+//*                                                                 */
+//* *************************************************************** */  00410000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)                                   00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//DSNTCPY EXEC DSNTIC                                                   02540000
+//* *********************************************                       06800000
+//* RESIZING SCT02 SYSPLAN DSN32K01 AND SEVERAL INDEXES 99NOV92
+//*
+//*
+//*
+//* *********************************************                       06820000
+//SYSIN DD *                                                            06830000
+   DEFINE CLUSTER                             -                         06840000
+         ( NAME(DB2M.DSNDBC.DSNDB06.SYSPKAGE.I0001.A001) -              06850000
+           LINEAR                             -                         06860000
+           REUSE                              -                         06870000
+           SHAREOPTIONS(3 3) )                -                         06920000
+      DATA                                    -                         06930000
+         ( NAME(DB2M.DSNDBD.DSNDB06.SYSPKAGE.I0001.A001) -              06940000
+           CYLINDERS(450 50)                   -
+           VOLUMES(A9D2AM))                  -
+      CATALOG(DB2M)                                                     06980000
+//*                                                                     08290000

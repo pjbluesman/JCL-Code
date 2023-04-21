@@ -1,0 +1,11 @@
+//*************************************************
+//*    JCL PROCEDURE FOR THE STARTUP OF THE
+//*    DISTRIBUTED DATA FACILITY ADDRESS SPACE
+//*
+//*************************************************
+//DB2ADIST PROC RGN=0K,
+//             LIB='SSXDT.DSNDBAG.DB2A.SDSNEXIT'
+//IEFPROC EXEC PGM=DSNYASCP,REGION=&RGN
+//STEPLIB  DD  DISP=SHR,DSN=&LIB
+//         DD  DISP=SHR,DSN=SYS1.CEE.SCEERUN
+//         DD  DISP=SHR,DSN=SSXDT.DSNDBAG.DB2A.SDSNLOAD

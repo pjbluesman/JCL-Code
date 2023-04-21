@@ -1,0 +1,50 @@
+//UXD001M JOB (,102),'GLK',CLASS=S,MSGCLASS=X
+//*
+//*
+//* *************************************************************** */  00370000
+//DSNTIC  PROC                                                          00380000
+//* *************************************************************** */  00390000
+//* DIRECTORY/CATALOG DATASET DEFINITIONS                           */  00400000
+//*                                                                 */
+//* *************************************************************** */  00410000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)                                   00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//DSNTCPY EXEC DSNTIC                                                   02540000
+//* *********************************************                       06800000
+//*  DEFINE DB2  CATALOG/DIRECTORY TABLESPACE = SYSPLAN (21JAN92) *     06810000
+//*              VOLUME & ALLOCATION CHANGE FOR SYSPLAN (15FEB92) *
+//*                                             SCT02   (12JAN92) *     06810000
+//*              VOLUME & ALLOCATION CHANGE FOR MANY    (13MAY92) *     06810000
+//*                     INDEXES AND SYSCOPY             (13MAY92) *     06810000
+//*              RE-ALLOCATING ALL CAT/DIR INDEXES WHICH WERE ON  *
+//*              DBB092 TO VOLUME                       (13JUN92) *
+//*              REALLOCATING AND RESIZING SCT02 DATASET 2
+//*                                                     (27JUL92) *
+//*              REALLOCATING AND RESIZING SYSPLAN DATASETS 1 AND 2
+//*                                                     (12AUG92) *
+//*              ADDING SCT02 EXTENSION I001.A003       (17AUG92) *
+//*              REALLOCATING AND RESIZING SYSCOPY SYSPLAN              00060000
+//*              DSNAPX01 DSNATX02 DSNPPH01 DSNUCH01 DSNUCX01           00060000
+//*                                                     (02DEC92) *     00060000
+//* RECOVERING SCTO2 FROM HEAD CRASH 12/37/93GLK)                       00060000
+//* *********************************************                       06820000
+//SYSIN DD *                                                            06830000
+  DEFINE CLUSTER -
+    ( NAME(DB2D.DSNDBC.DSNDB06.SYSPLAN.I0001.A001  ) -
+    LINEAR REUSE SHAREOPTIONS(3 3) ) -
+  DATA -
+    ( NAME(DB2D.DSNDBD.DSNDB06.SYSPLAN.I0001.A001  ) -
+    CYLINDER(2650  846) -
+    VOLUMES(D2SP12 D2SP04) ) -
+    CATALOG(DB2D)
+
+  DEFINE CLUSTER -
+    ( NAME(DB2D.DSNDBC.DSNDB06.SYSPLAN.I0001.A002  ) -
+    LINEAR REUSE SHAREOPTIONS(3 3) ) -
+  DATA -
+    ( NAME(DB2D.DSNDBD.DSNDB06.SYSPLAN.I0001.A002  ) -
+    CYLINDER(2300  300) -
+    VOLUMES(D2SP20) ) -
+ CATALOG(DB2D)

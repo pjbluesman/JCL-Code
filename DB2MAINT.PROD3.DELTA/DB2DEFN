@@ -1,0 +1,35 @@
+//UXD014M  JOB (,105),'CJR',CLASS=S,MSGCLASS=X
+//*
+//*
+//* *************************************************************** */  00370000
+//DSNTIC  PROC                                                          00380000
+//* *************************************************************** */  00390000
+//* DIRECTORY/CATALOG DATASET DEFINITIONS                           */  00400000
+//*                                                                 */
+//* *************************************************************** */  00410000
+//DSNTIC  EXEC PGM=IDCAMS                                               00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//DSNTCPY EXEC DSNTIC                                                   02540000
+//* *********************************************                       06800000
+//*
+//*
+//* REALLOCATING DATASETS SYSPKAGE, SPTO1 AND INDEXES 3/3/93
+//*
+//* RESIZING DSNKDX01 AND DSNKLX02 6/8/94CJR
+//* MOVING ALL TABLESPACES FROM DBB091 TO A3D2Z0 - 6/15/94
+//* *********************************************                       06820000
+//SYSIN DD *                                                            06830000
+ DEFINE CLUSTER                             -
+     (NAME( DB2R.DSNDBC.DSNDB01.DSNLLX02.I0001.A002) -
+         LINEAR                             -
+         REUSE                              -
+         VOLUMES(A3D2BO)                    -
+         RECORDS(13829 13829)               -
+         SHAREOPTIONS(3 3) )                -
+    DATA                                    -
+       ( NAME(DB2R.DSNDBD.DSNDB01.DSNLLX02.I0001.A002) -
+                            )    CATALOG(DB2R)
+                                                                        08290000
+//*                                                                     08290000

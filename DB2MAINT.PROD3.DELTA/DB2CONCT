@@ -1,0 +1,137 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <sqlca.h>
+#include <sql.h>
+
+
+int main(int argc, char **argv)
+{
+    	struct sqlca sqlca;
+
+    	EXEC SQL BEGIN DECLARE SECTION;
+
+    	char 	userid[9] = "????????";
+    	char 	passwd[9] = "????????";
+    	char 	database[9] = "DB2U";
+
+	char	Beg_Timestamp[27];		
+	
+			
+    	EXEC SQL END DECLARE SECTION;
+
+	int  	rc = 0 ;
+	int  	call_return = 0;
+	char 	msgBuf[1024];
+	
+	call_return = Get_Parms(userid, passwd, database) ;
+	if (call_return < 5)
+		{	
+	 	EXEC SQL CONNECT TO :database USER :userid USING :passwd;
+         	if (SQLCODE != 0)
+	   		{
+			goto dberr;
+			}
+		else
+			{
+			EXEC SQL SELECT CURRENT_TIMESTAMP
+				INTO :Beg_Timestamp
+			FROM SYSIBM.SYSDUMMY1 ;
+			printf("dbpt0001:  Connection to database is successful\n");
+			}
+		}
+
+	printf ("dbpt0099:  Process complete\n");
+	return 0;
+
+dberr:
+        EXEC SQL WHENEVER SQLERROR CONTINUE;
+	printf ("%s %d\n","dbpt2000: SQLCODE = ",SQLCODE);
+	rc = sqlaintp(msgBuf, 1024, 80, &sqlca);
+	printf("dbpt0800:  Database error: %s\n", msgBuf);
+
+        return 0;
+}
+
+int Get_Parms(char user_name[],  char user_passwd[], char db_name[])
+{
+
+	FILE	*db2_parms_file;
+	char	*read_status;
+
+    	int	file_status = 0;
+	int	return_code = 0;
+	int	sub = 0;
+	int	fld_count = 0;
+	char    dsn_wrk[26] = " ";
+	char	parm_dsn[26] = "db2_parms.txt";
+	char    parm_rec[22];
+
+	char   	parm_type[9];
+	char	parm_fill[2];
+	char	parm_value[9];
+	char	process_flag = 'Y';
+
+	fflush (stdin);
+	printf("\n\nEnter a 1-25 character parameter file name and extension: ");
+	gets(dsn_work);
+
+	if ( strlen (dsn_wrk) > 1 )
+	   if ( strcmp(dsn_wrk," ") == 0 )
+	      {	
+	      strcpy(parm_dsn,dsn_wrk) ;	
+	      }
+	
+	db2_parms_file = fopen(parm_dsn,"r");
+
+	if (db2_parms_file == NULL)
+	   {
+	    printf("dbpt0905:  Unable to open DB2 runtime parameter dataset\n\n");
+	    return_code = 8 ;
+	   }
+	else 	
+	   {
+	    while ( process_flag == 'Y' )		
+	       	{	
+	         read_status = fgets (parm_rec,21,db2_parms_file);
+	         if (read_status == NULL)
+	   		{
+			process_flag = 'N';
+		 	file_status = fclose(db2_parms_file);
+	         	if (file_status != NULL)
+	            		{
+		     		printf("dbpt0915:  Unable to close DB2 runtime parameter dataset\n\n");
+	             		return_code = 4 ;
+		    		}
+			}
+		else
+	        	{
+		 	printf("dbpt0905:  Processing a DB2 runtime parameter record\n");
+		 	fld_count = sscanf(parm_rec,"%8s %1s %8s",parm_type,parm_fill,parm_value);
+		 	for (sub = 0; sub < 9; sub++)
+		 		{
+		  		parm_type[sub] = toupper(parm_type[sub]);
+		 		}
+		 	if (strcmp(parm_type,"DBNAME") == 0 )
+		   		{
+		    		strcpy(db_name,parm_value);
+				printf("dbpt0930:  Database name parameter found: %s\n", db_name);
+				}
+		 	else
+		   		if (strcmp(parm_type,"USERNAME") == 0 )
+		      			{
+		       			strcpy(user_name,parm_value);
+					printf("dbpt0930:  User name parameter found: %s\n", user_name);
+		      			}
+		   		else
+		      			if (strcmp(parm_type,"PASSWORD") == 0 )
+		      				{
+		       				printf("dbpt0930:  User password parameter found: ********\n");
+		       				strcpy(user_passwd,parm_value);
+		      				}
+	        	}	
+	         } 	
+	  }
+
+		
+	return (return_code) ;
+}

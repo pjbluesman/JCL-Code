@@ -1,0 +1,3 @@
+C_COMPILER=CCNDRVR                                                      00010001
+;                                                                       00011001
+ISOLATION_DEFAULT= CS                                                   00020000

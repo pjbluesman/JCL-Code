@@ -1,0 +1,348 @@
+//UXD001M JOB (,102),'G KELLY',CLASS=S,MSGCLASS=X
+//*********************************************************************
+//*
+//*            BIND PACKAGES AND PLAN CDBPLAN ON DB2=MODL             *
+//*                                                                   *
+//*            DO NOT REMOVE *V# COMMENTS FROM DD CDBIN.              *
+//*                                                                   *
+//*            CDBBINDR WILL STRIP OFF THESE COMMENTS AND             *
+//*            DYNAMICALLY ADD THE REQUIRED PACKAGE BASED ON          *
+//*            THE VERSION OF DB2.                                    *
+//*                                                                   *
+//*********************************************************************
+//SUTBND1 EXEC PGM=CDBBINDR,DYNAMNBR=20
+//STEPLIB   DD  DISP=SHR,DSN=SSXDT.CDB.PTF19.LOADLIB
+//          DD  DISP=SHR,DSN=SSXDP.DSNDBRG.DB6R.SDSNEXIT
+//          DD  DISP=SHR,DSN=SSXDP.DSNDBRG.DB6R.SDSNLOAD
+//DBRMLIB   DD DISP=SHR,DSN=SSXDT.CDB.PTF19.CNTL
+//SYSTSPRT  DD SYSOUT=*
+//SYSPRINT  DD SYSOUT=*
+//SYSTSIN   DD UNIT=SYSDA,SPACE=(TRK,(1,1))
+//CDBIN     DD *
+ DSN SYSTEM(DB6R)
+*
+* DB2 VERSION 5 AND HIGHER SYSTEM
+*
+ BIND PACKAGE(RRGV5STS)-
+ ACTION(REPLACE)       -
+ ENABLE(BATCH,DB2CALL) -
+ EXPLAIN(NO)           -
+ FLAG(I)               -
+ ISOLATION(CS)         -
+ MEMBER(RRGV5STS)      -
+ QUALIFIER(SYSIBM)     -
+ RELEASE(COMMIT)       -
+ SQLERROR(NOPACKAGE)   -
+ ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+* DB2 VERSION 5 AND HIGHER SYSTEM
+*
+ BIND PACKAGE(RRGV5ST1)-
+ ACTION(REPLACE)       -
+ ENABLE(BATCH,DB2CALL) -
+ EXPLAIN(NO)           -
+ FLAG(I)               -
+ ISOLATION(CS)         -
+ MEMBER(RRGV5ST1)      -
+ QUALIFIER(SYSIBM)     -
+ RELEASE(COMMIT)       -
+ SQLERROR(NOPACKAGE)   -
+ ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+* DB2 VERSION 5 AND HIGHER SYSTEM
+*
+ BIND PACKAGE(RRGV5ST2)-
+ ACTION(REPLACE)       -
+ ENABLE(BATCH,DB2CALL) -
+ EXPLAIN(NO)           -
+ FLAG(I)               -
+ ISOLATION(CS)         -
+ MEMBER(RRGV5ST2)      -
+ QUALIFIER(SYSIBM)     -
+ RELEASE(COMMIT)       -
+ SQLERROR(NOPACKAGE)   -
+  ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+* DB2 VERSION 5 AND HIGHER SYSTEM
+*
+ BIND PACKAGE(REPUPDT5)-
+ ACTION(REPLACE)       -
+ ENABLE(BATCH,DB2CALL) -
+ EXPLAIN(NO)           -
+ FLAG(I)               -
+ ISOLATION(CS)         -
+ MEMBER(REPUPDT5)      -
+ QUALIFIER(SYSIBM)     -
+ RELEASE(COMMIT)       -
+ SQLERROR(NOPACKAGE)   -
+  ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+*
+* DB2 VERSION 6 AND HIGHER SYSTEM
+*
+ BIND PACKAGE(REPUPDT6)-
+ ACTION(REPLACE)       -
+ ENABLE(BATCH,DB2CALL) -
+ EXPLAIN(NO)           -
+ FLAG(I)               -
+ ISOLATION(CS)         -
+ MEMBER(REPUPDT6)      -
+ QUALIFIER(SYSIBM)     -
+ RELEASE(COMMIT)       -
+ SQLERROR(NOPACKAGE)   -
+  ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+ BIND PACKAGE(SFXDYNFX)   -
+ ACTION(REPLACE)          -
+ ENABLE(BATCH,DB2CALL)    -
+ EXPLAIN(NO)              -
+ FLAG(I)                  -
+ ISOLATION(CS)            -
+ MEMBER(SFXDYNFX)         -
+ QUALIFIER(SYSIBM)        -
+ RELEASE(COMMIT)          -
+ SQLERROR(NOPACKAGE)      -
+ ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+ BIND PACKAGE(CDBDYNFX)   -
+ ACTION(REPLACE)          -
+ ENABLE(BATCH,DB2CALL)    -
+ EXPLAIN(NO)              -
+ FLAG(I)                  -
+ ISOLATION(CS)            -
+ MEMBER(CDBDYNFX)         -
+ QUALIFIER(SYSIBM)        -
+ RELEASE(COMMIT)          -
+ SQLERROR(NOPACKAGE)      -
+ ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+ BIND PACKAGE(ROLUPDTC)   -
+ ACTION(REPLACE)          -
+ ENABLE(BATCH,DB2CALL)    -
+ EXPLAIN(NO)              -
+ FLAG(I)                  -
+ ISOLATION(CS)            -
+ MEMBER(ROLUPDTC)         -
+ QUALIFIER(SYSIBM)        -
+ RELEASE(COMMIT)          -
+ SQLERROR(NOPACKAGE)      -
+  ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+ BIND PACKAGE(R2DCC001)   -
+ ACTION(REPLACE)          -
+ ENABLE(BATCH,DB2CALL)    -
+ EXPLAIN(NO)              -
+ FLAG(I)                  -
+ ISOLATION(CS)            -
+ MEMBER(R2DCC001)         -
+ QUALIFIER(SYSIBM)        -
+ RELEASE(COMMIT)          -
+ SQLERROR(NOPACKAGE)      -
+  ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+* DB2 VERSION 6 AND HIGHER SYSTEM
+*
+ BIND PACKAGE(RRGV6STS)-
+ ACTION(REPLACE)       -
+ ENABLE(BATCH,DB2CALL) -
+ EXPLAIN(NO)           -
+ FLAG(I)               -
+ ISOLATION(CS)         -
+ MEMBER(RRGV6STS)      -
+ QUALIFIER(SYSIBM)     -
+ RELEASE(COMMIT)       -
+ SQLERROR(NOPACKAGE)   -
+  ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+* DB2 VERSION 6 AND HIGHER SYSTEM
+*
+ BIND PACKAGE(RRGV6ST1)-
+ ACTION(REPLACE)       -
+ ENABLE(BATCH,DB2CALL) -
+ EXPLAIN(NO)           -
+ FLAG(I)               -
+ ISOLATION(CS)         -
+ MEMBER(RRGV6ST1)      -
+ QUALIFIER(SYSIBM)     -
+ RELEASE(COMMIT)       -
+ SQLERROR(NOPACKAGE)   -
+ ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+* DB2 VERSION 6 AND HIGHER SYSTEM
+*
+ BIND PACKAGE(RRGV6ST2)-
+ ACTION(REPLACE)       -
+ ENABLE(BATCH,DB2CALL) -
+ EXPLAIN(NO)           -
+ FLAG(I)               -
+ ISOLATION(CS)         -
+ MEMBER(RRGV6ST2)      -
+ QUALIFIER(SYSIBM)     -
+ RELEASE(COMMIT)       -
+ SQLERROR(NOPACKAGE)   -
+  ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+* DB2 VERSION 7 AND HIGHER SYSTEM
+*
+ BIND PACKAGE(RRGV7STS)-
+ ACTION(REPLACE)       -
+ ENABLE(BATCH,DB2CALL) -
+ EXPLAIN(NO)           -
+ FLAG(I)               -
+ ISOLATION(CS)         -
+ MEMBER(RRGV7STS)      -
+ QUALIFIER(SYSIBM)     -
+ RELEASE(COMMIT)       -
+ SQLERROR(NOPACKAGE)   -
+  ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+* DB2 VERSION 7 AND HIGHER SYSTEM
+*
+ BIND PACKAGE(RRGV7ST1)-
+ ACTION(REPLACE)       -
+ ENABLE(BATCH,DB2CALL) -
+ EXPLAIN(NO)           -
+ FLAG(I)               -
+ ISOLATION(CS)         -
+ MEMBER(RRGV7ST1)      -
+ QUALIFIER(SYSIBM)     -
+ RELEASE(COMMIT)       -
+ SQLERROR(NOPACKAGE)   -
+  ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+* DB2 VERSION 7 AND HIGHER SYSTEM
+*
+ BIND PACKAGE(RRGV7ST2)-
+ ACTION(REPLACE)       -
+ ENABLE(BATCH,DB2CALL) -
+ EXPLAIN(NO)           -
+ FLAG(I)               -
+ ISOLATION(CS)         -
+ MEMBER(RRGV7ST2)      -
+ QUALIFIER(SYSIBM)     -
+ RELEASE(COMMIT)       -
+ SQLERROR(NOPACKAGE)   -
+  ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+ BIND PACKAGE(CDBSQLPM)   -
+ ACTION(REPLACE)          -
+ ENABLE(BATCH,DB2CALL)    -
+ EXPLAIN(NO)              -
+ FLAG(I)                  -
+ ISOLATION(CS)            -
+ MEMBER(CDBSQLPM)         -
+ QUALIFIER(SYSIBM)        -
+ RELEASE(COMMIT)          -
+ SQLERROR(NOPACKAGE)      -
+  ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+ BIND PACKAGE(CDBSQLM2)   -
+ ACTION(REPLACE)          -
+ ENABLE(BATCH,DB2CALL)    -
+ EXPLAIN(NO)              -
+ FLAG(I)                  -
+ ISOLATION(CS)            -
+ MEMBER(CDBSQLM2)         -
+ QUALIFIER(SYSIBM)        -
+ RELEASE(COMMIT)          -
+ SQLERROR(NOPACKAGE)      -
+  ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+* DB2 VERSION 7 AND HIGHER SYSTEM
+*
+ BIND PACKAGE(CDBSQLF2)-
+ ACTION(REPLACE)       -
+ ENABLE(BATCH,DB2CALL) -
+ EXPLAIN(NO)           -
+ FLAG(I)               -
+ ISOLATION(CS)         -
+ MEMBER(CDBSQLF2)      -
+ QUALIFIER(SYSIBM)     -
+ RELEASE(COMMIT)       -
+ SQLERROR(NOPACKAGE)   -
+ ENCODING(EBCDIC)      -
+ VALIDATE(RUN)
+*
+ BIND PLAN(CDBREXXC)      -
+ ACQUIRE(USE)             -
+ ACTION(REPLACE) RETAIN   -
+ CACHESIZE(0)             -
+ EXPLAIN(NO)              -
+ FLAG(I)                  -
+ ISOLATION(CS)            -
+ PKLIST (*.R2DCC001.*)    -
+ RELEASE(COMMIT)          -
+ ENCODING(EBCDIC)      -
+ VALIDATE(BIND)
+*
+ BIND PLAN(CDBPLAN)       -
+ QUALIFIER(SYSIBM)        -
+ ACQUIRE(USE)             -
+ ACTION(REPLACE) RETAIN   -
+ CACHESIZE(0)             -
+ EXPLAIN(NO)              -
+ FLAG(I)                  -
+ ENCODING(EBCDIC)      -
+ ISOLATION(CS)            -
+ PKLIST (                 -
+        *.RRGV5STS.*      -
+        *.RRGV5ST1.*      -
+        *.RRGV5ST2.*      -
+        *.REPUPDT5.*      -
+        *.REPUPDT6.*      -
+        *.SFXDYNFX.*      -
+        *.CDBDYNFX.*      -
+        *.ROLUPDTC.*      -
+        *.R2DCC001.*      -
+        *.RRGV6STS.*      -
+        *.RRGV6ST1.*      -
+        *.RRGV6ST2.*      -
+        *.RRGV7STS.*      -
+        *.RRGV7ST1.*      -
+        *.RRGV7ST2.*      -
+        *.CDBSQLPM.*      -
+        *.CDBSQLM2.*      -
+        *.CDBSQLF2.*      -
+        *.CDBREXXC.*      -
+        )                 -
+ RELEASE(COMMIT)          -
+ VALIDATE(BIND)
+*
+ END
+//*********************************************************************
+//*       GRANT EXECUTE ON PLAN CDBPLAN TO PUBLIC ON DB2=MODL         *
+//*********************************************************************
+//SUTGR1  EXEC PGM=IKJEFT01,DYNAMNBR=20,
+//             COND=(0,LT,SUTBND1)
+//STEPLIB   DD  DISP=SHR,DSN=SSXDT.CDB.PTF19.LOADLIB
+//          DD  DISP=SHR,DSN=SSXDP.DSNDBRG.DB6R.SDSNEXIT
+//          DD  DISP=SHR,DSN=SSXDP.DSNDBRG.DB6R.SDSNLOAD
+//SYSTSPRT  DD SYSOUT=*
+//SYSPRINT  DD SYSOUT=*
+//SYSIN     DD *
+ GRANT EXECUTE ON PLAN CDBPLAN TO PUBLIC;
+//SYSTSIN   DD *
+ DSN SYSTEM(DB6R)
+*
+ RUN PROGRAM(CDBSQLXI) -
+ PLAN(CDBPLAN)
+*
+ END
+

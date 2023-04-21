@@ -1,0 +1,71 @@
+//DB2RSHAD   JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X,
+//         NOTIFY=&SYSUID,REGION=0M
+/*JOBPARM SYSAFF=MVS4
+//*                                                                     00490000
+//DSNTIC  PROC                                                          00500000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)
+//SYSPRINT DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//DSNTIC  PEND
+//*
+//*
+//DSNTDIR EXEC DSNTIC                                                   01810000
+//* *********************************************                       01820000
+//*  DEFINE SHADOWS FILE                        *                       01830000
+//* *********************************************                       01840000
+//SYSIN    DD  *                                                        01850000
+                                                                        05790000
+   DEFINE CLUSTER                             -                         05800000
+         ( NAME(DB2R.DSNDBC.DSNDB06.DSNATX01.J0001.A001) -              05810000
+           LINEAR                             -                         05820000
+           REUSE                              -                         05830000
+           VOLUMES(*.*.*)                     -                         05840000
+           CYLINDERS(30 10)                   -                         05870000
+           SHAREOPTIONS(3 3) )                -                         05880000
+      DATA                                    -                         05890000
+         ( NAME(DB2R.DSNDBD.DSNDB06.DSNATX01.J0001.A001) -              05900000
+                              )                                         05930000
+                                                                        05950000
+   DEFINE CLUSTER                             -                         05960000
+         ( NAME(DB2R.DSNDBC.DSNDB06.DSNATX02.J0001.A001) -              05970000
+           LINEAR                             -                         05980000
+           REUSE                              -                         05990000
+           VOLUMES(*.*.*)                     -                         06000000
+           CYLINDERS(30 10)                   -                         06030000
+           SHAREOPTIONS(3 3) )                -                         06040000
+      DATA                                    -                         06050000
+         ( NAME(DB2R.DSNDBD.DSNDB06.DSNATX02.J0001.A001) -              06060000
+                              )                                         06090000
+                                                                        06110000
+   DEFINE CLUSTER                             -                         06120000
+         ( NAME(DB2R.DSNDBC.DSNDB06.DSNATX03.J0001.A001) -              06130000
+           LINEAR                             -                         06140000
+           REUSE                              -                         06150000
+           VOLUMES(*.*.*)                     -                         06160000
+           CYLINDERS(30 10)                   -                         06190000
+           SHAREOPTIONS(3 3) )                -                         06200000
+      DATA                                    -                         06210000
+         ( NAME(DB2R.DSNDBD.DSNDB06.DSNATX03.J0001.A001) -              06220000
+                                                                        06922000
+   DEFINE CLUSTER                             -                         06922200
+         ( NAME(DB2R.DSNDBC.DSNDB06.DSNATX04.J0001.A001) -              06922400
+           LINEAR                             -                         06922600
+           REUSE                              -                         06922800
+           VOLUMES(*.*.*)                     -                         06923000
+           CYLINDERS(30 10)                   -                         06923200
+           SHAREOPTIONS(3 3) )                -                         06923400
+      DATA                                    -                         06923600
+         ( NAME(DB2R.DSNDBD.DSNDB06.DSNATX04.J0001.A001) -              06923800
+                              )                                         06924000
+                                                                        06924200
+    DEFINE CLUSTER                             -
+          ( NAME(DB2R.DSNDBC.DSNDB06.SYSDBASE.J0001.A001) -
+            LINEAR                             -
+            REUSE                              -
+            VOLUMES(*.*.*)                     -
+            CYLINDERS(100 50)                   -
+            CONTROLINTERVALSIZE(8192)          -
+            SHAREOPTIONS(3 3) )                -
+       DATA                                    -
+          ( NAME(DB2R.DSNDBD.DSNDB06.SYSDBASE.J0001.A001) -
+                               )

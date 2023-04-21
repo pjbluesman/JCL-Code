@@ -1,0 +1,158 @@
+//UXD001M JOB (,102),'G KELLY',CLASS=S,MSGCLASS=X                       00010003
+//********************************************************************* 00010103
+//*                                                                     00011003
+//*            BIND PACKAGES AND PLAN CDBPLAN ON DB2=MODL             * 00020000
+//*                                                                   * 00030000
+//*            DO NOT REMOVE *V# COMMENTS FROM DD CDBIN.              * 00040000
+//*                                                                   * 00050000
+//*            CDBBINDR WILL STRIP OFF THESE COMMENTS AND             * 00060000
+//*            DYNAMICALLY ADD THE REQUIRED PACKAGE BASED ON          * 00070000
+//*            THE VERSION OF DB2.                                    * 00080000
+//*                                                                   * 00090000
+//********************************************************************* 00100000
+//SUTBND1 EXEC PGM=CDBBINDR,DYNAMNBR=20                                 00110000
+//STEPLIB   DD  DISP=SHR,DSN=SSXDT.CDB.PTF19.LOADLIB                    00120001
+//          DD  DISP=SHR,DSN=SSXDP.DSNDBRG.DB6R.SDSNEXIT                00130001
+//          DD  DISP=SHR,DSN=SSXDP.DSNDBRG.DB6R.SDSNLOAD                00140001
+//DBRMLIB   DD DISP=SHR,DSN=SSXDT.CDB.PTF19.CNTL                        00150001
+//SYSTSPRT  DD SYSOUT=*                                                 00160000
+//SYSPRINT  DD SYSOUT=*                                                 00170000
+//SYSTSIN   DD UNIT=SYSDA,SPACE=(TRK,(1,1))                             00180000
+//CDBIN     DD *                                                        00190000
+ DSN SYSTEM(DB6R)                                                       00200002
+*                                                                       00210000
+*                                                                       00230002
+BIND PACKAGE(RRGV7STS)-                                                 00240002
+ ACTION(REPLACE)       -                                                00250002
+ ENABLE(BATCH,DB2CALL) -                                                00260002
+ EXPLAIN(NO)           -                                                00270002
+ FLAG(I)               -                                                00280002
+ ISOLATION(CS)         -                                                00290002
+ MEMBER(RRGV7STS)      -                                                00300002
+ QUALIFIER(SYSIBM)     -                                                00310002
+ RELEASE(COMMIT)       -                                                00320002
+ SQLERROR(NOPACKAGE)   -                                                00330002
+ VALIDATE(RUN)                                                          00340002
+*                                                                       00350002
+* DB2 VERSION 7 AND HIGHER SYSTEM                                       00360002
+*                                                                       00370002
+ BIND PACKAGE(RRGV7ST1)-                                                00380002
+ ACTION(REPLACE)       -                                                00390002
+ ENABLE(BATCH,DB2CALL) -                                                00400002
+ EXPLAIN(NO)           -                                                00410002
+ FLAG(I)               -                                                00420002
+ ISOLATION(CS)         -                                                00430002
+ MEMBER(RRGV7ST1)      -                                                00440002
+ QUALIFIER(SYSIBM)     -                                                00450002
+ RELEASE(COMMIT)       -                                                00460002
+ SQLERROR(NOPACKAGE)   -                                                00470002
+ VALIDATE(RUN)                                                          00480002
+*                                                                       00490002
+* DB2 VERSION 7 AND HIGHER SYSTEM                                       00500002
+*                                                                       00510002
+ BIND PACKAGE(RRGV7ST2)-                                                00520002
+ ACTION(REPLACE)       -                                                00530002
+ ENABLE(BATCH,DB2CALL) -                                                00540002
+ EXPLAIN(NO)           -                                                00550002
+ FLAG(I)               -                                                00560002
+ ISOLATION(CS)         -                                                00570002
+ MEMBER(RRGV7ST2)      -                                                00580002
+ QUALIFIER(SYSIBM)     -                                                00590002
+ RELEASE(COMMIT)       -                                                00600002
+ SQLERROR(NOPACKAGE)   -                                                00610002
+ VALIDATE(RUN)                                                          00620002
+*                                                                       00630002
+ BIND PACKAGE(CDBSQLPM)   -                                             00640002
+ ACTION(REPLACE)          -                                             00650002
+ ENABLE(BATCH,DB2CALL)    -                                             00660002
+ EXPLAIN(NO)              -                                             00670002
+ FLAG(I)                  -                                             00680002
+ ISOLATION(CS)            -                                             00690002
+ MEMBER(CDBSQLPM)         -                                             00700002
+ QUALIFIER(SYSIBM)        -                                             00710002
+ RELEASE(COMMIT)          -                                             00720002
+ SQLERROR(NOPACKAGE)      -                                             00730002
+ VALIDATE(RUN)                                                          00740002
+*                                                                       00750002
+ BIND PACKAGE(CDBSQLM2)   -                                             00760002
+ ACTION(REPLACE)          -                                             00770002
+ ENABLE(BATCH,DB2CALL)    -                                             00780002
+  EXPLAIN(NO)              -                                            00790002
+  FLAG(I)                  -                                            00800002
+  ISOLATION(CS)            -                                            00810002
+  MEMBER(CDBSQLM2)         -                                            00820002
+  QUALIFIER(SYSIBM)        -                                            00830002
+  RELEASE(COMMIT)          -                                            00840002
+  SQLERROR(NOPACKAGE)      -                                            00850002
+  VALIDATE(RUN)                                                         00860002
+ *                                                                      00870002
+ * DB2 VERSION 7 AND HIGHER SYSTEM                                      00880002
+ *                                                                      00890002
+ BIND PACKAGE(CDBSQLF2)-                                                00900002
+ ACTION(REPLACE)       -                                                00910002
+ ENABLE(BATCH,DB2CALL) -                                                00920002
+ EXPLAIN(NO)           -                                                00930002
+ FLAG(I)               -                                                00940002
+ ISOLATION(CS)         -                                                00950002
+ MEMBER(CDBSQLF2)      -                                                00960002
+ QUALIFIER(SYSIBM)     -                                                00970002
+ RELEASE(COMMIT)       -                                                00980002
+ SQLERROR(NOPACKAGE)   -                                                00990002
+ VALIDATE(RUN)                                                          01000002
+ *                                                                      01010002
+  BIND PLAN(CDBREXXC)      -                                            01020002
+  ACQUIRE(USE)             -                                            01030002
+  ACTION(REPLACE) RETAIN   -                                            01040002
+  CACHESIZE(0)             -                                            01050002
+  EXPLAIN(NO)              -                                            01060002
+  FLAG(I)                  -                                            01070002
+  ISOLATION(CS)            -                                            01080002
+  PKLIST (*.R2DCC001.*)    -                                            01090002
+  RELEASE(COMMIT)          -                                            01100002
+  VALIDATE(BIND)                                                        01110002
+ *                                                                      01120002
+  BIND PLAN(CDBPLAN)       -                                            01130002
+  QUALIFIER(SYSIBM)        -                                            01140002
+  ACQUIRE(USE)             -                                            01150002
+  ACTION(REPLACE) RETAIN   -                                            01160002
+   CACHESIZE(0)             -                                           01170002
+   EXPLAIN(NO)              -                                           01180002
+   FLAG(I)                  -                                           01190002
+   ISOLATION(CS)            -                                           01200002
+   PKLIST (                 -                                           01210002
+          *.SFXDYNFX.*      -                                           01270002
+          *.CDBDYNFX.*      -                                           01280002
+          *.ROLUPDTC.*      -                                           01290002
+          *.R2DCC001.*      -                                           01300002
+       *.RRGV7STS.*      -                                              01340002
+      *.RRGV7ST1.*      -                                               01350002
+     *.RRGV7ST2.*      -                                                01360002
+          *.CDBSQLPM.*      -                                           01370002
+          *.CDBSQLM2.*      -                                           01380002
+     *.CDBSQLF2.*      -                                                01390002
+          *.CDBREXXC.*      -                                           01400002
+          )                 -                                           01410002
+   RELEASE(COMMIT)          -                                           01420002
+   VALIDATE(BIND)                                                       01430002
+  *                                                                     01440002
+   END                                                                  01450002
+/*                                                                      01451002
+//********************************************************************  01460002
+//*       GRANT EXECUTE ON PLAN CDBPLAN TO PUBLIC ON DB2=MODL           01470002
+//********************************************************************  01480002
+//SUTGR1  EXEC PGM=IKJEFT01,DYNAMNBR=20,                                01490002
+//             COND=(0,LT,SUTBND1)                                      01500002
+//STEPLIB   DD  DISP=SHR,DSN=CDBVVRM.LOAD        <== FIX DSNAME         01510002
+//          DD  DISP=SHR,DSN=DSNX10.SDSNEXIT     <== ADD DB2 LIBS       01520002
+//          DD  DISP=SHR,DSN=DSNX10.SDSNLOAD                            01530002
+//SYSTSPRT  DD SYSOUT=*                                                 01540002
+//SYSPRINT  DD SYSOUT=*                                                 01550002
+//SYSIN     DD *                                                        01560002
+ GRANT EXECUTE ON PLAN CDBPLAN TO PUBLIC;                               01570002
+//SYSTSIN   DD *                                                        01580002
+ DSN SYSTEM(MODL)                                                       01590002
+*                                                                       01600002
+ RUN PROGRAM(CDBSQLXI) -                                                01610002
+ PLAN(CDBPLAN)                                                          01620002
+*                                                                       01630002
+ END                                                                    01640002

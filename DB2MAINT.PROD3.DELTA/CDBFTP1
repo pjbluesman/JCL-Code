@@ -1,0 +1,36 @@
+//CDBFTPX  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVS4
+//*  TERSE Files and FTP to CDB Site
+//        SET TKT='FE111117' type first 8 digits of CDB ticket
+//        SET MST='PKD0020M' type Master  jobname
+//        SET SV1='R$SVRD92' type Server1 jobname
+//        SET SV2='R$SVRD93' type Server2 jobname
+//*
+//*  Terse Master job
+//TRS#01  EXEC PGM=TRSMAIN,PARM='PACK'
+//STEPLIB  DD  DSN=SSXVP.TERSE.PACKLIB,DISP=SHR
+//SYSPRINT DD  SYSOUT=*
+//INFILE   DD  DSN=SSXDP.CDB.PKT87507.OUTPUT,DISP=SHR
+//OUTFILE  DD  DSN=SSXDP.CDB.PKT87507.OUTPUT.TERSE,
+//             DISP=(,CATLG),UNIT=SYSDA,SPACE=(CYL,(50,10),RLSE)
+//*  FTP to CDB Site
+//SENDIT EXEC PGM=FTP,COND=(4,LT),
+//            PARM='ftp.cdbsoftware.com (EXIT'
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//INPUT    DD *
+ cdbanon usftp
+ TYPE E
+ BINARY
+ bin
+ PUT 'SSXDP.CDB.PKT87507.OUTPUT.TERSE' FF14011401.PKT87507
+ quit
+//OUTPUT   DD SYSOUT=*
+//*  Delete tersed files
+//DELETE1 EXEC PGM=IEFBR14,COND=(0,NE)
+//DD01     DD  DSN=SSXDP.CDB.PKT87507.OUTPUT.TERSE,
+//             DISP=(OLD,DELETE,DELETE)
+//
+//

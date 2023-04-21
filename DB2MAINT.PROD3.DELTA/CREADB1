@@ -1,0 +1,175 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSN
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR
+//*                                                                     00170000
+//JOBLIB  DD  DSN=SSXDT.DB2N.SDSNEXIT,DISP=SHR                          00180000
+//        DD  DSN=SDB2N.SDSNLOAD,DISP=SHR                               00190000
+//        DD  DSN=SYS1.CEE.SCEERUN,DISP=SHR                             00195000
+//*                                                                     00200000
+//* Step  1: Drop objects from any previous run of this job             00210000
+//*                                                                     00220000
+//PH01US01 EXEC PGM=IKJEFT01,DYNAMNBR=20                                00230000
+//SYSTSPRT DD  SYSOUT=*                                                 00240000
+//SYSTSIN  DD  *                                                        00250000
+ DSN SYSTEM(DB2N)                                                       00260000
+ RUN PROGRAM(DSNTIAD) -                                                 00270000
+     PLAN(DSNTIAD) -                                                    00280000
+     LIB('SSXDT.DB2N.RUNLIB.LOAD') -                                    00290000
+     PARM('RC0')                                                        00300000
+//SYSPRINT DD  SYSOUT=*                                                 00310000
+//SYSUDUMP DD  SYSOUT=*                                                 00320000
+//SYSIN    DD  *                                                        00330000
+  SET CURRENT SQLID = 'SYSPRO';                                         00340000
+  DROP SYNONYM  DEMO_UNICODE;                                           00350000
+  DROP DATABASE DSN8D81E;                                               00360000
+                                                                        00370000
+//*                                                                     00380000
+//* Step  2: Create sammple UNICODE objects                             00390000
+//*                                                                     00400000
+//PH01US02 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                    00410000
+//SYSTSPRT DD  SYSOUT=*                                                 00420000
+//SYSTSIN  DD  *                                                        00430000
+ DSN SYSTEM(DB2N)                                                       00440000
+ RUN PROGRAM(DSNTIAD) -                                                 00450000
+     PLAN(DSNTIAD) -                                                    00460000
+     LIB('SSXDT.DB2N.RUNLIB.LOAD')                                      00470000
+//SYSPRINT DD  SYSOUT=*                                                 00480000
+//SYSUDUMP DD  SYSOUT=*                                                 00490000
+//SYSIN    DD  *                                                        00500000
+      SET CURRENT SQLID = 'SYSPRO';                                     00510000
+      CREATE DATABASE DSN8D81E                                          00520000
+             STOGROUP DSN8G810                                          00530000
+             BUFFERPOOL BP4                                             00540000
+             CCSID UNICODE;                                             00550000
+                                                                        00560000
+      CREATE TABLESPACE DSN8S81U                                        00570000
+          IN DSN8D81E                                                   00580000
+       USING STOGROUP DSN8G810                                          00590000
+      PRIQTY 5                                                          00600000
+      SECQTY 5                                                          00610000
+       ERASE NO                                                         00620000
+    LOCKSIZE PAGE                                                       00630000
+     LOCKMAX SYSTEM                                                     00640000
+  BUFFERPOOL BP4                                                        00650000
+       CLOSE NO                                                         00660000
+       CCSID UNICODE;                                                   00670000
+                                                                        00680000
+      COMMIT ;                                                          00690000
+                                                                        00700000
+      CREATE TABLE DSN8810.DEMO_UNICODE                                 00710000
+                 ( LOWER_A_TO_Z     CHAR(26),                           00720000
+                   UPPER_A_TO_Z     CHAR(26),                           00730000
+                   ZERO_TO_NINE     CHAR(10),                           00740000
+                   X00_TO_XFF    VARCHAR(256)      FOR BIT DATA )       00750000
+          IN DSN8D81E.DSN8S81U                                          00760000
+       CCSID UNICODE;                                                   00770000
+                                                                        00780000
+      CREATE SYNONYM DEMO_UNICODE                                       00790000
+         FOR DSN8810.DEMO_UNICODE;                                      00800000
+                                                                        00810000
+       GRANT DBADM                                                      00820000
+          ON DATABASE DSN8D81E                                          00830000
+          TO PUBLIC;                                                    00840000
+                                                                        00850000
+       GRANT USE                                                        00860000
+          OF TABLESPACE DSN8D81E.DSN8S81U                               00870000
+          TO PUBLIC;                                                    00880000
+                                                                        00890000
+       GRANT DELETE, INSERT, SELECT, UPDATE                             00900000
+          ON TABLE DSN8810.DEMO_UNICODE                                 00910000
+          TO PUBLIC                                                     00920000
+          AT ALL LOCATIONS;                                             00930000
+//*                                                                     00940000
+//* Step  3: Load the sample UNICODE table                              00950000
+//*       Note: The LOAD statement below uses a CCSID parm because the  00953000
+//*       source data is in EBCDIC and includes non-text characters     00956000
+//*                                                                     00960000
+//PH01US03 EXEC DSNUPROC,PARM='DB2N,DSNTEX',COND=(4,LT)                 00970000
+//SORTLIB  DD  DSN=SYS1.AICEUSER,DISP=SHR                               00980000
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(4000,(20,20),,,ROUND)                  00990000
+//DSNTRACE DD  SYSOUT=*                                                 01000000
+//SYSREC00 DD  DSN=SDB2N.SDSNSAMP(DSN8LDU),                             01010000
+//             DISP=SHR                                                 01020000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(4000,(50,50),,,ROUND)                  01030000
+//SYSIN    DD  *                                                        01040000
+                                                                        01050000
+ LOAD DATA INDDN(SYSREC00) REPLACE CONTINUEIF(72:80)='X        '        01060000
+      CCSID(37, 65534, 65534)                                           01065000
+      INTO TABLE DSN8810.DEMO_UNICODE                                   01070000
+          ( LOWER_A_TO_Z  POSITION(  1:26 )    CHAR(26),                01080000
+            UPPER_A_TO_Z  POSITION( 28:53 )    CHAR(26),                01090000
+            ZERO_TO_NINE  POSITION( 55:64 )    CHAR(10),                01100000
+            X00_TO_XFF    POSITION( 66 )       VARCHAR   )              01110000
+      SORTDEVT SYSDA SORTNUM 4                                          01120000
+//*                                                                     01130000
+//* Step  4: Display the sample UNICODE data in source and hex format   01140000
+//*                                                                     01150000
+//PH01US04 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                    01160000
+//SYSTSPRT DD  SYSOUT=*                                                 01170000
+//SYSPRINT DD  SYSOUT=*                                                 01180000
+//SYSUDUMP DD  SYSOUT=*                                                 01190000
+//SYSTSIN  DD  *                                                        01200000
+ DSN SYSTEM(DB2N)                                                       01210000
+ RUN  PROGRAM(DSNTEP2) PLAN(DSNTEP2) -                                  01220000
+      LIB('SSXDT.DB2N.RUNLIB.LOAD') PARMS('/ALIGN(MID)')                01230000
+ END                                                                    01240000
+//SYSIN    DD *                                                         01250000
+                                                                        01260000
+  SELECT LOWER_A_TO_Z,                                                  01270000
+         HEX( LOWER_A_TO_Z )    AS LOWER_A_TO_Z_HEX ,                   01280000
+         LENGTH( LOWER_A_TO_Z ) AS LOWER_A_TO_Z_LEN                     01290000
+    FROM DSN8810.DEMO_UNICODE;                                          01300000
+                                                                        01310000
+  SELECT UPPER_A_TO_Z,                                                  01320000
+         HEX( UPPER_A_TO_Z )    AS UPPER_A_TO_Z_HEX ,                   01330000
+         LENGTH( UPPER_A_TO_Z ) AS UPPER_A_TO_Z_LEN                     01340000
+    FROM DSN8810.DEMO_UNICODE;                                          01350000
+                                                                        01360000
+  SELECT ZERO_TO_NINE,                                                  01370000
+         HEX( ZERO_TO_NINE )    AS ZERO_TO_NINE_HEX ,                   01380000
+         LENGTH( ZERO_TO_NINE ) AS ZERO_TO_NINE_LEN                     01390000
+    FROM DSN8810.DEMO_UNICODE;                                          01400000
+                                                                        01410000
+  SELECT SUBSTR(X00_TO_XFF, 1, 32)           AS X00_TO_X20,             01420000
+         HEX( SUBSTR(X00_TO_XFF, 1, 32))     AS X00_TO_X20_HEX,         01430000
+         LENGTH( SUBSTR(X00_TO_XFF, 1, 32))  AS X00_TO_X20_LEN          01440000
+    FROM DSN8810.DEMO_UNICODE;                                          01450000
+                                                                        01460000
+  SELECT SUBSTR(X00_TO_XFF, 33, 32)          AS X21_TO_X40,             01470000
+         HEX( SUBSTR(X00_TO_XFF, 33, 32))    AS X21_TO_X40_HEX,         01480000
+         LENGTH( SUBSTR(X00_TO_XFF, 33, 32)) AS X21_TO_X40_LEN          01490000
+    FROM DSN8810.DEMO_UNICODE;                                          01500000
+                                                                        01510000
+  SELECT SUBSTR(X00_TO_XFF, 65, 32)          AS X41_TO_X60,             01520000
+         HEX( SUBSTR(X00_TO_XFF, 65, 32))    AS X41_TO_X60_HEX,         01530000
+         LENGTH( SUBSTR(X00_TO_XFF, 65, 32)) AS X41_TO_X60_LEN          01540000
+    FROM DSN8810.DEMO_UNICODE;                                          01550000
+                                                                        01560000
+  SELECT SUBSTR(X00_TO_XFF, 97, 32)          AS X61_TO_X80,             01570000
+         HEX( SUBSTR(X00_TO_XFF, 97, 32))    AS X61_TO_X80_HEX,         01580000
+         LENGTH( SUBSTR(X00_TO_XFF, 97, 32)) AS X61_TO_X80_LEN          01590000
+    FROM DSN8810.DEMO_UNICODE;                                          01600000
+                                                                        01610000
+  SELECT SUBSTR(X00_TO_XFF, 129, 32)         AS X81_TO_XA0,             01620000
+         HEX( SUBSTR(X00_TO_XFF, 129, 32))   AS X81_TO_XA0_HEX,         01630000
+         LENGTH(SUBSTR(X00_TO_XFF, 129, 32)) AS X81_TO_XA0_LEN          01640000
+    FROM DSN8810.DEMO_UNICODE;                                          01650000
+                                                                        01660000
+  SELECT SUBSTR(X00_TO_XFF, 161, 32)         AS XA1_TO_XC0,             01670000
+         HEX( SUBSTR(X00_TO_XFF, 161, 32))   AS XA1_TO_XC0_HEX,         01680000
+         LENGTH(SUBSTR(X00_TO_XFF, 161, 32)) AS XA1_TO_XC0_LEN          01690000
+    FROM DSN8810.DEMO_UNICODE;                                          01700000
+                                                                        01710000
+  SELECT SUBSTR(X00_TO_XFF, 193, 32)         AS XC1_TO_XE0,             01720000
+         HEX( SUBSTR(X00_TO_XFF, 193, 32))   AS XC1_TO_XE0_HEX,         01730000
+         LENGTH(SUBSTR(X00_TO_XFF, 193, 32)) AS XC1_TO_XE0_LEN          01740000
+    FROM DSN8810.DEMO_UNICODE;                                          01750000
+                                                                        01760000
+  SELECT SUBSTR(X00_TO_XFF, 225, 32)         AS XE1_TO_XFF,             01770000
+         HEX( SUBSTR(X00_TO_XFF, 225, 32))   AS XE1_TO_XFF_HEX,         01780000
+         LENGTH(SUBSTR(X00_TO_XFF, 225, 32)) AS XE1_TO_XFF_LEN          01790000
+    FROM DSN8810.DEMO_UNICODE;                                          01800000
+                                                                        01810000
+//*                                                                     01820000

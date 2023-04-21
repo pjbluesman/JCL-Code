@@ -1,0 +1,10 @@
+//UXD001M  JOB ,'KELLY DB2 SUPP',CLASS=S,MSGCLASS=X,                    JCLP
+//         REGION=5000K,                                                JCLP
+//         TIME=1440                                                    JCLP
+//JOBLIB   DD DISP=SHR,                                                 JCLP
+//             DSN=SSXDP.DB2P.V2R3.DSNLOAD                              JCLP
+//STEP01   EXEC  UXD001                                                 JCLP
+//SCT02.SYSIN DD *                                                      JCLP
+COPY TABLESPACE  DSNDB01.SCT02     COPYDDN CPY05,CPY05B                 JCLP
+                 SHRLEVEL CHANGE
+/*                                                                      JCLP

@@ -1,0 +1,40 @@
+//DB2ALTSG   JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X,
+//         NOTIFY=T807098,REGION=0M
+//*MAIN CLASS=SS,SYSTEM=MVS4
+//*********************************************************************
+//* ALTER STOGROUP                                                    *
+//*********************************************************************
+//*
+//*        JCLLIB ORDER=SSXDP.DB6R.PROCLIB
+//JOBLIB  DD  DSN=SDB6R.SDSNLOAD,DISP=SHR
+//*
+//*   STEP  1: ALTER STOGROUP CHANGING VOLUMES
+//*
+//ALTERSG  EXEC PGM=IKJEFT01,DYNAMNBR=20
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB6R)
+  RUN  PROGRAM(DSNTIAD) PLAN(DSNTIAD) -
+       LIB('SSXDP.DB6R.RUNLIB.LOAD')
+//SYSPRINT DD  SYSOUT=*
+//SYSUDUMP DD  SYSOUT=*
+//SYSIN    DD  *
+  SET CURRENT SQLID='LSEBDB2';
+  ALTER STOGROUP SYSDEFLT REMOVE VOLUMES (A3D2BN) ADD VOLUMES ('*') ;
+/*
+//*********************************************************************
+//* DISPLAY STOGROUP
+//*********************************************************************
+//DISPLAY  EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)
+//SYSTSPRT DD  SYSOUT=*
+//SYSPRINT DD  SYSOUT=*
+//SYSUDUMP DD  SYSOUT=*
+//SYSTSIN  DD  *
+ DSN SYSTEM(DB6R)
+ RUN  PROGRAM(DSNTEP2) PLAN(DSNTEP2) -
+      LIB('SSXDP.DB6R.RUNLIB.LOAD') PARMS('/ALIGN(LHS)')
+ END
+//SYSIN    DD *
+  SET CURRENT SQLID='LSEBDB2';
+
+  SELECT * FROM SYSIBM.SYSVOLUMES WHERE SGNAME='SYSDEFLT';

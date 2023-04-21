@@ -1,0 +1,96 @@
+//D54808TM   JOB ,'DB2-GLK',CLASS=S,MSGCLASS=X
+//**********************************************************************
+//*         RO       MJUTLRO D73294T
+//**********************************************************************
+//UTIL0001  EXEC PGM=DSNUTILB,REGION=4M,PARM='DB2T'
+//STEPLIB   DD   DSN=SSXDT.DB2T.V4.SDSNLOAD,DISP=SHR
+//SYSPRINT  DD   SYSOUT=*
+//UTPRINT   DD   SYSOUT=*
+//*
+//SYSREC   DD  DSN=DB2T.DSNUCH01.SYSREC,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(75,20))
+//SYSUT1   DD  DSN=DB2T.DSNUCH01.SYSUT1,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(75,20))
+//SORTOUT  DD  DSN=DB2T.DSNUCH01.SORTOUT,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(75,20))
+  REORG    INDEX    SYSIBM.DSNUCH01
+           SORTDEVT SYSDA SORTNUM 4
+//**********************************************************************
+//*         RO       MJUTLRO D73294T
+//**********************************************************************
+//UTIL0002  EXEC PGM=DSNUTILB,REGION=4M,PARM='DB2T'
+//STEPLIB   DD   DSN=SSXDT.DB2T.V4.SDSNLOAD,DISP=SHR
+//SYSPRINT  DD   SYSOUT=*
+//UTPRINT   DD   SYSOUT=*
+//*
+//SYSREC   DD  DSN=DB2T.DSNUCX01.SYSREC,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(94,20))
+//SYSUT1   DD  DSN=DB2T.DSNUCX01.SYSUT1,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(94,20))
+//SORTOUT  DD  DSN=DB2T.DSNUCX01.SORTOUT,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(94,20))
+  REORG    INDEX    SYSIBM.DSNUCX01
+           SORTDEVT SYSDA SORTNUM 4
+//**********************************************************************
+//*         RO       MJUTLRO D73294T
+//**********************************************************************
+//UTIL0003  EXEC PGM=DSNUTILB,REGION=4M,PARM='DB2T'
+//STEPLIB   DD   DSN=SSXDT.DB2T.V4.SDSNLOAD,DISP=SHR
+//SYSPRINT  DD   SYSOUT=*
+//UTPRINT   DD   SYSOUT=*
+//*
+//SYSREC   DD  DSN=DB2T.DSNDSX01.SYSREC,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(4,20))
+//SYSUT1   DD  DSN=DB2T.DSNDSX01.SYSUT1,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(4,20))
+//SORTOUT  DD  DSN=DB2T.DSNDSX01.SORTOUT,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(4,20))
+  REORG    INDEX    SYSIBM.DSNDSX01
+           SORTDEVT SYSDA SORTNUM 4
+//**********************************************************************
+//*         RO       MJUTLRO D73294T
+//**********************************************************************
+//UTIL0004  EXEC PGM=DSNUTILB,REGION=4M,PARM='DB2T'
+//STEPLIB   DD   DSN=SSXDT.DB2T.V4.SDSNLOAD,DISP=SHR
+//SYSPRINT  DD   SYSOUT=*
+//UTPRINT   DD   SYSOUT=*
+//*
+//SYSREC   DD  DSN=DB2T.DSNDTX01.SYSREC,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(4,20))
+//SYSUT1   DD  DSN=DB2T.DSNDTX01.SYSUT1,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(4,20))
+//SORTOUT  DD  DSN=DB2T.DSNDTX01.SORTOUT,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(4,20))
+  REORG    INDEX    SYSIBM.DSNDTX01
+           SORTDEVT SYSDA SORTNUM 4
+//**********************************************************************
+//*         RO       MJUTLRO D73294T
+//**********************************************************************
+//UTIL0005  EXEC PGM=DSNUTILB,REGION=4M,PARM='DB2T'
+//STEPLIB   DD   DSN=SSXDT.DB2T.V4.SDSNLOAD,DISP=SHR
+//SYSPRINT  DD   SYSOUT=*
+//UTPRINT   DD   SYSOUT=*
+//*
+//SYSREC   DD  DSN=DB2T.DSNDTX02.SYSREC,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(4,20))
+//SYSUT1   DD  DSN=DB2T.DSNDTX02.SYSUT1,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(4,20))
+//SORTOUT  DD  DSN=DB2T.DSNDTX02.SORTOUT,
+//         MGMTCLAS=MC4NBK,UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(4,20))
+  REORG    INDEX    DSN8410.XACT2
+           SORTDEVT SYSDA SORTNUM 4

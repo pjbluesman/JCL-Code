@@ -1,0 +1,68 @@
+//CDBTEST  JOB ,'DB2 SYSPROG CDB',CLASS=S,MSGCLASS=X,                   00010001
+//    NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSQ       <--------- CHANGE TO SYSNAME DB2 IS ACTIVE
+//*
+//*********************************************************************
+//*
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU MVS3
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR
+//*
+//* -  T  E  S  T  -                                  -  P  R  O  D  -
+//* MVSS - DB2V, DB4V                                 MVSR - DB2R, DB4R
+//* MVSU - DB3V, DB5V                                 MVSQ - DB3R, DB5R
+//* MVS3 - DB6V, DB2X                                 MVS4 - DB6R, DB2W
+//*
+//* DATA SHARING - PARM DBVG OR DBRG
+//* DBVG - DB2V, DB3V, DB4V, DB5V, DB6V
+//* DBRG - DB2R, DB3R, DB4R, DB5R, DB6R
+//*
+//* STAND ALONE: - PARM DB2X OR DB2W
+//*
+//*********************************************************************
+//**               CDB UTILITY TEST SAMPLE JCL                       **
+//********************************************************************/
+//*
+//*                                    T E S T        / P R O D
+//         SET HLQ1='SSXDP' <--------- SSXDT          / SSXDP
+//         SET PARM='DBRG'  <--------- DBVG, DB2X     / DBRG, DB2W
+//         SET SSID='DB5R'  <--------- DB2V,DB3V,DB4V / DB2R,DB3R,DB4R
+//*                                    DB5V,DB6V,DB2X / DB5R,DB6R,DB2W
+//*
+//********************************************************************/
+//JOBLIB   DD DISP=SHR,DSN=&HLQ1..CDB.LOADLIB
+//         DD DISP=SHR,DSN=&HLQ1..&SSID..SDSNEXIT
+//         DD DISP=SHR,DSN=S&SSID..SDSNLOAD
+//*********************************************************************
+//* The values that can be used for the restart parameter are:
+//* For utilities detail read DBRGUTIL member
+//*********************************************************************
+//CDBSTEST EXEC PGM=CDBUTIL,TIME=1440,
+//         PARM='&PARM,''TESTUTIL'',NORESTART'
+//**       PARM='&PARM,''TESTUTIL'',QUICKEXIT'
+//*
+//SYSPRINT  DD SYSOUT=*
+//SYSTSPRT  DD SYSOUT=*
+//SYSOUT    DD SYSOUT=*
+//SYSERROR  DD SYSOUT=*
+//SUMMARY   DD SYSOUT=*
+//*
+//UTLPARMS  DD *
+  +SVRDISK(1)
+  +SVRTAPE(0)
+//RRGPARMS  DD *
+ +MAXTASKS(32)
+ +ALLO(KEEPDB2)
+ +PARTRENAME(NO)
+ +INITWINDOW(2000)
+ +PAGEUSE(50)
+ +RUNSTATS(NO)
+//SYSIN     DD *
+  REORG TABLESPACE DSN8D81A.DSN8S81E
+//
+
+                   DSN8D81A.DSN8S81P
+  REORG TABLESPACE DSN8D81A.DSN8S81E
+  REORG TABLESPACE EBKD3S99.CNO0019
+  REORG TABLESPACE DSN8D81A.DSN8S81E
+  REORG TABLESPACE DATABASE.TABLESPC PART 1
+  COPY TABLESPACE DATABASE.TABLESPC DSNUM 1

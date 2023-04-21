@@ -1,0 +1,33 @@
+//D54808TM  JOB  ,'GLK RM 105',CLASS=S,MSGCLASS=X
+//STEP1  EXEC  PGM=ADRDSSU
+//*
+//*
+//SYSPRINT  DD  SYSOUT=*
+//INVOL1   DD    VOL=SER=MRC020,UNIT=3390,DISP=SHR
+//OUTVOL1  DD    VOL=SER=A3D2A1,UNIT=SYSDA,DISP=SHR
+//SYSIN    DD    *
+ COPY DATASET(INCLUDE(DB2D.DSNDBD.**) -
+ EXCLUDE(-
+      SYS1.** -
+      )) -
+      ALLDATA(*) -
+      ALLEXCP -
+      ALLMULTI -
+      BYPASSACS(DB2D.DSNDBD.**) -
+      NULLSTORCLAS -
+      CANCELERROR -
+      CATALOG  -
+      DELETE -
+      LOGINDDNAME( -
+                  INVOL1 -
+                 ) -
+      OUTDDNAME( -
+                OUTVOL1 -
+               ) -
+      PERCENTUTILIZED( -
+                      100 -
+                     ) -
+      PURGE -
+      TGTALLOC(CYL) -
+      WAIT(5,2)
+/*

@@ -1,0 +1,32 @@
+//CDB#STOP JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID     00001000
+/*JOBPARM SYSAFF=MVS4                                                   00002001
+//********************************************************************* 00003100
+//* FUNCTION : STOP CDB                                                 00003200
+//********************************************************************* 00003400
+//STOCDB3 EXEC PGM=IKJEFT01,DYNAMNBR=40                                 00004000
+//SYSEXEC  DD DSN=SSXQT.TSODAL.CLIST,DISP=(SHR)                         00005000
+//SYSTSPRT DD SYSOUT=*,HOLD=YES                                         00006002
+//ISFULOG  DD SYSOUT=*                                                  00007000
+//ISFMSG   DD SYSOUT=*                                                  00008000
+//ISFMSG2  DD SYSOUT=*                                                  00009000
+//SYSTSIN  DD *                                                         00010000
+ @SYSCMD CMD("RO MVS4,F CDBMVS4,SHUT")                                  00020001
+/*                                                                      00060000
+//STOCDBU EXEC PGM=IKJEFT01,DYNAMNBR=40                                 00070000
+//SYSEXEC  DD DSN=SSXQT.TSODAL.CLIST,DISP=(SHR)                         00080000
+//SYSTSPRT DD SYSOUT=*,HOLD=YES                                         00090002
+//ISFULOG  DD SYSOUT=*                                                  00100000
+//ISFMSG   DD SYSOUT=*                                                  00110000
+//ISFMSG2  DD SYSOUT=*                                                  00120000
+//SYSTSIN  DD *                                                         00130000
+ @SYSCMD CMD("RO MVSQ,F CDBMVSQ,SHUT")                                  00140001
+/*                                                                      00150000
+//STOCDBS EXEC PGM=IKJEFT01,DYNAMNBR=40                                 00160000
+//SYSEXEC  DD DSN=SSXQT.TSODAL.CLIST,DISP=(SHR)                         00170000
+//SYSTSPRT DD SYSOUT=*,HOLD=YES                                         00180002
+//ISFULOG  DD SYSOUT=*                                                  00190000
+//ISFMSG   DD SYSOUT=*                                                  00200000
+//ISFMSG2  DD SYSOUT=*                                                  00210000
+//SYSTSIN  DD *                                                         00220000
+ @SYSCMD CMD("RO MVSR,F CDBMVSR,SHUT")                                  00230001
+/*                                                                      00240000

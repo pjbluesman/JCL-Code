@@ -1,0 +1,16 @@
+//UXD002M JOB (,105),'CJR',CLASS=S,MSGCLASS=X
+//*
+//DSNTIC  EXEC PGM=IDCAMS                                               00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//SYSIN    DD  *                                                        00620000
+   ALTER                         -                                      00630000
+         DSNA.BSDS02             -                                      00640000
+         NEWNAME(DSNA.BSDS03)                                           00660000
+   ALTER                         -                                      00630000
+         DSNA.BSDS02.DATA        -                                      00640000
+         NEWNAME(DSNA.BSDS03.DATA)                                      00660000
+   ALTER                         -                                      00630000
+         DSNA.BSDS02.INDEX       -                                      00640000
+         NEWNAME(DSNA.BSDS03.INDEX)                                     00660000
+//*                                                                     08290000

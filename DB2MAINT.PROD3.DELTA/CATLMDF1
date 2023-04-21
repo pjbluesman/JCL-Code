@@ -1,0 +1,50 @@
+//D54808CA JOB (,102),'GLK',CLASS=S,MSGCLASS=X
+//*
+//*
+//* *************************************************************** */  00370000
+//DSNTIC  PROC                                                          00380000
+//* *************************************************************** */  00390000
+//* DIRECTORY/CATALOG DATASET DEFINITIONS                           */  00400000
+//*                                                                 */
+//* *************************************************************** */  00410000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)                                   00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//DSNTCPY EXEC DSNTIC                                                   02540000
+//* *********************************************                       06800000
+//*  DEFINE DB2  CATALOG/DIRECTORY TABLESPACE = SYSPLAN (21JAN92) *     06810000
+//*              VOLUME & ALLOCATION CHANGE FOR SYSPLAN (15FEB92) *
+//*                                             SCT02   (12JAN92) *     06810000
+//*              VOLUME & ALLOCATION CHANGE FOR MANY    (13MAY92) *     06810000
+//*                     INDEXES AND SYSCOPY             (13MAY92) *     06810000
+//*
+//*             RE-ALLOCATING ALL CAT/DIR INDEXES WHICH WERE ON   *
+//*             DBB092 TO VOLUME                        (13JUN92) *
+//*
+//*    REALLOCATING AND RESIZING SCT02 DATASET 2
+//*                                         27JUL92
+//*
+//*    REALLOCATING AND RESIZING SYSPLAN DATASETS 1 AND 2
+//*                                         12AUG92
+//*
+//*
+//*    ADDING SCT02 EXTENSION I001.A003  17AUG92
+//*
+//* RESIZING SCT02 SYSPLAN DSN32K01 AND SEVERAL INDEXES 99NOV92
+//*
+//*
+//*
+//* *********************************************                       06820000
+//SYSIN DD *                                                            06830000
+   DEFINE CLUSTER                             -                         06840000
+         ( NAME(DB2M.DSNDBC.DSNDB01.SCT02.I0001.A001) -                 06850000
+           LINEAR                             -                         06860000
+           REUSE                              -                         06870000
+           SHAREOPTIONS(3 3) )                -                         06920000
+      DATA                                    -                         06930000
+         ( NAME(DB2M.DSNDBD.DSNDB01.SCT02.I0001.A001) -                 06940000
+           CYLINDERS(2645 300)                -
+           VOLUMES(D2SP05 D2SP03))            -
+      CATALOG(DB2M)                                                     06980000
+//*                                                                     08290000

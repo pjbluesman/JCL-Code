@@ -1,0 +1,42 @@
+//UXD001M  JOB (,A3),'DB2 V9 ALIAS',REGION=6M,                          00000100
+//             CLASS=S,MSGCLASS=X,MSGLEVEL=(1,1)                        00000200
+/*JOBPARM SYSAFF=MVS4                                                   00000300
+//PEV410  EXEC PGM=DB2PM                                                00000400
+//STEPLIB  DD  DSN=SSXDP.DB2TOOLS.MVSRRTE.RKANMODU,DISP=SHR             00000500
+//         DD  DSN=SSXDP.DB2TOOLS.BARQ4RTE.RKANMOD,DISP=SHR             00000600
+//INPUTDD  DD  DISP=SHR,DSN=PSSXP.SMF.MVSR.DB2.G4618V00                 00000701
+//         DD  DISP=SHR,DSN=PSSXP.SMF.MVSR.DB2.G4619V00                 00000801
+//         DD  DISP=SHR,DSN=PSSXP.SMF.MVSR.DB2.G4620V00                 00000901
+//         DD  DISP=SHR,DSN=PSSXP.SMF.MVSQ.DB2.G4533V00                 00001001
+//         DD  DISP=SHR,DSN=PSSXP.SMF.MVSQ.DB2.G4534V00                 00002001
+//         DD  DISP=SHR,DSN=PSSXP.SMF.MVSQ.DB2.G4535V00                 00003001
+//DPMLOG   DD  SYSOUT=*                                                 00006000
+//SORTWK01 DD SPACE=(CYL,(500,200)),UNIT=SYSDA                          00007000
+//SORTWK02 DD SPACE=(CYL,(500,200)),UNIT=SYSDA                          00008000
+//SORTWK03 DD SPACE=(CYL,(500,200)),UNIT=SYSDA                          00009000
+//SORTWK04 DD SPACE=(CYL,(500,200)),UNIT=SYSDA                          00010000
+//SORTWK05 DD SPACE=(CYL,(500,200)),UNIT=SYSDA                          00020000
+//SYSOUT   DD  SYSOUT=*                                                 00030000
+//SYSIN    DD  *                                                        00040000
+LIST (REQLOC(IPLIST(                                                    00080000
+                    10.64.18.124                                        00090000
+                    10.68.216.11                                        00100000
+                    10.64.34.78                                         00110000
+                    10.68.0.198                                         00120000
+                    10.6.163.163                                        00130000
+                    10.64.34.80                                         00140000
+                    10.68.5.52                                          00140100
+                    10.68.5.71                                          00140200
+                    10.68.8.64                                          00141000
+                    10.68.8.65                                          00142000
+                    10.68.36.156                                        00143000
+                    10.68.36.157                                        00144000
+                    10.68.36.158                                        00144100
+                    10.64.34.83                                         00145000
+                    147.118.133.20                                      00146000
+                              )  ) )                                    00149000
+ACCOUNTING                                                              00150000
+   TRACE                                                                00160000
+      INCLUDE (REQLOC(L(IPLIST)))                                       00170000
+      LAYOUT(DDF)                                                       00180000
+EXEC                                                                    00190000

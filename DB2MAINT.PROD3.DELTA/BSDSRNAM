@@ -1,0 +1,25 @@
+//UXD000M JOB (,105),'CJR',CLASS=S,MSGCLASS=X
+//*
+//DSNTIC  EXEC PGM=IDCAMS                                               00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//SYSIN    DD  *                                                        00620000
+   ALTER                         -                                      00630000
+         DB2A.DSNDBAG.BSDS02     -                                      00640000
+         NEWNAME(DB2A.DSNDBAG.OLD.BSDS02)                               00660000
+   ALTER                         -                                      00630000
+         DB2A.DSNDBAG.BSDS02.DATA -                                     00640000
+         NEWNAME(DB2A.DSNDBAG.OLD.BSDS02.DATA)                          00660000
+   ALTER                         -                                      00630000
+         DB2A.DSNDBAG.BSDS02.INDEX -                                    00640000
+         NEWNAME(DB2A.DSNDBAG.OLD.BSDS02.INDEX)                         00660000
+   ALTER                         -                                      00630000
+         DB2A.DSNDBAG.BSDS01     -                                      00640000
+         NEWNAME(DB2A.DSNDBAG.OLD.BSDS01)                               00660000
+   ALTER                         -                                      00630000
+         DB2A.DSNDBAG.BSDS01.DATA -                                     00640000
+         NEWNAME(DB2A.DSNDBAG.OLD.BSDS01.DATA)                          00660000
+   ALTER                         -                                      00630000
+         DB2A.DSNDBAG.BSDS01.INDEX -                                    00640000
+         NEWNAME(DB2A.DSNDBAG.OLD.BSDS01.INDEX)                         00660000
+//*                                                                     08290000

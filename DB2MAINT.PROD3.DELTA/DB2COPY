@@ -1,0 +1,224 @@
+//PKD072A JOB ,'RDL RM2144',CLASS=S,MSGCLASS=X,NOTIFY=DT0072            00010022
+//JOBLIB  DD  DSN=SSXDP.DSNDBRG.DB2R.SDSNLOAD,DISP=SHR                  00020014
+//STEP001  EXEC PGM=DSNUTILB,REGION=0K,                                 00043807
+//         PARM='DBRG,TEDSIC1'                                          00043917
+//SYSPRINT DD   SYSOUT=*                                                00044806
+//UTPRINT  DD   SYSOUT=*                                                00044906
+//SYSUDUMP DD   SYSOUT=*                                                00045006
+//COPY070 DD  DSN=SUEBP.EBKD2P02.TSKD0070.IC.D071302.T2240,             00045123
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00045212
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00045316
+//COPY072 DD  DSN=SUEBP.EBKD2P02.TSKD0072.IC.D071302.T2240,             00045423
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00045512
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00045616
+//COPY073 DD  DSN=SUEBP.EBKD2P02.TSKD0073.IC.D071302.T2240,             00045723
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00045812
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00045916
+//COPY075 DD  DSN=SUEBP.EBKD2P02.TSKD0075.IC.D071302.T2240,             00046023
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00046112
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00046216
+//COPY076 DD  DSN=SUEBP.EBKD2P02.TSKD0076.IC.D071302.T2240,             00046323
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00046412
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00046516
+//COPY078 DD  DSN=SUEBP.EBKD2P02.TSKD0078.IC.D071302.T2240,             00046623
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00046712
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00046816
+//COPY079 DD  DSN=SUEBP.EBKD2P02.TSKD0079.IC.D071302.T2240,             00046923
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00047012
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00047116
+//COPY080 DD  DSN=SUEBP.EBKD2P02.TSKD0080.IC.D071302.T2240,             00047223
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00047312
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00047416
+//COPY082 DD  DSN=SUEBP.EBKD2P02.TSKD0082.IC.D071302.T2240,             00047523
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00047612
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00047716
+//COPY083 DD  DSN=SUEBP.EBKD2P02.TSKD0083.IC.D071302.T2240,             00047823
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00047912
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00048016
+//COPY084 DD  DSN=SUEBP.EBKD2P02.TSKD0084.IC.D071302.T2240,             00048123
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00048212
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00048316
+//COPY086 DD  DSN=SUEBP.EBKD2P02.TSKD0086.IC.D071302.T2240,             00048423
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00048512
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00048616
+//COPY088 DD  DSN=SUEBP.EBKD2P02.TSKD0088.IC.D071302.T2240,             00048723
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00048812
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00048916
+//COPY089 DD  DSN=SUEBP.EBKD2P02.TSKD0089.IC.D071302.T2240,             00049023
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00049112
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00049216
+//COPY091 DD  DSN=SUEBP.EBKD2P02.TSKD0091.IC.D071302.T2240,             00049323
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00049412
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00049516
+//COPY092 DD  DSN=SUEBP.EBKD2P02.TSKD0092.IC.D071302.T2240,             00049623
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00049712
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00049816
+//COPY093 DD  DSN=SUEBP.EBKD2P02.TSKD0093.IC.D071302.T2240,             00049923
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00050012
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00050116
+//COPY094 DD  DSN=SUEBP.EBKD2P02.TSKD0094.IC.D071302.T2240,             00050223
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00050312
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00050416
+//COPY095 DD  DSN=SUEBP.EBKD2P02.TSKD0095.IC.D071302.T2240,             00050523
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00050612
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00050716
+//COPY097 DD  DSN=SUEBP.EBKD2P02.TSKD0097.IC.D071302.T2240,             00050823
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00050912
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00051016
+//COPY102 DD  DSN=SUEBP.EBKD2P02.TSKD0102.IC.D071302.T2240,             00051123
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00051212
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00051316
+//COPY104 DD  DSN=SUEBP.EBKD2P02.TSKD0104.IC.D071302.T2240,             00051423
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00051512
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00051616
+//COPY105 DD  DSN=SUEBP.EBKD2P02.TSKD0105.IC.D071302.T2240,             00051723
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00051812
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00051916
+//COPY106 DD  DSN=SUEBP.EBKD2P02.TSKD0106.IC.D071302.T2240,             00052023
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00052112
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00052216
+//COPY108 DD  DSN=SUEBP.EBKD2P02.TSKD0108.IC.D071302.T2240,             00052323
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00052412
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00052516
+//COPY109 DD  DSN=SUEBP.EBKD2P02.TSKD0109.IC.D071302.T2240,             00052623
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00052712
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00052816
+//COPY110 DD  DSN=SUEBP.EBKD2P02.TSKD0110.IC.D071302.T2240,             00052923
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00053012
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00053116
+//COPY117 DD  DSN=SUEBP.EBKD2P02.TSKD0117.IC.D071302.T2240,             00053223
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00053312
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00053416
+//COPY119 DD  DSN=SUEBP.EBKD2P02.TSKD0119.IC.D071302.T2240,             00053523
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00053612
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00053716
+//COPY121 DD  DSN=SUEBP.EBKD2P02.TSKD0121.IC.D071302.T2240,             00053823
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00053912
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00054016
+//COPY141 DD  DSN=SUEBP.EBKD2P02.TSKD0141.IC.D071302.T2240,             00055923
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00056012
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00056116
+//COPY144 DD  DSN=SUEBP.EBKD2P02.TSKD0144.IC.D071302.T2240,             00057123
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00057212
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00057316
+//SYSIN DD  *                                                           00057407
+ COPY TABLESPACE EBKD2P02.TSKD0070 COPYDDN(COPY070)                     00058010
+      DSNUM ALL                                                         00060010
+      TABLESPACE EBKD2P02.TSKD0072 COPYDDN(COPY072)                     00061010
+      DSNUM ALL                                                         00062010
+      TABLESPACE EBKD2P02.TSKD0073 COPYDDN(COPY073)                     00063010
+      DSNUM ALL                                                         00064010
+      TABLESPACE EBKD2P02.TSKD0075 COPYDDN(COPY075)                     00065010
+      DSNUM ALL                                                         00066010
+      TABLESPACE EBKD2P02.TSKD0076 COPYDDN(COPY076)                     00067010
+      DSNUM ALL                                                         00068010
+ PARALLEL (5)                                                           00068113
+ SHRLEVEL CHANGE    FULL YES                                            00068213
+ COPY TABLESPACE EBKD2P02.TSKD0078 COPYDDN(COPY078)                     00069013
+      DSNUM ALL                                                         00069110
+      TABLESPACE EBKD2P02.TSKD0079 COPYDDN(COPY079)                     00069210
+      DSNUM ALL                                                         00069310
+      TABLESPACE EBKD2P02.TSKD0080 COPYDDN(COPY080)                     00069410
+      DSNUM ALL                                                         00069510
+      TABLESPACE EBKD2P02.TSKD0082 COPYDDN(COPY082)                     00069610
+      DSNUM ALL                                                         00069710
+      TABLESPACE EBKD2P02.TSKD0083 COPYDDN(COPY083)                     00069810
+      DSNUM ALL                                                         00069910
+ PARALLEL (5)                                                           00070013
+ SHRLEVEL CHANGE    FULL YES                                            00070113
+ COPY TABLESPACE EBKD2P02.TSKD0084 COPYDDN(COPY084)                     00070213
+      DSNUM ALL                                                         00070310
+      TABLESPACE EBKD2P02.TSKD0086 COPYDDN(COPY086)                     00070410
+      DSNUM ALL                                                         00070510
+      TABLESPACE EBKD2P02.TSKD0088 COPYDDN(COPY088)                     00070610
+      DSNUM ALL                                                         00070710
+      TABLESPACE EBKD2P02.TSKD0089 COPYDDN(COPY089)                     00070810
+      DSNUM ALL                                                         00070910
+      TABLESPACE EBKD2P02.TSKD0091 COPYDDN(COPY091)                     00071010
+      DSNUM ALL                                                         00071110
+ PARALLEL (5)                                                           00071213
+ SHRLEVEL CHANGE    FULL YES                                            00071313
+ COPY TABLESPACE EBKD2P02.TSKD0092 COPYDDN(COPY092)                     00071413
+      DSNUM ALL                                                         00071510
+      TABLESPACE EBKD2P02.TSKD0093 COPYDDN(COPY093)                     00071610
+      DSNUM ALL                                                         00071710
+      TABLESPACE EBKD2P02.TSKD0094 COPYDDN(COPY094)                     00071810
+      DSNUM ALL                                                         00071910
+      TABLESPACE EBKD2P02.TSKD0095 COPYDDN(COPY095)                     00072010
+      DSNUM ALL                                                         00072110
+      TABLESPACE EBKD2P02.TSKD0097 COPYDDN(COPY097)                     00072210
+      DSNUM ALL                                                         00072310
+ PARALLEL (5)                                                           00072413
+ SHRLEVEL CHANGE    FULL YES                                            00072513
+ COPY TABLESPACE EBKD2P02.TSKD0102 COPYDDN(COPY102)                     00072613
+      DSNUM ALL                                                         00072710
+      TABLESPACE EBKD2P02.TSKD0104 COPYDDN(COPY104)                     00072810
+      DSNUM ALL                                                         00072910
+      TABLESPACE EBKD2P02.TSKD0105 COPYDDN(COPY105)                     00073010
+      DSNUM ALL                                                         00073110
+      TABLESPACE EBKD2P02.TSKD0106 COPYDDN(COPY106)                     00073210
+      DSNUM ALL                                                         00073310
+      TABLESPACE EBKD2P02.TSKD0108 COPYDDN(COPY108)                     00073410
+      DSNUM ALL                                                         00073510
+ PARALLEL (5)                                                           00073613
+ SHRLEVEL CHANGE    FULL YES                                            00073713
+ COPY TABLESPACE EBKD2P02.TSKD0109 COPYDDN(COPY109)                     00073813
+      DSNUM ALL                                                         00073910
+      TABLESPACE EBKD2P02.TSKD0110 COPYDDN(COPY110)                     00074010
+      DSNUM ALL                                                         00074110
+      TABLESPACE EBKD2P02.TSKD0117 COPYDDN(COPY117)                     00074210
+      DSNUM ALL                                                         00074310
+      TABLESPACE EBKD2P02.TSKD0119 COPYDDN(COPY119)                     00074410
+      DSNUM ALL                                                         00074510
+      TABLESPACE EBKD2P02.TSKD0121 COPYDDN(COPY121)                     00074610
+      DSNUM ALL                                                         00074710
+ PARALLEL (5)                                                           00074813
+ SHRLEVEL CHANGE    FULL YES                                            00074913
+ COPY TABLESPACE EBKD2P02.TSKD0141 COPYDDN(COPY141)                     00076213
+      DSNUM ALL                                                         00076310
+      TABLESPACE EBKD2P02.TSKD0144 COPYDDN(COPY144)                     00076410
+      DSNUM ALL                                                         00076510
+ PARALLEL (2)                                                           00076613
+ SHRLEVEL CHANGE    FULL YES                                            00076711
+/*                                                                      00080000
+//                                                                      00090000
+//PKD072B JOB ,'RDL RM2144',CLASS=S,MSGCLASS=X,NOTIFY=DT0072            00100022
+//JOBLIB  DD  DSN=SSXDP.DSNDBRG.DB2R.SDSNLOAD,DISP=SHR                  00110017
+//STEP001  EXEC PGM=DSNUTILB,REGION=0K,                                 00120017
+//         PARM='DBRG,TEDSIC2'                                          00130017
+//SYSPRINT DD   SYSOUT=*                                                00140017
+//UTPRINT  DD   SYSOUT=*                                                00150017
+//SYSUDUMP DD   SYSOUT=*                                                00160017
+//COPY122 DD  DSN=SUEBP.EBKD2P02.TSKD0122.IC.D071302.T2240,             01070023
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 01080017
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              01090017
+//COPY128 DD  DSN=SUEBP.EBKD2P02.TSKD0128.IC.D071302.T2240,             01100023
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 01110017
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              01120017
+//COPY132 DD  DSN=SUEBP.EBKD2P02.TSKD0132.IC.D071302.T2240,             01130023
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 01140017
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              01150017
+//COPY133 DD  DSN=SUEBP.EBKD2P02.TSKD0133.IC.D071302.T2240,             01160023
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 01170017
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              01180017
+//COPY134 DD  DSN=SUEBP.EBKD2P02.TSKD0134.IC.D071302.T2240,             01190023
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 01200017
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              01210017
+//COPY138 DD  DSN=SUEBP.EBKD2P02.TSKD0138.IC.D071302.T2240,             01220023
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 01230017
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              01240017
+//SYSIN DD  *                                                           01310017
+ COPY TABLESPACE EBKD2P02.TSKD0122 COPYDDN(COPY122)                     02040017
+      DSNUM ALL                                                         02050017
+      TABLESPACE EBKD2P02.TSKD0128 COPYDDN(COPY128)                     02060017
+      DSNUM ALL                                                         02070017
+      TABLESPACE EBKD2P02.TSKD0132 COPYDDN(COPY132)                     02080017
+      DSNUM ALL                                                         02090017
+      TABLESPACE EBKD2P02.TSKD0134 COPYDDN(COPY134)                     02100017
+      DSNUM ALL                                                         02110017
+      TABLESPACE EBKD2P02.TSKD0138 COPYDDN(COPY138)                     02120017
+      DSNUM ALL                                                         02130017
+ PARALLEL (5)                                                           02140017
+ SHRLEVEL CHANGE    FULL YES                                            02150017
+/*                                                                      02220017
+//                                                                      02230017

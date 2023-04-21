@@ -1,0 +1,55 @@
+//UXD001M  JOB ,'KELLY DB2 SUPP',CLASS=S,MSGCLASS=X,                    JCLP
+//         REGION=5000K,                                                JCLP
+//         TIME=1440                                                    JCLP
+//JOBLIB   DD DISP=SHR,                                                 JCLP
+//             DSN=SSXDP.DB2M.V4.SDSNLOAD                               JCLP
+//STEP01   EXEC  UXD00M                                                 JCLP
+//SYSGROUP.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB06.SYSGROUP  COPYDDN CPY01,CPY01B                 JCLP
+                 SHRLEVEL CHANGE
+//SYSGPAUT.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB06.SYSGPAUT  COPYDDN CPY02,CPY02B                 JCLP
+                 SHRLEVEL CHANGE
+//SYSVIEWS.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB06.SYSVIEWS  COPYDDN CPY03,CPY03B                 JCLP
+                 SHRLEVEL CHANGE
+//SYSPLAN.SYSIN DD *                                                    JCLP
+COPY TABLESPACE  DSNDB06.SYSPLAN   COPYDDN CPY04,CPY04B                 JCLP
+                 SHRLEVEL CHANGE
+//SCT02.SYSIN DD *                                                      JCLP
+COPY TABLESPACE  DSNDB01.SCT02     COPYDDN CPY05,CPY05B                 JCLP
+                 SHRLEVEL CHANGE
+//SYSDBASE.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB06.SYSDBASE  COPYDDN CPY06,CPY06B                 JCLP
+                 SHRLEVEL CHANGE
+//SYSUSER.SYSIN DD *                                                    JCLP
+COPY TABLESPACE  DSNDB06.SYSUSER   COPYDDN CPY07,CPY07B                 JCLP
+                 SHRLEVEL CHANGE
+//SYSDBAUT.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB06.SYSDBAUT  COPYDDN CPY08,CPY08B                 JCLP
+                 SHRLEVEL CHANGE
+//SYSLGRNG.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB01.SYSLGRNX  COPYDDN CPY09,CPY09B                 JCLP
+                 SHRLEVEL CHANGE
+//SYSCOPY.SYSIN DD *                                                    JCLP
+COPY TABLESPACE  DSNDB06.SYSCOPY   COPYDDN CPY10,CPY10B                 JCLP
+                 SHRLEVEL CHANGE
+//DBD01.SYSIN DD *                                                      JCLP
+COPY TABLESPACE  DSNDB01.DBD01     COPYDDN CPY11,CPY11B                 JCLP
+                 SHRLEVEL CHANGE
+//SYSUTIL.SYSIN DD *                                                    JCLP
+COPY TABLESPACE  DSNDB01.SYSUTILX   COPYDDN CPY12,CPY12B                JCLP
+                 SHRLEVEL CHANGE
+//SPT01.SYSIN DD *                                                      JCLP
+COPY TABLESPACE  DSNDB01.SPT01     COPYDDN CPY13,CPY13B                 JCLP
+                 SHRLEVEL CHANGE
+//SYSSTR.SYSIN DD *                                                     JCLP
+COPY TABLESPACE  DSNDB06.SYSSTR    COPYDDN CPY14,CPY14B                 JCLP
+                 SHRLEVEL CHANGE
+//SYSPKAGE.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB06.SYSPKAGE  COPYDDN CPY15,CPY15B                 JCLP
+                 SHRLEVEL CHANGE
+//SYSSTATS.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB06.SYSSTATS  COPYDDN CPY16,CPY16B                 JCLP
+                 SHRLEVEL CHANGE
+/*                                                                      JCLP

@@ -1,0 +1,67 @@
+//QUICKEXT JOB ,'DB2 SYSPROG CDB',CLASS=S,MSGCLASS=X, TYPRUN=HOLD,      JOB05913
+//        NOTIFY=&SYSUID
+//*
+//JOBLIB   DD DISP=SHR,DSN=SSXDT.CDB.LOADLIB
+//         DD DISP=SHR,DSN=SDB6V.SDSNLOAD
+//         DD DISP=SHR,DSN=SSXDT.DB6V.SDSNEXIT
+//*********************************************************************
+//*  JOBNAME: CDBDISP - CHECK REPORT TO SEE IF ANY PENDING UTILITY    *
+//*********************************************************************
+//CDBUSTEP EXEC PGM=CDBUTIL,PARM='DBVG,''CDBDISP'',NORESTART',
+//         TIME=1440
+//*
+//SYSPRINT  DD SYSOUT=*
+//SYSTSPRT  DD SYSOUT=*
+//SYSOUT    DD SYSOUT=*
+//SYSERROR  DD SYSOUT=*
+//SUMMARY   DD SYSOUT=*
+//*
+//SYSIN DD  *
+  CDBDISP
+/*
+//*********************************************************************
+//*  JOBNAME: QUICKEXIT - CLEAN UP ANY PENDING UTILITY *
+//*                CDB UTILITY TEST SAMPLE JCL                        *
+//*                                                                   *
+//*  TO FIX UTILITIES WITH RESTARTABLE STATUS , EXECUTE QUICKEXIT     *
+//*  PCDBTSKD0071     RESTARTABLE  2013-09-19  21:41:58               *
+//*  PCDBTSKD0872     RESTARTABLE  2013-09-19  21:43:48               *
+//*  REORGIXA00D      RESTARTABLE  2013-11-01  23:53:43               *
+//*********************************************************************
+//QE1      EXEC PGM=CDBUTIL,PARM='DBVG,''PCDBTSKD0071'',QUICKEXIT'
+//SYSPRINT  DD SYSOUT=*
+//SYSOUT    DD SYSOUT=*
+//SYSERROR  DD SYSOUT=*
+//SYSIN     DD *
+/*
+//QE2      EXEC PGM=CDBUTIL,PARM='DBVG,''PCDBTSKD0872'',QUICKEXIT'
+//SYSPRINT  DD SYSOUT=*
+//SYSOUT    DD SYSOUT=*
+//SYSERROR  DD SYSOUT=*
+//SYSIN     DD *
+/*
+//QE3      EXEC PGM=CDBUTIL,PARM='DBVG,''REORGIXA00D'',QUICKEXIT'
+//SYSPRINT  DD SYSOUT=*
+//SYSOUT    DD SYSOUT=*
+//SYSERROR  DD SYSOUT=*
+//SYSIN     DD *
+/*
+//* CDBTEST
+//* PCDBTSKD0071
+//* PCDBTSKD0872
+//* REORGIXA00D
+//*********************************************************************
+//*  JOBNAME: CDBDISP - CHECK REPORT TO SEE IF ANY PENDING UTILITY    *
+//*********************************************************************
+//CDBUSTEP EXEC PGM=CDBUTIL,PARM='DBVG,''CDBDISP'',NORESTART',
+//         TIME=1440
+//*
+//SYSPRINT  DD SYSOUT=*
+//SYSTSPRT  DD SYSOUT=*
+//SYSOUT    DD SYSOUT=*
+//SYSERROR  DD SYSOUT=*
+//SUMMARY   DD SYSOUT=*
+//*
+//SYSIN DD  *
+  CDBDISP
+/*

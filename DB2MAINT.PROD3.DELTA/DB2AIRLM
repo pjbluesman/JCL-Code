@@ -1,0 +1,28 @@
+//*************************************************
+//*        JCL FOR PROCEDURE FOR THE STARTUP
+//*        OF THE IRLM LOCK MANAGER
+//*        ADDRESS SPACE.
+//*
+//*        THESE PARAMETERS ARE SET FOR DB2. FOR
+//*        GLOBAL SHARING AND OTHER FACILITIES,
+//*        USE THE IMS/VS IRLM PARAMETERS.
+//*
+//*************************************************
+//DB2AIRLM PROC RGN=5000K,
+//             LIB='SSXDT.DSNDBAG.DB2A.SDSNLOAD',
+//             IRLMNM=ARLM,
+//             IRLMID=1,
+//             SCOPE=LOCAL,
+//             DEADLOK='5,1',
+//             MAXCSA=10,
+//             PC=YES,
+//             MAXUSRS=7,
+//             IRLMGRP=,
+//             LOCKTAB=,
+//             TRACE=NO
+//       EXEC PGM=DXRRLM00,DPRTY=(15,15),
+//       PARM=(&IRLMNM,&IRLMID,&SCOPE,&DEADLOK,&MAXCSA,&PC,
+//       &MAXUSRS,&IRLMGRP,&LOCKTAB,&TRACE),
+//       REGION=&RGN
+//STEPLIB  DD DSN=&LIB,DISP=SHR
+//SYSABEND DD SYSOUT=*

@@ -1,0 +1,18 @@
+//CDB1DBUP JOB ,'DB2 SYSPROG CDB',CLASS=S,MSGCLASS=X,REGION=0M          JOB00959
+/*JOBPARM SYSAFF=MVS4
+//*                                                                     00020002
+//*********************************************************************
+//**               CDB UTILITY TEST SAMPLE JCL                      ***
+//**               JOB TO EXTRACT JOURNAL INFORMATION               ***
+//**                                                                ***
+//*********************************************************************
+//DBUT      EXEC PGM=CDB1DBUT,PARM=DBRG
+//STEPLIB   DD DISP=SHR,DSN=SSXDP.CDB.LOADLIB
+//SYSERROR  DD SYSOUT=*
+//JOURNAL   DD DUMMY
+//CDBPRINT  DD SYSOUT=*
+//OFILE     DD DSN=SSXDP.CDB.JOURNAL.PKT87507,
+//          DISP=(NEW,CATLG),SPACE=(CYL,(50,20)),UNIT=SYSDA
+//SYSIN     DD *
+  DBUT DUMP  JOBNAME(PKT87507) JESID(JOB08008) OUTDD(OFILE)
+

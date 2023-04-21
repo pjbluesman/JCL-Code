@@ -1,0 +1,278 @@
+//DB2#SRCH JOB ,'DB2 STANDARD JOBS',CLASS=S,MSGCLASS=X,
+//         NOTIFY=&SYSUID,REGION=0M
+/*JOBPARM SYSAFF=MVS4
+//*
+//*=====================================================================
+//* SYSIN TO BE SEARCHED
+//*=====================================================================
+//STEP0   EXEC PGM=IEBGENER
+//SYSPRINT DD  SYSOUT=*
+//SYSIN    DD  DUMMY
+//SYSUT2   DD  DISP=(,PASS),UNIT=3390,SPACE=(TRK,(1,5),RLSE)
+//SYSUT1   DD  *
+  SRCHFOR 'SSXDT.DB2V9'
+  SRCHFOR 'SSXDP.DB2V9'
+  SRCHFOR 'SYS2.DB2V9'
+  SRCHFOR 'SSXDP.DB2V7'
+  SRCHFOR 'SSXDT.DB2V7'
+  SRCHFOR 'SSXDP.DB2V8'
+  SRCHFOR 'SSXDT.DB2V8'
+  SRCHFOR 'SSXDT.DSNDBEG.DB2E.SDSNLOAD'
+  SRCHFOR 'SSXDT.DSNDBVG.DB2V.SD'
+  SRCHFOR 'SSXDT.DSNDBVG.DB3V.SDSNLOAD'
+  SRCHFOR 'SYS2.DB2V7.SD'
+  SRCHFOR 'SYS2.DB2V8.SD'
+/*
+//*
+//*=====================================================================
+//* CHECK SYS1.PARMLIB.ZOS21
+//*=====================================================================
+//STEP01 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS1.PARMLIB.ZOS21,
+//            VOL=SER=CATTAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS1.PARMLIB.ZOS21
+//*=====================================================================
+//STEP02 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS1.PARMLIB.ZOS21,
+//            VOL=SER=CATPAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS1.PARMLIB
+//*=====================================================================
+//STEP03 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS1.PARMLIB,
+//            VOL=SER=CATTAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS1.PARMLIB
+//*=====================================================================
+//STEP04 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS1.PARMLIB,
+//            VOL=SER=CATPAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS1.IBM.PARMLIB
+//*=====================================================================
+//STEP05 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS1.IBM.PARMLIB
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS1.IPCSPARM
+//*=====================================================================
+//STEP06 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS1.IPCSPARM
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS1.PROCLIB.ZOS21
+//*=====================================================================
+//STEP07 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS1.PROCLIB.ZOS21
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS1.PROCLIB
+//*=====================================================================
+//STEP08 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS1.PROCLIB
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS1.IBM.PROCLIB
+//*=====================================================================
+//STEP09 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS1.IBM.PROCLIB
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS1.XGROUP.PROCLIB.VGS
+//*=====================================================================
+//STEP10 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS1.XGROUP.PROCLIB.VGS
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS2.MVSF.PROCLIB
+//*=====================================================================
+//STEP11 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS2.MVSF.PROCLIB,
+//            VOL=SER=CATPAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS2.MVSI.PROCLIB
+//*=====================================================================
+//STEP12 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS2.MVSI.PROCLIB,
+//            VOL=SER=CATPAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS2.MVSR.PROCLIB
+//*=====================================================================
+//STEP13 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS2.MVSR.PROCLIB,
+//            VOL=SER=CATPAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS2.MVSQ.PROCLIB
+//*=====================================================================
+//STEP14 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS2.MVSQ.PROCLIB,
+//            VOL=SER=CATPAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS2.MVS4.PROCLIB
+//*=====================================================================
+//STEP15 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS2.MVS4.PROCLIB,
+//            VOL=SER=CATPAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS2.MVSE.PROCLIB
+//*=====================================================================
+//STEP16 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS2.MVSE.PROCLIB,
+//            VOL=SER=CATTAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS2.MVSJ.PROCLIB
+//*=====================================================================
+//STEP17 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS2.MVSJ.PROCLIB,
+//            VOL=SER=CATTAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS2.MVSN.PROCLIB
+//*=====================================================================
+//STEP18 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS2.MVSN.PROCLIB,
+//            VOL=SER=CATTAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS2.MVSH.PROCLIB
+//*=====================================================================
+//STEP19 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS2.MVSH.PROCLIB,
+//            VOL=SER=CATTAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS2.MVSK.PROCLIB
+//*=====================================================================
+//STEP20 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS2.MVSK.PROCLIB,
+//            VOL=SER=CATTAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS2.MVSU.PROCLIB
+//*=====================================================================
+//STEP21 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS2.MVSU.PROCLIB,
+//            VOL=SER=CATTAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS2.MVSS.PROCLIB
+//*=====================================================================
+//STEP22 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS2.MVSS.PROCLIB,
+//            VOL=SER=CATTAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS2.MVS3.PROCLIB
+//*=====================================================================
+//STEP23 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS2.MVS3.PROCLIB,
+//            VOL=SER=CATTAS,UNIT=SYSDA
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SYS2.SAPPLEX.PROCLIB
+//*=====================================================================
+//STEP24 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SYS2.SAPPLEX.PROCLIB
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SUOPP.PROD.ASCPROC
+//*=====================================================================
+//STEP25 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SUOPP.PROD.ASCPROC
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,PASS),DSN=*.STEP0.SYSUT2
+/*
+//*=====================================================================
+//* CHECK SUOPP.PROD.ASCJCL
+//*=====================================================================
+//STEP26 EXEC PGM=ISRSUPC,
+//            PARM=(SRCHCMP,'ANYC')
+//NEWDD   DD  DISP=SHR,DSN=SUOPP.PROD.ASCJCL
+//OUTDD   DD  SYSOUT=*
+//SYSIN   DD  DISP=(OLD,DELETE),DSN=*.STEP0.SYSUT2
+/*
+/*

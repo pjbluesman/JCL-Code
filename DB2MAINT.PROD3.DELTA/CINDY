@@ -1,0 +1,88 @@
+//UWR0010M JOB (CNO),'LOAD PTCTY REF M',                                JOB08249
+//             CLASS=S,REGION=4M,
+//             MSGLEVEL=(1,1),
+//             MSGCLASS=X,NOTIFY=D71018E
+//*
+//UTIL0001 EXEC PLATUTLU,UID='LPTCTYD.UTIL01',
+//*          UTPROC=''
+//           UTPROC='RESTART(BYPASS)'
+//SYSPRINT DD SYSOUT=*                                                  00040004
+//UTPRINT  DD SYSOUT=*                                                  00050004
+//PTIMSG   DD SYSOUT=*
+//STO1MSG  DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//SYSULD   DD DUMMY
+//SYSREC  DD DSN=SUEBT.LPTGCTYM.SYSREC,DISP=(MOD,CATLG,CATLG),
+//         SPACE=(CYL,(50,25)),UNIT=SYSDA
+//SYSUT1  DD DSN=SUEBT.LPTGCTYM.SYSUT1,DISP=(MOD,CATLG,CATLG),
+//         SPACE=(CYL,(50,25)),UNIT=SYSDA
+//SYSDISC  DD DSN=SUEBT.LPTGCTYM.SYSDISC,DISP=(MOD,CATLG,CATLG),
+//         SPACE=(CYL,(50,25)),UNIT=SYSDA
+//SYSERR   DD DSN=SUEBT.LPTGCTYM.SYSERR,DISP=(MOD,CATLG,CATLG),
+//         SPACE=(CYL,(50,25)),UNIT=SYSDA
+//SYSMAP   DD DSN=SUEBT.LPTGCTYM.SYSMAP,DISP=(MOD,CATLG,CATLG),
+//         SPACE=(CYL,(50,25)),UNIT=SYSDA
+//SYSUDUMP  DD   SYSOUT=*
+//ABNLIGNR  DD   DUMMY                 SUPPRESS ABENDAID DUMPS
+//ST01MSG   DD   SYSOUT=*
+FASTLOAD
+REPLACE
+MAXTASKS 1
+ALLMSGS
+INPUT-FORMAT UNLOAD
+COPY-BUFFERS 10
+SPACE-DEFN YES
+DISCARDS 0
+DISPLAY-STATUS 500
+ESTIMATED-ROWS 3000
+IO-BUFFERS 60
+NONLEAF-PCTFREE LEAF
+OUTPUT-CONTROL ALL
+RECLUSTER NO SORT-CLINDX
+STOP-LIMIT 1
+UPDATE-SYSCOPY
+VSAM-BUFFERS 180
+INTO TABLE  EBKDD02.MT_CPN
+   (
+    TKT_DOC_NB         POSITION(      1:    15 )
+      CHAR               (    15)
+          ,
+    TKT_DOC_ISS_LDT
+      DATE EXTERNAL INITIAL ('01/01/2001')
+          ,
+    TKT_DOC_SQ_NB      POSITION(     24:    25 )
+      SMALLINT
+          ,
+    CPN_NB             POSITION(     26:    31 )
+      DECIMAL EXTERNAL
+          ,
+    FARE_BAS_CD        POSITION(     32:    39 )
+      CHAR               (     8)
+        NULLIF(    32 ) = '*'
+          ,
+    FBS_TKT_DSGTR_TXT  POSITION(     47:    51 )
+      CHAR               (    5)
+        NULLIF(    47 ) = '*'
+          ,
+    TKT_CPN_ET_STT_CD  POSITION(     62:    62 )
+      CHAR               (     1)
+        NULLIF(    62 ) = '*'
+          ,
+    TKT_DSGTR_CD       POSITION(     63:    67 )
+      CHAR               (     5)
+        NULLIF(    63 ) =  '*'
+          ,
+    TKT_SET_CPN_SQL_NB POSITION(     78:    83 )
+      DECIMAL EXTERNAL
+        NULLIF(    78 ) = '*'
+          ,
+    TPF_CPN_SQL_NB     POSITION(     84:    89 )
+      DECIMAL EXTERNAL
+        NULLIF(    84 ) = '*'
+          ,
+    PRTTN_KEY_ID       POSITION(     90:    92 )
+      DECIMAL EXTERNAL
+          ,
+    LST_TRNS_EVT_GTS   POSITION(     93:   106 )
+      TIMESTAMP EXTERNAL (    14)
+   )

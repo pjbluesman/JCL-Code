@@ -1,0 +1,22 @@
+//DT0072Z JOB ,'RDL RM2144',CLASS=S,MSGCLASS=X,NOTIFY=DT0072            00010000
+//JOBLIB  DD  DSN=SSXDT.DSNDBVG.DB2V.SDSNLOAD,DISP=SHR                  00020000
+//STEP001  EXEC PGM=DSNUTILB,REGION=0K,                                 00030000
+//         PARM='DBVG,IC0075X'                                          00040000
+//SYSPRINT DD   SYSOUT=*                                                00041000
+//UTPRINT  DD   SYSOUT=*                                                00042000
+//SYSUDUMP DD   SYSOUT=*                                                00043000
+//COPY0751 DD  DSN=SUEBT.EBKD2S02.IXCKD075.IC.D070702.T1230,            00044000
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00045000
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00046000
+//COPY0752 DD  DSN=SUEBT.EBKD2S02.IX1KD075.IC.D070702.T1230,            00046100
+//    DISP=(NEW,CATLG,DELETE),BUFNO=50,                                 00046200
+//    UNIT=SYSDA,SPACE=(CYL,(400,400),,,ROUND),VOL=(,,,16)              00046300
+//SYSIN DD  *                                                           00047000
+ COPY INDEX      EBKDS02.IXCKD075 COPYDDN(COPY0751)                     00048000
+      DSNUM ALL                                                         00049000
+      INDEX      EBKDS02.IX1KD075 COPYDDN(COPY0752)                     00049100
+      DSNUM ALL                                                         00049200
+ PARALLEL (2)                                                           00049300
+ SHRLEVEL REFERENCE FULL YES                                            00050000
+/*                                                                      00060000
+//                                                                      00070000

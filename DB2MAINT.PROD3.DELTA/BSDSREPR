@@ -1,0 +1,12 @@
+//UXD000M JOB (,GLK),'DB2',CLASS=S,MSGCLASS=X
+//*
+//DSNTIC  EXEC PGM=IDCAMS                                               00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//INDD     DD DSN=DB2T.BSDS02,DISP=SHR
+//OUTDD    DD DSN=DB2T.OLD.BSDS02,DISP=OLD
+//SYSIN    DD  *                                                        00620000
+   REPRO                         -                                      00630000
+         INFILE(INDD)            -                                      00640000
+         OUTFILE(OUTDD)                                                 00660000
+//*                                                                     08290000

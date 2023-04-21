@@ -1,0 +1,24 @@
+//CDBDISP  JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID     00000107
+/*JOBPARM SYSAFF=MVS4                                                   00000203
+//********************************************************************* 00000303
+//*  JOBNAME: CDBDISP - CHECK REPORT TO SEE IF ANY PENDING UTILITY      00031002
+//*  JOB TO DISPLAY UTILITIES ON                                        00032000
+//*                CDB UTILITY TEST SAMPLE JCL                      *** 00040000
+//********************************************************************* 00050000
+//JOBLIB   DD DISP=SHR,DSN=SSXDP.CDB.LOADLIB                            00060002
+//         DD DISP=SHR,DSN=SSXDP.DB6R.SDSNEXIT                          00070002
+//         DD DISP=SHR,DSN=SDB6R.SDSNLOAD                               00080002
+//CDBUSTEP EXEC PGM=CDBUTIL,PARM='DBRG,''CDBDISP'',NORESTART',          00090002
+//         TIME=1440                                                    00100000
+//*                                                                     00110000
+//SYSPRINT  DD SYSOUT=*                                                 00120000
+//SYSTSPRT  DD SYSOUT=*                                                 00130000
+//SYSOUT    DD SYSOUT=*                                                 00140000
+//SYSERROR  DD SYSOUT=*                                                 00150000
+//SUMMARY   DD SYSOUT=*                                                 00160000
+//*                                                                     00190000
+//SYSIN DD  *                                                           00200000
+  CDBDISP                                                               00210008
+/*                                                                      00220000
+//                                                                      00221008
+  CDBDISP PASSWORDS                                                     00230008

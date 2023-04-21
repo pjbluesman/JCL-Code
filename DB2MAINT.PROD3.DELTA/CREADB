@@ -1,0 +1,46 @@
+    SET CURRENT SQLID = 'SYSPRO';
+
+    CREATE DATABASE MARIODB
+           STOGROUP SYSDEFLT
+           BUFFERPOOL BP4
+           INDEXBP    BP5
+           CCSID EBCDIC
+    ;
+
+    CREATE TABLESPACE MARIOTS
+           IN MARIODB
+                     USING STOGROUP SYSDEFLT
+                                    PRIQTY 7200
+                                    SECQTY 720
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+           BUFFERPOOL BP4
+           LOCKSIZE ANY
+           CLOSE NO
+           CCSID EBCDIC
+    ;
+
+
+CREATE TABLE MAR.MARIOTBL
+   (SYSTEMID               CHAR(4    )                 NOT NULL
+   ,DMRAUTOCUST            INTEGER                     NOT NULL
+   )
+   IN MARIODB.MARIOTS
+   CCSID EBCDIC
+   ;
+
+
+    CREATE        UNIQUE INDEX MAR.MARINDX
+           ON MAR.MARIOTBL
+          (SUBSYSTEM            ASC)
+                     USING STOGROUP SYSDEFLT
+                                    PRIQTY 720
+                                    SECQTY 720
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+           BUFFERPOOL BP5
+           CLOSE YES
+    ;
+
