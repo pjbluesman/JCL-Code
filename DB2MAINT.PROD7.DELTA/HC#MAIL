@@ -1,0 +1,31 @@
+//UXC401MM JOB CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID
+//**********************************************************************
+//** Send Weekly Report by e-mail for review                          **
+//** Alter email adress and the gdg for each of the 8 reports         **
+//**********************************************************************
+//XP8040M EXEC  SAS,OPTIONS='SOURCE',COND=(4,LT)
+//SYSIN    DD  *
+  filename send email
+     from =  'pangelo@delta.com'
+       to = ('pangelo@br.ibm.com')
+  /* Hit PF11 to update date on the subject */
+  subject = "ISeC 5.0 HC Reports to review"                                2014"
+  attach = ("SSXDP.SECURITY.MVSFDB2F.HEALTHCK(0)" NAME='MVSFDB2F.HC')
+  attach = ("SSXDP.SECURITY.MVSIDB3F.HEALTHCK(0)" NAME='MVSIDB3F.HC')
+  attach = ("SSXDP.SECURITY.MVSFDWP1.HEALTHCK(0)" NAME='MVSFDWP1.HC')
+  attach = ("SSXDP.SECURITY.MVSIDWP2.HEALTHCK(0)" NAME='MVSIDWP2.HC')
+  attach = ("SSXDP.SECURITY.MVSRDB2R.HEALTHCK(0)" NAME='MVSRDB2R.HC')
+  attach = ("SSXDP.SECURITY.MVSQDB3R.HEALTHCK(0)" NAME='MVSQDB3R.HC')
+  attach = ("SSXDP.SECURITY.MVSRDB4R.HEALTHCK(0)" NAME='MVSRDB4R.HC')
+  attach = ("SSXDP.SECURITY.MVSQDB5R.HEALTHCK(0)" NAME='MVSQDB5R.HC')
+  attach = ("SSXDP.SECURITY.MVS4DB6R.HEALTHCK(0)" NAME='MVS4DB6R.HC')
+  attach = ("SSXDP.SECURITY.MVS4DB2W.HEALTHCK(0)" NAME='MVS4DB2W.HC')
+  attach = ("SSXDP.SECURITY.MVSIDB2G.HEALTHCK(0)" NAME='MVSIDB2G.HC');
+  data _null_;
+  endsas;
+/*
+//
+  file send;
+  infile 'SSXDP.DB2MAINT(SOX#TEXT)';
+  input @;
+  put _infile_;

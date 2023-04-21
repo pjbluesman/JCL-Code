@@ -1,0 +1,17 @@
+//UXD001M  JOB ,'GIL RM102',CLASS=S,MSGCLASS=X                          00001004
+//STEP02   EXEC PGM=TRSMAIN,PARM='PACK'                                 00050200
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB                          00050300
+//SYSPRINT DD SYSOUT=*,DCB=(LRECL=133,BLKSIZE=12901,RECFM=FBA)          00050400
+//INFILE   DD DISP=SHR,DSN=D54808E.DB2FDUMP.C1                          00050503
+//OUTFILE  DD DSN=D54808E.DB2FDUMP.C1.TERSED,                           00050603
+//  DISP=(NEW,CATLG,DELETE),                                            00050700
+//  UNIT=SYSDA,SPACE=(CYL,(150,100))                                    00050804
+//*                                                                     00050902
+//STEP03   EXEC PGM=TRSMAIN,PARM='PACK'                                 00051002
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB                          00051102
+//SYSPRINT DD SYSOUT=*,DCB=(LRECL=133,BLKSIZE=12901,RECFM=FBA)          00051202
+//INFILE   DD DISP=SHR,DSN=D54808E.DB2FDUMP.C2                          00051303
+//OUTFILE  DD DSN=D54808E.DB2FDUMP.C2.TERSED,                           00051403
+//  DISP=(NEW,CATLG,DELETE),                                            00051502
+//  UNIT=SYSDA,SPACE=(CYL,(150,100))                                    00051604
+//                                                                      00052002

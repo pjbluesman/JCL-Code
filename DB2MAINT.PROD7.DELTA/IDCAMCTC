@@ -1,0 +1,29 @@
+//UDH2000M JOB (,114),'CJR',CLASS=S,MSGCLASS=X
+//*
+//*
+//* *************************************************************** */  00370000
+//DSNTIC  PROC                                                          00380000
+//* *************************************************************** */  00390000
+//* DIRECTORY/CATALOG MOVE (ALL REDEFINED TO DIFFERENT VOLUMES      */  00400000
+//* *************************************************************** */  00410000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)                                   00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//DSNTDIR EXEC DSNTIC                                                   01690000
+//* *********************************************                       01700000
+//*  DEFINE DB2  DIRECTORY TABLE SPACES         *                       01710000
+//* *********************************************                       01720000
+//SYSIN    DD  *                                                        01730000
+   DEFINE CLUSTER                             -                         01900000
+         ( NAME(DB2M.DSNDBC.MACO0002.TSMPM174.I0001.A001) -             01910000
+           LINEAR                             -                         01920000
+           REUSE                              -                         01930000
+           SHAREOPTIONS(3 3)                  -                         01940000
+                                 )            -                         01970000
+      DATA                                    -                         01980000
+         ( NAME(DB2M.DSNDBD.MACO0002.TSMPM174.I0001.A001) -             01990000
+           CYLINDERS(2380 400)                    -                     02020000
+           VOLUMES(*,*,*,*,*,*) )                  -                    02030000
+      CATALOG(DB2M)                                                     02040000
+//*                                                                     08290000

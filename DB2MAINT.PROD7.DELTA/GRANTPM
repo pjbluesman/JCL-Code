@@ -1,0 +1,20 @@
+--*-------------------------------------------------------------------*
+--*        DB2 PM USER P R I V I L E G E S                            *
+--*-------------------------------------------------------------------*
+--*--------------------------------------------------------------------
+--*  Section 7 - Execute authority Online Monitor
+--*--------------------------------------------------------------------
+--GRANT EXECUTE ON PLAN DGOPMOM      TO IBM016;
+--GRANT DISPLAY                      TO IBM016;
+--GRANT TRACE                        TO IBM016;
+--GRANT MONITOR1                     TO IBM016;
+--GRANT MONITOR2                     TO IBM016;
+--*--------------------------------------------------------------------
+--*  Section 8 - Execute authority Explain
+--*--------------------------------------------------------------------
+--GRANT EXECUTE ON PLAN  DGOPMEX              TO IBM016;
+--GRANT SELECT  ON TABLE DGO_SYSDBRM          TO IBM016;
+--GRANT SELECT  ON TABLE DGO_SYSPACKAGE       TO IBM016;
+SET CURRENT SQLID = 'SYSPRO';
+GRANT MONITOR1 TO DT1963;
+GRANT DISPLAY TO DT1963;

@@ -1,0 +1,39 @@
+//UXC401M  JOB ,' DB2 SYS',CLASS=S,MSGCLASS=X TYPRUN=SCAN               00001001
+//*                                                                     00001100
+/*                                                                      00010400
+//DELETEN EXEC PGM=IDCAMS                                               00010603
+//SYSPRINT DD SYSOUT=*                                                  00010700
+//SYSUDUMP DD SYSOUT=*                                                  00010800
+//SYSIN    DD  *                                                        00012200
+   DELETE (DB2V.DSNDBC.DSNDB04.MQTRTST1.I0001.A001)                     00012304
+   DELETE (DB2V.DSNDBD.DSNDB04.MQTRTST1.I0001.A001)                     00012404
+//*                                                                     00012901
+//DEFINEV EXEC PGM=IDCAMS                                               00013001
+//SYSPRINT DD SYSOUT=*                                                  00013101
+//SYSUDUMP DD SYSOUT=*                                                  00013201
+//SYSIN DD *                                                            00013301
+   DEFINE CLUSTER                          -                            00020004
+      ( NAME(DB2V.DSNDBC.DSNDB04.MQTRTST1.I0001.A001) -                 00030005
+        LINEAR                             -                            00040002
+        REUSE                              -                            00050002
+        SHAREOPTIONS(3 3)                  -                            00060002
+                              )            -                            00070002
+   DATA                                    -                            00080002
+      ( NAME(DB2V.DSNDBD.DSNDB04.MQTRTST1.I0001.A001) -                 00090002
+        CYLINDERS(10 10)                   -                            00100004
+        VOLUMES(MVSEE5) )                  -                            00110002
+   CATALOG(DB2V)                                                        00120002
+//                                                                      00130003
+//                                                                      00140003
+//                                                                      00150003
+//ALTERN  EXEC PGM=IDCAMS                                               00160003
+//SYSPRINT DD SYSOUT=*                                                  00170003
+//SYSUDUMP DD SYSOUT=*                                                  00180003
+//SYSIN    DD  *                                                        00190003
+   ALTER -                                                              00200003
+   DB2V.DSNDBC.DSNDB04.MQTRTST1.I0001.A001 -                            00210003
+   NEWNAME(DB2V.DSNDBC.DSNDB04.MQTRTST1.I0001.A001.OLD)                 00220003
+   ALTER -                                                              00230003
+   DB2V.DSNDBD.DSNDB04.MQTRTST1.I0001.A001 -                            00240003
+   NEWNAME(DB2V.DSNDBD.DSNDB04.MQTRTST1.I0001.A001.OLD)                 00250003
+//*                                                                     00260003

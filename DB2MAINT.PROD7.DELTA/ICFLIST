@@ -1,0 +1,8 @@
+//DB2FLCAT JOB (,A3),'DB2 V8 ALIAS',NOTIFY=&SYSUID,REGION=6M,           00010010
+//             CLASS=S,MSGCLASS=X,MSGLEVEL=(1,1)                        00030000
+//DEFLCAT EXEC PGM=IDCAMS,REGION=62M                                    00110010
+//SYSPRINT DD  SYSOUT=*                                                 00120000
+//SYSIN DD *                                                            00130001
+ LISTCAT ALL CAT(CATALOG.MVSICF1.DB2F)                                  00130110
+/*                                                                      00132007
+//                                                                      00132109

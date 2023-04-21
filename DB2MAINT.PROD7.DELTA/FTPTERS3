@@ -1,0 +1,18 @@
+//DT0072Z  JOB ,'RDL RM102',CLASS=S,MSGCLASS=X,NOTIFY=DT0072            00001000
+//STEP01   EXEC PGM=TRSMAIN,PARM='PACK'                                 00002000
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB                          00003000
+//SYSPRINT DD SYSOUT=*,DCB=(LRECL=133,BLKSIZE=12901,RECFM=FBA)          00004000
+//INFILE   DD DISP=SHR,DSN=DT0072.PRI0003M.SYSLOG                       00005000
+//OUTFILE  DD DSN=DT0072.PM71831.SYSLOG10.TERSED,                       00006000
+//  DISP=(NEW,CATLG,DELETE),                                            00007000
+//  UNIT=SYSDA,SPACE=(CYL,(5,1))                                        00008000
+//*                                                                     00009000
+//STEP02   EXEC PGM=TRSMAIN,PARM='PACK'                                 00010000
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB                          00020000
+//SYSPRINT DD SYSOUT=*,DCB=(LRECL=133,BLKSIZE=12901,RECFM=FBA)          00030000
+//INFILE   DD DISP=SHR,DSN=DT0072.DB2FMSTR.SYSLOG                       00040001
+//OUTFILE  DD DSN=DT0072.PM71831.JOBLOG10.TERSED,                       00050000
+//  DISP=(NEW,CATLG,DELETE),                                            00050100
+//  UNIT=SYSDA,SPACE=(CYL,(5,1))                                        00050200
+//*                                                                     00050300
+//                                                                      00052000

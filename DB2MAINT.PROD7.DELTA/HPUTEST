@@ -1,0 +1,45 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440
+//*
+/*JOBPARM SYSAFF=MVSK       <--------- change to sysname DB2 is active
+//*
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR
+//*
+//********************************************************************/
+//*        DB2 UNLOAD JCL                                            */
+//*      - THE DB2 SUBSYSTEM IS                 &SSID                */
+//*      - THE EXECUTION REPORT WILL BE                              */
+//*        WRITTEN ON THE DDNAME                SYSPRINT             */
+//********************************************************************/
+//*
+//*
+//         SET HLQ1='SSXDT' <--------- SSXDT is Test / SSXDP is Prod
+//         SET SSID='DB2U'  <--------- point the SSID name
+//*
+//*
+//********************************************************************/
+//UNLOAD1  EXEC PGM=INZUTILB,REGION=0M,DYNAMNBR=99,
+//         PARM='&SSID,DB2UNLD'
+//STEPLIB  DD  DSN=&HLQ1..&SSID..SDSNEXIT,DISP=SHR
+//         DD  DSN=S&SSID..SDSNLOAD,DISP=SHR
+//SYSPRINT DD  SYSOUT=*
+//SYSIN    DD  *
+    UNLOAD TABLESPACE DSN8D81A.DSN8S81D
+     DB2 YES
+     OPTIONS DATE DATE_A
+      SELECT * FROM DSN8810.DEPT
+       ORDER BY 1 DESC
+       OUTDDN (UNLDDN1)
+
+        FORMAT DSNTIAUL
+        LOADDDN LOADDDN1 LOADOPT (RESUME NO REPLACE)
+/*
+//********* DDNAMES USED BY THE SELECT STATEMENTS **********
+//**UNLDDN1  DD  DISP=OLD,DSN=&HLQ1..HPU.UNLDDN1
+//**LOADDDN1 DD  DISP=OLD,DSN=&HLQ1..HPU.LOAD
+//UNLDDN1  DD  DISP=(MOD,CATLG,DELETE),DSN=&HLQ1..HPU.UNLDDN1,
+//             SPACE=(CYL,(1,1))
+//LOADDDN1 DD  DISP=(MOD,CATLG,DELETE),DSN=&HLQ1..HPU.LOAD,
+//             SPACE=(CYL,(1,1))
+//
+       FORMAT VARIABLE ALL

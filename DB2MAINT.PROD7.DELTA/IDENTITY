@@ -1,0 +1,8 @@
+ CREATE TABLE DT0072.ROGERS_IDENTITY                                    00970000
+               (DEPTNO         SMALLINT GENERATED ALWAYS AS IDENTITY,   00980000
+                DEPTNAME       VARCHAR(36)    NOT NULL,                 00990000
+                MGRNO          CHAR(6)                ,                 01000000
+                ADMRDEPT       CHAR(3)        NOT NULL,                 01010000
+                LOCATION       CHAR(16))                                01020000
+         IN DATABASE DSNDB04                                            01030000
+         CCSID EBCDIC;                                                  01040000

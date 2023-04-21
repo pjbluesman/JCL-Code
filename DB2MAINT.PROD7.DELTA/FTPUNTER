@@ -1,0 +1,21 @@
+//DT0072U  JOB ,'RDL RM102',CLASS=S,MSGCLASS=X,NOTIFY=DT0072            00001000
+//WORK     EXEC PGM=IEFBR14                                             00010001
+//DD1      DD DSN=SSXDT.DT0072.CA.PTFHOLD,DISP=(OLD,DELETE,DELETE)      00010101
+//DD2      DD DSN=SSXDT.DT0072.CA.PTFLIB,DISP=(OLD,DELETE,DELETE)       00010201
+//*                                                                     00010301
+//STEP01   EXEC PGM=TRSMAIN,PARM='UNPACK'                               00011001
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB                          00020000
+//SYSPRINT DD SYSOUT=*,DCB=(LRECL=133,BLKSIZE=12901,RECFM=FBA)          00030000
+//INFILE   DD DISP=SHR,DSN=DT0072.CA.PTFHOLD.TERSED                     00040001
+//OUTFILE  DD DSN=SSXDT.DT0072.CA.PTFHOLD,                              00041001
+//  DISP=(NEW,CATLG,DELETE),                                            00042000
+//  UNIT=SYSDA,SPACE=(CYL,(10,1))                                       00050001
+//*                                                                     00050101
+//STEP02   EXEC PGM=TRSMAIN,PARM='UNPACK'                               00051001
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB                          00052001
+//SYSPRINT DD SYSOUT=*,DCB=(LRECL=133,BLKSIZE=12901,RECFM=FBA)          00053001
+//INFILE   DD DISP=SHR,DSN=DT0072.CA.PTFLIB.TERSED                      00054001
+//OUTFILE  DD DSN=SSXDT.DT0072.CA.PTFLIB,                               00055001
+//  DISP=(NEW,CATLG,DELETE),                                            00056001
+//  UNIT=SYSDA,SPACE=(CYL,(10,1))                                       00057001
+//                                                                      00060000

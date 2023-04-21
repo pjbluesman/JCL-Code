@@ -1,0 +1,18 @@
+//DB2VLCAT JOB (,A3),'DB2 V8 ALIAS',NOTIFY=&SYSUID,REGION=6M,           00010001
+//             CLASS=S,MSGCLASS=X,MSGLEVEL=(1,1)                        00030000
+//DEFLCAT EXEC PGM=IDCAMS,REGION=62M                                    00110000
+//SYSPRINT DD  SYSOUT=*                                                 00120000
+//SYSIN DD *                                                            00130000
+ LISTCAT ALL ENT('DB2V.DSNDBD.EBKD3S99.CNO0019.I0001.*')                00130103
+ LISTCAT ALL ENT('DB2V.DSNDBD.EBKD3S99.CNO0019.J0001.*')                00130203
+ LISTCAT ALL ENT('DB2V.DSNDBD.EBKD3S99.IX1KD019.I0001.*')               00130303
+ LISTCAT ALL ENT('DB2V.DSNDBD.EBKD3S99.IX1KD019.J0001.*')               00130403
+ LISTCAT ALL ENT('DB2V.DSNDBD.EBKD3S99.IX3KD019.I0001.*')               00130503
+ LISTCAT ALL ENT('DB2V.DSNDBD.EBKD3S99.IX3KD019.J0001.*')               00130603
+ LISTCAT ALL ENT('DB2V.DSNDBD.EBKD3S99.IX4KD019.I0001.*')               00130703
+ LISTCAT ALL ENT('DB2V.DSNDBD.EBKD3S99.IX4KD019.J0001.*')               00130803
+ LISTCAT ALL ENT('DB2V.DSNDBD.EBKD3S99.IXCKD019.I0001.*')               00131103
+ LISTCAT ALL ENT('DB2V.DSNDBD.EBKD3S99.IXCKD019.J0001.*')               00131203
+/*                                                                      00132000
+//                                                                      00132100
+//                                                                      00132402

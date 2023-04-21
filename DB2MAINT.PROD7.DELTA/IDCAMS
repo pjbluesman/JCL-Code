@@ -1,0 +1,48 @@
+//D73294TC JOB (,102),'CJR',CLASS=S,MSGCLASS=X
+//*
+//*
+//* *************************************************************** */  00370000
+//DSNTIC  PROC                                                          00380000
+//* *************************************************************** */  00390000
+//* DIRECTORY/CATALOG MOVE (ALL REDEFINED TO DIFFERENT VOLUMES      */  00400000
+//* *************************************************************** */  00410000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)                                   00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//DSNTDIR EXEC DSNTIC                                                   01690000
+//* *********************************************                       01700000
+//*  DEFINE DB2  DIRECTORY TABLE SPACES         *                       01710000
+//* *********************************************                       01720000
+//SYSIN    DD  *                                                        01730000
+   ALTER -                                                              01900000
+   DB2D.DSNDBD.TSTDB01.DBD01.I0001.A001 -
+   NEWNAME(DB2D.DSNDBD.DSNDB01.DBD01.I0001.A001)
+   ALTER -                                                              01900000
+   DB2D.DSNDBD.TSTDB01.SYSLGRNG.I0001.A001 -
+   NEWNAME(DB2D.DSNDBD.DSNDB01.SYSLGRNG.I0001.A001)
+   ALTER -                                                              01900000
+   DB2D.DSNDBD.TSTDB01.SYSUTIL.I0001.A001 -
+   NEWNAME(DB2D.DSNDBD.DSNDB01.SYSUTIL.I0001.A001)
+   ALTER -                                                              01900000
+   DB2D.DSNDBD.TSTDB06.SYSCOPY.I0001.A001 -
+   NEWNAME(DB2D.DSNDBD.DSNDB06.SYSCOPY.I0001.A001)
+   ALTER -                                                              01900000
+   DB2D.DSNDBD.TSTDB06.SYSDBASE.I0001.A001 -
+   NEWNAME(DB2D.DSNDBD.DSNDB06.SYSDBASE.I0001.A001)
+   ALTER -                                                              01900000
+   DB2D.DSNDBD.TSTDB06.SYSDBAUT.I0001.A001 -
+   NEWNAME(DB2D.DSNDBD.DSNDB06.SYSDBAUT.I0001.A001)
+   ALTER -                                                              01900000
+   DB2D.DSNDBD.TSTDB06.SYSGPAUT.I0001.A001 -
+   NEWNAME(DB2D.DSNDBD.DSNDB06.SYSGPAUT.I0001.A001)
+   ALTER -                                                              01900000
+   DB2D.DSNDBD.TSTDB06.SYSGROUP.I0001.A001 -
+   NEWNAME(DB2D.DSNDBD.DSNDB06.SYSGROUP.I0001.A001)
+   ALTER -                                                              01900000
+   DB2D.DSNDBD.TSTDB06.SYSUSER.I0001.A001 -
+   NEWNAME(DB2D.DSNDBD.DSNDB06.SYSUSER.I0001.A001)
+   ALTER -                                                              01900000
+   DB2D.DSNDBD.TSTDB06.SYSVIEWS.I0001.A001 -
+   NEWNAME(DB2D.DSNDBD.DSNDB06.SYSVIEWS.I0001.A001)
+//*                                                                     08290000

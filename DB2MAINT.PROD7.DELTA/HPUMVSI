@@ -1,0 +1,45 @@
+//UXDIVPI  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSI
+//********************************************************************/
+//*        DB2 UNLOAD JCL                                            */
+//*      - THE DB2 SUBSYSTEM IS                 DB2N                 */
+//*      - THE EXECUTION REPORT WILL BE                              */
+//*        WRITTEN ON THE DDNAME                SYSPRINT             */
+//********************************************************************/
+//DB3F     EXEC PGM=INZUTILB,REGION=0M,DYNAMNBR=99,
+//         PARM='DB3F,DB2UNLD'
+//*STEPLIB  DD  DSN=SSXDP.DB2TOOLS.SINZLINK,DISP=SHR
+//STEPLIB   DD  DSN=SDB3F.SDSNLOAD,DISP=SHR
+//SYSPRINT DD  SYSOUT=*
+//SYSIN    DD  *
+    UNLOAD TABLESPACE DSN8D81A.DSN8S81D
+     DB2 YES
+     OPTIONS DATE DATE_A
+      SELECT * FROM DSN8810.DEPT
+       ORDER BY 1 DESC
+       OUTDDN (UNLDDN1)
+        FORMAT DSNTIAUL
+        LOADDDN LOADDDN1 LOADOPT (RESUME NO REPLACE)
+/*
+//UNLDDN1  DD  SYSOUT=*
+//LOADDDN1 DD  SYSOUT=*
+//****************************************************
+//DB2G     EXEC PGM=INZUTILB,REGION=0M,DYNAMNBR=99,
+//         PARM='DB2G,DB2UNLD'
+//*STEPLIB  DD  DSN=SSXDP.DB2TOOLS.SINZLINK,DISP=SHR
+//STEPLIB   DD  DSN=SDB2G.SDSNLOAD,DISP=SHR
+//SYSPRINT DD  SYSOUT=*
+//SYSIN    DD  *
+    UNLOAD TABLESPACE DSN8D81A.DSN8S81D
+     DB2 YES
+     OPTIONS DATE DATE_A
+      SELECT * FROM DSN8810.DEPT
+       ORDER BY 1 DESC
+       OUTDDN (UNLDDN1)
+        FORMAT DSNTIAUL
+        LOADDDN LOADDDN1 LOADOPT (RESUME NO REPLACE)
+/*
+//UNLDDN1  DD  SYSOUT=*
+//LOADDDN1 DD  SYSOUT=*
+//**********************************************************

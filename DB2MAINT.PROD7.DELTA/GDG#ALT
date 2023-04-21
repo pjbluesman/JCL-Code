@@ -1,0 +1,10 @@
+//GDGALT JOB CLASS=S,MSGCLASS=X,
+//      REGION=0M,TIME=1440,NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVS3
+//***************************************************************
+//* ALTER GDG LIMIT
+//***************************************************************
+//STEP1  EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=X
+//SYSIN    DD  *
+ ALTER  PSSXD.XD999M.BKP.ALL.FILES LIMIT(2)

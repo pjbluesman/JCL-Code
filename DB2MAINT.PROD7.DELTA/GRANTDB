@@ -1,0 +1,23 @@
+//GRANTDB JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID           00010002
+/*JOBPARM SYSAFF=MVS3                                                   00020002
+//*                                                                     00030000
+//*                                                                     00170000
+//JOBLIB  DD  DSN=SDB2X.SDSNLOAD,DISP=SHR                               00180003
+//*                                                                     08360000
+//*        STEP  1: GRANT SYSADM AUTHORITY TO SAP BASIS INDIVIDUAL      08370000
+//*                                                                     08380000
+//PH01S06 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     08390000
+//SYSTSPRT DD  SYSOUT=*                                                 08400000
+//SYSTSIN  DD  *                                                        08410000
+  DSN SYSTEM(DB2X)                                                      08420002
+  RUN  PROGRAM(DSNTIAD) PLAN(DSNTIAD) -                                 08430000
+       LIB('SSXDP.DB2X.RUNLIB.LOAD')                                    08440003
+//SYSPRINT DD  SYSOUT=*                                                 08450000
+//SYSUDUMP DD  SYSOUT=*                                                 08460000
+//SYSIN    DD  *                                                        08470000
+  SET CURRENT SQLID = 'LSEBDB2';                                        08480000
+  GRANT IMAGCOPY ON DATABASE DLCDB TO PROD                              08490003
+    TO  "PROD" ;                                                        08520003
+  COMMIT;                                                               09530000
+/*                                                                      15290000
+//                                                                      15291000

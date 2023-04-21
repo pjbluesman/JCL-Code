@@ -1,0 +1,16 @@
+//UXD001R JOB ,'RDL RM102',CLASS=S,MSGCLASS=X,NOTIFY=DT0072
+//STEP01    EXEC PGM=FTP
+//SYSPRINT  DD SYSOUT=*
+//SYSOUT    DD SYSOUT=*
+//SYSUDUMP  DD SYSOUT=*
+//INPUT     DD *
+ testcase.boulder.ibm.com
+ anonymous Roger.D.Lamb@delta.com
+ cd s390/toibm/db2
+ binary
+ put 'DT0072.PM49124.SVCDMP.TERSED' PM49124.SVCDMP.TERSED
+ ascii
+ put 'DT0072.PM49124.DOC01.DB2CTL' PM49124.DOC01.DB2CTL
+ quit
+/*
+//

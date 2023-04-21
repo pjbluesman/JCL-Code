@@ -1,0 +1,50 @@
+//UXC401MS JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVS3
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR
+//* *******************************************************************/
+//* JOB NAME = FTPTOIBM                                               */
+//*                                                                   */
+//* FUNCTION = TERSE AND SEND FILE TROUGH FTP TO IBM                  */
+//*                                                                   */
+//* From the TSO READY: prompt enter: ftp ftp.ecurep.ibm.com          */
+//* At the USER: prompt, enter: anonymous                             */
+//* At the password prompt, enter: your_email_address                 */
+//* (i.e. your_user_id@company.com)                                   */
+//* At the Command: prompt, enter: cd toibm/mvs                       */
+//* At the Command: prompt, enter: bin                                */
+//* At the Command: prompt, enter:                                    */
+//* put YOUR.LOCAL.DSN 12345.123.724.dump çfile naming conventionŸ    */
+//* At the Command: prompt, enter: quit                               */
+//*                                                                   */
+//* MORE DETAILS PLESE VISIT WEBPAGE:                                 */
+//* http://www-05.ibm.com/de/support/ecurep/mvs_ftp.html#batch        */
+//*                                                                   */
+//* Created: 17/12/09 - RPV                                           */
+//*- -{ TERSE FILE }- - - - - - - - - - - - - - - - - - - - - - - - - -
+//TERSE1 EXEC PGM=TRSMAIN,PARM='PACK'
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB
+//SYSPRINT DD SYSOUT=*
+//INFILE   DD DISP=SHR,
+//            DSN=SSXDT.DBVG.PMR50897.DB4VMSTR
+//OUTFILE  DD DSN=SSXDT.DBVG.PMR50897.DB4VMSTR.TRS,
+//            DISP=(,CATLG,DELETE),
+//            SPACE=(CYL,(300,100),RLSE),
+//            UNIT=3390
+//*- -{ FTP TO IBM }- - - - - - - - - - - - - - - - - - - - - - - - - -
+//*
+//PUT      EXEC PGM=FTP,COND=(4,LT),
+//         PARM='testcase.boulder.ibm.com (EXIT'
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//INPUT    DD *
+ anonymous
+ ellendf@br.ibm.com
+ cd toibm/im
+ binary
+ put 'SSXDT.DBVG.PMR50897.DB4VMSTR.TRS' +
+     50897.442.000.DBVG.DB4VMSTR.TRS
+ quit
+/*

@@ -1,0 +1,19 @@
+//DB6RMIGR JOB 'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,               00010001
+//         NOTIFY=&SYSUID                                               00020001
+/*JOBPARM SYSAFF=MVS4                                                   00030001
+//*                                                                     00040001
+//         JCLLIB ORDER=SSXDT.TOOLKIT.PROCLIB                           00050001
+//CLEANUP  EXEC ISPBATCH,                                               00060001
+//             TKITPRE=SSXDT,ISPPRE=SYS1                                00070001
+//SYSTSIN  DD  *                                                        00080001
+  %DB2DSN ACTION(MIGRATE) +                                             00090001
+          PREFIX(PSSXD.XD570M.DB2R.IMAGCPY)                             00100001
+/*                                                                      00110001
+//*                                                                     00120001
+//*                                                                     00130001
+//CLEANUP  EXEC ISPBATCH,                                               00140001
+//             TKITPRE=SSXDT,ISPPRE=SYS1                                00150001
+//SYSTSIN  DD  *                                                        00160001
+  %DB2DSN ACTION(MIGRATE) +                                             00170001
+          PREFIX(PSSXD.XD579M.DB2R.IMAGCPY)                             00180001
+/*                                                                      00190001

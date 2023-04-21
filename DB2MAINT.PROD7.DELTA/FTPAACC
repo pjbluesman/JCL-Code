@@ -1,0 +1,29 @@
+//U477625   JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X,                       00001005
+//  REGION=0M,TIME=1440,USER=T477625
+/*JOBPARM SYSAFF=MVSR
+//PUT      EXEC PGM=FTP,COND=(4,LT),
+//         PARM='testcase.boulder.ibm.com (EXIT'
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//INPUT    DD *
+ anonymous cstefani@br.ibm.com
+ binary
+ cd /software/toibm/IBM_DB2_Analytics_Accelerator
+ put 'SSXDP.DELTA.DB2R.TRS'  DELTA.DB2R.trs
+ quit
+//
+//* MVSS - DB2V
+/*JOBPARM SYSAFF=MVSS
+//PUT      EXEC PGM=FTP,COND=(4,LT),
+//         PARM='testcase.boulder.ibm.com (EXIT'
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//INPUT    DD *
+ anonymous cstefani@br.ibm.com
+ binary
+ cd /software/toibm/IBM_DB2_Analytics_Accelerator
+ put 'SSXDT.DELTA.DB2V.TRS'  DELTA.DB2V.trs
+ quit
+//

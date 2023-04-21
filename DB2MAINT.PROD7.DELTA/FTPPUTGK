@@ -1,0 +1,19 @@
+//*  execute NUM and UNNUM commands if job fails
+//UXD001M JOB ,'GLK RM102',CLASS=S,MSGCLASS=X
+//STEP01    EXEC PGM=FTP
+//SYSPRINT  DD SYSOUT=*
+//SYSOUT    DD SYSOUT=*
+//SYSUDUMP  DD SYSOUT=*
+//INPUT     DD *
+testcase.boulder.ibm.com
+anonymous Gil.Kelly@delta.com
+cd s390/toibm/db2
+binary
+put 'D54808E.SYSLOG.TERSED' PM89349.SYSLOG.TERSED
+binary
+put 'D54808E.DB2FDUMP.C1.TERSED' PM89349.SVCDMP1.TERSED
+binary
+put 'D54808E.DB2FDUMP.C2.TERSED' PM89349.SVCDMP2.TERSED
+quit
+/*
+//

@@ -1,0 +1,40 @@
+//UXD001M  JOB ,' DB2 SYS',CLASS=S,MSGCLASS=X TYPRUN=SCAN               00001001
+//*                                                                     00001101
+/*                                                                      00010400
+//STEP02  EXEC PGM=IDCAMS                                               00010500
+//SYSPRINT DD SYSOUT=*                                                  00010600
+//SYSUDUMP DD SYSOUT=*                                                  00010700
+//INFILE1  DD DISP=SHR,DSN=SSXDT.DB2TOOLS.CQMK.INTERVAL                 00010801
+//OTFILE1  DD DSN=SSXDT.DB2TOOLS.CQMK.INTERVAL.SEQ,                     00010901
+//            DISP=(,CATLG,DELETE),                                     00011001
+//            SPACE=(CYL,(10,10),RLSE),                                 00011101
+//            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760)                  00011201
+//SYSIN DD *                                                            00011300
+ REPRO INFILE(INFILE1) OUTFILE(OTFILE1)                                 00011401
+/*                                                                      00011500
+//                                                                      00011600
+//                                                                      00011701
+//* REPRO INFILE(INFILE1) OUTFILE(OTFILE1) REPLACE                      00011801
+//                                                                      00011901
+//                                                                      00012001
+//STEP01  EXEC PGM=IDCAMS                                               00012101
+//SYSPRINT DD SYSOUT=*                                                  00012201
+//SYSUDUMP DD SYSOUT=*                                                  00012301
+//SYSIN DD *                                                            00012401
+ DEFINE CLUSTER(                                         +              00012501
+               NAME(SSXDT.PLATINUM.TEST.DATA.SDMDATA)    +              00012601
+               FREESPACE(10 5)                           +              00012701
+               KEYS(60 0)                                +              00013001
+               RECORDSIZE(150 16384)                     +              00014001
+               VOLUME(E9SU04)                            +              00015001
+               SHR(3,3)                                  +              00016001
+              )                                          +              00017001
+          DATA(                                          +              00018001
+               NAME(SSXDT.PLATINUM.TEST.DATA.SDMDATA.D)  +              00019001
+               CYLINDERS(10 10)                          +              00020001
+              )                                          +              00030001
+         INDEX(                                          +              00040001
+               NAME(SSXDT.PLATINUM.TEST.DATA.SDMDATA.I)  +              00050001
+               CYLINDERS(5 5)                            +              00060001
+               CISZ(2048)                                +              00070001
+              )                                                         00080001

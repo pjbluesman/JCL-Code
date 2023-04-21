@@ -1,0 +1,10 @@
+//GDGDELV JOB CLASS=S,MSGCLASS=X,
+//      REGION=0M,TIME=1440,NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVS3
+//***************************************************************
+//* DELETE VERSION
+//***************************************************************
+//STEP1  EXEC PGM=IEFBR14
+//SYSPRINT DD SYSOUT=X
+//FILE     DD DSN=PSSXD.XD999M.BKP.ALL.FILES(0),
+//         DISP=(SHR,DELETE,DELETE)

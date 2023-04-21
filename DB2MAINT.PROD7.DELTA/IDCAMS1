@@ -1,0 +1,31 @@
+//UXC401M  JOB ,' DB2 SYS',CLASS=S,MSGCLASS=X                           00001001
+//*                                                                     00001100
+//ALTERO  EXEC PGM=IDCAMS                                               00160001
+//SYSPRINT DD SYSOUT=*                                                  00170000
+//SYSUDUMP DD SYSOUT=*                                                  00180000
+//SYSIN    DD  *                                                        00190000
+   ALTER   SSXDT.CDB.V906.CDBCKPT          -                            00200001
+   NEWNAME(SSXDT.CDB.V906.CDBCKPT.OLD)                                  00220001
+                                                                        00221001
+   ALTER   SSXDT.CDB.V906.CDBCKPT.DATA      -                           00230001
+   NEWNAME(SSXDT.CDB.V906.CDBCKPT.DATA.OLD)                             00250001
+                                                                        00250101
+   ALTER   SSXDT.CDB.V906.SYSPDS           -                            00251001
+   NEWNAME(SSXDT.CDB.V906.SYSPDS.OLD)                                   00252001
+                                                                        00253001
+   ALTER   SSXDT.CDB.V906.SYSPDS.DATA      -                            00254001
+   NEWNAME(SSXDT.CDB.V906.SYSPDS.DATA.OLD)                              00255001
+                                                                        00256001
+   ALTER   SSXDT.CDB.V920.CKPT001          -                            00257001
+   NEWNAME(SSXDT.CDB.V906.CDBCKPT)                                      00258001
+                                                                        00259001
+   ALTER   SSXDT.CDB.V920.CKPT001.DATA      -                           00259101
+   NEWNAME(SSXDT.CDB.V906.CDBCKPT.DATA)                                 00259201
+                                                                        00259301
+   ALTER   SSXDT.CDB.V920.SYSPDS           -                            00259401
+   NEWNAME(SSXDT.CDB.V906.SYSPDS)                                       00259501
+                                                                        00259601
+   ALTER   SSXDT.CDB.V920.SYSPDS.DATA      -                            00259701
+   NEWNAME(SSXDT.CDB.V906.SYSPDS.DATA)                                  00259801
+                                                                        00259901
+/*                                                                      00260001

@@ -1,0 +1,10 @@
+//GDGDEL JOB CLASS=S,MSGCLASS=X,
+//      REGION=0M,TIME=1440,NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVS3
+//***************************************************************
+//* DELETE GDG BASE & ALL VERSIONS
+//***************************************************************
+//STEP1  EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=X
+//SYSIN    DD  *
+ DELETE    PSSXD.XD999M.BKP.ALL.FILES GDG FORCE

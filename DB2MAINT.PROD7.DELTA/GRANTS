@@ -1,0 +1,2 @@
+SET CURRENT SQLID = 'LSEBDB2';                                          00010000
+GRANT DISPLAY TO DBTKTCTR;                                              00020000

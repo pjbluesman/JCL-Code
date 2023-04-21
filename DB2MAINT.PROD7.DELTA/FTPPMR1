@@ -1,0 +1,53 @@
+//UXC401MS JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSS
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR
+//* *******************************************************************/
+//* JOB NAME = FTPTOIBM                                               */
+//*                                                                   */
+//* FUNCTION = TERSE AND SEND FILE TROUGH FTP TO IBM                  */
+//*                                                                   */
+//* MORE DETAILS PLESE VISIT WEBPAGE:                                 */
+//* http://www-05.ibm.com/de/support/ecurep/mvs_ftp.html#batch        */
+//*
+//*- -{ FTP TO IBM }- - - - - - - - - - - - - - - - - - - - - - - - - -
+//*
+//PUT      EXEC PGM=FTP,COND=(4,LT),
+//         PARM='testcase.boulder.ibm.com (EXIT'
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//INPUT    DD *
+ anonymous
+ pangelo@br.ibm.com
+ cd toibm/im
+ binary
+ put 'SSXMT.DUMP.DB2VDIST.D239.TRS' 34917.442.000.DB2VDIST.D239.trs
+ put 'SSXMT.DUMP.DB2VDIS2.D239.TRS' 34917.442.000.DB2VDIS2.D239.trs
+ put 'SSXMT.DUMP.DB3VDIST.D239.TRS' 34917.442.000.DB3VDIST.D239.trs
+ put 'SSXMT.DUMP.DB5VDIST.D239.TRS' 34917.442.000.DB5VDIST.D239.trs
+ quit
+//
+//*- -{ TERSE FILE }- - - - - - - - - - - - - - - - - - - - - - - - - -
+//TERSE1 EXEC PGM=TRSMAIN,PARM='PACK'
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB
+//SYSPRINT DD SYSOUT=*
+//INFILE   DD DISP=SHR,
+//            DSN=SSXMT.DUMP.MVSS.DB2VDIST.D13239.T1518.S00002
+//OUTFILE  DD DSN=SSXMT.DUMP.DB2VDIS2.D239.TRS,UNIT=3390,
+//            DISP=(,CATLG,DELETE),SPACE=(CYL,(300,100),RLSE)
+//TERSE2 EXEC PGM=TRSMAIN,PARM='PACK'
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB
+//SYSPRINT DD SYSOUT=*
+//INFILE   DD DISP=SHR,
+//            DSN=SSXMT.DUMP.MVSU.DB3VDIST.D13239.T1517.S00006
+//OUTFILE  DD DSN=SSXMT.DUMP.DB3VDIST.D239.TRS,UNIT=3390,
+//            DISP=(,CATLG,DELETE),SPACE=(CYL,(300,100),RLSE)
+//TERSE3 EXEC PGM=TRSMAIN,PARM='PACK'
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB
+//SYSPRINT DD SYSOUT=*
+//INFILE   DD DISP=SHR,
+//            DSN=SSXMT.DUMP.MVSU.DB5VDIST.D13239.T1453.S00005
+//OUTFILE  DD DSN=SSXMT.DUMP.DB5VDIST.D239.TRS,UNIT=3390,
+//            DISP=(,CATLG,DELETE),SPACE=(CYL,(300,100),RLSE)

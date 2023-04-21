@@ -1,0 +1,30 @@
+//UXD000M  JOB CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID
+//**********************************************************************
+//** Send Weekly Report by e-mail for review                          **
+//** Alter email adress and the gdg for each of the 8 reports         **
+//**********************************************************************
+//XP8040M EXEC  SAS,OPTIONS='SOURCE',COND=(4,LT)
+//SYSIN    DD  *
+  filename send email
+     from =  'pangelo@delta.com'
+       to = ('pangelo@br.ibm.com')
+  /* Hit PF11 to update date on the subject */
+  subject = "ATL HC Reports ProdPlex"                                   5, 2014"
+  attach = ("SSXDP.SECURITY.MVSCDB2P.HEALTHCK(0)" +
+            NAME='SSXDP.SECURITY.MVSCDB2P.HEALTHCK.TXT')
+  attach = ("SSXDP.SECURITY.MVSCDB2MMHEALTHCK(0)" +
+            NAME='SSXDP.SECURITY.MVSCDB2P.HEALTHCK.TXT')
+  attach = ("SSXDP.SECURITY.MVSBDB2C.HEALTHCK(0)" +
+            NAME='SSXDP.SECURITY.MVSBDB2C.HEALTHCK.TXT')
+  attach = ("SSXDT.SECURITY.MVSTDB2A.HEALTHCK(0)" +
+            NAME='SSXDT.SECURITY.MVSTDB2A.HEALTHCK.TXT')
+  attach = ("SSXDT.SECURITY.MVSTDB2B.HEALTHCK(0)" +
+            NAME='SSXDT.SECURITY.MVSTDB2B.HEALTHCK.TXT')
+  attach = ("SSXDT.SECURITY.MVSTDB2D.HEALTHCK(0)" +
+            NAME='SSXDT.SECURITY.MVSTDB2D.HEALTHCK.TXT')
+  attach = ("SSXDT.SECURITY.MVSTDB2T.HEALTHCK(0)" +
+            NAME='SSXDT.SECURITY.MVSTDB2T.HEALTHCK.TXT');
+  data _null_;
+  file send;
+  endsas;
+/*

@@ -1,0 +1,20 @@
+//UXD001M JOB ,'RDL RM102',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID            00001001
+//STEP01  EXEC PGM=IDCAMS                                               00002000
+//SYSPRINT DD SYSOUT=*                                                  00003000
+//SYSUDUMP DD SYSOUT=*                                                  00004000
+//SYSIN DD *                                                            00005000
+  DEFINE -                                                              00006001
+  CLUSTER( -                                                            00007001
+    NAME(SSXDT.DB2TOOLS.DB2J.HISTORY) -                                 00008001
+    MEGABYTES(     16      16) -                                        00009001
+    LINEAR -                                                            00010001
+    VOLUME(S9S2T1))                                                     00010101
+                                                                        00010201
+  DEFINE -                                                              00010301
+    CLUSTER( -                                                          00010401
+      NAME(SSXDT.DB2TOOLS.DB2J.EVENTS) -                                00010501
+      KILOBYTES(5120 10240) -                                           00010601
+      LINEAR -                                                          00010701
+      VOLUME(S9S2T1))                                                   00010801
+/*                                                                      00010900
+//                                                                      00011800

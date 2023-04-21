@@ -1,0 +1,50 @@
+//DB2#REP1 JOB ,'DB2 STANDARD JOBS',CLASS=S,MSGCLASS=X,
+//         NOTIFY=&SYSUID,REGION=0M
+/*JOBPARM SYSAFF=MVS4
+//*
+//**********************************************************************
+//* Report listing the last reference of datasets to be deleted.
+//**********************************************************************
+//* ::::::: DB2 Accessories Suite for z/OS v1.1.0 ::::::::::::::::::::::
+//* ::::::: DB2 Utilities Suite V7.1.0 (0403) / V9.1.0 :::::::::::::::::
+//*
+//**********************************************************************
+//*
+//USED   EXEC PGM=ICETOOL
+//DFSMSG   DD   SYSOUT=*
+//TOOLMSG  DD   SYSOUT=*
+//SYMNAMES DD DSN=SSXDP.DB2MAINT.MACLIB(HEADER),DISP=SHR
+//         DD DSN=SSXDP.DB2MAINT.MACLIB(TYPED),DISP=SHR
+//SYMNOUT DD SYSOUT=*
+//INDD  DD DISP=SHR,DSN=SSXDP.RFC.D170913.C310167.DCOLLECT
+//OUTDD1   DD   DSN=&&TEMP1,DISP=(NEW,PASS)
+//REPORT1  DD   SYSOUT=*
+//TOOLIN   DD *
+*  CREATE A DATA SET CONTAINING ONLY D-TYPE RECORDS AND SELECT JUST
+*  DATASETS THAT HAVE A SPECIFIC STRING
+   COPY FROM(INDD) TO(OUTDD1) USING(CPY1)
+*
+*  REPORT
+   OCCUR FROM(OUTDD1) LIST(REPORT1) -
+    HEADER('DSNAME')  ON(DCDDSNAM)     -
+    HEADER('VOLSER')  ON(DCDVOLSR)     -
+*   HEADER('ALLOC')   ON(DCDALLSP)     -
+    HEADER('LAST REF') ON(DCDLSTRF,E'9999/999') -
+    BLANK
+/*
+//CPY1CNTL DD *
+   INCLUDE COND=(DCURCTYP,CH,EQ,DCUDATAT,AND,
+                 (DCDDSNAM,SS,EQ,C'SSXDT.DB2V9',OR,
+                  DCDDSNAM,SS,EQ,C'SSXDP.DB2V9',OR,
+                  DCDDSNAM,SS,EQ,C'SYS2.DB2V9',OR,
+                  DCDDSNAM,SS,EQ,C'SSXDP.DB2V7',OR,
+                  DCDDSNAM,SS,EQ,C'SSXDT.DB2V7',OR,
+                  DCDDSNAM,SS,EQ,C'SSXDP.DB2V8',OR,
+                  DCDDSNAM,SS,EQ,C'SSXDT.DB2V8',OR,
+                  DCDDSNAM,SS,EQ,C'SSXDT.DSNDBEG.DB2E.SDSNLOAD',OR,
+                  DCDDSNAM,SS,EQ,C'SSXDT.DSNDBVG.DB2V.SD',OR,
+                  DCDDSNAM,SS,EQ,C'SSXDT.DSNDBVG.DB3V.SDSNLOAD',OR,
+                  DCDDSNAM,SS,EQ,C'SYS2.DB2V7.SD',OR,
+                  DCDDSNAM,SS,EQ,C'SYS2.DB2V8.SD'))
+   OPTION VLSHRT
+/*

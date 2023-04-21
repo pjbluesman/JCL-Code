@@ -1,0 +1,111 @@
+//UXC401M4 JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSE
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR
+//* *******************************************************************/
+//* JOB NAME = FTPTOIBM                                               */
+//*                                                                   */
+//* DESCRIPTIVE NAME = INSTALLATION JOB STREAM                        */
+//*                                                                   */
+//*    LICENSED MATERIALS - PROPERTY OF IBM                           */
+//*    5625-DB2                                                       */
+//*    (C) COPYRIGHT 1982, 2003 IBM CORP.  ALL RIGHTS RESERVED.       */
+//*                                                                   */
+//* FUNCTION = TERSE AND SEND FILE TROUGH FTP TO IBM                  */
+//*                                                                   */
+//*                                                                   */
+//* IBM customers access IBM Enhanced Customer Data Repository by     */
+//* performing an anonymous login to ftp.ecurep.ibm.com (192.109.81.7)*/
+//* Customers upload files within the /toibm/subdirectories, the      */
+//* necessary information you get from your support representative.   */
+//*                                                                   */
+//* MVS or z/OS                                                       */
+//*                                                                   */
+//* File naming convention                                            */
+//*                                                                   */
+//* When you create the terse archive, using the following naming     */
+//* convention allows the support tools to move the testcase          */
+//* automatically to the proper directories and update the PMR to     */
+//* indicate that the testcase is available.                          */
+//*                                                                   */
+//* If the testcase files cannot be associated with an existing PMR,  */
+//* they will be tagged as lost and eventually deleted.               */
+//*                                                                   */
+//* xxxxx.bbb.ccc.yyy.yyy.çTRSŸç.CRY | .CRY64Ÿ --->                   */
+//*  Field   Explanation                                 Sample       */
+//*  xxxxx   PMR Number                                  34143        */
+//*  bbb     Branch Office                               055          */
+//*  ccc     IBM Country Code                            724          */
+//*  yyy.yyy A short description for the file type       dump         */
+//*  TRS    Mandatory Identifier for a tersed file                    */
+//*  CRY    Optional additional Identifier for non-DES encrypted file */
+//*                (FTPENCR module is used)                           */
+//*  CRY64  Optional additional Identifier for 64-bit DES encrypted fi*/
+//*                (FTPENCRD module is used)                          */
+//*                                                                   */
+//*                                                                   */
+//* Example                                                           */
+//* 34143.055.724.dump.TRS.CRY                                        */
+//* (PMR_#.branch_office_#.country_code.dump.TRS.CRY)                 */
+//*                                                                   */
+//* Take care to use the binary option before transfer.               */
+//*                                                                   */
+//* Some additional remarks:                                          */
+//*                                                                   */
+//*     * to reduce reaction time, inform your IBM software support   */
+//* about the transfered files                                        */
+//*     * the material will be automatically deleted after 7 days     */
+//*     * the FTP GET and LS options are intentionally disabled       */
+//*     * we strongly recommend to transfer files in a tersed format  */
+//* (using TRSMAIN)                                                   */
+//*                                                                   */
+//*                                                                   */
+//* Delivery via MVS command line OPTION                              */
+//*                                                                   */
+//* Use the following instructions to transfer your data to our FTP   */
+//* server from the TSO command line.                                 */
+//* Note: The instructions below do not include steps which may be    */
+//* necessary to pass through a firewall or proxy server.             */
+//*                                                                   */
+//* From the TSO READY: prompt enter: ftp ftp.ecurep.ibm.com          */
+//* At the USER: prompt, enter: anonymous                             */
+//* At the password prompt, enter: your_email_address                 */
+//* (i.e. your_user_id@company.com)                                   */
+//* At the Command: prompt, enter: cd toibm/mvs                       */
+//* At the Command: prompt, enter: bin                                */
+//* At the Command: prompt, enter:                                    */
+//* put YOUR.LOCAL.DSN 12345.123.724.dump çfile naming conventionŸ    */
+//* At the Command: prompt, enter: quit                               */
+//*                                                                   */
+//*                                                                   */
+//* MORE DETAILS PLESE VISIT WEBPAGE:                                 */
+//* http://www-05.ibm.com/de/support/ecurep/mvs_ftp.html#batch        */
+//*                                                                   */
+//* Created: 17/12/09 - RPV                                           */
+//*
+//*
+//*- -{ TERSE FILE }- - - - - - - - - - - - - - - - - - - - - - - - - -
+//TERSE1 EXEC PGM=TRSMAIN,PARM='PACK'
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB
+//SYSPRINT DD SYSOUT=*
+//INFILE   DD DISP=SHR,
+//            DSN=T032135.SAMUEL.DDL
+//OUTFILE  DD DSN=T032135.SAMUEL.DDL.TERSE,
+//            DISP=(,CATLG,DELETE),
+//            SPACE=(CYL,(5,50),RLSE),
+//            UNIT=3390
+//*
+//*- -{ FTP TO IBM }- - - - - - - - - - - - - - - - - - - - - - - - - -
+//PUT      EXEC PGM=FTP,COND=(4,LT),
+//         PARM='testcase.boulder.ibm.com (EXIT'
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//INPUT    DD *
+ anonymous alaide@br.ibm.com
+ cd toibm/im
+ binary
+ put 'T032135.SAMUEL.DDL.TERSE' 46389.442.000.DDL
+ quit
+//

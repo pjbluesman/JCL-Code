@@ -1,0 +1,32 @@
+//DT0072X JOB ,'RDL RM102',CLASS=S,MSGCLASS=X,NOTIFY=DT0072             00001000
+//STEP01  EXEC PGM=IDCAMS                                               00002000
+//SYSPRINT DD SYSOUT=*                                                  00003000
+//SYSUDUMP DD SYSOUT=*                                                  00004000
+//SYSIN DD *                                                            00005000
+ DEFINE CLUSTER(                                         +              00006000
+               NAME(SSXDT.PLATINUM.TEST.DATA.SDMDATA)    +              00007000
+               FREESPACE(10 5)                           +              00008000
+               KEYS(60 0)                                +              00009000
+               RECORDSIZE(150 16384)                     +              00009100
+               VOLUME(E9SU04)                            +              00009200
+               SHR(3,3)                                  +              00009300
+              )                                          +              00009400
+          DATA(                                          +              00009500
+               NAME(SSXDT.PLATINUM.TEST.DATA.SDMDATA.D)  +              00009600
+               CYLINDERS(10 10)                          +              00009700
+              )                                          +              00009800
+         INDEX(                                          +              00009900
+               NAME(SSXDT.PLATINUM.TEST.DATA.SDMDATA.I)  +              00010000
+               CYLINDERS(5 5)                            +              00010100
+               CISZ(2048)                                +              00010200
+              )                                                         00010300
+/*                                                                      00010400
+//STEP02  EXEC PGM=IDCAMS                                               00010500
+//SYSPRINT DD SYSOUT=*                                                  00010600
+//SYSUDUMP DD SYSOUT=*                                                  00010700
+//INFILE1  DD DSN=SSXDT.PLATINUM.P99F.DATA.SDMDATA,DISP=SHR             00010800
+//OTFILE1  DD DSN=SSXDT.PLATINUM.TEST.DATA.SDMDATA,DISP=SHR             00010900
+//SYSIN DD *                                                            00011000
+ REPRO INFILE(INFILE1) OUTFILE(OTFILE1) REPLACE                         00011100
+/*                                                                      00011200
+//                                                                      00011300
