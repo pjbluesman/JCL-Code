@@ -1,0 +1,1270 @@
+
+--==============================================================================
+-- VRCM061      CA-DB2   RC/ALTER      ANALYSIS REPORT      01-15-02 08:49
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> RCUPDATE  DESCRIPTION  ===> RC/UPDATE ALTERATION
+--CREATOR  ==> DT0072    SHARE OPTION ===> N (U,Y,N,X,L)  SRC SSID ===> DB2U
+--
+--ALTERED OBJECTS:
+--   OBJECT TYPE       NAME                 CREATOR
+--   TABLE             FLT_LEG              EBKFD99
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> O (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> CATALOG
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> D36660E
+--
+--  SECURITY          ===> Y             STATISTICS   ===> N
+--  DEFAULT SQLID     ===>               CHECK DATA   ===> N
+--                                       IMAGE COPY   ===> N
+--                                       BIND/REBIND  ===> N
+--  ALL ROWS          ===> Y             REORG        ===> N
+--  NUMBER ROWS       ===>               RECOVER IX   ===> N
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS         ===> Y             VSAM DEFINES  ===> Y
+--  SQL ONLY          ===> N             VSAM DELETES  ===> Y
+--  COMMIT ASAP       ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> Y
+--  DELETE TEMPORARY DATASETS ===> Y
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+.SYSTEM UNLOADS
+.CONNECT DB2U
+
+
+.CALL UTLGLCTL PARM(DB2U,)                                             +
+   INDDN(SYSIN) OUTDDN(PTIMSG)
+.ALLOC FI(SYSREC01)                                                    +
+       DA('DT0072.EBKFD99.FLT$LEG.DATA')                               +
+       TRACKS                                                          +
+       SPACE(1351,1802)                                                +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.DATA
+  FASTUNLOAD
+   UNLDDN          SYSREC
+   LIMIT           0
+   OUTPUT-FORMAT   DSNTIAUL
+   INPUT-FORMAT    TABLE
+   VSAM-BUFFERS    80
+   SORTNUM         2
+   SORTDEVT        SYSDA
+   ESTIMATED-ROWS  184002
+   SQL-ACCESS      EXTENSION
+   SELECT FLT_ORIG_DT, MKD_CRR_CD, MKD_FLT_NB, DPRT_TRPN_STN_CD,
+   ARR_TRPN_STN_CD, DPRT_ATPT_SQL_NB, SCHD_FLT_IND, EQP_OWNR_CRR_CD,
+   SCHD_INDST_ACTY_CD, SCHD_DL_AC_TYP_CD, SCHD_EQCHG_TYP_CD,
+   SCHD_LCL_DPRT_DT, SCHD_DPRT_TS, SCHD_DPRT_GMT_TS, SCHD_PAX_DPRT_TS
+   , SCHD_LCL_ARR_DT, SCHD_ARR_TS, SCHD_ARR_GMT_TS, SCHD_PAX_ARR_TS,
+   SCHD_BLK_TM_MNT_CT, SCHD_TRTM_MNT_CT, LST_UPDT_TS, MOV_IND,
+   TRFC_RSTN_IND, US_TERR_FRGN_IND, FRST_DLMELTY_1_CD,
+   BSN_DLMELTY_1_CD, CCH_DLMELTY_1_CD, FRST_DLMELTY_2_CD,
+   BSN_DLMELTY_2_CD, CCH_DLMELTY_2_CD, FL_PSTN_CD, FLT_TYP_CD,
+   SCHD_LOF_SQL_NB, ACTL_LOF_SQL_NB, SHIP_NB, ACTL_INDST_ACTY_CD,
+   ACTL_DL_AC_TYP_CD, ACTL_EQCHG_TYP_CD, DPRT_ST_CD, ARR_ST_CD,
+   CXD_IND, CXD_GMT_TS, ACTL_OUT_TS, ACTL_OUT_GMT_TS, CREW_RPTD_OUT_TS
+   , ACTL_OFF_TS, ACTL_OFF_GMT_TS, ACTL_ON_TS, ACTL_ON_GMT_TS,
+   ACTL_IN_TS, ACTL_IN_GMT_TS, CREW_RPTD_IN_TS, ACTL_BLK_TM_MNT_CT,
+   ACTL_TRTM_MNT_CT, BRDG_STRTD_TS, RDY_TO_DPT_GMT_TS, ETD_TS,
+   ETD_GMT_TS, ETA_TS, ETA_GMT_TS, FAA_ETD_GMT_TS, FAA_ETA_GMT_TS,
+   ESTD_OFF_GMT_TS, TRACON_ENTR_GMT_TS, TRACON_EXIT_GMT_TS,
+   GO_ARND_GMT_TS, OUTR_MKR_GMT_TS, ONLN_GMT_TS, OFLN_OCRC_GMT_TS,
+   DPRT_CTRL_STT_CD, DPARPT_DSMR_VAL_CD, ARARPT_DSMR_VAL_CD,
+   DPRT_GT_ID, ARR_GT_ID, PBLC_DPRT_GT_ID, PBLC_ARR_GT_ID,
+   DPRT_GT_CHG_IND, ARR_GT_CHG_IND, PBDPRT_GT_CHG_IND,
+   PBARR_GT_CHG_IND, OFLN_OCRC_GT_ID, DPRT_BAG_PIER_ID, ARR_CRSL_ID,
+   DPRT_BAG_ZN_CD, DSPR_ID, LD_PLNR_ID, FAM_IND, THRU_SVC_MTC_IND,
+   CRACT_RQD_MTC_IND, NO_OP_IND, ADDD_IND, STBD_IND, DVRTD_IND,
+   RTND_IND, RNSD_IND, CREW_MEAL_IND, SEF_LEG_IND, COG_IND, CDSR_IND,
+   CTRT_HDD_FLTY_CD, INBG_SCTY_RQD_IND, CRG_CON_ASND_IND, GT_RCMN_IND
+   , GT_RCMN_TS, PNCI_IND, CREW_MBR_CT, DPRT_OPS_SCTR_CD,
+   ARR_OPS_SCTR_CD, LST_PYES_CRG_LB_CT, LST_PYES_BAG_CT,
+   LST_PYES_PAX_CT, FLT_LEG_RLS_CT, FIX_PT_CT, FLT_LEG_RLS_IND
+   INTO FLT_ORIG_DT, MKD_CRR_CD, MKD_FLT_NB INTEGER, DPRT_TRPN_STN_CD
+   , ARR_TRPN_STN_CD, DPRT_ATPT_SQL_NB, SCHD_FLT_IND, EQP_OWNR_CRR_CD
+   , SCHD_INDST_ACTY_CD, SCHD_DL_AC_TYP_CD, SCHD_EQCHG_TYP_CD,
+   SCHD_LCL_DPRT_DT, SCHD_DPRT_TS, SCHD_DPRT_GMT_TS, SCHD_PAX_DPRT_TS
+   , SCHD_LCL_ARR_DT, SCHD_ARR_TS, SCHD_ARR_GMT_TS, SCHD_PAX_ARR_TS,
+   SCHD_BLK_TM_MNT_CT, SCHD_TRTM_MNT_CT, LST_UPDT_TS, MOV_IND,
+   TRFC_RSTN_IND, US_TERR_FRGN_IND, FRST_DLMELTY_1_CD,
+   BSN_DLMELTY_1_CD, CCH_DLMELTY_1_CD, FRST_DLMELTY_2_CD,
+   BSN_DLMELTY_2_CD, CCH_DLMELTY_2_CD, FL_PSTN_CD, FLT_TYP_CD,
+   SCHD_LOF_SQL_NB, ACTL_LOF_SQL_NB, SHIP_NB, ACTL_INDST_ACTY_CD,
+   ACTL_DL_AC_TYP_CD, ACTL_EQCHG_TYP_CD, DPRT_ST_CD, ARR_ST_CD,
+   CXD_IND, CXD_GMT_TS, ACTL_OUT_TS, ACTL_OUT_GMT_TS, CREW_RPTD_OUT_TS
+   , ACTL_OFF_TS, ACTL_OFF_GMT_TS, ACTL_ON_TS, ACTL_ON_GMT_TS,
+   ACTL_IN_TS, ACTL_IN_GMT_TS, CREW_RPTD_IN_TS, ACTL_BLK_TM_MNT_CT,
+   ACTL_TRTM_MNT_CT, BRDG_STRTD_TS, RDY_TO_DPT_GMT_TS, ETD_TS,
+   ETD_GMT_TS, ETA_TS, ETA_GMT_TS, FAA_ETD_GMT_TS, FAA_ETA_GMT_TS,
+   ESTD_OFF_GMT_TS, TRACON_ENTR_GMT_TS, TRACON_EXIT_GMT_TS,
+   GO_ARND_GMT_TS, OUTR_MKR_GMT_TS, ONLN_GMT_TS, OFLN_OCRC_GMT_TS,
+   DPRT_CTRL_STT_CD, DPARPT_DSMR_VAL_CD, ARARPT_DSMR_VAL_CD,
+   DPRT_GT_ID, ARR_GT_ID, PBLC_DPRT_GT_ID, PBLC_ARR_GT_ID,
+   DPRT_GT_CHG_IND, ARR_GT_CHG_IND, PBDPRT_GT_CHG_IND,
+   PBARR_GT_CHG_IND, OFLN_OCRC_GT_ID, DPRT_BAG_PIER_ID, ARR_CRSL_ID,
+   DPRT_BAG_ZN_CD, DSPR_ID, LD_PLNR_ID, FAM_IND, THRU_SVC_MTC_IND,
+   CRACT_RQD_MTC_IND, NO_OP_IND, ADDD_IND, STBD_IND, DVRTD_IND,
+   RTND_IND, RNSD_IND, CREW_MEAL_IND, SEF_LEG_IND, COG_IND, CDSR_IND,
+   CTRT_HDD_FLTY_CD, INBG_SCTY_RQD_IND, CRG_CON_ASND_IND, GT_RCMN_IND
+   , GT_RCMN_TS, PNCI_IND, CREW_MBR_CT, DPRT_OPS_SCTR_CD,
+   ARR_OPS_SCTR_CD, LST_PYES_CRG_LB_CT, LST_PYES_BAG_CT,
+   LST_PYES_PAX_CT, FLT_LEG_RLS_CT, FIX_PT_CT, FLT_LEG_RLS_IND
+   FROM EBKFD99.FLT_LEG ORDER BY MKD_FLT_NB
+   ;
+.ENDDATA
+.FREE FILE(SYSREC01)
+
+.SYNC 5         'UNLOAD TABLE EBKFD99.FLT_LEG'
+
+.SYSTEM SQLDDL
+.CONNECT DB2U
+
+    DROP TABLESPACE EBKF1D99.TSKF0001;
+
+.SYNC 10        'DROP TABLESPACE EBKF1D99.TSKF0001'
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLESPACE CREATE AND ALTER STATEMENTS                     *
+-- *                                                            *
+-- **************************************************************
+
+
+-- EBKF1D99.TSKF0001 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'D71018E';
+
+    CREATE LARGE TABLESPACE TSKF0001
+           IN EBKF1D99
+           NUMPARTS   20
+          (PART 1
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 2
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 3
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 4
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 5
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 6
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 7
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 8
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 9
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 10
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 11
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 12
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 13
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 14
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 15
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 16
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 17
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 18
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 19
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 20
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 36000
+                                    SECQTY 36000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          )
+           BUFFERPOOL BP3
+           LOCKSIZE ANY
+           CLOSE YES
+           LOCKMAX SYSTEM
+           CCSID ASCII
+           LOCKPART YES
+    ;
+
+.SYNC 15        'CREATE TABLESPACE EBKF1D99.TSKF0001'
+    SET CURRENT SQLID = USER;
+
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- EBKFD99.FLT_LEG WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DT0072';
+
+CREATE TABLE EBKFD99.FLT_LEG
+   (FLT_ORIG_DT            INTEGER                     NOT NULL
+   ,MKD_CRR_CD             CHAR(3    )                 NOT NULL
+   ,MKD_FLT_NB             INTEGER                     NOT NULL
+   ,DPRT_TRPN_STN_CD       CHAR(5    )                 NOT NULL
+   ,ARR_TRPN_STN_CD        CHAR(5    )                 NOT NULL
+   ,DPRT_ATPT_SQL_NB       CHAR(1    )                 NOT NULL
+   ,SCHD_FLT_IND           CHAR(1    )
+   ,EQP_OWNR_CRR_CD        CHAR(3    )
+   ,SCHD_INDST_ACTY_CD     CHAR(3    )
+   ,SCHD_DL_AC_TYP_CD      CHAR(3    )
+   ,SCHD_EQCHG_TYP_CD      CHAR(1    )
+   ,SCHD_LCL_DPRT_DT       INTEGER
+   ,SCHD_DPRT_TS           TIMESTAMP
+   ,SCHD_DPRT_GMT_TS       TIMESTAMP
+   ,SCHD_PAX_DPRT_TS       TIMESTAMP
+   ,SCHD_LCL_ARR_DT        INTEGER
+   ,SCHD_ARR_TS            TIMESTAMP
+   ,SCHD_ARR_GMT_TS        TIMESTAMP
+   ,SCHD_PAX_ARR_TS        TIMESTAMP
+   ,SCHD_BLK_TM_MNT_CT     DECIMAL(4     , 0    )
+   ,SCHD_TRTM_MNT_CT       DECIMAL(4     , 0    )
+   ,LST_UPDT_TS            TIMESTAMP                   NOT NULL
+   ,MOV_IND                CHAR(1    )
+   ,TRFC_RSTN_IND          CHAR(1    )
+   ,US_TERR_FRGN_IND       CHAR(1    )                 NOT NULL
+          WITH DEFAULT  'N'
+   ,FRST_DLMELTY_1_CD      CHAR(1    )
+   ,BSN_DLMELTY_1_CD       CHAR(1    )
+   ,CCH_DLMELTY_1_CD       CHAR(1    )
+   ,FRST_DLMELTY_2_CD      CHAR(1    )
+   ,BSN_DLMELTY_2_CD       CHAR(1    )
+   ,CCH_DLMELTY_2_CD       CHAR(1    )
+   ,FL_PSTN_CD             CHAR(1    )
+   ,FLT_TYP_CD             CHAR(1    )
+   ,SCHD_LOF_SQL_NB        DECIMAL(2     , 0    )      NOT NULL
+   ,ACTL_LOF_SQL_NB        DECIMAL(2     , 0    )      NOT NULL
+   ,SHIP_NB                CHAR(6    )                 NOT NULL
+          WITH DEFAULT  '000000'
+   ,ACTL_INDST_ACTY_CD     CHAR(3    )
+   ,ACTL_DL_AC_TYP_CD      CHAR(3    )
+   ,ACTL_EQCHG_TYP_CD      CHAR(1    )
+   ,DPRT_ST_CD             DECIMAL(2     , 0    )      NOT NULL
+   ,ARR_ST_CD              DECIMAL(2     , 0    )      NOT NULL
+   ,CXD_IND                CHAR(1    )
+   ,CXD_GMT_TS             TIMESTAMP
+   ,ACTL_OUT_TS            TIMESTAMP
+   ,ACTL_OUT_GMT_TS        TIMESTAMP
+   ,CREW_RPTD_OUT_TS       TIMESTAMP
+   ,ACTL_OFF_TS            TIMESTAMP
+   ,ACTL_OFF_GMT_TS        TIMESTAMP
+   ,ACTL_ON_TS             TIMESTAMP
+   ,ACTL_ON_GMT_TS         TIMESTAMP
+   ,ACTL_IN_TS             TIMESTAMP
+   ,ACTL_IN_GMT_TS         TIMESTAMP
+   ,CREW_RPTD_IN_TS        TIMESTAMP
+   ,ACTL_BLK_TM_MNT_CT     DECIMAL(4     , 0    )
+   ,ACTL_TRTM_MNT_CT       DECIMAL(4     , 0    )
+   ,BRDG_STRTD_TS          TIMESTAMP
+   ,RDY_TO_DPT_GMT_TS      TIMESTAMP
+   ,ETD_TS                 TIMESTAMP
+   ,ETD_GMT_TS             TIMESTAMP
+   ,ETA_TS                 TIMESTAMP
+   ,ETA_GMT_TS             TIMESTAMP
+   ,FAA_ETD_GMT_TS         TIMESTAMP
+   ,FAA_ETA_GMT_TS         TIMESTAMP
+   ,ESTD_OFF_GMT_TS        TIMESTAMP
+   ,TRACON_ENTR_GMT_TS     TIMESTAMP
+   ,TRACON_EXIT_GMT_TS     TIMESTAMP
+   ,GO_ARND_GMT_TS         TIMESTAMP
+   ,OUTR_MKR_GMT_TS        TIMESTAMP
+   ,ONLN_GMT_TS            TIMESTAMP
+   ,OFLN_OCRC_GMT_TS       TIMESTAMP
+   ,DPRT_CTRL_STT_CD       CHAR(1    )
+          WITH DEFAULT  'U'
+   ,DPARPT_DSMR_VAL_CD     CHAR(1    )
+   ,ARARPT_DSMR_VAL_CD     CHAR(1    )
+   ,DPRT_GT_ID             CHAR(5    )
+   ,ARR_GT_ID              CHAR(5    )
+   ,PBLC_DPRT_GT_ID        CHAR(5    )
+   ,PBLC_ARR_GT_ID         CHAR(5    )
+   ,DPRT_GT_CHG_IND        CHAR(1    )
+   ,ARR_GT_CHG_IND         CHAR(1    )
+   ,PBDPRT_GT_CHG_IND      CHAR(1    )
+   ,PBARR_GT_CHG_IND       CHAR(1    )
+   ,OFLN_OCRC_GT_ID        CHAR(5    )
+   ,DPRT_BAG_PIER_ID       CHAR(4    )
+   ,ARR_CRSL_ID            CHAR(4    )
+   ,DPRT_BAG_ZN_CD         CHAR(3    )
+   ,DSPR_ID                CHAR(2    )
+   ,LD_PLNR_ID             CHAR(2    )
+   ,FAM_IND                CHAR(1    )
+   ,THRU_SVC_MTC_IND       CHAR(1    )
+          WITH DEFAULT  'N'
+   ,CRACT_RQD_MTC_IND      CHAR(1    )
+   ,NO_OP_IND              CHAR(1    )
+   ,ADDD_IND               CHAR(1    )
+   ,STBD_IND               CHAR(1    )
+   ,DVRTD_IND              CHAR(1    )
+   ,RTND_IND               CHAR(1    )
+   ,RNSD_IND               CHAR(1    )
+   ,CREW_MEAL_IND          CHAR(1    )
+   ,SEF_LEG_IND            CHAR(1    )
+   ,COG_IND                CHAR(1    )
+   ,CDSR_IND               CHAR(1    )
+   ,CTRT_HDD_FLTY_CD       CHAR(1    )
+   ,INBG_SCTY_RQD_IND      CHAR(1    )
+   ,CRG_CON_ASND_IND       CHAR(1    )
+   ,GT_RCMN_IND            CHAR(1    )
+   ,GT_RCMN_TS             TIMESTAMP
+   ,PNCI_IND               CHAR(1    )
+   ,CREW_MBR_CT            DECIMAL(2     , 0    )
+   ,DPRT_OPS_SCTR_CD       CHAR(1    )
+   ,ARR_OPS_SCTR_CD        CHAR(1    )
+   ,LST_PYES_CRG_LB_CT     DECIMAL(7     , 0    )
+   ,LST_PYES_BAG_CT        DECIMAL(5     , 0    )
+   ,LST_PYES_PAX_CT        DECIMAL(4     , 0    )
+   ,FLT_LEG_RLS_CT         DECIMAL(2     , 0    )
+   ,FIX_PT_CT              DECIMAL(2     , 0    )
+   ,FLT_LEG_RLS_IND        CHAR(1    )
+   ,PRIMARY KEY
+   (FLT_ORIG_DT
+   ,MKD_CRR_CD
+   ,MKD_FLT_NB
+   ,DPRT_TRPN_STN_CD
+   ,ARR_TRPN_STN_CD
+   ,DPRT_ATPT_SQL_NB
+   )
+   )
+   IN EBKF1D99.TSKF0001
+   CCSID ASCII
+   ;
+
+.SYNC 20        'CREATE TABLE EBKFD99.FLT_LEG'
+    SET CURRENT SQLID = USER;
+
+
+    SET CURRENT SQLID = 'EBKFD99';
+
+    GRANT SELECT
+                    ON TABLE EBKFD99.FLT_LEG TO PUBLIC;
+
+.SYNC 25        'GRANT TABLE EBKFD99.FLT_LEG'
+
+    SET CURRENT SQLID = USER;
+
+-- **************************************************************
+-- *                                                            *
+-- * INDEX CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- EBKFD99.IX1KF001 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        UNIQUE INDEX EBKFD99.IX1KF001
+           ON EBKFD99.FLT_LEG
+          (FLT_ORIG_DT          ASC
+          ,MKD_CRR_CD           ASC
+          ,MKD_FLT_NB           ASC
+          ,DPRT_TRPN_STN_CD     ASC
+          ,ARR_TRPN_STN_CD      ASC
+          ,DPRT_ATPT_SQL_NB     ASC
+          )
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 109392
+                                    SECQTY 10944
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+           BUFFERPOOL BP2
+           CLOSE YES
+           PIECESIZE 4194304K
+    ;
+
+.SYNC 30        'CREATE INDEX EBKFD99.IX1KF001'
+
+--RMA082W INDEXED COLUMNS HAVE BEEN CHANGED IN THE TABLE ASSOCIATED
+--      WITH PARTITIONED INDEX EBKFD99.IXCKF001
+
+-- EBKFD99.IXCKF001 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX EBKFD99.IXCKF001
+           ON EBKFD99.FLT_LEG
+          (MKD_FLT_NB           ASC
+          )
+           CLUSTER
+          (PART 1
+           VALUES
+          (
+           499.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 2
+           VALUES
+          (
+           999.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 3
+           VALUES
+          (
+           1499.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 4
+           VALUES
+          (
+           1999.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 5
+           VALUES
+          (
+           2499.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 6
+           VALUES
+          (
+           2999.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 7
+           VALUES
+          (
+           3499.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 8
+           VALUES
+          (
+           3999.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 9
+           VALUES
+          (
+           4499.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 10
+           VALUES
+          (
+           4999.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 11
+           VALUES
+          (
+           5499.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 12
+           VALUES
+          (
+           5999.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 13
+           VALUES
+          (
+           6499.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 14
+           VALUES
+          (
+           6999.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 15
+           VALUES
+          (
+           7499.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 16
+           VALUES
+          (
+           7999.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 17
+           VALUES
+          (
+           8499.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 18
+           VALUES
+          (
+           8999.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 19
+           VALUES
+          (
+           9499.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 20
+           VALUES
+          (
+           999999.)
+                     USING STOGROUP EBKFSGD9
+                                    PRIQTY 1440
+                                    SECQTY 7200
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          )
+           BUFFERPOOL BP2
+           CLOSE NO
+    ;
+
+.SYNC 35        'CREATE INDEX EBKFD99.IXCKF001'
+
+
+.DISCONN
+
+.SYNC 40        'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+.CALL UTLGLCTL PARM(DB2U,)                                             +
+   INDDN(SYSIN) OUTDDN(PTIMSG)
+.ALLOC FI(SYSULD)                                                      +
+   DA('DT0072.EBKFD99.FLT$LEG.DATA')                                   +
+   SHR
+.ALLOC FI(SYSERR)                                                      +
+   DA('DT0072.EBKFD99.FLT$LEG.DATA.E')                                 +
+   SPACE(18,24) TRACKS RLSE                                            +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(SYSDISC)                                                     +
+   DA('DT0072.EBKFD99.FLT$LEG.DATA.D')                                 +
+   SPACE(451,901) TRACKS RLSE                                          +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(PTIREC)                                                      +
+   DA('DT0072.EBKFD99.FLT$LEG.DATA.U')                                 +
+   SPACE(1360,1813) TRACKS RLSE                                        +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(SYSMAP)                                                      +
+   DA('DT0072.EBKFD99.FLT$LEG.DATA.M')                                 +
+   SPACE(169,225) TRACKS RLSE                                          +
+   UNIT(SYSDA) MOD CATALOG LRECL(145) BLKSIZE(14500)                   +
+   RECFM(F,B)
+.ALLOC FI(PTIUT1)                                                      +
+   DA('DT0072.EBKFD99.FLT$LEG.DATA.W')                                 +
+   SPACE(10,17) CYL RLSE                                               +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(ST01MSG) SYSOUT(*)
+.DATA
+  FASTLOAD
+   INPUT-FORMAT    SEQ
+   OUTPUT-CONTROL  ALL
+   INDDN           SYSULD
+   WORKDDN         PTIUT1
+   UNLDDN          PTIREC
+   RESUME          NO
+   SORTNUM         2
+   SORTDEVT        SYSDA
+   ESTIMATED-ROWS  184002
+   INTO TABLE      EBKFD99.FLT_LEG
+   (
+    FLT_ORIG_DT        POSITION(      1:     4 )
+      INTEGER
+          ,
+    MKD_CRR_CD         POSITION(      5:     7 )
+      CHAR               (     3)
+          ,
+    MKD_FLT_NB         POSITION(      8:    11 )
+      INTEGER
+          ,
+    DPRT_TRPN_STN_CD   POSITION(     12:    16 )
+      CHAR               (     5)
+          ,
+    ARR_TRPN_STN_CD    POSITION(     17:    21 )
+      CHAR               (     5)
+          ,
+    DPRT_ATPT_SQL_NB   POSITION(     22:    22 )
+      CHAR               (     1)
+          ,
+    SCHD_FLT_IND       POSITION(     23:    23 )
+      CHAR               (     1)
+        NULLIF(    24 ) = '?'
+          ,
+    EQP_OWNR_CRR_CD    POSITION(     25:    27 )
+      CHAR               (     3)
+        NULLIF(    28 ) = '?'
+          ,
+    SCHD_INDST_ACTY_CD POSITION(     29:    31 )
+      CHAR               (     3)
+        NULLIF(    32 ) = '?'
+          ,
+    SCHD_DL_AC_TYP_CD  POSITION(     33:    35 )
+      CHAR               (     3)
+        NULLIF(    36 ) = '?'
+          ,
+    SCHD_EQCHG_TYP_CD  POSITION(     37:    37 )
+      CHAR               (     1)
+        NULLIF(    38 ) = '?'
+          ,
+    SCHD_LCL_DPRT_DT   POSITION(     39:    42 )
+      INTEGER
+        NULLIF(    43 ) = '?'
+          ,
+    SCHD_DPRT_TS       POSITION(     44:    69 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(    70 ) = '?'
+          ,
+    SCHD_DPRT_GMT_TS   POSITION(     71:    96 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(    97 ) = '?'
+          ,
+    SCHD_PAX_DPRT_TS   POSITION(     98:   123 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   124 ) = '?'
+          ,
+    SCHD_LCL_ARR_DT    POSITION(    125:   128 )
+      INTEGER
+        NULLIF(   129 ) = '?'
+          ,
+    SCHD_ARR_TS        POSITION(    130:   155 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   156 ) = '?'
+          ,
+    SCHD_ARR_GMT_TS    POSITION(    157:   182 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   183 ) = '?'
+          ,
+    SCHD_PAX_ARR_TS    POSITION(    184:   209 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   210 ) = '?'
+          ,
+    SCHD_BLK_TM_MNT_CT POSITION(    211:   213 )
+      DECIMAL PACKED
+        NULLIF(   214 ) = '?'
+          ,
+    SCHD_TRTM_MNT_CT   POSITION(    215:   217 )
+      DECIMAL PACKED
+        NULLIF(   218 ) = '?'
+          ,
+    LST_UPDT_TS        POSITION(    219:   244 )
+      TIMESTAMP EXTERNAL (    26)
+          ,
+    MOV_IND            POSITION(    245:   245 )
+      CHAR               (     1)
+        NULLIF(   246 ) = '?'
+          ,
+    TRFC_RSTN_IND      POSITION(    247:   247 )
+      CHAR               (     1)
+        NULLIF(   248 ) = '?'
+          ,
+    US_TERR_FRGN_IND   POSITION(    249:   249 )
+      CHAR               (     1)
+          ,
+    FRST_DLMELTY_1_CD  POSITION(    250:   250 )
+      CHAR               (     1)
+        NULLIF(   251 ) = '?'
+          ,
+    BSN_DLMELTY_1_CD   POSITION(    252:   252 )
+      CHAR               (     1)
+        NULLIF(   253 ) = '?'
+          ,
+    CCH_DLMELTY_1_CD   POSITION(    254:   254 )
+      CHAR               (     1)
+        NULLIF(   255 ) = '?'
+          ,
+    FRST_DLMELTY_2_CD  POSITION(    256:   256 )
+      CHAR               (     1)
+        NULLIF(   257 ) = '?'
+          ,
+    BSN_DLMELTY_2_CD   POSITION(    258:   258 )
+      CHAR               (     1)
+        NULLIF(   259 ) = '?'
+          ,
+    CCH_DLMELTY_2_CD   POSITION(    260:   260 )
+      CHAR               (     1)
+        NULLIF(   261 ) = '?'
+          ,
+    FL_PSTN_CD         POSITION(    262:   262 )
+      CHAR               (     1)
+        NULLIF(   263 ) = '?'
+          ,
+    FLT_TYP_CD         POSITION(    264:   264 )
+      CHAR               (     1)
+        NULLIF(   265 ) = '?'
+          ,
+    SCHD_LOF_SQL_NB    POSITION(    266:   267 )
+      DECIMAL PACKED
+          ,
+    ACTL_LOF_SQL_NB    POSITION(    268:   269 )
+      DECIMAL PACKED
+          ,
+    SHIP_NB            POSITION(    270:   275 )
+      CHAR               (     6)
+          ,
+    ACTL_INDST_ACTY_CD POSITION(    276:   278 )
+      CHAR               (     3)
+        NULLIF(   279 ) = '?'
+          ,
+    ACTL_DL_AC_TYP_CD  POSITION(    280:   282 )
+      CHAR               (     3)
+        NULLIF(   283 ) = '?'
+          ,
+    ACTL_EQCHG_TYP_CD  POSITION(    284:   284 )
+      CHAR               (     1)
+        NULLIF(   285 ) = '?'
+          ,
+    DPRT_ST_CD         POSITION(    286:   287 )
+      DECIMAL PACKED
+          ,
+    ARR_ST_CD          POSITION(    288:   289 )
+      DECIMAL PACKED
+          ,
+    CXD_IND            POSITION(    290:   290 )
+      CHAR               (     1)
+        NULLIF(   291 ) = '?'
+          ,
+    CXD_GMT_TS         POSITION(    292:   317 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   318 ) = '?'
+          ,
+    ACTL_OUT_TS        POSITION(    319:   344 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   345 ) = '?'
+          ,
+    ACTL_OUT_GMT_TS    POSITION(    346:   371 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   372 ) = '?'
+          ,
+    CREW_RPTD_OUT_TS   POSITION(    373:   398 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   399 ) = '?'
+          ,
+    ACTL_OFF_TS        POSITION(    400:   425 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   426 ) = '?'
+          ,
+    ACTL_OFF_GMT_TS    POSITION(    427:   452 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   453 ) = '?'
+          ,
+    ACTL_ON_TS         POSITION(    454:   479 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   480 ) = '?'
+          ,
+    ACTL_ON_GMT_TS     POSITION(    481:   506 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   507 ) = '?'
+          ,
+    ACTL_IN_TS         POSITION(    508:   533 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   534 ) = '?'
+          ,
+    ACTL_IN_GMT_TS     POSITION(    535:   560 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   561 ) = '?'
+          ,
+    CREW_RPTD_IN_TS    POSITION(    562:   587 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   588 ) = '?'
+          ,
+    ACTL_BLK_TM_MNT_CT POSITION(    589:   591 )
+      DECIMAL PACKED
+        NULLIF(   592 ) = '?'
+          ,
+    ACTL_TRTM_MNT_CT   POSITION(    593:   595 )
+      DECIMAL PACKED
+        NULLIF(   596 ) = '?'
+          ,
+    BRDG_STRTD_TS      POSITION(    597:   622 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   623 ) = '?'
+          ,
+    RDY_TO_DPT_GMT_TS  POSITION(    624:   649 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   650 ) = '?'
+          ,
+    ETD_TS             POSITION(    651:   676 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   677 ) = '?'
+          ,
+    ETD_GMT_TS         POSITION(    678:   703 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   704 ) = '?'
+          ,
+    ETA_TS             POSITION(    705:   730 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   731 ) = '?'
+          ,
+    ETA_GMT_TS         POSITION(    732:   757 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   758 ) = '?'
+          ,
+    FAA_ETD_GMT_TS     POSITION(    759:   784 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   785 ) = '?'
+          ,
+    FAA_ETA_GMT_TS     POSITION(    786:   811 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   812 ) = '?'
+          ,
+    ESTD_OFF_GMT_TS    POSITION(    813:   838 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   839 ) = '?'
+          ,
+    TRACON_ENTR_GMT_TS POSITION(    840:   865 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   866 ) = '?'
+          ,
+    TRACON_EXIT_GMT_TS POSITION(    867:   892 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   893 ) = '?'
+          ,
+    GO_ARND_GMT_TS     POSITION(    894:   919 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   920 ) = '?'
+          ,
+    OUTR_MKR_GMT_TS    POSITION(    921:   946 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   947 ) = '?'
+          ,
+    ONLN_GMT_TS        POSITION(    948:   973 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(   974 ) = '?'
+          ,
+    OFLN_OCRC_GMT_TS   POSITION(    975:  1000 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(  1001 ) = '?'
+          ,
+    DPRT_CTRL_STT_CD   POSITION(   1002:  1002 )
+      CHAR               (     1)
+        NULLIF(  1003 ) = '?'
+          ,
+    DPARPT_DSMR_VAL_CD POSITION(   1004:  1004 )
+      CHAR               (     1)
+        NULLIF(  1005 ) = '?'
+          ,
+    ARARPT_DSMR_VAL_CD POSITION(   1006:  1006 )
+      CHAR               (     1)
+        NULLIF(  1007 ) = '?'
+          ,
+    DPRT_GT_ID         POSITION(   1008:  1012 )
+      CHAR               (     5)
+        NULLIF(  1013 ) = '?'
+          ,
+    ARR_GT_ID          POSITION(   1014:  1018 )
+      CHAR               (     5)
+        NULLIF(  1019 ) = '?'
+          ,
+    PBLC_DPRT_GT_ID    POSITION(   1020:  1024 )
+      CHAR               (     5)
+        NULLIF(  1025 ) = '?'
+          ,
+    PBLC_ARR_GT_ID     POSITION(   1026:  1030 )
+      CHAR               (     5)
+        NULLIF(  1031 ) = '?'
+          ,
+    DPRT_GT_CHG_IND    POSITION(   1032:  1032 )
+      CHAR               (     1)
+        NULLIF(  1033 ) = '?'
+          ,
+    ARR_GT_CHG_IND     POSITION(   1034:  1034 )
+      CHAR               (     1)
+        NULLIF(  1035 ) = '?'
+          ,
+    PBDPRT_GT_CHG_IND  POSITION(   1036:  1036 )
+      CHAR               (     1)
+        NULLIF(  1037 ) = '?'
+          ,
+    PBARR_GT_CHG_IND   POSITION(   1038:  1038 )
+      CHAR               (     1)
+        NULLIF(  1039 ) = '?'
+          ,
+    OFLN_OCRC_GT_ID    POSITION(   1040:  1044 )
+      CHAR               (     5)
+        NULLIF(  1045 ) = '?'
+          ,
+    DPRT_BAG_PIER_ID   POSITION(   1046:  1049 )
+      CHAR               (     4)
+        NULLIF(  1050 ) = '?'
+          ,
+    ARR_CRSL_ID        POSITION(   1051:  1054 )
+      CHAR               (     4)
+        NULLIF(  1055 ) = '?'
+          ,
+    DPRT_BAG_ZN_CD     POSITION(   1056:  1058 )
+      CHAR               (     3)
+        NULLIF(  1059 ) = '?'
+          ,
+    DSPR_ID            POSITION(   1060:  1061 )
+      CHAR               (     2)
+        NULLIF(  1062 ) = '?'
+          ,
+    LD_PLNR_ID         POSITION(   1063:  1064 )
+      CHAR               (     2)
+        NULLIF(  1065 ) = '?'
+          ,
+    FAM_IND            POSITION(   1066:  1066 )
+      CHAR               (     1)
+        NULLIF(  1067 ) = '?'
+          ,
+    THRU_SVC_MTC_IND   POSITION(   1068:  1068 )
+      CHAR               (     1)
+        NULLIF(  1069 ) = '?'
+          ,
+    CRACT_RQD_MTC_IND  POSITION(   1070:  1070 )
+      CHAR               (     1)
+        NULLIF(  1071 ) = '?'
+          ,
+    NO_OP_IND          POSITION(   1072:  1072 )
+      CHAR               (     1)
+        NULLIF(  1073 ) = '?'
+          ,
+    ADDD_IND           POSITION(   1074:  1074 )
+      CHAR               (     1)
+        NULLIF(  1075 ) = '?'
+          ,
+    STBD_IND           POSITION(   1076:  1076 )
+      CHAR               (     1)
+        NULLIF(  1077 ) = '?'
+          ,
+    DVRTD_IND          POSITION(   1078:  1078 )
+      CHAR               (     1)
+        NULLIF(  1079 ) = '?'
+          ,
+    RTND_IND           POSITION(   1080:  1080 )
+      CHAR               (     1)
+        NULLIF(  1081 ) = '?'
+          ,
+    RNSD_IND           POSITION(   1082:  1082 )
+      CHAR               (     1)
+        NULLIF(  1083 ) = '?'
+          ,
+    CREW_MEAL_IND      POSITION(   1084:  1084 )
+      CHAR               (     1)
+        NULLIF(  1085 ) = '?'
+          ,
+    SEF_LEG_IND        POSITION(   1086:  1086 )
+      CHAR               (     1)
+        NULLIF(  1087 ) = '?'
+          ,
+    COG_IND            POSITION(   1088:  1088 )
+      CHAR               (     1)
+        NULLIF(  1089 ) = '?'
+          ,
+    CDSR_IND           POSITION(   1090:  1090 )
+      CHAR               (     1)
+        NULLIF(  1091 ) = '?'
+          ,
+    CTRT_HDD_FLTY_CD   POSITION(   1092:  1092 )
+      CHAR               (     1)
+        NULLIF(  1093 ) = '?'
+          ,
+    INBG_SCTY_RQD_IND  POSITION(   1094:  1094 )
+      CHAR               (     1)
+        NULLIF(  1095 ) = '?'
+          ,
+    CRG_CON_ASND_IND   POSITION(   1096:  1096 )
+      CHAR               (     1)
+        NULLIF(  1097 ) = '?'
+          ,
+    GT_RCMN_IND        POSITION(   1098:  1098 )
+      CHAR               (     1)
+        NULLIF(  1099 ) = '?'
+          ,
+    GT_RCMN_TS         POSITION(   1100:  1125 )
+      TIMESTAMP EXTERNAL (    26)
+        NULLIF(  1126 ) = '?'
+          ,
+    PNCI_IND           POSITION(   1127:  1127 )
+      CHAR               (     1)
+        NULLIF(  1128 ) = '?'
+          ,
+    CREW_MBR_CT        POSITION(   1129:  1130 )
+      DECIMAL PACKED
+        NULLIF(  1131 ) = '?'
+          ,
+    DPRT_OPS_SCTR_CD   POSITION(   1132:  1132 )
+      CHAR               (     1)
+        NULLIF(  1133 ) = '?'
+          ,
+    ARR_OPS_SCTR_CD    POSITION(   1134:  1134 )
+      CHAR               (     1)
+        NULLIF(  1135 ) = '?'
+          ,
+    LST_PYES_CRG_LB_CT POSITION(   1136:  1139 )
+      DECIMAL PACKED
+        NULLIF(  1140 ) = '?'
+          ,
+    LST_PYES_BAG_CT    POSITION(   1141:  1143 )
+      DECIMAL PACKED
+        NULLIF(  1144 ) = '?'
+          ,
+    LST_PYES_PAX_CT    POSITION(   1145:  1147 )
+      DECIMAL PACKED
+        NULLIF(  1148 ) = '?'
+          ,
+    FLT_LEG_RLS_CT     POSITION(   1149:  1150 )
+      DECIMAL PACKED
+        NULLIF(  1151 ) = '?'
+          ,
+    FIX_PT_CT          POSITION(   1152:  1153 )
+      DECIMAL PACKED
+        NULLIF(  1154 ) = '?'
+          ,
+    FLT_LEG_RLS_IND    POSITION(   1155:  1155 )
+      CHAR               (     1)
+        NULLIF(  1156 ) = '?'
+   )
+.ENDDATA
+.FREE FI(SYSULD)
+.FREE FI(SYSERR)
+.FREE FI(ST01MSG)
+.FREE FI(PTIREC)
+.FREE FI(SYSDISC)
+.FREE FI(PTIUT1)
+.FREE FI(SYSMAP)
+
+.SYNC 45        'LOAD TABLE EBKFD99.FLT_LEG'
+
+.CALL LOADDEL
+.DATA
+  DSN(DT0072.EBKFD99.FLT$LEG.DATA)
+  DSN(DT0072.EBKFD99.FLT$LEG.DATA.E)
+  DSN(DT0072.EBKFD99.FLT$LEG.DATA.D)
+  DSN(DT0072.EBKFD99.FLT$LEG.DATA.U)
+  DSN(DT0072.EBKFD99.FLT$LEG.DATA.M)
+  DSN(DT0072.EBKFD99.FLT$LEG.DATA.W)
+.ENDDATA
+
+.SYNC 50        'DELETE UNLOAD/TEMP DATASETS'
+
+
+--==============================================================================
+-- VRCM061        CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      01-15-02 08:49
+--==============================================================================
+--
+--  OBJECT TYPE: TABLESPACE                 TOTAL:                1
+--
+--      OBJECT NAME/DBNAME        EDITED         NEW NAME/DBNAME
+--
+--      TSKF0001           EBKF1D99
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                1
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      FLT_LEG            EBKFD99      Y
+--
+--  OBJECT TYPE: INDEX                      TOTAL:                2
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      IX1KF001           EBKFD99
+--      IXCKF001           EBKFD99

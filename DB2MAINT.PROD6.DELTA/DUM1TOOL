@@ -1,0 +1,34 @@
+//UXC401N  JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID     00010000
+/*JOBPARM SYSAFF=MVSR                                                   00020001
+//********************************************************************* 00021000
+//*                                                                   * 00022000
+//* CLEANUP PREVIOUS BACKUP DATASET                                   * 00023007
+//*                                                                   * 00024000
+//********************************************************************* 00025000
+//CLEANUP  EXEC PGM=IEFBR14                                             00026000
+//DUMPOUT  DD  DISP=(MOD,DELETE,DELETE),                                00027000
+//             DSN=SSXDT.DB2TOOLS.C28375.D110720.BACKUP1,               00028010
+//             UNIT=SYSDA,SPACE=(TRK,0)                                 00029000
+//********************************************************************* 00029700
+//*                                                                   * 00029800
+//* DUMP DB2TOOLS - DB2 PERFORMANCE TOOK KIT AND DB2 AUTOMATION TOOL  * 00029900
+//*                                                                   * 00030000
+//********************************************************************* 00030100
+//DUMP     EXEC PGM=ADRDSSU,COND=(4,LT)                                 00031000
+//OUTPUT   DD  DISP=(NEW,CATLG,DELETE),                                 00040000
+//             DSN=SSXDT.DB2TOOLS.C28375.D110720.BACKUP1,               00041009
+//**           UNIT=SYSDA,SPACE=(CYL,(150,50),RLSE)                     00050006
+//             UNIT=CART,VOL=(,,,10),LABEL=(1,SL),RETPD=180             00053008
+//SYSPRINT DD  SYSOUT=*                                                 00060000
+//SYSIN    DD  *                                                        00070000
+  DUMP OUTDD(OUTPUT) -                                                  00080000
+       COMPRESS      -                                                  00090000
+       OPTIMIZE(4)   -                                                  00100000
+       TOLERATE(ENQFAILURE) -                                           00110000
+       DATASET(INCLUDE( -                                               00120000
+                       SSXDT.DB2PMV7.SDGOLOAD               -           00130000
+                       SYS2.DB2V7.HAA210.SHAALOAD           -           00131000
+                       SYS2.DB2V7.HAA220.SHAALOAD           -           00132000
+                       SYS2.DB2V7.SMPLTS                    -           00133000
+                       ) -                                              00210000
+              )                                                         00220000

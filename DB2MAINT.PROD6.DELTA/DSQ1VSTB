@@ -1,0 +1,53 @@
+//D73294TQ JOB ,'DB2 RM102',CLASS=S,MSGCLASS=X
+//DSNTIC  PROC                                                          00140000
+//DSNTIC  EXEC PGM=IDCAMS                                               00180000
+//SYSPRINT DD SYSOUT=*                                                  00200000
+//SYSUDUMP DD SYSOUT=*                                                  00210000
+//DSNTIC  PEND                                                          00220000
+//DSNTIDC EXEC DSNTIC                                                   00580000
+//SYSIN DD *                                                            00590000
+ DEFINE                                                      -
+    CLUSTER                                                  -
+      (NAME(DQMA.DSNDBC.DSQDBCTL.DSQTSSYN.I0001.A001)      -
+       NONINDEXED                                            -
+       REUSE                                                 -
+       CONTROLINTERVALSIZE(4096)                             -
+       VOLUMES(D2SP16)                                       -
+       RECORDS(25 5)                                         -
+       RECORDSIZE(4089 4089)                                 -
+       SHAREOPTIONS(3 3)                                     -
+                                                         )   -
+    DATA                                                     -
+      (NAME(DQMA.DSNDBD.DSQDBCTL.DSQTSSYN.I0001.A001)      -
+                                                         )   -
+    CATALOG(DQMA)
+ DEFINE                                                      -
+    CLUSTER                                                  -
+      (NAME(DQMA.DSNDBC.DSQDBCTL.COMMANDR.I0001.A001)      -
+       NONINDEXED                                            -
+       REUSE                                                 -
+       CONTROLINTERVALSIZE(4096)                             -
+       VOLUMES(D2SP16)                                       -
+       RECORDS(25 5)                                         -
+       RECORDSIZE(4089 4089)                                 -
+       SHAREOPTIONS(3 3)                                     -
+                                                         )   -
+    DATA                                                     -
+      (NAME(DQMA.DSNDBD.DSQDBCTL.COMMANDR.I0001.A001)      -
+                                                         )   -
+    CATALOG(DQMA)
+ DEFINE                                                      -
+    CLUSTER                                                  -
+      (NAME(DQMA.DSNDBC.DSQDBCTL.DSQTSGOV.I0001.A001)      -
+       NONINDEXED                                            -
+       REUSE                                                 -
+       CONTROLINTERVALSIZE(4096)                             -
+       VOLUMES(D2SP16)                                       -
+       RECORDS(25 5)                                         -
+       RECORDSIZE(4089 4089)                                 -
+       SHAREOPTIONS(3 3)                                     -
+                                                         )   -
+    DATA                                                     -
+      (NAME(DQMA.DSNDBD.DSQDBCTL.DSQTSGOV.I0001.A001)      -
+                                                         )   -
+    CATALOG(DQMA)

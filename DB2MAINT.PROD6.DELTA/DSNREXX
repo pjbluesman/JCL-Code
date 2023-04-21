@@ -1,0 +1,31 @@
+//UXD001M JOB ,'GLK RM102',CLASS=S,MSGCLASS=X                           00000001
+//*********************************************************************/00000100
+//* BIND FOR FMID JDB771H                                             */00000200
+//*                                                                   */00000300
+//* PACKAGES FOR REXX LANGUAGE SUPPORT                                */00000400
+//*                                                                   */00000500
+//*********************************************************************/00002800
+//JOBLIB  DD  DISP=SHR,                                                 00002900
+//            DSN=SSXDT.DSNDBVG.DB2V.SDSNLOAD                           00003000
+//DSNTIRU EXEC PGM=IKJEFT01,DYNAMNBR=20                                 00004500
+//SYSTSPRT DD  SYSOUT=*                                                 00004600
+//SYSPRINT DD  SYSOUT=*                                                 00004700
+//SYSUDUMP DD  SYSOUT=*                                                 00004800
+//SYSTSIN  DD  *                                                        00004900
+  DSN SYSTEM(DB2V)                                                      00005000
+  BIND PACKAGE(DSNREXX) MEMBER(DSNREXX) ACTION(REPLACE) ISOLATION(CS)-  00005100
+       LIBRARY('SSXDT.DSNDBVG.DB2V.SDSNDBRM') -                         00005200
+       VALIDATE(BIND) CURRENTDATA(NO)-                                  00005400
+  BIND PACKAGE(DSNREXUR) MEMBER(DSNREXX) ACTION(REPLACE) -              00005100
+       ISOLATION(UR) LIBRARY('SSXDT.DSNDBVG.DB2V.SDSNDBRM') -           00005200
+       VALIDATE(BIND) CURRENTDATA(NO)                                   00005400
+  BIND PACKAGE(DSNREXCS) MEMBER(DSNREXX) ACTION(REPLACE) -              00005100
+       ISOLATION(CS) LIBRARY('SSXDT.DSNDBVG.DB2V.SDSNDBRM') -           00005200
+       VALIDATE(BIND) CURRENTDATA(NO)                                   00005400
+  BIND PACKAGE(DSNREXRS) MEMBER(DSNREXX) ACTION(REPLACE) -              00005100
+       ISOLATION(RS) LIBRARY('SSXDT.DSNDBVG.DB2V.SDSNDBRM') -           00005200
+       VALIDATE(BIND) CURRENTDATA(NO)                                   00005400
+  BIND PACKAGE(DSNREXRR) MEMBER(DSNREXX) ACTION(REPLACE) -              00005100
+       ISOLATION(RR) LIBRARY('SSXDT.DSNDBVG.DB2V.SDSNDBRM') -           00005200
+       VALIDATE(BIND) CURRENTDATA(NO)                                   00005400
+  END                                                                   00007600

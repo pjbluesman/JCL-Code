@@ -1,0 +1,62 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID,MSGLEVEL=(1,1),USER=SYSPRO
+/*JOBPARM SYSAFF=MVSS
+//**********************************************************************
+//*
+//* THIS IS A SKELETON OF THE JCL USED TO RUN DSN1SDMP.
+//* YOU MUST INSERT SDMPIN DD.
+//*
+//* AFTER TESTING IS COMPLETED DO NOT FORGET TO STOP THE TRACE !!!
+//*
+//* -STOP TRACE=P CLASS(32)
+//*
+//**********************************************************************
+//IFCSD    EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)
+//STEPLIB  DD DISP=SHR,DSN=SSXDT.DB2V.SDSNEXIT
+//         DD DISP=SHR,DSN=SDB2V.SDSNLOAD
+//SYSPRINT DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//SDMPPRNT DD SYSOUT=*
+//SDMPTRAC DD DISP=(NEW,CATLG,CATLG),
+//            DSN=SSXDT.DBVG.IFCSD.TRACE,
+//            UNIT=SYSDA,SPACE=(8192,(100,100)),
+//            DCB=(DSORG=PS,LRECL=32756,RECFM=VB,BLKSIZE=32760)
+//SDMPIN   DD *
+//**********************************************************************
+//*
+//* INSERT SDMPIN DD HERE. IT MUST BEGIN WITH A VALID
+//* START TRACE COMMAND (WITHOUT THE SUBSYSTEM RECOGNITION CHAR)
+//*
+//**********************************************************************
+
+  START TRACE=P CLASS(32) IFCID(340) DEST(OPX)
+  TDATA(TRA)
+  AUTHID(XXXX) PLAN(XXXX)
+  AFTER(1)
+  FOR(1)
+  ACTION(ABENDTER(00E60189))
+  SELECT
+  P4,00
+* COMPARE FOR 340 IFCID
+  DR,04,X'0154'
+* POSITION TO SECOND SECTION (1ST DATA SECTION)
+  P4,08
+* COMPARE SQLCODE FOR -301
+  DR,16,X'FFFFFED3'
+
+/*
+//**********************************************************************
+//SYSUDUMP DD SYSOUT=*
+//SYSTSIN  DD *
+ DSN SYSTEM(DBVG) RUN PROG(DSN1SDMP) PLAN(DSNEDCL)
+ END
+//*
+//
+//
+//**********************************************************************
+//*
+//* AFTER TESTING IS COMPLETED DO NOT FORGET TO STOP THE TRACE !!!
+//*
+//* -STOP TRACE=P CLASS(32)
+//*
+//**********************************************************************

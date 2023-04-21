@@ -1,0 +1,41 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00000100
+//         NOTIFY=&SYSUID                                               00000200
+/*JOBPARM SYSAFF=MVSF                                                   00000304
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU                 00000400
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR                        00000500
+//**********************************************************************00010000
+//*                                                                    *00015000
+//*  BATCH SPUFI                                                       *00020000
+//*                                                                    *00030000
+//**********************************************************************00370000
+//JOBLIB   DD  DISP=SHR,DSN=SSXDP.DB2F.SDSNEXIT                         00380004
+//         DD  DISP=SHR,DSN=SDB2F.SDSNLOAD                              00381004
+//         DD  DISP=SHR,DSN=SYS1.CEE.SCEERUN                            00390000
+//*                                                                     00400000
+//PH01LS04 EXEC PGM=IKJEFT01,DYNAMNBR=20                                00869000
+//SYSTSPRT DD  SYSOUT=*                                                 00871000
+//SYSPRINT DD  SYSOUT=*                                                 00872000
+//SYSUDUMP DD  SYSOUT=*                                                 00873000
+//SYSTSIN  DD  *                                                        00874000
+ DSN SYSTEM(DB2F)                                                       00875004
+ RUN  PROGRAM(DSNTEP2) PLAN(DSNTEP2) +                                  00880000
+      LIB('SSXDP.DB2F.RUNLIB.LOAD') +                                   00881004
+      PARMS('/ALIGN(LHS)')                                              00882004
+ END                                                                    00884000
+//*                                                                     00885000
+//SYSIN    DD *                                                         00886000
+  SET CURRENT SQLID = 'LSEBDB2';                                        00886101
+  SELECT CHAR(G.NAME,10),CHAR(V.VOLID,10)                               00886204
+  FROM SYSIBM.SYSVOLUMES V, SYSIBM.SYSSTOGROUP G                        00886304
+  WHERE G.NAME = V.SGNAME AND                                           00886404
+  CREATOR = 'SAPR3'                                                     00886504
+  ORDER BY 1, 2;                                                        00886604
+//                                                                      00886801
+  GRANT BIND ON PACKAGE NULLID.* TO     T266722 ;                       00886902
+  GRANT CREATEIN COLLECTION NULLID TO       T266722 ;                   00887002
+  GRANT BINDADD TO       T266722 ;                                      00887102
+SELECT (CURRENT TIMESTAMP - 6 MONTHS) FROM SYSIBM.SYSDUMMY1             00888000
+  SELECT ICTYPE, ICDATE                                                 00889004
+  FROM SYSIBM.SYSCOPY                                                   00890004
+  ORDER BY ICTYPE,ICDATE                                                00900004
+                                                                        00910004

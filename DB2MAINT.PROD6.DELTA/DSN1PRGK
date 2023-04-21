@@ -1,0 +1,8 @@
+//UXD000M  JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X                         00000100
+//JOBLIB  DD DSN=SSXDT.DB2T.V4.SDSNLOAD,DISP=SHR                        00000100
+//STEP1  EXEC PGM=DSN1PRNT,PARM='FORMAT,VALUE(IXG41GW@)'                00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1  DD  DSN=DB2T.DSNDBC.DSNDB06.SYSDBASE.I0001.A001,              00000600
+//           DISP=SHR
+/*
+//

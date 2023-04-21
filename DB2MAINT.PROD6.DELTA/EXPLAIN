@@ -1,0 +1,983 @@
+1 2002/07/17  09:21                                                  PAGE      1
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+  .LIST TERM
+  RETCODE =     0
+
+  .CONNECT DB2V
+  RETCODE =     0
+
+  .OPTION NOERRORS
+  RETCODE =     0
+
+  .CALL EXPLAIN
+  .DATA
+     RULESSID = (DB2V)
+     ACM      = (N,DT0072)
+     VERSION  = (LATEST)
+     STRATEGY = (DB2V,,DT0072)
+     PLANTAB  = (ROLLBACK)
+     SQLQUAL  = (EBKAS01)
+     LINES    = (55)
+     PROCDDF  = (Y)
+     FLOATFMT = (SCI)
+     PROCVIEW = (Y)
+     EXPLTYPE = (FUTURE)
+     VSAM     = (N)
+     TARGET   = (DB2V)
+     PERFTIE  = (Y)
+     REPORT   = (SUMMARY,COST,ACCESS/SHORT,PREDICATE,DEPENDENCY/SHORT,
+                 SQLRULE,PREDRULE,PLANRULE)
+     SRCPACK  = (DB2V,LOCAL,BKNGS,DBARFSEG,,,)
+  .ENDDATA
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page
+  DATE 07-17-02                                                        TIME 09:2
+
+
+  User default RULESET not found or all requested rules not active
+  PPA default RULESET for this DB2 version will be used
+  Physical Rules have not been customized and will be discarded
+
+   NOTE: An asterisk (*) preceding a Summary or Cost report line
+         indicates that the statement described is from a package.
+
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page
+  DATE 07-17-02                   Summary Report                       TIME 09:2
+
+                                                              EXPLAIN   PAGE
+    PLAN/COLLECTION   DBRM/PKG   PACK VERS     STMT NUM  TYPE SQLCODE   NUMBER
+   ------------------ -------- -------------- ---------- ---- -------   ------
+  *BKNGS ............,DBARFSEG, .............,      5126,INS ,  +0           4
+  *BKNGS ............,DBARFSEG, .............,      5225,SEL ,  +0           6
+  *BKNGS ............,DBARFSEG, .............,      5394,UPD ,  +0           9
+  *BKNGS ............,DBARFSEG, .............,      5450,DEL ,  +0          11
+  *BKNGS ............,DBARFSEG, .............,      5496,DEL ,  +0          13
+1 2002/07/17  09:21                                                  PAGE      2
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+  *BKNGS ............,DBARFSEG, .............,      5538,SEL ,  +0          15
+  *BKNGS ............,DBARFSEG, .............,      5623,SEL ,  +0          17
+  *BKNGS ............,DBARFSEG, .............,      5837,UPD ,  +0          20
+
+    Target DB2 SSID: DB2V                  The Most Severe SQLCODE: +0
+
+    Source DB2 SSID: DB2V                  Total Number of Selects: 3
+         Collection: BKNGS                                 Updates: 2
+         Package   : DBARFSEG                              Inserts: 1
+         Stmt      :                                       Deletes: 2
+         Version   :
+
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page
+  DATE 07-17-02                    Cost Report                         TIME 09:2
+
+
+  Relative Cost of CPU and I/O utilization. Most expensive SQL listed first.
+
+                                                              RELATIVE COST PAGE
+    PLAN/COLLECTION   DBRM/PKG   PACK VERS     STMT NUM  TYPE (desc order) NUMBE
+   ------------------ -------- -------------- ---------- ---- ------------ -----
+  *BKNGS ............,DBARFSEG, .............,      5538,SEL  +0.3979 E+02     1
+  *BKNGS ............,DBARFSEG, .............,      5225,SEL  +0.3334 E+02
+  *BKNGS ............,DBARFSEG, .............,      5394,UPD  +0.3334 E+02
+  *BKNGS ............,DBARFSEG, .............,      5450,DEL  +0.3334 E+02     1
+  *BKNGS ............,DBARFSEG, .............,      5623,SEL  +0.2384 E+02     1
+  *BKNGS ............,DBARFSEG, .............,      5496,DEL  +0.2136 E+02     1
+  *BKNGS ............,DBARFSEG, .............,      5837,UPD  +0.2136 E+02     2
+
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+   Source DB2 SSID: DB2V                         Date/time: 07-17-02, 09:20:14:7
+        Collection: BKNGS                        DB2 SSID : DB2V
+        Package   : DBARFSEG                     SQL Code :   +0
+        Stmt      : 5126                         Message  :
+        Version   :
+        Hint Used : N/A
+
+  SQL Statement Text:
+
+  INSERT
+      INTO PAX_ITIN_SG
+      (
+         BKG_ID , CA_ID , PI_SG_SQ_NB , SG_TYP_CD , MKD_COS_CD ,
+         CUR_PI_SG_STT_CD , SSLD_DT , PRV_PI_SG_STT_CD , MKD_FLT_NB ,
+         SCH_SG_ARR_TS , MKD_AL_CD , ORARPT_CD , DSARPT_CD , SSLD_TS ,
+         CUR_SG_DPRT_TS , CUR_SG_ARR_TS , OA_AGT_SINE_ID , DIR_ACCT_SL_IND ,
+         OD_VRL_INV_BCKT_ID , REV_CTRL_IND , DEM_CTRL_IND , INV_CTRL_IND ,
+         ACTL_SG_PAX_CT , AE_REV_PCT , ET_ELG_SG_IND , ET_PAC_IND , ET_PAI_IND ,
+         ET_PAE_IND , IPRS_IND , IPRS_PRRTN_SG_IND , SG_DXA_IND ,
+1 2002/07/17  09:21                                                  PAGE      3
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+         CDSR_BKG_CLS_ID , INV_SP_HELD_IND , OPRL_AL_CD , WTLT_STT_IND ,
+         SB_STT_IND , CXD_SG_IND , PI_FARE_TYP_CD , OD_NON_INV_IND ,
+         SG_INV_SB_LIST_IND , SG_INV_BLKD_SP_IND , PI_MRD_SG_NB , PRTTN_KEY_ID
+      )
+      VALUES
+      (
+         :H00001 , :H00002 , :H00003 , :H00004 , :H00005 , :H00006 , :H00007
+         :H00008 , :H00009 :H00010 , :H00011 :H00012 , TIMESTAMP
+         (
+            :H00013 :H00014
+         )
+         , :H00015 :H00016 , :H00017 :H00018 , :H00019 :H00020 , TIMESTAMP
+         (
+            :H00021 :H00022
+         )
+         , TIMESTAMP
+         (
+            :H00023 :H00024
+         )
+         , TIMESTAMP
+         (
+            :H00025 :H00026
+         )
+         , :H00027 :H00028 , :H00029 :H00030 , :H00031 :H00032 , :H00033 :H00034
+         , :H00035 :H00036 , :H00037 :H00038 , :H00039 :H00040 , :H00041 :H00042
+         , :H00043 :H00044 , :H00045 :H00046 , :H00047 :H00048 , :H00049 :H00050
+         , :H00051 :H00052 , :H00053 :H00054 , :H00055 :H00056 , :H00057 :H00058
+         , :H00059 :H00060 , :H00061 :H00062 , :H00063 :H00064 , :H00065 :H00066
+         , :H00067 :H00068 , :H00069 :H00070 , :H00071 :H00072 , :H00075 :H00076
+         , :H00077 :H00078 , :H00079 :H00080 , :H00081
+      )
+
+   NOTE:
+   The occurance of parameter marker error(s) has forced the replacement of host
+   variable(s) with data. Use of the Future Explain can mask the attributes of
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+   the host variable, and can cause the SQL optimizer to choose an access path
+   that differs from a Current Explain.
+
+  Access Path Analysis:
+
+                                   --Sorts--       C       P P     T
+                       Tb Data   M New  Comp     P F AAJJSSA G W D B
+   Table/Index Name    No Access C UJOG UJOG Lck F E DGDGCNR R O A T Qblktyp
+   ------------------- -- ------ - ---- ---- --- - - ------- - - - - -------
+   PAX_ITIN_SG          1 1ST IX 0            IX                     INSERT
+
+  SQL Dependency Analysis:
+
+1 2002/07/17  09:21                                                  PAGE      4
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+   TABLESPACE                     T  NACTIVE
+    TABLE/ALIAS/VIEW/SYNONYM      Y  CARD       NPAGES     PCTPAGES   PCTRC
+     INDEX            (# COLUMNS) P  1STKEYCARD FULLKEYCAR NLEAF      NLVL  CLUS
+   ------------------------------ -- ---------- ---------- ---------- ----- ----
+   EBKA1S01.TSKA0021              LS    1207080
+    EBKAS01.PAX_ITIN_SG           TB   14350757    1131725         93     0
+     EBKAS01.IXCKA021           C IX         20         20     130159     3 1.00
+     (CLUSTERING)               1
+     EBKAS01.IX1KA021             IX   12239902   48808536     900930     5 0.76
+     (PRIMARY)                  3
+     EBKAS01.IX3KA021             IX        486    2293165     128524     4 0.31
+                                3
+     EBKAS01.IX4KA021             IX   16154229   46300203     464579     4 0.70
+                                2
+
+  SQL Design Rule: 0089   ------------------------   Severity Code = 0
+   This SQL is not utilizing parallel I/O processing. Parallel I/O can
+   significantly reduce response time for SQL statements.
+
+   RECOMMENDATION: 0135
+   Consider taking advantage of using I/O Parallelism for the SQL statement for
+   better performance.
+
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+   Source DB2 SSID: DB2V                         Date/time: 07-17-02, 09:20:16:6
+        Collection: BKNGS                        DB2 SSID : DB2V
+        Package   : DBARFSEG                     SQL Code :   +0
+        Stmt      : 5225                         Message  :
+        Version   :
+        Hint Used : N/A
+
+  SQL Statement Text:
+
+  SELECT SG_TYP_CD , MKD_COS_CD , CUR_PI_SG_STT_CD , SSLD_DT , PRV_PI_SG_STT_CD
+      , MKD_FLT_NB , CHAR
+      (
+         SCH_SG_ARR_TS
+      )
+      , MKD_AL_CD , ORARPT_CD , DSARPT_CD , CHAR
+      (
+         SSLD_TS
+      )
+      , CHAR
+      (
+         CUR_SG_DPRT_TS
+      )
+      , CHAR
+      (
+         CUR_SG_ARR_TS
+1 2002/07/17  09:21                                                  PAGE      5
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+      )
+      , OA_AGT_SINE_ID , DIR_ACCT_SL_IND , OD_VRL_INV_BCKT_ID , REV_CTRL_IND ,
+      DEM_CTRL_IND , INV_CTRL_IND , ACTL_SG_PAX_CT , AE_REV_PCT , ET_ELG_SG_IND
+      , ET_PAC_IND , ET_PAI_IND , ET_PAE_IND , IPRS_IND , IPRS_PRRTN_SG_IND ,
+      SG_DXA_IND , CDSR_BKG_CLS_ID , INV_SP_HELD_IND , OPRL_AL_CD , WTLT_STT_IND
+      , SB_STT_IND , CXD_SG_IND , PI_FARE_TYP_CD , OD_NON_INV_IND ,
+      SG_INV_SB_LIST_IND , SG_INV_BLKD_SP_IND , PI_MRD_SG_NB
+      INTO :H00004 , :H00005 , :H00006 , :H00007 :H00008 , :H00009 :H00010 ,
+      :H00011 :H00012 , :H00013 :H00014 , :H00015 :H00016 , :H00017 :H00018 ,
+      :H00019 :H00020 , :H00021 :H00022 , :H00023 :H00024 , :H00025 :H00026 ,
+      :H00027 :H00028 , :H00029 :H00030 , :H00031 :H00032 , :H00033 :H00034 ,
+      :H00035 :H00036 , :H00037 :H00038 , :H00039 :H00040 , :H00041 :H00042 ,
+      :H00043 :H00044 , :H00045 :H00046 , :H00047 :H00048 , :H00049 :H00050 ,
+      :H00051 :H00052 , :H00053 :H00054 , :H00055 :H00056 , :H00057 :H00058 ,
+      :H00059 :H00060 , :H00061 :H00062 , :H00063 :H00064 , :H00065 :H00066 ,
+      :H00067 :H00068 , :H00069 :H00070 , :H00071 :H00072 , :H00075 :H00076 ,
+      :H00077 :H00078 , :H00079 :H00080
+      FROM PAX_ITIN_SG
+      WHERE BKG_ID = :H00001
+      AND CA_ID = :H00002
+      AND PI_SG_SQ_NB = :H00003 WITH UR
+
+  Access Path Analysis:
+
+                                   --Sorts--       C       P P     T
+                       Tb Data   M New  Comp     P F AAJJSSA G W D B
+   Table/Index Name    No Access C UJOG UJOG Lck F E DGDGCNR R O A T Qblktyp
+   ------------------- -- ------ - ---- ---- --- - - ------- - - - - -------
+   PAX_ITIN_SG          1 IXDATA 3             N                     SELECT
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+    IX1KA021
+
+  SQL Dependency Analysis:
+
+   TABLESPACE                     T  NACTIVE
+    TABLE/ALIAS/VIEW/SYNONYM      Y  CARD       NPAGES     PCTPAGES   PCTRC
+     INDEX            (# COLUMNS) P  1STKEYCARD FULLKEYCAR NLEAF      NLVL  CLUS
+   ------------------------------ -- ---------- ---------- ---------- ----- ----
+   EBKA1S01.TSKA0021              LS    1207080
+    EBKAS01.PAX_ITIN_SG           TB   14350757    1131725         93     0
+     EBKAS01.IXCKA021           C IX         20         20     130159     3 1.00
+     (CLUSTERING)               1
+     EBKAS01.IX1KA021             IX   12239902   48808536     900930     5 0.76
+     (PRIMARY)                  3
+     EBKAS01.IX3KA021             IX        486    2293165     128524     4 0.31
+                                3
+     EBKAS01.IX4KA021             IX   16154229   46300203     464579     4 0.70
+                                2
+
+1 2002/07/17  09:21                                                  PAGE      6
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+
+  SQL Predicate Analysis:
+
+                                                                          Filter
+                           Predicate                         Index Sarge  Factor
+   --------------------------------------------------------  ----- ----- -------
+    STATEMENT #001
+   ---> BKG_ID = :H00001                                      YES   YES  0.40000
+
+   ---> CA_ID = :H00002                                       YES   YES  0.40000
+
+   ---> PI_SG_SQ_NB = :H00003                                 YES   YES  0.40000
+
+
+  SQL Design Rule: 0086   ------------------------   Severity Code = 0
+   This SQL statement contains an UNQUALIFIED function on the column
+   "SCH_SG_ARR_TS" of the table "EBKAS01.PAX_ITIN_SG".
+
+   RECOMMENDATION: 0133
+   Consider qualifying the function to avoid unexpected qualification.
+
+  SQL Design Rule: 0086   ------------------------   Severity Code = 0
+   This SQL statement contains an UNQUALIFIED function on the column "SSLD_TS" o
+   the table "EBKAS01.PAX_ITIN_SG".
+
+   RECOMMENDATION: 0133
+   Consider qualifying the function to avoid unexpected qualification.
+
+  SQL Design Rule: 0086   ------------------------   Severity Code = 0
+   This SQL statement contains an UNQUALIFIED function on the column
+   "CUR_SG_DPRT_TS" of the table "EBKAS01.PAX_ITIN_SG".
+
+   RECOMMENDATION: 0133
+   Consider qualifying the function to avoid unexpected qualification.
+
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+  SQL Design Rule: 0086   ------------------------   Severity Code = 0
+   This SQL statement contains an UNQUALIFIED function on the column
+   "CUR_SG_ARR_TS" of the table "EBKAS01.PAX_ITIN_SG".
+
+   RECOMMENDATION: 0133
+   Consider qualifying the function to avoid unexpected qualification.
+
+  SQL Design Rule: 0089   ------------------------   Severity Code = 0
+   This SQL is not utilizing parallel I/O processing. Parallel I/O can
+   significantly reduce response time for SQL statements.
+
+   RECOMMENDATION: 0135
+   Consider taking advantage of using I/O Parallelism for the SQL statement for
+1 2002/07/17  09:21                                                  PAGE      7
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+   better performance.
+
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+   Source DB2 SSID: DB2V                         Date/time: 07-17-02, 09:20:16:7
+        Collection: BKNGS                        DB2 SSID : DB2V
+        Package   : DBARFSEG                     SQL Code :   +0
+        Stmt      : 5394                         Message  :
+        Version   :
+        Hint Used : N/A
+
+  SQL Statement Text:
+
+  UPDATE PAX_ITIN_SG
+      SET MKD_COS_CD = :H00005 , CUR_PI_SG_STT_CD = :H00006 , PRV_PI_SG_STT_CD =
+      :H00009 :H00010
+      WHERE BKG_ID = :H00001
+      AND CA_ID = :H00002
+      AND PI_SG_SQ_NB = :H00003
+
+  Access Path Analysis:
+
+                                   --Sorts--       C       P P     T
+                       Tb Data   M New  Comp     P F AAJJSSA G W D B
+   Table/Index Name    No Access C UJOG UJOG Lck F E DGDGCNR R O A T Qblktyp
+   ------------------- -- ------ - ---- ---- --- - - ------- - - - - -------
+   PAX_ITIN_SG          1 IXONLY 3            IX                     UPDATE
+    IX1KA021
+
+  SQL Dependency Analysis:
+
+   TABLESPACE                     T  NACTIVE
+    TABLE/ALIAS/VIEW/SYNONYM      Y  CARD       NPAGES     PCTPAGES   PCTRC
+     INDEX            (# COLUMNS) P  1STKEYCARD FULLKEYCAR NLEAF      NLVL  CLUS
+   ------------------------------ -- ---------- ---------- ---------- ----- ----
+   EBKA1S01.TSKA0021              LS    1207080
+    EBKAS01.PAX_ITIN_SG           TB   14350757    1131725         93     0
+     EBKAS01.IXCKA021           C IX         20         20     130159     3 1.00
+     (CLUSTERING)               1
+     EBKAS01.IX1KA021             IX   12239902   48808536     900930     5 0.76
+     (PRIMARY)                  3
+     EBKAS01.IX3KA021             IX        486    2293165     128524     4 0.31
+                                3
+     EBKAS01.IX4KA021             IX   16154229   46300203     464579     4 0.70
+                                2
+
+
+  SQL Predicate Analysis:
+
+                                                                          Filter
+1 2002/07/17  09:21                                                  PAGE      8
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+                           Predicate                         Index Sarge  Factor
+   --------------------------------------------------------  ----- ----- -------
+    STATEMENT #001
+   ---> BKG_ID = :H00001                                      YES   YES  0.40000
+
+   ---> CA_ID = :H00002                                       YES   YES  0.40000
+
+   ---> PI_SG_SQ_NB = :H00003                                 YES   YES  0.40000
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page    1
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+
+
+  SQL Design Rule: 0012   ------------------------   Severity Code = 0
+   The SELECT...FOR UPDATE OF... statement should be used in place of the UPDATE
+   statement to ensure proper data locking in an application where single row
+   updates are being processed.
+
+   RECOMMENDATION: 0102
+   Replace the UPDATE statement with the SELECT...FOR UPDATE OF... statement if
+   your application is processing single row updates.
+
+  SQL Design Rule: 0083   ------------------------   Severity Code = 0
+   This SQL statement updates non-sequential columns in table
+   "EBKAS01.PAX_ITIN_SG".  Because DB2 logs all data between the columns being
+   updated, 15 excess bytes of data are being written.
+
+   RECOMMENDATION: 0128
+   If possible, restructure the table so updated columns are sequentially
+   located.
+
+  SQL Design Rule: 0089   ------------------------   Severity Code = 0
+   This SQL is not utilizing parallel I/O processing. Parallel I/O can
+   significantly reduce response time for SQL statements.
+
+   RECOMMENDATION: 0135
+   Consider taking advantage of using I/O Parallelism for the SQL statement for
+   better performance.
+
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page    1
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+   Source DB2 SSID: DB2V                         Date/time: 07-17-02, 09:20:16:7
+        Collection: BKNGS                        DB2 SSID : DB2V
+        Package   : DBARFSEG                     SQL Code :   +0
+        Stmt      : 5450                         Message  :
+        Version   :
+        Hint Used : N/A
+
+  SQL Statement Text:
+
+1 2002/07/17  09:21                                                  PAGE      9
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+  DELETE
+      FROM PAX_ITIN_SG
+      WHERE BKG_ID = :H00001
+      AND CA_ID = :H00002
+      AND PI_SG_SQ_NB = :H00003
+
+  Access Path Analysis:
+
+                                   --Sorts--       C       P P     T
+                       Tb Data   M New  Comp     P F AAJJSSA G W D B
+   Table/Index Name    No Access C UJOG UJOG Lck F E DGDGCNR R O A T Qblktyp
+   ------------------- -- ------ - ---- ---- --- - - ------- - - - - -------
+   PAX_ITIN_SG          1 IXONLY 3            IX                     DELETE
+    IX1KA021
+
+  SQL Dependency Analysis:
+
+   TABLESPACE                     T  NACTIVE
+    TABLE/ALIAS/VIEW/SYNONYM      Y  CARD       NPAGES     PCTPAGES   PCTRC
+     INDEX            (# COLUMNS) P  1STKEYCARD FULLKEYCAR NLEAF      NLVL  CLUS
+   ------------------------------ -- ---------- ---------- ---------- ----- ----
+   EBKA1S01.TSKA0021              LS    1207080
+    EBKAS01.PAX_ITIN_SG           TB   14350757    1131725         93     0
+     EBKAS01.IXCKA021           C IX         20         20     130159     3 1.00
+     (CLUSTERING)               1
+     EBKAS01.IX1KA021             IX   12239902   48808536     900930     5 0.76
+     (PRIMARY)                  3
+     EBKAS01.IX3KA021             IX        486    2293165     128524     4 0.31
+                                3
+     EBKAS01.IX4KA021             IX   16154229   46300203     464579     4 0.70
+                                2
+
+
+  SQL Predicate Analysis:
+
+                                                                          Filter
+                           Predicate                         Index Sarge  Factor
+   --------------------------------------------------------  ----- ----- -------
+    STATEMENT #001
+   ---> BKG_ID = :H00001                                      YES   YES  0.40000
+
+   ---> CA_ID = :H00002                                       YES   YES  0.40000
+
+   ---> PI_SG_SQ_NB = :H00003                                 YES   YES  0.40000
+
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page    1
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+
+  SQL Design Rule: 0089   ------------------------   Severity Code = 0
+   This SQL is not utilizing parallel I/O processing. Parallel I/O can
+1 2002/07/17  09:21                                                  PAGE     10
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+   significantly reduce response time for SQL statements.
+
+   RECOMMENDATION: 0135
+   Consider taking advantage of using I/O Parallelism for the SQL statement for
+   better performance.
+
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page    1
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+   Source DB2 SSID: DB2V                         Date/time: 07-17-02, 09:20:16:8
+        Collection: BKNGS                        DB2 SSID : DB2V
+        Package   : DBARFSEG                     SQL Code :   +0
+        Stmt      : 5496                         Message  :
+        Version   :
+        Hint Used : N/A
+
+  SQL Statement Text:
+
+  DELETE
+      FROM PAX_ITIN_SG
+      WHERE BKG_ID = :H00001
+      AND PI_SG_SQ_NB = :H00003
+
+  Access Path Analysis:
+
+                                   --Sorts--       C       P P     T
+                       Tb Data   M New  Comp     P F AAJJSSA G W D B
+   Table/Index Name    No Access C UJOG UJOG Lck F E DGDGCNR R O A T Qblktyp
+   ------------------- -- ------ - ---- ---- --- - - ------- - - - - -------
+   PAX_ITIN_SG          1 IXONLY 2            IX                     DELETE
+    IX4KA021
+
+  SQL Dependency Analysis:
+
+   TABLESPACE                     T  NACTIVE
+    TABLE/ALIAS/VIEW/SYNONYM      Y  CARD       NPAGES     PCTPAGES   PCTRC
+     INDEX            (# COLUMNS) P  1STKEYCARD FULLKEYCAR NLEAF      NLVL  CLUS
+   ------------------------------ -- ---------- ---------- ---------- ----- ----
+   EBKA1S01.TSKA0021              LS    1207080
+    EBKAS01.PAX_ITIN_SG           TB   14350757    1131725         93     0
+     EBKAS01.IXCKA021           C IX         20         20     130159     3 1.00
+     (CLUSTERING)               1
+     EBKAS01.IX1KA021             IX   12239902   48808536     900930     5 0.76
+     (PRIMARY)                  3
+     EBKAS01.IX3KA021             IX        486    2293165     128524     4 0.31
+                                3
+     EBKAS01.IX4KA021             IX   16154229   46300203     464579     4 0.70
+                                2
+
+
+  SQL Predicate Analysis:
+1 2002/07/17  09:21                                                  PAGE     11
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+
+                                                                          Filter
+                           Predicate                         Index Sarge  Factor
+   --------------------------------------------------------  ----- ----- -------
+    STATEMENT #001
+   ---> BKG_ID = :H00001                                      YES   YES  0.40000
+
+   ---> PI_SG_SQ_NB = :H00003                                 YES   YES  0.40000
+
+
+  SQL Design Rule: 0089   ------------------------   Severity Code = 0
+   This SQL is not utilizing parallel I/O processing. Parallel I/O can
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page    1
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+   significantly reduce response time for SQL statements.
+
+   RECOMMENDATION: 0135
+   Consider taking advantage of using I/O Parallelism for the SQL statement for
+   better performance.
+
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page    1
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+   Source DB2 SSID: DB2V                         Date/time: 07-17-02, 09:20:16:8
+        Collection: BKNGS                        DB2 SSID : DB2V
+        Package   : DBARFSEG                     SQL Code :   +0
+        Stmt      : 5538                         Message  :
+        Version   :
+        Hint Used : N/A
+
+  SQL Statement Text:
+
+  DECLARE LD_BKG_IDS_CURSOR CURSOR
+  FOR
+  SELECT BKG_ID
+      FROM PAX_ITIN_SG
+      WHERE MKD_AL_CD = :H00083
+      AND SSLD_DT = :H00085
+      AND MKD_FLT_NB = :H00084 WITH UR
+      FOR FETCH ONLY
+
+  Access Path Analysis:
+
+                                   --Sorts--       C       P P     T
+                       Tb Data   M New  Comp     P F AAJJSSA G W D B
+   Table/Index Name    No Access C UJOG UJOG Lck F E DGDGCNR R O A T Qblktyp
+   ------------------- -- ------ - ---- ---- --- - - ------- - - - - -------
+   PAX_ITIN_SG          1 IXDATA 3             N L                   SELECT
+    IX3KA021
+
+1 2002/07/17  09:21                                                  PAGE     12
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+  SQL Dependency Analysis:
+
+   TABLESPACE                     T  NACTIVE
+    TABLE/ALIAS/VIEW/SYNONYM      Y  CARD       NPAGES     PCTPAGES   PCTRC
+     INDEX            (# COLUMNS) P  1STKEYCARD FULLKEYCAR NLEAF      NLVL  CLUS
+   ------------------------------ -- ---------- ---------- ---------- ----- ----
+   EBKA1S01.TSKA0021              LS    1207080
+    EBKAS01.PAX_ITIN_SG           TB   14350757    1131725         93     0
+     EBKAS01.IXCKA021           C IX         20         20     130159     3 1.00
+     (CLUSTERING)               1
+     EBKAS01.IX1KA021             IX   12239902   48808536     900930     5 0.76
+     (PRIMARY)                  3
+     EBKAS01.IX3KA021             IX        486    2293165     128524     4 0.31
+                                3
+     EBKAS01.IX4KA021             IX   16154229   46300203     464579     4 0.70
+                                2
+
+
+  SQL Predicate Analysis:
+
+                                                                          Filter
+                           Predicate                         Index Sarge  Factor
+   --------------------------------------------------------  ----- ----- -------
+    STATEMENT #001
+   ---> MKD_AL_CD = :H00083                                   YES   YES  0.40000
+
+   ---> SSLD_DT = :H00085                                     YES   YES  0.40000
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page    1
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+
+   ---> MKD_FLT_NB = :H00084                                  YES   YES  0.40000
+
+
+  SQL Design Rule: 0082   ------------------------   Severity Code = 0
+   This SQL statement accesses a partitioned tablespace with an ambiguous cursor
+   and is not utilizing parallel I/O processing.  This SQL statement references
+   the table "EBKAS01.PAX_ITIN_SG" which is in the partitioned tablespace
+   "EBKA1S01.TSKA0021".  This tablespace contains 1207080 active pages.  Your
+   installation has set a threshold of 10 for the maximum number of active pages
+   for a partitioned tablespace accessed by an SQL statement that is not
+   utilizing parallel I/O processing.  Ambiguous cursors can reduce the degree o
+   parallel I/O or cause parallel I/O to fall back to sequential I/O.  Parallel
+   I/O can significantly reduce response time for SQL statements that are I/O
+   intensive.
+
+   RECOMMENDATION: 0126
+   Consider rewriting this SQL to remove the ambiguous cursor.  For a read-only
+   cursor, include the FOR FETCH ONLY clause when defining the cursor.  For an
+   updatable or deletable cursor, include the FOR UPDATE OF clause when defining
+   the cursor and the WHERE CURRENT OF clause when referencing the cursor.
+1 2002/07/17  09:21                                                  PAGE     13
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+
+  SQL Design Rule: 0088   ------------------------   Severity Code = 0
+   This SQL statement references the table "EBKAS01.PAX_ITIN_SG" which in the
+   partitioned tablespace "EBKA1S01.TSKA0021".  This tablespace contains 1207080
+   active pages. Your installation has set a threshold of 10 for the maximum
+   number of active pages for a partitioned tablespace accessed by an SQL
+   statement.
+
+   RECOMMENDATION: 0134
+   Consider moving the table to a different partition tablespace since your
+   installation has a set threshold for the maximumn number of active pages for
+   partitioned tablespace.
+
+  SQL Design Rule: 0089   ------------------------   Severity Code = 0
+   This SQL is not utilizing parallel I/O processing. Parallel I/O can
+   significantly reduce response time for SQL statements.
+
+   RECOMMENDATION: 0135
+   Consider taking advantage of using I/O Parallelism for the SQL statement for
+   better performance.
+
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page    1
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+   Source DB2 SSID: DB2V                         Date/time: 07-17-02, 09:20:16:8
+        Collection: BKNGS                        DB2 SSID : DB2V
+        Package   : DBARFSEG                     SQL Code :   +0
+        Stmt      : 5623                         Message  :
+        Version   :
+        Hint Used : N/A
+
+  SQL Statement Text:
+
+  DECLARE LD_BKG_ASGS_CURSOR CURSOR
+  FOR
+  SELECT CA_ID , PI_SG_SQ_NB , SG_TYP_CD , MKD_COS_CD , CUR_PI_SG_STT_CD ,
+      SSLD_DT , PRV_PI_SG_STT_CD , MKD_FLT_NB , CHAR
+      (
+         SCH_SG_ARR_TS
+      )
+      , MKD_AL_CD , ORARPT_CD , DSARPT_CD , CHAR
+      (
+         SSLD_TS
+      )
+      , CHAR
+      (
+         CUR_SG_DPRT_TS
+      )
+      , CHAR
+      (
+         CUR_SG_ARR_TS
+1 2002/07/17  09:21                                                  PAGE     14
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+      )
+      , OA_AGT_SINE_ID , DIR_ACCT_SL_IND , OD_VRL_INV_BCKT_ID , REV_CTRL_IND ,
+      DEM_CTRL_IND , INV_CTRL_IND , ACTL_SG_PAX_CT , AE_REV_PCT , ET_ELG_SG_IND
+      , ET_PAC_IND , ET_PAI_IND , ET_PAE_IND , IPRS_IND , IPRS_PRRTN_SG_IND ,
+      SG_DXA_IND , CDSR_BKG_CLS_ID , INV_SP_HELD_IND , OPRL_AL_CD , WTLT_STT_IND
+      , SB_STT_IND , CXD_SG_IND , PI_FARE_TYP_CD , OD_NON_INV_IND ,
+      SG_INV_SB_LIST_IND , SG_INV_BLKD_SP_IND , PI_MRD_SG_NB
+      FROM PAX_ITIN_SG
+      WHERE BKG_ID = :H00082 WITH UR
+      FOR FETCH ONLY
+
+  Access Path Analysis:
+
+                                   --Sorts--       C       P P     T
+                       Tb Data   M New  Comp     P F AAJJSSA G W D B
+   Table/Index Name    No Access C UJOG UJOG Lck F E DGDGCNR R O A T Qblktyp
+   ------------------- -- ------ - ---- ---- --- - - ------- - - - - -------
+   PAX_ITIN_SG          1 IXDATA 1             N                     SELECT
+    IX4KA021
+
+  SQL Dependency Analysis:
+
+   TABLESPACE                     T  NACTIVE
+    TABLE/ALIAS/VIEW/SYNONYM      Y  CARD       NPAGES     PCTPAGES   PCTRC
+     INDEX            (# COLUMNS) P  1STKEYCARD FULLKEYCAR NLEAF      NLVL  CLUS
+   ------------------------------ -- ---------- ---------- ---------- ----- ----
+   EBKA1S01.TSKA0021              LS    1207080
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page    1
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+    EBKAS01.PAX_ITIN_SG           TB   14350757    1131725         93     0
+     EBKAS01.IXCKA021           C IX         20         20     130159     3 1.00
+     (CLUSTERING)               1
+     EBKAS01.IX1KA021             IX   12239902   48808536     900930     5 0.76
+     (PRIMARY)                  3
+     EBKAS01.IX3KA021             IX        486    2293165     128524     4 0.31
+                                3
+     EBKAS01.IX4KA021             IX   16154229   46300203     464579     4 0.70
+                                2
+
+
+  SQL Predicate Analysis:
+
+                                                                          Filter
+                           Predicate                         Index Sarge  Factor
+   --------------------------------------------------------  ----- ----- -------
+    STATEMENT #001
+   ---> BKG_ID = :H00082                                      YES   YES  0.40000
+
+
+  SQL Design Rule: 0073   ------------------------   Severity Code = 0
+1 2002/07/17  09:21                                                  PAGE     15
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+   This SQL statement accesses the following table(s) and indexes.  These
+   accesses are not matching all columns in the index(es).
+
+   "EBKAS01.PAX_ITIN_SG"
+   Index - EBKAS01.IX4KA021              Matched    1 of    2 Columns
+
+   RECOMMENDATION: 0116
+   Consider including predicates involving all of the indexed columns to allow
+   full matching index access to this table's data.
+
+  SQL Design Rule: 0082   ------------------------   Severity Code = 0
+   This SQL statement accesses a partitioned tablespace with an ambiguous cursor
+   and is not utilizing parallel I/O processing.  This SQL statement references
+   the table "EBKAS01.PAX_ITIN_SG" which is in the partitioned tablespace
+   "EBKA1S01.TSKA0021".  This tablespace contains 1207080 active pages.  Your
+   installation has set a threshold of 10 for the maximum number of active pages
+   for a partitioned tablespace accessed by an SQL statement that is not
+   utilizing parallel I/O processing.  Ambiguous cursors can reduce the degree o
+   parallel I/O or cause parallel I/O to fall back to sequential I/O.  Parallel
+   I/O can significantly reduce response time for SQL statements that are I/O
+   intensive.
+
+   RECOMMENDATION: 0126
+   Consider rewriting this SQL to remove the ambiguous cursor.  For a read-only
+   cursor, include the FOR FETCH ONLY clause when defining the cursor.  For an
+   updatable or deletable cursor, include the FOR UPDATE OF clause when defining
+   the cursor and the WHERE CURRENT OF clause when referencing the cursor.
+
+  SQL Design Rule: 0086   ------------------------   Severity Code = 0
+   This SQL statement contains an UNQUALIFIED function on the column
+   "SCH_SG_ARR_TS" of the table "EBKAS01.PAX_ITIN_SG".
+
+   RECOMMENDATION: 0133
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page    1
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+   Consider qualifying the function to avoid unexpected qualification.
+
+  SQL Design Rule: 0086   ------------------------   Severity Code = 0
+   This SQL statement contains an UNQUALIFIED function on the column "SSLD_TS" o
+   the table "EBKAS01.PAX_ITIN_SG".
+
+   RECOMMENDATION: 0133
+   Consider qualifying the function to avoid unexpected qualification.
+
+  SQL Design Rule: 0086   ------------------------   Severity Code = 0
+   This SQL statement contains an UNQUALIFIED function on the column
+   "CUR_SG_DPRT_TS" of the table "EBKAS01.PAX_ITIN_SG".
+
+   RECOMMENDATION: 0133
+   Consider qualifying the function to avoid unexpected qualification.
+1 2002/07/17  09:21                                                  PAGE     16
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+
+  SQL Design Rule: 0086   ------------------------   Severity Code = 0
+   This SQL statement contains an UNQUALIFIED function on the column
+   "CUR_SG_ARR_TS" of the table "EBKAS01.PAX_ITIN_SG".
+
+   RECOMMENDATION: 0133
+   Consider qualifying the function to avoid unexpected qualification.
+
+  SQL Design Rule: 0088   ------------------------   Severity Code = 0
+   This SQL statement references the table "EBKAS01.PAX_ITIN_SG" which in the
+   partitioned tablespace "EBKA1S01.TSKA0021".  This tablespace contains 1207080
+   active pages. Your installation has set a threshold of 10 for the maximum
+   number of active pages for a partitioned tablespace accessed by an SQL
+   statement.
+
+   RECOMMENDATION: 0134
+   Consider moving the table to a different partition tablespace since your
+   installation has a set threshold for the maximumn number of active pages for
+   partitioned tablespace.
+
+  SQL Design Rule: 0089   ------------------------   Severity Code = 0
+   This SQL is not utilizing parallel I/O processing. Parallel I/O can
+   significantly reduce response time for SQL statements.
+
+   RECOMMENDATION: 0135
+   Consider taking advantage of using I/O Parallelism for the SQL statement for
+   better performance.
+
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page    2
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+   Source DB2 SSID: DB2V                         Date/time: 07-17-02, 09:20:16:9
+        Collection: BKNGS                        DB2 SSID : DB2V
+        Package   : DBARFSEG                     SQL Code :   +0
+        Stmt      : 5837                         Message  :
+        Version   :
+        Hint Used : N/A
+
+  SQL Statement Text:
+
+  UPDATE PAX_ITIN_SG
+      SET MKD_COS_CD = :H00005 , CUR_PI_SG_STT_CD = :H00006 , PRV_PI_SG_STT_CD =
+      :H00009 :H00010 , INV_SP_HELD_IND = :H00059 :H00060 , WTLT_STT_IND =
+      :H00063 :H00064 , SB_STT_IND = :H00065 :H00066
+      WHERE BKG_ID = :H00001
+      AND PI_SG_SQ_NB = :H00003
+
+  Access Path Analysis:
+
+                                   --Sorts--       C       P P     T
+                       Tb Data   M New  Comp     P F AAJJSSA G W D B
+1 2002/07/17  09:21                                                  PAGE     17
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+   Table/Index Name    No Access C UJOG UJOG Lck F E DGDGCNR R O A T Qblktyp
+   ------------------- -- ------ - ---- ---- --- - - ------- - - - - -------
+   PAX_ITIN_SG          1 IXONLY 2            IX                     UPDATE
+    IX4KA021
+
+  SQL Dependency Analysis:
+
+   TABLESPACE                     T  NACTIVE
+    TABLE/ALIAS/VIEW/SYNONYM      Y  CARD       NPAGES     PCTPAGES   PCTRC
+     INDEX            (# COLUMNS) P  1STKEYCARD FULLKEYCAR NLEAF      NLVL  CLUS
+   ------------------------------ -- ---------- ---------- ---------- ----- ----
+   EBKA1S01.TSKA0021              LS    1207080
+    EBKAS01.PAX_ITIN_SG           TB   14350757    1131725         93     0
+     EBKAS01.IXCKA021           C IX         20         20     130159     3 1.00
+     (CLUSTERING)               1
+     EBKAS01.IX1KA021             IX   12239902   48808536     900930     5 0.76
+     (PRIMARY)                  3
+     EBKAS01.IX3KA021             IX        486    2293165     128524     4 0.31
+                                3
+     EBKAS01.IX4KA021             IX   16154229   46300203     464579     4 0.70
+                                2
+
+
+  SQL Predicate Analysis:
+
+                                                                          Filter
+                           Predicate                         Index Sarge  Factor
+   --------------------------------------------------------  ----- ----- -------
+    STATEMENT #001
+   ---> BKG_ID = :H00001                                      YES   YES  0.40000
+
+   ---> PI_SG_SQ_NB = :H00003                                 YES   YES  0.40000
+
+
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page    2
+  DATE 07-17-02            SQL Statement Detail Reports                TIME 09:2
+
+  SQL Design Rule: 0012   ------------------------   Severity Code = 0
+   The SELECT...FOR UPDATE OF... statement should be used in place of the UPDATE
+   statement to ensure proper data locking in an application where single row
+   updates are being processed.
+
+   RECOMMENDATION: 0102
+   Replace the UPDATE statement with the SELECT...FOR UPDATE OF... statement if
+   your application is processing single row updates.
+
+  SQL Design Rule: 0083   ------------------------   Severity Code = 0
+   This SQL statement updates non-sequential columns in table
+   "EBKAS01.PAX_ITIN_SG".  Because DB2 logs all data between the columns being
+   updated, 194 excess bytes of data are being written.
+
+1 2002/07/17  09:21                                                  PAGE     18
+
+  ------------------------------------------------------------- USER ID: DT0072
+
+   RECOMMENDATION: 0128
+   If possible, restructure the table so updated columns are sequentially
+   located.
+
+  SQL Design Rule: 0089   ------------------------   Severity Code = 0
+   This SQL is not utilizing parallel I/O processing. Parallel I/O can
+   significantly reduce response time for SQL statements.
+
+   RECOMMENDATION: 0135
+   Consider taking advantage of using I/O Parallelism for the SQL statement for
+   better performance.
+
+  PPA REL.  2.2 --------- Plan Analyzer Enhanced Explain ------------- Page    2
+  DATE 07-17-02               Plan/Package Rules Report                TIME 09:2
+
+  PLAN Design Rule: 2015   ----------------------   Severity Code = 0
+   The package "BKNGS.DBARFSEG.()" has been bound with the DEGREE(1) option. The
+   DEGREE(1) option prohibits parallel I/O processing.
+
+   RECOMMENDATION: 0001
+   This rule is for informational purposes only.
+
+  PLAN Design Rule: 2019   ----------------------   Severity Code = 0
+   Access path is determined at execution time. This package "BKNGS.DBARFSEG.()"
+   was bound with REOPTVAR(N).
+
+   RECOMMENDATION: 0130
+   Modify this to conform to your shop standards.
+
+  PLAN Design Rule: 2021   ----------------------   Severity Code = 0
+   KEEP DYNAMIC for package "BKNGS.DBARFSEG.()" is N.  According to your shop
+   standards, this should be disabled.
+
+   RECOMMENDATION: 0130
+   Modify this to conform to your shop standards.
+
+  RETCODE =     0  Explain processing completed.
+
+  CONTROL PROCESS CARD:
+  BATCH PROCESSOR PLAN ===> RBPAPLAN
+  BATCH PROCESSOR ID   ===> (NONE)
+  STRATEGY NAME        ===> (NONE)
+  DEVICE ALLOCATION UNIT => SYSDA
+  *****  BATCH PROCESSOR COMPLETE                  *****

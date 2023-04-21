@@ -1,0 +1,144 @@
+//UXD000M  JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X                    00000000
+//**********************************************************************00010000
+//*                                                                    *00015000
+//*  BATCH SPUFI                                                       *00020000
+//*                                                                    *00030000
+//**********************************************************************00370000
+//JOBLIB   DD  DISP=SHR,DSN=SSXDP.DB2R.SDSNEXIT                         00380000
+//         DD  DISP=SHR,DSN=SDB2R.SDSNLOAD                              00381000
+//         DD  DISP=SHR,DSN=SYS1.CEE.SCEERUN                            00390000
+//*                                                                     00400000
+//PH01LS04 EXEC PGM=IKJEFT01,DYNAMNBR=20                                00869000
+//DBRMLIB  DD  DISP=SHR,DSN=SDB2R.SDSNSAMP                              00870000
+//SYSTSPRT DD  SYSOUT=*                                                 00871000
+//SYSPRINT DD  SYSOUT=*                                                 00872000
+//SYSUDUMP DD  SYSOUT=*                                                 00873000
+//SYSTSIN  DD  *                                                        00874000
+ DSN SYSTEM(DBRG)                                                       00875000
+ RUN  PROGRAM(DSNTEP4) PLAN(DSNTP481) +                                 00880000
+      LIB('SSXDP.DB2R.RUNLIB.LOAD') +                                   00881000
+      PARMS('/ALIGN(MID)')                                              00882000
+ END                                                                    00884000
+//*                                                                     00885000
+//SYSIN    DD *                                                         00886000
+SELECT DISTINCT                                                         00887000
+                        CPN.CPN_NB,                                     00888000
+                        CPN.FARE_BAS_TXT,                               00889000
+                        CPN.TKT_DOC_NB,                                 00890000
+                        CPN.TKT_DSGTR_TXT,                              00891000
+                        ROLE.DEST_TRPN_STN_CD,                          00892000
+                        ROLE.MKD_CRR_CD,                                00893000
+                        ROLE.MKD_FLT_NB,                                00894000
+                        ROLE.MKD_TKTG_COS_CD,                           00895000
+                        ROLE.ORIG_TRPN_STN_CD,                          00896000
+                        ROLE.SCHD_ARR_LDT,                              00897000
+                        ROLE.SCHD_ARR_LTM,                              00898000
+                        ROLE.SCHD_DPRT_LDT,                             00898100
+                        ROLE.SCHD_DPRT_LTM,                             00898200
+                                                                        00898300
+      CASE                                                              00898400
+                        WHEN CPRTN2.TKTRNS_EVT_TYP_CD = 'S'             00898500
+                        THEN CPRTN2.CPN_PRRTD_AMT                       00898600
+                        ELSE CPRTN.CPN_PRRTD_AMT                        00898700
+                        END  AS CPN_PRRTD_AMT,                          00898800
+                                                                        00898900
+                        CST2.CPN_USG_TYP_CD,                            00899000
+                        SCPN.DEST_TRPN_STN_CD,                          00899100
+                       SCPN.ORIG_TRPN_STN_CD,                           00899200
+                        SCPN.SBCPN_NB,                                  00899300
+                                                                        00899400
+CASE                                                                    00899500
+                        WHEN SPRTN2.TKTRNS_EVT_TYP_CD = 'S'             00899600
+                        THEN SPRTN2.SBCPN_PRRTD_AMT                     00899700
+                        ELSE SPRTN.SBCPN_PRRTD_AMT                      00899800
+                        END  AS SBCPN_PRRTD_AMT,                        00899900
+                                                                        00900000
+                        TKT.TVLAG_CUST_INVC_NB,                         00901000
+                        POS.POS_ID                                      00902000
+                                                                        00903000
+                    FROM                                                00904000
+                        EBKDP03.MT_CPN CPN                              00905005
+                        LEFT OUTER JOIN MT_CPN_ST CST ON (              00906000
+                        CST.TKT_DOC_NB = CPN.TKT_DOC_NB AND             00907000
+                        CST.TKT_DOC_ISS_LDT = CPN.TKT_DOC_ISS_LDT AND   00908000
+                        CST.TKT_DOC_SQ_NB = CPN.TKT_DOC_SQ_NB AND       00909000
+                        CST.CPN_NB = CPN.CPN_NB AND                     00909100
+                        CST.CPN_ST_TYP_CD IN ('S') )                    00909200
+                        LEFT OUTER JOIN EBKDP03.MT_CPN_ST CST2 ON (     00909305
+CST2.TKT_DOC_NB = CPN.TKT_DOC_NB AND                                    00909401
+                        CST2.TKT_DOC_ISS_LDT = CPN.TKT_DOC_ISS_LDT AND  00909501
+                        CST2.TKT_DOC_SQ_NB = CPN.TKT_DOC_SQ_NB AND      00909601
+                        CST2.CPN_NB = CPN.CPN_NB AND                    00909701
+                        CST2.CPN_ST_TYP_CD IN ('U') AND                 00909801
+                        CST2.CPN_USG_TYP_CD IN ('E','R') )              00909901
+                    LEFT OUTER JOIN EBKDP03.MT_CPN_CRR_ROLE ROLE ON (   00910005
+                        ROLE.TKT_DOC_NB = CPN.TKT_DOC_NB AND            00910101
+                        ROLE.TKT_DOC_ISS_LDT = CPN.TKT_DOC_ISS_LDT AND  00910201
+                        ROLE.TKT_DOC_SQ_NB = CPN.TKT_DOC_SQ_NB AND      00910301
+                        ROLE.CPN_NB = CPN.CPN_NB AND                    00910401
+                        ROLE.CPN_ST_TYP_CD = CST.CPN_ST_TYP_CD )        00910501
+              LEFT OUTER JOIN EBKDP03.MT_CPN_PRTN CPRTN2 ON (           00910605
+                        CPRTN2.TKT_DOC_NB = CPN.TKT_DOC_NB AND          00910701
+                        CPRTN2.TKT_DOC_ISS_LDT = CPN.TKT_DOC_ISS_LDT AND00910801
+                        CPRTN2.TKT_DOC_SQ_NB = CPN.TKT_DOC_SQ_NB AND    00910901
+                        CPRTN2.CPN_NB = CPN.CPN_NB AND                  00911001
+                        CPRTN2.TKTRNS_EVT_TYP_CD = 'S' AND              00911101
+                        CPRTN2.PRTN_METH_TYP_CD = '9999')               00911201
+                    LEFT OUTER JOIN EBKDP03.MT_CPN_PRTN CPRTN ON (      00911305
+                        CPRTN.TKT_DOC_NB = CPN.TKT_DOC_NB AND           00911401
+                        CPRTN.TKT_DOC_ISS_LDT = CPN.TKT_DOC_ISS_LDT AND 00911501
+                        CPRTN.TKT_DOC_SQ_NB = CPN.TKT_DOC_SQ_NB AND     00911601
+                        CPRTN.CPN_NB = CPN.CPN_NB AND                   00911701
+                        CPRTN.TKTRNS_EVT_TYP_CD = 'UL' AND              00911801
+                        CPRTN.PRTN_METH_TYP_CD = '9999')                00911901
+             LEFT OUTER JOIN EBKDP03.MT_TKT_DOC_RLN RLN ON (            00912005
+                        RLN.CUR_TKT_DOC_NB = CPN.TKT_DOC_NB AND         00912101
+                        RLN.CUR_TKDC_ISS_LDT = CPN.TKT_DOC_ISS_LDT AND  00912201
+                        RLN.CUR_TKT_DOC_SQ_NB = CPN.TKT_DOC_SQ_NB )     00912301
+             LEFT OUTER JOIN EDKDP03.MT_TKT_DOC_POS_SRC POS ON (        00912405
+                        POS.TKT_DOC_NB = RLN.PRMY_TKT_DOC_NB AND        00912501
+                        POS.TKT_DOC_SQ_NB = RLN.PRMY_TKT_DOC_SQ_NB AND  00912601
+                        POS.TKT_DOC_ISS_LDT = RLN.PRMY_TKDC_ISS_LDT AND 00912701
+                        SUBSTR (POS.POS_ID, 1,1)                        00912801
+                  NOT IN ('0','1','2','3','4','5','6','7','8','9','*')) 00912901
+                        OR (                                            00913001
+                        POS.TKT_DOC_NB = CPN.TKT_DOC_NB AND             00913101
+                        POS.TKT_DOC_SQ_NB = CPN.TKT_DOC_SQ_NB AND       00913201
+                        POS.TKT_DOC_ISS_LDT = CPN.TKT_DOC_ISS_LDT AND   00913301
+                        SUBSTR (POS.POS_ID, 1,1)                        00913401
+                 NOT IN ('0','1','2','3','4','5','6','7','8','9','*'))  00913503
+                LEFT OUTER JOIN EBKDP03.MT_TKT_DOC TKT ON (             00913705
+                        TKT.TKT_DOC_NB = CPN.TKT_DOC_NB AND             00913801
+                        TKT.TKT_DOC_SQ_NB = CPN.TKT_DOC_SQ_NB AND       00913901
+                        TKT.TKT_DOC_ISS_LDT = CPN.TKT_DOC_ISS_LDT )     00914001
+         LEFT OUTER JOIN EBKDP03.MT_SBCPN SCPN ON (                     00914105
+SPRTN.TKT_DOC_NB = CPRTN.TKT_DOC_NB AND                                 00914200
+                       SPRTN.TKT_DOC_ISS_LDT = CPRTN.TKT_DOC_ISS_LDT AND00914301
+                        SPRTN.TKT_DOC_SQ_NB = CPRTN.TKT_DOC_SQ_NB AND   00914400
+                        SPRTN.CPN_NB = CPRTN.CPN_NB AND                 00914500
+SCPN.CPN_ST_TYP_CD = CST.CPN_ST_TYP_CD )                                00914602
+          LEFT OUTER JOIN EBKDP03.MT_SBCPN_PRTN SPRTN2 ON (             00914705
+                        SPRTN2.TKT_DOC_NB = CPRTN2.TKT_DOC_NB AND       00914802
+                   SPRTN2.TKT_DOC_ISS_LDT = CPRTN2.TKT_DOC_ISS_LDT AND  00914902
+                        SPRTN2.TKT_DOC_SQ_NB = CPRTN2.TKT_DOC_SQ_NB AND 00915002
+                        SPRTN2.CPN_NB = CPRTN2.CPN_NB AND               00915102
+              SPRTN2.PRTN_METH_TYP_CD = CPRTN2.PRTN_METH_TYP_CD AND     00915204
+                        SPRTN2.SBCPN_NB = SCPN.SBCPN_NB AND             00915302
+                        SPRTN2.TKTRNS_EVT_TYP_CD = 'S' AND              00915402
+                        SPRTN2.PRTN_METH_TYP_CD = '9999')               00915502
+LEFT OUTER JOIN EBKDP03.MT_SBCPN_PRTN SPRTN ON (                        00915605
+                        SPRTN.TKT_DOC_NB = CPRTN.TKT_DOC_NB AND         00915702
+                      SPRTN.TKT_DOC_ISS_LDT = CPRTN.TKT_DOC_ISS_LDT AND 00915802
+                        SPRTN.TKT_DOC_SQ_NB = CPRTN.TKT_DOC_SQ_NB AND   00915902
+                        SPRTN.CPN_NB = CPRTN.CPN_NB AND                 00916002
+                        SPRTN.PRTN_METH_TYP_CD = CPRTN.PRTN_METH_TYP_CD 00916101
+   AND                  SPRTN.SBCPN_NB = SCPN.SBCPN_NB AND              00916201
+                        SPRTN.TKTRNS_EVT_TYP_CD = 'UL' AND              00916300
+                        SPRTN.PRTN_METH_TYP_CD = '9999')                00916400
+                                                                        00916500
+                    WHERE                                               00916600
+                        CPN.TKT_DOC_NB = '0062136240009' AND            00916700
+                        CPN.TKT_DOC_ISS_LDT = '2006-06-27' AND          00916800
+                        CPN.TKT_DOC_SQ_NB = 1  WITH UR;                 00916900
+                                                                        00917000
+//*                                                                     00920000

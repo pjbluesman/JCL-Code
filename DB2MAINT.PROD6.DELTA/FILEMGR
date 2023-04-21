@@ -1,0 +1,293 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  M V S U  --  N O D
+0
+ 13.52.44 JOB06970 ---- THURSDAY,  14 APR 2005 ----
+ 13.52.44 JOB06970  IRR010I  USERID DT0840   IS ASSIGNED TO THIS JOB.
+ 13.52.45 JOB06970  ICH70001I DT0840   LAST ACCESS AT 11:41:09 ON THURSDAY, APRI
+ 13.52.45 JOB06970  $HASP373 DT0840B  STARTED - INIT 37   - CLASS A - SYS MVSU
+ 13.52.45 JOB06970  IEF403I DT0840B - STARTED
+ 13.53.04 JOB06970  -                                                --TIMINGS (
+ 13.53.04 JOB06970  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP   CONN    TCB    SR
+ 13.53.04 JOB06970  -DT0840B  FILEMGR              00  11956   8185    .01    .0
+ 13.53.04 JOB06970  IEF404I DT0840B - ENDED
+ 13.53.04 JOB06970  -DT0840B  ENDED.  NAME-DT0840               TOTAL TCB CPU TI
+ 13.53.04 JOB06970  $HASP395 DT0840B  ENDED
+0------ JES2 JOB STATISTICS ------
+-  14 APR 2005 JOB EXECUTION DATE
+-           20 CARDS READ
+-          293 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           17 SYSOUT SPOOL KBYTES
+-         0.32 MINUTES EXECUTION TIME
+         1 //DT0840B JOB (DELTA),
+           //             DT0840,MSGCLASS=X,
+           //             NOTIFY=DT0840,CLASS=A,
+           //             MSGLEVEL=(1,1)
+           //*
+         2 //FILEMGR  EXEC PGM=FMNMAIN
+         3 //STEPLIB  DD DSN=SYS1.FMN.SFMNMOD1,DISP=SHR
+           //*        DD DSN=IGY.SIGYCOMP,DISP=SHR
+         4 //SYSPRINT DD SYSOUT=*
+         5 //FMNTSPRT DD SYSOUT=*
+         6 //SYSTERM  DD SYSOUT=*
+         7 //SYSIN    DD *
+ ICH70001I DT0840   LAST ACCESS AT 11:41:09 ON THURSDAY, APRIL 14, 2005
+ IEF236I ALLOC. FOR DT0840B FILEMGR
+ IEF237I C572 ALLOCATED TO STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO FMNTSPRT
+ IEF237I JES2 ALLOCATED TO SYSTERM
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME SYS00001
+ IGD104I SSXDT.DB2MAINT.FILEMGR                       RETAINED,  DDNAME=SYS00001
+ IEF142I DT0840B FILEMGR - STEP WAS EXECUTED - COND CODE 0000
+ IEF285I   SYS1.FMN.SFMNMOD1                            KEPT
+ IEF285I   VOL SER NOS= S9RSJP.
+ IEF285I   DT0840.DT0840B.JOB06970.D0000102.?           SYSOUT
+ IEF285I   DT0840.DT0840B.JOB06970.D0000103.?           SYSOUT
+ IEF285I   DT0840.DT0840B.JOB06970.D0000104.?           SYSOUT
+ IEF285I   DT0840.DT0840B.JOB06970.D0000101.?           SYSIN
+ IEF373I STEP/FILEMGR /START 2005104.1352
+ IEF374I STEP/FILEMGR /STOP  2005104.1353 CPU    0MIN 01.09SEC SRB    0MIN 00.17
+ IEF375I  JOB/DT0840B /START 2005104.1352
+ IEF376I  JOB/DT0840B /STOP  2005104.1353 CPU    0MIN 01.09SEC SRB    0MIN 00.17
+1IBM File Manager for z/OS
+0
+-
+0 DEFAULT SET FUNCTION VALUES:
+
+ PRINTOUT=SYSPRINT  HEADERPG=YES  ASCII=BOTH     RECLIMIT=(1,*)
+ PRINTLEN=132       PAGESKIP=NO   PAD=OFF        EOD=/*
+ PAGESIZE=60        DATAHDR=YES   DBCSPRT=OFF    LANGUAGE=ENGLISH
+ PRTTRANS=ON        DUMP=UPDOWN   TAPELBL=SL     CYLHD=ABSOLUTE
+ SMFNO=000          PRTDISP=MOD   USEIOX=DISABLE IOX=
+ ABENDCC=NONE
+
+1IBM File Manager for z/OS
+0$$FILEM FCH ,
+ $$FILEM MEMBER=*,
+ $$FILEM PACK=ASIS,
+ $$FILEM DSNIN=SSXDT.DB2MAINT.FILEMGR
+
+ Find/Change Listing DSN: SSXDT.DB2MAINT.FILEMGR
+ BNDS 1 80
+ CAPS
+ C 'SSXDT.DSNDBUG.DB2U' 'SDB2U' ALL
+
+  BPOOL                       ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       2  //JOBLIB  DD  DSN=SDB2U.SDSNLOAD,DISP=SHR
+       3  //         DD DISP=SHR,DSN=SDB2U.SDSNLOAD
+
+  DB2LOAD2                    ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       2  //JOBLIB  DD  DSN=SDB2U.SDSNLOAD,DISP=SHR                  00020000
+
+  DB2UALOC                    ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       4  //NDSNCHDR DD DISP=(,CATLG),DSN=SDB2U.SDSNC.H.TEST,        00020000
+       5  //            UNIT=3390,DCB=SDB2U.SDSNC.H,                 00030000
+       7  //NDSNCLST DD DISP=(,CATLG),DSN=SDB2U.SDSNCLST.TEST,       00050000
+       8  //            UNIT=3390,DCB=SDB2U.SDSNCLST,                00060000
+      10  //NDSNDBRM DD DISP=(,CATLG),DSN=SDB2U.SDSNDBRM.TEST,       00080000
+      11  //            UNIT=3390,DCB=SDB2U.SDSNDBRM,                00090000
+      13  //NDSNLOAD DD DISP=(,CATLG),DSN=SDB2U.SDSNLOAD.TEST,       00110000
+      14  //            UNIT=3390,DCB=SDB2U.SDSNLOAD,                00120000
+      16  //NDSNMACS DD DISP=(,CATLG),DSN=SDB2U.SDSNMACS.TEST,       00140000
+      17  //            UNIT=3390,DCB=SDB2U.SDSNMACS,                00150000
+1IBM File Manager for z/OS
+0     19  //NDSNSAMP DD DISP=(,CATLG),DSN=SDB2U.SDSNSAMP.TEST,       00170000
+      20  //            UNIT=3390,DCB=SDB2U.SDSNSAMP,                00180000
+
+  DB2UBOUT                    ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+      14         SDB2U.SDSNC.H -                                     00140000
+      15           NEWNAME(SDB2U.SDSNC.H.SEP1104N)                   00150000
+      17         SDB2U.SDSNCLST -                                    00170000
+      18           NEWNAME(SDB2U.SDSNCLST.SEP1104N)                  00180000
+      20         SDB2U.SDSNDBRM -                                    00200000
+      21           NEWNAME(SDB2U.SDSNDBRM.SEP1104N)                  00210000
+      23         SDB2U.SDSNLOAD -                                    00230000
+      24           NEWNAME(SDB2U.SDSNLOAD.SEP1104N)                  00240000
+      26         SDB2U.SDSNMACS -                                    00260000
+      27           NEWNAME(SDB2U.SDSNMACS.SEP1104N)                  00270000
+      29         SDB2U.SDSNSAMP.SEP1104 -                            00290000
+      30           NEWNAME(SDB2U.SDSNSAMP.SEP1104N)                  00300000
+      32         SDB2U.SDSNC.H.SEP1104 -                             00302000
+      33           NEWNAME(SDB2U.SDSNC.H)                            00303000
+      35         SDB2U.SDSNCLST.SEP1104 -                            00305000
+      36           NEWNAME(SDB2U.SDSNCLST)                           00306000
+      38         SDB2U.SDSNDBRM.SEP1104 -                            00308000
+      39           NEWNAME(SDB2U.SDSNDBRM)                           00309000
+      41         SDB2U.SDSNLOAD.SEP1104 -                            00309200
+      42           NEWNAME(SDB2U.SDSNLOAD)                           00309300
+      44         SDB2U.SDSNMACS.SEP1104 -                            00309500
+      45           NEWNAME(SDB2U.SDSNMACS)                           00309600
+      47         SDB2U.SDSNSAMP.SEP1104 -                            00309800
+      48           NEWNAME(SDB2U.SDSNSAMP)                           00309900
+1IBM File Manager for z/OS
+0
+  DB2UCOPY                    ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+      16  //*       SDB2U.SDSNCLST, -                                00035001
+      17  //*       SDB2U.SDSNDBRM, -                                00036001
+      18  //*       SDB2U.SDSNLOAD, -                                00037001
+      19  //*       SDB2U.SDSNMACS, -                                00038001
+      20  //*       SDB2U.SDSNSAMP, -                                00039001
+      31         SDB2U.SDSNCLST -                                    00170001
+      32           NEWNAME(SDB2U.SDSNCLST.APR0905)                   00180002
+      34         SDB2U.SDSNDBRM -                                    00200001
+      35           NEWNAME(SDB2U.SDSNDBRM.APR0905)                   00210002
+      37         SDB2U.SDSNLOAD -                                    00230001
+      38           NEWNAME(SDB2U.SDSNLOAD.APR0905)                   00240002
+      40         SDB2U.SDSNMACS -                                    00260001
+      41           NEWNAME(SDB2U.SDSNMACS.APR0905)                   00270002
+      43         SDB2U.SDSNSAMP -                                    00290001
+      44           NEWNAME(SDB2U.SDSNSAMP.APR0905)                   00300002
+      47  //NDSNCLST DD DISP=(,CATLG),DSN=SDB2U.SDSNCLST,            00342001
+      48  //            UNIT=3390,DCB=SDB2U.SDSNCLST.APR0905,        00343002
+      50  //NDSNDBRM DD DISP=(,CATLG),DSN=SDB2U.SDSNDBRM,            00345001
+      51  //            UNIT=3390,DCB=SDB2U.SDSNDBRM.APR0905,        00346002
+      53  //NDSNLOAD DD DISP=(,CATLG),DSN=SDB2U.SDSNLOAD,            00348001
+      54  //            UNIT=3390,DCB=SDB2U.SDSNLOAD.APR0905,        00349002
+      56  //NDSNMACS DD DISP=(,CATLG),DSN=SDB2U.SDSNMACS,            00360001
+      57  //            UNIT=3390,DCB=SDB2U.SDSNMACS.APR0905,        00370002
+      59  //NDSNSAMP DD DISP=(,CATLG),DSN=SDB2U.SDSNSAMP,            00390001
+      60  //            UNIT=3390,DCB=SDB2U.SDSNSAMP.APR0905,        00400002
+      73  //NDSNCLST DD DISP=SHR,DSN=SDB2U.SDSNCLST                  00460001
+1IBM File Manager for z/OS
+0     74  //NDSNDBRM DD DISP=SHR,DSN=SDB2U.SDSNDBRM                  00470001
+      75  //NDSNLOAD DD DISP=SHR,DSN=SDB2U.SDSNLOAD                  00480001
+      76  //NDSNMACS DD DISP=SHR,DSN=SDB2U.SDSNMACS                  00490001
+      77  //NDSNSAMP DD DISP=SHR,DSN=SDB2U.SDSNSAMP                  00500001
+
+  DB2UIC                      ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+      46  //             DSN=SDB2U.SDSNLOAD                          00380000
+
+  DSNJU04U                    ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       4  //STEPLIB  DD DSN=SDB2U.SDSNLOAD,DISP=SHR
+
+  DSN1LOGP                    ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       4  //STEPLIB DD DSN=SDB2U.SDSNLOAD,UNIT=SYSDA,DISP=SHR        00000210
+
+  EDSCOPY                     ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       3  //             DSN=SDB2U.SDSNLOAD                          00410000
+       8  //SYSCOPYX DD  DSN=SDB2U.IMAGCP06.SYSUTILX,                00460000
+      22  //SYSCOPY1 DD  DSN=SDB2U.IMAGCP06.DBD01,                   00610000
+      36  //SYSCOPY2 DD  DSN=SDB2U.IMAGCP06.SCT02,                   00760000
+      50  //SYSCOPY3 DD  DSN=SDB2U.IMAGCP06.SPT01,                   00910000
+      64  //SYSCOPY4 DD  DSN=SDB2U.IMAGCP06.SYSDBASE,                01060000
+      78  //SYSCOPY5 DD  DSN=SDB2U.IMAGCP06.SYSDBAUT,                01210000
+      92  //SYSCOPY6 DD  DSN=SDB2U.IMAGCP06.SYSGPAUT,                01360000
+     106  //SYSCOPY7 DD  DSN=SDB2U.IMAGCP06.SYSGROUP,                01510000
+     120  //SYSCOPY8 DD  DSN=SDB2U.IMAGCP06.SYSPLAN,                 01660000
+1IBM File Manager for z/OS
+0    134  //SYSCOPY9 DD  DSN=SDB2U.IMAGCP06.SYSPKAGE,                01810000
+     148  //SYSCOPYA DD  DSN=SDB2U.IMAGCP06.SYSUSER,                 01960000
+     162  //SYSCOPYB DD  DSN=SDB2U.IMAGCP06.SYSSTR,                  02110000
+     176  //SYSCOPYC DD  DSN=SDB2U.IMAGCP06.SYSVIEWS,                02260000
+     190  //SYSCOPYD DD  DSN=SDB2U.IMAGCP06.SYSSTATS,                02410000
+     204  //SYSCOPYE DD  DSN=SDB2U.IMAGCP06.SYSLGRNX,                02560000
+     218  //SYSCOPYF DD  DSN=SDB2U.IMAGCP06.SYSDDF,                  02710000
+     232  //SYSCOPYG DD  DSN=SDB2U.IMAGCP06.SYSOBJ,                  02860000
+     246  //SYSCOPYZ DD  DSN=SDB2U.IMAGCP06.SYSCOPY,                 03010000
+
+  EXEC                        ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       5  //         DD  DISP=SHR,DSN=SDB2U.SDSNLOAD
+
+  FLTLEG                      ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       4  //         DD DISP=SHR,DSN=SDB2U.SDSNLOAD
+       7  //         DD DISP=SHR,DSN=SDB2U.SDSNLOAD
+
+  GALLOWAY                    ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       6  //JOBLIB   DD  DSN=SDB2U.SDSNLOAD,DISP=SHR                 00001100
+       7  //         DD  DSN=SDB2U.RUNLIB.LOAD,DISP=SHR              00001200
+
+  PLATRUN                     ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       4  //         DD DISP=SHR,DSN=SDB2U.SDSNLOAD
+       7  //         DD DISP=SHR,DSN=SDB2U.SDSNLOAD
+
+1IBM File Manager for z/OS
+0 PLATRUN2                    ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       4  //         DD DISP=SHR,DSN=SDB2U.SDSNLOAD
+       7  //         DD DISP=SHR,DSN=SDB2U.SDSNLOAD
+
+  PLATRUN3                    ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       4  //         DD DISP=SHR,DSN=SDB2U.SDSNLOAD
+       7  //         DD DISP=SHR,DSN=SDB2U.SDSNLOAD
+
+  PREPSQLP                    ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       5  //STEPLIB  DD  DISP=SHR,DSN=SDB2U.SDSNEXIT
+       6  //         DD  DISP=SHR,DSN=SDB2U.SDSNLOAD
+      12  //SYSLIB   DD  DSN=SDB2U.SRCLIB.DATA,DISP=SHR
+      24  //         DD  DSN=SDB2U.SDSNC.H,DISP=SHR
+      84  //         DD  DISP=SHR,DSN=SDB2U.SDSNLOAD
+
+  TEMP                        ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+      26  //STEPLIB  DD  DISP=SHR,DSN=SDB2U.SDSNEXIT
+      27  //         DD  DISP=SHR,DSN=SDB2U.SDSNLOAD
+      33  //SYSLIB   DD  DISP=SHR,DSN=SDB2U.SRCLIB.DATA
+      42  //STEPLIB  DD  DISP=SHR,DSN=SDB2U.SDSNEXIT
+      43  //         DD  DISP=SHR,DSN=SDB2U.SDSNLOAD
+      51  //SYSLIB   DD  DISP=SHR,DSN=SDB2U.SRCLIB.DATA
+     125  //         DD  DSN=SDB2U.SDSNLOAD,DISP=SHR
+
+  TESTIT                      ----- STRING(S) FOUND/CHANGED -----
+1IBM File Manager for z/OS
+0Record Number
+      93  //         DD  DSN=SDB2U.SDSNLOAD,DISP=SHR
+
+  WORKPROC                    ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+      26  //STEPLIB  DD  DISP=SHR,DSN=SDB2U.SDSNEXIT
+      27  //         DD  DISP=SHR,DSN=SDB2U.SDSNLOAD
+      33  //SYSLIB   DD  DISP=SHR,DSN=SDB2U.SRCLIB.DATA
+      42  //STEPLIB  DD  DISP=SHR,DSN=SDB2U.SDSNEXIT
+      43  //         DD  DISP=SHR,DSN=SDB2U.SDSNLOAD
+      51  //SYSLIB   DD  DISP=SHR,DSN=SDB2U.SRCLIB.DATA
+     127  //         DD  DSN=SDB2U.SDSNLOAD,DISP=SHR
+
+  WORKSQL                     ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       5  //STEPLIB  DD  DISP=SHR,DSN=SDB2U.SDSNEXIT
+       6  //         DD  DISP=SHR,DSN=SDB2U.SDSNLOAD
+      11  //SYSLIB   DD  DSN=SDB2U.SRCLIB.DATA,DISP=SHR
+      22  //         DD  DSN=SDB2U.SDSNC.H,DISP=SHR
+
+  WORK1                       ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+      13  //         DD  DSN=SDB2U.SDSNC.H,DISP=SHR
+      74  //         DD  DISP=SHR,DSN=SDB2U.SDSNLOAD
+
+  WRKDB2R                     ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+       5  //            DSN=SDB2U.SDSNLOAD                           00300000
+
+1IBM File Manager for z/OS
+0 XODATE                      ----- STRING(S) FOUND/CHANGED -----
+ Record Number
+      85  //         DD  DSN=SDB2U.SDSNLOAD,DISP=SHR                 00460000
+      88  //SYSLMOD  DD  DSN=SDB2U.RUNLIB.LOAD,DISP=SHR              00490001
+
+-  -- Find/Change summary section --
+   Records found: 131 Records processed: 418372
+   Members w/recs: 23 Members wo/recs: 489
+   ISPF packing option: ASIS
+   Search cols: 1:80 Longest line: 80
+   Edit options in effect: CAPS:ON
+
+                  Count  Value
+   Found   :        131  >SSXDT.DSNDBUG.DB2U<
+   Changed :        131  >SDB2U<
+ ----------------------------------------------------------------------

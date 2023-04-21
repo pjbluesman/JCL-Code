@@ -1,0 +1,45 @@
+//UDH2000M  JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X                        00001000
+//* *************************************************************** */  00180000
+//JOBLIB  DD  DISP=SHR,                                                 00190000
+//            DSN=SSXDP.DB2P.V4.SDSNLOAD                                00200000
+//DSNTIC  PROC                                                          00210000
+//* *************************************************************** */  00220000
+//*       REVISED 11-12-96 TO RECLAIM EXTENTS IN DSN4K06.  DSNK4K06 */
+//*       IS REDEFINED TO INCLUDE THREE VOLUMES INSTEAD OF TWO.     */
+//*       .....IAB                                                  */
+//*                                                                 */
+//*       GARY WILL BE ADDING NEW DASD IN MID-NOVEMBER NEED TO MOVE */
+//*        TO DIFFERENT DEVICES THEN - - - - CTC                    */
+//*                                                                 */
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE         */  00230000
+//* *************************************************************** */  00240000
+//DSNTIC  EXEC PGM=IDCAMS                                               00250000
+//SYSPRINT DD SYSOUT=*                                                  00270000
+//SYSUDUMP DD SYSOUT=*                                                  00280000
+//DSNTIC  PEND                                                          00290000
+//DSNTTMP EXEC DSNTIC                                                   00720000
+//* ***********************************************                     00730000
+//*  DELETES THEN RE-DEFINE THE TEMPORARY TABLESPACES *                 00740000
+//*     THESE TABLE SPACES ARE USED FOR TEMPORARY *                     00750000
+//*     OR INTERMEDIATE TABLES BY DB2, IN SORTING *                     00760000
+//*     FOR ONE EXAMPLE.                          *                     00770000
+//* ***********************************************                     00780000
+//SYSIN DD *                                                            01050000
+      DELETE -                                                          01730001
+             (DB2P.DSNDBC.DSNDB07.DSN4K06.I0001.A001) -                 01730002
+             CATALOG(DB2P)                                              01730003
+                                                                        01780000
+    DEFINE CLUSTER -                                                    01050037
+       ( NAME(DB2P.DSNDBC.DSNDB07.DSN4K06.I0001.A001) -                 01050038
+            LINEAR     -                                                01050039
+            REUSE -                                                     01050040
+            VOLUMES(A3D2Z1,A3D2AL,A3D2AV) -                             01050041
+            CYLINDERS(400 300) -                                        01050042
+            SHAREOPTIONS(3 3) ) -                                       01050043
+       DATA -                                                           01050044
+       ( NAME(DB2P.DSNDBD.DSNDB07.DSN4K06.I0001.A001) -                 01050045
+                          ) -                                           01050046
+      CATALOG(DB2P)                                                     01050047
+                                                                        01050048
+                                                                        01050060
+//*                                                                     01491000

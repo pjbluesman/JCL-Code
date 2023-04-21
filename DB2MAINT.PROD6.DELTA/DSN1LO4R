@@ -1,0 +1,12 @@
+//DSN1LO4R   JOB ,'DB2 RM 102',CLASS=X,MSGCLASS=X
+//STEP1  EXEC PGM=DSN1LOGP                                              00000200
+//STEPLIB DD DSN=SSXDP.DSNDBRG.DB4R.SDSNLOAD,UNIT=SYSDA,DISP=SHR        00000210
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSSUMRY DD SYSOUT=X
+//SYSABEND DD SYSOUT=*                                                  00000500
+//GROUP    DD  DSN=DB4R.DSNDBRG.BSDS01,DISP=SHR                         00000600
+//SYSIN   DD *
+  DBID(0115) OBID(010A) RID(04C4C7FA0E) DATAONLY(YES)
+  STARTLRSN(490C76E1B0F5) ENDLRSN(490C8CED5346)
+/*
+//                                                                      00001700

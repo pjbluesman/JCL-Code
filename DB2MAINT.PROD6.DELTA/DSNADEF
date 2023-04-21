@@ -1,0 +1,119 @@
+//D73294TA  JOB (,105),'CJR',CLASS=S,MSGCLASS=X
+//*
+//*
+//* *************************************************************** */  00370000
+//DSNTIC  PROC                                                          00380000
+//* *************************************************************** */  00390000
+//* DIRECTORY/CATALOG DATASET DEFINITIONS                           */  00400000
+//*                                                                 */
+//* *************************************************************** */  00410000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)                                   00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//DSNTCPY EXEC DSNTIC                                                   02540000
+//* *********************************************                       06800000
+//*
+//* *********************************************                       06820000
+//SYSIN DD *                                                            06830000
+   DEFINE CLUSTER                             -                         06840000
+         ( NAME(DSNA.DSNDBC.DSNDB06.SYSCOPY.I0001.A001) -               06850000
+           LINEAR                             -                         06860000
+           REUSE                              -                         06870000
+           VOLUMES(A3D2C0)                    -                         06880000
+           CYL(75 5)                        -                           06910000
+           SHAREOPTIONS(3 3) )                -                         06920000
+      DATA                                    -                         06930000
+         ( NAME(DSNA.DSNDBD.DSNDB06.SYSCOPY.I0001.A001) -               06940000
+                              )               -                         06970000
+      CATALOG(DSNA)                                                     06980000
+   DEFINE CLUSTER                             -                         06840000
+         ( NAME(DSNA.DSNDBC.DSNDB06.DSNUCH01.I0001.A001) -              06850000
+           LINEAR                             -                         06860000
+           REUSE                              -                         06870000
+           VOLUMES(A3D2Z2)                    -                         06880000
+           CYL(40 2)                        -                           06910000
+           SHAREOPTIONS(3 3) )                -                         06920000
+      DATA                                    -                         06930000
+         ( NAME(DSNA.DSNDBD.DSNDB06.DSNUCH01.I0001.A001) -              06940000
+                              )               -                         06970000
+      CATALOG(DSNA)                                                     06980000
+   DEFINE CLUSTER                             -                         06840000
+         ( NAME(DSNA.DSNDBC.DSNDB06.DSNUCX01.I0001.A001) -              06850000
+           LINEAR                             -                         06860000
+           REUSE                              -                         06870000
+           VOLUMES(A3D2Z2)                    -                         06880000
+           CYL(28 2)                        -                           06910000
+           SHAREOPTIONS(3 3) )                -                         06920000
+      DATA                                    -                         06930000
+         ( NAME(DSNA.DSNDBD.DSNDB06.DSNUCX01.I0001.A001) -              06940000
+                              )               -                         06970000
+      CATALOG(DSNA)                                                     06980000
+   DEFINE CLUSTER                             -                         06840000
+         ( NAME(DSNA.DSNDBC.DSNDB06.SYSPKAGE.I0001.A001) -              06850000
+           LINEAR                             -                         06860000
+           REUSE                              -                         06870000
+           VOLUMES(A3D2C0)                    -                         06880000
+           CYL(68 6)                        -                           06910000
+           SHAREOPTIONS(3 3) )                -                         06920000
+      DATA                                    -                         06930000
+         ( NAME(DSNA.DSNDBD.DSNDB06.SYSPKAGE.I0001.A001) -              06940000
+                              )               -                         06970000
+      CATALOG(DSNA)                                                     06980000
+   DEFINE CLUSTER                             -                         06840000
+         ( NAME(DSNA.DSNDBC.DSNDB06.DSNKDX01.I0001.A001) -              06850000
+           LINEAR                             -                         06860000
+           REUSE                              -                         06870000
+           VOLUMES(A3D2C0)                    -                         06880000
+           CYL(12 2)                        -                           06910000
+           SHAREOPTIONS(3 3) )                -                         06920000
+      DATA                                    -                         06930000
+         ( NAME(DSNA.DSNDBD.DSNDB06.DSNKDX01.I0001.A001) -              06940000
+                              )               -                         06970000
+      CATALOG(DSNA)                                                     06980000
+   DEFINE CLUSTER                             -                         06840000
+         ( NAME(DSNA.DSNDBC.DSNDB06.DSNKSX01.I0001.A001) -              06850000
+           LINEAR                             -                         06860000
+           REUSE                              -                         06870000
+           VOLUMES(A3D2C0)                    -                         06880000
+           CYL(16 2)                        -                           06910000
+           SHAREOPTIONS(3 3) )                -                         06920000
+      DATA                                    -                         06930000
+         ( NAME(DSNA.DSNDBD.DSNDB06.DSNKSX01.I0001.A001) -              06940000
+                              )               -                         06970000
+      CATALOG(DSNA)                                                     06980000
+   DEFINE CLUSTER                             -                         06840000
+         ( NAME(DSNA.DSNDBC.DSNDB01.SYSUTILX.I0001.A001) -              06850000
+           LINEAR                             -                         06860000
+           REUSE                              -                         06870000
+           VOLUMES(A3D2B0)                    -                         06880000
+           TRACKS(25 5)                     -                           06910000
+           SHAREOPTIONS(3 3) )                -                         06920000
+      DATA                                    -                         06930000
+         ( NAME(DSNA.DSNDBD.DSNDB01.SYSUTILX.I0001.A001) -              06940000
+                              )               -                         06970000
+      CATALOG(DSNA)                                                     06980000
+   DEFINE CLUSTER                             -                         06840000
+         ( NAME(DSNA.DSNDBC.DSNDB01.DSNSPT02.I0001.A001) -              06850000
+           LINEAR                             -                         06860000
+           REUSE                              -                         06870000
+           VOLUMES(A3D2Z0)                    -                         06880000
+           CYLINDERS(10 1)                  -                           06910000
+           SHAREOPTIONS(3 3) )                -                         06920000
+      DATA                                    -                         06930000
+         ( NAME(DSNA.DSNDBD.DSNDB01.DSNSPT02.I0001.A001) -              06940000
+                              )               -                         06970000
+      CATALOG(DSNA)                                                     06980000
+   DEFINE CLUSTER                             -                         06840000
+         ( NAME(DSNA.DSNDBC.DSNDB01.SPT01.I0001.A001) -                 06850000
+           LINEAR                             -                         06860000
+           REUSE                              -                         06870000
+           VOLUMES(A3D2B0)                    -                         06880000
+           CYLINDERS(120 10)                -                           06910000
+           SHAREOPTIONS(3 3) )                -                         06920000
+      DATA                                    -                         06930000
+         ( NAME(DSNA.DSNDBD.DSNDB01.SPT01.I0001.A001) -                 06940000
+                              )               -                         06970000
+      CATALOG(DSNA)                                                     06980000
+/*                                                                      08290000
+//*                                                                     08290000

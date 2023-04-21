@@ -1,0 +1,12 @@
+//UXD021M    JOB ,'DB2 RM 102',CLASS=X,MSGCLASS=X
+//STEP1  EXEC PGM=DSN1LOGP                                              00000200
+//STEPLIB DD DSN=SSXDP.DSNDBRG.DB2R.SDSNLOAD,UNIT=SYSDA,DISP=SHR        00000210
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSSUMRY DD SYSOUT=X
+//SYSABEND DD SYSOUT=*                                                  00000500
+//GROUP    DD  DSN=DB2R.DSNDBRG.BSDS01,DISP=SHR                         00000600
+//SYSIN   DD *
+  DBID(0115) OBID(010A) RID(04C4C7FA0E) DATAONLY(YES)
+  STARTLRSN(BD3479E97B72) ENDLRSN(BD48520D8C82)
+/*
+//                                                                      00001700

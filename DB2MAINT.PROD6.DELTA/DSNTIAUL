@@ -1,0 +1,74 @@
+//UNLOAD JOB (UNLFLT),'DB2R UNLOAD',                                    00000100
+//             CLASS=S,                                                 00000200
+//             MSGLEVEL=(1,1),                                          00000300
+//             MSGCLASS=X                                               00000400
+//********************************************************************  00000500
+//JOBLIB   DD  DSN=SSXDP.DB2R.SDSNEXIT,DISP=SHR                         00000600
+//         DD  DSN=SDB2R.SDSNLOAD,DISP=SHR                              00000700
+//         DD  DSN=SSXDP.DB2R.RUNLIB.LOAD,DISP=SHR                      00000800
+//********************************************************************  00000900
+//UNLOAD1 EXEC PGM=IKJEFT1A,DYNAMNBR=20                                 00001000
+//SYSTSPRT DD SYSOUT=*                                                  00001100
+//SYSPRINT DD SYSOUT=*                                                  00001200
+//SYSUDUMP DD SYSOUT=*                                                  00001300
+//SYSREC00 DD DSN=SSXDT.SYSREC.CNO3.DATA,DISP=(NEW,CATLG),              00001400
+//           UNIT=SYSDA,SPACE=(CYL,(100,100))                           00001500
+//SYSPUNCH DD DSN=SSXDT.SYSPUNCH.CNO3.CNTL,                             00001600
+//            DISP=(NEW,CATLG),                                         00001700
+//            SPACE=(CYL,(1,1),RLSE),                                   00001800
+//            UNIT=SYSDA                                                00001900
+//SYSTSIN  DD *                                                         00002000
+  DSN SYSTEM(DB2R)                                                      00002100
+  RUN PROGRAM(DSNTIAUL) PLAN(DSNTIAUL)  PARM('SQL') -                   00002200
+      LIB('SSXDP.DB2R.RUNLIB.LOAD')                                     00002300
+//SYSIN    DD *                                                         00002400
+SELECT WORK.TKT_DOC_NB, WORK.TKT_DOC_ISS_LDT,                           00002500
+WORK.TKT_DOC_SQ_NB, WORK.TKDC_STRRPG_SQ_NB, WORK.TKCP_TRAC_TYP_CD,      00002600
+WORK.TKDC_AUTO_RPRC_CD, WORK.TKT_DOC_EXCG_IND, WORK.TKDC_TCTN_TYP_CD,   00002700
+WORK.TOT_CNJN_TKT_CT, WORK.ACN_NB, TKT.STATL_DOM_INTL_ID,               00002800
+WORK.TKDC_RPTNS_TYP_CD, TKT.DSTCH_RPTG_SYS_NB,                          00002900
+TKT.TKTG_CRR_NB, TKT.PAX_FULL_NM, WORK.POS_CTRY_CD,                     00003000
+RLOCR.BKG_REC_LOCR_TXT, TKT.RCVD_TKT_OD_TXT,                            00004000
+TKT.TDISSC_SYS_TYP_CD,                                                  00005000
+TKT.TOUR_CD_TXT, TKT.BS_FARE_TXT, TKT.EQVT_FARE_PD_TXT,                 00006000
+TKT.TKDC_TOT_AMT_TXT, TKT.CRR_CLNT_ID, POS.TKDC_ISSG_AGT_ID,            00007000
+TKT.PAX_INFO_TXT, POS.POS_ID, TKT.TKDC_TOT_STD_AMT,                     00008000
+TKT.FRCN_MODE_TYP_CD, PMT.DBT_CCRD_ACCT_NB,                             00009000
+PMT.TKDC_PMT_STD_AMT, PMT.CRD_CARD_APVL_ID,                             00009100
+PMT.CCRD_EPPD_TXT, PMT.FOP_TYP_CD, PMT.DBT_CCRD_TYP_CD,                 00009200
+PMT.DBT_CCRD_NUM_ID, PMT.DCCRD_EXP_LDT_TXT, PMT.CCRD_CFRF_TXT,          00009300
+PMT.CCRD_APVL_SRC_CD, PMT.CCRD_AUTH_STD_AMT,                            00009400
+TKT.TKDC_TOT_CURR_CD, TKT.TKT_DOC_TOT_AMT,                              00009500
+TKT.BS_FARE_CURR_CD, TKT.EQVT_FPD_CURR_CD                               00009600
+FROM (SELECT TKT_DOC_NB, TKT_DOC_ISS_LDT, TKT_DOC_SQ_NB,                00009700
+TKDC_STRRPG_SQ_NB, TKCP_TRAC_TYP_CD, TKDC_AUTO_RPRC_CD,                 00009800
+TKT_DOC_EXCG_IND, TKDC_TCTN_TYP_CD,                                     00009900
+TOT_CNJN_TKT_CT, ACN_NB, TKDC_RPTNS_TYP_CD, POS_CTRY_CD FROM            00010000
+EBKDP03.MT_TKDC_SLTRN_RPTG WHERE                                        00011000
+TDSTRNS_CRTN_LDT BETWEEN  '2006-07-25'  and '2006-07-25'                00012000
+AND TKCP_TRAC_TYP_CD IN ('S','X')) WORK                                 00013000
+JOIN                                                                    00014000
+EBKDP03.MT_TKT_DOC TKT                                                  00015000
+ON WORK.TKT_DOC_NB = TKT.TKT_DOC_NB                                     00016000
+AND WORK.TKT_DOC_ISS_LDT = TKT.TKT_DOC_ISS_LDT                          00017000
+AND WORK.TKT_DOC_SQ_NB = TKT.TKT_DOC_SQ_NB                              00018000
+LEFT JOIN                                                               00019000
+EBKDP03.MT_TKDC_BKG_RLOCR RLOCR                                         00019100
+ON WORK.TKT_DOC_NB = RLOCR.TKT_DOC_NB                                   00019200
+AND WORK.TKT_DOC_ISS_LDT = RLOCR.TKT_DOC_ISS_LDT                        00019300
+AND WORK.TKT_DOC_SQ_NB = RLOCR.TKT_DOC_SQ_NB                            00019400
+LEFT JOIN                                                               00019500
+EBKDP03.MT_TKT_DOC_POS_SRC POS                                          00019600
+ON WORK.TKT_DOC_NB = POS.TKT_DOC_NB                                     00019700
+AND WORK.TKT_DOC_ISS_LDT = POS.TKT_DOC_ISS_LDT                          00019800
+AND WORK.TKT_DOC_SQ_NB = POS.TKT_DOC_SQ_NB                              00019900
+AND POS.POS_ROLE_CD = 'B'                                               00020000
+LEFT JOIN                                                               00021000
+EBKDP03.MT_TKT_DOC_PMT PMT                                              00022000
+ON WORK.TKT_DOC_NB = PMT.TKT_DOC_NB                                     00023000
+AND WORK.TKT_DOC_ISS_LDT = PMT.TKT_DOC_ISS_LDT                          00024000
+AND WORK.TKT_DOC_SQ_NB = PMT.TKT_DOC_SQ_NB                              00025000
+AND PMT.FOP_TYP_CD='CC'                                                 00026000
+FOR READ ONLY WITH UR;                                                  00027000
+                                                                        00028000
+//********************************************************************  00029000

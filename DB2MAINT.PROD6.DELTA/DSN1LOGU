@@ -1,0 +1,14 @@
+//UXD104M JOB ,'CJR RM 105',CLASS=S,MSGCLASS=X                          00000100
+//STEP1  EXEC PGM=DSN1LOGP                                              00000200
+//STEPLIB DD DSN=SSXDT.DB2U.SDSNEXIT,UNIT=SYSDA,DISP=SHR                00000210
+//        DD DSN=SDB2U.SDSNLOAD,UNIT=SYSDA,DISP=SHR                     00000210
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSSUMRY DD SYSOUT=X
+//SYSABEND DD SYSOUT=*                                                  00000500
+//*       DD  DSN=SSXDT.EBKD2D30.TSKD0035.COPY.G0007V00
+//BSDS    DD  DSN=DB2U.DSNDBUG.BSDS01,DISP=SHR                          00000600
+//SYSIN   DD *
+  RBASTART (04C4332D3A53) RBAEND(04C4375E4F08)
+  DBID (0043) OBID (0044) DATAONLY(YES) SUMMARY(YES) SUBTYPE(12)
+/*
+//                                                                      00001700

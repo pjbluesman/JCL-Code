@@ -1,0 +1,40 @@
+//DUM3TOLR JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID,    00010008
+//   USER=SYSPRO                                                        00020004
+//********************************************************************* 00021000
+//*                                                                   * 00022000
+//* CLEANUP PREVIOUS BACKUP DATASET                                   * 00023000
+//*                                                                   * 00024000
+//********************************************************************* 00025000
+//CLEANUP  EXEC PGM=IEFBR14                                             00026000
+//DUMPOUT  DD  DISP=(MOD,DELETE,DELETE),                                00027000
+//             DSN=SSXDT.DB2TOOLS.C30290.D110811.BACKUPR,               00028007
+//             UNIT=SYSDA,SPACE=(TRK,0)                                 00029000
+//********************************************************************* 00029100
+//*                                                                   * 00029200
+//* DUMP DB2TOOLS - DB2 PERFORMANCE TOOK KIT AND DB2 AUTOMATION TOOL  * 00029300
+//*                                                                   * 00029400
+//********************************************************************* 00029500
+//DUMP     EXEC PGM=ADRDSSU,COND=(4,LT)                                 00029600
+//OUTPUT   DD  DISP=(NEW,CATLG,DELETE),                                 00029700
+//             DSN=SSXDT.DB2TOOLS.C30290.D110811.BACKUPR,               00029807
+//*            UNIT=SYSDA,SPACE=(CYL,(150,50),RLSE)                     00029909
+//             UNIT=CART,VOL=(,,,10),LABEL=(1,SL),RETPD=180             00030009
+//SYSPRINT DD  SYSOUT=*                                                 00040000
+//SYSIN    DD  *                                                        00050000
+  DUMP OUTDD(OUTPUT) -                                                  00060000
+       COMPRESS      -                                                  00070000
+       OPTIMIZE(4)   -                                                  00080000
+       TOLERATE(ENQFAILURE) -                                           00090000
+       DATASET(INCLUDE( -                                               00100000
+                       SYS2.DB2V7.**  -                                 00110002
+                       ) -                                              00150000
+              )                                                         00160000
+//                                                                      00161010
+//                                                                      00163010
+       DATASET(INCLUDE( -                                               00210010
+                       SYS2.DB2V7.**  -                                 00220010
+                       ) -                                              00230010
+               EXCLUDE( -                                               00240010
+                       SYS2.DB2V7.FPE210.**  -                          00250010
+                       ) -                                              00260010
+              )                                                         00270010

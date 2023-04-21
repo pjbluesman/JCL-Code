@@ -1,0 +1,517 @@
+//********************************************************************* 00010000
+//*  NAME = DSNTIJP9                                                    00020000
+//*                                                                     00030000
+//*  DESCRIPTIVE NAME = DB2 INSTALL JOB                                 00040000
+//*                                                                     00050000
+//*    Licensed Materials - Property of IBM                             00060000
+//*    5625-DB2                                                         00070000
+//*    (C) COPYRIGHT 1982, 2006 IBM Corp.  All Rights Reserved.         00080000
+//*                                                                     00090000
+//*    STATUS = Version 8                                               00100000
+//*                                                                     00110000
+//*  FUNCTION = RUN THIS JOB ON DB2 VERSION 8 PRIOR                     00120000
+//*             TO MIGRATION TO DB2 VERSION 9.  IT QUERIES THE DB2      00130000
+//*             CATALOG TO IDENTIFY CONDITIONS THAT WILL NEED TO BE     00140000
+//*             REMEDIED BEFORE YOU ATTEMPT TO MIGRATE TO DB2 VERSION   00150000
+//*             9 OR THAT NEED TO BE ATTENDED TO AFTER YOU HAVE         00160000
+//*             MIGRATED TO DB2 VERSION 9.                              00170000
+//*                                                                     00180000
+//*             THIS JOB GENERATES REPORTS THAT IDENTIFY CONDITIONS     00190000
+//*             ON DB2 VERSION 8 THAT NEED TO BE REMEDIED BEFORE YOU    00200000
+//*             COMMENCE MIGRATION TO VERSION 9, OR THAT NEED TO BE     00210000
+//*             ATTENDED TO AFTER YOU HAVE MIGRATED TO DB2 VERSION 9.   00220000
+//*                                                                     00230000
+//*  PSEUDOCODE =                                                       00240000
+//*    DELETE   STEP     REMOVE DATA SETS CREATED BY PREVIOUS RUNS      00250000
+//*    UNLOAD   STEP     CALL DSNTIAUL TO PROCESS SQL STATEMENTS        00260000
+//*    REPORTxx STEP     GENERATE REPORTS                               00270000
+//*                                                                     00280000
+//*     NOTES = THE JCL SHOULD USE THE DSNTIAUL MODULE AND PLAN PRE-    00290000
+//*             PARED FOR THE DB2 ENVIRONMENT YOU ARE MIGRATING FROM.   00300000
+//*                                                                     00310000
+//*             THE FOLLOWING MANUAL TAILORING IS REQUIRED:             00320000
+//*             1. ADD A VALID JOB CARD.                                00330000
+//*             2. LOCATE AND CHANGE ALL OCCURRENCES OF THE FOLLOWING   00340000
+//*                STRINGS AS INDICATED:                                00350000
+//*                A. '!DSN! TO THE NAME OF THE DB2 SUBSYSTEM YOU ARE   00360000
+//*                   PREPARING TO MIGRATE.                             00370000
+//*                B. 'DSN!!0' TO THE PREFIX OF THE SDSNLOAD TARGET     00380000
+//*                   LIBRARY NAME FOR THE DB2 SUBSYSTEM YOU ARE        00390000
+//*                   PREPARING TO MIGRATE.                             00400000
+//*                C. 'DSNTIB!! TO THE PLAN NAME FOR DSNTIAUL ON THE    00410000
+//*                   DB2 SUBSYSTEM YOU ARE PREPARING TO MIGRATE.       00420000
+//*                                                                     00430000
+//* CHANGE ACTIVITY =                                                   00440000
+//**********************************************************************00450000
+//*                                                                     00460000
+//JOBLIB  DD  DSN=DSN!!0.SDSNLOAD,DISP=SHR                              00470000
+//*                                                                     00480000
+//*        DELETE DATA SETS FROM ANY PREVIOUS RUN                       00490000
+//*                                                                     00500000
+//DELETE  EXEC PGM=IEFBR14                                              00510000
+//SYSREC00 DD DSN=DSN!!0.DSNTIJP9.SYSREC00,                             00520000
+//            DISP=(MOD,DELETE),                                        00530000
+//            UNIT=SYSDA,SPACE=(TRK,0)                                  00540000
+//SYSREC01 DD DSN=DSN!!0.DSNTIJP9.SYSREC01,                             00550000
+//            DISP=(MOD,DELETE),                                        00560000
+//            UNIT=SYSDA,SPACE=(TRK,0)                                  00570000
+//SYSREC02 DD DSN=DSN!!0.DSNTIJP9.SYSREC02,                             00580000
+//            DISP=(MOD,DELETE),                                        00590000
+//            UNIT=SYSDA,SPACE=(TRK,0)                                  00600000
+//SYSREC03 DD DSN=DSN!!0.DSNTIJP9.SYSREC03,                             00610000
+//            DISP=(MOD,DELETE),                                        00620000
+//            UNIT=SYSDA,SPACE=(TRK,0)                                  00630000
+//SYSREC04 DD DSN=DSN!!0.DSNTIJP9.SYSREC04,                             00640000
+//            DISP=(MOD,DELETE),                                        00650000
+//            UNIT=SYSDA,SPACE=(TRK,0)                                  00660000
+//SYSREC05 DD DSN=DSN!!0.DSNTIJP9.SYSREC05,                             00670000
+//            DISP=(MOD,DELETE),                                        00680000
+//            UNIT=SYSDA,SPACE=(TRK,0)                                  00690000
+//SYSREC06 DD DSN=DSN!!0.DSNTIJP9.SYSREC06,                             00691000
+//            DISP=(MOD,DELETE),                                        00692000
+//            UNIT=SYSDA,SPACE=(TRK,0)                                  00693000
+//SYSREC07 DD DSN=DSN!!0.DSNTIJP9.SYSREC07,                             00694000
+//            DISP=(MOD,DELETE),                                        00695000
+//            UNIT=SYSDA,SPACE=(TRK,0)                                  00696000
+//*                                                                     00697000
+//*        RUN PREMIGRATION QUERIES                                     00698000
+//*                                                                     00699000
+//UNLOAD  EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(0,NE)                     00700000
+//SYSTSPRT DD  SYSOUT=*                                                 00710000
+//SYSTSIN  DD  *                                                        00720000
+ DSN SYSTEM(!DSN!)                                                      00730000
+ RUN  PROGRAM(DSNTIAUL) PLAN(DSNTIB!!) PARMS('SQL') -                   00740000
+      LIB('DSN!!0.RUNLIB.LOAD')                                         00750000
+//SYSPRINT DD SYSOUT=*                                                  00760000
+//SYSUDUMP DD SYSOUT=*                                                  00770000
+//SYSPUNCH DD DUMMY                                                     00780000
+//SYSREC00 DD DSN=DSN!!0.DSNTIJP9.SYSREC00,                             00790000
+//            DISP=(,CATLG),                                            00800000
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),                     00810000
+//            DCB=(RECFM=FB,LRECL=80)                                   00820000
+//SYSREC01 DD DSN=DSN!!0.DSNTIJP9.SYSREC01,                             00830000
+//            DISP=(,CATLG),                                            00840000
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),                     00850000
+//            DCB=(RECFM=FB,LRECL=80)                                   00860000
+//SYSREC02 DD DSN=DSN!!0.DSNTIJP9.SYSREC02,                             00870000
+//            DISP=(,CATLG),                                            00880000
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),                     00890000
+//            DCB=(RECFM=FB,LRECL=80)                                   00900000
+//SYSREC03 DD DSN=DSN!!0.DSNTIJP9.SYSREC03,                             00910000
+//            DISP=(,CATLG),                                            00920000
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),                     00930000
+//            DCB=(RECFM=FB,LRECL=80)                                   00940000
+//SYSREC04 DD DSN=DSN!!0.DSNTIJP9.SYSREC04,                             00950000
+//            DISP=(,CATLG),                                            00960000
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),                     00970000
+//            DCB=(RECFM=FB,LRECL=80)                                   00980000
+//SYSREC05 DD DSN=DSN!!0.DSNTIJP9.SYSREC05,                             00990000
+//            DISP=(,CATLG),                                            01000000
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),                     01010000
+//            DCB=(RECFM=FB,LRECL=80)                                   01020000
+//SYSREC06 DD DSN=DSN!!0.DSNTIJP9.SYSREC06,                             01030000
+//            DISP=(,CATLG),                                            01040000
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),                     01050000
+//            DCB=(RECFM=FB,LRECL=80)                                   01051000
+//SYSREC07 DD DSN=DSN!!0.DSNTIJP9.SYSREC07,                             01052000
+//            DISP=(,CATLG),                                            01053000
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),                     01054000
+//            DCB=(RECFM=FB,LRECL=80)                                   01055000
+//SYSIN    DD *                                                         01056000
+    SELECT CURRENT TIMESTAMP                                            01057000
+      FROM SYSIBM.SYSDUMMY1;                                            01058000
+                                                                        01059000
+  SELECT CHAR( '"' || SUBSTR(NAME, 1, 8) || '"' )                       01060000
+    FROM SYSIBM.SYSDATABASE                                             01070000
+   WHERE NAME = 'DSN8D81A';                                             01080000
+                                                                        01090000
+  SELECT CHAR( '"' || RTRIM(SUBSTR(A.NAME, 1, 18))   || '"' )           01100000
+        ,CHAR( '"' || RTRIM(SUBSTR(A.TBNAME, 1, 18)) || '"' )           01110000
+        ,CHAR( '"' || RTRIM(B.TSNAME) || '"' )                          01120000
+    FROM SYSIBM.SYSINDEXES   A,                                         01121000
+         SYSIBM.SYSTABLES    B,                                         01122000
+         SYSIBM.SYSINDEXPART C                                          01123000
+   WHERE A.TBNAME    = B.NAME                                           01124000
+     AND A.TBCREATOR = B.CREATOR                                        01125000
+     AND A.NAME      = C.IXNAME                                         01125100
+     AND A.CREATOR   = C.IXCREATOR                                      01125200
+     AND B.DBNAME    = 'DSNDB06'                                        01125300
+     AND B.CREATEDBY = 'SYSIBM'                                         01125400
+     AND A.IBMREQD  <> 'Y'                                              01125500
+     AND C.STORTYPE  = 'E'                                              01125600
+     AND B.TSNAME IN( 'SYSOBJ'  , 'SYSPKAGE' )                          01125700
+  ORDER BY B.TSNAME, A.TBNAME, A.NAME;                                  01125800
+                                                                        01125900
+  SELECT CHAR( '"' || RTRIM(SUBSTR(A.NAME, 1, 18))   || '"' )           01126000
+        ,CHAR( '"' || RTRIM(SUBSTR(A.TBNAME, 1, 18)) || '"' )           01127000
+        ,CHAR( '"' || RTRIM(B.TSNAME) || '"' )                          01128000
+    FROM SYSIBM.SYSINDEXES   A,                                         01129000
+         SYSIBM.SYSTABLES    B,                                         01130000
+         SYSIBM.SYSINDEXPART C                                          01140000
+   WHERE A.TBNAME    = B.NAME                                           01150000
+     AND A.TBCREATOR = B.CREATOR                                        01160000
+     AND A.NAME      = C.IXNAME                                         01170000
+     AND A.CREATOR   = C.IXCREATOR                                      01180000
+     AND B.DBNAME    = 'DSNDB06'                                        01190000
+     AND B.CREATEDBY = 'SYSIBM'                                         01200000
+     AND A.IBMREQD  <> 'Y'                                              01210000
+     AND C.STORTYPE  = 'I'                                              01220000
+     AND B.TSNAME IN( 'SYSOBJ'  , 'SYSPKAGE' )                          01230000
+  ORDER BY B.TSNAME, A.TBNAME, A.NAME;                                  01240000
+                                                                        01250000
+    SELECT CHAR( '"' || RTRIM(SUBSTR(SCHEMA, 1, 8)) || '"' )            01260000
+          ,CHAR( '"' || RTRIM(SUBSTR(NAME, 1, 18))  || '"' )            01270000
+      FROM SYSIBM.SYSROUTINES                                           01280000
+     WHERE ROUTINETYPE = 'P'                                            01290000
+       AND WLM_ENVIRONMENT = ' '                                        01300000
+  ORDER BY SCHEMA, NAME;                                                01310000
+                                                                        01320000
+    SELECT CHAR( '"' || RTRIM(SUBSTR(NAME, 1, 8))  || '"' )             01330000
+          ,CHAR( '"' || RTRIM(SUBSTR(CREATOR, 1, 8)) || '"' )           01340000
+          ,BOUNDTS                                                      01350000
+          ,VALID                                                        01360000
+          ,OPERATIVE                                                    01370000
+      FROM SYSIBM.SYSPLAN                                               01380000
+     WHERE RELBOUND = ' '                                               01390000
+  ORDER BY BOUNDTS;                                                     01400000
+                                                                        01410000
+    SELECT SUBSTR(LOCATION, 1, 16)                                      01420000
+          ,CHAR( '"' || RTRIM(SUBSTR(COLLID, 1, 18)) || '"' )           01430000
+          ,CHAR( '"' || RTRIM(SUBSTR(NAME, 1, 8))  || '"' )             01440000
+          ,CHAR( '"' || RTRIM(SUBSTR(CREATOR, 1, 8)) || '"' )           01450000
+          ,SMALLINT(LENGTH(VERSION))                                    01460000
+          ,SUBSTR(VERSION                                               01470000
+               || '                             '                       01480000
+               || '                             '                       01490000
+                 , 1, 122)                                              01500000
+          ,BINDTIME                                                     01510000
+          ,VALID                                                        01520000
+          ,OPERATIVE                                                    01530000
+      FROM SYSIBM.SYSPACKAGE                                            01540000
+     WHERE RELBOUND = ' '                                               01550000
+  ORDER BY BINDTIME;                                                    01560000
+                                                                        01570000
+    SELECT CHAR( '"' || RTRIM(SUBSTR(SCHEMA, 1, 8)) || '"' )            01571000
+          ,CHAR( '"' || RTRIM(SUBSTR(NAME, 1, 18)) || '"' )             01572000
+     FROM SYSIBM.SYSROUTINES                                            01573000
+    WHERE EXTERNAL_NAME = 'DSNWZPR'                                     01574000
+ ORDER BY SCHEMA, NAME;                                                 01575000
+/*                                                                      01576000
+//*                                                                     01577000
+//********************************************************************* 01578000
+//*        Report existence of the V8 sample database                   01579000
+//********************************************************************* 01580000
+//REPORT01 EXEC PGM=IEBGENER,COND=(4,LT)                                01590000
+//SYSUT1   DD  DDNAME=RPRTHDR                                           01600000
+//         DD  DSN=DSN!!0.DSNTIJP9.SYSREC01,DISP=SHR                    01610000
+//RPRTHDR  DD  *                                                        01620000
+========================================================================01630000
+== THE FOLLOWING LISTS THE DB2 V8 SAMPLE DATABASE, DSN8D81A.  THIS    ==01640000
+== DATABASE IS NEEDED FOR VERIFY MIGRATION TO DB2 V9 COMPATIBILITY    ==01650000
+== MODE.  IF DSN8D81A IS NOT LISTED BELOW, YOU ARE RECOMMENDED TO     ==01660000
+== RECREATE IT BEFORE COMMENCING MIGRATION TO DB2 V9.  RUN V8 IVP     ==01670000
+== JOB DSNTEJ1 TO RECREATE IT.  YOU SHOULD ALSO RUN ONE OR MORE       ==01680000
+== OF THE PHASE 2 AND PHASE 3 IVP JOBS IN V8.  SEE THE DB2 V8         ==01690000
+== INSTALLATION GUIDE, THE CHAPTER ON VERIFIYING WITH SAMPLE APPLI-   ==01700000
+== CATIONS FOR MORE INFORMATION.                                      ==01710000
+========================================================================01720000
+NAME                                                                    01730000
+----------                                                              01740000
+/*                                                                      01750000
+//SYSUT2   DD  SYSOUT=*,                                                01760000
+//             DCB=(RECFM=FB,LRECL=80)                                  01770000
+//SYSPRINT DD  DUMMY                                                    01780000
+//SYSIN    DD  *                                                        01790000
+ GENERATE  MAXFLDS=10,MAXGPS=2,MAXLITS=150                              01800000
+G1 RECORD  IDENT=(8,'--------',1),                                      01810000
+           FIELD=(1,' ',,1),                                            01820000
+           FIELD=(72,1,,2),                                             01830000
+           FIELD=(7,'       ',,74)                                      01840000
+G2 RECORD  FIELD=(1,' ',,1),                             01-01          01850000
+           FIELD=(10,1,,2),                              02-11          01860000
+           FIELD=(25,'                         ',,12),   12-36          01870000
+           FIELD=(25,'                         ',,37),   37-61          01880000
+           FIELD=(19,'                   ',,62)          62-80          01890000
+/*                                                                      01900000
+//*                                                                     01910000
+//********************************************************************* 01920000
+//*        Report user-defined indexes on the DB2 catalog that reside   01930000
+//*        on user-managed storage                                      01940000
+//********************************************************************* 01950000
+//REPORT02 EXEC PGM=IEBGENER,COND=(4,LT)                                01960000
+//SYSUT1   DD  DDNAME=RPRTHDR                                           01970000
+//         DD  DSN=DSN!!0.DSNTIJP9.SYSREC02,DISP=SHR                    01980000
+//RPRTHDR  DD  *                                                        01990000
+========================================================================02000000
+== THE INDEXES LISTED BELOW ARE USER-DEFINED INDEXES ON DB2 CATALOG   ==02010000
+== TABLES IN TABLE SPACES THAT WILL BE CONVERTED DURING ENABLING-NEW- ==02020000
+== FUNCTION MODE (ENFM) AFTER YOU HAVE COMPLETED YOUR MIGRATION TO    ==02030000
+== VERSION 9. BECAUSE THESE INDEXES RESIDE ON USER-MANAGED STORAGE,   ==02040000
+== YOU NEED TO MODIFY THE ENFM CATALOG CONVERSION JOB, DSNTIJEN, TO   ==02050000
+== DEFINE SHADOW DATA SETS FOR THEM FOR USE BY DB2 ONLINE REORG.  USE ==02060000
+== THE JOB STEP DESCRIPTIONS IN THE PROLOG OF DSNTIJEN TO DETERMINE   ==02070000
+== THE APPROPRIATE PLACEMENT OF THE AMS DELETE AND DEFINE STATEMENTS  ==02080000
+== EACH SHADOW DATA SET YOU NEED TO ADD.                              ==02090000
+========================================================================02100000
+USER INDEX NAME      CATALOG TABLE NAME   CATALOG TABLE SPACE NAME      02110000
+-------------------- -------------------- ------------------------      02120000
+/*                                                                      02130000
+//SYSUT2   DD  SYSOUT=*,                                                02140000
+//             DCB=(RECFM=FB,LRECL=80)                                  02150000
+//SYSPRINT DD  DUMMY                                                    02160000
+//SYSIN    DD  *                                                        02170000
+ GENERATE  MAXFLDS=11,MAXGPS=2,MAXLITS=150                              02180000
+G1 RECORD  IDENT=(8,'--------',1),                                      02190000
+           FIELD=(1,' ',,1),                                            02200000
+           FIELD=(72,1,,2),                                             02210000
+           FIELD=(7,'       ',,74)                                      02220000
+G2 RECORD  FIELD=(1,' ',,1),                             01-01          02230000
+           FIELD=(20,1,,2),                              02-21          02240000
+           FIELD=(1,' ',,22),                            22-22          02250000
+           FIELD=(20,21,,23),                            23-42          02260000
+           FIELD=(1,' ',,43),                            43-43          02270000
+           FIELD=(10,41,,44),                            44-53          02280000
+           FIELD=(27,'                           ',,54)  54-80          02290000
+/*                                                                      02300000
+//********************************************************************* 02310000
+//*        Report user-defined indexes on the DB2 catalog that reside   02320000
+//*        on DB2-managed storage                                       02330000
+//********************************************************************* 02340000
+//REPORT03 EXEC PGM=IEBGENER,COND=(4,LT)                                02350000
+//SYSUT1   DD  DDNAME=RPRTHDR                                           02360000
+//         DD  DSN=DSN!!0.DSNTIJP9.SYSREC03,DISP=SHR                    02370000
+//RPRTHDR  DD  *                                                        02380000
+========================================================================02390000
+== THE INDEXES LISTED BELOW ARE USER-DEFINED INDEXES ON DB2 CATALOG   ==02400000
+== TABLES IN TABLE SPACES THAT WILL BE CONVERTED DURING ENABLING-NEW- ==02410000
+== FUNCTION MODE (ENFM) AFTER YOU HAVE COMPLETED YOUR MIGRATION TO    ==02411000
+== VERSION 9.  THESE INDEXES RESIDE ON DB2-MANAGED STORAGE SO SHADOW  ==02411100
+== DATA SETS FOR THEM WILL BE DEFINED AUTOMATICALLY DURING DB2 ONLINE ==02411200
+== REORG PROCESSING BY THE ENFM CATALOG CONVERSION JOB, DSNTIJEN.     ==02411300
+== HOWEVER, BEFORE RUNNING DSNTIJEN, YOU SHOULD REVIEW THE CURRENT    ==02411400
+== SPACE ALLOCATIONS FOR THE DATA SETS FOR THESE INDEXES AND INCREASE ==02411500
+== THE SPACE FOR ANY THAT ARE APPROACHING CAPACITY TO ACCOMODATE      ==02411600
+== EXPANSION DURING CATALOG CONVERSION.                               ==02411700
+========================================================================02411800
+USER INDEX NAME      CATALOG TABLE NAME   CATALOG TABLE SPACE NAME      02411900
+-------------------- -------------------- ------------------------      02412000
+/*                                                                      02413000
+//SYSUT2   DD  SYSOUT=*,                                                02413100
+//             DCB=(RECFM=FB,LRECL=80)                                  02413200
+//SYSPRINT DD  DUMMY                                                    02413300
+//SYSIN    DD  *                                                        02413400
+ GENERATE  MAXFLDS=11,MAXGPS=2,MAXLITS=150                              02413500
+G1 RECORD  IDENT=(8,'--------',1),                                      02413600
+           FIELD=(1,' ',,1),                                            02413700
+           FIELD=(72,1,,2),                                             02413800
+           FIELD=(7,'       ',,74)                                      02413900
+G2 RECORD  FIELD=(1,' ',,1),                             01-01          02414000
+           FIELD=(20,1,,2),                              02-21          02415000
+           FIELD=(1,' ',,22),                            22-22          02415100
+           FIELD=(20,21,,23),                            23-42          02415200
+           FIELD=(1,' ',,43),                            43-43          02415300
+           FIELD=(10,41,,44),                            44-53          02415400
+           FIELD=(27,'                           ',,54)  54-80          02415500
+/*                                                                      02415600
+//*                                                                     02415700
+//********************************************************************* 02415800
+//*        Report stored procedures that use the DB2 SPAS               02415900
+//********************************************************************* 02416000
+//REPORT04 EXEC PGM=IEBGENER,COND=(4,LT)                                02417000
+//SYSUT1   DD  DDNAME=RPRTHDR                                           02417100
+//         DD  DSN=DSN!!0.DSNTIJP9.SYSREC04,DISP=SHR                    02417200
+//RPRTHDR  DD  *                                                        02417300
+========================================================================02417400
+== THE FOLLOWING STORED PROCEDURES RUN IN THE DB2 STORED PROCEDURES   ==02417500
+== ADDRESS SPACE (DB2 SPAS), WHICH WAS DEPRECATED IN DB2 V8 AND HAS   ==02417600
+== BEEN ELIMINATED IN DB2 V9.  BEFORE MIGRATION TO DB2 V9, REVIEW     ==02417700
+== THE PROCEDURES LISTED BELOW, DROP ANY THAT ARE OBSOLETE, AND CON-  ==02417800
+== VERT ALL THAT ARE STILL REQUIRED TO RUN IN A WLM-ESTABLISHED       ==02417900
+== ADDRESS SPACE FOR STORED PROCEDURES.                               ==02418000
+========================================================================02419000
+SCHEMA     NAME                                                         02420000
+---------- --------------------                                         02430000
+/*                                                                      02440000
+//SYSUT2   DD  SYSOUT=*,                                                02450000
+//             DCB=(RECFM=FB,LRECL=80)                                  02460000
+//SYSPRINT DD  DUMMY                                                    02470000
+//SYSIN    DD  *                                                        02480000
+ GENERATE  MAXFLDS=9,MAXGPS=2,MAXLITS=62                                02490000
+G1 RECORD  IDENT=(8,'--------',1),                                      02500000
+           FIELD=(1,' ',,1),                                            02510000
+           FIELD=(72,1,,2),                                             02520000
+           FIELD=(7,'       ',,74)                                      02530000
+G2 RECORD  FIELD=(1,' ',,1),                             01-01 CC       02540000
+           FIELD=(10,1,,2),                              02-11 schema   02550000
+           FIELD=(1,' ',,1),                             12-12 blank    02560000
+           FIELD=(20,11,,13),                            13-32 name     02570000
+           FIELD=(25,'                         ',,33),   33-57          02580000
+           FIELD=(23,'                       ',,58)      58-80          02590000
+/*                                                                      02600000
+//*                                                                     02610000
+//********************************************************************* 02620000
+//*        Report plans that are autobind candidates in V9              02630000
+//********************************************************************* 02640000
+//REPORT05 EXEC PGM=IEBGENER,COND=(4,LT)                                02650000
+//SYSUT1   DD  DDNAME=RPRTHDR                                           02660000
+//         DD  DSN=DSN!!0.DSNTIJP9.SYSREC05,DISP=SHR                    02670000
+//RPRTHDR  DD  *                                                        02680000
+========================================================================02690000
+==== THE FOLLOWING REPORT IS RELEVANT ONLY FOR DB2 SUBSYSTEMS THAT  ====02700000
+====         ORIGINATED PRIOR TO DB2 FOR MVS/ESA VERSION 4          ====02710000
+========================================================================02720000
+== FOLLOWING IS A LIST OF PLANS THAT WERE BOUND PRIOR TO DB2 VERSION  ==02730000
+== 7.  THOSE HAVING A BOUNDTS VALUE PRIOR TO THE DATE THIS DB2 WAS    ==02740000
+== MIGRATED TO V4 MUST BE REBOUND IN ORDER TO RUN ON DB2 V9.  DB2 V9  ==02750000
+== WILL AUTOMATICALLY REBIND SUCH A PLAN THE FIRST TIME IT IS USED    ==02760000
+== IF THE ABIND SUBSYSTEM PARAMETER IS SET TO 'YES' OR 'COEXIST'.     ==02770000
+== IF ABIND IS SET TO 'NO', DB2 V9 WILL RETURN SQLCODE -908, SQLSTATE ==02780000
+== 23510 FOR ALL ATTEMPTS TO USE SUCH A PLAN UNTIL IT IS REBOUND.     ==02790000
+== NOTE THAT PLANS THAT HAVE A BOUNDTS AFTER THE DATE THAT THIS DB2   ==02800000
+== WAS MIGRATED TO V4 DO NOT NEED TO BE REBOUND FOR USE ON V9.        ==02810000
+========================================================================02820000
+NAME       CREATOR    BOUNDTS                    VALID OPERATIVE        02830000
+---------- ---------- -------------------------- ----- ---------        02840000
+/*                                                                      02850000
+//SYSUT2   DD  SYSOUT=*,                                                02860000
+//             DCB=(RECFM=FB,LRECL=80)                                  02870000
+//SYSPRINT DD  DUMMY                                                    02880000
+//SYSIN    DD  *                                                        02890000
+ GENERATE  MAXFLDS=15,MAXGPS=2,MAXLITS=62                               02900000
+G1 RECORD  IDENT=(8,'--------',1),                                      02910000
+           FIELD=(1,' ',,1),                             01-01 CC       02920000
+           FIELD=(72,1,,2),                              02-73 take     02930000
+           FIELD=(7,'       ',,74)                       74-80 blank    02940000
+G2 RECORD  FIELD=(1,' ',,1),                             01-01 CC       02950000
+           FIELD=(10,1,,2),                              02-11 NAME     02960000
+           FIELD=(1,' ',,12),                            12-12 blank    02970000
+           FIELD=(10,11,,13),                            13-22 CREATOR  02980000
+           FIELD=(1,' ',,23),                            23-23 blank    02990000
+           FIELD=(26,21,,24),                            24-49 BOUNDTS  03000000
+           FIELD=(1,' ',,50),                            50-50 blank    03010000
+           FIELD=(1,47,,51),                             51-51 VALIDTS  03020000
+           FIELD=(5,'     ',,52),                        52-56 blank    03030000
+           FIELD=(1,48,,57),                             57-57 OPERATIV 03040000
+           FIELD=(23,'                       ',,58)      58-80 blank    03050000
+/*                                                                      03060000
+//*                                                                     03070000
+//********************************************************************* 03080000
+//*        Report packages that are autobind candidates in V9           03090000
+//********************************************************************* 03100000
+//REPORT06 EXEC PGM=IEBGENER,COND=(4,LT)                                03110000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(TRK,0),DCB=(RECFM=FB,LRECL=208)        03120000
+//         DD  DDNAME=RPRTHDR                                           03130000
+//         DD  DSN=DSN!!0.DSNTIJP9.SYSREC06,DISP=SHR                    03140000
+//RPRTHDR  DD  *                                                        03150000
+========================================================================03160000
+==== THE FOLLOWING REPORT IS RELEVANT ONLY FOR DB2 SUBSYSTEMS THAT  ====03170000
+====         ORIGINATED PRIOR TO DB2 FOR MVS/ESA VERSION 4          ====03180000
+========================================================================03190000
+== FOLLOWING IS A LIST OF PACKAGES THAT WERE BOUND PRIOR TO DB2 VER-  ==03200000
+== SION 7.  THOSE HAVING A BINDTIME VALUE PRIOR TO THE DATE THIS DB2  ==03210000
+== WAS MIGRATED TO V4 MUST BE REBOUND IN ORDER TO RUN ON DB2 V9.  DB2 ==03220000
+== V9 WILL AUTOMATICALLY REBIND SUCH A PACKAGE THE FIRST TIME IT IS   ==03230000
+== USED IF THE ABIND SUBSYSTEM PARAMETER IS SET TO 'YES' OR 'COEXIST'.==03240000
+== IF ABIND IS SET TO 'NO', DB2 V9 WILL RETURN SQLCODE -908, SQLSTATE ==03250000
+== 23510 FOR ALL ATTEMPTS TO USE SUCH A PACKAGE UNTIL IT IS REBOUND.  ==03260000
+== NOTE THAT PACKAGES THAT HAVE A BINDTIME AFTER THE DATE THAT THIS   ==03270000
+== DB2 WAS MIGRATED TO V4 DO NOT NEED TO BE REBOUND FOR USE ON V9.    ==03280000
+========================================================================03290000
+LOCATION         COLLID               NAME       CREATOR    VERSION     03300000
+---------------- -------------------- ---------- ---------- ------------03310000
+/*                                                                      03320000
+//SYSUT2   DD  SYSOUT=*,                                                03330000
+//             DCB=(RECFM=FB,LRECL=168)                                 03340000
+//SYSPRINT DD  DUMMY                                                    03350000
+//SYSIN    DD  *                                                        03360000
+ GENERATE  MAXFLDS=48,MAXGPS=6,MAXLITS=380                              03370000
+G1 RECORD  IDENT=(8,'========',1),                                      03380000
+           FIELD=(1,' ',,1),                               01- 01 CC    03390000
+           FIELD=(72,1,,2),                                02- 73 take  03400000
+           FIELD=(7,'       ',,74)                         74- 80 blank 03410000
+G2 RECORD  IDENT=(8,'========',1),                                      03420000
+           FIELD=(1,' ',,1),                               01- 01 CC    03430000
+           FIELD=(72,1,,2),                                02- 73 take  03440000
+           FIELD=(7,'       ',,74)                         74- 80 blank 03450000
+G3 RECORD  IDENT=(8,'========',1),                                      03460000
+           FIELD=(1,' ',,1),                               01- 01 CC    03470000
+           FIELD=(72,1,,2),                                02- 73 take  03480000
+           FIELD=(7,'       ',,74)                         74- 80 blank 03490000
+G4 RECORD  IDENT=(8,'LOCATION',1),                                      03500000
+           FIELD=(1,' ',,1),                               01- 01 CC    03510000
+           FIELD=(17,'LOCATION         ',,2),              02- 18 LOC   03520000
+           FIELD=(21,'COLLID               ',,19),         19- 39 COLID 03530000
+           FIELD=(11,'NAME       ',,40),                   40- 50 NAME  03540000
+           FIELD=(11,'CREATOR    ',,51),                   51- 61 CREAT 03550000
+           FIELD=(25,'VERSION                  ',,62),     62- 86 VER   03560000
+           FIELD=(25,'                         ',,87),     87-111 VER+  03570000
+           FIELD=(15,'               ',,112),             112-126 VER+  03580000
+           FIELD=(27,'BINDTIME                   ',,127), 127-153 BT    03590000
+           FIELD=(6,'VALID ',,154),                       154-159 VAL   03600000
+           FIELD=(9,'OPERATIVE',,160)                     160-168 OPER  03610000
+G5 RECORD  IDENT=(8,'--------',1),                                      03620000
+           FIELD=(1,' ',,1),                                1-  1 CC    03630000
+           FIELD=(17,'---------------- ',,2),               2- 18 LOC   03640000
+           FIELD=(21,'-------------------- ',,19),         19- 39 COLID 03650000
+           FIELD=(11,'---------- ',,40),                   40- 50 NAME  03660000
+           FIELD=(11,'---------- ',,51),                   51- 61 CREAT 03670000
+           FIELD=(25,'-------------------------',,62),     62 -86 VER   03680000
+           FIELD=(25,'-------------------------',,87),     87-111 VER+  03690000
+           FIELD=(15,'-------------- ',,112),             112-126 VER+  03700000
+           FIELD=(27,'-------------------------- ',,127), 127-153 BT    03710000
+           FIELD=(6,'----- ',,154),                       154-159 VAL   03720000
+           FIELD=(9,'---------',,160)                     160-168 OPER  03730000
+G6 RECORD  FIELD=(1,' ',,1),                                1-  1 CC    03740000
+           FIELD=(16,1,,2),                                 2- 17 LOC   03750000
+           FIELD=(1,' ',,18),                              18- 18 blank 03760000
+           FIELD=(20,17,,19),                              19- 38 COLID 03770000
+           FIELD=(1,' ',,39),                              39- 39 blank 03780000
+           FIELD=(10,37,,40),                              40- 49 NAME  03790000
+           FIELD=(1,' ',,50),                              50- 50 blank 03800000
+           FIELD=(10,47,,51),                              51- 60 CREAT 03810000
+           FIELD=(1,' ',,61),                              61- 61 blank 03820000
+           FIELD=(64,59,,62),                              62-125 VER   03830000
+           FIELD=(1,' ',,126),                            126-126 blank 03840000
+           FIELD=(26,181,,127),                           127-152 BT    03850000
+           FIELD=(1,' ',,153),                            153-153 blank 03860000
+           FIELD=(1,207,,154),                            154-154 VAL   03870000
+           FIELD=(5,'     ',,155),                        155-159 blank 03880000
+           FIELD=(1,208,,160),                            160-160 OPER  03890000
+           FIELD=(8,'        ',,161)                      161-168 blank 03900000
+/*                                                                      03910000
+//*                                                                     03920000
+//********************************************************************* 03930000
+//*        Report use of external module DSNWZPR                        03940000
+//********************************************************************* 03950000
+//REPORT07 EXEC PGM=IEBGENER,COND=(4,LT)                                03960000
+//SYSUT1   DD  DDNAME=RPRTHDR                                           03970000
+//         DD  DSN=DSN!!0.DSNTIJP9.SYSREC07,DISP=SHR                    03980000
+//RPRTHDR  DD  *                                                        03990000
+========================================================================04000000
+== The following routines are currently defined to use an external    ==04010000
+== module called DSNWZPR.  In V8, DSNWZPR is an alias of a module     ==04020000
+== called DSNWZP.  In V9, the DSNWZPR alias is eliminated.  Thus,     ==04021000
+== before beginning migration to V9, you need to alter the routines   ==04022000
+== listed below to use an external module name of DSNWZP rather than  ==04023000
+== DSNWZPR.                                                           ==04024000
+========================================================================04025000
+SCHEMA     NAME                                                         04026000
+---------- --------------------                                         04027000
+/*                                                                      04028000
+//SYSUT2   DD  SYSOUT=*,                                                04029000
+//             DCB=(RECFM=FB,LRECL=80)                                  04030000
+//SYSPRINT DD  DUMMY                                                    04031000
+//SYSIN    DD  *                                                        04032000
+ GENERATE  MAXFLDS=9,MAXGPS=2,MAXLITS=62                                04033000
+G1 RECORD  IDENT=(8,'--------',1),                                      04034000
+           FIELD=(1,' ',,1),                                            04035000
+           FIELD=(72,1,,2),                                             04036000
+           FIELD=(7,'       ',,74)                                      04037000
+G2 RECORD  FIELD=(1,' ',,1),                             01-01 CC       04038000
+           FIELD=(10,1,,2),                              02-11 schema   04039000
+           FIELD=(1,' ',,1),                             12-12 blank    04040000
+           FIELD=(20,11,,13),                            13-32 name     04041000
+           FIELD=(25,'                         ',,33),   33-57          04042000
+           FIELD=(23,'                       ',,58)      58-80          04043000
+/*                                                                      04044000
+//*                                                                     04045000

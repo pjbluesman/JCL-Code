@@ -1,0 +1,8 @@
+//UXD100M  JOB ,'CJR-RM 105',CLASS=S,MSGCLASS=X                         00000100
+//JOBLIB  DD DSN=SSXDP.DB2P.V3.SDSNLOAD,DISP=SHR                        00000100
+//STEP1  EXEC PGM=DSN1PRNT,PARM='FORMAT,NUMPARTS(60)'                   00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1  DD  DSN=DB2P.DSNDBD.FMFZ00P3.TSDM0204.I0001.A060,             00000600
+//            DISP=SHR                                                  00000600
+/*
+//                                                                      00001700

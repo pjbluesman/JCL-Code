@@ -1,0 +1,14 @@
+//UXD001M JOB ,'DB2 DSN1LOGP',CLASS=S,MSGCLASS=X                        00000100
+//STEP1  EXEC PGM=DSN1LOGP                                              00000200
+//STEPLIB DD DSN=SDB3F.SDSNLOAD,UNIT=SYSDA,DISP=SHR                     00000210
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSSUMRY DD SYSOUT=X
+//SYSABEND DD SYSOUT=*                                                  00000500
+//BSDS    DD  DSN=DB3F.DSNDBFG.BSDS01,DISP=SHR                          00000600
+//SYSIN   DD *
+  RBASTART (1F9D54D5E000) RBAEND (1F9D85381FFF)
+  DBID (03FA) OBID (1) SUMMARY(YES) TYPE(10)
+/*
+//                                                                      00001700
+  DBID(0115) OBID(010A) RID(04C4C7FA0E) DATAONLY(YES)
+  STARTLRSN(CD322D52D43F) ENDLRSN(CD323E160EAF)

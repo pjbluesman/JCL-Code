@@ -1,0 +1,60 @@
+//UXD000M JOB ,'CJR-105',CLASS=S,MSGCLASS=X                             00010000
+//*                                                                     00020000
+//**********************************************************************00021000
+//*   JCL USED TO ASSEMBLE AND LINK-EDIT MEMBERS INTO DSNEXIT           00022000
+//*   ----> CHECK FOR CORRECT LIBRARIES (VIA SUBSYSTEM)                 00023000
+//*               CHANGE MEMBER NAME, ENTRY, AND NAME IN STEP1          00024000
+//*               ALL MEMBERS SHOULD BE IN SSXDT.DB2DAINT.SOURCE        00025000
+//*                                      CJR                            00026000
+//*                                                                     00027000
+//*                                                                     00028000
+//**********************************************************************00029000
+//*                                                                     00029100
+//ASMHPROC PROC WSPC=500,MEM=TEMPNAME                                   00029200
+//*                                                                     00029300
+//ASM     EXEC PGM=ASMA90,PARM='OBJECT,NODECK'                          00029400
+//SYSIN    DD  DISP=SHR,                                                00029500
+//         DSN=SSXDT.DB2D.V4.DSNEXIT(&MEM)                              00029600
+//SYSLIB   DD  DSN=SYS1.MODGEN,DISP=SHR                                 00029700
+//         DD  DSN=SYS1.MACLIB,DISP=SHR                                 00029800
+//         DD  DISP=SHR,                                                00029900
+//         DSN=SSXDT.DB2D.V4.SDSNMACS                                   00030000
+//         DD  DISP=SHR,                                                00040000
+//         DSN=SSXDT.DB2D.V4.SDSNSAMP                                   00050000
+//SYSLIN   DD  DSN=&&LOADSET,DISP=(MOD,PASS),UNIT=SYSDA,                00060000
+//             SPACE=(800,(&WSPC,&WSPC)),DCB=(BLKSIZE=800)              00070000
+//SYSPRINT DD  SYSOUT=*                                                 00080000
+//SYSUDUMP DD  SYSOUT=*                                                 00090000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(800,(&WSPC,&WSPC),,,ROUND)             00100000
+//SYSUT2   DD  UNIT=SYSDA,SPACE=(800,(&WSPC,&WSPC),,,ROUND)             00110000
+//SYSUT3   DD  UNIT=SYSDA,SPACE=(800,(&WSPC,&WSPC),,,ROUND)             00120000
+//*                                                                     00130000
+//*            LINKEDIT IF THE ASSEMBLER                                00140000
+//*            RETURN CODE IS 4 OR LESS                                 00150000
+//*                                                                     00160000
+//LKED    EXEC PGM=IEWL,REGION=1024K,                                   00170000
+// PARM='SIZE=(900K,124K),LIST,XREF,RENT,OL,NCAL',                      00180000
+//             COND=(4,LT,ASM)                                          00190000
+//SYSLIN   DD  DSN=&&LOADSET,DISP=(OLD,DELETE)                          00200000
+//DSNLOAD  DD  DSN=SSXDT.DB2D.V4.SDSNLOAD,DISP=SHR                      00210000
+//SYSLMOD  DD  DISP=SHR,                                                00220000
+//         DSN=SSXDT.DB2D.V4.SDSNEXIT                                   00230000
+//SYSPRINT DD  SYSOUT=*                                                 00240000
+//SYSUDUMP DD  SYSOUT=*                                                 00250000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(1024,(50,50))                          00260000
+//ASMHPROC PEND                                                         00270000
+//**********************************************************************00280000
+//* STEP 1 : ASSEMBLE AND LINK EDIT SIGNON EXIT                         00290000
+//**********************************************************************00300000
+//JEX0001 EXEC ASMHPROC,MEM=S30INTEL                                    00310000
+//LKED.SYSLIN DD                                                        00320000
+//            DD  *                                                     00330000
+  ORDER DSNAA                                                           00331000
+  INCLUDE ADSNLOAD(DSNAA)                                               00332000
+  INCLUDE ADSNLOAD(DSNALI)                                              00333000
+  ENTRY DSNALI                                                          00334000
+  ALISA DSNHLI2                                                         00335000
+  ALIAS DSNWLI2                                                         00340000
+  MODE AMODE(ANY),RMODE(24)                                             00350000
+  NAME DSNALI(R)                                                        00351000
+//*                                                                     00360000

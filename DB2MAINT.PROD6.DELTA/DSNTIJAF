@@ -1,0 +1,149 @@
+//UXD002M  JOB (,RRC),'GLK',CLASS=S,MSGCLASS=X                          00010002
+//* JOB NAME = DSNTIJAE                                               */00020000
+//*                                                                   */00030000
+//* DESCRIPTIVE NAME = DB2 INSTALLATION JOB STREAM                    */00069900
+//*                                                                   */00110000
+//* FUNCTION =                                                        */00120000
+//*   ALLOCATE DATASETS FOR DB2 INSTALLATION                          */00130000
+//*   ALLOCATE AND INITIALIZE THE DB2 SMP/E ENVIRONMENT               */00140000
+//*                                                                   */00150000
+//* STATUS = VERSION 05 RELEASE 01 MODIFICATION LEVEL 00              */00150900
+//*                                                                   */00151900
+//*       LICENSED MATERIALS - PROPERTY OF IBM                        */00152900
+//*       5655-DB2  (C) COPYRIGHT IBM CORP 1982, 1997                 */00153900
+//*       ALL RIGHTS RESERVED.                                        */00154900
+//*       US GOVERNMENT USERS RESTRICTED RIGHTS -                     */00155900
+//*       USE, DUPLICATION OR DISCLOSURE RESTRICTED                   */00156900
+//*       BY GSA ADP SCHEDULE CONTRACT WITH IBM CORP.                 */00157900
+//*                                                                   */00158900
+//* NOTES =                                                           */00160000
+//* 1. ADD A VALID JOB CARD                                           */00174900
+//* 2. LOCATE AND CHANGE ALL OCCURRENCES OF THE FOLLOWING STRINGS AS  */00179900
+//*    INDICATED:                                                     */00184900
+//*    A.'SSXDT.DSNA' TO THE PREFIX OF YOUR TARGET                    */00189904
+//*      LIBRARY NAME                                                 */00194900
+//*      - RECOMMENDED VALUE: DSN510                                  */00199900
+//*    B.'SYSDA' TO THE DEVICE TYPE FOR YOUR TARGET LIBRARY           */00204901
+//*    C.'?TARGVOL?' TO THE VOL/SER FOR YOUR TARGET LIBRARY           */00209900
+//*    D.'SSXDT.DSNA' TO THE PREFIX OF YOUR DISTRIBUTION              */00214904
+//*      LIBRARY NAME                                                 */00219900
+//*      - RECOMMENDED VALUE: DSN510                                  */00224800
+//*      - TO AVOID MANUAL EDITING OF INSTALL JOBS, USE THE SAME      */00229800
+//*        PREFIX FOR THE TARGET AND THE DISTRIBUTION LIBRARIES.      */00234800
+//*        SEE THE INSTALLATION GUIDE FOR MORE INFORMATION.           */00239800
+//*    E.'SYSDA' TO THE DEVICE TYPE FOR YOUR DISTRIBUTION             */00244801
+//*      LIBRARY.                                                     */00249800
+//*    F.'?DLIBVOL?' TO THE VOL/SER FOR YOUR DISTRIBUTION LIBRARY     */00254800
+//*    G.'?SMPPRE?' TO THE PREFIX OF YOUR SMP LIBRARY NAME            */00259800
+//*      - RECOMMENDED VALUE: IMSVS                                   */00264800
+//*    H.'?SMPMLQ?' TO THE MIDDLE LEVEL QUALIFIER OF YOUR SMP CSI     */00269800
+//*      - RECOMMENDED VALUE: SMPCSI                                  */00274700
+//*    I.'?SMPUNIT?' TO THE DEVICE TYPE FOR YOUR SMP LIBRARY          */00279700
+//*    J.'?SMPVOL?' TO THE VOL/SER FOR YOUR SMP LIBRARY               */00284700
+//*    K.'?TLIBPRE?' TO THE DSPREFIX FOR YOUR SMP TLIBS               */00289700
+//*      - RECOMMENDED VALUE: DSN510                                  */00294700
+//*    L.'?TLIBVOL?' TO THE VOL/SER FOR THE SMPTLIB DATASETS          */00299700
+//* 3. REVIEW THE SMP CONTROL STATEMENTS BEFORE SUBMITTING THIS JOB.  */00304700
+//* 4. CHECK ALL DDDEF ENTRIES, AND MAKE ANY CHANGES NECESSARY FOR    */00309700
+//*    YOUR SYSTEM.                                                   */00330000
+//* 5. DUMMY ALL SMPLOG DD'S IF YOU ARE NOT USING THE SMP/E HISTORY   */00332900
+//*    LOG.                                                           */00335900
+//*                                                                   */00340000
+//*********************************************************************/00350000
+//*                                                                     00379900
+//ALLOC  EXEC PGM=IEFBR14                                               00400000
+//* ******************************************************************* 00410000
+//*           SMP DATA SETS                                             00420000
+//* ******************************************************************* 00430000
+//* ******************************************************************* 00710000
+//*           DB2 DISTRIBUTION LIBRARIES                                00720000
+//* ******************************************************************* 00730000
+//*                                                                     00740000
+//ADSNLOAD DD DSN=SSXDT.DSNA.ADSNLOAD,DISP=(NEW,CATLG),                 00755904
+//            UNIT=SYSDA,                                               00761901
+//            DCB=BLKSIZE=6144,                                         00770000
+//            SPACE=(6144,(8500,500,700),,,ROUND)                       00780000
+//ADSNMACS DD DSN=SSXDT.DSNA.ADSNMACS,DISP=(NEW,CATLG),                 00795904
+//            UNIT=SYSDA,                                               00801901
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     00810000
+//            SPACE=(6160,(8000,600,100),,,ROUND)                       00820000
+//*                                                                     00830000
+//* ******************************************************************* 00840000
+//*           DB2 TARGET LIBRARIES                                      00850000
+//* ******************************************************************* 00860000
+//*                                                                     00870000
+//SDSNMACS DD DSN=SSXDT.DSNA.SDSNMACS,DISP=(NEW,CATLG),                 00885904
+//            UNIT=SYSDA,                                               00891901
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     00900000
+//            SPACE=(6160,(1535,200,20),,,ROUND)                        00910000
+//SDSNSPFP DD DSN=SSXDT.DSNA.SDSNSPFP,DISP=(NEW,CATLG),                 00925904
+//            UNIT=SYSDA,                                               00931901
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     00940000
+//            SPACE=(6160,(375,100,30),,,ROUND)                         00950000
+//SDSNSPFM DD DSN=SSXDT.DSNA.SDSNSPFM,DISP=(NEW,CATLG),                 00965904
+//            UNIT=SYSDA,                                               00971901
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     00980000
+//            SPACE=(6160,(80,20,10),,,ROUND)                           00990000
+//SDSNSPFS DD DSN=SSXDT.DSNA.SDSNSPFS,DISP=(NEW,CATLG),                 01005904
+//            UNIT=SYSDA,                                               01011901
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     01020000
+//            SPACE=(6160,(60,20,10),,,ROUND)                           01030000
+//SDSNSPFT DD DSN=SSXDT.DSNA.SDSNSPFT,DISP=(NEW,CATLG),                 01045904
+//            UNIT=SYSDA,                                               01051901
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     01060000
+//            SPACE=(6160,(40,10,10),,,ROUND)                           01070000
+//SDSNCLST DD DSN=SSXDT.DSNA.SDSNCLST,DISP=(NEW,CATLG),                 01085904
+//            UNIT=SYSDA,                                               01091901
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     01100000
+//            SPACE=(6160,(450,30,20),,,ROUND)                          01110000
+//SDSNSAMP DD DSN=SSXDT.DSNA.SDSNSAMP,DISP=(NEW,CATLG),                 01125904
+//            UNIT=SYSDA,                                               01131901
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     01140000
+//            SPACE=(6160,(5000,300,35),,,ROUND)                        01150000
+//SDSNDBRM DD DSN=SSXDT.DSNA.SDSNDBRM,DISP=(NEW,CATLG),                 01165904
+//            UNIT=SYSDA,                                               01171901
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     01180000
+//            SPACE=(6160,(40,20,10),,,ROUND)                           01190000
+//SDSNLINK DD DSN=SSXDT.DSNA.SDSNLINK,DISP=(NEW,CATLG),                 01205904
+//            UNIT=SYSDA,                                               01211901
+//            DCB=BLKSIZE=6144,                                         01220000
+//            SPACE=(6144,(75,,10),,,ROUND)                             01230000
+//SDSNLOAD DD DSN=SSXDT.DSNA.SDSNLOAD,DISP=(NEW,CATLG),                 01245904
+//            UNIT=SYSDA,                                               01251901
+//            DCB=BLKSIZE=6144,                                         01260000
+//            SPACE=(6144,(5125,400,80),,,ROUND)                        01270000
+//*                                                                     01280000
+//* ******************************************************************* 01290000
+//*           DATA SET TO HOLD USER EXITS AND DATA-ONLY MODULES         01300000
+//* ******************************************************************* 01310000
+//*                                                                     01320000
+//SDSNEXIT DD DSN=SSXDT.DSNA.SDSNEXIT,DISP=(NEW,CATLG),                 01335904
+//            UNIT=SYSDA,                                               01341901
+//            DCB=BLKSIZE=6144,                                         01350000
+//            SPACE=(6144,(200,,10),,,ROUND)                            01360000
+//*                                                                     01370000
+//* ******************************************************************* 01380000
+//*          IRLM DISTRIBUTION LIBRARIES                                01390000
+//* ******************************************************************* 01400000
+//*                                                                     01410000
+//ADXRSAMP DD DSN=SSXDT.DSNA.ADXRSAMP,DISP=(NEW,CATLG),                 01425904
+//            UNIT=SYSDA,                                               01431901
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     01440000
+//            SPACE=(CYL,(1,1,10))                                      01450000
+//ADXRLOAD DD DSN=SSXDT.DSNA.ADXRLOAD,DISP=(NEW,CATLG),                 01465904
+//            UNIT=SYSDA,                                               01471901
+//            DCB=(RECFM=U,LRECL=0,BLKSIZE=6144),                       01480000
+//            SPACE=(CYL,(2,1,46))                                      01490000
+//*                                                                     01500000
+//* ******************************************************************* 01510000
+//*          IRLM TARGET LIBRARIES                                      01520000
+//* ******************************************************************* 01530000
+//*                                                                     01540000
+//SDXRSAMP DD DSN=SSXDT.DSNA.SDXRSAMP,DISP=(NEW,CATLG),                 01555904
+//            UNIT=SYSDA,                                               01561901
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     01570000
+//            SPACE=(CYL,(1,1,10))                                      01580000
+//SDXRRESL DD DSN=SSXDT.DSNA.SDXRRESL,DISP=(NEW,CATLG),                 01595904
+//            UNIT=SYSDA,                                               01601901
+//            DCB=(RECFM=U,LRECL=0,BLKSIZE=6144),                       01610000
+//            SPACE=(CYL,(2,1,10))                                      01620000

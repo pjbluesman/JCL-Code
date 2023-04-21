@@ -1,0 +1,1052 @@
+                 XA1 ,
+                 XA2 ,
+                 XA3 ,
+                 XX5 ,
+                 XX6 ,
+                 XA4 ,
+                 XA5 ,
+                 XA6 ,
+                 XA7 ,
+                 XA8 ,
+                 XA9 ,
+                 XAA ,
+                 XAB ,
+                 XAC ,
+                 XAD ,
+                 XAE ,
+                 XAF ,
+                 XB1 ,
+                 XB2 ,
+                 XB3 ,
+                 XB4 ,
+                 XB5 ,
+                 XB6 ,
+                 XB7 ,
+                 XB8 ,
+                 XB9 ,
+                 XBA ,
+                 XBB ,
+                 XBC ,
+                 XBD ,
+                 XC1 ,
+                 XC2 ,
+                 XC3 ,
+                 XC4 ,
+                 XC5 ,
+                 XC6 ,
+                 XC7 ,
+                 XC8 ,
+                 XC9 ,
+                 XCA ,
+                 XCB ,
+                 XCC ,
+                 XCD ,
+                 XCE ,
+                 XCF ,
+                 XCG ,
+                 XCH ,
+                 XD1 ,
+                 XD2 ,
+                 XD3 ,
+                 XD4 ,
+                 XE1 ,
+                 XE2 ,
+                 XE3 ,
+                 XE4 ,
+                 XE5 ,
+                 XE6 ,
+                 XE7 ,
+                 XE8 ,
+                 XE9 ,
+                 XEA ,
+                 XEB ,
+                 XEC ,
+                 XED ,
+                 XEE ,
+                 XEF ,
+                 XEG ,
+                 XEH ,
+                 XEI ,
+                 XEJ ,
+                 XEK ,
+                 XEL ,
+                 XEM ,
+                 XEN ,
+                 XF1 ,
+                 XF2 ,
+                 XF3 ,
+                 XF4 ,
+                 XF5 ,
+                 XF6 ,
+                 XF7 ,
+                 XI1 ,
+                 XL1 ,
+                 XL2 ,
+                 XL3 ,
+                 XL4 ,
+                 XL5 ,
+                 XL6 ,
+                 XL7 ,
+                 XL8 ,
+                 XM1 ,
+                 XN1 ,
+                 XN2 ,
+                 XN3 ,
+                 XN4 ,
+                 XN5 ,
+                 XN6 ,
+                 XN7 ,
+                 XN8 ,
+                 XN9 ,
+                 XNA ,
+                 XNB ,
+                 XNC ,
+                 XND ,
+                 XNE ,
+                 XNF ,
+                 XNG ,
+                 XNH ,
+                 XNI ,
+                 XNJ ,
+                 XNK ,
+                 XNL ,
+                 XNM ,
+                 XNN ,
+                 XNO ,
+                 XNP ,
+                 XNQ ,
+                 XNR ,
+                 XNS ,
+                 XNT ,
+                 XNU ,
+                 XNV ,
+                 XNW ,
+                 XNX ,
+                 XO1 ,
+                 XP1 ,
+                 XP2 ,
+                 XP3 ,
+                 XP4 ,
+                 XP5 ,
+                 XP6 ,
+                 XP7 ,
+                 XR1 ,
+                 XR2 ,
+                 XR3 ,
+                 XR4 ,
+                 XR5 ,
+                 XR6 ,
+                 XR7 ,
+                 XS1 ,
+                 XS2 ,
+                 XS3 ,
+                 XS4 ,
+                 XS5 ,
+                 XS6 ,
+                 XS7 ,
+                 XT1 ,
+                 XT2 ,
+                 XT3 ,
+                 XT4 ,
+                 XT5 ,
+                 XT6 ,
+                 XT7 ,
+                 XT8 ,
+                 XT9 ,
+                 XTA ,
+                 XTB ,
+                 XTC ,
+                 XTD ,
+                 XTE ,
+                 XTF ,
+                 XTG ,
+                 XTH ,
+                 XTI ,
+                 XTJ ,
+                 XTK ,
+                 XTL ,
+                 XTM ,
+                 XTN ,
+                 XTO ,
+                 XTP ,
+                 XTQ ,
+                 XTR ,
+                 XTS ,
+                 XTT ,
+                 XTU ,
+                 XTV ,
+                 XTW ,
+                 XTX ,
+                 XTY ,
+                 XTZ ,
+                 XU1 ,
+                 XU2 ,
+                 XU3 ,
+                 XU4 ,
+                 XU5 ,
+                 XU6 ,
+                 XU7 ,
+                 XU8 ,
+                 XU9 ,
+                 XUA ,
+                 XUB ,
+                 XUC ,
+                 XUD ,
+                 XUE ,
+                 XUF ,
+                 XUG ,
+                 XUH ,
+                 XUI ,
+                 XUJ ,
+                 XUK ,
+                 XUL ,
+                 XUM ,
+                 XUN ,
+                 XUO ,
+                 XUP ,
+                 XUQ
+           ;
+           IF SQLWORK = 0 THEN
+              SET ROWS_FETCHED = ROWS_FETCHED + 1 ;
+              IF ROWS_FETCHED > 999 THEN
+                 SET COMMIT_TIME = 'Y'  ;
+              END IF ;
+              SET SQLWORK = 0  ;
+              SELECT LST_TRNS_EVT_GTS, LST_RP_EVT_GTS
+              INTO IN_LST_TRNS_EVT_GTS, IN_LST_RP_EVT_GTS
+              FROM MT_TKT_DOC
+              WHERE TKT_DOC_NB = XU4
+                AND TKT_DOC_SQ_NB = XU7
+                AND TKT_DOC_ISS_LDT = XU3
+              ;
+              IF SQLWORK = 0  THEN
+                 IF X_LST_RP_EVT_GTS IS NULL THEN
+                    IF IN_LST_TRNS_EVT_GTS >= X_LST_TRNS_EVT_GTS THEN
+                       SET ROWS_BACK_LEVEL = ROWS_BACK_LEVEL + 1 ;
+                       SET SQLWORK = 0  ;
+                       DELETE FROM WT_TKT_DOC
+                            WHERE CURRENT OF WORK_CURSOR ;
+                       IF SQLWORK = 0 THEN
+                          SET ROWS_DELETED = ROWS_DELETED + 1 ;
+                       ELSE
+                          SET LAST_FUNCTION = 105 ;
+                          SET SQL_CODE = SQLWORK ;
+                          SET ERROR_FLAG = 'Y' ;
+                          SET RETURN_CODE = 4  ;
+                       END IF ;
+                    ELSE
+                       SET SQLWORK = 0 ;
+                       UPDATE MT_TKT_DOC SET
+                            ADTR_TBTCH_SQL_NB = XA1 ,
+                            ADTR_TRAY_BNK_NB = XA2 ,
+                            ADTR_TRAY_BTCH_NB = XA3 ,
+                            ADTR_TRAY_CYC_NB = XX5 ,
+                            ADTR_TRAY_INVC_NB = XX6 ,
+                            ADTR_TRAY_LMO_NB = XA4 ,
+                            ADTR_TRAY_LWK_NB = XA5 ,
+                            ADV_BKG_DY_CT = XA6 ,
+                            ADV_PRCH_DY_CT = XA7 ,
+                            AGSPT_DOC_TYP_CD = XA8 ,
+                            AGY_MDATA_TYP_CD = XA9 ,
+                            ASP_PMT_TYP_CD = XAA ,
+                            ASP_RCVD_IND = XAB ,
+                            ASP_REC_CRTN_GTS = XAC ,
+                            ASP_REC_SET_TYP_CD = XAD ,
+                            ASP_TKDC_PURP_CD = XAE ,
+                            ATP_PAX_TYP_CD = XAF ,
+                            BF_RPTD_CRCV_GTS = XB1 ,
+                            BF_RPTD_CURR_CD = XB2 ,
+                            BF_RPTD_STD_AMT = XB3 ,
+                            BFRPD_EXCG_RT_ID = XB4 ,
+                            BS_FARE_AMT = XB5 ,
+                            BS_FARE_CRCV_GTS = XB6 ,
+                            BS_FARE_CURR_CD = XB7 ,
+                            BS_FARE_EXCG_RT_ID = XB8 ,
+                            BS_FARE_RPTD_AMT = XB9 ,
+                            BS_FARE_STD_AMT = XBA ,
+                            BS_FARE_TXT = XBB ,
+                            BSP_RCVD_IND = XBC ,
+                            BSP_REC_CRTN_GTS = XBD ,
+                            CMCL_AGMT_RFRN_TXT = XC1 ,
+                            CMTV_RFND_RSS_AMT = XC2 ,
+                            CRR_CLNT_ID = XC3 ,
+                            CRR_CNFN_TXT = XC4 ,
+                            CRRSS_CRCV_GTS = XC5 ,
+                            CRRSS_CURR_CD = XC6 ,
+                            CRRSS_EXCG_RT_ID = XC7 ,
+                            CRRSS_STD_AMT = XC8 ,
+                            CRTN_GTS = XC9 ,
+                            CUST_PD_AMT = XCA ,
+                            CUST_PD_CRCV_GTS = XCB ,
+                            CUST_PD_CURR_CD = XCC ,
+                            CUST_PD_EXCG_RT_ID = XCD ,
+                            CUST_PD_STD_AMT = XCE ,
+                            CYC_PRSG_LMO_NB = XCF ,
+                            CYC_PRSG_LWK_NB = XCG ,
+                            CYC_PRSG_NB = XCH ,
+                            DL_PAX_TYP_CD = XD1 ,
+                            DLM_CRTN_GTS = XD2 ,
+                            DLRY_EDFSYS_CD = XD3 ,
+                            DSCD_FARE_TYP_CD = XD4 ,
+                            EADTR_TOT_CRCV_GTS = XE1 ,
+                            EADTR_TOT_CURR_CD = XE2 ,
+                            EADTR_TOT_STD_AMT = XE3 ,
+                            EATOT_EXCG_RT_ID = XE4 ,
+                            EQFPD_EXCG_RT_ID = XE5 ,
+                            EQVT_FARE_PD_AMT = XE6 ,
+                            EQVT_FARE_PD_TXT = XE7 ,
+                            EQVT_FPD_CRCV_GTS = XE8 ,
+                            EQVT_FPD_CURR_CD = XE9 ,
+                            EQVT_FPD_STD_AMT = XEA ,
+                            ET_DB_STT_CD = XEC ,
+                            ET_RCVD_IND = XED ,
+                            ET_REC_CRTN_GTS = XEE ,
+                            ET_SRC_TYP_CD = XEF ,
+                            ET_STLMT_AUTH_ID = XEG ,
+                            EXCGD_ADTR_TOT_AMT = XEH ,
+                            EXVL_BF_AMT = XEI ,
+                            EXVL_BF_CRCV_GTS = XEJ ,
+                            EXVL_BF_CURR_CD = XEK ,
+                            EXVL_BF_STD_AMT = XEL ,
+                            EXVLBF_EXCG_RT_ID = XEM ,
+                            FBRK_EXCG_RT = XEN ,
+                            FRCN_MODE_TYP_CD = XF6 ,
+                            IATA_RSS_FMT_IND = XF7 ,
+                            INTL_SL_TYP_CD = XI1 ,
+                            LRPTY_AMT = XL1 ,
+                            LRPTY_CRCV_GTS = XL2 ,
+                            LRPTY_CURR_CD = XL3 ,
+                            LRPTY_EXCG_RT_ID = XL4 ,
+                            LRPTY_STD_AMT = XL5 ,
+                            LST_TRNS_EVT_GTS = XL7 ,
+                            MISC_DOC_IND = XL8 ,
+                            MT_TKT_DOC_TYP_CD = XM1 ,
+                            NADTR_FARE_CURR_CD = XN1 ,
+                            NADTR_FARE_STD_AMT = XN2 ,
+                            NADTR_ITFR_AMT = XN3 ,
+                            NADTR_ITFR_CURR_CD = XN4 ,
+                            NADTR_ITFR_STD_AMT = XN5 ,
+                            NADTR_TKDC_CURR_CD = XN6 ,
+                            NADTR_TKDC_STD_AMT = XN7 ,
+                            NADTR_TKT_DOC_AMT = XN8 ,
+                            NAFR_CRCV_GTS = XN9 ,
+                            NAFR_EXCG_RT_ID = XNA ,
+                            NAIFR_CRCV_GTS = XNB ,
+                            NAIFR_EXCG_RT_ID = XNC ,
+                            NATKDC_CRCV_GTS = XND ,
+                            NATKDC_EXCG_RT_ID = XNE ,
+                            NEF_CRCV_GTS = XNF ,
+                            NEF_CURR_CD = XNG ,
+                            NEF_EXCG_RT_ID = XNH ,
+                            NEF_STD_AMT = XNI ,
+                            NET_BF_CRCV_GTS = XNJ ,
+                            NET_BF_CURR_CD = XNK ,
+                            NET_BF_STD_AMT = XNL ,
+                            NET_BS_FARE_AMT = XNM ,
+                            NET_EQVT_FARE_AMT = XNN ,
+                            NET_TOT_AMT = XNO ,
+                            NET_TOT_CRCV_GTS = XNP ,
+                            NET_TOT_CURR_CD = XNQ ,
+                            NET_TOT_EXCG_RT_ID = XNR ,
+                            NET_TOT_STD_AMT = XNS ,
+                            NEW_ADTR_FARE_AMT = XNT ,
+                            NEW_TKT_FPEX_IND = XNU ,
+                            NOTC_RQD_IND = XNV ,
+                            NTBF_EXCG_RT_ID = XNW ,
+                            NTRL_ISSG_SYS_CD = XNX ,
+                            ORIG_EDFSYS_CD = XO1 ,
+                            PAX_FRST_NM = XP1 ,
+                            PAX_FULL_NM = XP2 ,
+                            PAX_INFO_TXT = XP3 ,
+                            PAX_LST_NM = XP4 ,
+                            PRMY_TKT_IND = XP5 ,
+                            PROC_LDT_USKTK_IND = XP6 ,
+                            RCVD_TKT_OD_TXT = XR1 ,
+                            RND_TRP_IND = XR2 ,
+                            RPTD_AUDT_IND = XR3 ,
+                            RPTD_ISS_LDT = XR4 ,
+                            RPTD_STLMT_AUTH_ID = XR5 ,
+                            RPTG_SYS_PVDR_CD = XR6 ,
+                            RPTG_SYS_PVDR_NB = XR7 ,
+                            SKLTL_IND = XS1 ,
+                            SLD_CPN_CT = XS2 ,
+                            SLS_RPTG_LOC_CD = XS3 ,
+                            SM_ACCT_NB = XS4 ,
+                            STATL_DOM_INTL_ID = XS5 ,
+                            STATL_SLF_SL_ID = XS6 ,
+                            SYS_VOID_TKT_IND = XS7 ,
+                            TDISSC_SYS_TYP_CD = XT1 ,
+                            TDRMTC_EXCG_RT_ID = XT2 ,
+                            TDTOT_EXCG_RT_ID = XT3 ,
+                            TDTRPD_CRCV_GTS = XT4 ,
+                            TDTRPD_EXCG_RT_ID = XT5 ,
+                            TKDC_ASVC_CHRG_CT = XT7 ,
+                            TKDC_MSFOP_TYP_CD = XT8 ,
+                            TKDC_PRCG_TYP_CD = XT9 ,
+                            TKDC_RCFMT_TYP_CD = XTA ,
+                            TKDC_RMTC_CRCV_GTS = XTB ,
+                            TKDC_RMTC_CURR_CD = XTC ,
+                            TKDC_RMTC_STD_AMT = XTD ,
+                            TKDC_RPTNS_TYP_CD = XTE ,
+                            TKDC_RSDL_CRCV_GTS = XTF ,
+                            TKDC_RSDL_CURR_CD = XTG ,
+                            TKDC_RSDL_STD_AMT = XTH ,
+                            TKDC_SLS_RPT_LDT = XTI ,
+                            TKDC_SRPT_CTRY_CD = XTJ ,
+                            TKDC_SRPT_PRSG_LDT = XTK ,
+                            TKDC_SRPT_PRSG_LTM = XTL ,
+                            TKDC_SRPT_SL_LDT = XTM ,
+                            TKDC_SRPT_TRNS_NB = XTN ,
+                            TKDC_TOCM_IND = XTO ,
+                            TKDC_TOT_AMT_TXT = XTP ,
+                            TKDC_TOT_CRCV_GTS = XTQ ,
+                            TKDC_TOT_CURR_CD = XTR ,
+                            TKDC_TOT_STD_AMT = XTS ,
+                            TKDC_TRPTD_AMT = XTT ,
+                            TKDC_TRPTD_CURR_CD = XTU ,
+                            TKDC_TRPTD_STD_AMT = XTV ,
+                            TKDC_UPDT_SQL_NB = XTW ,
+                            TKT_CPN_MDM_TYP_CD = XTX ,
+                            TKT_DOC_CLNT_ID = XTY ,
+                            TKT_DOC_CTRL_NB = XTZ ,
+                            TKT_DOC_ET_TYP_CD = XU1 ,
+                            TKT_DOC_EXCG_IND = XU2 ,
+                            TKT_DOC_RMTC_AMT = XU5 ,
+                            TKT_DOC_RSDL_AMT = XU6 ,
+                            TKT_DOC_STT_CD = XU8 ,
+                            TKT_DOC_TOT_AMT = XU9 ,
+                            TKT_FORM_TYP_CD = XUA ,
+                            TKT_ITIN_TYP_CD = XUB ,
+                            TKTG_CRR_CD = XUC ,
+                            TKTG_CRR_NB = XUD ,
+                            TOT_PRRTD_AMT = XUE ,
+                            TOT_PRRTD_CRCV_GTS = XUF ,
+                            TOT_PRRTD_CURR_CD = XUG ,
+                            TOT_PRRTD_STD_AMT = XUH ,
+                            TOT_TKTRNS_CPN_CT = XUI ,
+                            TOT_TKTS_IN_SET_CT = XUJ ,
+                            TOUR_CD_TXT = XUK ,
+                            TPRTD_EXCG_RT_ID = XUL ,
+                            TRVL_DRTN_DY_CT = XUM ,
+                            TSRSD_EXCG_RT_ID = XUN ,
+                            TVLAG_CUST_INVC_NB = XUO ,
+                            UNPD_MNR_AGE_NB = XUP ,
+                            VOID_CPN_TXT = XUQ
+              WHERE TKT_DOC_NB = XU4
+                AND TKT_DOC_SQ_NB = XU7
+                AND TKT_DOC_ISS_LDT = XU3
+                       ;
+                       IF SQLWORK = 0 THEN
+                          SET ROWS_UPDATED = ROWS_UPDATED + 1 ;
+                          SET SQLWORK = 0 ;
+                          DELETE FROM WT_TKT_DOC
+                                 WHERE CURRENT OF WORK_CURSOR ;
+                          IF SQLWORK = 0 THEN
+                             SET ROWS_DELETED = ROWS_DELETED + 1 ;
+                          ELSE
+                             SET LAST_FUNCTION = 110 ;
+                             SET SQL_CODE = SQLWORK ;
+                             SET ERROR_FLAG = 'Y' ;
+                             SET RETURN_CODE = 4  ;
+                          END IF ;
+                       ELSE
+                          SET X_ERROR_ID = SQLWORK ;
+                          SET SQLWORK = 0 ;
+                          UPDATE WT_TKT_DOC
+                              SET ERROR_ID = X_ERROR_ID
+                          WHERE CURRENT OF WORK_CURSOR ;
+                          SET ROWS_IN_ERROR = ROWS_IN_ERROR + 1 ;
+                          IF SQLWORK <> 0 THEN
+                             SET LAST_FUNCTION = 115 ;
+                             SET SQL_CODE = SQLWORK ;
+                             SET ERROR_FLAG = 'Y' ;
+                             SET RETURN_CODE = 4  ;
+                          END IF ;
+                       END IF ;
+                    END IF ;
+                 ELSE
+                    IF IN_LST_RP_EVT_GTS >= X_LST_RP_EVT_GTS THEN
+                       SET ROWS_BACK_LEVEL = ROWS_BACK_LEVEL + 1 ;
+                       SET SQLWORK = 0 ;
+                       DELETE FROM WT_TKT_DOC
+                            WHERE CURRENT OF WORK_CURSOR ;
+                       IF SQLWORK = 0 THEN
+                          SET ROWS_DELETED = ROWS_DELETED + 1 ;
+                       ELSE
+                          SET LAST_FUNCTION = 120 ;
+                          SET SQL_CODE = SQLWORK ;
+                          SET ERROR_FLAG = 'Y' ;
+                          SET RETURN_CODE = 4  ;
+                       END IF ;
+                    ELSE
+                       SET SQLWORK = 0 ;
+                       UPDATE MT_TKT_DOC SET
+                            FBRK_TKDC_CRCV_GTS = XF1 ,
+                            FBRK_TKDC_CURR_CD = XF2 ,
+                            FBRK_TKDC_STD_AMT = XF3 ,
+                            FBRK_TKT_DOC_AMT = XF4 ,
+                            FBTD_EXCG_RT_ID = XF5 ,
+                            LST_RP_EVT_GTS = XL6 ,
+                            TKCP_QLTY_TYP_CD = XT6
+              WHERE TKT_DOC_NB = XU4
+                AND TKT_DOC_SQ_NB = XU7
+                AND TKT_DOC_ISS_LDT = XU3
+                       ;
+                       IF SQLWORK = 0 THEN
+                          SET ROWS_UPDATED = ROWS_UPDATED + 1 ;
+                          SET SQLWORK = 0 ;
+                          DELETE FROM WT_TKT_DOC
+                                 WHERE CURRENT OF WORK_CURSOR ;
+                          IF SQLWORK = 0 THEN
+                             SET ROWS_DELETED = ROWS_DELETED + 1 ;
+                          ELSE
+                             SET LAST_FUNCTION = 125 ;
+                             SET SQL_CODE = SQLWORK ;
+                             SET ERROR_FLAG = 'Y' ;
+                             SET RETURN_CODE = 4  ;
+                          END IF ;
+                       ELSE
+                          SET X_ERROR_ID = SQLWORK ;
+                          SET SQLWORK = 0 ;
+                          UPDATE WT_TKT_DOC
+                              SET ERROR_ID = X_ERROR_ID
+                          WHERE CURRENT OF WORK_CURSOR ;
+                          SET ROWS_IN_ERROR = ROWS_IN_ERROR + 1 ;
+                          IF SQLWORK <> 0 THEN
+                             SET LAST_FUNCTION = 130 ;
+                             SET SQL_CODE = SQLWORK ;
+                             SET ERROR_FLAG = 'Y' ;
+                             SET RETURN_CODE = 4  ;
+                          END IF ;
+                       END IF ;
+                    END IF ;
+                 END IF ;
+              ELSEIF SQLWORK = 100 THEN
+                 SET SQLWORK = 0 ;
+                 INSERT INTO MT_TKT_DOC
+                 (
+                  ADTR_TBTCH_SQL_NB ,
+                  ADTR_TRAY_BNK_NB ,
+                  ADTR_TRAY_BTCH_NB ,
+                  ADTR_TRAY_CYC_NB ,
+                  ADTR_TRAY_INVC_NB ,
+                  ADTR_TRAY_LMO_NB ,
+                  ADTR_TRAY_LWK_NB ,
+                  ADV_BKG_DY_CT ,
+                  ADV_PRCH_DY_CT ,
+                  AGSPT_DOC_TYP_CD ,
+                  AGY_MDATA_TYP_CD ,
+                  ASP_PMT_TYP_CD ,
+                  ASP_RCVD_IND ,
+                  ASP_REC_CRTN_GTS ,
+                  ASP_REC_SET_TYP_CD ,
+                  ASP_TKDC_PURP_CD ,
+                  ATP_PAX_TYP_CD ,
+                  BF_RPTD_CRCV_GTS ,
+                  BF_RPTD_CURR_CD ,
+                  BF_RPTD_STD_AMT ,
+                  BFRPD_EXCG_RT_ID ,
+                  BS_FARE_AMT ,
+                  BS_FARE_CRCV_GTS ,
+                  BS_FARE_CURR_CD ,
+                  BS_FARE_EXCG_RT_ID ,
+                  BS_FARE_RPTD_AMT ,
+                  BS_FARE_STD_AMT ,
+                  BS_FARE_TXT ,
+                  BSP_RCVD_IND ,
+                  BSP_REC_CRTN_GTS ,
+                  CMCL_AGMT_RFRN_TXT ,
+                  CMTV_RFND_RSS_AMT ,
+                  CRR_CLNT_ID ,
+                  CRR_CNFN_TXT ,
+                  CRRSS_CRCV_GTS ,
+                  CRRSS_CURR_CD ,
+                  CRRSS_EXCG_RT_ID ,
+                  CRRSS_STD_AMT ,
+                  CRTN_GTS ,
+                  CUST_PD_AMT ,
+                  CUST_PD_CRCV_GTS ,
+                  CUST_PD_CURR_CD ,
+                  CUST_PD_EXCG_RT_ID ,
+                  CUST_PD_STD_AMT ,
+                  CYC_PRSG_LMO_NB ,
+                  CYC_PRSG_LWK_NB ,
+                  CYC_PRSG_NB ,
+                  DL_PAX_TYP_CD ,
+                  DLM_CRTN_GTS ,
+                  DLRY_EDFSYS_CD ,
+                  DSCD_FARE_TYP_CD ,
+                  EADTR_TOT_CRCV_GTS ,
+                  EADTR_TOT_CURR_CD ,
+                  EADTR_TOT_STD_AMT ,
+                  EATOT_EXCG_RT_ID ,
+                  EQFPD_EXCG_RT_ID ,
+                  EQVT_FARE_PD_AMT ,
+                  EQVT_FARE_PD_TXT ,
+                  EQVT_FPD_CRCV_GTS ,
+                  EQVT_FPD_CURR_CD ,
+                  EQVT_FPD_STD_AMT ,
+                  ET_DB_STT_CD ,
+                  ET_RCVD_IND ,
+                  ET_REC_CRTN_GTS ,
+                  ET_SRC_TYP_CD ,
+                  ET_STLMT_AUTH_ID ,
+                  EXCGD_ADTR_TOT_AMT ,
+                  EXVL_BF_AMT ,
+                  EXVL_BF_CRCV_GTS ,
+                  EXVL_BF_CURR_CD ,
+                  EXVL_BF_STD_AMT ,
+                  EXVLBF_EXCG_RT_ID ,
+                  FBRK_EXCG_RT ,
+                  FBRK_TKDC_CRCV_GTS ,
+                  FBRK_TKDC_CURR_CD ,
+                  FBRK_TKDC_STD_AMT ,
+                  FBRK_TKT_DOC_AMT ,
+                  FBTD_EXCG_RT_ID ,
+                  FRCN_MODE_TYP_CD ,
+                  IATA_RSS_FMT_IND ,
+                  INTL_SL_TYP_CD ,
+                  LRPTY_AMT ,
+                  LRPTY_CRCV_GTS ,
+                  LRPTY_CURR_CD ,
+                  LRPTY_EXCG_RT_ID ,
+                  LRPTY_STD_AMT ,
+                  LST_RP_EVT_GTS ,
+                  LST_TRNS_EVT_GTS ,
+                  MISC_DOC_IND ,
+                  MT_TKT_DOC_TYP_CD ,
+                  NADTR_FARE_CURR_CD ,
+                  NADTR_FARE_STD_AMT ,
+                  NADTR_ITFR_AMT ,
+                  NADTR_ITFR_CURR_CD ,
+                  NADTR_ITFR_STD_AMT ,
+                  NADTR_TKDC_CURR_CD ,
+                  NADTR_TKDC_STD_AMT ,
+                  NADTR_TKT_DOC_AMT ,
+                  NAFR_CRCV_GTS ,
+                  NAFR_EXCG_RT_ID ,
+                  NAIFR_CRCV_GTS ,
+                  NAIFR_EXCG_RT_ID ,
+                  NATKDC_CRCV_GTS ,
+                  NATKDC_EXCG_RT_ID ,
+                  NEF_CRCV_GTS ,
+                  NEF_CURR_CD ,
+                  NEF_EXCG_RT_ID ,
+                  NEF_STD_AMT ,
+                  NET_BF_CRCV_GTS ,
+                  NET_BF_CURR_CD ,
+                  NET_BF_STD_AMT ,
+                  NET_BS_FARE_AMT ,
+                  NET_EQVT_FARE_AMT ,
+                  NET_TOT_AMT ,
+                  NET_TOT_CRCV_GTS ,
+                  NET_TOT_CURR_CD ,
+                  NET_TOT_EXCG_RT_ID ,
+                  NET_TOT_STD_AMT ,
+                  NEW_ADTR_FARE_AMT ,
+                  NEW_TKT_FPEX_IND ,
+                  NOTC_RQD_IND ,
+                  NTBF_EXCG_RT_ID ,
+                  NTRL_ISSG_SYS_CD ,
+                  ORIG_EDFSYS_CD ,
+                  PAX_FRST_NM ,
+                  PAX_FULL_NM ,
+                  PAX_INFO_TXT ,
+                  PAX_LST_NM ,
+                  PRMY_TKT_IND ,
+                  PROC_LDT_USKTK_IND ,
+                  PRTTN_KEY_ID ,
+                  RCVD_TKT_OD_TXT ,
+                  RND_TRP_IND ,
+                  RPTD_AUDT_IND ,
+                  RPTD_ISS_LDT ,
+                  RPTD_STLMT_AUTH_ID ,
+                  RPTG_SYS_PVDR_CD ,
+                  RPTG_SYS_PVDR_NB ,
+                  SKLTL_IND ,
+                  SLD_CPN_CT ,
+                  SLS_RPTG_LOC_CD ,
+                  SM_ACCT_NB ,
+                  STATL_DOM_INTL_ID ,
+                  STATL_SLF_SL_ID ,
+                  SYS_VOID_TKT_IND ,
+                  TDISSC_SYS_TYP_CD ,
+                  TDRMTC_EXCG_RT_ID ,
+                  TDTOT_EXCG_RT_ID ,
+                  TDTRPD_CRCV_GTS ,
+                  TDTRPD_EXCG_RT_ID ,
+                  TKCP_QLTY_TYP_CD ,
+                  TKDC_ASVC_CHRG_CT ,
+                  TKDC_MSFOP_TYP_CD ,
+                  TKDC_PRCG_TYP_CD ,
+                  TKDC_RCFMT_TYP_CD ,
+                  TKDC_RMTC_CRCV_GTS ,
+                  TKDC_RMTC_CURR_CD ,
+                  TKDC_RMTC_STD_AMT ,
+                  TKDC_RPTNS_TYP_CD ,
+                  TKDC_RSDL_CRCV_GTS ,
+                  TKDC_RSDL_CURR_CD ,
+                  TKDC_RSDL_STD_AMT ,
+                  TKDC_SLS_RPT_LDT ,
+                  TKDC_SRPT_CTRY_CD ,
+                  TKDC_SRPT_PRSG_LDT ,
+                  TKDC_SRPT_PRSG_LTM ,
+                  TKDC_SRPT_SL_LDT ,
+                  TKDC_SRPT_TRNS_NB ,
+                  TKDC_TOCM_IND ,
+                  TKDC_TOT_AMT_TXT ,
+                  TKDC_TOT_CRCV_GTS ,
+                  TKDC_TOT_CURR_CD ,
+                  TKDC_TOT_STD_AMT ,
+                  TKDC_TRPTD_AMT ,
+                  TKDC_TRPTD_CURR_CD ,
+                  TKDC_TRPTD_STD_AMT ,
+                  TKDC_UPDT_SQL_NB ,
+                  TKT_CPN_MDM_TYP_CD ,
+                  TKT_DOC_CLNT_ID ,
+                  TKT_DOC_CTRL_NB ,
+                  TKT_DOC_ET_TYP_CD ,
+                  TKT_DOC_EXCG_IND ,
+                  TKT_DOC_ISS_LDT ,
+                  TKT_DOC_NB ,
+                  TKT_DOC_RMTC_AMT ,
+                  TKT_DOC_RSDL_AMT ,
+                  TKT_DOC_SQ_NB ,
+                  TKT_DOC_STT_CD ,
+                  TKT_DOC_TOT_AMT ,
+                  TKT_FORM_TYP_CD ,
+                  TKT_ITIN_TYP_CD ,
+                  TKTG_CRR_CD ,
+                  TKTG_CRR_NB ,
+                  TOT_PRRTD_AMT ,
+                  TOT_PRRTD_CRCV_GTS ,
+                  TOT_PRRTD_CURR_CD ,
+                  TOT_PRRTD_STD_AMT ,
+                  TOT_TKTRNS_CPN_CT ,
+                  TOT_TKTS_IN_SET_CT ,
+                  TOUR_CD_TXT ,
+                  TPRTD_EXCG_RT_ID ,
+                  TRVL_DRTN_DY_CT ,
+                  TSRSD_EXCG_RT_ID ,
+                  TVLAG_CUST_INVC_NB ,
+                  UNPD_MNR_AGE_NB ,
+                  VOID_CPN_TXT
+                 )
+                 VALUES
+                 (
+                  XA1 ,
+                  XA2 ,
+                  XA3 ,
+                  XX5 ,
+                  XX6 ,
+                  XA4 ,
+                  XA5 ,
+                  XA6 ,
+                  XA7 ,
+                  XA8 ,
+                  XA9 ,
+                  XAA ,
+                  XAB ,
+                  XAC ,
+                  XAD ,
+                  XAE ,
+                  XAF ,
+                  XB1 ,
+                  XB2 ,
+                  XB3 ,
+                  XB4 ,
+                  XB5 ,
+                  XB6 ,
+                  XB7 ,
+                  XB8 ,
+                  XB9 ,
+                  XBA ,
+                  XBB ,
+                  XBC ,
+                  XBD ,
+                  XC1 ,
+                  XC2 ,
+                  XC3 ,
+                  XC4 ,
+                  XC5 ,
+                  XC6 ,
+                  XC7 ,
+                  XC8 ,
+                  XC9 ,
+                  XCA ,
+                  XCB ,
+                  XCC ,
+                  XCD ,
+                  XCE ,
+                  XCF ,
+                  XCG ,
+                  XCH ,
+                  XD1 ,
+                  XD2 ,
+                  XD3 ,
+                  XD4 ,
+                  XE1 ,
+                  XE2 ,
+                  XE3 ,
+                  XE4 ,
+                  XE5 ,
+                  XE6 ,
+                  XE7 ,
+                  XE8 ,
+                  XE9 ,
+                  XEA ,
+                  XEC ,
+                  XED ,
+                  XEE ,
+                  XEF ,
+                  XEG ,
+                  XEH ,
+                  XEI ,
+                  XEJ ,
+                  XEK ,
+                  XEL ,
+                  XEM ,
+                  XEN ,
+                  XF1 ,
+                  XF2 ,
+                  XF3 ,
+                  XF4 ,
+                  XF5 ,
+                  XF6 ,
+                  XF7 ,
+                  XI1 ,
+                  XL1 ,
+                  XL2 ,
+                  XL3 ,
+                  XL4 ,
+                  XL5 ,
+                  XL6 ,
+                  XL7 ,
+                  XL8 ,
+                  XM1 ,
+                  XN1 ,
+                  XN2 ,
+                  XN3 ,
+                  XN4 ,
+                  XN5 ,
+                  XN6 ,
+                  XN7 ,
+                  XN8 ,
+                  XN9 ,
+                  XNA ,
+                  XNB ,
+                  XNC ,
+                  XND ,
+                  XNE ,
+                  XNF ,
+                  XNG ,
+                  XNH ,
+                  XNI ,
+                  XNJ ,
+                  XNK ,
+                  XNL ,
+                  XNM ,
+                  XNN ,
+                  XNO ,
+                  XNP ,
+                  XNQ ,
+                  XNR ,
+                  XNS ,
+                  XNT ,
+                  XNU ,
+                  XNV ,
+                  XNW ,
+                  XNX ,
+                  XO1 ,
+                  XP1 ,
+                  XP2 ,
+                  XP3 ,
+                  XP4 ,
+                  XP5 ,
+                  XP6 ,
+                  XP7 ,
+                  XR1 ,
+                  XR2 ,
+                  XR3 ,
+                  XR4 ,
+                  XR5 ,
+                  XR6 ,
+                  XR7 ,
+                  XS1 ,
+                  XS2 ,
+                  XS3 ,
+                  XS4 ,
+                  XS5 ,
+                  XS6 ,
+                  XS7 ,
+                  XT1 ,
+                  XT2 ,
+                  XT3 ,
+                  XT4 ,
+                  XT5 ,
+                  XT6 ,
+                  XT7 ,
+                  XT8 ,
+                  XT9 ,
+                  XTA ,
+                  XTB ,
+                  XTC ,
+                  XTD ,
+                  XTE ,
+                  XTF ,
+                  XTG ,
+                  XTH ,
+                  XTI ,
+                  XTJ ,
+                  XTK ,
+                  XTL ,
+                  XTM ,
+                  XTN ,
+                  XTO ,
+                  XTP ,
+                  XTQ ,
+                  XTR ,
+                  XTS ,
+                  XTT ,
+                  XTU ,
+                  XTV ,
+                  XTW ,
+                  XTX ,
+                  XTY ,
+                  XTZ ,
+                  XU1 ,
+                  XU2 ,
+                  XU3 ,
+                  XU4 ,
+                  XU5 ,
+                  XU6 ,
+                  XU7 ,
+                  XU8 ,
+                  XU9 ,
+                  XUA ,
+                  XUB ,
+                  XUC ,
+                  XUD ,
+                  XUE ,
+                  XUF ,
+                  XUG ,
+                  XUH ,
+                  XUI ,
+                  XUJ ,
+                  XUK ,
+                  XUL ,
+                  XUM ,
+                  XUN ,
+                  XUO ,
+                  XUP ,
+                  XUQ
+                 ) ;
+                 IF SQLWORK = 0 THEN
+                    SET ROWS_INSERTED = ROWS_INSERTED + 1 ;
+                    SET SQLWORK = 0 ;
+                    DELETE FROM WT_TKT_DOC
+                       WHERE CURRENT OF WORK_CURSOR ;
+                    IF SQLWORK = 0 THEN
+                       SET ROWS_DELETED = ROWS_DELETED + 1 ;
+                    ELSE
+                       SET LAST_FUNCTION = 175 ;
+                       SET SQL_CODE = SQLWORK ;
+                       SET ERROR_FLAG = 'Y' ;
+                       SET RETURN_CODE = 4  ;
+                    END IF ;
+                 ELSE
+                    SET X_ERROR_ID = SQLWORK ;
+                    SET SQLWORK = 0 ;
+                    UPDATE WT_TKT_DOC
+                       SET ERROR_ID = X_ERROR_ID
+                    WHERE CURRENT OF WORK_CURSOR ;
+                    SET ROWS_IN_ERROR = ROWS_IN_ERROR + 1 ;
+                    IF SQLWORK <> 0 THEN
+                       SET LAST_FUNCTION = 135 ;
+                       SET SQL_CODE = SQLWORK ;
+                       SET ERROR_FLAG = 'Y' ;
+                       SET RETURN_CODE = 4  ;
+                    END IF ;
+                  END IF ;
+              ELSE
+                 SET LAST_FUNCTION = 140 ;
+                 SET SQL_CODE = SQLWORK ;
+                 SET ERROR_FLAG = 'Y' ;
+                 SET RETURN_CODE = 4  ;
+              END IF  ;
+
+           ELSEIF SQLWORK = 100 THEN
+              SET END_CURSOR = 'Y' ;
+              SET RETURN_CODE = 100 ;
+              CLOSE WORK_CURSOR ;
+           ELSE
+              SET LAST_FUNCTION = 025 ;
+              SET SQL_CODE = SQLWORK ;
+              SET ERROR_FLAG = 'Y' ;
+              SET RETURN_CODE = 4  ;
+           END IF ;
+
+        UNTIL END_CURSOR = 'Y'
+           OR ERROR_FLAG = 'Y'
+           OR COMMIT_TIME = 'Y'
+   END REPEAT FETCH_LOOP ;
+
+
+ELSE
+   SET LAST_FUNCTION = 30 ;
+   SET SQL_CODE = SQLWORK ;
+   SET ERROR_FLAG = 'Y' ;
+   SET RETURN_CODE = 4  ;
+END IF  ;
+
+PROC_END:
+
+SET X_LOG_MSG = 'END OF TEDS072 PROCESS'  ;
+IF ERROR_FLAG = 'N' THEN
+   IF COMMIT_TIME = 'Y' THEN
+      SET RETURN_CODE = 1024 ;
+   END IF ;
+ELSE
+   SET X_LOG_MSG = 'TEDS072 ERRORS HAVE OCCURRED'  ;
+   SET FUNCTION_CALL = LAST_FUNCTION ;
+   IF LAST_FUNCTION > 100 THEN
+      IF IN_LST_TRNS_EVT_GTS IS NOT NULL THEN
+         SET KEY_DATA =
+            CHAR(XU3)
+            CONCAT ' ' CONCAT
+            XU4
+            CONCAT '  ' CONCAT
+            CHAR(DIGITS(XU7))
+            CONCAT '  ' CONCAT
+            CHAR(IN_LST_TRNS_EVT_GTS) ;
+      ELSE
+         SET KEY_DATA =
+            CHAR(XU3)
+            CONCAT ' ' CONCAT
+            XU4
+            CONCAT '  ' CONCAT
+            CHAR(DIGITS(XU7))
+            CONCAT '  ' CONCAT
+            CHAR(IN_LST_RP_EVT_GTS) ;
+      END IF ;
+   END IF ;
+END IF ;
+
+INSERT INTO TEDS_AUDIT_LOG
+        (LOG_PROC,
+         LOG_MSG,
+         LOG_ROWS_READ,
+         LOG_ROWS_UPDATED,
+         LOG_WK_ROWS_DLTD,
+         LOG_WK_ROWS_BKLVL,
+         LOG_WK_ROWS_ERROR)
+      VALUES
+        (X_LOG_PROC,
+         X_LOG_MSG,
+         ROWS_FETCHED,
+         ROWS_UPDATED,
+         ROWS_DELETED,
+         ROWS_BACK_LEVEL,
+         ROWS_IN_ERROR ) ;
+
+END P1

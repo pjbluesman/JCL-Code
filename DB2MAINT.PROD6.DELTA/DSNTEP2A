@@ -1,0 +1,30 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00000100
+//         NOTIFY=&SYSUID                                               00000200
+/*JOBPARM SYSAFF=MVS3                                                   00000301
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU                 00000400
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR                        00000500
+//**********************************************************************00010000
+//*                                                                    *00015000
+//*  BATCH SPUFI                                                       *00020000
+//*                                                                    *00030000
+//**********************************************************************00370000
+//JOBLIB   DD  DISP=SHR,DSN=SSXDT.DB6V.SDSNEXIT                         00380001
+//         DD  DISP=SHR,DSN=SDB6V.SDSNLOAD                              00381001
+//         DD  DISP=SHR,DSN=SYS1.CEE.SCEERUN                            00390000
+//*                                                                     00400000
+//PH01LS04 EXEC PGM=IKJEFT01,DYNAMNBR=20                                00869000
+//SYSTSPRT DD  SYSOUT=*                                                 00871000
+//SYSPRINT DD  SYSOUT=*                                                 00872000
+//SYSUDUMP DD  SYSOUT=*                                                 00873000
+//SYSTSIN  DD  *                                                        00874000
+ DSN SYSTEM(DB6V)                                                       00875001
+ RUN  PROGRAM(DSNTEP2) PLAN(DSNTEP2) +                                  00880000
+      LIB('SSXDT.DB6V.RUNLIB.LOAD') +                                   00881001
+      PARMS('/ALIGN(MID)')                                              00882000
+ END                                                                    00884000
+//*                                                                     00885000
+//SYSIN    DD *                                                         00886000
+  SET CURRENT SQLID = 'LSEBDB2';                                        00886100
+  SELECT * FROM SYSIBM.SYSTABLES ;                                      00886201
+//                                                                      00886500
+SELECT (CURRENT TIMESTAMP - 6 MONTHS) FROM SYSIBM.SYSDUMMY1             00887000

@@ -1,0 +1,16 @@
+//U477625  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00000102
+//         NOTIFY=&SYSUID                                               00000200
+/*JOBPARM SYSAFF=MVSF                                                   00000302
+//STEP01   EXEC PGM=ADRDSSU,REGION=0M,TIME=1440                         00020000
+//SYSPRINT DD   SYSOUT=*                                                00030000
+//OUT1     DD DSN=SSXDP.TOOLKIT.DUMP.DDDMMYY,                           00041002
+//         DISP=(,CATLG,DELETE),UNIT=3390,                              00050002
+//         SPACE=(CYL,(800,800))                                        00060000
+//SYSIN    DD   *                                                       00070000
+  DUMP DATASET(INCLUDE(                                 -               00080000
+         SSXDP.TOOLKIT.**                               -               00090002
+                                             ))         -               00120000
+  OUTDD(OUT1) -                                                         00130000
+  ALLDATA(*) ALLEXCP  -                                                 00140000
+  SHR TOL(ENQF)                                                         00149500
+//                                                                      00150000

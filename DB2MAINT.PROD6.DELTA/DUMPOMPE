@@ -1,0 +1,18 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00000100
+//         NOTIFY=&SYSUID                                               00000200
+/*JOBPARM SYSAFF=MVSE                                                   00000302
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU                 00000400
+//STEP01   EXEC PGM=ADRDSSU,REGION=0M,TIME=1440                         00020000
+//SYSPRINT DD   SYSOUT=*                                                00030000
+//IN1      DD   DISP=SHR,UNIT=3390,VOL=SER=S7S2T1                       00041008
+//OUT1     DD   DSN=SYS2.DB2TOOLS.HAA31BT.D150612,UNIT=3390,            00042010
+//         DISP=(,CATLG,DELETE),VOL=SER=S7S2T3,                         00050008
+//         SPACE=(CYL,(10,50),RLSE)                                     00060009
+//SYSIN    DD   *                                                       00070000
+  DUMP DATASET(INCLUDE(SYS2.DB2TOOLS.SHAA*     -                        00080009
+        SYS2.DB2TOOLS.SFEC*))                  -                        00081009
+  INDD(IN1) -                                                           00086008
+  OUTDD(OUT1) -                                                         00087008
+  ALLDATA(*) ALLEXCP  -                                                 00088008
+  SHR                                                                   00089008
+//* TOL(ENQF)                                                           00090008

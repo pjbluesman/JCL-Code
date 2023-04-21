@@ -1,0 +1,106 @@
+//U477625   JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X,                       00000104
+//  REGION=0M,TIME=1440,USER=T477625                                    00000205
+/*JOBPARM SYSAFF=MVSR                                                   00000306
+//IEFBR14  EXEC PGM=IEFBR14                                             00001000
+//*             => OUTPUT Filename for final TRS file, please adjust    00002000
+//*                                                                     00004000
+//DDB      DD  DSN=SSXDP.DELTA.DB2R.TRS,                                00005007
+//             DISP=(MOD,DELETE),                                       00006000
+//             SPACE=(TRK,(0,0))                                        00007000
+//SYSPRINT DD  SYSOUT=*                                                 00008000
+/*                                                                      00009000
+//DFDSDMP  EXEC  PGM=ADRDSSU,REGION=0K ,PARM='TYPRUN=NORUN'             00010003
+//SYSPRINT DD  SYSOUT=*                                                 00020000
+//* MODIFY THE FOLLOWING DD IF DUMPOUT GOES TO TAPE                     00030000
+//BACKUP   DD  DSN=&&DFDSSDMP,                                          00040000
+//      UNIT=SYSALLDA,DISP=(,PASS),                                     00050000
+//      SPACE=(CYL,(3000,500),RLSE),                                    00060005
+//      DCB=BLKSIZE=0                                                   00070000
+//SYSIN    DD  *                                                        00080000
+  DUMP -                                                                00090000
+       OUTDDNAME(BACKUP)             /* DUMP OUTPUT               */ -  00100000
+       DATASET(INCLUDE(                                              -  00110000
+               SSXDT.DB2R.IBM.SYSTAB,                                -  00140006
+               SSXDT.DB2R.IBM.SYSIND,                                -  00141006
+               SSXDT.DB2R.IBM.SYSKEY,                                -  00142006
+               SSXDT.DB2R.IBM.SYSTABC,                               -  00143006
+               SSXDT.DB2R.IBM.SYSVIEW,                               -  00144006
+               SSXDT.DB2R.IBM.SYSTABP,                               -  00145006
+               SSXDT.DB2R.IBM.SYSCOL,                                -  00146006
+               SSXDT.DB2R.IBM.DSNCACH,                               -  00147006
+               SSXDT.DB2R.IBM.DSNPLAN,                               -  00148006
+               SSXDT.DB2R.IBM.DSNSTAT,                               -  00149006
+               SSXDT.DB2R.IBM.DSNFUNC,                               -  00149106
+               SSXDT.DB2R.IBM.DSNPRED,                               -  00149206
+               SSXDT.DB2R.IBM.DSNSTRU,                               -  00149306
+               SSXDT.DB2R.IBM.DSNQUER,                               -  00149406
+               SSXDT.DB2R.IBM.DSNCOST                                -  00150006
+                      ))                                             -  00160000
+       CANCELERROR                   /* TERMINATE ON ERROR        */ -  00170000
+       TOLERATE(ENQF)                /* BYPASS ENQ FAILURE        */ -  00180000
+       SHARE                         /* SHARE READ ACCESS         */ -  00190000
+       ALLDATA(*)      -                                                00191000
+       ALLEXCP         -                                                00192000
+       ADMIN           -                                                00193000
+       COMPRESS                      /* COMPRESS OUTPUT DATA      */    00200000
+/*                                                                      00210000
+//TERSE    EXEC PGM=TRSMAIN,PARM='PACK',COND=(4,LT)                     00250000
+//SYSPRINT DD  SYSOUT=*                                                 00260000
+//INFILE   DD  DISP=(OLD,DELETE),DSN=*.DFDSDMP.BACKUP                   00270000
+//OUTFILE  DD  DISP=(NEW,CATLG,DELETE),                                 00280000
+//             DSN=*.IEFBR14.DDB,                                       00290000
+//             UNIT=SYSDA,SPACE=(CYL,(3000,500),RLSE)                   00300005
+/*                                                                      00310000
+//                                                                      00311006
+//* MVSS - DB2V                                                         00312006
+/*JOBPARM SYSAFF=MVSS                                                   00320006
+//IEFBR14  EXEC PGM=IEFBR14                                             00330006
+//*             => OUTPUT Filename for final TRS file, please adjust    00340006
+//*                                                                     00350006
+//DDB      DD  DSN=SSXDT.DELTA.DB2V.TRS,                                00360006
+//             DISP=(MOD,DELETE),                                       00370006
+//             SPACE=(TRK,(0,0))                                        00380006
+//SYSPRINT DD  SYSOUT=*                                                 00390006
+/*                                                                      00400006
+//DFDSDMP  EXEC  PGM=ADRDSSU,REGION=0K ,PARM='TYPRUN=NORUN'             00410006
+//SYSPRINT DD  SYSOUT=*                                                 00420006
+//* MODIFY THE FOLLOWING DD IF DUMPOUT GOES TO TAPE                     00430006
+//BACKUP   DD  DSN=&&DFDSSDMP,                                          00440006
+//      UNIT=SYSALLDA,DISP=(,PASS),                                     00450006
+//      SPACE=(CYL,(3000,500),RLSE),                                    00460006
+//      DCB=BLKSIZE=0                                                   00470006
+//SYSIN    DD  *                                                        00480006
+  DUMP -                                                                00490006
+       OUTDDNAME(BACKUP)             /* DUMP OUTPUT               */ -  00500006
+       DATASET(INCLUDE(                                              -  00510006
+               SSXDT.DB2V.IBM.SYSTAB,                                -  00520006
+               SSXDT.DB2V.IBM.SYSIND,                                -  00530006
+               SSXDT.DB2V.IBM.SYSKEY,                                -  00540006
+               SSXDT.DB2V.IBM.SYSTABC,                               -  00550006
+               SSXDT.DB2V.IBM.SYSVIEW,                               -  00560006
+               SSXDT.DB2V.IBM.SYSTABP,                               -  00570006
+               SSXDT.DB2V.IBM.SYSCOL,                                -  00580006
+               SSXDT.DB2V.IBM.DSNCACH,                               -  00590006
+               SSXDT.DB2V.IBM.DSNPLAN,                               -  00600006
+               SSXDT.DB2V.IBM.DSNSTAT,                               -  00610006
+               SSXDT.DB2V.IBM.DSNFUNC,                               -  00620006
+               SSXDT.DB2V.IBM.DSNPRED,                               -  00630006
+               SSXDT.DB2V.IBM.DSNSTRU,                               -  00640006
+               SSXDT.DB2V.IBM.DSNQUER,                               -  00650006
+               SSXDT.DB2V.IBM.DSNCOST                                -  00660006
+                      ))                                             -  00670006
+       CANCELERROR                   /* TERMINATE ON ERROR        */ -  00680006
+       TOLERATE(ENQF)                /* BYPASS ENQ FAILURE        */ -  00690006
+       SHARE                         /* SHARE READ ACCESS         */ -  00700006
+       ALLDATA(*)      -                                                00710006
+       ALLEXCP         -                                                00720006
+       ADMIN           -                                                00730006
+       COMPRESS                      /* COMPRESS OUTPUT DATA      */    00740006
+/*                                                                      00750006
+//TERSE    EXEC PGM=TRSMAIN,PARM='PACK',COND=(4,LT)                     00760006
+//SYSPRINT DD  SYSOUT=*                                                 00770006
+//INFILE   DD  DISP=(OLD,DELETE),DSN=*.DFDSDMP.BACKUP                   00780006
+//OUTFILE  DD  DISP=(NEW,CATLG,DELETE),                                 00790006
+//             DSN=*.IEFBR14.DDB,                                       00800006
+//             UNIT=SYSDA,SPACE=(CYL,(3000,500),RLSE)                   00810006
+/*                                                                      00820006

@@ -1,0 +1,70 @@
+//DSNUPROA PROC LIB='SSXDT.DSNDBAG.DB2A.SDSNLOAD',
+//         SYSTEM=DB2A,
+//         SIZE=0K,UID='',UTPROC=''
+//*
+//**********************************************************************
+//*                                                                    *
+//* PROCEDURE-NAME:      DSNUPROA                                      *
+//*                                                                    *
+//* DESCRIPTIVE-NAME:    UTILITY PROCEDURE                             *
+//*                                                                    *
+//* FUNCTION:  THIS PROCEDURE INVOKES THE ADMF UTILITIES IN THE        *
+//*             BATCH ENVIRONMENT                                      *
+//*                                                                    *
+//* PROCEDURE-OWNER:     UTILITY COMPONENT                             *
+//*                                                                    *
+//* COMPONENT-INVOKED:   ADMF UTILITIES (ENTRY POINT DSNUTILB).        *
+//*                                                                    *
+//* ENVIRONMENT:         BATCH                                         *
+//*                                                                    *
+//* INPUT:                                                             *
+//*      PARAMETERS:                                                   *
+//*           LIB    = THE DATA SET NAME OF THE DB2  PROGRAM LIBRARY.  *
+//*                    THE DEFAULT LIBRARY NAME IS PREFIX.SDSNLOAD,    *
+//*                    WITH PREFIX SET DURING INSTALLATION.            *
+//*           SIZE   = THE REGION SIZE OF THE UTILITIES EXECUTION AREA.*
+//*                    THE DEFAULT REGION SIZE IS 2048K.               *
+//*           SYSTEM = THE SUBSYSTEM NAME USED TO IDENTIFY THIS JOB    *
+//*                    TO DB2 .  THE DEFAULT IS "DB2E".                *
+//*           UID    = THE IDENTIFIER WHICH WILL DEFINE THIS UTILITY   *
+//*                    JOB TO DB2.  IF THE PARAMETER IS DEFAULTED OR   *
+//*                    SET TO A NULL STRING, THE UTILITY FUNCTION WILL *
+//*                    USE ITS DEFAULT, USERID.JOBNAME.  EACH UTILITY  *
+//*                    WHICH HAS STARTED AND IS NOT YET TERMINATED     *
+//*                    (MAY NOT BE RUNNING) MUST HAVE A UNIQUE UID.    *
+//*           UTPROC = AN OPTIONAL INDICATOR USED TO DETERMINE WHETHER *
+//*                    THE USER WISHES TO INITIALLY START THE REQUESTED*
+//*                    UTILITY OR TO RESTART A PREVIOUS EXECUTION OF   *
+//*                    THE UTILITY.  IF OMITTED, THE UTILITY WILL      *
+//*                    BE INITIALLY STARTED.  OTHERWISE, THE UTILITY   *
+//*                    WILL BE RESTARTED BY ENTERING THE FOLLOWING     *
+//*                    VALUES:                                         *
+//*                       RESTART(PHASE)  = RESTART THE UTILITY AT THE *
+//*                               BEGINNING OF THE PHASE EXECUTED      *
+//*                               LAST.                                *
+//*                        RESTART = RESTART THE UTILITY AT THE LAST   *
+//*                               OR CURRENT COMMIT POINT.             *
+//*                                                                    *
+//* OUTPUT: NONE.                                                      *
+//*                                                                    *
+//* EXTERNAL-REFERENCES: NONE.                                         *
+//*                                                                    *
+//* CHANGE-ACTIVITY:                                                   *
+//*                                                                    *
+//*                                                                    *
+//**********************************************************************
+//*
+//DSNUPROA EXEC PGM=DSNUTILB,REGION=&SIZE,
+//         PARM='&SYSTEM,&UID,&UTPROC'
+//STEPLIB  DD   DSN=&LIB,DISP=SHR
+//*
+//**********************************************************************
+//*                                                                    *
+//*  THE FOLLOWING DEFINE THE UTILITIES' PRINT DATA SETS               *
+//*                                                                    *
+//**********************************************************************
+//*
+//SYSPRINT DD   SYSOUT=*
+//UTPRINT  DD   SYSOUT=*
+//SYSUDUMP DD   SYSOUT=*
+//*DSNUPROA PEND        REMOVE * FOR USE AS INSTREAM PROCEDURE

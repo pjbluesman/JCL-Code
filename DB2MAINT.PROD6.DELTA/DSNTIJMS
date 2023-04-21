@@ -1,0 +1,519 @@
+//UXD001M JOB ,'DB2 SYSPROG',CLASS=S,MSGCLASS=X
+//********************************************************************* 00010000
+//*  Name = DSNTIJMS                                                    00020000
+//*                                                                     00030000
+//*  Descriptive Name =                                                 00040000
+//*    DB2 Installation Job Stream                                      00050000
+//*                                                                     00060000
+//*    LICENSED MATERIALS - PROPERTY OF IBM                             00070000
+//*    5645-DB2                                                         00080000
+//*    (C) COPYRIGHT 1982,2002 IBM CORP.  ALL RIGHTS RESERVED.          00090000
+//*                                                                     00100000
+//*  Status = Version 7                                                 00110000
+//*                                                                     00120000
+//*  Function = Post-install job to create objects required for the DB2 00139990
+//*             JDBC and ODBC metadata methods.                         00149980
+//*                                                                     00180000
+//*  Pseudocode =                                                       00190000
+//*    DSNTICU  Step     Drop objects for cleanup (optional)            00207990
+//*    DSNTIRU  Step     Create database objects and bind packages      00215980
+//*    DSNTIJS  Step     Register the Stored Procedures                 00223970
+//*    DSNTIJG  Step     Grant EXECUTE privilege on procedures and      00231960
+//*                      packages to PUBLIC                             00239950
+//*                                                                     00250000
+//*  Dependencies =                                                     00260000
+//*                                                                     00270000
+//*  Notes =                                                            00280000
+//*    Prior to running this job, customize it for your system:         00290000
+//*    (1) Add a valid job card                                         00300000
+//*    (2) Locate and change all occurrences of the following strings   00310000
+//*        as indicated:                                                00320000
+//*        (A) The subsystem name 'DB2U' to the name of your DB2        00330000
+//*        (B) 'DSNTIAD' to the plan name for DSNTIAD on your DB2       00340000
+//*        (C) 'WLMDB206' to the name of the WLM application            00359990
+//*            environment(s) for running the JDBC and OBDC metadata    00369980
+//*            stored procedures.  For best performance, this           00379970
+//*            should be a WLM application environment that is          00389960
+//*            defined with a NUMTCB parameter greater than 1.          00399950
+//*        (D) 'DSN!!0' to the prefix of the target library for DB2 V7  00409940
+//*    (3) If you need to first drop old versions of the objects        00419930
+//*        created by a previous execution of this job, uncomment       00429920
+//*        the lines in step DSNTICU.                                   00439910
+//*    (4) In certain cases, the stored procedures created by this      00440010
+//*        job will use dynamic SQL to access the DB2 catalog tables    00440110
+//*        This is particularly the case on DBCS-enabled systems        00440210
+//*        (MIXED=YES specified on the Programming Defaults             00440310
+//*        installation panel).  Also, when called from the CLI         00440410
+//*        driver that is provided by DB2 Connect Version 8 and         00440510
+//*        certain CLI installation options are specified.              00440610
+//*        When dynamic SQL is used, the invoker's authorization ID     00440710
+//*        must have the SELECT privilege for any DB2 catalog tables    00440810
+//*        accessed by the procedures.  In the final step of this       00440910
+//*        job there is a GRANT statement that is commented out.        00441010
+//*        It lists all the catalog tables that are accessed by these   00441110
+//*        procedures.  If you wish to grant access to these tables     00441210
+//*        to specific users, or to PUBLIC, uncomment the GRANT         00441310
+//*        statement and insert the appropriate authorization ID's      00441410
+//*        into the statement.                                          00441510
+//*                                                                     00441610
+//*                                                                     00441900
+//*    When run on a DBCS-enabled system a return code 4 is expected    00443890
+//*    from step DSNTIRU.  SQLCODE -130 will be received on some of     00445880
+//*    the BIND commands but wil be allowed by the SQLERROR(CONTINUE)   00447870
+//*    option.                                                          00449860
+//*                                                                     00450060
+//*    Tables created by this job to support the DB2 ODBC and JDBC      00450260
+//*    metadata methods have names like SYSIBM.SYSxxxxx but are user-   00450460
+//*    managed not DB2 catalog objects.  The database and table spaces  00450660
+//*    for these tables are created in the default storage group,       00450860
+//*    SYSDEFLT.  If your system needs to manage the storage for these  00451060
+//*    tables differently, modify the statements for CREATE DATABASE    00451260
+//*    and CREATE TABLESPACE in member DSNATMMC in prefix.SDSNSAMP.     00451460
+//*                                                                     00451850
+//*    This job creates some user-defined indexes on the DB2 catalog.   00453840
+//*    These will be created in default storage group SYSDEFLT.  If     00455830
+//*    your system needs to manage the storage for these indexes        00457820
+//*    differently, modify the CREATE INDEX statements in member        00459810
+//*    DSNATMMC in prefix.SDSNSAMP.  These indexes are needed to        00461800
+//*    provide acceptable performance of the queries that are used      00462800
+//*    in the JDBC and ODBC Metadata Stored Procedures.  These indexes  00463800
+//*    have names like SYSIBM.SQLxxxxx but are user-managed, not        00464800
+//*    DB2 catalog objects.                                             00465800
+//*                                                                     00470000
+//********************************************************************* 00480000
+//JOBLIB  DD  DISP=SHR,                                                 00490000
+//            DSN=SSXDT.DSNDBUG.DB2U.SDSNLOAD                           00500000
+//*                                                                     00500090
+//****************************************************************      00500180
+//* DROP OBJECTS FOR CLEANUP                                            00500270
+//****************************************************************      00500360
+//DSNTICU EXEC PGM=IKJEFT01,DYNAMNBR=20                                 00500450
+//SYSTSPRT DD  SYSOUT=*                                                 00500540
+//SYSPRINT DD  SYSOUT=*                                                 00500630
+//SYSUDUMP DD  SYSOUT=*                                                 00500720
+//SYSTSIN  DD  *                                                        00500810
+  DSN SYSTEM(DB2U)                                                      00500900
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIAD) PARM('RC0') -                     00500990
+       LIBRARY('SSXDT.DSNDBUG.DB2U.RUNLIB.LOAD')                        00501080
+  END                                                                   00501170
+//SYSIN    DD  *                                                        00501260
+  DROP DATABASE  DSNATPDB;                            COMMIT;           00501350
+  DROP PROCEDURE SYSIBM.SQLCOLPRIVILEGES   RESTRICT;  COMMIT;           00501440
+  DROP PROCEDURE SYSIBM.SQLCOLUMNS         RESTRICT;  COMMIT;           00501530
+  DROP PROCEDURE SYSIBM.SQLFOREIGNKEYS     RESTRICT;  COMMIT;           00501620
+  DROP PROCEDURE SYSIBM.SQLPRIMARYKEYS     RESTRICT;  COMMIT;           00501710
+  DROP PROCEDURE SYSIBM.SQLPROCEDURECOLS   RESTRICT;  COMMIT;           00501800
+  DROP PROCEDURE SYSIBM.SQLPROCEDURES      RESTRICT;  COMMIT;           00501890
+  DROP PROCEDURE SYSIBM.SQLSPECIALCOLUMNS  RESTRICT;  COMMIT;           00501980
+  DROP PROCEDURE SYSIBM.SQLSTATISTICS      RESTRICT;  COMMIT;           00502070
+  DROP PROCEDURE SYSIBM.SQLTABLEPRIVILEGES RESTRICT;  COMMIT;           00502160
+  DROP PROCEDURE SYSIBM.SQLTABLES          RESTRICT;  COMMIT;           00502250
+  DROP PROCEDURE SYSIBM.SQLGETTYPEINFO     RESTRICT;  COMMIT;           00502340
+  DROP PROCEDURE SYSIBM.SQLUDTS            RESTRICT;  COMMIT;           00502430
+  DROP PROCEDURE SYSIBM.SQLCAMESSAGE       RESTRICT;  COMMIT;           00502520
+  DROP TABLE SYSIBM.SQTCOLPRIVILEGES;                 COMMIT;           00502610
+  DROP TABLE SYSIBM.SQTCOLUMNS;                       COMMIT;           00502700
+  DROP TABLE SYSIBM.SQTFOREIGNKEYS;                   COMMIT;           00502790
+  DROP TABLE SYSIBM.SQTPRIMARYKEYS;                   COMMIT;           00502880
+  DROP TABLE SYSIBM.SQTSPECIALCOLUMNS;                COMMIT;           00502970
+  DROP TABLE SYSIBM.UINDEXES;                         COMMIT;           00503060
+  DROP TABLE SYSIBM.SQTPROCEDURECOLS;                 COMMIT;           00503150
+  DROP TABLE SYSIBM.SQTPROCEDURES;                    COMMIT;           00503240
+  DROP TABLE SYSIBM.SQTSTATISTICS;                    COMMIT;           00503330
+  DROP TABLE SYSIBM.SQTTABLEPRIVILEGES;               COMMIT;           00503420
+  DROP TABLE SYSIBM.SQTTABLES;                        COMMIT;           00503510
+  DROP TABLE SYSIBM.SQTSCHEMAS;                       COMMIT;           00503600
+  DROP TABLE SYSIBM.SQLTABLETYPES;                    COMMIT;           00503690
+  DROP TABLE SYSIBM.SQLTYPEINFO;                      COMMIT;           00503780
+  DROP TABLE SYSIBM.SQTUDTS;                          COMMIT;           00503870
+  DROP INDEX SYSIBM.SQLDTX01;                         COMMIT;           00503960
+  DROP INDEX SYSIBM.SQLATX01;                         COMMIT;           00504050
+  DROP INDEX SYSIBM.SQLACX01;                         COMMIT;           00504140
+  DROP INDEX SYSIBM.SQLFRN01;                         COMMIT;           00504230
+  DROP INDEX SYSIBM.SQLDLX01;                         COMMIT;           00504320
+//*                                                                     00504410
+//*                                                                     00504500
+//********************************************************************* 00504590
+//* Create database objects and bind packages for JDBC and CLI          00504680
+//* Metadata Procedures.                                                00504770
+//********************************************************************* 00504860
+//DSNTIRU EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     00504950
+//SYSTSPRT DD  SYSOUT=*                                                 00505040
+//SYSPRINT DD  SYSOUT=*                                                 00505130
+//SYSUDUMP DD  SYSOUT=*                                                 00505220
+//SYSTSIN  DD  *                                                        00505310
+  DSN SYSTEM(DB2U)                                                      00505400
+  RUN PROGRAM(DSNTIAD) PLAN(DSNTIAD) -                                  00505490
+      LIBRARY('SSXDT.DSNDBUG.DB2U.RUNLIB.LOAD')                         00505580
+  BIND PACKAGE(DSNASPCC) MEMBER(DSNACPRV) -                             00505670
+       ACTION(REPLACE) ISOLATION(UR) QUALIFIER(SYSIBM) -                00505760
+       RELEASE(COMMIT) SQLERROR(CONTINUE) ENCODING(EBCDIC) -            00505790
+       LIBRARY('SSXDT.DSNDBUG.DB2U.SDSNDBRM')                           00505850
+  BIND PACKAGE(DSNASPCC) MEMBER(DSNACOLN) -                             00505940
+       ACTION(REPLACE) ISOLATION(UR) QUALIFIER(SYSIBM) -                00506030
+       RELEASE(COMMIT) SQLERROR(CONTINUE) ENCODING(EBCDIC) -            00506060
+       LIBRARY('SSXDT.DSNDBUG.DB2U.SDSNDBRM')                           00506120
+  BIND PACKAGE(DSNASPCC) MEMBER(DSNAFNKY) -                             00506210
+       ACTION(REPLACE) ISOLATION(UR) QUALIFIER(SYSIBM) -                00506300
+       RELEASE(COMMIT) SQLERROR(CONTINUE) ENCODING(EBCDIC) -            00506330
+       LIBRARY('SSXDT.DSNDBUG.DB2U.SDSNDBRM')                           00506390
+  BIND PACKAGE(DSNASPCC) MEMBER(DSNAPRKY) -                             00506480
+       ACTION(REPLACE) ISOLATION(UR) QUALIFIER(SYSIBM) -                00506570
+       RELEASE(COMMIT) SQLERROR(CONTINUE) ENCODING(EBCDIC) -            00506600
+       LIBRARY('SSXDT.DSNDBUG.DB2U.SDSNDBRM')                           00506660
+  BIND PACKAGE(DSNASPCC) MEMBER(DSNAPCOL) -                             00506750
+       ACTION(REPLACE) ISOLATION(UR) QUALIFIER(SYSIBM) -                00506840
+       RELEASE(COMMIT) SQLERROR(CONTINUE) ENCODING(EBCDIC) -            00506870
+       LIBRARY('SSXDT.DSNDBUG.DB2U.SDSNDBRM')                           00506930
+  BIND PACKAGE(DSNASPCC) MEMBER(DSNAPRCS) -                             00507020
+       ACTION(REPLACE) ISOLATION(UR) QUALIFIER(SYSIBM) -                00507110
+       RELEASE(COMMIT) SQLERROR(CONTINUE) ENCODING(EBCDIC) -            00507140
+       LIBRARY('SSXDT.DSNDBUG.DB2U.SDSNDBRM')                           00507200
+  BIND PACKAGE(DSNASPCC) MEMBER(DSNASPCL) -                             00507290
+       ACTION(REPLACE) ISOLATION(UR) QUALIFIER(SYSIBM) -                00507380
+       RELEASE(COMMIT) SQLERROR(CONTINUE) ENCODING(EBCDIC) -            00507410
+       LIBRARY('SSXDT.DSNDBUG.DB2U.SDSNDBRM')                           00507470
+  BIND PACKAGE(DSNASPCC) MEMBER(DSNASTAT) -                             00507560
+       ACTION(REPLACE) ISOLATION(UR) QUALIFIER(SYSIBM) -                00507650
+       RELEASE(COMMIT) SQLERROR(CONTINUE) ENCODING(EBCDIC) -            00507680
+       LIBRARY('SSXDT.DSNDBUG.DB2U.SDSNDBRM')                           00507740
+  BIND PACKAGE(DSNASPCC) MEMBER(DSNATBPR) -                             00507830
+       ACTION(REPLACE) ISOLATION(UR) QUALIFIER(SYSIBM) -                00507920
+       RELEASE(COMMIT) SQLERROR(CONTINUE) ENCODING(EBCDIC) -            00507950
+       LIBRARY('SSXDT.DSNDBUG.DB2U.SDSNDBRM')                           00508010
+  BIND PACKAGE(DSNASPCC) MEMBER(DSNATBLS) -                             00508100
+       ACTION(REPLACE) ISOLATION(UR) QUALIFIER(SYSIBM) -                00508190
+       RELEASE(COMMIT) SQLERROR(CONTINUE) ENCODING(EBCDIC) -            00508220
+       LIBRARY('SSXDT.DSNDBUG.DB2U.SDSNDBRM')                           00508280
+  BIND PACKAGE(DSNASPCC) MEMBER(DSNATYPE) -                             00508370
+       ACTION(REPLACE) ISOLATION(UR) QUALIFIER(SYSIBM) -                00508460
+       RELEASE(COMMIT) SQLERROR(CONTINUE) ENCODING(EBCDIC) -            00508490
+       LIBRARY('SSXDT.DSNDBUG.DB2U.SDSNDBRM')                           00508550
+  BIND PACKAGE(DSNASPCC) MEMBER(DSNAUDTS) -                             00508640
+       ACTION(REPLACE) ISOLATION(UR) QUALIFIER(SYSIBM) -                00508730
+       RELEASE(COMMIT) SQLERROR(CONTINUE) ENCODING(EBCDIC) -            00508760
+       LIBRARY('SSXDT.DSNDBUG.DB2U.SDSNDBRM')                           00508820
+//SYSIN    DD  DISP=SHR,DSN=SSXDT.DSNDBUG.DB2U.SDSNSAMP(DSNATMMC)       00508910
+//*                                                                     00510000
+//********************************************************************* 00520000
+//* Register the Stored Procedures for JDBC and CLI Metadata Methods    00530000
+//********************************************************************* 00540000
+//DSNTIJS EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     00550000
+//SYSTSPRT DD  SYSOUT=*                                                 00560000
+//SYSPRINT DD  SYSOUT=*                                                 00570000
+//SYSUDUMP DD  SYSOUT=*                                                 00580000
+//SYSTSIN  DD  *                                                        00590000
+  DSN SYSTEM(DB2U)                                                      00600000
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIAD) -                                 00610000
+       LIBRARY('SSXDT.DSNDBUG.DB2U.RUNLIB.LOAD')                        00620000
+  END                                                                   00630000
+//SYSIN    DD  *                                                        00640000
+  CREATE PROCEDURE SYSIBM.SQLCOLPRIVILEGES                              00650000
+      ( IN CATALOGNAME   VARCHAR(128)  CCSID EBCDIC                     00673980
+      , IN SCHEMANAME    VARCHAR(128)  CCSID EBCDIC                     00679970
+      , IN TABLENAME     VARCHAR(128)  CCSID EBCDIC                     00685960
+      , IN COLUMNNAME    VARCHAR(128)  CCSID EBCDIC                     00691950
+      , IN OPTIONS       VARCHAR(4000) CCSID EBCDIC )                   00697940
+      EXTERNAL NAME DSNACPRV                                            00707940
+      LANGUAGE C                                                        00715930
+      PARAMETER CCSID EBCDIC                                            00718920
+      RUN OPTIONS 'TRAP(OFF),STACK(,,ANY,),                             00723920
+      MSGFILE(SYSOUT,FBA,121,0,NOENQ)'                                  00731910
+      PARAMETER STYLE DB2SQL                                            00739900
+      STAY RESIDENT YES                                                 00747890
+      COLLID DSNASPCC                                                   00755880
+      WLM ENVIRONMENT WLMDB206                                          00763870
+      MODIFIES SQL DATA                                                 00771860
+      DBINFO                                                            00779850
+      PROGRAM TYPE MAIN                                                 00787840
+      RESULT SETS 1;                                                    00795830
+                                                                        00810000
+  CREATE PROCEDURE SYSIBM.SQLCOLUMNS                                    00820000
+      ( IN CATALOGNAME   VARCHAR(128)  CCSID EBCDIC                     00843980
+      , IN SCHEMANAME    VARCHAR(128)  CCSID EBCDIC                     00849970
+      , IN TABLENAME     VARCHAR(128)  CCSID EBCDIC                     00855960
+      , IN COLUMNNAME    VARCHAR(128)  CCSID EBCDIC                     00861950
+      , IN OPTIONS       VARCHAR(4000) CCSID EBCDIC )                   00867940
+      EXTERNAL NAME DSNACOLN                                            00877940
+      LANGUAGE C                                                        00885930
+      PARAMETER CCSID EBCDIC                                            00888920
+      RUN OPTIONS 'TRAP(OFF),STACK(,,ANY,),                             00893920
+      MSGFILE(SYSOUT,FBA,121,0,NOENQ)'                                  00901910
+      PARAMETER STYLE DB2SQL                                            00909900
+      STAY RESIDENT YES                                                 00917890
+      COLLID DSNASPCC                                                   00925880
+      WLM ENVIRONMENT WLMDB206                                          00933870
+      MODIFIES SQL DATA                                                 00941860
+      DBINFO                                                            00949850
+      PROGRAM TYPE MAIN                                                 00957840
+      RESULT SETS 1;                                                    00965830
+                                                                        00980000
+  CREATE PROCEDURE SYSIBM.SQLFOREIGNKEYS                                00990000
+      ( IN PKCATALOGNAME VARCHAR(128)  CCSID EBCDIC                     01013980
+      , IN PKSCHEMANAME  VARCHAR(128)  CCSID EBCDIC                     01019970
+      , IN PKTABLENAME   VARCHAR(128)  CCSID EBCDIC                     01025960
+      , IN FKCATALOGNAME VARCHAR(128)  CCSID EBCDIC                     01031950
+      , IN FKSCHEMANAME  VARCHAR(128)  CCSID EBCDIC                     01037940
+      , IN FKTABLENAME   VARCHAR(128)  CCSID EBCDIC                     01043930
+      , IN OPTIONS       VARCHAR(4000) CCSID EBCDIC )                   01049920
+      EXTERNAL NAME DSNAFNKY                                            01063920
+      LANGUAGE C                                                        01071910
+      PARAMETER CCSID EBCDIC                                            01074900
+      RUN OPTIONS 'TRAP(OFF),STACK(,,ANY,),                             01079900
+      MSGFILE(SYSOUT,FBA,121,0,NOENQ)'                                  01087890
+      PARAMETER STYLE DB2SQL                                            01095880
+      COLLID DSNASPCC                                                   01103870
+      WLM ENVIRONMENT WLMDB206                                          01111860
+      MODIFIES SQL DATA                                                 01119850
+      DBINFO                                                            01127840
+      PROGRAM TYPE MAIN                                                 01135830
+      RESULT SETS 1;                                                    01143820
+                                                                        01160000
+  CREATE PROCEDURE SYSIBM.SQLPRIMARYKEYS                                01170000
+      ( IN CATALOGNAME   VARCHAR(128)  CCSID EBCDIC                     01193980
+      , IN SCHEMANAME    VARCHAR(128)  CCSID EBCDIC                     01199970
+      , IN TABLENAME     VARCHAR(128)  CCSID EBCDIC                     01205960
+      , IN OPTIONS       VARCHAR(4000) CCSID EBCDIC )                   01211950
+      EXTERNAL NAME DSNAPRKY                                            01219950
+      LANGUAGE C                                                        01227940
+      PARAMETER CCSID EBCDIC                                            01230930
+      RUN OPTIONS 'TRAP(OFF),STACK(,,ANY,),                             01235930
+      MSGFILE(SYSOUT,FBA,121,0,NOENQ)'                                  01243920
+      PARAMETER STYLE DB2SQL                                            01251910
+      STAY RESIDENT YES                                                 01259900
+      COLLID DSNASPCC                                                   01267890
+      WLM ENVIRONMENT WLMDB206                                          01275880
+      MODIFIES SQL DATA                                                 01283870
+      DBINFO                                                            01291860
+      PROGRAM TYPE MAIN                                                 01299850
+      RESULT SETS 1;                                                    01307840
+                                                                        01320000
+  CREATE PROCEDURE SYSIBM.SQLPROCEDURECOLS                              01330000
+      ( IN CATALOGNAME   VARCHAR(128)  CCSID EBCDIC                     01353980
+      , IN SCHEMANAME    VARCHAR(128)  CCSID EBCDIC                     01359970
+      , IN PROCNAME      VARCHAR(128)  CCSID EBCDIC                     01365960
+      , IN PARAMNAME     VARCHAR(128)  CCSID EBCDIC                     01371950
+      , IN OPTIONS       VARCHAR(4000) CCSID EBCDIC )                   01377940
+      EXTERNAL NAME DSNAPCOL                                            01387940
+      LANGUAGE C                                                        01395930
+      PARAMETER CCSID EBCDIC                                            01398920
+      RUN OPTIONS 'TRAP(OFF),STACK(,,ANY,),                             01403920
+      MSGFILE(SYSOUT,FBA,121,0,NOENQ)'                                  01411910
+      PARAMETER STYLE DB2SQL                                            01419900
+      STAY RESIDENT YES                                                 01427890
+      COLLID DSNASPCC                                                   01435880
+      WLM ENVIRONMENT WLMDB206                                          01443870
+      MODIFIES SQL DATA                                                 01451860
+      DBINFO                                                            01459850
+      PROGRAM TYPE MAIN                                                 01467840
+      RESULT SETS 1;                                                    01475830
+                                                                        01490000
+  CREATE PROCEDURE SYSIBM.SQLPROCEDURES                                 01500000
+      ( IN CATALOGNAME   VARCHAR(128)  CCSID EBCDIC                     01523980
+      , IN SCHEMANAME    VARCHAR(128)  CCSID EBCDIC                     01529970
+      , IN PROCEDURENAME VARCHAR(128)  CCSID EBCDIC                     01535960
+      , IN OPTIONS       VARCHAR(4000) CCSID EBCDIC )                   01541950
+      EXTERNAL NAME DSNAPRCS                                            01549950
+      LANGUAGE C                                                        01557940
+      PARAMETER CCSID EBCDIC                                            01560930
+      RUN OPTIONS 'TRAP(OFF),STACK(,,ANY,),                             01565930
+      MSGFILE(SYSOUT,FBA,121,0,NOENQ)'                                  01573920
+      PARAMETER STYLE DB2SQL                                            01581910
+      STAY RESIDENT YES                                                 01589900
+      COLLID DSNASPCC                                                   01597890
+      WLM ENVIRONMENT WLMDB206                                          01605880
+      MODIFIES SQL DATA                                                 01613870
+      DBINFO                                                            01621860
+      PROGRAM TYPE MAIN                                                 01629850
+      RESULT SETS 1;                                                    01637840
+                                                                        01650000
+  CREATE PROCEDURE SYSIBM.SQLSPECIALCOLUMNS                             01660000
+      ( IN COLTYPE       SMALLINT                                       01683980
+      , IN CATALOGNAME   VARCHAR(128)  CCSID EBCDIC                     01689970
+      , IN SCHEMANAME    VARCHAR(128)  CCSID EBCDIC                     01695960
+      , IN TABLENAME     VARCHAR(128)  CCSID EBCDIC                     01701950
+      , IN SCOPE         SMALLINT                                       01707940
+      , IN NULLABLE      SMALLINT                                       01713930
+      , IN OPTIONS       VARCHAR(4000) CCSID EBCDIC )                   01719920
+      EXTERNAL NAME DSNASPCL                                            01733920
+      LANGUAGE C                                                        01741910
+      PARAMETER CCSID EBCDIC                                            01744900
+      RUN OPTIONS 'TRAP(OFF),STACK(,,ANY,),                             01749900
+      MSGFILE(SYSOUT,FBA,121,0,NOENQ)'                                  01757890
+      PARAMETER STYLE DB2SQL                                            01765880
+      STAY RESIDENT YES                                                 01773870
+      COLLID DSNASPCC                                                   01781860
+      WLM ENVIRONMENT WLMDB206                                          01789850
+      MODIFIES SQL DATA                                                 01797840
+      DBINFO                                                            01805830
+      PROGRAM TYPE MAIN                                                 01813820
+      RESULT SETS 1;                                                    01821810
+                                                                        01840000
+  CREATE PROCEDURE SYSIBM.SQLSTATISTICS                                 01850000
+      ( IN CATALOGNAME   VARCHAR(128)  CCSID EBCDIC                     01873980
+      , IN SCHEMANAME    VARCHAR(128)  CCSID EBCDIC                     01879970
+      , IN TABLENAME     VARCHAR(128)  CCSID EBCDIC                     01885960
+      , IN UNIQUE        SMALLINT                                       01891950
+      , IN RESERVED      SMALLINT                                       01897940
+      , IN OPTIONS       VARCHAR(4000) CCSID EBCDIC )                   01903930
+      EXTERNAL NAME DSNASTAT                                            01915930
+      LANGUAGE C                                                        01923920
+      PARAMETER CCSID EBCDIC                                            01926910
+      RUN OPTIONS 'TRAP(OFF),STACK(,,ANY,),                             01931910
+      MSGFILE(SYSOUT,FBA,121,0,NOENQ)'                                  01939900
+      PARAMETER STYLE DB2SQL                                            01947890
+      STAY RESIDENT YES                                                 01955880
+      COLLID DSNASPCC                                                   01963870
+      WLM ENVIRONMENT WLMDB206                                          01971860
+      MODIFIES SQL DATA                                                 01979850
+      DBINFO                                                            01987840
+      PROGRAM TYPE MAIN                                                 01995830
+      RESULT SETS 1;                                                    02003820
+                                                                        02020000
+  CREATE PROCEDURE SYSIBM.SQLTABLEPRIVILEGES                            02030000
+      ( IN CATALOGNAME   VARCHAR(128)  CCSID EBCDIC                     02053980
+      , IN SCHEMANAME    VARCHAR(128)  CCSID EBCDIC                     02059970
+      , IN TABLENAME     VARCHAR(128)  CCSID EBCDIC                     02065960
+      , IN OPTIONS       VARCHAR(4000) CCSID EBCDIC )                   02071950
+      EXTERNAL NAME DSNATBPR                                            02079950
+      LANGUAGE C                                                        02087940
+      PARAMETER CCSID EBCDIC                                            02090930
+      RUN OPTIONS 'TRAP(OFF),STACK(,,ANY,),                             02095930
+      MSGFILE(SYSOUT,FBA,121,0,NOENQ)'                                  02103920
+      PARAMETER STYLE DB2SQL                                            02111910
+      STAY RESIDENT YES                                                 02119900
+      COLLID DSNASPCC                                                   02127890
+      WLM ENVIRONMENT WLMDB206                                          02135880
+      MODIFIES SQL DATA                                                 02143870
+      DBINFO                                                            02151860
+      PROGRAM TYPE MAIN                                                 02159850
+      RESULT SETS 1;                                                    02167840
+                                                                        02180000
+  CREATE PROCEDURE SYSIBM.SQLTABLES                                     02190000
+      ( IN CATALOGNAME   VARCHAR(128)  CCSID EBCDIC                     02213980
+      , IN SCHEMANAME    VARCHAR(128)  CCSID EBCDIC                     02219970
+      , IN TABLENAME     VARCHAR(128)  CCSID EBCDIC                     02225960
+      , IN TABLETYPE     VARCHAR(4000) CCSID EBCDIC                     02231950
+      , IN OPTIONS       VARCHAR(4000) CCSID EBCDIC )                   02237940
+      EXTERNAL NAME DSNATBLS                                            02247940
+      LANGUAGE C                                                        02255930
+      PARAMETER CCSID EBCDIC                                            02258920
+      RUN OPTIONS 'TRAP(OFF),STACK(,,ANY,),                             02263920
+      MSGFILE(SYSOUT,FBA,121,0,NOENQ)'                                  02271910
+      PARAMETER STYLE DB2SQL                                            02279900
+      STAY RESIDENT YES                                                 02287890
+      COLLID DSNASPCC                                                   02295880
+      WLM ENVIRONMENT WLMDB206                                          02303870
+      MODIFIES SQL DATA                                                 02311860
+      DBINFO                                                            02319850
+      PROGRAM TYPE MAIN                                                 02327840
+      RESULT SETS 1;                                                    02335830
+                                                                        02350000
+  CREATE PROCEDURE SYSIBM.SQLGETTYPEINFO                                02360000
+      ( IN DATATYPE      SMALLINT                                       02377990
+      , IN OPTIONS       VARCHAR(4000) CCSID EBCDIC )                   02385980
+      EXTERNAL NAME DSNATYPE                                            02393970
+      LANGUAGE C                                                        02401960
+      PARAMETER CCSID EBCDIC                                            02404950
+      RUN OPTIONS 'TRAP(OFF),STACK(,,ANY,),                             02409950
+      MSGFILE(SYSOUT,FBA,121,0,NOENQ)'                                  02417940
+      PARAMETER STYLE DB2SQL                                            02425930
+      STAY RESIDENT YES                                                 02433920
+      COLLID DSNASPCC                                                   02441910
+      WLM ENVIRONMENT WLMDB206                                          02449900
+      MODIFIES SQL DATA                                                 02457890
+      DBINFO                                                            02465880
+      PROGRAM TYPE MAIN                                                 02473870
+      RESULT SETS 1;                                                    02481860
+                                                                        02490000
+  CREATE PROCEDURE SYSIBM.SQLUDTS                                       02500000
+      ( IN CATALOGNAME   VARCHAR(128)  CCSID EBCDIC                     02523980
+      , IN SCHEMANAME    VARCHAR(128)  CCSID EBCDIC                     02529970
+      , IN TYPENAME      VARCHAR(128)  CCSID EBCDIC                     02535960
+      , IN TYPES         VARCHAR(128)  CCSID EBCDIC                     02541950
+      , IN OPTIONS       VARCHAR(4000) CCSID EBCDIC )                   02547940
+      EXTERNAL NAME DSNAUDTS                                            02557940
+      LANGUAGE C                                                        02565930
+      PARAMETER CCSID EBCDIC                                            02568920
+      RUN OPTIONS 'TRAP(OFF),STACK(,,ANY,),                             02573920
+      MSGFILE(SYSOUT,FBA,121,0,NOENQ)'                                  02581910
+      PARAMETER STYLE DB2SQL                                            02589900
+      STAY RESIDENT YES                                                 02597890
+      COLLID DSNASPCC                                                   02605880
+      WLM ENVIRONMENT WLMDB206                                          02613870
+      MODIFIES SQL DATA                                                 02621860
+      DBINFO                                                            02629850
+      PROGRAM TYPE MAIN                                                 02637840
+      RESULT SETS 1;                                                    02645830
+                                                                        02660000
+  CREATE PROCEDURE SYSIBM.SQLCAMESSAGE                                  02677990
+      ( IN    SQLCODE          INTEGER                                  02692970
+      , IN    SQLERRML         SMALLINT                                 02699960
+      , IN    SQLERRMC         VARCHAR(70)   CCSID EBCDIC               02706950
+      , IN    SQLERRP          CHAR(8)       CCSID EBCDIC               02713940
+      , IN    SQLERRD0         INTEGER                                  02720930
+      , IN    SQLERRD1         INTEGER                                  02727920
+      , IN    SQLERRD2         INTEGER                                  02734910
+      , IN    SQLERRD3         INTEGER                                  02741900
+      , IN    SQLERRD4         INTEGER                                  02748890
+      , IN    SQLERRD5         INTEGER                                  02755880
+      , IN    SQLWARN          CHAR(11)      CCSID EBCDIC               02762870
+      , IN    SQLSTATE         CHAR(5)       CCSID EBCDIC               02769860
+      , IN    MESSAGEFILENAME  VARCHAR(20)   CCSID EBCDIC               02776850
+      , INOUT LOCALE           VARCHAR(33)   CCSID EBCDIC               02783840
+      , OUT   MESSAGE          VARCHAR(4096) CCSID EBCDIC               02790830
+      , OUT   RCODE            INTEGER )                                02797820
+      EXTERNAL NAME DSNAMSTX                                            02813820
+      LANGUAGE C                                                        02821810
+      PARAMETER CCSID EBCDIC                                            02824800
+      RUN OPTIONS 'TRAP(OFF),STACK(,,ANY,)'                             02829800
+      PARAMETER STYLE GENERAL WITH NULLS                                02837790
+      WLM ENVIRONMENT WLMDB206                                          02845780
+      NO SQL                                                            02853770
+      PROGRAM TYPE MAIN                                                 02861760
+      RESULT SETS 0;                                                    02869750
+/*                                                                      02900000
+//********************************************************************* 02920000
+//* Grant public access to JDBC and CLI Metadata Methods                02930000
+//********************************************************************* 02940000
+//DSNTIJG EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     04610000
+//SYSTSPRT DD  SYSOUT=*                                                 04620000
+//SYSPRINT DD  SYSOUT=*                                                 04630000
+//SYSUDUMP DD  SYSOUT=*                                                 04640000
+//SYSTSIN  DD  *                                                        04650000
+  DSN SYSTEM(DB2U)                                                      04660000
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIAD) -                                 04670000
+       LIBRARY('SSXDT.DSNDBUG.DB2U.RUNLIB.LOAD')                        04680000
+  END                                                                   04690000
+//SYSIN    DD  *                                                        04700000
+GRANT EXECUTE ON PACKAGE   DSNASPCC.*                TO PUBLIC;         04710006
+GRANT EXECUTE ON PROCEDURE SYSIBM.SQLCOLPRIVILEGES   TO PUBLIC;         04710012
+GRANT EXECUTE ON PROCEDURE SYSIBM.SQLCOLUMNS         TO PUBLIC;         04710018
+GRANT EXECUTE ON PROCEDURE SYSIBM.SQLFOREIGNKEYS     TO PUBLIC;         04710024
+GRANT EXECUTE ON PROCEDURE SYSIBM.SQLPRIMARYKEYS     TO PUBLIC;         04710030
+GRANT EXECUTE ON PROCEDURE SYSIBM.SQLPROCEDURECOLS   TO PUBLIC;         04710036
+GRANT EXECUTE ON PROCEDURE SYSIBM.SQLPROCEDURES      TO PUBLIC;         04710042
+GRANT EXECUTE ON PROCEDURE SYSIBM.SQLSPECIALCOLUMNS  TO PUBLIC;         04710048
+GRANT EXECUTE ON PROCEDURE SYSIBM.SQLSTATISTICS      TO PUBLIC;         04710054
+GRANT EXECUTE ON PROCEDURE SYSIBM.SQLTABLEPRIVILEGES TO PUBLIC;         04710060
+GRANT EXECUTE ON PROCEDURE SYSIBM.SQLTABLES          TO PUBLIC;         04710066
+GRANT EXECUTE ON PROCEDURE SYSIBM.SQLGETTYPEINFO     TO PUBLIC;         04710072
+GRANT EXECUTE ON PROCEDURE SYSIBM.SQLUDTS            TO PUBLIC;         04710078
+GRANT EXECUTE ON PROCEDURE SYSIBM.SQLCAMESSAGE       TO PUBLIC;         04710084
+                                                                        04711084
+GRANT SELECT ON TABLE SYSIBM.SYSCOLAUTH                                 04712084
+                      ,SYSIBM.SYSCOLUMNS                                04713084
+                      ,SYSIBM.SYSDATATYPES                              04714084
+                      ,SYSIBM.SYSFOREIGNKEYS                            04715084
+                      ,SYSIBM.SYSINDEXES                                04716084
+                      ,SYSIBM.SYSKEYS                                   04717084
+                      ,SYSIBM.SYSKEYCOLUSE                              04718084
+                      ,SYSIBM.SYSPARMS                                  04719084
+                      ,SYSIBM.SYSRELS                                   04720084
+                      ,SYSIBM.SYSROUTINES                               04721084
+                      ,SYSIBM.SYSTABAUTH                                04722084
+                      ,SYSIBM.SYSTABCONST                               04723084
+                      ,SYSIBM.SYSTABLES                                 04724084
+                      ,SYSIBM.SYSSYNONYMS                               04725084
+                      ,SYSIBM.SYSDUMMY1                                 04726084
+       TO PUBLIC;                                                       04727084

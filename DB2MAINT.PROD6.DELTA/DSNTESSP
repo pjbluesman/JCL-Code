@@ -1,0 +1,114 @@
+-- Use the following SQL data definition statements to create           00010000
+-- the statistics database, table space, tables and indexes.            00020000
+--                                                                      00030000
+-- The names and declared attributes of the objects must not be changed.00040000
+-- However, other attributes can be changed.  For example,              00055900
+-- COMPRESS YES can be specified.                                       00061900
+--                                                                      00070000
+-- The amount of primary and secondary space to allocate can be         00080000
+-- calculated by using the formulas in the "Administration Guide".      00090000
+--                                                                      00100000
+-- The approximate number of rows in the two statistics tables          00110000
+-- can be determined by the following SQL statement.  The sample DDL    00120000
+-- used 20,000 objects as an estimate to determine the amount of        00130000
+-- space to request.                                                    00140000
+--                                                                      00150000
+-- SELECT C1 + C2 FROM                                                  00160000
+--        (SELECT COUNT(*) AS C1 FROM SYSIBM.SYSTABLEPART) AS T1,       00170000
+--        (SELECT COUNT(*) AS C2 FROM SYSIBM.SYSINDEXPART) AS T2;       00180000
+--                                                                      00190000
+   CREATE DATABASE DSNRTSDB                                             00200001
+      BUFFERPOOL BP2 INDEXBP BP2                                        00201002
+      CCSID EBCDIC;                                                     00202001
+   CREATE TABLESPACE DSNRTSTS IN DSNRTSDB                               00210000
+      CCSID EBCDIC                                                      00220000
+      CLOSE NO                                                          00230000
+      LOCKMAX 0                                                         00240000
+      LOCKSIZE ROW                                                      00244900
+      SEGSIZE 32                                                        00250000
+      BUFFERPOOL BP2                                                    00251002
+      USING STOGROUP SYSDEFLT                                           00260000
+            PRIQTY 1600                                                 00270000
+            SECQTY 160;                                                 00280000
+                                                                        00290000
+   CREATE TABLE SYSIBM.TABLESPACESTATS                                  00300000
+      (DBNAME             CHAR( 8)  NOT NULL,                           00310000
+       NAME               CHAR( 8)  NOT NULL,                           00320000
+       PARTITION          SMALLINT  NOT NULL,                           00330000
+       DBID               SMALLINT  NOT NULL,                           00340000
+       PSID               SMALLINT  NOT NULL,                           00350000
+       UPDATESTATSTIME    TIMESTAMP NOT NULL WITH DEFAULT,              00360000
+       TOTALROWS          FLOAT             ,                           00370000
+       NACTIVE            INTEGER           ,                           00380000
+       SPACE              INTEGER           ,                           00390000
+       EXTENTS            SMALLINT          ,                           00400000
+       LOADRLASTTIME      TIMESTAMP         ,                           00410000
+       REORGLASTTIME      TIMESTAMP         ,                           00420000
+       REORGINSERTS       INTEGER           ,                           00430000
+       REORGDELETES       INTEGER           ,                           00440000
+       REORGUPDATES       INTEGER           ,                           00450000
+       REORGUNCLUSTINS    INTEGER           ,                           00460000
+       REORGDISORGLOB     INTEGER           ,                           00470000
+       REORGMASSDELETE    INTEGER           ,                           00480000
+       REORGNEARINDREF    INTEGER           ,                           00490000
+       REORGFARINDREF     INTEGER           ,                           00500000
+       STATSLASTTIME      TIMESTAMP         ,                           00510000
+       STATSINSERTS       INTEGER           ,                           00520000
+       STATSDELETES       INTEGER           ,                           00530000
+       STATSUPDATES       INTEGER           ,                           00540000
+       STATSMASSDELETE    INTEGER           ,                           00550000
+       COPYLASTTIME       TIMESTAMP         ,                           00560000
+       COPYUPDATEDPAGES   INTEGER           ,                           00570000
+       COPYCHANGES        INTEGER           ,                           00580000
+       COPYUPDATELRSN     CHAR(6)   FOR BIT DATA,                       00590000
+       COPYUPDATETIME     TIMESTAMP         )                           00600000
+      IN DSNRTSDB.DSNRTSTS CCSID EBCDIC;                                00610000
+                                                                        00620000
+   CREATE UNIQUE INDEX SYSIBM.TABLESPACESTATS_IX                        00630000
+      ON SYSIBM.TABLESPACESTATS                                         00640000
+         (DBID, PSID, PARTITION)                                        00650000
+      CLUSTER                                                           00660000
+      BUFFERPOOL BP2                                                    00660102
+      CLOSE NO;                                                         00661000
+                                                                        00670000
+   CREATE TABLE SYSIBM.INDEXSPACESTATS                                  00680000
+      (DBNAME             CHAR( 8)  NOT NULL,                           00690000
+       INDEXSPACE         CHAR( 8)  NOT NULL,                           00700000
+       PARTITION          SMALLINT  NOT NULL,                           00710000
+       DBID               SMALLINT  NOT NULL,                           00720000
+       ISOBID             SMALLINT  NOT NULL,                           00730000
+       PSID               SMALLINT  NOT NULL,                           00740000
+       UPDATESTATSTIME    TIMESTAMP NOT NULL WITH DEFAULT,              00750000
+       TOTALENTRIES       FLOAT             ,                           00760000
+       NLEVELS            SMALLINT          ,                           00770000
+       NACTIVE            INTEGER           ,                           00780000
+       SPACE              INTEGER           ,                           00790000
+       EXTENTS            SMALLINT          ,                           00800000
+       LOADRLASTTIME      TIMESTAMP         ,                           00810000
+       REBUILDLASTTIME    TIMESTAMP         ,                           00820000
+       REORGLASTTIME      TIMESTAMP         ,                           00830000
+       REORGINSERTS       INTEGER           ,                           00840000
+       REORGDELETES       INTEGER           ,                           00850000
+       REORGAPPENDINSERT  INTEGER           ,                           00860000
+       REORGPSEUDODELETES INTEGER           ,                           00870000
+       REORGMASSDELETE    INTEGER           ,                           00880000
+       REORGLEAFNEAR      INTEGER           ,                           00890000
+       REORGLEAFFAR       INTEGER           ,                           00900000
+       REORGNUMLEVELS     INTEGER           ,                           00910000
+       STATSLASTTIME      TIMESTAMP         ,                           00920000
+       STATSINSERTS       INTEGER           ,                           00930000
+       STATSDELETES       INTEGER           ,                           00940000
+       STATSMASSDELETE    INTEGER           ,                           00950000
+       COPYLASTTIME       TIMESTAMP         ,                           00960000
+       COPYUPDATEDPAGES   INTEGER           ,                           00970000
+       COPYCHANGES        INTEGER           ,                           00980000
+       COPYUPDATELRSN     CHAR(6)   FOR BIT DATA,                       00990000
+       COPYUPDATETIME     TIMESTAMP         )                           01000000
+      IN DSNRTSDB.DSNRTSTS CCSID EBCDIC;                                01010000
+                                                                        01020000
+   CREATE UNIQUE INDEX SYSIBM.INDEXSPACESTATS_IX                        01030000
+      ON SYSIBM.INDEXSPACESTATS                                         01040000
+         (DBID, ISOBID, PARTITION)                                      01050000
+      CLUSTER                                                           01070000
+      BUFFERPOOL BP2                                                    01080002
+      CLOSE NO;                                                         01090000

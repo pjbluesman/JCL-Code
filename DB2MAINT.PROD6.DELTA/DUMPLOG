@@ -1,0 +1,24 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00000100
+//         NOTIFY=&SYSUID                                               00000200
+/*JOBPARM SYSAFF=MVS3                                                   00000301
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU                 00000400
+//STEP01   EXEC PGM=ADRDSSU,REGION=0M,TIME=1440                         00020000
+//SYSPRINT DD   SYSOUT=*                                                00030000
+//OUT1     DD DSN=SSXDT.DUMP.ARCHLOG,UNIT=3390,                         00041001
+//         DISP=(,CATLG,DELETE),                                        00050000
+//         SPACE=(CYL,(800,800))                                        00060001
+//SYSIN    DD   *                                                       00070000
+  DUMP DATASET(INCLUDE(                                 -               00080000
+         SSXDT.DB2V.ARCHLOG1.D10287.T0923411.A0053116   -               00090001
+         SSXDT.DB3V.ARCHLOG1.D10287.T1018092.A0045236   -               00100001
+         SSXDT.DB4V.ARCHLOG1.D10288.T1612538.A0002681   -               00110001
+         SSXDT.DB5V.ARCHLOG1.D10288.T1823172.A0002692   -               00111001
+         SSXDT.DB2V.ARCHLOG1.D10288.T1745024.A0053118   -               00113001
+         SSXDT.DB3V.ARCHLOG1.D10291.T1432593.A0045237   -               00114001
+         SSXDT.DB4V.ARCHLOG1.D10291.T1416411.A0002682   -               00115001
+         SSXDT.DB5V.ARCHLOG1.D10291.T1634232.A0002693   -               00116001
+                                             ))         -               00120000
+  OUTDD(OUT1) -                                                         00130000
+  ALLDATA(*) ALLEXCP  -                                                 00140000
+  SHR TOL(ENQF)                                                         00149500
+//                                                                      00150000

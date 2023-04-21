@@ -1,0 +1,78 @@
+//D54808TA JOB ,'GLK RM 102',CLASS=S,MSGCLASS=X                         00000100
+//JOBLIB  DD DSN=SSXDP.DDB2P.V3.SDSNLOAD,UNIT=SYSDA,DISP=SHR            00000210
+//STEP1  EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB01.SCT02.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//STEP2  EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB01.SYSLGRNG.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//STEP3  EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB01.DBD01.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//STEP4  EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB01.SYSUTIL.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//STEP5  EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB06.SYSUSER.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//STEP6  EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB06.SYSCOPY.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//STEP7  EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB06.SYSPLAN.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//STEP8  EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB06.SYSGROUP.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//STEP9  EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB06.SYSDBASE.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//STEP10 EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB06.SYSDBAUT.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//STEP11 EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB06.SYSGPAUT.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//STEP12 EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB06.SYSVIEWS.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//STEP13 EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB01.SPT01.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//STEP14 EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB06.SYSPKAGE.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//STEP15 EXEC PGM=DSN1COPY,PARM='CHECK'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DSNA.DSNDBC.DSNDB06.SYSSTR.I0001.A001,DISP=SHR
+//SYSUT2   DD DUMMY                                                     00000500
+/*
+//                                                                      00001700

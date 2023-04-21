@@ -1,0 +1,12 @@
+//UXD000M JOB (,105),'DB2 ',                                            00010001
+//             CLASS=S,MSGCLASS=X,MSGLEVEL=(1,1)                        00040000
+//*  PARM S=MVSC                                              /*JCTRL*/ 00050000
+//UPDT EXEC PGM=IEBGENER
+//SYSUT1 DD DISP=SHR,DSN=SSXMT.DUMP.MVST.UFZ6212M.D97175.T1348.S00009
+//SYSUT2 DD DISP=(NEW,CATLG),DSN=SSXDT.DB2T.DUMP.D97175.T1348,
+//   VOL=SER=A3D2BP,
+//   UNIT=3390,
+//   SPACE=(CYL,(50,9),RLSE)
+//SYSPRINT  DD  SYSOUT=X
+//SYSIN DD DUMMY
+//

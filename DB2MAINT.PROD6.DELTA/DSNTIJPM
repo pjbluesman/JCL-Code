@@ -1,0 +1,1733 @@
+//DB6RTJPM JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID,REGION=0M
+/*JOBPARM SYSAFF=MVS4
+//*********************************************************************
+//* This member has been edited by the DB2BASE edit macro.            *
+//*********************************************************************
+//*********************************************************************
+//*  NAME = DSNTIJPM
+//*
+//*  DESCRIPTIVE NAME = DB2 INSTALL JOB
+//*
+//*    Licensed Materials - Property of IBM
+//*    5635-DB2
+//*    (C) COPYRIGHT 1982, 2006 IBM Corp.  All Rights Reserved.
+//*
+//*    STATUS = Version 9
+//*
+//*  FUNCTION = RUN THIS JOB ON DB2 VERSION 8 PRIOR
+//*             TO MIGRATION TO DB2 VERSION 9.  IT QUERIES THE DB2
+//*             CATALOG TO IDENTIFY CONDITIONS THAT WILL NEED TO BE
+//*             REMEDIED BEFORE YOU ATTEMPT TO MIGRATE TO DB2 VERSION
+//*             9 OR THAT NEED TO BE ATTENDED TO AFTER YOU HAVE
+//*             MIGRATED TO DB2 VERSION 9.
+//*
+//*             THIS JOB GENERATES REPORTS THAT IDENTIFY CONDITIONS
+//*             ON DB2 VERSION 8 THAT NEED TO BE REMEDIED BEFORE YOU
+//*             COMMENCE MIGRATION TO VERSION 9, OR THAT NEED TO BE
+//*             ATTENDED TO AFTER YOU HAVE MIGRATED TO DB2 VERSION 9.
+//*
+//*  PSEUDOCODE =
+//*    DELETE   STEP     REMOVE DATA SETS CREATED BY PREVIOUS RUNS
+//*    UNLOAD   STEP     CALL DSNTIAUL TO PROCESS SQL STATEMENTS
+//*    REPORTxx STEP     GENERATE REPORTS
+//*
+//*     NOTES = THE JCL SHOULD USE THE DSNTIAUL MODULE AND PLAN PRE-
+//*             PARED FOR THE DB2 ENVIRONMENT YOU ARE MIGRATING FROM.
+//*
+//*             THE FOLLOWING MANUAL TAILORING IS REQUIRED:
+//*             1. ADD A VALID JOB CARD.
+//*             2. LOCATE AND CHANGE ALL OCCURRENCES OF THE FOLLOWING
+//*                STRINGS AS INDICATED:
+//*                A. '!DSN!' TO THE NAME OF THE DB2 SUBSYSTEM YOU ARE
+//*                   PREPARING TO MIGRATE.
+//*                B. 'DSN!!0' TO THE PREFIX OF THE SDSNLOAD TARGET
+//*                   LIBRARY NAME FOR THE DB2 SUBSYSTEM YOU ARE
+//*                   PREPARING TO MIGRATE.
+//*                C. 'DSNTIB!!' TO THE PLAN NAME FOR DSNTIAUL ON THE
+//*                   DB2 SUBSYSTEM YOU ARE PREPARING TO MIGRATE.
+//*
+//* CHANGE ACTIVITY =
+//**********************************************************************
+//*
+//JOBLIB  DD  DSN=SDB6R.SDSNLOAD,DISP=SHR
+//*
+//*        DELETE DATA SETS FROM ANY PREVIOUS RUN
+//*
+//DELETE  EXEC PGM=IEFBR14
+//SYSREC00 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC00,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC01 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC01,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC02 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC02,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC03 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC03,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC04 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC04,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC05 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC05,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC06 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC06,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC07 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC07,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC08 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC08,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC09 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC09,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC10 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC10,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC11 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC11,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC12 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC12,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC13 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC13,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC14 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC14,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC15 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC15,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC16 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC16,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC17 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC17,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC18 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC18,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//SYSREC19 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC19,
+//            DISP=(MOD,DELETE),
+//            UNIT=SYSDA,SPACE=(TRK,0)
+//*
+//*        RUN PREMIGRATION QUERIES
+//*
+//UNLOAD  EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(0,NE)
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+ DSN SYSTEM(DB6R)
+ RUN  PROGRAM(DSNTIAUL)  PARMS('SQL') -
+      LIB('SSXDP.DB6R.RUNLIB.LOAD')
+//SYSPRINT DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//SYSPUNCH DD DUMMY
+//SYSREC00 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC00,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC01 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC01,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC02 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC02,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC03 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC03,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC04 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC04,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC05 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC05,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC06 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC06,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC07 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC07,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC08 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC08,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC09 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC09,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC10 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC10,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC11 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC11,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC12 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC12,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC13 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC13,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC14 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC14,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC15 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC15,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC16 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC16,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC17 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC17,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC18 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC18,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSREC19 DD DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC19,
+//            DISP=(,CATLG),
+//            UNIT=SYSDA,SPACE=(1024,(10,10),RLSE),
+//            DCB=(RECFM=FB,LRECL=80)
+//SYSIN    DD *
+  SET CURRENT SQLID='LSEBDB2';
+    SELECT CURRENT TIMESTAMP
+      FROM SYSIBM.SYSDUMMY1;
+
+  SELECT CHAR( '"' || SUBSTR(NAME, 1, 8) || '"' )
+    FROM SYSIBM.SYSDATABASE
+   WHERE NAME = 'DSN8D81A';
+
+  SELECT CHAR( '"' || RTRIM(SUBSTR(A.NAME, 1, 18))   || '"' )
+        ,CHAR( '"' || RTRIM(SUBSTR(A.TBNAME, 1, 18)) || '"' )
+        ,CHAR( '"' || RTRIM(B.TSNAME) || '"' )
+    FROM SYSIBM.SYSINDEXES   A,
+         SYSIBM.SYSTABLES    B,
+         SYSIBM.SYSINDEXPART C
+   WHERE A.TBNAME    = B.NAME
+     AND A.TBCREATOR = B.CREATOR
+     AND A.NAME      = C.IXNAME
+     AND A.CREATOR   = C.IXCREATOR
+     AND B.DBNAME    = 'DSNDB06'
+     AND B.CREATEDBY = 'SYSIBM'
+     AND (A.OBID BETWEEN 400 AND 599 OR
+          A.OBID BETWEEN 900 AND 1699)
+     AND C.STORTYPE  = 'E'
+     AND B.TSNAME IN( 'SYSOBJ'  , 'SYSPKAGE' )
+  ORDER BY B.TSNAME, A.TBNAME, A.NAME;
+
+  SELECT CHAR( '"' || RTRIM(SUBSTR(A.NAME, 1, 18))   || '"' )
+        ,CHAR( '"' || RTRIM(SUBSTR(A.TBNAME, 1, 18)) || '"' )
+        ,CHAR( '"' || RTRIM(B.TSNAME) || '"' )
+    FROM SYSIBM.SYSINDEXES   A,
+         SYSIBM.SYSTABLES    B,
+         SYSIBM.SYSINDEXPART C
+   WHERE A.TBNAME    = B.NAME
+     AND A.TBCREATOR = B.CREATOR
+     AND A.NAME      = C.IXNAME
+     AND A.CREATOR   = C.IXCREATOR
+     AND B.DBNAME    = 'DSNDB06'
+     AND B.CREATEDBY = 'SYSIBM'
+     AND (A.OBID BETWEEN 400 AND 599 OR
+          A.OBID BETWEEN 900 AND 1699)
+     AND C.STORTYPE  = 'I'
+     AND B.TSNAME IN( 'SYSOBJ'  , 'SYSPKAGE' )
+  ORDER BY B.TSNAME, A.TBNAME, A.NAME;
+
+    SELECT CHAR( '"' || RTRIM(SUBSTR(SCHEMA, 1, 8)) || '"' )
+          ,CHAR( '"' || RTRIM(SUBSTR(NAME, 1, 18))  || '"' )
+      FROM SYSIBM.SYSROUTINES
+     WHERE ROUTINETYPE = 'P'
+       AND WLM_ENVIRONMENT = ' '
+  ORDER BY SCHEMA, NAME;
+
+    SELECT CHAR( '"' || RTRIM(SUBSTR(NAME, 1, 8))  || '"' )
+          ,CHAR( '"' || RTRIM(SUBSTR(CREATOR, 1, 8)) || '"' )
+          ,BOUNDTS
+          ,VALID
+          ,OPERATIVE
+      FROM SYSIBM.SYSPLAN
+     WHERE RELBOUND = ' '
+  ORDER BY BOUNDTS;
+
+    SELECT SUBSTR(LOCATION, 1, 16)
+          ,CHAR( '"' || RTRIM(SUBSTR(COLLID, 1, 18)) || '"' )
+          ,CHAR( '"' || RTRIM(SUBSTR(NAME, 1, 8))  || '"' )
+          ,CHAR( '"' || RTRIM(SUBSTR(CREATOR, 1, 8)) || '"' )
+          ,SMALLINT(LENGTH(VERSION))
+          ,SUBSTR(VERSION
+               || '                             '
+               || '                             '
+                 , 1, 122)
+          ,BINDTIME
+          ,VALID
+          ,OPERATIVE
+      FROM SYSIBM.SYSPACKAGE
+     WHERE RELBOUND = ' '
+  ORDER BY BINDTIME;
+
+    SELECT CHAR( '"' || RTRIM(SUBSTR(SCHEMA, 1, 8)) || '"' )
+          ,CHAR( '"' || RTRIM(SUBSTR(NAME, 1, 18)) || '"' )
+     FROM SYSIBM.SYSROUTINES
+    WHERE EXTERNAL_NAME = 'DSNWZPR'
+ ORDER BY SCHEMA, NAME;
+
+   SELECT 'REPORT08 HAS BEEN DISCONTINUED'
+     FROM SYSIBM.SYSDUMMY1;
+
+   SELECT NAME, CREATOR, TABLESTATUS
+     FROM SYSIBM.SYSTABLES
+    WHERE STATUS = 'I';
+
+   SELECT NAME, TBNAME, TBCREATOR
+     FROM SYSIBM.SYSCOLUMNS
+    WHERE COLSTATUS = 'I';
+
+   SELECT SUBSTR(TB.NAME, 1, 15) AS TBNAME
+        , TB.DBNAME
+        , TB.TSNAME
+        , TB.CREATOR
+     FROM SYSIBM.SYSTABLES  TB
+        , SYSIBM.SYSCOLUMNS CO
+    WHERE TB.NAME    = 'DSN_PTASK_TABLE'
+      AND TB.CREATOR = CO.TBCREATOR
+      AND TB.NAME    = CO.TBNAME
+      AND CO.COLNO IN( 13, 14, 15, 16 )
+      AND LENGTH(CO.NAME) > 7
+ GROUP BY TB.CREATOR, TB.DBNAME, TB.TSNAME, TB.NAME;
+
+   SELECT SUBSTR(TB.NAME, 1, 15)
+        , TB.CREATOR
+     FROM SYSIBM.SYSTABLES  TB
+        , SYSIBM.SYSCOLUMNS CO
+    WHERE TB.NAME    = 'DSN_PTASK_TABLE'
+      AND TB.CREATOR = CO.TBCREATOR
+      AND TB.NAME    = CO.TBNAME
+      AND CO.COLNO IN( 13, 14, 15, 16 )
+      AND LENGTH(CO.NAME) = 7
+ GROUP BY TB.CREATOR, TB.NAME;
+
+  SELECT STRIP(CREATOR) || '.' || STRIP(NAME)
+    FROM SYSIBM.SYSTABLES
+   WHERE CREATOR     = 'SYSIBM'
+     AND NAME        = 'SYSROUTINES'
+     AND DATACAPTURE = 'Y';
+
+  SELECT STRIP(CREATOR) || '.' || STRIP(NAME)
+    FROM SYSIBM.SYSTABLES
+   WHERE CREATOR     = 'SYSIBM'
+     AND NAME        = 'SYSPACKSTMT'
+     AND DATACAPTURE = 'Y';
+
+   SELECT STRIP(DCREATOR) || '.' || STRIP(DNAME)
+     FROM SYSIBM.SYSVIEWDEP,
+        ( SELECT CREATOR, NAME
+            FROM SYSIBM.SYSTABLES
+           WHERE NUM_DEP_MQTS > 0
+             AND NAME = 'SYSROUTINES'
+        )  AS STB
+    WHERE BNAME = STB.NAME
+  ;
+
+   SELECT STRIP(DCREATOR) || '.' || STRIP(DNAME)
+     FROM SYSIBM.SYSVIEWDEP,
+        ( SELECT CREATOR, NAME
+            FROM SYSIBM.SYSTABLES
+           WHERE NUM_DEP_MQTS > 0
+             AND NAME = 'SYSPACKSTMT'
+        ) AS STB
+    WHERE BNAME = STB.NAME
+  ;
+
+   SELECT STRIP(TB.CREATOR) || '.' || STRIP(TB.NAME)
+     FROM SYSIBM.SYSTABLES     TB
+         ,SYSIBM.SYSTABLESPACE TS
+    WHERE TB.DBNAME = TS.DBNAME
+      AND TB.TSNAME = TS.NAME
+      AND TB.TYPE = 'T'
+      AND TS.ENCODING_SCHEME <> 'U'
+      AND TB.NAME IN( 'DSN_DETCOST_TABLE'
+                     ,'DSN_FILTER_TABLE'
+                     ,'DSN_FUNCTION_TABLE'
+                     ,'DSN_PGRANGE_TABLE'
+                     ,'DSN_PGROUP_TABLE'
+                     ,'DSN_PREDICAT_TABLE'
+                     ,'DSN_PROFILE_TABLE'
+                     ,'DSN_PROFILE_HISTORY'
+                     ,'DSN_PTASK_TABLE'
+                     ,'DSN_QUERY_AUX'
+                     ,'DSN_QUERY_TABLE'
+                     ,'DSN_SORTKEY_TABLE'
+                     ,'DSN_SORT_TABLE'
+                     ,'DSN_STATEMENT_CACHE_AUX'
+                     ,'DSN_STATEMENT_CACHE_TABLE'
+                     ,'DSN_STATEMENT_RUNTIME_INFO'
+                     ,'DSN_STATEMNT_TABLE'
+                     ,'DSN_STRUCT_TABLE'
+                     ,'DSN_VIEWREF_TABLE'
+                     ,'DSN_VIRTUAL_INDEX'
+                     ,'PLAN_TABLE'
+                     )
+   ORDER BY TB.CREATOR, TB.NAME
+  ;
+
+  SELECT DISTINCT CHAR( SUBSTR( STRIP(TBCREATOR) || '.' || STRIP(TBNAME)
+                             || REPEAT( ' ', 255 ), 1, 255 )
+                      )
+    FROM SYSIBM.SYSCOLUMNS
+   WHERE STRIP(TBCREATOR) || STRIP(TBNAME)
+      IN ( SELECT STRIP(TBCREATOR) || STRIP(TBNAME)
+             FROM SYSIBM.SYSCOLUMNS
+            WHERE TBNAME IN( 'DSN_DETCOST_TABLE'
+                           , 'DSN_FILTER_TABLE'
+                           , 'DSN_FUNCTION_TABLE'
+                           , 'DSN_PGRANGE_TABLE'
+                           , 'DSN_PGROUP_TABLE'
+                           , 'DSN_PREDICAT_TABLE'
+                           , 'DSN_PROFILE_HISTORY'
+                           , 'DSN_PROFILE_TABLE'
+                           , 'DSN_PTASK_TABLE'
+                           , 'DSN_QUERY_TABLE'
+                           , 'DSN_SORT_TABLE'
+                           , 'DSN_SORTKEY_TABLE'
+                           , 'DSN_STATEMENT_CACHE_TABLE'
+                           , 'DSN_STATEMENT_RUNTIME_INFO'
+                           , 'DSN_STATEMNT_TABLE'
+                           , 'DSN_STRUCT_TABLE'
+                           , 'DSN_VIEWREF_TABLE'
+                           , 'DSN_VIRTUAL_INDEXES'
+                           , 'PLAN_TABLE'
+                           )
+         GROUP BY TBCREATOR, TBNAME
+           HAVING (TBNAME = 'DSN_DETCOST_TABLE'
+                   AND MAX(COLNO) < 120)
+               OR (TBNAME = 'DSN_FILTER_TABLE'
+                   AND MAX(COLNO) <  14)
+               OR (TBNAME = 'DSN_FUNCTION_TABLE'
+                   AND MAX(COLNO) <  15)
+               OR (TBNAME = 'DSN_PGRANGE_TABLE'
+                   AND MAX(COLNO) <   9)
+               OR (TBNAME = 'DSN_PGROUP_TABLE'
+                   AND MAX(COLNO) <  38)
+               OR (TBNAME = 'DSN_PREDICAT_TABLE'
+                   AND MAX(COLNO) <  36)
+               OR (TBNAME = 'DSN_PROFILE_HISTORY'
+                   AND MAX(COLNO) <  10)
+               OR (TBNAME = 'DSN_PROFILE_TABLE'
+                   AND MAX(COLNO) <  10)
+               OR (TBNAME = 'DSN_PTASK_TABLE'
+                   AND MAX(COLNO) <  21)
+               OR (TBNAME = 'DSN_QUERY_TABLE'
+                   AND MAX(COLNO) <  10)
+               OR (TBNAME = 'DSN_SORT_TABLE'
+                   AND MAX(COLNO) <  13)
+               OR (TBNAME = 'DSN_SORTKEY_TABLE'
+                   AND MAX(COLNO) <  18)
+               OR (TBNAME = 'DSN_STATEMENT_CACHE_TABLE'
+                   AND MAX(COLNO) <  48)
+               OR (TBNAME = 'DSN_STATEMENT_RUNTIME_INFO'
+                   AND MAX(COLNO) <  51)
+               OR (TBNAME = 'DSN_STATEMNT_TABLE'
+                   AND MAX(COLNO) <  13)
+               OR (TBNAME = 'DSN_STRUCT_TABLE'
+                   AND MAX(COLNO) <  15)
+               OR (TBNAME = 'DSN_VIEWREF_TABLE'
+                   AND MAX(COLNO) <  11)
+               OR (TBNAME = 'DSN_VIRTUAL_INDEXES'
+                   AND MAX(COLNO) < 145)
+               OR (TBNAME = 'PLAN_TABLE'
+                   AND MAX(COLNO) <  59)
+           UNION
+           SELECT STRIP(TBCREATOR) || STRIP(TBNAME)
+             FROM SYSIBM.SYSCOLUMNS
+            WHERE TBNAME IN( 'DSN_DETCOST_TABLE'
+                           , 'DSN_FILTER_TABLE'
+                           , 'DSN_FUNCTION_TABLE'
+                           , 'DSN_PGRANGE_TABLE'
+                           , 'DSN_PGROUP_TABLE'
+                           , 'DSN_PREDICAT_TABLE'
+                           , 'DSN_PROFILE_HISTORY'
+                           , 'DSN_PROFILE_TABLE'
+                           , 'DSN_PTASK_TABLE'
+                           , 'DSN_QUERY_TABLE'
+                           , 'DSN_SORT_TABLE'
+                           , 'DSN_SORTKEY_TABLE'
+                           , 'DSN_STATEMENT_CACHE_TABLE'
+                           , 'DSN_STATEMENT_RUNTIME_INFO'
+                           , 'DSN_STATEMNT_TABLE'
+                           , 'DSN_STRUCT_TABLE'
+                           , 'DSN_VIEWREF_TABLE'
+                           , 'DSN_VIRTUAL_INDEXES'
+                           , 'PLAN_TABLE'
+                           )
+              AND (    (NAME = 'ACCESSCREATOR'    AND LENGTH <> 128)
+                    OR (NAME = 'ACCESSNAME'       AND LENGTH <> 128)
+                    OR (NAME = 'APPLNAME'         AND LENGTH <> 24)
+                    OR (NAME = 'COLLID'           AND LENGTH <> 128)
+                    OR (NAME = 'CORRELATION_NAME' AND LENGTH <> 128)
+                    OR (NAME = 'CREATOR'          AND LENGTH <> 128)
+                    OR (NAME = 'FUNCTION_NAME'    AND LENGTH <> 128)
+                    OR (NAME = 'FUNCTION_TEXT'    AND LENGTH <> 1500)
+                    OR (NAME = 'GROUP_MEMBER'     AND LENGTH <> 24)
+                    OR (NAME = 'HINTUSED'         AND LENGTH <> 128)
+                    OR (NAME = 'OPTHINT'          AND LENGTH <> 128)
+                    OR (NAME = 'PATH'             AND LENGTH <> 2048)
+                    OR (NAME = 'PLANNAME'         AND LENGTH <> 24)
+                    OR (NAME = 'PROGNAME'         AND LENGTH <> 128)
+                    OR (NAME = 'REMARKS'          AND LENGTH <> 762)
+                    OR (NAME = 'SCHEMA_NAME'      AND LENGTH <> 128)
+                    OR (NAME = 'SPEC_FUNC_NAME'   AND LENGTH <> 128)
+                    OR (NAME = 'TNAME'            AND LENGTH <> 128)
+                    OR (NAME = 'VERSION'          AND LENGTH <> 122)
+                    OR (NAME = 'VIEW_CREATOR'     AND LENGTH <> 128)
+                    OR (NAME = 'VIEW_NAME'        AND LENGTH <> 128)
+                  )
+         )
+  ;
+
+  SELECT CHAR( SUBSTR( STRIP(SUBSTR(CREATOR, 1, 8))
+                    || '.'
+                    || STRIP(SUBSTR(NAME, 1, 8))
+                    || '.'
+                    || STRIP(CHAR(OLDEST_VERSION))
+                    || '.'
+                    || STRIP(CHAR(CURRENT_VERSION))
+                    || REPEAT( ' ', 28 )
+                     , 1, 28
+                     )
+             )
+    FROM SYSIBM.SYSTABLESPACE
+   WHERE DBID = 6
+     AND (CURRENT_VERSION < OLDEST_VERSION);
+
+/*
+//*
+//*********************************************************************
+//*        Report existence of the V8 sample database
+//*********************************************************************
+//REPORT01 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC01,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+== THE FOLLOWING LISTS THE DB2 V8 SAMPLE DATABASE, DSN8D81A.  THIS    ==
+== DATABASE IS NEEDED FOR VERIFY MIGRATION TO DB2 V9 COMPATIBILITY    ==
+== MODE.  IF DSN8D81A IS NOT LISTED BELOW, YOU ARE RECOMMENDED TO     ==
+== RECREATE IT BEFORE COMMENCING MIGRATION TO DB2 V9.  RUN V8 IVP     ==
+== JOB DSNTEJ1 TO RECREATE IT.  YOU SHOULD ALSO RUN ONE OR MORE       ==
+== OF THE PHASE 2 AND PHASE 3 IVP JOBS IN V8.  SEE THE DB2 V8         ==
+== INSTALLATION GUIDE, THE CHAPTER ON VERIFIYING WITH SAMPLE APPLI-   ==
+== CATIONS FOR MORE INFORMATION.                                      ==
+========================================================================
+NAME
+----------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=80)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=10,MAXGPS=2,MAXLITS=150
+G1 RECORD  IDENT=(8,'--------',1),
+           FIELD=(1,' ',,1),
+           FIELD=(72,1,,2),
+           FIELD=(7,'       ',,74)
+G2 RECORD  FIELD=(1,' ',,1),                             01-01
+           FIELD=(10,1,,2),                              02-11
+           FIELD=(25,'                         ',,12),   12-36
+           FIELD=(25,'                         ',,37),   37-61
+           FIELD=(19,'                   ',,62)          62-80
+/*
+//*
+//*********************************************************************
+//*        Report user-defined indexes on the DB2 catalog that reside
+//*        on user-managed storage
+//*********************************************************************
+//REPORT02 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC02,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+== THE INDEXES LISTED BELOW ARE USER-DEFINED INDEXES ON DB2 CATALOG   ==
+== TABLES IN TABLE SPACES THAT WILL BE CONVERTED DURING ENABLING-NEW- ==
+== FUNCTION MODE (ENFM) AFTER YOU HAVE COMPLETED YOUR MIGRATION TO    ==
+== VERSION 9. BECAUSE THESE INDEXES RESIDE ON USER-MANAGED STORAGE,   ==
+== YOU NEED TO MODIFY THE ENFM CATALOG CONVERSION JOB, DSNTIJEN, TO   ==
+== DEFINE SHADOW DATA SETS FOR THEM FOR USE BY DB2 ONLINE REORG.  USE ==
+== THE JOB STEP DESCRIPTIONS IN THE PROLOG OF DSNTIJEN TO DETERMINE   ==
+== THE APPROPRIATE PLACEMENT OF THE AMS DELETE AND DEFINE STATEMENTS  ==
+== EACH SHADOW DATA SET YOU NEED TO ADD.                              ==
+========================================================================
+USER INDEX NAME      CATALOG TABLE NAME   CATALOG TABLE SPACE NAME
+-------------------- -------------------- ------------------------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=80)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=11,MAXGPS=2,MAXLITS=150
+G1 RECORD  IDENT=(8,'--------',1),
+           FIELD=(1,' ',,1),
+           FIELD=(72,1,,2),
+           FIELD=(7,'       ',,74)
+G2 RECORD  FIELD=(1,' ',,1),                             01-01
+           FIELD=(20,1,,2),                              02-21
+           FIELD=(1,' ',,22),                            22-22
+           FIELD=(20,21,,23),                            23-42
+           FIELD=(1,' ',,43),                            43-43
+           FIELD=(10,41,,44),                            44-53
+           FIELD=(27,'                           ',,54)  54-80
+/*
+//*********************************************************************
+//*        Report user-defined indexes on the DB2 catalog that reside
+//*        on DB2-managed storage
+//*********************************************************************
+//REPORT03 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC03,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+== THE INDEXES LISTED BELOW ARE USER-DEFINED INDEXES ON DB2 CATALOG   ==
+== TABLES IN TABLE SPACES THAT WILL BE CONVERTED DURING ENABLING-NEW- ==
+== FUNCTION MODE (ENFM) AFTER YOU HAVE COMPLETED YOUR MIGRATION TO    ==
+== VERSION 9.  THESE INDEXES RESIDE ON DB2-MANAGED STORAGE SO SHADOW  ==
+== DATA SETS FOR THEM WILL BE DEFINED AUTOMATICALLY DURING DB2 ONLINE ==
+== REORG PROCESSING BY THE ENFM CATALOG CONVERSION JOB, DSNTIJEN.     ==
+== HOWEVER, BEFORE RUNNING DSNTIJEN, YOU SHOULD REVIEW THE CURRENT    ==
+== SPACE ALLOCATIONS FOR THE DATA SETS FOR THESE INDEXES AND INCREASE ==
+== THE SPACE FOR ANY THAT ARE APPROACHING CAPACITY TO ACCOMODATE      ==
+== EXPANSION DURING CATALOG CONVERSION.                               ==
+========================================================================
+USER INDEX NAME      CATALOG TABLE NAME   CATALOG TABLE SPACE NAME
+-------------------- -------------------- ------------------------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=80)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=11,MAXGPS=2,MAXLITS=150
+G1 RECORD  IDENT=(8,'--------',1),
+           FIELD=(1,' ',,1),
+           FIELD=(72,1,,2),
+           FIELD=(7,'       ',,74)
+G2 RECORD  FIELD=(1,' ',,1),                             01-01
+           FIELD=(20,1,,2),                              02-21
+           FIELD=(1,' ',,22),                            22-22
+           FIELD=(20,21,,23),                            23-42
+           FIELD=(1,' ',,43),                            43-43
+           FIELD=(10,41,,44),                            44-53
+           FIELD=(27,'                           ',,54)  54-80
+/*
+//*
+//*********************************************************************
+//*        Report stored procedures that use the DB2 SPAS
+//*********************************************************************
+//REPORT04 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC04,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+== THE FOLLOWING STORED PROCEDURES RUN IN THE DB2 STORED PROCEDURES   ==
+== ADDRESS SPACE (DB2 SPAS), WHICH WAS DEPRECATED IN DB2 V8 AND HAS   ==
+== BEEN ELIMINATED IN DB2 V9.  BEFORE MIGRATION TO DB2 V9, REVIEW     ==
+== THE PROCEDURES LISTED BELOW, DROP ANY THAT ARE OBSOLETE, AND CON-  ==
+== VERT ALL THAT ARE STILL REQUIRED TO RUN IN A WLM-ESTABLISHED       ==
+== ADDRESS SPACE FOR STORED PROCEDURES.                               ==
+========================================================================
+SCHEMA     NAME
+---------- --------------------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=80)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=9,MAXGPS=2,MAXLITS=62
+G1 RECORD  IDENT=(8,'--------',1),
+           FIELD=(1,' ',,1),
+           FIELD=(72,1,,2),
+           FIELD=(7,'       ',,74)
+G2 RECORD  FIELD=(1,' ',,1),                             01-01 CC
+           FIELD=(10,1,,2),                              02-11 schema
+           FIELD=(1,' ',,1),                             12-12 blank
+           FIELD=(20,11,,13),                            13-32 name
+           FIELD=(25,'                         ',,33),   33-57
+           FIELD=(23,'                       ',,58)      58-80
+/*
+//*
+//*********************************************************************
+//*        Report plans that are autobind candidates in V9
+//*********************************************************************
+//REPORT05 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC05,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+==== THE FOLLOWING REPORT IS RELEVANT ONLY FOR DB2 SUBSYSTEMS THAT  ====
+====         ORIGINATED PRIOR TO DB2 FOR MVS/ESA VERSION 4          ====
+========================================================================
+== FOLLOWING IS A LIST OF PLANS THAT WERE BOUND PRIOR TO DB2 VERSION  ==
+== 7.  THOSE HAVING A BOUNDTS VALUE PRIOR TO THE DATE THIS DB2 WAS    ==
+== MIGRATED TO V4 MUST BE REBOUND IN ORDER TO RUN ON DB2 V9.  DB2 V9  ==
+== WILL AUTOMATICALLY REBIND SUCH A PLAN THE FIRST TIME IT IS USED    ==
+== IF THE ABIND SUBSYSTEM PARAMETER IS SET TO 'YES' OR 'COEXIST'.     ==
+== IF ABIND IS SET TO 'NO', DB2 V9 WILL RETURN SQLCODE -908, SQLSTATE ==
+== 23510 FOR ALL ATTEMPTS TO USE SUCH A PLAN UNTIL IT IS REBOUND.     ==
+== NOTE THAT PLANS THAT HAVE A BOUNDTS AFTER THE DATE THAT THIS DB2   ==
+== WAS MIGRATED TO V4 DO NOT NEED TO BE REBOUND FOR USE ON V9.        ==
+========================================================================
+NAME       CREATOR    BOUNDTS                    VALID OPERATIVE
+---------- ---------- -------------------------- ----- ---------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=80)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=15,MAXGPS=2,MAXLITS=62
+G1 RECORD  IDENT=(8,'--------',1),
+           FIELD=(1,' ',,1),                             01-01 CC
+           FIELD=(72,1,,2),                              02-73 take
+           FIELD=(7,'       ',,74)                       74-80 blank
+G2 RECORD  FIELD=(1,' ',,1),                             01-01 CC
+           FIELD=(10,1,,2),                              02-11 NAME
+           FIELD=(1,' ',,12),                            12-12 blank
+           FIELD=(10,11,,13),                            13-22 CREATOR
+           FIELD=(1,' ',,23),                            23-23 blank
+           FIELD=(26,21,,24),                            24-49 BOUNDTS
+           FIELD=(1,' ',,50),                            50-50 blank
+           FIELD=(1,47,,51),                             51-51 VALIDTS
+           FIELD=(5,'     ',,52),                        52-56 blank
+           FIELD=(1,48,,57),                             57-57 OPERATIV
+           FIELD=(23,'                       ',,58)      58-80 blank
+/*
+//*
+//*********************************************************************
+//*        Report packages that are autobind candidates in V9
+//*********************************************************************
+//REPORT06 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(TRK,0),DCB=(RECFM=FB,LRECL=208)
+//         DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC06,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+==== THE FOLLOWING REPORT IS RELEVANT ONLY FOR DB2 SUBSYSTEMS THAT  ====
+====         ORIGINATED PRIOR TO DB2 FOR MVS/ESA VERSION 4          ====
+========================================================================
+== FOLLOWING IS A LIST OF PACKAGES THAT WERE BOUND PRIOR TO DB2 VER-  ==
+== SION 7.  THOSE HAVING A BINDTIME VALUE PRIOR TO THE DATE THIS DB2  ==
+== WAS MIGRATED TO V4 MUST BE REBOUND IN ORDER TO RUN ON DB2 V9.  DB2 ==
+== V9 WILL AUTOMATICALLY REBIND SUCH A PACKAGE THE FIRST TIME IT IS   ==
+== USED IF THE ABIND SUBSYSTEM PARAMETER IS SET TO 'YES' OR 'COEXIST'.==
+== IF ABIND IS SET TO 'NO', DB2 V9 WILL RETURN SQLCODE -908, SQLSTATE ==
+== 23510 FOR ALL ATTEMPTS TO USE SUCH A PACKAGE UNTIL IT IS REBOUND.  ==
+== NOTE THAT PACKAGES THAT HAVE A BINDTIME AFTER THE DATE THAT THIS   ==
+== DB2 WAS MIGRATED TO V4 DO NOT NEED TO BE REBOUND FOR USE ON V9.    ==
+========================================================================
+LOCATION         COLLID               NAME       CREATOR    VERSION
+---------------- -------------------- ---------- ---------- ------------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=168)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=48,MAXGPS=6,MAXLITS=380
+G1 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74)                         74- 80 blank
+G2 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74)                         74- 80 blank
+G3 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74)                         74- 80 blank
+G4 RECORD  IDENT=(8,'LOCATION',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(17,'LOCATION         ',,2),              02- 18 LOC
+           FIELD=(21,'COLLID               ',,19),         19- 39 COLID
+           FIELD=(11,'NAME       ',,40),                   40- 50 NAME
+           FIELD=(11,'CREATOR    ',,51),                   51- 61 CREAT
+           FIELD=(25,'VERSION                  ',,62),     62- 86 VER
+           FIELD=(25,'                         ',,87),     87-111 VER+
+           FIELD=(15,'               ',,112),             112-126 VER+
+           FIELD=(27,'BINDTIME                   ',,127), 127-153 BT
+           FIELD=(6,'VALID ',,154),                       154-159 VAL
+           FIELD=(9,'OPERATIVE',,160)                     160-168 OPER
+G5 RECORD  IDENT=(8,'--------',1),
+           FIELD=(1,' ',,1),                                1-  1 CC
+           FIELD=(17,'---------------- ',,2),               2- 18 LOC
+           FIELD=(21,'-------------------- ',,19),         19- 39 COLID
+           FIELD=(11,'---------- ',,40),                   40- 50 NAME
+           FIELD=(11,'---------- ',,51),                   51- 61 CREAT
+           FIELD=(25,'-------------------------',,62),     62 -86 VER
+           FIELD=(25,'-------------------------',,87),     87-111 VER+
+           FIELD=(15,'-------------- ',,112),             112-126 VER+
+           FIELD=(27,'-------------------------- ',,127), 127-153 BT
+           FIELD=(6,'----- ',,154),                       154-159 VAL
+           FIELD=(9,'---------',,160)                     160-168 OPER
+G6 RECORD  FIELD=(1,' ',,1),                                1-  1 CC
+           FIELD=(16,1,,2),                                 2- 17 LOC
+           FIELD=(1,' ',,18),                              18- 18 blank
+           FIELD=(20,17,,19),                              19- 38 COLID
+           FIELD=(1,' ',,39),                              39- 39 blank
+           FIELD=(10,37,,40),                              40- 49 NAME
+           FIELD=(1,' ',,50),                              50- 50 blank
+           FIELD=(10,47,,51),                              51- 60 CREAT
+           FIELD=(1,' ',,61),                              61- 61 blank
+           FIELD=(64,59,,62),                              62-125 VER
+           FIELD=(1,' ',,126),                            126-126 blank
+           FIELD=(26,181,,127),                           127-152 BT
+           FIELD=(1,' ',,153),                            153-153 blank
+           FIELD=(1,207,,154),                            154-154 VAL
+           FIELD=(5,'     ',,155),                        155-159 blank
+           FIELD=(1,208,,160),                            160-160 OPER
+           FIELD=(8,'        ',,161)                      161-168 blank
+/*
+//*
+//*********************************************************************
+//*        Report use of external module DSNWZPR
+//*********************************************************************
+//REPORT07 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC07,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+== The following routines are currently defined to use an external    ==
+== module called DSNWZPR.  In V8, DSNWZPR is an alias of a module     ==
+== called DSNWZP.  In V9, the DSNWZPR alias is eliminated.  Thus,     ==
+== before beginning migration to V9, you need to alter the routines   ==
+== listed below to use an external module name of DSNWZP rather than  ==
+== DSNWZPR.                                                           ==
+========================================================================
+SCHEMA     NAME
+---------- --------------------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=80)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=9,MAXGPS=2,MAXLITS=62
+G1 RECORD  IDENT=(8,'--------',1),
+           FIELD=(1,' ',,1),
+           FIELD=(72,1,,2),
+           FIELD=(7,'       ',,74)
+G2 RECORD  FIELD=(1,' ',,1),                             01-01 CC
+           FIELD=(10,1,,2),                              02-11 schema
+           FIELD=(1,' ',,1),                             12-12 blank
+           FIELD=(20,11,,13),                            13-32 name
+           FIELD=(25,'                         ',,33),   33-57
+           FIELD=(23,'                       ',,58)      58-80
+/*
+//*
+//*********************************************************************
+//*        Report 8 has been discontinued
+//*********************************************************************
+//REPORT08 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSIN    DD  DUMMY
+//SYSPRINT DD  DUMMY
+//SYSUT1   DD  DDNAME=RPRTHDR
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=80)
+//RPRTHDR  DD  *
+========================================================================
+== REPORT08 HAS BEEN DISCONTINUED                                     ==
+========================================================================
+/*
+//*
+//*********************************************************************
+//*        Report incomplete table definitions
+//*********************************************************************
+//REPORT09 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(TRK,0),DCB=(RECFM=FB,LRECL=292)
+//         DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC09,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+== The following tables have an incomplete definition as noted by     ==
+== TABLESTATUS:                                                       ==
+==   L = An auxiliary table or auxiliary index has not been defined   ==
+==       for a LOB column.                                            ==
+==   P = The table lacks a required primary index                     ==
+==   R = The table lacks a required index on a row ID.                ==
+==   U = The table lacks a required index on a unique key.            ==
+==   V = An error occurred when an attempt was made to                ==
+==       regenerate the internal representation of the view.          ==
+==                                                                    ==
+==   *** Tables created prior to DB2 V5 are reported here with a      ==
+==       blank TABLESTATUS if a required primary index is missing.    ==
+==                                                                    ==
+== You need to complete or drop all such tables before you begin      ==
+== migration because their behavior will be different in DB2 Version  ==
+== 9.1.                                                               ==
+========================================================================
+TABLE NAME (SHORT)             CREATOR (SHORT)                TABLESTATU
+------------------------------ ------------------------------ ----------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=338)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=74,MAXGPS=5,MAXLITS=1213
+G1 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(25,'                         ',,81),     81-105 blank
+           FIELD=(25,'                         ',,106),   106-130 blank
+           FIELD=(25,'                         ',,131),   131-155 blank
+           FIELD=(25,'                         ',,156),   156-180 blank
+           FIELD=(25,'                         ',,181),   181-205 blank
+           FIELD=(25,'                         ',,206),   206-230 blank
+           FIELD=(25,'                         ',,231),   231-255 blank
+           FIELD=(25,'                         ',,256),   256-280 blank
+           FIELD=(25,'                         ',,281),   281-305 blank
+           FIELD=(25,'                         ',,306),   306-330 blank
+           FIELD=(8,'        ',,331)                      331-338 blank
+G2 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(25,'                         ',,81),     81-105 blank
+           FIELD=(25,'                         ',,106),   106-130 blank
+           FIELD=(25,'                         ',,131),   131-155 blank
+           FIELD=(25,'                         ',,156),   156-180 blank
+           FIELD=(25,'                         ',,181),   181-205 blank
+           FIELD=(25,'                         ',,206),   206-230 blank
+           FIELD=(25,'                         ',,231),   231-255 blank
+           FIELD=(25,'                         ',,256),   256-280 blank
+           FIELD=(25,'                         ',,281),   281-305 blank
+           FIELD=(25,'                         ',,306),   306-330 blank
+           FIELD=(8,'        ',,331)                      331-338 blank
+G3 RECORD  IDENT=(5,'TABLE',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(18,'TABLE NAME (SHORT)',,02),            02- 19 TbNmS
+           FIELD=(13,'             ',,20),                 20- 32 blank
+           FIELD=(18,'CREATOR (SHORT)   ',,33),            33- 50 CrNmS
+           FIELD=(13,'             ',,51),                 51- 63 blank
+           FIELD=(18,'TABLESTATUS       ',,64),            64- 81 CrNmS
+           FIELD=(17,'TABLE NAME (LONG)',,82),             82- 98 TbNmL
+           FIELD=(25,'                         ',,99),     99-123 blank
+           FIELD=(25,'                         ',,124),   124-148 blank
+           FIELD=(25,'                         ',,149),   149-173 blank
+           FIELD=(25,'                         ',,174),   174-198 blank
+           FIELD=(12,'            ',,199),                199-210 blank
+           FIELD=(14,'CREATOR (LONG)',,211),              211-224 CrNmL
+           FIELD=(25,'                         ',,225),   225-249 blank
+           FIELD=(25,'                         ',,250),   250-274 blank
+           FIELD=(25,'                         ',,275),   275-299 blank
+           FIELD=(25,'                         ',,300),   300-324 blank
+           FIELD=(14,'              ',,325)               325-338 blank
+G4 RECORD  IDENT=(5,'-----',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(18,'------------------',,02),            02- 19 TbNmS
+           FIELD=(13,'------------ ',,20),                 20- 32 blank
+           FIELD=(18,'------------------',,33),            33- 50 CrNmS
+           FIELD=(13,'------------ ',,51),                 51- 63 blank
+           FIELD=(18,'----------------- ',,64),            64- 81 CrNmS
+           FIELD=(17,'-----------------',,82),             82- 98 TbNmL
+           FIELD=(25,'-------------------------',,99),     99-123 blank
+           FIELD=(25,'-------------------------',,124),   124-148 blank
+           FIELD=(25,'-------------------------',,149),   149-173 blank
+           FIELD=(25,'-------------------------',,174),   174-198 blank
+           FIELD=(12,'----------- ',,199),                199-210 blank
+           FIELD=(14,'--------------',,211),              211-224 CrNmL
+           FIELD=(25,'-------------------------',,225),   225-249 blank
+           FIELD=(25,'-------------------------',,250),   250-274 blank
+           FIELD=(25,'-------------------------',,275),   275-299 blank
+           FIELD=(25,'-------------------------',,300),   300-324 blank
+           FIELD=(14,'--------------',,325)               325-338 blank
+G5 RECORD  FIELD=(1,' ',,1),                                1-  1 CC
+           FIELD=(30,3,,2),                                 2- 31 TbNmS
+           FIELD=(1,' ',,32),                              32- 32 blank
+           FIELD=(30,133,,33),                             33- 62 CrNmS
+           FIELD=(1,' ',,63),                              63- 63 blank
+           FIELD=(17,263,,64),                             64- 80 TbSta
+           FIELD=(1,' ',,81),                              81- 81 blank
+           FIELD=(128,3,,82),                              82-209 TbNmL
+           FIELD=(1,' ',,210),                            210-210 blank
+           FIELD=(128,133,,211)                           211-338 CrNmL
+/*
+//*
+//*********************************************************************
+//*        Report incomplete column definitions
+//*********************************************************************
+//REPORT10 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(TRK,0),DCB=(RECFM=FB,LRECL=390)
+//         DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC10,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+== The following columns in the indicated tables have an incomplete   ==
+== definition because a LOB table space, auxiliary table, or index on ==
+== an auxiliary table has not been created for the column.  You need  ==
+== to complete all such columns or drop the tables before you begin   ==
+== migration because their behavior will be different in DB2 Version  ==
+== 9.1.                                                               ==
+========================================================================
+COLUMN NAME                    TABLE NAME (SHORT)             CREATOR (S
+------------------------------ ------------------------------ ----------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=338)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=74,MAXGPS=5,MAXLITS=1213
+G1 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(25,'                         ',,81),     81-105 blank
+           FIELD=(25,'                         ',,106),   106-130 blank
+           FIELD=(25,'                         ',,131),   131-155 blank
+           FIELD=(25,'                         ',,156),   156-180 blank
+           FIELD=(25,'                         ',,181),   181-205 blank
+           FIELD=(25,'                         ',,206),   206-230 blank
+           FIELD=(25,'                         ',,231),   231-255 blank
+           FIELD=(25,'                         ',,256),   256-280 blank
+           FIELD=(25,'                         ',,281),   281-305 blank
+           FIELD=(25,'                         ',,306),   306-330 blank
+           FIELD=(8,'        ',,331)                      331-338 blank
+G2 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(25,'                         ',,81),     81-105 blank
+           FIELD=(25,'                         ',,106),   106-130 blank
+           FIELD=(25,'                         ',,131),   131-155 blank
+           FIELD=(25,'                         ',,156),   156-180 blank
+           FIELD=(25,'                         ',,181),   181-205 blank
+           FIELD=(25,'                         ',,206),   206-230 blank
+           FIELD=(25,'                         ',,231),   231-255 blank
+           FIELD=(25,'                         ',,256),   256-280 blank
+           FIELD=(25,'                         ',,281),   281-305 blank
+           FIELD=(25,'                         ',,306),   306-330 blank
+           FIELD=(8,'        ',,331)                      331-338 blank
+G3 RECORD  IDENT=(6,'COLUMN',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(11,'COLUMN NAME',,2),                    02- 12 ColNm
+           FIELD=(20,'                    ',,13),          13- 32 blank
+           FIELD=(18,'TABLE NAME (SHORT)',,33),            33- 50 TbNmS
+           FIELD=(13,'             ',,51),                 51- 63 blank
+           FIELD=(18,'CREATOR (SHORT)   ',,64),            64- 81 CrNmS
+           FIELD=(17,'TABLE NAME (LONG)',,82),             82- 98 TbNmL
+           FIELD=(25,'                         ',,99),     99-123 blank
+           FIELD=(25,'                         ',,124),   124-148 blank
+           FIELD=(25,'                         ',,149),   149-173 blank
+           FIELD=(25,'                         ',,174),   174-198 blank
+           FIELD=(12,'            ',,199),                199-210 blank
+           FIELD=(14,'CREATOR (LONG)',,211),              211-224 CrNmL
+           FIELD=(25,'                         ',,225),   225-249 blank
+           FIELD=(25,'                         ',,250),   250-274 blank
+           FIELD=(25,'                         ',,275),   275-299 blank
+           FIELD=(25,'                         ',,300),   300-324 blank
+           FIELD=(14,'              ',,325)               325-338 blank
+G4 RECORD  IDENT=(6,'------',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(11,'-----------',,2),                    02- 12 ColNm
+           FIELD=(20,'------------------- ',,13),          13- 32 blank
+           FIELD=(18,'------------------',,33),            33- 50 TbNmS
+           FIELD=(13,'------------ ',,51),                 51- 63 blank
+           FIELD=(18,'----------------- ',,64),            64- 81 CrNmS
+           FIELD=(17,'-----------------',,82),             82- 98 TbNmL
+           FIELD=(25,'-------------------------',,99),     99-123 blank
+           FIELD=(25,'-------------------------',,124),   124-148 blank
+           FIELD=(25,'-------------------------',,149),   149-173 blank
+           FIELD=(25,'-------------------------',,174),   174-198 blank
+           FIELD=(12,'----------- ',,199),                199-210 blank
+           FIELD=(14,'--------------',,211),              211-224 CrNmL
+           FIELD=(25,'-------------------------',,225),   225-249 blank
+           FIELD=(25,'-------------------------',,250),   250-274 blank
+           FIELD=(25,'-------------------------',,275),   275-299 blank
+           FIELD=(25,'-------------------------',,300),   300-324 blank
+           FIELD=(14,'--------------',,325)               325-338 blank
+G5 RECORD  FIELD=(1,' ',,1),                                1-  1 CC
+           FIELD=(30,3,,2),                                 2- 31 ColNm
+           FIELD=(1,' ',,32),                              32- 32 blank
+           FIELD=(30,133,,33),                             33- 62 TbNmS
+           FIELD=(1,' ',,63),                              63- 63 blank
+           FIELD=(17,263,,64),                             64- 80 CrNmS
+           FIELD=(1,' ',,81),                              81- 81 blank
+           FIELD=(128,133,,82),                            82-209 TbNmL
+           FIELD=(1,' ',,210),                            210-210 blank
+           FIELD=(128,263,,211)                           211-338 CrNmL
+/*
+//*
+//*********************************************************************
+//*        Report old-format DSN_PTASK_TABLEs
+//*********************************************************************
+//REPORT11 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(TRK,0),DCB=(RECFM=FB,LRECL=197)
+//         DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC11,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+= The following report lists occurrences of the DB2 explain table      =
+= DSN_PTASK_TABLE that have one or more column names containing a      =
+= variant EBCDIC character such as the hashmark (#) symbol (code point =
+= x'7b' in code page 37).  This is referred to as the old format for   =
+= DSN_PTASK_TABLE.                                                     =
+=                                                                      =
+= DSN_PTASK_TABLEs in the old format may not be acceptable when DB2    =
+= uses a default EBCDIC code page in which code point x'7B' is not the =
+= hashmark.  In reponse, APAR PK65772 introduces a new format for      =
+= DSN_PTASK_TABLE in which all column names consist entirely of        =
+= invariant characters.  PK65772 documents how to convert old-format   =
+= DSN_PTASK_TABLEs to the new format.                                  =
+=                                                                      =
+= ******************************************************************** =
+= ***** Use of the old format DSN_PTASK_TABLEs is deprecated by ****** =
+= ***** PK65772 and disallowed entirely by APAR PK70423.        ****** =
+= ******************************************************************** =
+=                                                                      =
+= These changes may require one or more of the following actions       =
+= before you begin migration to DB2 Version 9.1 for z/OS:              =
+=                                                                      =
+= - If you have already applied the fix for APAR PK65772 to V8 then    =
+=   you also need to apply it to V9.  You also need to convert all     =
+=   DSN_PTASK_TABLEs listed below to the new format before you apply   =
+=   the fix for APAR PK70423.  For guidance, see the ++HOLD actions    =
+=   for PK65772.                                                       =
+=                                                                      =
+= - If you have already applied the fix for PK70423 to V8 then you     =
+=   also need to apply it to V9.  Any DSN_PTASK_TABLEs listed below    =
+=   will not be recognized by DB2 V8 or V9 until you convert them to   =
+=   the new format.  For guidance, see the ++HOLD actions for PK65772  =
+=   PK70423.                                                           =
+=                                                                      =
+= - If you have applied the fix for PK65772 to V9 but not to V8,       =
+=   you should apply it to V8 and convert the tables listed below      =
+=   before beginning migration to V9.  For guidance, see the ++HOLD    =
+=   actions for PK65772.                                               =
+=                                                                      =
+= - If you have applied the fix for PK70423 to V9 but not to V8,       =
+=   you should apply it to V8 and convert the tables listed below      =
+=   before beginning migration to V9.  For guidance, see the ++HOLD    =
+=   actions for PK65772 and PK70423.                                   =
+========================================================================
+TABLE NAME      DATABASE TBLSPACE TABLE CREATOR
+--------------- -------- -------- --------------------------------------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=163)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=74,MAXGPS=5,MAXLITS=1213
+G1 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(25,'                         ',,81),     81-105 blank
+           FIELD=(25,'                         ',,106),   106-130 blank
+           FIELD=(25,'                         ',,131),   131-155 blank
+           FIELD=(8,'        ',,156)                      156-163 blank
+G2 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(25,'                         ',,81),     81-105 blank
+           FIELD=(25,'                         ',,106),   106-130 blank
+           FIELD=(25,'                         ',,131),   131-155 blank
+           FIELD=(8,'        ',,156)                      156-163 blank
+G3 RECORD  IDENT=(5,'TABLE',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(16,'TABLE NAME      ',,2),               02- 17 ColNm
+           FIELD=(18,'DATABASE TBLSPACE ',,18),            18- 35 DB/TS
+           FIELD=(13,'TABLE CREATOR',,36),                 36- 48 TbCr
+           FIELD=(25,'                         ',,49),     49- 73 blank
+           FIELD=(25,'                         ',,74),     74- 98 blank
+           FIELD=(25,'                         ',,99),     99-123 blank
+           FIELD=(25,'                         ',,124),   124-148 blank
+           FIELD=(15,'               ',,149)              149-163 blank
+G4 RECORD  IDENT=(8,'--------',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(16,'--------------- ',,2),               02- 17 ColNm
+           FIELD=(18,'-------- -------- ',,18),            18- 35 DB/TS
+           FIELD=(13,'-------------',,36),                 36- 48 TbCr
+           FIELD=(25,'-------------------------',,49),     49- 73 blank
+           FIELD=(25,'-------------------------',,74),     74- 98 blank
+           FIELD=(25,'-------------------------',,99),     99-123 blank
+           FIELD=(25,'-------------------------',,124),   124-148 blank
+           FIELD=(15,'---------------',,149)              149-163 blank
+G5 RECORD  FIELD=(1,' ',,1),                                1-  1 CC
+           FIELD=(15,1,,2),                                 2- 16 TblNm
+           FIELD=(1,' ',,17),                              17- 17 blank
+           FIELD=(8,18,,18),                               18- 25 DbNm
+           FIELD=(1,' ',,26),                              26- 26 blank
+           FIELD=(8,44,,27),                               27- 34 TsNm
+           FIELD=(1,' ',,35),                              35- 35 blank
+           FIELD=(128,70,,36)                              36-163 CrNm
+/*
+//*
+//*********************************************************************
+//*        Report new-format DSN_PTASK_TABLEs
+//*********************************************************************
+//REPORT12 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(TRK,0),DCB=(RECFM=FB,LRECL=145)
+//         DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC12,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+= The following report identifies occurrences of the DB2 explain table =
+= DSN_PTASK_TABLE that use the new column name format introduced by    =
+= APAR PK65772.  If no tables are listed below, you may ignore this    =
+= report.                                                              =
+=                                                                      =
+= If tables are listed below, it indicates that you have applied the   =
+= fix for APAR PK65772, and possibly the fix for APAR PK70423, to      =
+= DB2 for z/OS Version 8.  You need to take the following actions      =
+= before beginning migration to DB2 Version 9.1 for z/OS:              =
+=                                                                      =
+= - If you have already applied the fix for PK65772 to V8 then you     =
+=   also need to apply it to V9.                                       =
+=                                                                      =
+= - If you have already applied the fix for PK70423 to V8 then you     =
+=   also need to apply it to V9.                                       =
+=                                                                      =
+= See the preceding report for information about how APARs PK65772 and =
+= PK70423 affect the DSN_PTASK_TABLE.                                  =
+========================================================================
+TABLE NAME      TABLE CREATOR
+--------------- --------------------------------------------------------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=145)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=74,MAXGPS=5,MAXLITS=1213
+G1 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(25,'                         ',,81),     81-105 blank
+           FIELD=(25,'                         ',,106),   106-130 blank
+           FIELD=(15,'               ',,131)              131-145 blank
+G2 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(25,'                         ',,81),     81-105 blank
+           FIELD=(25,'                         ',,106),   106-130 blank
+           FIELD=(15,'               ',,131)              131-145 blank
+G3 RECORD  IDENT=(5,'TABLE',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(16,'TABLE NAME      ',,2),               02- 17 ColNm
+           FIELD=(13,'TABLE CREATOR',,18),                 18- 30 TbCr
+           FIELD=(25,'                         ',,31),     31- 55 blank
+           FIELD=(25,'                         ',,56),     56- 80 blank
+           FIELD=(25,'                         ',,81),     81-105 blank
+           FIELD=(25,'                         ',,106),   106-130 blank
+           FIELD=(15,'               ',,131)              131-145 blank
+G4 RECORD  IDENT=(5,'-----',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(16,'----------------',,2),               02- 17 ColNm
+           FIELD=(13,'-------------',,18),                 18- 30 TbCr
+           FIELD=(25,'-------------------------',,31),     31- 55 blank
+           FIELD=(25,'-------------------------',,56),     56- 80 blank
+           FIELD=(25,'-------------------------',,81),     81-105 blank
+           FIELD=(25,'-------------------------',,106),   106-130 blank
+           FIELD=(15,'---------------',,131)              131-145 blank
+G5 RECORD  FIELD=(1,' ',,1),                                1-  1 CC
+           FIELD=(15,1,,2),                                 2- 16 TblNm
+           FIELD=(1,' ',,17),                              17- 17 blank
+           FIELD=(128,18,,18)                              18-145 CrNm
+/*
+//*********************************************************************
+//*        Report use of DATACAPTURE disabled during CATMAINT
+//*********************************************************************
+//REPORT13 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(TRK,0),DCB=(RECFM=FB,LRECL=259)
+//         DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC13,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+= The DATA CAPTURE CHANGES option is active but will be disabled on    =
+= the following DB2 catalog tables when you run job DSNTIJTC to per-   =
+= form the DB2 catalog tailoring (CATMAINT) process during migration   =
+= to DB2 V9 conversion mode.  After completing DSNTIJTC, use the com-  =
+= mand                                                                 =
+=   ALTER TABLE SYSIBM.tablename DATA CAPTURE CHANGES;                 =
+= to reenable DATA CAPTURE CHANGES on each affected table.             =
+========================================================================
+CREATOR.NAME
+------------------------------------------------------------------------
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=80)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=74,MAXGPS=5,MAXLITS=1213
+G1 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74)                         74- 80 blank
+G2 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74)                         74- 80 blank
+G3 RECORD  IDENT=(5,'CREAT',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(16,'CREATOR.NAME    ',,2),               02- 17 Cr.Nm
+           FIELD=(13,'             ',,18),                 18- 30 blank
+           FIELD=(25,'                         ',,31),     31- 55 blank
+           FIELD=(25,'                         ',,56)      56- 80 blank
+G4 RECORD  IDENT=(5,'-----',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74)                         74- 80 blank
+G5 RECORD  FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(18,3,,2),                                02- 19 Cr.Nm
+           FIELD=(11,'           ',,20),                   20- 30 blank
+           FIELD=(25,'                         ',,31),     31- 55 blank
+           FIELD=(25,'                         ',,56)      56- 80 blank
+/*
+//*********************************************************************
+//*        Report use of DATACAPTURE disabled during CATENFM
+//*********************************************************************
+//REPORT14 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(TRK,0),DCB=(RECFM=FB,LRECL=259)
+//         DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC14,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+= The DATA CAPTURE CHANGES option is active but will be disabled on    =
+= the following DB2 catalog tables when you run job DSNTIJEN to per-   =
+= form the enabling-new-function (CATENFM) process after migration to  =
+= V9 conversion mode.  After you have run job DSNTIJNF to put DB2 in   =
+= new function mode, use the command:                                  =
+=   ALTER TABLE SYSIBM.tablename DATA CAPTURE CHANGES;                 =
+= to reenable DATA CAPTURE CHANGES on each affected table.  Note that  =
+= you cannot enable DATA CAPTURE CHANGES on any DB2 catalog table      =
+= during the enabling-new-function mode process.                       =
+========================================================================
+CREATOR.NAME
+------------------------------------------------------------------------
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=80)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=74,MAXGPS=5,MAXLITS=1213
+G1 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74)                         74- 80 blank
+G2 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74)                         74- 80 blank
+G3 RECORD  IDENT=(5,'CREAT',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(16,'CREATOR.NAME    ',,2),               02- 17 Cr.Nm
+           FIELD=(13,'             ',,18),                 18- 30 blank
+           FIELD=(25,'                         ',,31),     31- 55 blank
+           FIELD=(25,'                         ',,56)      56- 80 blank
+G4 RECORD  IDENT=(5,'-----',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74)                         74- 80 blank
+G5 RECORD  FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(18,3,,2),                                02- 19 Cr.Nm
+           FIELD=(11,'           ',,20),                   20- 30 blank
+           FIELD=(25,'                         ',,31),     31- 55 blank
+           FIELD=(25,'                         ',,56)      56- 80 blank
+/*
+//*
+//*********************************************************************
+//*        Report MQTs on the DB2 catalog that are affected by DSNTIJTC
+//*********************************************************************
+//REPORT15 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(TRK,0),DCB=(RECFM=FB,LRECL=259)
+//         DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC15,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+= Following is a list of Materialized Query Tables (MQTs) on the DB2   =
+= catalog or on views that base on the DB2 catalog.  You need to drop  =
+= these MQTs before starting migration to DB2 V9 CM, otherwise CATMAINT=
+= processing will fail with SQLCODE -750.  You can recreate them after =
+= you have completed running job DSNTIJTC.                             =
+========================================================================
+CREATOR.NAME
+------------------------------------------------------------------------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=258)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=74,MAXGPS=5,MAXLITS=1213
+G1 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(20,'                    ',,81),          81-100 blank
+           FIELD=(25,'                         ',,101),   101-125 blank
+           FIELD=(25,'                         ',,126),   126-150 blank
+           FIELD=(25,'                         ',,151),   151-175 blank
+           FIELD=(25,'                         ',,176),   176-200 blank
+           FIELD=(25,'                         ',,201),   201-225 blank
+           FIELD=(25,'                         ',,226),   226-250 blank
+           FIELD=(8,'        ',,251)                      251-258 blank
+G2 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(20,'                    ',,81),          81-100 blank
+           FIELD=(25,'                         ',,101),   101-125 blank
+           FIELD=(25,'                         ',,126),   126-150 blank
+           FIELD=(25,'                         ',,151),   151-175 blank
+           FIELD=(25,'                         ',,176),   176-200 blank
+           FIELD=(25,'                         ',,201),   201-225 blank
+           FIELD=(25,'                         ',,226),   226-250 blank
+           FIELD=(8,'        ',,251)                      251-258 blank
+G3 RECORD  IDENT=(8,'CREATOR.',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(24,'CREATOR.NAME            ',,2),       02- 25 ColNm
+           FIELD=(25,'                         ',,26),     26- 50 blank
+           FIELD=(25,'                         ',,51),     51- 75 blank
+           FIELD=(25,'                         ',,76),     76-100 blank
+           FIELD=(25,'                         ',,101),   101-125 blank
+           FIELD=(25,'                         ',,126),   126-150 blank
+           FIELD=(25,'                         ',,151),   151-175 blank
+           FIELD=(25,'                         ',,176),   176-200 blank
+           FIELD=(25,'                         ',,201),   201-225 blank
+           FIELD=(25,'                         ',,226),   226-250 blank
+           FIELD=(8,'        ',,251)                      251-258 blank
+G4 RECORD  IDENT=(5,'-----',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(24,'------------------------',,2),       02- 25 ColNm
+           FIELD=(25,'-------------------------',,26),     26- 50 blank
+           FIELD=(25,'-------------------------',,51),     51- 75 blank
+           FIELD=(25,'-------------------------',,76),     76-100 blank
+           FIELD=(25,'-------------------------',,101),   101-125 blank
+           FIELD=(25,'-------------------------',,126),   126-150 blank
+           FIELD=(25,'-------------------------',,151),   151-175 blank
+           FIELD=(25,'-------------------------',,176),   176-200 blank
+           FIELD=(25,'-------------------------',,201),   201-225 blank
+           FIELD=(25,'-------------------------',,226),   226-250 blank
+           FIELD=(8,'--------',,251)                      251-258 blank
+G5 RECORD  FIELD=(1,' ',,1),                                1-  1 CC
+           FIELD=(257,1,,2)                                 2-258 cr.tb
+/*
+//*
+//*********************************************************************
+//*        Report MQTs on the DB2 catalog that are affected by DSNTIJEN
+//*********************************************************************
+//REPORT16 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(TRK,0),DCB=(RECFM=FB,LRECL=259)
+//         DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC16,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+= Following is a list of Materialized Query Tables (MQTs) on the DB2   =
+= catalog or on views that base on the DB2 catalog.  You need to drop  =
+= these MQTs before starting migration to DB2 V9 CM, otherwise CATENFM =
+= processing will fail with SQLCODE -750.  You can recreate them after =
+= you have completed running job DSNTIJEN.                             =
+========================================================================
+CREATOR.NAME
+------------------------------------------------------------------------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=258)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=74,MAXGPS=5,MAXLITS=1213
+G1 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(20,'                    ',,81),          81-100 blank
+           FIELD=(25,'                         ',,101),   101-125 blank
+           FIELD=(25,'                         ',,126),   126-150 blank
+           FIELD=(25,'                         ',,151),   151-175 blank
+           FIELD=(25,'                         ',,176),   176-200 blank
+           FIELD=(25,'                         ',,201),   201-225 blank
+           FIELD=(25,'                         ',,226),   226-250 blank
+           FIELD=(8,'        ',,251)                      251-258 blank
+G2 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(20,'                    ',,81),          81-100 blank
+           FIELD=(25,'                         ',,101),   101-125 blank
+           FIELD=(25,'                         ',,126),   126-150 blank
+           FIELD=(25,'                         ',,151),   151-175 blank
+           FIELD=(25,'                         ',,176),   176-200 blank
+           FIELD=(25,'                         ',,201),   201-225 blank
+           FIELD=(25,'                         ',,226),   226-250 blank
+           FIELD=(8,'        ',,251)                      251-258 blank
+G3 RECORD  IDENT=(8,'CREATOR.',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(24,'CREATOR.NAME            ',,2),       02- 25 ColNm
+           FIELD=(25,'                         ',,26),     26- 50 blank
+           FIELD=(25,'                         ',,51),     51- 75 blank
+           FIELD=(25,'                         ',,76),     76-100 blank
+           FIELD=(25,'                         ',,101),   101-125 blank
+           FIELD=(25,'                         ',,126),   126-150 blank
+           FIELD=(25,'                         ',,151),   151-175 blank
+           FIELD=(25,'                         ',,176),   176-200 blank
+           FIELD=(25,'                         ',,201),   201-225 blank
+           FIELD=(25,'                         ',,226),   226-250 blank
+           FIELD=(8,'        ',,251)                      251-258 blank
+G4 RECORD  IDENT=(5,'-----',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(24,'------------------------',,2),       02- 25 ColNm
+           FIELD=(25,'-------------------------',,26),     26- 50 blank
+           FIELD=(25,'-------------------------',,51),     51- 75 blank
+           FIELD=(25,'-------------------------',,76),     76-100 blank
+           FIELD=(25,'-------------------------',,101),   101-125 blank
+           FIELD=(25,'-------------------------',,126),   126-150 blank
+           FIELD=(25,'-------------------------',,151),   151-175 blank
+           FIELD=(25,'-------------------------',,176),   176-200 blank
+           FIELD=(25,'-------------------------',,201),   201-225 blank
+           FIELD=(25,'-------------------------',,226),   226-250 blank
+           FIELD=(8,'--------',,251)                      251-258 blank
+G5 RECORD  FIELD=(1,' ',,1),                                1-  1 CC
+           FIELD=(257,1,,2)                                 2-258 cr.tb
+/*
+//*
+//*********************************************************************
+//*        Report EBCDIC-encoded explain tables
+//*********************************************************************
+//REPORT17 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(TRK,0),DCB=(RECFM=FB,LRECL=259)
+//         DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC17,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+= EBCDIC-encoded EXPLAIN tables that need to be migrated to Unicode    =
+========================================================================
+= The EXPLAIN tables listed below are EBCDIC-encoded.  Unicode-encoded =
+= EXPLAIN tables are recommended because the DB2 catalog is Unicode.   =
+= Also, support for EBCDIC-encoded EXPLAIN tables is deprecated and    =
+= may be eliminated in a future release of DB2.  Use the following to  =
+= help migrate these tables to Unicode:                                =
+= (*) DB2 sample job DSNTIJXB provides a REXX exec that generates two  =
+=     types of statements you can use to migrate the EBCDIC-encoded    =
+=     EXPLAIN tables for a specified creator to Unicode.   In addition =
+=     to the creator name, you must specify the names of new or        =
+=     existing Unicode table spaces in which to create the new EXPLAIN =
+=     tables.  Use the cross loader statements generated by this exec  =
+=     if you are licensed to use the DB2 Utilities Suite.   Otherwise, =
+=     use the DDL statements generated by the exec.                    =
+= (*) DB2 sample job DSNTIJXC shows how to invoke the DB2 cross-loader =
+=     function to process these generated control statements after you =
+=     have reviewed them.                                              =
+========================================================================
+CREATOR.NAME
+------------------------------------------------------------------------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=258)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=74,MAXGPS=5,MAXLITS=1213
+G1 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(20,'                    ',,81),          81-100 blank
+           FIELD=(25,'                         ',,101),   101-125 blank
+           FIELD=(25,'                         ',,126),   126-150 blank
+           FIELD=(25,'                         ',,151),   151-175 blank
+           FIELD=(25,'                         ',,176),   176-200 blank
+           FIELD=(25,'                         ',,201),   201-225 blank
+           FIELD=(25,'                         ',,226),   226-250 blank
+           FIELD=(8,'        ',,251)                      251-258 blank
+G2 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(20,'                    ',,81),          81-100 blank
+           FIELD=(25,'                         ',,101),   101-125 blank
+           FIELD=(25,'                         ',,126),   126-150 blank
+           FIELD=(25,'                         ',,151),   151-175 blank
+           FIELD=(25,'                         ',,176),   176-200 blank
+           FIELD=(25,'                         ',,201),   201-225 blank
+           FIELD=(25,'                         ',,226),   226-250 blank
+           FIELD=(8,'        ',,251)                      251-258 blank
+G3 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(20,'                    ',,81),          81-100 blank
+           FIELD=(25,'                         ',,101),   101-125 blank
+           FIELD=(25,'                         ',,126),   126-150 blank
+           FIELD=(25,'                         ',,151),   151-175 blank
+           FIELD=(25,'                         ',,176),   176-200 blank
+           FIELD=(25,'                         ',,201),   201-225 blank
+           FIELD=(25,'                         ',,226),   226-250 blank
+           FIELD=(8,'        ',,251)                      251-258 blank
+G4 RECORD  IDENT=(8,'CREATOR.',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(24,'CREATOR.NAME            ',,2),       02- 25 ColNm
+           FIELD=(25,'                         ',,26),     26- 50 blank
+           FIELD=(25,'                         ',,51),     51- 75 blank
+           FIELD=(25,'                         ',,76),     76-100 blank
+           FIELD=(25,'                         ',,101),   101-125 blank
+           FIELD=(25,'                         ',,126),   126-150 blank
+           FIELD=(25,'                         ',,151),   151-175 blank
+           FIELD=(25,'                         ',,176),   176-200 blank
+           FIELD=(25,'                         ',,201),   201-225 blank
+           FIELD=(25,'                         ',,226),   226-250 blank
+           FIELD=(8,'        ',,251)                      251-258 blank
+G5 RECORD  IDENT=(5,'-----',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(24,'------------------------',,2),       02- 25 ColNm
+           FIELD=(25,'-------------------------',,26),     26- 50 blank
+           FIELD=(25,'-------------------------',,51),     51- 75 blank
+           FIELD=(25,'-------------------------',,76),     76-100 blank
+           FIELD=(25,'-------------------------',,101),   101-125 blank
+           FIELD=(25,'-------------------------',,126),   126-150 blank
+           FIELD=(25,'-------------------------',,151),   151-175 blank
+           FIELD=(25,'-------------------------',,176),   176-200 blank
+           FIELD=(25,'-------------------------',,201),   201-225 blank
+           FIELD=(25,'-------------------------',,226),   226-250 blank
+           FIELD=(8,'--------',,251)                      251-258 blank
+G5 RECORD  FIELD=(1,' ',,1),                                1-  1 CC
+           FIELD=(257,3,,2)                                 2-258 cr.tb
+/*
+//*
+//*********************************************************************
+//*        Report previous-release explain tables
+//*********************************************************************
+//REPORT18 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(TRK,0),DCB=(RECFM=FB,LRECL=255)
+//         DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC18,DISP=SHR
+//RPRTHDR  DD  *
+========================================================================
+= EXPLAIN tables that need to be updated to DB2 Version 9.1 format     =
+========================================================================
+= The EXPLAIN tables listed below will need to be altered after you    =
+= complete migration to DB2 V9 new-function mode because in V9 one or  =
+= one or more columns have been added or have a different length.      =
+= Use of EXPLAIN tables in previous-release formats is deprecated and  =
+= support for them may be removed in a future release of DB2.  After   =
+= migrating to DB2 V9 new-function mode, use sample job DSNTIJXA to    =
+= alter all EXPLAIN tables in a specified schema to current-release    =
+= format.                                                              =
+========================================================================
+CREATOR.NAME
+------------------------------------------------------------------------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=258)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=74,MAXGPS=5,MAXLITS=1213
+G1 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(20,'                    ',,81),          81-100 blank
+           FIELD=(25,'                         ',,101),   101-125 blank
+           FIELD=(25,'                         ',,126),   126-150 blank
+           FIELD=(25,'                         ',,151),   151-175 blank
+           FIELD=(25,'                         ',,176),   176-200 blank
+           FIELD=(25,'                         ',,201),   201-225 blank
+           FIELD=(25,'                         ',,226),   226-250 blank
+           FIELD=(5,'     ',,251)                         251-255 blank
+G2 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(20,'                    ',,81),          81-100 blank
+           FIELD=(25,'                         ',,101),   101-125 blank
+           FIELD=(25,'                         ',,126),   126-150 blank
+           FIELD=(25,'                         ',,151),   151-175 blank
+           FIELD=(25,'                         ',,176),   176-200 blank
+           FIELD=(25,'                         ',,201),   201-225 blank
+           FIELD=(25,'                         ',,226),   226-250 blank
+           FIELD=(5,'     ',,251)                         251-255 blank
+G3 RECORD  IDENT=(8,'========',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(72,1,,2),                                02- 73 take
+           FIELD=(7,'       ',,74),                        74- 80 blank
+           FIELD=(20,'                    ',,81),          81-100 blank
+           FIELD=(25,'                         ',,101),   101-125 blank
+           FIELD=(25,'                         ',,126),   126-150 blank
+           FIELD=(25,'                         ',,151),   151-175 blank
+           FIELD=(25,'                         ',,176),   176-200 blank
+           FIELD=(25,'                         ',,201),   201-225 blank
+           FIELD=(25,'                         ',,226),   226-250 blank
+           FIELD=(5,'     ',,251)                         251-255 blank
+G4 RECORD  IDENT=(8,'CREATOR.',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(24,'CREATOR.NAME            ',,2),       02- 25 ColNm
+           FIELD=(25,'                         ',,26),     26- 50 blank
+           FIELD=(25,'                         ',,51),     51- 75 blank
+           FIELD=(25,'                         ',,76),     76-100 blank
+           FIELD=(25,'                         ',,101),   101-125 blank
+           FIELD=(25,'                         ',,126),   126-150 blank
+           FIELD=(25,'                         ',,151),   151-175 blank
+           FIELD=(25,'                         ',,176),   176-200 blank
+           FIELD=(25,'                         ',,201),   201-225 blank
+           FIELD=(25,'                         ',,226),   226-250 blank
+           FIELD=(5,'     ',,251)                         251-255 blank
+G5 RECORD  IDENT=(5,'-----',1),
+           FIELD=(1,' ',,1),                               01- 01 CC
+           FIELD=(24,'------------------------',,2),       02- 25 ColNm
+           FIELD=(25,'-------------------------',,26),     26- 50 blank
+           FIELD=(25,'-------------------------',,51),     51- 75 blank
+           FIELD=(25,'-------------------------',,76),     76-100 blank
+           FIELD=(25,'-------------------------',,101),   101-125 blank
+           FIELD=(25,'-------------------------',,126),   126-150 blank
+           FIELD=(25,'-------------------------',,151),   151-175 blank
+           FIELD=(25,'-------------------------',,176),   176-200 blank
+           FIELD=(25,'-------------------------',,201),   201-225 blank
+           FIELD=(25,'-------------------------',,226),   226-250 blank
+           FIELD=(5,'-----',,251)                         251-255 blank
+G5 RECORD  FIELD=(1,' ',,1),                                1-  1 CC
+           FIELD=(254,1,,2)                                 2-255 cr.tb
+/*
+//*
+//*********************************************************************
+//*        Report version number problem
+//*********************************************************************
+//REPORT19 EXEC PGM=IEBGENER,COND=(4,LT)
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(TRK,0),DCB=(RECFM=FB,LRECL=80)
+//         DD  DDNAME=RPRTHDR
+//         DD  DSN=SSXDP.DB2V9.RSU1309.DSNTIJPM.SYSREC19,DISP=SHR
+//RPRTHDR  DD  *
+=== REPORT 19 ==========================================================
+= Catalog table spaces with version numbers that may affect catmaint.  =
+= The following is a list of catalog table spaces that have version    =
+= numbers that should be corrected. Before beginning your migration    =
+= use MODIFY RECOVERY followed by REORG to correct the versioning      =
+= of all these table spaces. See the Utility Guide for information     =
+= about these utilities.                                               =
+========================================================================
+CREATOR.NAME.OLDEST_VERSION.CURRENT_VERSION
+------------------------------------------------------------------------
+/*
+//SYSUT2   DD  SYSOUT=*,
+//             DCB=(RECFM=FB,LRECL=80)
+//SYSPRINT DD  DUMMY
+//SYSIN    DD  *
+ GENERATE  MAXFLDS=9,MAXGPS=2,MAXLITS=70
+G1 RECORD  IDENT=(8,'--------',1),
+           FIELD=(1,' ',,1),
+           FIELD=(72,1,,2),
+           FIELD=(7,'       ',,74)
+G2 RECORD  FIELD=(1,' ',,1),                             01- 01 CC
+           FIELD=(28,1,,2),                              02- 29 data
+           FIELD=(25,'                         ',,30),   30- 54 blank
+           FIELD=(26,'                          ',,55)   55- 80 blank
+/*

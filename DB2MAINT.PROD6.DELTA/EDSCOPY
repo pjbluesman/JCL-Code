@@ -1,0 +1,254 @@
+//UXD001M JOB ,'GLK RM102',CLASS=S,MSGCLASS=X                           00000000
+//JOBLIB   DD  DISP=SHR,                                                00400000
+//             DSN=SSXDT.DSNDBUG.DB2U.SDSNLOAD                          00410000
+//* ***************************************************************** */00420000
+//* SYSUTILX IMAGE COPY STEP                                          */00430000
+//* ***************************************************************** */00440000
+//DSNTICX EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K           00450000
+//SYSCOPYX DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSUTILX,                00460000
+//             DISP=(NEW,CATLG),                                        00470000
+//             UNIT=SYSDA,                                              00480000
+//             SPACE=(CYL,(5,5),RLSE),                                  00490000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  00491000
+//SYSPRINT DD  SYSOUT=*                                                 00500000
+//SYSUDUMP DD  SYSOUT=*                                                 00510000
+//SYSIN    DD  *                                                        00520000
+   COPY TABLESPACE DSNDB01.SYSUTILX  COPYDDN SYSCOPYX                   00530000
+//* ***************************************************************** */00540000
+//* DBD01    IMAGE COPY STEP                                          */00550000
+//* ***************************************************************** */00560000
+//DSNTIC1 EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          00570000
+//             COND=(4,LT)                                              00580000
+//SYSCOPY1 DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.DBD01,                   00610000
+//             DISP=(NEW,CATLG),                                        00611000
+//             UNIT=SYSDA,                                              00612000
+//             SPACE=(CYL,(15,5),RLSE),                                 00613000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  00620000
+//SYSPRINT DD  SYSOUT=*                                                 00650000
+//SYSUDUMP DD  SYSOUT=*                                                 00660000
+//SYSIN    DD  *                                                        00670000
+   COPY TABLESPACE DSNDB01.DBD01     COPYDDN SYSCOPY1                   00680000
+//* ***************************************************************** */00690000
+//* DSNSCT02 IMAGE COPY STEP                                          */00700000
+//* ***************************************************************** */00710000
+//DSNTIC2 EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          00720000
+//             COND=(4,LT)                                              00730000
+//SYSCOPY2 DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SCT02,                   00760000
+//             DISP=(NEW,CATLG),                                        00770000
+//             UNIT=SYSDA,                                              00780000
+//             SPACE=(CYL,(300,15),RLSE),                               00790000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  00791000
+//SYSPRINT DD  SYSOUT=*                                                 00800000
+//SYSUDUMP DD  SYSOUT=*                                                 00810000
+//SYSIN    DD  *                                                        00820000
+   COPY TABLESPACE DSNDB01.SCT02     COPYDDN SYSCOPY2                   00830000
+//* ***************************************************************** */00840000
+//* SPT01    IMAGE COPY STEP                                          */00850000
+//* ***************************************************************** */00860000
+//DSNTIC3 EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          00870000
+//             COND=(4,LT)                                              00880000
+//SYSCOPY3 DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SPT01,                   00910000
+//             DISP=(NEW,CATLG),                                        00920000
+//             UNIT=SYSDA,                                              00930000
+//             SPACE=(CYL,(115,15),RLSE),                               00940000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  00941000
+//SYSPRINT DD  SYSOUT=*                                                 00950000
+//SYSUDUMP DD  SYSOUT=*                                                 00960000
+//SYSIN    DD  *                                                        00970000
+   COPY TABLESPACE DSNDB01.SPT01     COPYDDN SYSCOPY3                   00980000
+//* ***************************************************************** */00990000
+//* SYSDBASE IMAGE COPY STEP                                          */01000000
+//* ***************************************************************** */01010000
+//DSNTIC4 EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          01020000
+//             COND=(4,LT)                                              01030000
+//SYSCOPY4 DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSDBASE,                01060000
+//             DISP=(NEW,CATLG),                                        01070000
+//             UNIT=SYSDA,                                              01080000
+//             SPACE=(CYL,(200,50),RLSE),                               01090000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  01091000
+//SYSPRINT DD  SYSOUT=*                                                 01100000
+//SYSUDUMP DD  SYSOUT=*                                                 01110000
+//SYSIN    DD  *                                                        01120000
+   COPY TABLESPACE DSNDB06.SYSDBASE  COPYDDN SYSCOPY4                   01130000
+//* ***************************************************************** */01140000
+//* SYSDBAUT IMAGE COPY STEP                                          */01150000
+//* ***************************************************************** */01160000
+//DSNTIC5 EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          01170000
+//             COND=(4,LT)                                              01180000
+//SYSCOPY5 DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSDBAUT,                01210000
+//             DISP=(NEW,CATLG),                                        01220000
+//             UNIT=SYSDA,                                              01230000
+//             SPACE=(CYL,(115,15),RLSE),                               01240000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  01241000
+//SYSPRINT DD  SYSOUT=*                                                 01250000
+//SYSUDUMP DD  SYSOUT=*                                                 01260000
+//SYSIN    DD  *                                                        01270000
+   COPY TABLESPACE DSNDB06.SYSDBAUT  COPYDDN SYSCOPY5                   01280000
+//* ***************************************************************** */01290000
+//* SYSPGAUT IMAGE COPY STEP                                          */01300000
+//* ***************************************************************** */01310000
+//DSNTIC6 EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          01320000
+//             COND=(4,LT)                                              01330000
+//SYSCOPY6 DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSGPAUT,                01360000
+//             DISP=(NEW,CATLG),                                        01370000
+//             UNIT=SYSDA,                                              01380000
+//             SPACE=(CYL,(15,5),RLSE),                                 01390000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  01391000
+//SYSPRINT DD  SYSOUT=*                                                 01400000
+//SYSUDUMP DD  SYSOUT=*                                                 01410000
+//SYSIN    DD  *                                                        01420000
+   COPY TABLESPACE DSNDB06.SYSGPAUT  COPYDDN SYSCOPY6                   01430000
+//* ***************************************************************** */01440000
+//* SYSGROUP IMAGE COPY STEP                                          */01450000
+//* ***************************************************************** */01460000
+//DSNTIC7 EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          01470000
+//             COND=(4,LT)                                              01480000
+//SYSCOPY7 DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSGROUP,                01510000
+//             DISP=(NEW,CATLG),                                        01520000
+//             UNIT=SYSDA,                                              01530000
+//             SPACE=(CYL,(5,5),RLSE),                                  01540000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  01541000
+//SYSPRINT DD  SYSOUT=*                                                 01550000
+//SYSUDUMP DD  SYSOUT=*                                                 01560000
+//SYSIN    DD  *                                                        01570000
+   COPY TABLESPACE DSNDB06.SYSGROUP  COPYDDN SYSCOPY7                   01580000
+//* ***************************************************************** */01590000
+//* SYSPLAN  IMAGE COPY STEP                                          */01600000
+//* ***************************************************************** */01610000
+//DSNTIC8 EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          01620000
+//             COND=(4,LT)                                              01630000
+//SYSCOPY8 DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSPLAN,                 01660000
+//             DISP=(NEW,CATLG),                                        01670000
+//             UNIT=SYSDA,                                              01680000
+//             SPACE=(CYL,(15,5),RLSE),                                 01690000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  01691000
+//SYSPRINT DD  SYSOUT=*                                                 01700000
+//SYSUDUMP DD  SYSOUT=*                                                 01710000
+//SYSIN    DD  *                                                        01720000
+   COPY TABLESPACE DSNDB06.SYSPLAN   COPYDDN SYSCOPY8                   01730000
+//* ***************************************************************** */01740000
+//* SYSPKAGE IMAGE COPY STEP                                          */01750000
+//* ***************************************************************** */01760000
+//DSNTIC9 EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          01770000
+//             COND=(4,LT)                                              01780000
+//SYSCOPY9 DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSPKAGE,                01810000
+//             DISP=(NEW,CATLG),                                        01820000
+//             UNIT=SYSDA,                                              01830000
+//             SPACE=(CYL,(15,5),RLSE),                                 01840000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  01841000
+//SYSPRINT DD  SYSOUT=*                                                 01850000
+//SYSUDUMP DD  SYSOUT=*                                                 01860000
+//SYSIN    DD  *                                                        01870000
+   COPY TABLESPACE DSNDB06.SYSPKAGE  COPYDDN SYSCOPY9                   01880000
+//* ***************************************************************** */01890000
+//* SYSUSER  IMAGE COPY STEP                                          */01900000
+//* ***************************************************************** */01910000
+//DSNTICA EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          01920000
+//             COND=(4,LT)                                              01930000
+//SYSCOPYA DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSUSER,                 01960000
+//             DISP=(NEW,CATLG),                                        01970000
+//             UNIT=SYSDA,                                              01980000
+//             SPACE=(CYL,(105,5),RLSE),                                01990000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  01991000
+//SYSPRINT DD  SYSOUT=*                                                 02000000
+//SYSUDUMP DD  SYSOUT=*                                                 02010000
+//SYSIN    DD  *                                                        02020000
+   COPY TABLESPACE DSNDB06.SYSUSER   COPYDDN SYSCOPYA                   02030000
+//* ***************************************************************** */02040000
+//* SYSSTR   IMAGE COPY STEP                                          */02050000
+//* ***************************************************************** */02060000
+//DSNTICB EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          02070000
+//             COND=(4,LT)                                              02080000
+//SYSCOPYB DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSSTR,                  02110000
+//             DISP=(NEW,CATLG),                                        02120000
+//             UNIT=SYSDA,                                              02130000
+//             SPACE=(CYL,(15,5),RLSE),                                 02140000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  02141000
+//SYSPRINT DD  SYSOUT=*                                                 02150000
+//SYSUDUMP DD  SYSOUT=*                                                 02160000
+//SYSIN    DD  *                                                        02170000
+   COPY TABLESPACE DSNDB06.SYSSTR    COPYDDN SYSCOPYB                   02180000
+//* ***************************************************************** */02190000
+//* SYSVIEWS IMAGE COPY STEP                                          */02200000
+//* ***************************************************************** */02210000
+//DSNTICC EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          02220000
+//             COND=(4,LT)                                              02230000
+//SYSCOPYC DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSVIEWS,                02260000
+//             DISP=(NEW,CATLG),                                        02270000
+//             UNIT=SYSDA,                                              02280000
+//             SPACE=(CYL,(215,5),RLSE),                                02290000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  02291000
+//SYSPRINT DD  SYSOUT=*                                                 02300000
+//SYSUDUMP DD  SYSOUT=*                                                 02310000
+//SYSIN    DD  *                                                        02320000
+   COPY TABLESPACE DSNDB06.SYSVIEWS  COPYDDN SYSCOPYC                   02330000
+//* ***************************************************************** */02340000
+//* SYSSTATS IMAGE COPY STEP                                          */02350000
+//* ***************************************************************** */02360000
+//DSNTICD EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          02370000
+//             COND=(4,LT)                                              02380000
+//SYSCOPYD DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSSTATS,                02410000
+//             DISP=(NEW,CATLG),                                        02420000
+//             UNIT=SYSDA,                                              02430000
+//             SPACE=(CYL,(215,50),RLSE),                               02440000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  02441000
+//SYSPRINT DD  SYSOUT=*                                                 02450000
+//SYSUDUMP DD  SYSOUT=*                                                 02460000
+//SYSIN    DD  *                                                        02470000
+   COPY TABLESPACE DSNDB06.SYSSTATS  COPYDDN SYSCOPYD                   02480000
+//* ***************************************************************** */02490000
+//* SYSLGRNX IMAGE COPY STEP                                          */02500000
+//* ***************************************************************** */02510000
+//DSNTICE EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          02520000
+//             COND=(4,LT)                                              02530000
+//SYSCOPYE DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSLGRNX,                02560000
+//             DISP=(NEW,CATLG),                                        02570000
+//             UNIT=SYSDA,                                              02580000
+//             SPACE=(CYL,(500,15),RLSE),                               02590000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  02591000
+//SYSPRINT DD  SYSOUT=*                                                 02600000
+//SYSUDUMP DD  SYSOUT=*                                                 02610000
+//SYSIN    DD  *                                                        02620000
+   COPY TABLESPACE DSNDB01.SYSLGRNX  COPYDDN SYSCOPYE                   02630000
+//* ***************************************************************** */02640000
+//* SYSDDF  IMAGE COPY STEP                                           */02650000
+//* ***************************************************************** */02660000
+//DSNTICF EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          02670000
+//             COND=(4,LT)                                              02680000
+//SYSCOPYF DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSDDF,                  02710000
+//             DISP=(NEW,CATLG),                                        02720000
+//             UNIT=SYSDA,                                              02730000
+//             SPACE=(CYL,(15,5),RLSE),                                 02740000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  02741000
+//SYSPRINT DD  SYSOUT=*                                                 02750000
+//SYSUDUMP DD  SYSOUT=*                                                 02760000
+//SYSIN    DD  *                                                        02770000
+   COPY TABLESPACE DSNDB06.SYSDDF   COPYDDN SYSCOPYF                    02780000
+//* ***************************************************************** */02790000
+//* SYSOBJ  IMAGE COPY STEP                                           */02800000
+//* ***************************************************************** */02810000
+//DSNTICG EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          02820000
+//             COND=(4,LT)                                              02830000
+//SYSCOPYG DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSOBJ,                  02860000
+//             DISP=(NEW,CATLG),                                        02870000
+//             UNIT=SYSDA,                                              02880000
+//             SPACE=(CYL,(15,5),RLSE),                                 02890000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  02891000
+//SYSPRINT DD  SYSOUT=*                                                 02900000
+//SYSUDUMP DD  SYSOUT=*                                                 02910000
+//SYSIN    DD  *                                                        02920000
+   COPY TABLESPACE DSNDB06.SYSOBJ   COPYDDN SYSCOPYG                    02930000
+//* ***************************************************************** */02940000
+//* SYSCOPY  IMAGE COPY STEP (SYSCOPY IS ALWAYS IMAGE COPIED LAST!)   */02950000
+//* ***************************************************************** */02960000
+//DSNTICZ EXEC PGM=DSNUTILB,PARM='DB2U,IMAGCP06',REGION=1024K,          02970000
+//             COND=(4,LT)                                              02980000
+//SYSCOPYZ DD  DSN=SSXDT.DSNDBUG.DB2U.IMAGCP06.SYSCOPY,                 03010000
+//             DISP=(NEW,CATLG),                                        03020000
+//             UNIT=SYSDA,                                              03030000
+//             SPACE=(CYL,(115,5),RLSE),                                03040000
+//             DCB=(RECFM=FB,LRECL=4096,BLKSIZE=28672)                  03041000
+//SYSPRINT DD  SYSOUT=*                                                 03050000
+//SYSUDUMP DD  SYSOUT=*                                                 03060000
+//SYSIN    DD  *                                                        03070000
+   COPY TABLESPACE DSNDB06.SYSCOPY   COPYDDN SYSCOPYZ                   03080000

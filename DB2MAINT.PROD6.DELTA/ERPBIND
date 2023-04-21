@@ -1,0 +1,53 @@
+//* @(#)IBM 04/02/23 17:23:25
+//* FOME46DB, icli, rel46d, ICLIOA06552_A 1.1.1.2
+//********************************************************************
+//*                                                                  *
+//* Licensed Materials - Property of IBM                             *
+//*                                                                  *
+//* 5647-A01 5694-A01 5655-G52                                       *
+//*                                                                  *
+//* (C) Copyright IBM Corp. 1997, 2004                               *
+//*                                                                  *
+//* Status = HOT1150 HOT1160 HOT1170 HOT1180 HSAP270 HSAP280 HSAP290 *
+//*          HSAP2A0 HSAP320 HSAP330 HSAP340 HSAP350                 *
+//*                                                                  *
+//********************************************************************
+//*BEGIN OF BIND PACKAGES
+//DBPACK   EXEC PGM=IKJEFT01
+//DBRMLIB  DD  DISP=SHR,DSN=<SYS1>.SAMPLIB
+//STEPLIB  DD  DISP=SHR,DSN=<DB2_SDSNLOAD>
+//SYSPRINT DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(<SUBSYSTEM_NAME>)
+    BIND PACKAGE(FOME46D) OWNER(SAPR3) MEMBER(FOME46D1) -
+         ACTION(REPLACE) CURRENTDATA(NO) -
+         DYNAMICRULES(RUN) ISOLATION(CS) -
+         REOPT(VARS) -
+         RELEASE(COMMIT)
+    BIND PACKAGE(FOME46D) OWNER(SAPR3) MEMBER(FOME46D2) -
+         ACTION(REPLACE) ISOLATION(CS) DYNAMICRULES(RUN) -
+         RELEASE(COMMIT) -
+         CURRENTDATA(NO) KEEPDYNAMIC(YES)
+    BIND PACKAGE(FOME46D) OWNER(SAPR3) MEMBER(FOME46D3) -
+         ACTION(REPLACE) ISOLATION(CS) DYNAMICRULES(RUN) -
+         RELEASE(COMMIT) -
+         CURRENTDATA(NO) KEEPDYNAMIC(YES)
+  END
+/*
+//*END OF BIND PACKAGES
+//*BEGIN OF BIND PLAN
+//DBBIND   EXEC PGM=IKJEFT01
+//STEPLIB  DD  DISP=SHR,DSN=<DB2_SDSNLOAD>
+//SYSPRINT DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(<SUBSYSTEM_NAME>)
+    BIND PLAN(FOMEP46D) OWNER(SAPR3) -
+         PKLIST(FOME46D.*,DSNUTILS.*,DSNACC.*) -
+         ACTION(REPLACE) RETAIN ISOLATION(CS) DYNAMICRULES(RUN) -
+         ACQUIRE(USE) RELEASE(COMMIT) -
+         CURRENTDATA(NO) KEEPDYNAMIC(YES)
+  END
+/*
+//*END OF BIND PLAN
