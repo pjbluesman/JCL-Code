@@ -1,0 +1,110 @@
+1 2002/07/15  19:06                                                  PAGE      1
+
+        PACKAGE: DBARFSEG        COLLECTION: BKNGS
+
+
+  STMTNO
+
+         5,126 E:   IS:    ST: C HINT:
+          INSERT INTO PAX_ITIN_SG
+            ( BKG_ID , CA_ID , PI_SG_SQ_NB , SG_TYP_CD , MKD_COS_CD ,
+              CUR_PI_SG_STT_CD , SSLD_DT , PRV_PI_SG_STT_CD , MKD_FLT_NB ,
+              SCH_SG_ARR_TS , MKD_AL_CD , ORARPT_CD , DSARPT_CD , SSLD_TS ,
+              CUR_SG_DPRT_TS , CUR_SG_ARR_TS , OA_AGT_SINE_ID , DIR_ACCT_SL_IND
+              OD_VRL_INV_BCKT_ID , REV_CTRL_IND , DEM_CTRL_IND , INV_CTRL_IND ,
+              ACTL_SG_PAX_CT , AE_REV_PCT , ET_ELG_SG_IND , ET_PAC_IND ,
+              ET_PAI_IND , ET_PAE_IND , IPRS_IND , IPRS_PRRTN_SG_IND ,
+              SG_DXA_IND , CDSR_BKG_CLS_ID , INV_SP_HELD_IND , OPRL_AL_CD ,
+              WTLT_STT_IND , SB_STT_IND , CXD_SG_IND , PI_FARE_TYP_CD ,
+              OD_NON_INV_IND , SG_INV_SB_LIST_IND , SG_INV_BLKD_SP_IND ,
+              PI_MRD_SG_NB , PRTTN_KEY_ID )
+            VALUES ( :H00001 , :H00002 , :H00003 , :H00004 , :H00005 , :H00006 ,
+              :H00007 :H00008 , :H00009 :H00010 , :H00011 :H00012 ,
+              TIMESTAMP ( :H00013 :H00014 ) , :H00015 :H00016 , :H00017 :H00018
+              :H00019 :H00020 , TIMESTAMP ( :H00021 :H00022 ) ,
+              TIMESTAMP ( :H00023 :H00024 ) , TIMESTAMP ( :H00025 :H00026 ) ,
+              :H00027 :H00028 , :H00029 :H00030 , :H00031 :H00032 , :H00033
+              :H00034 , :H00035 :H00036 , :H00037 :H00038 , :H00039 :H00040 ,
+              :H00041 :H00042 , :H00043 :H00044 , :H00045 :H00046 , :H00047
+              :H00048 , :H00049 :H00050 , :H00051 :H00052 , :H00053 :H00054 ,
+              :H00055 :H00056 , :H00057 :H00058 , :H00059 :H00060 , :H00061
+              :H00062 , :H00063 :H00064 , :H00065 :H00066 , :H00067 :H00068 ,
+              :H00069 :H00070 , :H00071 :H00072 , :H00075 :H00076 , :H00077
+              :H00078 , :H00079 :H00080 , :H00081 )
+
+         5,225 E:   IS: UR ST: C HINT:
+          SELECT SG_TYP_CD , MKD_COS_CD , CUR_PI_SG_STT_CD , SSLD_DT ,
+              PRV_PI_SG_STT_CD , MKD_FLT_NB , CHAR ( SCH_SG_ARR_TS ) ,
+              MKD_AL_CD , ORARPT_CD , DSARPT_CD , CHAR ( SSLD_TS ) ,
+              CHAR ( CUR_SG_DPRT_TS ) , CHAR ( CUR_SG_ARR_TS ) , OA_AGT_SINE_ID
+              DIR_ACCT_SL_IND , OD_VRL_INV_BCKT_ID , REV_CTRL_IND ,
+              DEM_CTRL_IND , INV_CTRL_IND , ACTL_SG_PAX_CT , AE_REV_PCT ,
+              ET_ELG_SG_IND , ET_PAC_IND , ET_PAI_IND , ET_PAE_IND , IPRS_IND ,
+              IPRS_PRRTN_SG_IND , SG_DXA_IND , CDSR_BKG_CLS_ID ,
+              INV_SP_HELD_IND , OPRL_AL_CD , WTLT_STT_IND , SB_STT_IND ,
+              CXD_SG_IND , PI_FARE_TYP_CD , OD_NON_INV_IND , SG_INV_SB_LIST_IND
+              SG_INV_BLKD_SP_IND , PI_MRD_SG_NB
+            INTO :H00004 , :H00005 , :H00006 , :H00007 :H00008 , :H00009
+              :H00010 , :H00011 :H00012 , :H00013 :H00014 , :H00015 :H00016 ,
+              :H00017 :H00018 , :H00019 :H00020 , :H00021 :H00022 , :H00023
+              :H00024 , :H00025 :H00026 , :H00027 :H00028 , :H00029 :H00030 ,
+              :H00031 :H00032 , :H00033 :H00034 , :H00035 :H00036 , :H00037
+              :H00038 , :H00039 :H00040 , :H00041 :H00042 , :H00043 :H00044 ,
+              :H00045 :H00046 , :H00047 :H00048 , :H00049 :H00050 , :H00051
+              :H00052 , :H00053 :H00054 , :H00055 :H00056 , :H00057 :H00058 ,
+              :H00059 :H00060 , :H00061 :H00062 , :H00063 :H00064 , :H00065
+              :H00066 , :H00067 :H00068 , :H00069 :H00070 , :H00071 :H00072 ,
+1 2002/07/15  19:06                                                  PAGE      2
+
+              :H00075 :H00076 , :H00077 :H00078 , :H00079 :H00080
+            FROM PAX_ITIN_SG
+            WHERE BKG_ID = :H00001 AND CA_ID = :H00002 AND PI_SG_SQ_NB = :H00003
+              WITH UR
+
+         5,394 E:   IS:    ST: C HINT:
+          UPDATE PAX_ITIN_SG
+            SET MKD_COS_CD = :H00005 , CUR_PI_SG_STT_CD = :H00006 ,
+              PRV_PI_SG_STT_CD = :H00009 :H00010
+            WHERE BKG_ID = :H00001 AND CA_ID = :H00002 AND PI_SG_SQ_NB = :H00003
+
+         5,450 E:   IS:    ST: C HINT:
+          DELETE FROM PAX_ITIN_SG
+            WHERE BKG_ID = :H00001 AND CA_ID = :H00002 AND PI_SG_SQ_NB = :H00003
+
+         5,496 E:   IS:    ST: C HINT:
+          DELETE FROM PAX_ITIN_SG
+            WHERE BKG_ID = :H00001 AND PI_SG_SQ_NB = :H00003
+
+         5,538 E:   IS: UR ST: C HINT:
+          DECLARE LD_BKG_IDS_CURSOR CURSOR FOR
+            SELECT BKG_ID
+            FROM PAX_ITIN_SG
+            WHERE MKD_AL_CD = :H00083 AND SSLD_DT = :H00085 AND
+              MKD_FLT_NB = :H00084 WITH UR
+            FOR FETCH ONLY
+
+         5,623 E:   IS: UR ST: C HINT:
+          DECLARE LD_BKG_ASGS_CURSOR CURSOR FOR
+            SELECT CA_ID , PI_SG_SQ_NB , SG_TYP_CD , MKD_COS_CD ,
+              CUR_PI_SG_STT_CD , SSLD_DT , PRV_PI_SG_STT_CD , MKD_FLT_NB ,
+              CHAR ( SCH_SG_ARR_TS ) , MKD_AL_CD , ORARPT_CD , DSARPT_CD ,
+              CHAR ( SSLD_TS ) , CHAR ( CUR_SG_DPRT_TS ) , CHAR ( CUR_SG_ARR_TS
+              ) , OA_AGT_SINE_ID , DIR_ACCT_SL_IND , OD_VRL_INV_BCKT_ID ,
+              REV_CTRL_IND , DEM_CTRL_IND , INV_CTRL_IND , ACTL_SG_PAX_CT ,
+              AE_REV_PCT , ET_ELG_SG_IND , ET_PAC_IND , ET_PAI_IND , ET_PAE_IND
+              IPRS_IND , IPRS_PRRTN_SG_IND , SG_DXA_IND , CDSR_BKG_CLS_ID ,
+              INV_SP_HELD_IND , OPRL_AL_CD , WTLT_STT_IND , SB_STT_IND ,
+              CXD_SG_IND , PI_FARE_TYP_CD , OD_NON_INV_IND , SG_INV_SB_LIST_IND
+              SG_INV_BLKD_SP_IND , PI_MRD_SG_NB
+            FROM PAX_ITIN_SG
+            WHERE BKG_ID = :H00082 WITH UR
+            FOR FETCH ONLY
+
+         5,837 E:   IS:    ST: C HINT:
+          UPDATE PAX_ITIN_SG
+            SET MKD_COS_CD = :H00005 , CUR_PI_SG_STT_CD = :H00006 ,
+              PRV_PI_SG_STT_CD = :H00009 :H00010 , INV_SP_HELD_IND = :H00059
+              :H00060 , WTLT_STT_IND = :H00063 :H00064 , SB_STT_IND = :H00065
+              :H00066
+            WHERE BKG_ID = :H00001 AND PI_SG_SQ_NB = :H00003
+

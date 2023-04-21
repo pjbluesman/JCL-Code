@@ -1,0 +1,67 @@
+//UXD104M  JOB  D-813-000-N-00,                                         00010000
+//            'CA7 DISTRIBUTION',                                       00011000
+//             CLASS=S,                                                 00012000
+//             MSGCLASS=U,                                              00013000
+//             REGION=5000K,                                            00014000
+//             TIME=1440                                                00015000
+//* RUN THROUGH JCLPREP ON 06/17/96 AT 12:46:57 BY O27614T              00016000
+//***THE FOLLOWING #SCC STATEMENTS WERE INSTALLED ON 8-25-93 BY         00017000
+//***JOHN WEST.  THEY ARE FOR CA-7 STEP CONDITION CODE CHECKING.        00018000
+//***PLEASE DO NOT REMOVE WITHOUT NOTIFICATION.                         00019000
+//* 8-6-8 RICHARDS REMOVED CA7 STATEMENTS FOR ESP CONVERSION.              19010
+//* FULL IMAGE COPY FOR DB2 (DB2P) CATALOG AND DIRECTORY                00023000
+//* YOU MUST BE INSTALL SYSADM AUTHID                                   00024000
+//* 12-10-94 CHANGED FOR VER 3 AND SYSSTATS TABLE -GLK                  00025000
+//*                                                                     00026000
+//JOBLIB   DD DISP=SHR,                                                 00027000
+//             DSN=SSXDP.DB2P.SDSNLOAD                                  00028000
+//STEP01   EXEC  PXD104                                                 00029000
+//SYSGROUP.SYSIN DD *                                                   00030000
+COPY TABLESPACE  DSNDB06.SYSGROUP  COPYDDN CPY01,CPY01B                 00031000
+                               RECOVERYDDN CPY01R                       00032000
+//SYSGPAUT.SYSIN DD *                                                   00033000
+COPY TABLESPACE  DSNDB06.SYSGPAUT  COPYDDN CPY02,CPY02B                 00034000
+                               RECOVERYDDN CPY02R                       00035000
+//SYSVIEWS.SYSIN DD *                                                   00036000
+COPY TABLESPACE  DSNDB06.SYSVIEWS  COPYDDN CPY03,CPY03B                 00037000
+                               RECOVERYDDN CPY03R                       00038000
+//SYSPLAN.SYSIN DD *                                                    00039000
+COPY TABLESPACE  DSNDB06.SYSPLAN   COPYDDN CPY04,CPY04B                 00040000
+                               RECOVERYDDN CPY04R                       00041000
+//SCT02.SYSIN DD *                                                      00042000
+COPY TABLESPACE  DSNDB01.SCT02     COPYDDN CPY05,CPY05B                 00043000
+                               RECOVERYDDN CPY05R                       00044000
+//SYSDBASE.SYSIN DD *                                                   00045000
+COPY TABLESPACE  DSNDB06.SYSDBASE  COPYDDN CPY06,CPY06B                 00046000
+                               RECOVERYDDN CPY06R                       00047000
+//SYSUSER.SYSIN DD *                                                    00048000
+COPY TABLESPACE  DSNDB06.SYSUSER   COPYDDN CPY07,CPY07B                 00049000
+                               RECOVERYDDN CPY07R                       00050000
+//SYSDBAUT.SYSIN DD *                                                   00051000
+COPY TABLESPACE  DSNDB06.SYSDBAUT  COPYDDN CPY08,CPY08B                 00052000
+                               RECOVERYDDN CPY08R                       00053000
+//SYSLGRNG.SYSIN DD *                                                   00054000
+COPY TABLESPACE  DSNDB01.SYSLGRNX  COPYDDN CPY09,CPY09B                 00055000
+                               RECOVERYDDN CPY09R                       00056000
+//SYSCOPY.SYSIN DD *                                                    00057000
+COPY TABLESPACE  DSNDB06.SYSCOPY   COPYDDN CPY10,CPY10B                 00058000
+                               RECOVERYDDN CPY10R                       00059000
+//DBD01.SYSIN DD *                                                      00060000
+COPY TABLESPACE  DSNDB01.DBD01     COPYDDN CPY11,CPY11B                 00061000
+                               RECOVERYDDN CPY11R                       00062000
+//SYSUTIL.SYSIN DD *                                                    00063000
+COPY TABLESPACE  DSNDB01.SYSUTILX  COPYDDN CPY12,CPY12B                 00064000
+                               RECOVERYDDN CPY12R                       00065000
+//SPT01.SYSIN DD *                                                      00066000
+COPY TABLESPACE  DSNDB01.SPT01     COPYDDN CPY13,CPY13B                 00067000
+                               RECOVERYDDN CPY13R                       00068000
+//SYSSTR.SYSIN DD *                                                     00069000
+COPY TABLESPACE  DSNDB06.SYSSTR    COPYDDN CPY14,CPY14B                 00070000
+                               RECOVERYDDN CPY14R                       00071000
+//SYSPKAGE.SYSIN DD *                                                   00072000
+COPY TABLESPACE  DSNDB06.SYSPKAGE  COPYDDN CPY15,CPY15B                 00073000
+                               RECOVERYDDN CPY15R                       00074000
+//SYSSTATS.SYSIN DD *                                                   00075000
+COPY TABLESPACE  DSNDB06.SYSSTATS  COPYDDN CPY16,CPY16B                 00076000
+                               RECOVERYDDN CPY16R                       00077000
+/*                                                                      00078000

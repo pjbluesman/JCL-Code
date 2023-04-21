@@ -1,0 +1,100 @@
+      ******************************************************************
+      * DCLGEN TABLE(EBKAD01.PAX_BKG)                                  *
+      *        LIBRARY(DT0072.JCL.CNTL(PAXBKG))                        *
+      *        LANGUAGE(COBOL)                                         *
+      *        QUOTE                                                   *
+      * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+      ******************************************************************
+           EXEC SQL DECLARE EBKAD01.PAX_BKG TABLE
+           ( BKG_ID                         FLOAT NOT NULL,
+             CA_ID                          FLOAT NOT NULL,
+             PRTTN_KEY_ID                   DECIMAL(3, 0) NOT NULL,
+             ATP_PAX_TYP_CD                 CHAR(3) NOT NULL,
+             DL_PAX_TYP_CD                  CHAR(1) NOT NULL,
+             TRVL_CLSN_TYP_CD               CHAR(1) NOT NULL,
+             GRP_CA_ID                      FLOAT,
+             TRVL_TYP_CD                    CHAR(2),
+             ATP_PAX_TYP_EFF_DT             DATE NOT NULL,
+             CUST_LST_NM                    CHAR(56) NOT NULL,
+             MPSG_CA_ID                     FLOAT,
+             CUST_SFX_NM                    CHAR(3),
+             PAX_NM_NB                      CHAR(5),
+             FNTC_FLYR_PGM_IND              CHAR(2),
+             FLYG_COL_PGM_IND               CHAR(2),
+             SNR_CTZN_PGM_IND               CHAR(2),
+             FLYG_ORCH_PGM_IND              CHAR(2),
+             CRWN_RM_PGM_IND                CHAR(2),
+             MLN_MI_PGM_IND                 CHAR(2),
+             MLN_MI_TIER_LVL_CD             CHAR(2),
+             SM_PGM_IND                     CHAR(2),
+             SM_TIER_LVL_CD                 CHAR(2),
+             CA_TYP_CD                      CHAR(2),
+             CUST_PRX_NM_CD                 CHAR(5),
+             AIR_SG_IND                     CHAR(1),
+             AIR_TAXI_SG_IND                CHAR(1),
+             TOUR_SG_IND                    CHAR(1),
+             HTL_SG_IND                     CHAR(1),
+             RNTL_CAR_SG_IND                CHAR(1),
+             VNDR_SG_IND                    CHAR(1),
+             FMLY_MBR_NB                    CHAR(2),
+             PRV_CA_ID_IND                  CHAR(1),
+             EXEC_PRTNR_PGM_IND             CHAR(2),
+             EMPL_NB                        CHAR(12),
+             DL_ASCD_CMP_CD                 CHAR(3),
+             HIGH_VAL_PGM_IND               CHAR(2),
+             CUST_FRST_NM                   CHAR(25),
+             CUST_MID_NM                    CHAR(25),
+             EMG_CTAC_DCLD_IND              CHAR(1),
+             FMLY_CHLD_AGE_NB               FLOAT,
+             INF_CTAC_DCLD_IND              CHAR(1),
+             INF_INFO_IND                   CHAR(1)
+           ) END-EXEC.
+      ******************************************************************
+      * COBOL DECLARATION FOR TABLE EBKAD01.PAX_BKG                    *
+      ******************************************************************
+       01  DCLPAX-BKG.
+           10 BKG-ID               USAGE COMP-2.
+           10 CA-ID                USAGE COMP-2.
+           10 PRTTN-KEY-ID         PIC S9(3)V USAGE COMP-3.
+           10 ATP-PAX-TYP-CD       PIC X(3).
+           10 DL-PAX-TYP-CD        PIC X(1).
+           10 TRVL-CLSN-TYP-CD     PIC X(1).
+           10 GRP-CA-ID            USAGE COMP-2.
+           10 TRVL-TYP-CD          PIC X(2).
+           10 ATP-PAX-TYP-EFF-DT   PIC X(10).
+           10 CUST-LST-NM          PIC X(56).
+           10 MPSG-CA-ID           USAGE COMP-2.
+           10 CUST-SFX-NM          PIC X(3).
+           10 PAX-NM-NB            PIC X(5).
+           10 FNTC-FLYR-PGM-IND    PIC X(2).
+           10 FLYG-COL-PGM-IND     PIC X(2).
+           10 SNR-CTZN-PGM-IND     PIC X(2).
+           10 FLYG-ORCH-PGM-IND    PIC X(2).
+           10 CRWN-RM-PGM-IND      PIC X(2).
+           10 MLN-MI-PGM-IND       PIC X(2).
+           10 MLN-MI-TIER-LVL-CD   PIC X(2).
+           10 SM-PGM-IND           PIC X(2).
+           10 SM-TIER-LVL-CD       PIC X(2).
+           10 CA-TYP-CD            PIC X(2).
+           10 CUST-PRX-NM-CD       PIC X(5).
+           10 AIR-SG-IND           PIC X(1).
+           10 AIR-TAXI-SG-IND      PIC X(1).
+           10 TOUR-SG-IND          PIC X(1).
+           10 HTL-SG-IND           PIC X(1).
+           10 RNTL-CAR-SG-IND      PIC X(1).
+           10 VNDR-SG-IND          PIC X(1).
+           10 FMLY-MBR-NB          PIC X(2).
+           10 PRV-CA-ID-IND        PIC X(1).
+           10 EXEC-PRTNR-PGM-IND   PIC X(2).
+           10 EMPL-NB              PIC X(12).
+           10 DL-ASCD-CMP-CD       PIC X(3).
+           10 HIGH-VAL-PGM-IND     PIC X(2).
+           10 CUST-FRST-NM         PIC X(25).
+           10 CUST-MID-NM          PIC X(25).
+           10 EMG-CTAC-DCLD-IND    PIC X(1).
+           10 FMLY-CHLD-AGE-NB     USAGE COMP-2.
+           10 INF-CTAC-DCLD-IND    PIC X(1).
+           10 INF-INFO-IND         PIC X(1).
+      ******************************************************************
+      * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 42      *
+      ******************************************************************

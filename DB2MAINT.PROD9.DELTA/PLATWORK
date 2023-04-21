@@ -1,0 +1,139 @@
+//DT0072X JOB ,'RDL RCC',CLASS=S,MSGCLASS=X,NOTIFY=DT0072
+//STEP1    EXEC PGM=PTLDRIVM,REGION=64M,PARM='EP=BPLBCTL'               00010003
+//STEPLIB  DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.LOADLIB
+//         DD DISP=SHR,DSN=SSXDT.DSNDBVG.DB2V.SDSNLOAD
+//         DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.LOADLIB
+//PTILIB   DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.LOADLIB
+//         DD DISP=SHR,DSN=SSXDT.DSNDBVG.DB2V.SDSNLOAD
+//         DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.LOADLIB
+//CTRANS   DD DSN=SSXDT.PLATINUM.TEST.CTRANS,DISP=SHR
+//PTIPARM  DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.PARMLIB
+//PTIXMSG  DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.XMESSAGE
+//SYSOUT   DD SYSOUT=*                                                  00120002
+//UTPRINT  DD SYSOUT=*                                                  00130002
+//ABNLIGNR DD DUMMY                 SUPPRESS ABENDAID DUMPS             00140002
+//SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(5,5))
+//SYSREC   DD UNIT=SYSDA,SPACE=(TRK,(1,1))
+//BPIIPT   DD *                                                         00174002
+.SYSTEM SQLDDL
+.CONNECT DB2V
+
+    DROP TABLE DT0072.ROGERS_IDENTITY;
+
+.SYNC 10        'DROP TABLE DT0072.ROGERS_IDENTITY'
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DT0072.ROGERS_IDENTITY WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DT0072';
+
+CREATE TABLE DT0072.ROGERS_IDENTITY
+   (DEPTNO                 SMALLINT
+          GENERATED ALWAYS
+             AS IDENTITY
+   ,DEPTNAME               VARCHAR(36   )              NOT NULL
+   ,MGRNO                  CHAR(8    )
+   ,ADMRDEPT               CHAR(3    )                 NOT NULL
+   ,LOCATION               CHAR(16   )
+   )
+   CCSID EBCDIC
+   ;
+
+.SYNC 15        'CREATE TABLE DT0072.ROGERS_IDENTITY'
+    SET CURRENT SQLID = USER;
+
+
+.DISCONN
+
+.SYNC 20        'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+.CALL UTLGLCTL PARM(DB2V,)                                             +
+   INDDN(SYSIN) OUTDDN(PTIMSG)
+.ALLOC FI(SYSULD)                                                      +
+   DA('DT0072.ROGERS$I.DENTITY.DATA')                                  +
+   SHR
+.ALLOC FI(SYSERR)                                                      +
+   DA('DT0072.ROGERS$I.DENTITY.DATA.E')                                +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(SYSDISC)                                                     +
+   DA('DT0072.ROGERS$I.DENTITY.DATA.D')                                +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(PTIREC)                                                      +
+   DA('DT0072.ROGERS$I.DENTITY.DATA.U')                                +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(SYSMAP)                                                      +
+   DA('DT0072.ROGERS$I.DENTITY.DATA.M')                                +
+   SPACE(2,2) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG LRECL(145) BLKSIZE(14500)                   +
+   RECFM(F,B)
+.ALLOC FI(PTIUT1)                                                      +
+   DA('DT0072.ROGERS$I.DENTITY.DATA.W')                                +
+   SPACE(1,2) CYL RLSE                                                 +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(ST01MSG) SYSOUT(*)
+.DATA
+  FASTLOAD
+   INPUT-FORMAT    SEQ
+   OUTPUT-CONTROL  ALL
+   INDDN           SYSULD
+   WORKDDN         PTIUT1
+   UNLDDN          PTIREC
+   RESUME          NO
+   SORTNUM         2
+   SORTDEVT        SYSDA
+   ESTIMATED-ROWS  718
+   INTO TABLE      DT0072.ROGERS_IDENTITY
+   (
+    DEPTNO             POSITION(      1:     2 )
+      SMALLINT
+          ,
+    DEPTNAME           POSITION(      3:    40 )
+      VARCHAR
+          ,
+    MGRNO              POSITION(     41:    48 )
+      CHAR               (     8)
+        NULLIF(    49 ) = '?'
+          ,
+    ADMRDEPT           POSITION(     50:    52 )
+      CHAR               (     3)
+          ,
+    LOCATION           POSITION(     53:    68 )
+      CHAR               (    16)
+        NULLIF(    69 ) = '?'
+   )
+.ENDDATA
+.FREE FI(SYSULD)
+.FREE FI(SYSERR)
+.FREE FI(ST01MSG)
+.FREE FI(PTIREC)
+.FREE FI(SYSDISC)
+.FREE FI(PTIUT1)
+.FREE FI(SYSMAP)
+
+.SYNC 25        'LOAD TABLE DT0072.ROGERS_IDENTITY'
+/*
+//*
+//BPIOPT   DD *                                                         00177002
+.CONTROL BPID(DB2V-PLATIDNT) +
+ LOGID(DB2V) UNIT(SYSDA)
+.LIST SYSOUT(*)
+.CONNECT DB2V
+/*
+//
+.RESTART SYNC

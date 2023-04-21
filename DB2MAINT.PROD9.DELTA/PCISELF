@@ -1,0 +1,26 @@
+//UXD000M  JOB ,'CJR RCC',CLASS=S,MSGCLASS=X                            00001000
+//**********************************************************************00002000
+//*                                                                    *00003000
+//*  BATCH SPUFI                                                       *00004000
+//*                                                                    *00005000
+//**********************************************************************00006000
+//JOBLIB   DD  DISP=SHR,DSN=SSXDP.DB2F.SDSNEXIT                         00007000
+//         DD  DISP=SHR,DSN=SDB2F.SDSNLOAD                              00008000
+//*                                                                     00010000
+//PH01LS04 EXEC PGM=IKJEFT01,DYNAMNBR=20                                00020000
+//DBRMLIB  DD  DISP=SHR,DSN=SDB2F.SDSNSAMP                              00030000
+//SYSTSPRT DD  SYSOUT=*                                                 00040000
+//SYSPRINT DD  SYSOUT=*                                                 00050000
+//SYSUDUMP DD  SYSOUT=*                                                 00060000
+//SYSTSIN  DD  *                                                        00070000
+ DSN SYSTEM(DBFG)                                                       00080000
+ RUN  PROGRAM(DSNTEP2) PLAN(DSNTEP2) +                                  00090000
+      LIB('SSXDP.DB2F.RUNLIB.LOAD') +                                   00100000
+      PARMS('/ALIGN(MID)')                                              00110000
+ END                                                                    00120000
+//*                                                                     00130000
+//SYSIN    DD *                                                         00140000
+SELECT * FROM                                                           00150000
+   SAPR3.RFBLG                                                          00160000
+   FETCH FIRST 2 ROWS ONLY WITH UR;                                     00170000
+//*                                                                     00918000

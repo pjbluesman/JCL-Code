@@ -1,0 +1,36 @@
+//PXD574    PROC                                                        00010021
+//*                                                                     00020000
+//**********************************************************************00617010
+//* QUIESCE DSNDB01.SYSUTILX *******************************************00618010
+//*  Ts cannot be included in a list with other table spaces .         *00619010
+//**********************************************************************00619110
+//QUTILX EXEC DSNUPROC,SYSTEM=DB2W,UID='QUIESCE',UTPROC='',COND=(8,LT)  00619225
+//STEPLIB  DD DISP=SHR,DSN=SSXDP.DB2W.SDSNLOAD                          00619325
+//         DD DISP=SHR,DSN=SSXDP.DB2W.SDSNEXIT                          00619425
+//SYSPRINT DD  SYSOUT=*                                                 00619525
+//SYSUDUMP DD  SYSOUT=*                                                 00619625
+//SYSIN DD *                                                            00619725
+       QUIESCE  TABLESPACE DSNDB01.SYSUTILX                             00619825
+//**********************************************************************00619910
+//* QUIESCE CAT/DIR ****************************************************00620010
+//**********************************************************************00620110
+//QCATDIR EXEC DSNUPROC,SYSTEM=DB2W,UID='QUIESCE',UTPROC='',COND=(4,LT) 00620222
+//STEPLIB  DD DISP=SHR,DSN=SSXDP.DB2W.SDSNLOAD                          00620323
+//         DD DISP=SHR,DSN=SSXDP.DB2W.SDSNEXIT                          00620423
+//SYSPRINT DD  SYSOUT=*                                                 00620510
+//SYSUDUMP DD  SYSOUT=*                                                 00620610
+//DSNUPROC.SYSIN DD DISP=SHR,DSN=SSXDP.DB2.PARMLIB(QUI10NFM)            00620713
+//********************************************************************* 00620801
+//* DISPLAY UTIL                                                        00620918
+//********************************************************************* 00621001
+//TERMUTIL EXEC PGM=IKJEFT01,COND=EVEN                                  00630001
+//STEPLIB  DD DISP=SHR,DSN=SSXDP.DB2W.SDSNLOAD                          00631023
+//         DD DISP=SHR,DSN=SSXDP.DB2W.SDSNEXIT                          00632023
+//SYSTSPRT DD  SYSOUT=*                                                 00640001
+//SYSPRINT DD  SYSOUT=*                                                 00650001
+//SYSUDUMP DD  SYSOUT=*                                                 00660001
+//SYSTSIN  DD  *                                                        00670001
+  DSN SYSTEM(DB2W)                                                      00680021
+  -DIS UTIL(*)                                                          00690001
+  END                                                                   00710001
+//                                                                      00720001

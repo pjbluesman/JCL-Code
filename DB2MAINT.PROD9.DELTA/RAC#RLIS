@@ -1,0 +1,11 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,REGION=0M,
+//         NOTIFY=&SYSUID,USER=SYSPRO
+/*JOBPARM SYSAFF=MVS4
+//***************************************************************
+//* LISTA TODOS OS ARQUIVOS COBERTOS POR UMA PROFILE
+//***************************************************************
+//RACFLST EXEC PGM=IKJEFT01,DYNAMNBR=20
+//SYSPRINT DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  RLIST PROGRAM *

@@ -1,0 +1,28 @@
+//UXC401M4 JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00010003
+//         NOTIFY=&SYSUID                                               00020000
+/*JOBPARM SYSAFF=MVS4                                                   00030003
+//*                                                                     00040000
+//*-------------------------------------------------------------------*/00050000
+//* Job Function : COPY OMPE XE APF DSN TO SMS VOLUMES                  00060000
+//*-------------------------------------------------------------------*/00070000
+//*                                                                     00080000
+//BKP#OMPE EXEC  PGM=ADRDSSU,REGION=32M                                 00090001
+//SYSPRINT DD SYSOUT=*                                                  00100001
+//TAPE     DD UNIT=CART,DISP=(NEW,CATLG,DELETE),                        00110002
+//            DSN=SSXDP.DB2TOOLS.OMPE.S7S2T1.BKP,                       00120003
+//            LABEL=RETPD=90,VOL=(,,,5)                                 00130001
+//SYSIN    DD  *                                                        00140001
+    DUMP OUTDD(TAPE)                      -                             00150002
+         DS(INCLUDE(                      -                             00160002
+          SSXDP.DB2TOOLS.MVS4RTE.RKANMODU -                             00161003
+          SSXDP.DB2TOOLS.MVSRRTE.RKANMODU -                             00162003
+          SSXDP.DB2TOOLS.MVSQRTE.RKANMODU -                             00163003
+          SSXDP.DB2TOOLS.BARQ4RTE.RKANMOD -                             00164003
+          SSXDP.DB2TOOLS.BARQ4RTE.RKANMODL-                             00165003
+          SSXDP.DB2TOOLS.BAFIRTE.RKANMOD  -                             00166003
+          SSXDP.DB2TOOLS.BAFIRTE.RKANMODL -                             00167003
+          SSXDP.DB2TOOLS.MVSFRTE.RKANMODU -                             00168003
+          SSXDP.DB2TOOLS.MVSIRTE.RKANMODU -                             00169003
+                             ))       -                                 00170002
+                 TOL(ENQF)                                              00180001
+/*                                                                      00190001

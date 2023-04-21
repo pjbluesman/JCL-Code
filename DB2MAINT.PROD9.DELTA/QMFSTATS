@@ -1,0 +1,14 @@
+//UXD104M    JOB ,'CJR RM 105',CLASS=S,MSGCLASS=X                       00001000
+//UTIL EXEC DSNUPROP,SYSTEM=DB2P,UID='CJSTAT',UTPROC=''
+//*
+//**********************************************
+//*
+//*  GENERATING JCL FOR THE RUNSTATS UTILITY
+//*  DATE:  09/25/90          TIME:  15:57:32
+//*
+//**********************************************
+//*
+//DSNUPROP.SYSIN    DD  *
+RUNSTATS TABLESPACE (DSQDBCTL.DSQTSCT1)
+RUNSTATS TABLESPACE (DSQDBDEF.DSQTSDEF)
+//

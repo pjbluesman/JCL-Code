@@ -1,0 +1,30 @@
+//UXD005M  JOB  D-813-000-N-00,                                         JCLP
+//*02/08/93OVERBYE
+//             'DB2 RM 114',                                            JCLP
+//             CLASS=S,                                                 JCLP
+//             MSGCLASS=X,                                              JCLP
+//             REGION=4000K,                                            JCLP
+//             TIME=1440                                                JCLP
+//* FULL IMAGE COPY OF QMF DATASETS USED BY SUBSYSTEM DB2M              JCLP
+//*  (DB2 PRODUCTION SUBSYSTEM)                                         JCLP
+//JOBLIB   DD DISP=SHR,                                                 JCLP
+//             DSN=SSXDP.DB2M.V4.SDSNLOAD                               JCLP
+//STEP01   EXEC  PXD005                                                 JCLP
+//DSQTSCT1.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSQDBCTL.DSQTSCT1  COPYDDN CPY01   DEVT CART           JCLP
+//DSQTSCT2.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSQDBCTL.DSQTSCT2  COPYDDN CPY02   DEVT CART           JCLP
+//DSQTSCT3.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSQDBCTL.DSQTSCT3  COPYDDN CPY03   DEVT CART           JCLP
+//DSQTSGOV.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSQDBCTL.DSQTSGOV  COPYDDN CPY04   DEVT CART           JCLP
+//DSQTSLOG.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSQDBCTL.DSQTSLOG  COPYDDN CPY05   DEVT CART           JCLP
+//DSQTSPRO.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSQDBCTL.DSQTSPRO  COPYDDN CPY06   DEVT CART           JCLP
+//DSQTSSYN.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSQDBCTL.DSQTSSYN  COPYDDN CPY07   DEVT CART           JCLP
+//DSQTSDEF.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSQDBDEF.DSQTSDEF  COPYDDN CPY08   DEVT CART           JCLP
+/*                                                                      JCLP
+//                                                                      JCLP

@@ -1,0 +1,101 @@
+//PRI0000M JOB D-813-000-D-00,'CREATE IC',                              00003901
+//         MSGCLASS=U,CLASS=S                                           00004001
+//**       DB2F CREATE SAP DB2 IMAGE COPIES                             00004101
+/*ROUTE PRINT MVS                                                       00004201
+//**************************************************************        00004301
+//*                                                                     00004401
+//*      WRITES OUT 10 IMAGE COPY JOBS IN SUOPP.PROD.ASCJCL             00004501
+//*                                                                     00004601
+//**************************************************************        00004701
+//JOBLIB   DD  DSN=SSXDP.DB2F.RUNLIB.LOAD,DISP=SHR                      00004802
+//         DD  DSN=SSXDP.DB2F.SDSNEXIT,DISP=SHR                         00004902
+//         DD  DSN=SDB2F.SDSNLOAD,DISP=SHR                              00005002
+//********************************************************              00005102
+//STEP01 EXEC DSNUPROF,SYSTEM=DB2F,UID='ICSTOSPC',UTPROC=''             00005202
+//DSNUPROF.SYSIN    DD  *                                               00005302
+STOSPACE STOGROUP(*)                                                    00005402
+/*                                                                      00005502
+//STEP02   EXEC PGM=DBEXTRCT                                            00005602
+//SYSTSPRT DD  SYSOUT=*                                                 00005702
+//SYSPRINT DD  SYSOUT=*                                                 00005802
+//SYSUDUMP DD  SYSOUT=*                                                 00006001
+//SYSABEND DD  SYSOUT=*                                                 00007001
+//SYSABOUT DD  SYSOUT=*                                                 00007101
+//DB2CAF   DD  *                                                        00007201
+##SSID=DB2F                                                             00007301
+##PLAN=DELTA                                                            00007401
+/*                                                                      00007501
+//PARMSIN  DD  *                                                        00007601
+##EXCLUDE=SY00TEMP                                                      00007701
+##INDEXES=YES                                                           00007801
+##TSPACES=YES                                                           00007901
+##JOBOBJS=1800                                                          00008001
+##STPOBJS=0015                                                          00008101
+##OPTJOBS=07                                                            00009001
+##OPTOBJS=0700                                                          00010001
+/*                                                                      00020001
+//OBJECTS  DD  DSN=&&WORK,DISP=(NEW,PASS),                              00030001
+//  SPACE=(CYL,(2,1)),UNIT=SYSDA                                        00040001
+//*                                                                     00040101
+//*                                                                     00040201
+//STEP03  EXEC PGM=DBIMGCPY                                             00043001
+//SYSPRINT DD  SYSOUT=*                                                 00044001
+//SYSUDUMP DD  SYSOUT=*                                                 00045001
+//DB2CAF   DD  *                                                        00046001
+##SSID=DB2F                                                             00047001
+##PLAN=DELTA                                                            00048001
+/*                                                                      00049001
+//************************************************************          00049101
+//*                                                          *          00049201
+//* SPECIFY ONLY THE OUTPUT DD STATEMENTS FOR THE NUMBER     *          00049301
+//* OF JOBS YOU EXPECT TO GENERATE.  THE IMAGE COPY UTILITY  *          00049401
+//* GENERATOR WILL ONLY OPEN THE NUMBER OF OUTPUT DD         *          00049501
+//* STATEMENTS REQUIRED TO SUPPORT THE NUMBER OF JOBS        *          00049601
+//* GENERATED.                                               *          00049701
+//*                                                          *          00049801
+//************************************************************          00049901
+//OJOB001  DD  DSN=SUOPP.PROD.ASCJCL(PRI0001M),DISP=SHR                 00050001
+//OJOB002  DD  DSN=SUOPP.PROD.ASCJCL(PRI0002M),DISP=SHR                 00051001
+//OJOB003  DD  DSN=SUOPP.PROD.ASCJCL(PRI0003M),DISP=SHR                 00051101
+//OJOB004  DD  DSN=SUOPP.PROD.ASCJCL(PRI0004M),DISP=SHR                 00051201
+//OJOB005  DD  DSN=SUOPP.PROD.ASCJCL(PRI0005M),DISP=SHR                 00051301
+//OJOB006  DD  DSN=SUOPP.PROD.ASCJCL(PRI0006M),DISP=SHR                 00051401
+//OJOB007  DD  DSN=SUOPP.PROD.ASCJCL(PRI0007M),DISP=SHR                 00051501
+//OJOB008  DD  DSN=SUOPP.PROD.ASCJCL(PRI0008M),DISP=SHR                 00051601
+//OJOB009  DD  DSN=SUOPP.PROD.ASCJCL(PRI0009M),DISP=SHR                 00051701
+//OJOB010  DD  DSN=SUOPP.PROD.ASCJCL(PRI0010M),DISP=SHR                 00051801
+//OJOB011  DD  DSN=SUOPP.PROD.ASCJCL(PRI0011M),DISP=SHR                 00051901
+//OJOB012  DD  DSN=SUOPP.PROD.ASCJCL(PRI0012M),DISP=SHR                 00052001
+//OJOB013  DD  DSN=SUOPP.PROD.ASCJCL(PRI0013M),DISP=SHR                 00052101
+//OJOB014  DD  DSN=SUOPP.PROD.ASCJCL(PRI0014M),DISP=SHR                 00052201
+//OJOB015  DD  DSN=SUOPP.PROD.ASCJCL(PRI0015M),DISP=SHR                 00052301
+//*                                                                     00057001
+//OBJECTS  DD  DDNAME=STDPARMS                                          00058001
+//         DD  DSN=&&WORK,DISP=OLD                                      00059001
+//*                                                                     00059101
+//STDPARMS DD  *                                                        00059201
+##JOBSTMT1://&JOB  JOB D-813-000-N-00,'SAP IMAGE COPY',                 00059301
+##JOBSTMT2://  CLASS=S,MSGCLASS=U,TIME=1440                             00059401
+##JOBSTMT3:/*ROUTE PRINT MVS                                            00059501
+##JOBSTMT4://JOBLIB DD DISP=SHR,DSN=SSXDP.DB2F.SDSNEXIT                 00059602
+##JOBSTMT5://       DD DISP=SHR,DSN=SDB2F.SDSNLOAD                      00059702
+##JOBSTMT6://*                                                          00059801
+##MULTISTP:NO                                                           00059901
+##MAXPRCYL:400                                                          00060001
+##PARALLEL:YES                                                          00061001
+##PARALEVL:5                                                            00062001
+##SHRLEVEL:CHANGE                                                       00063001
+##LOCALCNT:1                                                            00064001
+##REMOTCNT:0                                                            00065001
+##JOBPREFX:PRI00                                                        00065101
+##JOBSUFFX:M                                                            00065201
+##LC1NODE1:SURIP                                                        00066001
+##LC1NODE2:&QUAL                                                        00068001
+##LC1NODE3:&OBJ                                                         00069001
+##LC1NODE4:&DATE                                                        00069101
+##LC1NODE5:&TIME                                                        00069201
+##LC1NODE6:                                                             00069301
+##LC1NODE7:                                                             00069401
+##LC1NODE8:                                                             00069501
+/*                                                                      00073001
+//                                                                      00074001

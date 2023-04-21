@@ -1,0 +1,282 @@
+//DT0072X JOB ,'RDL RCC',CLASS=S,MSGCLASS=X,NOTIFY=DT0072
+//STEP1    EXEC PGM=PTLDRIVM,REGION=64M,PARM='EP=BPLBCTL'               00010003
+//STEPLIB  DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.LOADLIB
+//         DD DISP=SHR,DSN=SSXDT.DSNDBUG.DB2U.SDSNLOAD
+//         DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.LOADLIB
+//PTILIB   DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.LOADLIB
+//         DD DISP=SHR,DSN=SSXDT.DSNDBUG.DB2U.SDSNLOAD
+//         DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.LOADLIB
+//CTRANS   DD DSN=SSXDT.PLATINUM.TEST.CTRANS,DISP=SHR
+//PTIPARM  DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.PARMLIB
+//PTIXMSG  DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.XMESSAGE
+//SYSOUT   DD SYSOUT=*                                                  00120002
+//UTPRINT  DD SYSOUT=*                                                  00130002
+//ABNLIGNR DD DUMMY                 SUPPRESS ABENDAID DUMPS             00140002
+//SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(5,5))
+//SYSREC   DD UNIT=SYSDA,SPACE=(TRK,(1,1))
+//BPIIPT   DD *                                                         00174002
+.SYSTEM SQLDDL
+.CONNECT DB2U
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLESPACE CREATE AND ALTER STATEMENTS                     *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DSNDB04.DSN8SXXX WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DT0072';
+.SYNC 05        'CREATE TABLESPACE DSNDB04.DSN8SXXX'
+
+    SET CURRENT SQLID = 'DT0072';
+
+    CREATE TABLESPACE DSN8SXXX
+           IN DSNDB04
+           USING STOGROUP DSN8G610
+                                    PRIQTY 720
+                                    SECQTY 48
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+                     COMPRESS NO
+           BUFFERPOOL BP2
+           LOCKSIZE ANY
+           CLOSE NO
+           LOCKMAX SYSTEM
+           CCSID EBCDIC
+    ;
+
+.SYNC 15        'CREATE TABLESPACE DSNDB04.DSN8SXXX'
+    SET CURRENT SQLID = USER;
+
+
+    SET CURRENT SQLID = 'DT0072';
+
+    GRANT USE OF TABLESPACE DSNDB04.DSN8SXXX TO PUBLIC;
+
+.SYNC 20        'GRANT TABLESPACE DSNDB04.DSN8SXXX'
+
+    SET CURRENT SQLID = USER;
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DTXXXX.EMPLOYEE WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DT0072';
+
+CREATE TABLE DTXXXX.EMPLOYEE
+   (EMPNO                  CHAR(6    )                 NOT NULL
+   ,FIRSTNME               VARCHAR(12   )              NOT NULL
+   ,MIDINIT                CHAR(1    )                 NOT NULL
+   ,LASTNAME               VARCHAR(15   )              NOT NULL
+   ,WORKDEPT               CHAR(3    )
+   ,PHONENO                CHAR(4    )
+   ,HIREDATE               DATE
+   ,JOB                    CHAR(8    )
+   ,EDLEVEL                SMALLINT
+   ,SEX                    CHAR(1    )
+   ,BIRTHDATE              DATE
+   ,SALARY                 DECIMAL(9     , 2    )
+   ,BONUS                  DECIMAL(9     , 2    )
+   ,COMM_ROGER             DECIMAL(9     , 2    )
+   ,PRIMARY KEY
+   (EMPNO
+   ) )
+   IN DSNDB04.DSN8SXXX
+   CCSID EBCDIC
+   ;
+
+.SYNC 25        'CREATE  TABLE DTXXXX.EMPLOYEE'
+
+    SET CURRENT SQLID = USER;
+
+-- **************************************************************
+-- *                                                            *
+-- * INDEX CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DTXXXX.XEMP1 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        UNIQUE INDEX DTXXXX.XEMP1
+           ON DTXXXX.EMPLOYEE
+          (EMPNO                ASC
+          )
+           CLUSTER
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 48
+                                    SECQTY 48
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+           BUFFERPOOL BP2
+           CLOSE NO
+    ;
+
+.SYNC 40        'CREATE INDEX DTXXXX.XEMP1'
+
+
+-- DTXXXX.XEMP2 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX DTXXXX.XEMP2
+           ON DTXXXX.EMPLOYEE
+          (WORKDEPT             ASC
+          )
+                     USING STOGROUP DSN8G610
+                                    PRIQTY 12
+                                    SECQTY 12
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+           BUFFERPOOL BP2
+           CLOSE NO
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 45        'CREATE INDEX DTXXXX.XEMP2'
+
+
+.DISCONN
+
+.SYNC 250       'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+.CALL UTLGLCTL PARM(DB2U,)                                             +
+   INDDN(SYSIN) OUTDDN(PTIMSG)
+.ALLOC FI(SYSULD)                                                      +
+   DA('DT0072.EMPLOYEE.DATA')                                       +
+   SHR
+.ALLOC FI(SYSERR)                                                      +
+   DA('DT0072.DSN8610.EMP.DATA.E')                                     +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(SYSDISC)                                                     +
+   DA('DT0072.DSN8610.EMP.DATA.D')                                     +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(PTIREC)                                                      +
+   DA('DT0072.DSN8610.EMP.DATA.U')                                     +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(SYSMAP)                                                      +
+   DA('DT0072.DSN8610.EMP.DATA.M')                                     +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG LRECL(145) BLKSIZE(14500)                   +
+   RECFM(F,B)
+.ALLOC FI(PTIUT1)                                                      +
+   DA('DT0072.DSN8610.EMP.DATA.W')                                     +
+   SPACE(1,2) CYL RLSE                                                 +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(ST01MSG) SYSOUT(*)
+.DATA
+  FASTLOAD
+   INPUT-FORMAT    SEQ
+   OUTPUT-CONTROL  ALL
+   INDDN           SYSULD
+   WORKDDN         PTIUT1
+   UNLDDN          PTIREC
+   RESUME          NO
+   SORTNUM         2
+   SORTDEVT        SYSDA
+   ESTIMATED-ROWS  42
+   INTO TABLE      DTXXXX.EMPLOYEE
+   (
+    EMPNO              POSITION(      1:     6 )
+      CHAR               (     6)
+          ,
+    FIRSTNME           POSITION(      7:    20 )
+      VARCHAR
+          ,
+    MIDINIT            POSITION(     21:    21 )
+      CHAR               (     1)
+          ,
+    LASTNAME           POSITION(     22:    38 )
+      VARCHAR
+          ,
+    WORKDEPT           POSITION(     39:    41 )
+      CHAR               (     3)
+        NULLIF(    42 ) = '?'
+          ,
+    PHONENO            POSITION(     43:    46 )
+      CHAR               (     4)
+        NULLIF(    47 ) = '?'
+          ,
+    HIREDATE           POSITION(     48:    57 )
+      DATE EXTERNAL      (    10)
+        NULLIF(    58 ) = '?'
+          ,
+    JOB                POSITION(     59:    66 )
+      CHAR               (     8)
+        NULLIF(    67 ) = '?'
+          ,
+    EDLEVEL            POSITION(     68:    69 )
+      SMALLINT
+        NULLIF(    70 ) = '?'
+          ,
+    SEX                POSITION(     71:    71 )
+      CHAR               (     1)
+        NULLIF(    72 ) = '?'
+          ,
+    BIRTHDATE          POSITION(     73:    82 )
+      DATE EXTERNAL      (    10)
+        NULLIF(    83 ) = '?'
+          ,
+    SALARY             POSITION(     84:    88 )
+      DECIMAL PACKED
+        NULLIF(    89 ) = '?'
+          ,
+    BONUS              POSITION(     90:    94 )
+      DECIMAL PACKED
+        NULLIF(    95 ) = '?'
+          ,
+    COMM_ROGER         POSITION(     96:   100 )
+      DECIMAL PACKED
+        NULLIF(   101 ) = '?'
+   )
+.ENDDATA
+.FREE FI(SYSULD)
+.FREE FI(SYSERR)
+.FREE FI(ST01MSG)
+.FREE FI(PTIREC)
+.FREE FI(SYSDISC)
+.FREE FI(PTIUT1)
+.FREE FI(SYSMAP)
+
+.SYNC 255       'LOAD TABLE DTXXXX.EMPLOYEE'
+
+.CALL LOADDEL
+.DATA
+  DSN(DT0072.DSN8610.EMP.DATA.E)
+  DSN(DT0072.DSN8610.EMP.DATA.D)
+  DSN(DT0072.DSN8610.EMP.DATA.U)
+  DSN(DT0072.DSN8610.EMP.DATA.M)
+  DSN(DT0072.DSN8610.EMP.DATA.W)
+.ENDDATA
+
+.SYNC 260       'DELETE UNLOAD/TEMP DATASETS'
+/*
+//*
+//BPIOPT   DD *                                                         00177002
+.CONTROL BPID(DB2U-RELOAD) +
+ LOGID(DB2U) UNIT(SYSDA)
+.LIST SYSOUT(*)
+.CONNECT DB2U
+/*
+//
+.RESTART SYNC

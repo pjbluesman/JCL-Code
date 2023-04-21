@@ -1,0 +1,9 @@
+//UXD122M JOB (LOAD),'PTXMAN',                                          00000101
+//             CLASS=Z,                                                 00000200
+//             MSGLEVEL=(1,1),                                          00000300
+//             MSGCLASS=X,REGION=7M                                     00000401
+//*
+//*  *** MVST
+//*
+//STEP02 EXEC PTXMAN                                                    00001000
+//*

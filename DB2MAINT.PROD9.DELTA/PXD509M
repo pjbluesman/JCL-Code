@@ -1,0 +1,50 @@
+//UXD509M  JOB  D-813-000-N-00,                                         00010000
+//            'CA7 DISTRIBUTION',                                       00011000
+//             CLASS=F,                                                 00012000
+//             MSGCLASS=U                                               00013000
+/*ROUTE PRINT MVS
+//* FULL IMAGE COPY FOR DB2 (DB2Y) CATALOG AND DIRECTORY                00023000
+//* YOU MUST BE INSTALL SYSADM AUTHID                                   00024000
+//*                                                                     00026000
+//JOBLIB   DD DISP=SHR,                                                 00027000
+//             DSN=SSXDT.DB2Y.SDSNEXIT                                  00028000
+//         DD DISP=SHR,                                                 00027000
+//             DSN=SDB2Y.SDSNLOAD                                       00028000
+//STEP01   EXEC  PXD509                                                 00029000
+//SYSGROUP.SYSIN DD *                                                   00030000
+COPY TABLESPACE  DSNDB06.SYSGROUP  COPYDDN CPY01,CPY01B                 00031000
+//SYSGPAUT.SYSIN DD *                                                   00033000
+COPY TABLESPACE  DSNDB06.SYSGPAUT  COPYDDN CPY02,CPY02B                 00034000
+//SYSVIEWS.SYSIN DD *                                                   00036000
+COPY TABLESPACE  DSNDB06.SYSVIEWS  COPYDDN CPY03,CPY03B                 00037000
+//SYSPLAN.SYSIN DD *                                                    00039000
+COPY TABLESPACE  DSNDB06.SYSPLAN   COPYDDN CPY04,CPY04B                 00040000
+//SCT02.SYSIN DD *                                                      00042000
+COPY TABLESPACE  DSNDB01.SCT02     COPYDDN CPY05,CPY05B                 00043000
+//SYSDBASE.SYSIN DD *                                                   00045000
+COPY TABLESPACE  DSNDB06.SYSDBASE  COPYDDN CPY06,CPY06B                 00046000
+//SYSUSER.SYSIN DD *                                                    00048000
+COPY TABLESPACE  DSNDB06.SYSUSER   COPYDDN CPY07,CPY07B                 00049000
+//SYSDBAUT.SYSIN DD *                                                   00051000
+COPY TABLESPACE  DSNDB06.SYSDBAUT  COPYDDN CPY08,CPY08B                 00052000
+//SYSLGRNG.SYSIN DD *                                                   00054000
+COPY TABLESPACE  DSNDB01.SYSLGRNX  COPYDDN CPY09,CPY09B                 00055000
+//DBD01.SYSIN DD *                                                      00060000
+COPY TABLESPACE  DSNDB01.DBD01     COPYDDN CPY11,CPY11B                 00061000
+//SYSUTIL.SYSIN DD *                                                    00063000
+COPY TABLESPACE  DSNDB01.SYSUTILX  COPYDDN CPY12,CPY12B                 00064000
+//SPT01.SYSIN DD *                                                      00066000
+COPY TABLESPACE  DSNDB01.SPT01     COPYDDN CPY13,CPY13B                 00067000
+//SYSSTR.SYSIN DD *                                                     00069000
+COPY TABLESPACE  DSNDB06.SYSSTR    COPYDDN CPY14,CPY14B                 00070000
+//SYSPKAGE.SYSIN DD *                                                   00072000
+COPY TABLESPACE  DSNDB06.SYSPKAGE  COPYDDN CPY15,CPY15B                 00073000
+//SYSSTATS.SYSIN DD *                                                   00075000
+COPY TABLESPACE  DSNDB06.SYSSTATS  COPYDDN CPY16,CPY16B                 00076000
+//SYSDDF.SYSIN DD *                                                     00075000
+COPY TABLESPACE  DSNDB06.SYSDDF    COPYDDN CPY17,CPY17B                 00076000
+//SYSOBJ.SYSIN DD *                                                     00075000
+COPY TABLESPACE  DSNDB06.SYSOBJ    COPYDDN CPY18,CPY18B                 00076000
+//SYSCOPY.SYSIN DD *                                                    00057000
+COPY TABLESPACE  DSNDB06.SYSCOPY   COPYDDN CPY19,CPY19B                 00058000
+/*                                                                      00078000

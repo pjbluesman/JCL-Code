@@ -1,0 +1,49 @@
+//PTXMANV JOB ,'RDL RCC',CLASS=S,MSGCLASS=S,NOTIFY=DT0072
+//PTXMANV  PROC XMANID='0000'
+//XMANAGER EXEC PGM=PXMINICC,PARM='&XMANID',
+//             REGION=0M,TIME=1440
+//*
+//*********************************************************************
+//**                                                                 **
+//**  MODIFY THE FOLLOWING JCL USING THE INSTRUCTIONS PROVIDED:      **
+//**                                                                 **
+//**  A) SUPPLY THE FOLLOWING "STEPLIB" DDNAME DATASETS:             **
+//**     1) FIRST STEPLIB DATASET IS THE INSTALLATION LOAD LIBRARY.  **
+//**     2) SECOND STEPLIB DATASET IS THE DB2 DSNLOAD DATASET. THIS  **
+//**        DATASET NAME MUST BE THE DSNLOAD DATASET NAME FOR THE    **
+//**        ""OLDEST"" VERSION OF DB2 USED AT YOUR INSTALLATION.     **
+//**                                                                 **
+//**  B) SUPPLY THE FOLLOWING "PTILIB" DDNAME DATASET:               **
+//**     1) SUPPLY THE INSTALLATION LOAD LIBRARY NAME                **
+//**        (SAME AS STEPLIB)                                        **
+//**                                                                 **
+//**  C) SUPPLY THE FOLLOWING "PXMPARM" DDNAME DATASET:              **
+//**     1) SUPPLY THE DATASET NAME OF THE PDS CONTAINING THE        **
+//**        XMANAGER PARMLIB                                         **
+//**        (NOTE:  THIS IS NOT THE SAME AS THE DB2 PRODUCTS         **
+//**                PARMLIB DATA SET.)                               **
+//**                                                                 **
+//**  D) SUPPLY A VALID SYSOUT CLASS FOR THE SYSABEND AND PXMLOG DD. **
+//**     CLASS NAME SELECTED SHOULD ENABLE ANY DUMP ACTIVITY TO BE   **
+//**     RETAINED FOR DIAGNOSTIC DOCUMENATION IF WARRANTED.          **
+//**                                                                 **
+//**                                                                 **
+//*********************************************************************
+//*
+//STEPLIB  DD  DISP=SHR,
+//             DSN=SSXDT.PLAT.P99.LOADLIB
+//         DD  DISP=SHR,
+//             DSN=SSXDT.DSNDBVG.DB2V.SDSNLOAD
+//*
+//PTILIB   DD  DISP=SHR,
+//             DSN=SSXDT.PLAT.P99.LOADLIB
+//*
+//PXMPARM  DD  DISP=SHR,
+//             DSN=SSXDT.PLAT.P99.PXMPARM
+//*
+//SYSABEND DD  SYSOUT=*
+//*
+//PXMLOG   DD  SYSOUT=*
+//*
+//  PEND
+//   EXEC PTXMANV

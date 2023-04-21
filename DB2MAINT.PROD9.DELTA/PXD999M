@@ -1,0 +1,10 @@
+//PXD999M  JOB ,'BKP FILES',CLASS=S,MSGCLASS=U,MSGLEVEL=(1,1),
+//      REGION=0M,TIME=1440 TYPRUN=SCAN
+/*JOBPARM SYSAFF=MVS3
+/*ROUTE PRINT MVS
+//**********************************************************************
+//* SAPPLEX PROD/TEST - BACKUP SSXDP/SSXDT FILES
+//**********************************************************************
+//JCL      JCLLIB ORDER=SSXDP.DB2.PARMLIB
+//*
+//STEP01   EXEC  PXD999

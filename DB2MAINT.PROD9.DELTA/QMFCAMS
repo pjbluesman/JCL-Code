@@ -1,0 +1,138 @@
+//UXD000M    JOB ,'CJR RM 102',CLASS=S,MSGCLASS=X                       00001000
+//* *************************************************************** */  00180000
+//JOBLIB  DD  DISP=SHR,                                                 00190000
+//            DSN=SSXDT.DB2T.V3.SDSNLOAD                                00200000
+//DSNTIC  PROC                                                          00210000
+//* *************************************************************** */  00220000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE         */  00230000
+//* *************************************************************** */  00240000
+//DSNTIC  EXEC PGM=IDCAMS                                               00250000
+//SYSPRINT DD SYSOUT=*                                                  00270000
+//SYSUDUMP DD SYSOUT=*                                                  00280000
+//DSNTIC  PEND                                                          00290000
+//DSNTTMP EXEC DSNTIC                                                   00720000
+//* ***********************************************                     00730000
+//*    JCL WILL DELETE AND RE-DEFINE ALL CONTROL TABLESPACES FOR QMF
+//*     TO MOVE TO A NEW VOLUME
+//*   * DSQTSCT3 ALSO RE-SIZED TO DELETE EXTENTS
+//*
+//*                                                                     00740000
+//* ***********************************************                     00780000
+//SYSIN DD *                                                            01050000
+      DELETE -                                                          01730001
+             (DQMT.DSNDBC.DSQDBCTL.DSQTSCT3.I0001.A001) -               01730002
+             CATALOG(DQMT)                                              01730003
+      DELETE -                                                          01730001
+             (DQMT.DSNDBC.DSQDBCTL.DSQTSCT1.I0001.A001) -               01730002
+             CATALOG(DQMT)                                              01730003
+      DELETE -                                                          01730001
+             (DQMT.DSNDBC.DSQDBCTL.DSQTSCT2.I0001.A001) -               01730002
+             CATALOG(DQMT)                                              01730003
+      DELETE -                                                          01730001
+             (DQMT.DSNDBC.DSQDBCTL.COMMANDR.I0001.A001) -               01730002
+             CATALOG(DQMT)                                              01730003
+      DELETE -                                                          01730001
+             (DQMT.DSNDBC.DSQDBCTL.DSQTSGOV.I0001.A001) -               01730002
+             CATALOG(DQMT)                                              01730003
+      DELETE -                                                          01730001
+             (DQMT.DSNDBC.DSQDBCTL.DSQTSLOG.I0001.A001) -               01730002
+             CATALOG(DQMT)                                              01730003
+      DELETE -                                                          01730001
+             (DQMT.DSNDBC.DSQDBCTL.DSQTSPRO.I0001.A001) -               01730002
+             CATALOG(DQMT)                                              01730003
+      DELETE -                                                          01730001
+             (DQMT.DSNDBC.DSQDBCTL.DSQTSRDO.I0001.A001) -               01730002
+             CATALOG(DQMT)                                              01730003
+      DELETE -                                                          01730001
+             (DQMT.DSNDBC.DSQDBCTL.DSQTSSYN.I0001.A001) -               01730002
+             CATALOG(DQMT)                                              01730003
+    DEFINE CLUSTER -                                                    01050037
+       ( NAME(DQMT.DSNDBC.DSQDBCTL.DSQTSCT3.I0001.A001) -               01050038
+            LINEAR     -                                                01050039
+            REUSE -                                                     01050040
+            VOLUMES(A3D2A2) -                                           01050041
+            CYLINDERS(25 2) -                                           01050042
+            SHAREOPTIONS(3 3) ) -                                       01050043
+       DATA -                                                           01050044
+       ( NAME(DQMT.DSNDBD.DSQDBCTL.DSQTSCT3.I0001.A001) -               01050045
+                          ) -                                           01050046
+      CATALOG(DQMT)                                                     01050047
+    DEFINE CLUSTER -                                                    01050037
+       ( NAME(DQMT.DSNDBC.DSQDBCTL.DSQTSCT1.I0001.A001) -               01050038
+            LINEAR     -                                                01050039
+            REUSE -                                                     01050040
+            VOLUMES(A3D2A2) -                                           01050041
+            TRACKS(5 1) -                                               01050042
+            SHAREOPTIONS(3 3) ) -                                       01050043
+       DATA -                                                           01050044
+       ( NAME(DQMT.DSNDBD.DSQDBCTL.DSQTSCT1.I0001.A001) -               01050045
+                          ) -                                           01050046
+      CATALOG(DQMT)                                                     01050047
+    DEFINE CLUSTER -                                                    01050037
+       ( NAME(DQMT.DSNDBC.DSQDBCTL.DSQTSCT2.I0001.A001) -               01050038
+            LINEAR     -                                                01050039
+            REUSE -                                                     01050040
+            VOLUMES(A3D2A2) -                                           01050041
+            TRACKS(5 1) -                                               01050042
+            SHAREOPTIONS(3 3) ) -                                       01050043
+       DATA -                                                           01050044
+       ( NAME(DQMT.DSNDBD.DSQDBCTL.DSQTSCT2.I0001.A001) -               01050045
+                          ) -                                           01050046
+      CATALOG(DQMT)                                                     01050047
+                                                                        01050048
+    DEFINE CLUSTER -                                                    01050037
+       ( NAME(DQMT.DSNDBC.DSQDBCTL.DSQTSGOV.I0001.A001) -               01050038
+            LINEAR     -                                                01050039
+            REUSE -                                                     01050040
+            VOLUMES(A3D2A2) -                                           01050041
+            TRACKS(3 1) -                                               01050042
+            SHAREOPTIONS(3 3) ) -                                       01050043
+       DATA -                                                           01050044
+       ( NAME(DQMT.DSNDBD.DSQDBCTL.DSQTSGOV.I0001.A001) -               01050045
+                          ) -                                           01050046
+      CATALOG(DQMT)                                                     01050047
+    DEFINE CLUSTER -                                                    01050037
+       ( NAME(DQMT.DSNDBC.DSQDBCTL.DSQTSLOG.I0001.A001) -               01050038
+            LINEAR     -                                                01050039
+            REUSE -                                                     01050040
+            VOLUMES(A3D2A2) -                                           01050041
+            TRACKS(5 1) -                                               01050042
+            SHAREOPTIONS(3 3) ) -                                       01050043
+       DATA -                                                           01050044
+       ( NAME(DQMT.DSNDBD.DSQDBCTL.DSQTSLOG.I0001.A001) -               01050045
+    DEFINE CLUSTER -                                                    01050037
+       ( NAME(DQMT.DSNDBC.DSQDBCTL.DSQTSPRO.I0001.A001) -               01050038
+            LINEAR     -                                                01050039
+            REUSE -                                                     01050040
+            VOLUMES(A3D2A2) -                                           01050041
+            TRACKS(3 1) -                                               01050042
+            SHAREOPTIONS(3 3) ) -                                       01050043
+       DATA -                                                           01050044
+       ( NAME(DQMT.DSNDBD.DSQDBCTL.DSQTSPRO.I0001.A001) -               01050045
+                          ) -                                           01050046
+      CATALOG(DQMT)                                                     01050047
+    DEFINE CLUSTER -                                                    01050037
+       ( NAME(DQMT.DSNDBC.DSQDBCTL.DSQTSRDO.I0001.A001) -               01050038
+            LINEAR     -                                                01050039
+            REUSE -                                                     01050040
+            VOLUMES(A3D2A2) -                                           01050041
+            TRACKS(1 1) -                                               01050042
+            SHAREOPTIONS(3 3) ) -                                       01050043
+       DATA -                                                           01050044
+       ( NAME(DQMT.DSNDBD.DSQDBCTL.DSQTSRDO.I0001.A001) -               01050045
+                          ) -                                           01050046
+      CATALOG(DQMT)                                                     01050047
+    DEFINE CLUSTER -                                                    01050037
+       ( NAME(DQMT.DSNDBC.DSQDBCTL.DSQTSSYN.I0001.A001) -               01050038
+            LINEAR     -                                                01050039
+            REUSE -                                                     01050040
+            VOLUMES(A3D2A2) -                                           01050041
+            TRACKS(3 1) -                                               01050042
+            SHAREOPTIONS(3 3) ) -                                       01050043
+       DATA -                                                           01050044
+       ( NAME(DQMT.DSNDBD.DSQDBCTL.DSQTSSYN.I0001.A001) -               01050045
+                          ) -                                           01050046
+      CATALOG(DQMT)                                                     01050047
+                                                                        01050048
+                                                                        01050060
+//*                                                                     01491000

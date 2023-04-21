@@ -1,0 +1,3666 @@
+.CONTROL SN(PTDB,PLATUNLD)
+
+--==============================================================================
+-- VRCM061      CA-DB2   RC/MIGRATOR   ANALYSIS REPORT      06-28-01 10:59
+--==============================================================================
+
+.SYSTEM UNLOADS
+.CONNECT DB2N
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.ACCUM$ST.RATEGY.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_CREATOR, STRATEGY_NAME, SEQUENCE_FIELD,
+  INTERNAL_TYPE, "DATA"
+  FROM PTI.ACCUM_STRATEGY
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 5         'UNLOAD TABLE PTI.ACCUM_STRATEGY'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.ALOGFILE.DATA')                                    +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_CREATOR, STRATEGY_NAME, ACCUM_KEY, STATUS,
+  DSNAME, UNIT, DEVTYPE, FILESEQ, "TYPE", DATE, TIME, DSVOLSER
+  FROM PTI.ALOGFILE
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 10        'UNLOAD TABLE PTI.ALOGFILE'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.ALOGRANG.E.DATA')                                  +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_CREATOR, STRATEGY_NAME, ACCUM_KEY, DBNAME,
+  TSNAME, DBID, "PSID", DSNUM, START_LOGPOINT, END_LOGPOINT,
+  LOGRECS, LOGBYTES, LOGRECS_EXP, LOGBYTES_EXP
+  FROM PTI.ALOGRANGE
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 15        'UNLOAD TABLE PTI.ALOGRANGE'
+
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PDT$HST0.#1$DYNAM.REQ.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SSID, INTERVAL_START, INTERVAL_END, START_TIME, OPID,
+  SQL_CALL, SQL_CALLS, SECT#, STMT#, "PROGRAM", PLANNAME,
+  LOCATION, CONNID, CORRID, AUTHID, "COLLID", "TYPE", PGMCNT,
+  STMTCNT, PKGE_PLANCNT, PKGE_STMTCNT, INDB2_TIME, INDB2_CPU,
+  GETPAGE, GETPFAIL, PAGEUPDT, SYNCREAD, SPFETCH, LPFETCH,
+  DYNPFETCH, PFPAGES, IMWRITE, HPREAD, HPREADF, HPREADPGS,
+  HPWRITE, HPWRITEF, RID_USED, RID_FSTG, RID_FLIM, ESCALSHR,
+  ESCALEXC, DEADLOCK, TIMEOUT, LOCKSUS, LATCHSUS, OTHERSUS,
+  LOCKREQ, UNLKREQ, QUERYREQ, CHANGREQ, OTHERREQ, DRAINREQ,
+  DRAINFAIL, CLAIMREQ, CLAIMFAIL, IOPMAXDEG, IOPGROUPS,
+  IOPFAILCUR, IOPFAILSRT, IOPFAILBUF, IOPREDUCED, IOPPLANNED,
+  TOTAL_WAITTIM, TOTAL_WAITCNT, IO_WTIME, IOWCNT, LOCK_WTIME,
+  LOCKWCNT, ORIO_WTIME, ORIOWCNT, OWIO_WTIME, OWIOWCNT,
+  SERV_WTIME, SERVWCNT, ARCH_WTIME, ARCHWCNT, PLATCH_WTIME,
+  PLATCHWCNT, DRAIN_WTIME, DRAINWCNT, CLAIM_WTIME, CLAIMWCNT,
+  ARCRD_WTIME, ARCRDWCNT, TIMERON, APPL_GROUP, RSRC_GROUP,
+  THRESHOLD, CONTOKEN, VERSION, SQL_TEXT
+  FROM PTI.PDT_HST01_DYNAMREQ
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 25        'UNLOAD TABLE PTI.PDT_HST01_DYNAMREQ'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PDT$HST0.#1$DYNAM.TXT.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SSID, INTERVAL_START, INTERVAL_END, START_TIME, LOCATION,
+  PLANNAME, CONNID, CORRID, AUTHID, OPID, "PROGRAM", "COLLID",
+  SEQNO, SECT#, STMT#, SQL_TEXT
+  FROM PTI.PDT_HST01_DYNAMTXT
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 30        'UNLOAD TABLE PTI.PDT_HST01_DYNAMTXT'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PDT$HST0.#1$OBJEC.T.DATA')                         +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SSID, INTERVAL_START, INTERVAL_END, RECTYPE, PLANNAME,
+  "PROGRAM", PGMTYPE, SECT#, STMT#, SQL_CALL, DBNAME, TSNAME,
+  TBNAME, TBCREATOR, ISNAME, DBID, TSID, TBID, ISID, TB_GETP,
+  TB_GETP_SEQU, TB_GETP_INDX, TB_GETP_LINK, TB_INDX_GETP,
+  TB_INDX_CNT, IS_GETP, IS_TABL_GETP, "COLLID", CONTOKEN, VERSION
+  FROM PTI.PDT_HST01_OBJECT
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 35        'UNLOAD TABLE PTI.PDT_HST01_OBJECT'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PDT$HST0.#1$SQLER.ROR.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SSID, INTERVAL_START, INTERVAL_END, SQLCODE, SQL_ENDTIME,
+  LOCATION, LUNAME, CONN_TYPE, CONNID, CORRID, OPID, AUTHID,
+  PLANNAME, "PROGRAM", "TYPE", SECT#, STMT#, SQL_CALL, SQLERRD1,
+  SQLERRD2, SQLERRD3, SQLERRD4, SQLERRD5, SQLERRD6, SQLERRP,
+  SQLSTATE, ERR_MSG, "COLLID", CONTOKEN, VERSION
+  FROM PTI.PDT_HST01_SQLERROR
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 40        'UNLOAD TABLE PTI.PDT_HST01_SQLERROR'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PDT$HST0.#1$STAND.ARD.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SSID, INTERVAL_START, INTERVAL_END, RECTYPE, PLANNAME,
+  "PROGRAM", PGMTYPE, SECT#, STMT#, SQL_CALL, COMMITS, ABORTS,
+  PGMCNT, STMTCNT, PKGE_PLANCNT, PKGE_STMTCNT, INDB2_TIME,
+  INDB2_CPU, SQL_CALLS, GETPAGE, GETPFAIL, PAGEUPDT, SYNCREAD,
+  GETP_RIO, SPFETCH, LPFETCH, DYNPFETCH, PFPAGES, IMWRITE, HPREAD,
+  HPREADF, HPREADPGS, HPWRITE, HPWRITEF, RID_USED, RID_FSTG,
+  RID_FLIM, ESCALSHR, ESCALEXC, MAXPLOCK, DEADLOCK, TIMEOUT,
+  LOCKSUS, LATCHSUS, OTHERSUS, LOCKREQ, UNLKREQ, QUERYREQ,
+  CHANGREQ, OTHERREQ, DRAINREQ, DRAINFAIL, CLAIMREQ, CLAIMFAIL,
+  IOPMAXDEG, IOPGROUPS, IOPFAILCUR, IOPFAILSRT, IOPFAILBUF,
+  IOPREDUCED, IOPPLANNED, TOTAL_WAITTIM, TOTAL_WAITCNT, IO_WTIME,
+  IOWCNT, LOCK_WTIME, LOCKWCNT, ORIO_WTIME, ORIOWCNT, OWIO_WTIME,
+  OWIOWCNT, SERV_WTIME, SERVWCNT, ARCH_WTIME, ARCHWCNT,
+  DRAIN_WTIME, DRAINWCNT, CLAIM_WTIME, CLAIMWCNT, ARCRD_WTIME,
+  ARCRDWCNT, PLATCH_WTIME, PLATCHWCNT, "COLLID", CONTOKEN, VERSION
+  FROM PTI.PDT_HST01_STANDARD
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 45        'UNLOAD TABLE PTI.PDT_HST01_STANDARD'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PGF$RG$D.ESC.DATA')                                +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RESOURCE_GROUP, DESCRIPTION, TIMESTMP, RG_ID
+  FROM PTI.PGF_RG_DESC
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 50        'UNLOAD TABLE PTI.PGF_RG_DESC'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTALT$AC.M$0610.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(7,5)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT USERID, LOCN, DESC, UPDT_TIME, UPDT_TYPE
+  FROM PTI.PTALT_ACM_0610
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 55        'UNLOAD TABLE PTI.PTALT_ACM_0610'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTALT$SY.STBL$061.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(8,6)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT USERID, TABLID, CREATOR, TBNAME, TSNAME
+  FROM PTI.PTALT_SYSTBL_0610
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 60        'UNLOAD TABLE PTI.PTALT_SYSTBL_0610'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTAN$AUT.OHVER$02.#02.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT ATHV_HVERSION, ATHV_TYPE, ATHV_CREATOR, ATHV_DESCRIPT,
+  ATHV_SSID, ATHV_OWNER_QUAL, ATHV_CREAT_TIME, ATHV_CREAT_DATE,
+  ATHV_UPDATE_ID, ATHV_SHARE_OPT, ATHV_VER_NUMBER, ATHV_USAGE_CNT,
+  ATHV_PACK_VMETH, ATHV_PACK_ORG, ATHV_CHNG_TYPE, ATHV_CHNG_METH,
+  ATHV_PPA_POA, ATHV_TIEPRF, ATHV_DB_OPTIONS, ATHV_PLANTAB_OPT,
+  ATHV_PRIMARY, ATHV_SECONDARY, ATHV_POA, ATHV_AUDIT,
+  ATHV_SQLQUAL, ATHV_VIEWQUAL, ATHV_SQLQUAL_OVER,
+  ATHV_VIEWCRTE_OVER, ATHV_OPTHINT, ATHV_DATA_MAIN,
+  ATHV_DATA_ESTATS, ATHV_DATA_FILTERS, ATHV_PATHSCHEMAS
+  FROM PTI.PTAN_AUTOHVER_0202
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 65        'UNLOAD TABLE PTI.PTAN_AUTOHVER_0202'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTAN$PRF.M$0201.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT PRFM_PGI, PRFM_STMT_ID, PRFM_PLAN, PRFM_DBRM, PRFM_SSID,
+  PRFM_LOCATION, PRFM_CONTOKEN, PRFM_STMTNO, PRFM_SECTNO,
+  PRFM_ANLTYPE, PRFM_TYPE, PRFM_STATUS, PRFM_START_TIME,
+  PRFM_END_TIME, PRFM_STMT_TIME, PRFM_PROC_TIME, PRFM_HOURS,
+  PRFM_MINUTES, PRFM_SECONDS, PRFM_SQL_COUNT, PRFM_INDB2_TIME,
+  PRFM_INDB2_CPU, PRFM_GETPAGE, PRFM_GETPFAIL, PRFM_PAGEUPDT,
+  PRFM_SYNCREAD, PRFM_SPFETCH, PRFM_LPFETCH, PRFM_DYNPFETCH,
+  PRFM_PFPAGES, PRFM_IMWRITE, PRFM_HPREAD, PRFM_HPREADF,
+  PRFM_HPREADPGS, PRFM_HPWRITE, PRFM_HPWRITEF, PRFM_RID_USED,
+  PRFM_RID_FSTG, PRFM_RID_FLIM, PRFM_ESCALSHR, PRFM_ESCALEXC,
+  PRFM_MAXPLOCK, PRFM_DEADLOCK, PRFM_TIMEOUT, PRFM_LOCKSUS,
+  PRFM_LATCHSUS, PRFM_OTHERSUS, PRFM_LOCKREQ, PRFM_UNLKREQ,
+  PRFM_QUERYREQ, PRFM_CHANGREQ, PRFM_OTHERREQ, PRFM_DRAINREQ,
+  PRFM_DRAINFAIL, PRFM_CLAIMREQ, PRFM_CLAIMFAIL, PRFM_IOPMAXDEG,
+  PRFM_IOPGROUPS, PRFM_IOPFALLCUR, PRFM_IOPFALLSRT,
+  PRFM_IOPFALLBUF, PRFM_IOPREDUCED, PRFM_IOPPLANNED,
+  PRFM_TWAITTIM, PRFM_TWAITCNT, PRFM_IO_WTIME, PRFM_IOWCNT,
+  PRFM_LOCK_WTIME, PRFM_LOCKWCNT, PRFM_ORIO_WTIME, PRFM_ORIOWCNT,
+  PRFM_OWIO_WTIME, PRFM_OWIOWCNT, PRFM_SERV_WTIME, PRFM_SERVWCNT,
+  PRFM_ARCH_WTIME, PRFM_ARCHWCNT, PRFM_DRAIN_WTIME,
+  PRFM_DRAINWCNT, PRFM_CLAIM_WTIME, PRFM_CLAIMWCNT,
+  PRFM_ARCRD_WTIME, PRFM_ARCRDWCNT, PRFM_PLTCH_WTIME,
+  PRFM_PLTCHWCNT, PRFM_SND_MSGTME, PRFM_SND_MSGCNT,
+  PRFM_GLB_LOCKTME, PRFM_GLB_LOCKCNT, PRFM_IOPNOENCLAV,
+  PRFM_IOPSINGCORD, PRFM_IOPSINGRSRR, PRFM_IOPDATAGRPS,
+  PRFM_IOPSKIPBFRP, PRFM_NUM_REOPTS, PRFM_XES_LOCKREQ,
+  PRFM_XES_CHNGREQ, PRFM_XES_UNLKREQ, PRFM_SUSPND_IRLM,
+  PRFM_SUSPND_XES, PRFM_SUSPNDFALSE, PRFM_GLBLOCKFAIL,
+  PRFM_FND_CACHE, PRFM_NOTFND_CACHE, PRFM_IMPL_PREPARE,
+  PRFM_SKIP_PREPARE, PRFM_CONNID, PRFM_CORRID, PRFM_AUTHID,
+  PRFM_OPID, PRFM_STMTNOI, PRFM_SECTNOI, PRFM_VERSION
+  FROM PTI.PTAN_PRFM_0201
+  ORDER BY PRFM_PGI , PRFM_STMT_ID , PRFM_TYPE DESC ,
+  PRFM_START_TIME DESC , PRFM_END_TIME DESC , PRFM_STMT_TIME DESC
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 70        'UNLOAD TABLE PTI.PTAN_PRFM_0201'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTAN$SQL.$0201.DATA')                              +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SQL_GROUP_ID, SQL_STMT_SRC_ID, SQL_STMT_ID, SQL_SEQNO,
+  SQL_TEXT
+  FROM PTI.PTAN_SQL_0201
+  ORDER BY SQL_GROUP_ID , SQL_STMT_SRC_ID , SQL_STMT_ID ,
+  SQL_SEQNO
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 75        'UNLOAD TABLE PTI.PTAN_SQL_0201'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTAN$STM.T$0201.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STMT_GROUP_ID, STMT_HVERSION, STMT_SRC_ID, STMT_SSID,
+  STMT_PLAN, STMT_DBRM, STMT_LOCATION, STMT_SRC_TYPE,
+  STMT_CONTOKEN, STMT_BIND_STAMP, STMT_QUALIFIER,
+  STMT_GROUP_MEMBER, STMT_TARGET_SSID, STMT_ID, STMT_SECTNO,
+  STMT_STMTNO, STMT_DATE, STMT_TIME, STMT_CREATOR, STMT_OWNER,
+  STMT_ACM, STMT_PCOPTS, STMT_TYPE, STMT_DYNAMIC, STMT_CURRENT,
+  STMT_DISTINCT, STMT_FETCH, STMT_HOLD, STMT_INTO, STMT_ISOLATION,
+  STMT_JOIN, STMT_JOIN_CART, STMT_NOT, STMT_OPTIMIZE, STMT_SUBSEL,
+  STMT_UNION, STMT_UNION_ALL, STMT_HVERS_DATE, STMT_HVERS_TIME,
+  STMT_HVERS_CREATOR, STMT_EXPL_TIMESTMP, STMT_EXPL_SQLCODE,
+  STMT_TIMERONS, STMT_OLD_HVERSION, STMT_MATCHED, STMT_RULESET,
+  STMT_RULE_SSID, STMT_RULE_HIGHRC, STMT_RULE_NUMBER,
+  STMT_TEXT_CHANGE, STMT_ACCESS_CHANGE, STMT_GROUP_BY,
+  STMT_ORDER_BY, STMT_HAVING, STMT_WITH, STMT_INLINE_VIEW,
+  STMT_COL_FUNC, STMT_SCALAR_FUNC, STMT_PRED_BASIC,
+  STMT_PRED_BETWEEN, STMT_PRED_EXISTS, STMT_PRED_IN,
+  STMT_PRED_LIKE, STMT_PRED_NULL, STMT_PRED_QUANT,
+  STMT_PRED_NONINDEX, STMT_PRED_NONSARGE, STMT_POA, STMT_PPA,
+  STMT_PERF_DATA, STMT_PACK_CREATE, STMT_PGI, STMT_EXCEPTS,
+  STMT_CASE, STMT_FREQ, STMT_QUERYNO, STMT_STMTNOI, STMT_SECTNOI,
+  STMT_TABLE_FUNC, STMT_USER_FUNC, STMT_OPTHINT, STMT_SUBTYPE,
+  STMT_VERSION, STMT_PATHSCHEMAS
+  FROM PTI.PTAN_STMT_0201
+  ORDER BY STMT_GROUP_ID , STMT_HVERSION , STMT_SRC_TYPE ,
+  STMT_PLAN , STMT_DBRM , STMT_VERSION , STMT_LOCATION , STMT_SSID
+  , STMT_ID
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 80        'UNLOAD TABLE PTI.PTAN_STMT_0201'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTBSDS.DATA')                                      +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT MEMBER_NAME, MEMBER_ID, START_RBA, END_RBA, "DATA"
+  FROM PTI.PTBSDS
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 85        'UNLOAD TABLE PTI.PTBSDS'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTDC1$ST.RAT$0100.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_CREATOR, STRATEGY_NAME, SEQUENCE_FIELD,
+  INTERNAL_TYPE, TIME_INSERTED, "DATA"
+  FROM PTI.PTDC1_STRAT_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 90        'UNLOAD TABLE PTI.PTDC1_STRAT_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTDM1$CN.TL$0200.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT CNTL_DSN, CNTL_DESCRIPTION, CNTL_USER, CNTL_TIMESTAMP
+  FROM PTI.PTDM1_CNTL_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 95        'UNLOAD TABLE PTI.PTDM1_CNTL_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTDM1$ST.RAT$0100.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_CREATOR, STRATEGY_NAME, SEQUENCE_FIELD,
+  INTERNAL_TYPE, "DATA"
+  FROM PTI.PTDM1_STRAT_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 100       'UNLOAD TABLE PTI.PTDM1_STRAT_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTGEN$AU.TH$0100.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(9,7)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT USERID, SYS_DEFAULT_AUTHS
+  FROM PTI.PTGEN_AUTH_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 105       'UNLOAD TABLE PTI.PTGEN_AUTH_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTGEN$DE.FAULT$01.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT USERID, SUBSYSTEM, LOCATION, SECAUTHID, DESCRIPTION,
+  GLOBAL_DEFAULTS
+  FROM PTI.PTGEN_DEFAULT_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 110       'UNLOAD TABLE PTI.PTGEN_DEFAULT_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTGL300$.HISTORY.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT PUT_JOBNAME, PUT_JOBID, PUT_USER, PUT_STEPNAME,
+  PUT_SYSID, PUT_UTIL, PUT_CREATOR, PUT_DBNAME, PUT_TSNAME,
+  PUT_TBNAME, PUT_IXNAME, PUT_PARTNUM, PUT_DB2_LVL, PUT_SMFID,
+  PUT_START_DATETIME, PUT_END_DATETIME, PUT_ELAPSED_TIME,
+  PUT_CPU_TIME, PUT_ELAPSED_WIND, PUT_CPU_WIND, PUT_AVG_CPU_BUSY,
+  PUT_RC, PUT_EXCP, PUT_UTIL_ID, PUT_UTIL_SOURCE,
+  PUT_UTIL_VERSION, PUT_HASH, PUT_CMD_TEXT, PUT_UTILITY_DATA
+  FROM PTI.PTGL300_HISTORY
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 115       'UNLOAD TABLE PTI.PTGL300_HISTORY'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTGL400$.RESTART.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT GLRS_DBNAME, GLRS_TSNAME, GLRS_HASH, GLRS_USERID,
+  GLRS_UTILITY_ID, GLRS_UTILITY_TYPE, GLRS_SYNC_TIME, GLRS_DATA
+  FROM PTI.PTGL400_RESTART
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 120       'UNLOAD TABLE PTI.PTGL400_RESTART'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTGL500$.RESTART.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT GLRS_JOBNAME, GLRS_JOBID, GLRS_AUTHID, GLRS_AUTHID2,
+  GLRS_UTILITY_ID, GLRS_UTILITY_KEY, GLRS_STMT#, GLRS_PHASE,
+  GLRS_TIME, GLRS_DATA
+  FROM PTI.PTGL500_RESTART
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 125       'UNLOAD TABLE PTI.PTGL500_RESTART'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTGL500$.RESTART2.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(22,17)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT GLR2_KEY, GLR2_UTILITY_ID, GLR2_DBNAME, GLR2_PSNAME,
+  GLR2_DS#, GLR2_AUTHID, GLR2_AUTHID2, GLR2_STMT#, GLR2_TYPE,
+  GLR2_SHR, GLR2_PHASE, GLR2_CREATOR, GLR2_OBJECT, GLR2_TIME,
+  GLR2_DATA
+  FROM PTI.PTGL500_RESTART2
+  ORDER BY GLR2_KEY , GLR2_UTILITY_ID
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 130       'UNLOAD TABLE PTI.PTGL500_RESTART2'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTI$PQO$.LOG.DATA')                                +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT OWNER, "NAME", "TYPE", SUBTYPE, "RESTRICT", OBJECT_LEVEL,
+  MODEL, DATASET, PDS_MEMBER, USERID, DATE, TIME, QMF_VERSION,
+  DB2_SSID_SOURCE, REMARKS
+  FROM PTI.PTI_PQO_LOG
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 135       'UNLOAD TABLE PTI.PTI_PQO_LOG'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTI$PQT$.LOG.DATA')                                +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT AUTHID, USERID, LOCATION, OWNER, "NAME", "TYPE", DATE,
+  TIME, MODE, QUERY_FACILITY, CMD, ROWS_FETCHED, CPU_USED,
+  CANCELED_IND, RG_NAME, SCHED, CHECK_INT, CPU_PROMPT, CPU_CANCEL,
+  ROW_PROMPT, ROW_CANCEL, SQLCMDS, QMFCMDS, PARENT, CHILD, QCE,
+  ELAPSED, INVOKER, CONSOLIDATED, SQL
+  FROM PTI.PTI_PQT_LOG
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 140       'UNLOAD TABLE PTI.PTI_PQT_LOG'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTI$PQT$.SUMMARY.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT LOCATION, OWNER, "NAME", "TYPE", MODE, QUERY_FACILITY,
+  DATE, TIME, USERID, TOT_ROWS, TOT_CPUS, TOT_RUNS, TOT_CANCELS,
+  MIN_ROWS, MAX_ROWS, MIN_CPUS, MAX_CPUS, MIN_QCE, MAX_QCE,
+  TOT_ELAPSED, MIN_ELAPSED, MAX_ELAPSED, TOT_QCE
+  FROM PTI.PTI_PQT_SUMMARY
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 145       'UNLOAD TABLE PTI.PTI_PQT_SUMMARY'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTI$QQF$.REG$TABL.E.DATA')                         +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT PROGRAM_NAME, PLAN_NAME, REPT_NAME, CREATOR, OWNER,
+  BIND_OWNER, RESTRICTED, STATE, SOURCE_LIB, LOAD_LIB, DBRM_LIB,
+  SOURCE_MEMBER, LOAD_MEMBER, DBRM_MEMBER, REPORT_TYPE,
+  CICS_XACTION, REPT_ORIGIN, OBJ_ORIGIN, QMF_QUERY_NAME,
+  QMF_FORM_NAME, QMF_PROC_NAME, NUM_SUB_PGMS, SPILL_CNT, REPT_CNT,
+  TURBO_SORT, DYN_SQL, REXX_DEP, HOST_VAR, COB_LANG, STR_DELIM,
+  ADV_OPTION, COMP_OPTIONS, LINK_OPTIONS, COB2_AMODE,
+  BIND_OPTIONS, QQF_VERS, QMF_VERS, QQFTPRE, TRIAL_EXP, PUC_IND,
+  CAF_IND, REMARKS, TIMEST, PREC_OPTIONS
+  FROM PTI.PTI_QQF_REG_TABLE
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 150       'UNLOAD TABLE PTI.PTI_QQF_REG_TABLE'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTLOG$BA.CKUP$020.#2.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT FILENAME, BACK_DATE, BACK_TIME, START_DATE, STOP_DATE,
+  LOG_ID, TV, TVN, TVQ, TS, TSN, TSQ, PK, PKN, PKQ, CL, CLN, DB,
+  DBN, PL, PLN, SY, SYN, BP, BPN, SG, SGN, RECTOTAL, FILENAM2
+  FROM PTI.PTLOG_BACKUP_0202
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 155       'UNLOAD TABLE PTI.PTLOG_BACKUP_0202'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTLOG$BA.CKUP2$02.#02.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT FILENAME, BACK_DATE, BACK_TIME, START_DATE, STOP_DATE,
+  GRANTOR, GRANTEE, GRS_DATA, SRS_DATA, CAT_DATA, TV, TVN, TVQ,
+  TS, TSN, TSQ, PK, PKN, PKQ, CL, CLN, DB, DBN, PL, PLN, SY, SYN,
+  BP, BPN, SG, SGN, GRSTOTAL, SRSTOTAL, CATTOTAL
+  FROM PTI.PTLOG_BACKUP2_0202
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 160       'UNLOAD TABLE PTI.PTLOG_BACKUP2_0202'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTLOG$CT.STATS$02.#06.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(9,7)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RACS_OBJECT, RACS_USERID, RACS_DATA, RACS_PART,
+  RACS_LAST_UDATE_D, RACS_LAST_UTIME_D, RACS_STATUS
+  FROM PTI.PTLOG_CTSTATS_0206
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 165       'UNLOAD TABLE PTI.PTLOG_CTSTATS_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTLOG$DA.STATS$02.#06.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(9,7)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RAST_SYSID, RAST_COUNT, RAST_TIMESTAMP, RAST_LOGID,
+  RAST_DATASET, RAST_TIMESTAMP_D, RAST_FROM_DATE_D, RAST_TO_DATE_D
+  FROM PTI.PTLOG_DASTATS_0206
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 170       'UNLOAD TABLE PTI.PTLOG_DASTATS_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTLOG$MA.IN$0102.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT LOG_USER, LOG_TIMESTAMP, LOG_ID, LOG_CREATOR, LOG_OBJECT,
+  LOG_TYPE, LOG_FUNCTION
+  FROM PTI.PTLOG_MAIN_0102
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 175       'UNLOAD TABLE PTI.PTLOG_MAIN_0102'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTLOG$RD.AMSG$020.#6.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(9,7)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RAEX_USERID, RAEX_TIMESTAMP, RAEX_SYSID, RAEX_MESSAGE,
+  RAEX_MAPID, RAEX_DISP, RAEX_PAGE, RAEX_SEQ, RAEX_TIMESTAMP_D,
+  RAEX_STATUS
+  FROM PTI.PTLOG_RDAMSG_0206
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 180       'UNLOAD TABLE PTI.PTLOG_RDAMSG_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTLOG$SE.C$0102.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT LOG_USER, LOG_TIMESTAMP, LOG_GRANTEE, LOG_GRANTOR,
+  LOG_AUTHORIZATION, LOG_COLUMN
+  FROM PTI.PTLOG_SEC_0102
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 185       'UNLOAD TABLE PTI.PTLOG_SEC_0102'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTMG1$ST.RAT$0200.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_CREATOR, STRATEGY_NAME, SEQUENCE_FIELD,
+  INTERNAL_TYPE, "DATA"
+  FROM PTI.PTMG1_STRAT_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 190       'UNLOAD TABLE PTI.PTMG1_STRAT_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTMG2$AL.TER$0200.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_CREATOR, STRATEGY_NAME, OBJECT_CREATOR,
+  OBJECT_NAME, OBJECT_TYPE, SEQUENCE_FIELD, INTERNAL_TYPE, "DATA"
+  FROM PTI.PTMG2_ALTER_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 195       'UNLOAD TABLE PTI.PTMG2_ALTER_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTMG4$RU.LES$0300.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "NAME", DESC, CREATOR, SHARE_OPT, SSID, UPDT_USER,
+  UPDT_DATE, UPDT_TIME, RULES
+  FROM PTI.PTMG4_RULES_0300
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 200       'UNLOAD TABLE PTI.PTMG4_RULES_0300'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTMG5$GL.OBAL$040.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT CREATOR, "NAME", NODE_TYPE, SEGMENT
+  FROM PTI.PTMG5_GLOBAL_0400
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 205       'UNLOAD TABLE PTI.PTMG5_GLOBAL_0400'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTMG7$GR.OUP$0400.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT CREATOR, "NAME", INTERNAL_TYPE, "DATA"
+  FROM PTI.PTMG7_GROUP_0400
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 210       'UNLOAD TABLE PTI.PTMG7_GROUP_0400'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTMG8$OU.TPUT$040.#1.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_CREATOR, STRATEGY_NAME, ANALYSIS_USERID,
+  ANALYSIS_TIMESTAMP, INTERNAL_TYPE, SEQUENCE_FIELD, "DATA"
+  FROM PTI.PTMG8_OUTPUT_0401
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 215       'UNLOAD TABLE PTI.PTMG8_OUTPUT_0401'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTMG9$MA.SK$0510.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT CREATOR, "NAME", NODE_TYPE, NODE_SEQ, SEGMENT
+  FROM PTI.PTMG9_MASK_0510
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 220       'UNLOAD TABLE PTI.PTMG9_MASK_0510'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTMOD$UT.LSYM$040.#1.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT MODEL_ID, MODEL_CREATOR, MODEL_PRODUCT_CODE,
+  SEQUENCE_FIELD, INTERNAL_TYPE, "DATA"
+  FROM PTI.PTMOD_UTLSYM_0401
+  ORDER BY MODEL_ID , MODEL_PRODUCT_CODE , SEQUENCE_FIELD
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 225       'UNLOAD TABLE PTI.PTMOD_UTLSYM_0401'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTOA$COL.UMN$0102.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT COLUMN_STMT_GRP_ID, COLUMN_STMT_SRC_ID, COLUMN_STMT_ID,
+  COLUMN_OBJECT_ID, COLUMN_SEQNO, COLUMN_NAME, COLUMN_DEP0,
+  COLUMN_DEP1, COLUMN_DEP2, COLUMN_DEP3, COLUMN_PREDNO, COLUMN_OP,
+  COLUMN_INDEXABLE, COLUMN_SARGABLE, COLUMN_JOIN, COLUMN_BASE,
+  COLUMN_NOT, COLUMN_DEP4, COLUMN_CASE, COLUMN_CASENO,
+  COLUMN_FUNC, COLUMN_FUNC_OWNER, COLUMN_FUNC_PARMS
+  FROM PTI.PTOA_COLUMN_0102
+  ORDER BY COLUMN_STMT_GRP_ID , COLUMN_STMT_SRC_ID ,
+  COLUMN_STMT_ID , COLUMN_OBJECT_ID , COLUMN_SEQNO , COLUMN_NAME
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 230       'UNLOAD TABLE PTI.PTOA_COLUMN_0102'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTOA$IAW.SET$0101.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT IAWSET_NAME, IAWSET_CREATOR, IAWSET_USER, IAWSET_SHARE,
+  IAWSET_DESCR, IAWSET_SEQNO, IAWSET_TIME, IAWSET_DATE,
+  IAWSET_DATA
+  FROM PTI.PTOA_IAWSET_0101
+  ORDER BY IAWSET_NAME , IAWSET_SEQNO
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 235       'UNLOAD TABLE PTI.PTOA_IAWSET_0101'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTOA$OBJ.ECT$0102.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT OBJECT_STMT_GRP_ID, OBJECT_STMT_SRC_ID, OBJECT_STMT_ID,
+  OBJECT_ID, OBJECT_TYPE, OBJECT_LOCATION, OBJECT_CREATOR,
+  OBJECT_NAME, OBJECT_CORREL, OBJECT_FULLSEL, OBJECT_SUBSEL,
+  OBJECT_VIEWNO, OBJECT_DBNAME, OBJECT_TSNAME
+  FROM PTI.PTOA_OBJECT_0102
+  ORDER BY OBJECT_STMT_GRP_ID , OBJECT_STMT_SRC_ID ,
+  OBJECT_STMT_ID , OBJECT_ID
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 240       'UNLOAD TABLE PTI.PTOA_OBJECT_0102'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTOA$SRC.LIST$010.#1.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SRCLIST_NAME, SRCLIST_CREATOR, SRCLIST_USER,
+  SRCLIST_SHARE, SRCLIST_DESCR, SRCLIST_SEQNO, SRCLIST_TIME,
+  SRCLIST_DATE, SRCLIST_DATA
+  FROM PTI.PTOA_SRCLIST_0101
+  ORDER BY SRCLIST_NAME , SRCLIST_SEQNO
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 245       'UNLOAD TABLE PTI.PTOA_SRCLIST_0101'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTOA$STR.ATEGY$01.#01.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_NAME, STRATEGY_VERSION, STRATEGY_CREATOR,
+  STRATEGY_USER, STRATEGY_SHARE, STRATEGY_DESCR, STRATEGY_SEQNO,
+  STRATEGY_TIME, STRATEGY_DATE, STRATEGY_DATA
+  FROM PTI.PTOA_STRATEGY_0101
+  ORDER BY STRATEGY_NAME , STRATEGY_CREATOR , STRATEGY_VERSION ,
+  STRATEGY_SEQNO
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 250       'UNLOAD TABLE PTI.PTOA_STRATEGY_0101'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPA$ES$.CATST$02.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "NAME", CREATOR, VERSION, SOURCENO, "TYPE", SEQNO, CARD
+  FROM PTI.PTPA_ES_CATST_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 255       'UNLOAD TABLE PTI.PTPA_ES_CATST_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPA$ES$.EXPL$020.#1.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT EXPL_GROUP_ID, SRC_ID, STMT_ID, SSID, SEQNO, QBLOCKNO,
+  PLANNO, METHOD, CREATOR, TNAME, TABNO, ACCESSTYPE, MATCHCOLS,
+  ACCESSCREATOR, ACCESSNAME, INDEXONLY, SORTN_UNIQ, SORTN_JOIN,
+  SORTN_ORDERBY, SORTN_GROUPBY, SORTC_UNIQ, SORTC_JOIN,
+  SORTC_ORDERBY, SORTC_GROUPBY, TSLOCKMODE, TIMESTAMP, PREFETCH,
+  COLUMN_FN_EVAL, MIXOPSEQ, "PLAN", LOCATION, "COLLID", DBRM,
+  STMTNO, EXPL_START, EXPL_FINISH, EXPL_SQLCODE, TIMERONS,
+  PREP_SQLCODE, STMTTYPE_FLAG, SRCTYPE_FLAG, VERSION,
+  ACCESS_DEGREE, ACCESS_PGROUP, JOIN_DEGREE, JOIN_PGROUP,
+  SORTC_PGROUP, SORTN_PGROUP, PARALLELISM_MODE, MERGE_JOIN_COLS,
+  CORRELATION_NAME, PAGE_RANGE, JOIN_TYPE, GROUP_MEMBER,
+  WHEN_OPTIMIZE, QBLOCK_TYPE, BIND_TIME, OPTHINT, HINT_USED,
+  PRIMARY_ACCESSTYPE
+  FROM PTI.PTPA_ES_EXPL_0201
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 260       'UNLOAD TABLE PTI.PTPA_ES_EXPL_0201'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPA$ES$.EXSRC$02.#01.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "NAME", CREATOR, VERSION, SOURCENO, "RELEASE", HVERSION,
+  DATA_MAIN, DATA_ESTATS, DATA_FILTERS
+  FROM PTI.PTPA_ES_EXSRC_0201
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 265       'UNLOAD TABLE PTI.PTPA_ES_EXSRC_0201'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPA$ES$.IMSQL$02.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "NAME", CREATOR, VERSION, SOURCENO, SEQNO, CARD
+  FROM PTI.PTPA_ES_IMSQL_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 270       'UNLOAD TABLE PTI.PTPA_ES_IMSQL_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPA$ES$.RETXT$01.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT REC_NUMBER, REC_TEXT
+  FROM PTI.PTPA_ES_RETXT_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 275       'UNLOAD TABLE PTI.PTPA_ES_RETXT_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPA$ES$.RULES$01.#07.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SSID, RULESET, DB2V, RULE_NUMBER, ACTIVE_FLAG,
+  THRESHOLD_FLAG, THRESHOLD_1, THRESHOLD_2, THRESHOLD_3,
+  THRESHOLD_4, THRESHOLD_5, THRESHOLD_6, NOTIFY_OPTION
+  FROM PTI.PTPA_ES_RULES_0107
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 280       'UNLOAD TABLE PTI.PTPA_ES_RULES_0107'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPA$ES$.RULID$01.#07.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SSID, RULESET, DB2V, CREATOR, DESCRIPTION, SHARE_OPTION,
+  UPDATE_USER, UPDATE_DATE, UPDATE_TIME, NOTIFY_USER
+  FROM PTI.PTPA_ES_RULID_0107
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 285       'UNLOAD TABLE PTI.PTPA_ES_RULID_0107'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPA$ES$.RUTXT$01.#07.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RULE_NUMBER, RULE_TEXT
+  FROM PTI.PTPA_ES_RUTXT_0107
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 290       'UNLOAD TABLE PTI.PTPA_ES_RUTXT_0107'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPA$ES$.RU2RE$01.#07.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(8,6)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RULE_NUMBER, DB2V, REC_NUMBER
+  FROM PTI.PTPA_ES_RU2RE_0107
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 295       'UNLOAD TABLE PTI.PTPA_ES_RU2RE_0107'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPA$ES$.STRAT$02.#01.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "NAME", CREATOR, VERSION, DESCRIPTION, "TYPE", DB_OPTION,
+  SHARE_OPTION, CREATE_USER, CREATE_DATE, CREATE_TIME,
+  UPDATE_USER, UPDATE_DATE, UPDATE_TIME, PRIMARY_AUTHID,
+  SECONDARY_AUTHID, SQL_QUALIFIER_ID, SQL_QUALIFIER_OV,
+  PLANTAB_OPTION, VIEW_QUALIFIER_ID, VIEW_QUALIFIER_OV, PROFILE,
+  PROFILE_SSID, GROUP_ID, PGI, OPTHINT, PATHSCHEMAS
+  FROM PTI.PTPA_ES_STRAT_0201
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 300       'UNLOAD TABLE PTI.PTPA_ES_STRAT_0201'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPA$ES$.VOUTP$02.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "NAME", CREATOR, VERSION, SEQNO, "TYPE", OUTPUT
+  FROM PTI.PTPA_ES_VOUTP_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 305       'UNLOAD TABLE PTI.PTPA_ES_VOUTP_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPA$EXC.PT$0201.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT EXCPT_GROUP_ID, EXCPT_SRC_ID, EXCPT_STMT_ID,
+  EXCPT_RULESET, EXCPT_RULESSID, EXCPT_TARG_SSID, EXCPT_PHY_RULES,
+  EXCPT_SQL_RULES, EXCPT_PRED_RULES
+  FROM PTI.PTPA_EXCPT_0201
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 310       'UNLOAD TABLE PTI.PTPA_EXCPT_0201'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPA$PRO.CD$0200.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "PROCEDURE", AUTHID, LUNAME, LOADMOD, LINKAGE, "COLLID",
+  "LANGUAGE", "ASUTIME", STAYRESIDENT, IBMREQD, STATUS,
+  UPDATE_USER, UPDATE_DATE, UPDATE_TIME, RESULT_SETS, WLM_ENV,
+  PGM_TYPE, EXTERNAL_SECURITY, COMMIT_ON_RETURN, RUNOPTS, PARMLIST
+  FROM PTI.PTPA_PROCD_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 315       'UNLOAD TABLE PTI.PTPA_PROCD_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPK1$CO.LLECT$01.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT COLLECTION_CREATOR, COLLECTION_NAME, SEQUENCE_FIELD,
+  INTERNAL_TYPE, "DATA"
+  FROM PTI.PTPK1_COLLECT_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 320       'UNLOAD TABLE PTI.PTPK1_COLLECT_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPK1$RE.TENT$010.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RETENT_CREATOR, RETENT_NAME, SEQUENCE_FIELD,
+  INTERNAL_TYPE, "DATA"
+  FROM PTI.PTPK1_RETENT_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 325       'UNLOAD TABLE PTI.PTPK1_RETENT_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPLA$DD.LMAP$010.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT USERID, MAP_NAME, SEQ_NO, DSNAME, MEMBER, DESCRIPTION,
+  SHARE, VERSION, MAP_DATA
+  FROM PTI.PTPLA_DDLMAP_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 330       'UNLOAD TABLE PTI.PTPLA_DDLMAP_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPLA$FO.RM$0102.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT FORM_CREATOR, FORM_NAME, INTERNAL_TYPE, SEQUENCE_FIELD,
+  VERSION, "DATA"
+  FROM PTI.PTPLA_FORM_0102
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 335       'UNLOAD TABLE PTI.PTPLA_FORM_0102'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPLA$ST.RAT$0100.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_CREATOR, STRATEGY_NAME, TIMESTAMP,
+  INTERNAL_TYPE, SEQUENCE_FIELD, VERSION, "DATA"
+  FROM PTI.PTPLA_STRAT_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 340       'UNLOAD TABLE PTI.PTPLA_STRAT_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRF$FI.L$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "NAME", CREATOR, "TYPE", LABEL, DATA_DSN, DATA_MEMBER,
+  DESC_DSN, DESC_MEMBER, DESC_TYPE
+  FROM PTI.PTPRF_FIL_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 345       'UNLOAD TABLE PTI.PTPRF_FIL_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRF$FX.F$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT MASTER_FORM_ID, MASTER_FORM_NAME, SUB_FORM_ID,
+  SUB_FORM_NAME
+  FROM PTI.PTPRF_FXF_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 350       'UNLOAD TABLE PTI.PTPRF_FXF_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRF$LI.B$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT ID, "TYPE", "NAME", AREA_ID, CREATE_DATE, UPDATE_DATE,
+  UPDATE_ID, LAST_DATE, LAST_TIME, SHARE_CODE, DESCR, "DATA"
+  FROM PTI.PTPRF_LIB_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 355       'UNLOAD TABLE PTI.PTPRF_LIB_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRF$LN.G$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "LANGUAGE", CICS_SCREEN_DDNAME, IMS_SCREEN_DDNAME,
+  TSO_SCREEN_DDNAME, MESSAGE_MODULE, COMMAND_MODULE
+  FROM PTI.PTPRF_LNG_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 360       'UNLOAD TABLE PTI.PTPRF_LNG_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRF$PR.T$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SYSTEM_ID, PRINTER_ID, NODE_NAME, PRINTER_NAME,
+  AVAILABILITY, PRINTER_TYPE, OUTPUT_CLASS, DESCR, "DATA"
+  FROM PTI.PTPRF_PRT_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 365       'UNLOAD TABLE PTI.PTPRF_PRT_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRF$QX.F$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT QUERY_ID, QUERY_NAME, FORM_ID, FORM_NAME
+  FROM PTI.PTPRF_QXF_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 370       'UNLOAD TABLE PTI.PTPRF_QXF_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRF$ST.A$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SYSTEM_ID, QUERY_ID, QUERY_NAME, EXEC_ENV_TYPE,
+  MODULE_NAME, GEN_ENV_TYPE, ENABLE_FLAG
+  FROM PTI.PTPRF_STA_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 375       'UNLOAD TABLE PTI.PTPRF_STA_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRF$ST.R$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT ID, "TYPE", "NAME", STRUC_TYPE, STRUC_INDEX, SEQUENCE,
+  "DATA"
+  FROM PTI.PTPRF_STR_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 380       'UNLOAD TABLE PTI.PTPRF_STR_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRF$UX.P$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT USER_ID, USER_TYPE, SYSTEM_ID, PRINTER_ID, DEFAULT_IND
+  FROM PTI.PTPRF_UXP_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 385       'UNLOAD TABLE PTI.PTPRF_UXP_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRF$VA.R$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT USER_ID, SYSTEM_ID, VAR_NAME, DEFAULT_VALUE,
+  CURRENT_VALUE
+  FROM PTI.PTPRF_VAR_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 390       'UNLOAD TABLE PTI.PTPRF_VAR_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRI$SY.SCOLS$01.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "NAME", TBNAME, TBCREATOR, COLNO, COLTYPE, LENGTH, SCALE,
+  NULLS, UPDATES, "DEFAULT", KEYSEQ, LENGTH2, TYPESCHEMA, TYPENAME
+  FROM PTI.PTPRI_SYSCOLS_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 395       'UNLOAD TABLE PTI.PTPRI_SYSCOLS_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRI$SY.SFKEY$01.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT CREATOR, TBNAME, RELNAME, COLNAME, COLNO, COLSEQ
+  FROM PTI.PTPRI_SYSFKEY_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 400       'UNLOAD TABLE PTI.PTPRI_SYSFKEY_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRI$SY.SINDX$01.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "NAME", CREATOR, TBNAME, TBCREATOR
+  FROM PTI.PTPRI_SYSINDX_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 405       'UNLOAD TABLE PTI.PTPRI_SYSINDX_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRI$SY.SKEYS$01.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT IXNAME, IXCREATOR, COLNAME, COLNO, COLSEQ
+  FROM PTI.PTPRI_SYSKEYS_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 410       'UNLOAD TABLE PTI.PTPRI_SYSKEYS_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPRI$SY.SRELS$01.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT CREATOR, TBNAME, RELNAME, REFTBNAME, REFTBCREATOR,
+  COLCOUNT, DELETERULE, GROUP_NAME, STATUS, FLAG1, IXOWNER, IXNAME
+  FROM PTI.PTPRI_SYSRELS_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 415       'UNLOAD TABLE PTI.PTPRI_SYSRELS_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPS$MAS.KS$0200.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT MASK_NAME, MASK_CREATOR, MASK_PRODUCT, MASK_VERSION,
+  MASK_TYPE, MASK_OLDMASKLONG, MASK_OLDMASKSHRT, MASK_NEWMASKLONG,
+  MASK_NEWMASKSHRT, MASK_SSID, MASK_LOCATION, MASK_STATUS,
+  MASK_PRODV
+  FROM PTI.PTPS_MASKS_0200
+  ORDER BY MASK_NAME , MASK_CREATOR , MASK_PRODUCT , MASK_VERSION
+  , MASK_TYPE
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 420       'UNLOAD TABLE PTI.PTPS_MASKS_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPS$OBJ.ECTS$020.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(17,13)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT OBJ_NAME, OBJ_CREATOR, OBJ_PRODUCT, OBJ_VERSION,
+  OBJ_TYPE, OBJ_GROUP, OBJ_OBJECT, OBJ_STATUS, OBJ_PRODV
+  FROM PTI.PTPS_OBJECTS_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 425       'UNLOAD TABLE PTI.PTPS_OBJECTS_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPS$STA.TS$0200.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STS_NAME, STS_CREATOR, STS_PRODUCT, STS_VERSION,
+  STS_SEQNO, STS_PRODV, STS_MAIN_DATA, STS_OLD_DATA, STS_NEW_DATA
+  FROM PTI.PTPS_STATS_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 430       'UNLOAD TABLE PTI.PTPS_STATS_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTPS$STR.AT$0200.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STR_NAME, STR_CREATOR, STR_PRODUCT, STR_VERSION,
+  STR_OLD_VERSION, STR_USERID, STR_TYPE, STR_STATUS,
+  STR_TARGET_SSID, STR_TARGET_LOC, STR_SOURCE_SSID,
+  STR_SOURCE_LOC, STR_DESCRIPTION, STR_ETIME, STR_SHARE_OPTION,
+  STR_ACM, STR_ACM_ID, STR_QUALIFIER, STR_TSPCTFREE,
+  STR_TSPAGEFREE, STR_IXPCTFREE, STR_IXPAGEFREE, STR_SEGSIZE,
+  STR_COLCARD, STR_SYSDBASE, STR_SYSSTATS, STR_OPTIMIZE,
+  STR_COLGROWTH, STR_COLGROWTHNUM, STR_RECALC, STR_MULTIPLIER,
+  STR_PRODV
+  FROM PTI.PTPS_STRAT_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 435       'UNLOAD TABLE PTI.PTPS_STRAT_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTQRF$HS.T$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT EXEC_ENV, MODULE_ID, MODULE_NAME, VAR_NAME, VAR_CATEGORY,
+  VAR_PRECISION, VAR_SCALE, DEFAULT_VALUE
+  FROM PTI.PTQRF_HST_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 440       'UNLOAD TABLE PTI.PTQRF_HST_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTQRF$JO.B$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT USER_ID, CARD_NO, CARD_TEXT
+  FROM PTI.PTQRF_JOB_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 445       'UNLOAD TABLE PTI.PTQRF_JOB_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTQRF$KE.Y$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT USER_ID, SCREEN_NO, KEY_01, KEY_02, KEY_03, KEY_04,
+  KEY_05, KEY_06, KEY_07, KEY_08, KEY_09, KEY_10, KEY_11, KEY_12,
+  KEY_13, KEY_14, KEY_15, KEY_16, KEY_17, KEY_18, KEY_19, KEY_20,
+  KEY_21, KEY_22, KEY_23, KEY_24
+  FROM PTI.PTQRF_KEY_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 450       'UNLOAD TABLE PTI.PTQRF_KEY_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTQRF$MO.D$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT EXEC_ENV, MODULE_ID, MODULE_NAME, ATTACH_FACILITY,
+  PROGRAM_NAME, SUBSYSTEM_ID, PLAN_NAME, TRAN_NAME, PROGRAM_TYPE,
+  QRF_VERSION, OBJECT_TYPE, OBJECT_ID, OBJECT_NAME, SOURCE_LIB,
+  DBRM_LIB, LOAD_LIB, DESC
+  FROM PTI.PTQRF_MOD_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 455       'UNLOAD TABLE PTI.PTQRF_MOD_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTQRF$RG.N$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "TYPE", ID, SYSTEM_ID, CREATOR_ID, CREATE_DATE,
+  UPDATOR_ID, UPDATE_DATE, DESC, PRF_VERSION, PRF_RELEASE,
+  PRF_PLAN, DB2_SYSID, ONLINE_PLAN, COMP_DELIM_IND, COMP_ADV_FLAG,
+  COMP_DEC_PT, COMP_CURR_SYM, MODEL_LIB, CICS_DYN_FLAG, FLAGS
+  FROM PTI.PTQRF_RGN_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 460       'UNLOAD TABLE PTI.PTQRF_RGN_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTQRF$US.R$0402.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "TYPE", ID, GROUP_ID, CREATOR_ID, CREATE_DATE,
+  UPDATOR_ID, UPDATE_DATE, DESC, RPT_WIDTH, RPT_DEPTH, RPT_DATE,
+  RPT_TIME, DATE_FORMAT, DISK_UNIT, PRF_QUERY_DSN, PRF_FORM_DSN,
+  BATCH_INFO_DSN, BATCH_REPORT_DSN, FLAGS, BATCH_SRCLIB,
+  BATCH_DBRMLIB, BATCH_LOADLIB, CICS_SRCLIB, CICS_DBRMLIB,
+  CICS_LOADLIB, TSO_SRCLIB, TSO_DBRMLIB, TSO_LOADLIB,
+  TRAN_OPTIONS, PREC_OPTIONS, COMP_OPTIONS, LINK_OPTIONS,
+  BIND_OPTIONS
+  FROM PTI.PTQRF_USR_0402
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 465       'UNLOAD TABLE PTI.PTQRF_USR_0402'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$ARC.HIVE$030.#1.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT ARCHIVE_LOG_SSID, ARCHIVE_LOG_DSN, ARCHIVE_LOG_ENDTME,
+  ARCHIVE_LOG_DATA
+  FROM PTI.PTRA_ARCHIVE_0301
+  ORDER BY ARCHIVE_LOG_SSID , ARCHIVE_LOG_DSN
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 470       'UNLOAD TABLE PTI.PTRA_ARCHIVE_0301'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$DR$.RVSRC$03.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_NAME, STRATEGY_CREATOR, INTERNAL_TYPE,
+  SEQUENCE_FIELD, BACKUP_TYPE, "DATA"
+  FROM PTI.PTRA_DR_RVSRC_0300
+  ORDER BY STRATEGY_NAME , STRATEGY_CREATOR , BACKUP_TYPE ,
+  SEQUENCE_FIELD , INTERNAL_TYPE
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 475       'UNLOAD TABLE PTI.PTRA_DR_RVSRC_0300'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$DR$.STRAT$03.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_NAME, STRATEGY_CREATOR, INTERNAL_TYPE,
+  SEQUENCE_FIELD, DATASET_NAME, "DATA"
+  FROM PTI.PTRA_DR_STRAT_0300
+  ORDER BY STRATEGY_NAME , STRATEGY_CREATOR , SEQUENCE_FIELD ,
+  INTERNAL_TYPE
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 480       'UNLOAD TABLE PTI.PTRA_DR_STRAT_0300'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$DR$.TAPES$03.#01.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(4,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT TAPE_VOLUME_SER, TAPE_FILE_SEQ, TAPE_DATASET_NAME,
+  TAPE_TIMESTAMP
+  FROM PTI.PTRA_DR_TAPES_0301
+  ORDER BY TAPE_VOLUME_SER , TAPE_FILE_SEQ
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 485       'UNLOAD TABLE PTI.PTRA_DR_TAPES_0301'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$DR$.TYPES$03.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(4,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT DR_RECOVERY_TYPE, DR_BACKUP_TYPE, DR_SEQUENCE_FIELD,
+  DR_BACKUP_DESC, DR_BACKUP_QUAL
+  FROM PTI.PTRA_DR_TYPES_0300
+  ORDER BY DR_RECOVERY_TYPE , DR_BACKUP_TYPE , DR_SEQUENCE_FIELD
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 490       'UNLOAD TABLE PTI.PTRA_DR_TYPES_0300'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$DR$.VOLXR$03.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(9,7)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT VOL_XREF_NAME, VOL_OLD_VOLSER, VOL_NEW_VOLSER
+  FROM PTI.PTRA_DR_VOLXR_0300
+  ORDER BY VOL_XREF_NAME , VOL_OLD_VOLSER
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 495       'UNLOAD TABLE PTI.PTRA_DR_VOLXR_0300'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$DR$.VOLXS$03.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(4,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT VOL_XREF_NAME, VOL_XREF_LAST_USER, VOL_XREF_DESC,
+  VOL_XREF_LAST_DATE, VOL_XREF_LAST_TIME
+  FROM PTI.PTRA_DR_VOLXS_0300
+  ORDER BY VOL_XREF_NAME
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 500       'UNLOAD TABLE PTI.PTRA_DR_VOLXS_0300'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$IDX.$0102.DATA')                              +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT VCATNAME, DBNAME, INDEXSPACE, IXNAME, IXCREATOR,
+  PARTITION, STORNAME, PQTY, SQTY, TBNAME, TBCREATOR,
+  INDEX_LENGTH, COPY
+  FROM PTI.PTRA_IDX_0102
+  ORDER BY TBCREATOR , TBNAME , PARTITION
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 505       'UNLOAD TABLE PTI.PTRA_IDX_0102'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$PRO.FILE$030.#1.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT PROFILE_USERID, PROFILE_TYPE, PROFILE_DATA
+  FROM PTI.PTRA_PROFILE_0301
+  ORDER BY PROFILE_USERID , PROFILE_TYPE
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 510       'UNLOAD TABLE PTI.PTRA_PROFILE_0301'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$RS$.RVSRC$02.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_NAME, STRATEGY_CREATOR, SEQUENCE_FIELD,
+  INTERNAL_TYPE, "DATA"
+  FROM PTI.PTRA_RS_RVSRC_0200
+  ORDER BY STRATEGY_NAME , STRATEGY_CREATOR , SEQUENCE_FIELD ,
+  INTERNAL_TYPE
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 515       'UNLOAD TABLE PTI.PTRA_RS_RVSRC_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$RS$.STRAT$02.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_NAME, STRATEGY_CREATOR, SEQUENCE_FIELD,
+  INTERNAL_TYPE, STRATEGY_FOR_JOB, STRATEGY_FOR_STEP,
+  STRATEGY_FOR_PROC, DATASET_NAME, "DATA"
+  FROM PTI.PTRA_RS_STRAT_0200
+  ORDER BY STRATEGY_NAME , STRATEGY_CREATOR , SEQUENCE_FIELD ,
+  INTERNAL_TYPE
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 520       'UNLOAD TABLE PTI.PTRA_RS_STRAT_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$SS$.RVSRC$03.#01.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_NAME, STRATEGY_CREATOR, SEQUENCE_FIELD,
+  INTERNAL_TYPE, "DATA"
+  FROM PTI.PTRA_SS_RVSRC_0301
+  ORDER BY STRATEGY_NAME , STRATEGY_CREATOR , SEQUENCE_FIELD ,
+  INTERNAL_TYPE
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 525       'UNLOAD TABLE PTI.PTRA_SS_RVSRC_0301'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$SS$.STRAT$03.#01.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT STRATEGY_NAME, STRATEGY_CREATOR, SEQUENCE_FIELD,
+  INTERNAL_TYPE, DATASET_NAME, "DATA"
+  FROM PTI.PTRA_SS_STRAT_0301
+  ORDER BY STRATEGY_NAME , STRATEGY_CREATOR , SEQUENCE_FIELD ,
+  INTERNAL_TYPE
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 530       'UNLOAD TABLE PTI.PTRA_SS_STRAT_0301'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$SYS.COPY$030.#1.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT DBNAME, TSNAME, DSNUM, START_RBA, ICTYPE, DSNAME,
+  DEVTYPE, FILESEQNO, TIMESTAMP, ICBACKUP, UTILITY, VENDOR,
+  FDR_GENERATION, FDR_CYCLE, BACKUP_VOLUME, DSVOLSER,
+  DEVTYPE_DISK_TAPE
+  FROM PTI.PTRA_SYSCOPY_0301
+  ORDER BY DBNAME , TSNAME , TIMESTAMP
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 535       'UNLOAD TABLE PTI.PTRA_SYSCOPY_0301'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$TBS.$0102.DATA')                              +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT VCATNAME, DBNAME, TSNAME, PARTITION, STORNAME, PQTY,
+  SQTY, TBNAME, TBCREATOR
+  FROM PTI.PTRA_TBS_0102
+  ORDER BY DBNAME , TSNAME , PARTITION , TBNAME , TBCREATOR
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 540       'UNLOAD TABLE PTI.PTRA_TBS_0102'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRA$VTO.C$0200.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT DBNAME, TABLE_SPACE, PARTITION_NBR, STORAGE_GROUP,
+  VCATNAME, VOLUME, FILE_SEQ_NBR, VOLUME_SEQ_NBR, TABLE_INDEX_IND,
+  PRIMARY_QTY, ALLOCATED_QTY, SECONDARY_QTY, NBR_EXTENTS,
+  TRACK_CYLINDER_IND, SMS_MANAGED, SMS_STORAGE_CLASS,
+  SMS_DATA_CLASS, SMS_MSMG_CLASS, RI_CHILD_IND, RI_PARENT_IND,
+  LAST_UPDATED, COPY, CREATOR
+  FROM PTI.PTRA_VTOC_0200
+  ORDER BY TABLE_SPACE , TABLE_INDEX_IND , DBNAME , PARTITION_NBR
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 545       'UNLOAD TABLE PTI.PTRA_VTOC_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCE$OP.TION$010.#3.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RCE_USERID, RCE_TABLE_NAME, RCE_TABLE_CREATOR,
+  RCE_WHERE_ONE, RCE_WHERE_NAME, RCE_ROW_LIMIT, RCE_INITIAL_MODE,
+  RCE_CHAR_MAX, RCE_SHOW_DELETES, RCE_DISPLAY_TYPES, RCE_TRACE_IO,
+  RCE_LOCK_TABLE, RCE_TEST_COUNT, RCE_SUMMARY, RCE_EXTENSIONS
+  FROM PTI.PTRCE_OPTION_0103
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 550       'UNLOAD TABLE PTI.PTRCE_OPTION_0103'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCQ$DE.SC$0200.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(7,5)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SUBAPPL_ID, RPT_TYPE, RPT_DESC, EQF_PANELID, RPT_DESC2
+  FROM PTI.PTRCQ_DESC_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 555       'UNLOAD TABLE PTI.PTRCQ_DESC_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCQ$SA.VED$RPTS.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(6,4)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT USERID, "TYPE", SUB_TYPE, VERSION, COL_ORDER, RPT_INFO,
+  COLNAME
+  FROM PTI.PTRCQ_SAVED_RPTS
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 560       'UNLOAD TABLE PTI.PTRCQ_SAVED_RPTS'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCS$AP.LCOL$020.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "NAME", DB2ID, DEPT, CREATOR, OBJNAME, OBJTYPE,
+  COLUMN_NAME, PENDING, AUTH
+  FROM PTI.PTRCS_APLCOL_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 565       'UNLOAD TABLE PTI.PTRCS_APLCOL_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCS$AP.LDOM$020.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "NAME", DB2ID, DEPT, QUALIFIER, OBJNAME, OBJTYPE,
+  UPDATE_USER, UPDATE_DATE, IMPLEMENTED, AUTHS, PENDING
+  FROM PTI.PTRCS_APLDOM_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 570       'UNLOAD TABLE PTI.PTRCS_APLDOM_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCS$DO.MDIR$020.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(4,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "NAME", DB2ID, DEPT, "TYPE", DESCRIPTION, LAST_UPDATE,
+  PENDING, EXEC_PROC, EXP_DATE
+  FROM PTI.PTRCS_DOMDIR_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 575       'UNLOAD TABLE PTI.PTRCS_DOMDIR_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCS$DO.MREL$020.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(4,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT USER_DOMAIN, APPL_DOMAIN, DB2ID, DEPT, PENDING,
+  UPDATE_USER, UPDATE_DATE, IMPLEMENTED, EXP_DATE
+  FROM PTI.PTRCS_DOMREL_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 580       'UNLOAD TABLE PTI.PTRCS_DOMREL_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCS$DP.TCOL$020.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(4,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT DB2ID, DEPT, CREATOR, OBJNAME, OBJTYPE, COLUMN_NAME, AUTH
+  FROM PTI.PTRCS_DPTCOL_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 585       'UNLOAD TABLE PTI.PTRCS_DPTCOL_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCS$DP.TDEF$020.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT DB2ID, DEPT, QUALIFIER, OBJNAME, OBJTYPE, UPDATE_USER,
+  UPDATE_DATE, AUTHS
+  FROM PTI.PTRCS_DPTDEF_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 590       'UNLOAD TABLE PTI.PTRCS_DPTDEF_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCS$ER.RPRC$020.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT ERR_DATE, ERR_TIME, AUTH_ID, DOM_DB2ID, DOM_DEPT,
+  DOM_TYPE, APPL_DOM, USER_DOM, EPROC_DOM, EPROC_TYPE, SEQ_NUM,
+  EXEC_PROC, ERROR_MSG, STATUS
+  FROM PTI.PTRCS_ERRPRC_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 595       'UNLOAD TABLE PTI.PTRCS_ERRPRC_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCS$EX.CPRC$020.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "NAME", DB2ID, DEPT, "TYPE", RETRO, EXEC_TIME, FILENAME,
+  IMPLEMT_DATE
+  FROM PTI.PTRCS_EXCPRC_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 600       'UNLOAD TABLE PTI.PTRCS_EXCPRC_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCS$PR.ISEC$020.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(7,5)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT DB2ID, PRIMARY_ID, SECONDARY_ID, ADD_DATE, DELETE_DATE
+  FROM PTI.PTRCS_PRISEC_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 605       'UNLOAD TABLE PTI.PTRCS_PRISEC_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCS$US.RDOM$020.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT "NAME", DB2ID, DEPT, AUTHID, DESCRIPTION, PENDING,
+  UPDATE_USER, UPDATE_DATE, IMPLEMENTED
+  FROM PTI.PTRCS_USRDOM_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 610       'UNLOAD TABLE PTI.PTRCS_USRDOM_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCS$US.RREG$020.#0.DATA')                        +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(6,4)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT DB2ID, DEPT, AUTHID, UD_ALLOW, DOMAIN_ADMIN, DEPT_ADMIN,
+  USER_ADMIN, UPDATE_USER, UPDATE_DATE
+  FROM PTI.PTRCS_USRREG_0200
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 615       'UNLOAD TABLE PTI.PTRCS_USRREG_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCX$SR.CDEF$REG.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SRCDEF_CREATOR, SRCDEF_NAME, SRCDEF_SSID, SEQUENCE_FIELD,
+  INTERNAL_TYPE, EXPANSION, "DATA"
+  FROM PTI.PTRCX_SRCDEF_REG
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 620       'UNLOAD TABLE PTI.PTRCX_SRCDEF_REG'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRCX$TR.GDEF$REG.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT TRGDEF_CREATOR, TRGDEF_NAME, TRGDEF_SSID, EXTOBJ_DSN,
+  SEQUENCE_FIELD, INTERNAL_TYPE, EXPANSION, "DATA"
+  FROM PTI.PTRCX_TRGDEF_REG
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 625       'UNLOAD TABLE PTI.PTRCX_TRGDEF_REG'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRI$PSF.KEY$0100.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(7,5)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT CREATOR, COLNO, COLSEQ, TBNAME, COLNAME
+  FROM PTI.PTRI_PSFKEY_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 630       'UNLOAD TABLE PTI.PTRI_PSFKEY_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRI$PSS.YSCOL$01.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(7,5)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT TBCREATOR, COLNO, KEYSEQ, "NAME", TBNAME
+  FROM PTI.PTRI_PSSYSCOL_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 635       'UNLOAD TABLE PTI.PTRI_PSSYSCOL_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTRU2$DR.OPR$0202.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT DROP_DATE, DROP_TIME, DROPPEDBY_USERID, OBJECT_CREATOR,
+  OBJECT_NAME, OBJECT_TYPE, SEQUENCE_FIELD, INTERNAL_TYPE, "DATA"
+  FROM PTI.PTRU2_DROPR_0202
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 640       'UNLOAD TABLE PTI.PTRU2_DROPR_0202'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTSA$BP$.#0200.DATA')                              +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SSID, INTERVAL_START, INTERVAL_END, BPID, HEX_BPID,
+  ELAPSE_TIME, ITIM, VP_SIZE, HP_SIZE, WPHV_ADDR, VP_SEQ_THR,
+  HP_SEQ_THR, DEFER_W_THR, VDEFER_W_THR, IOP_SEQ_THR, GETPAGE,
+  SYNC_RIO, VDEFER_W_THR_CNT, GPFAIL, EXPFAIL, BUF_UPDATE,
+  ASYWIO_PGS, ASYWIO, CURRACTBF, PAGING_RIO, PAGING_WIO, DSOPEN,
+  SYNCWIO, SEQ_PF_REQ, PF_PAGES, PFDISAB_NOBUF, PFDISAB_NOREE,
+  WIOENGN, DFR_W_THR_CNT, DMTH, MIGRAT, HSMTIMO, SEQ_PF_IO,
+  PFABORT, WKCREATFAIL, MAXWKFILES, DSTRCT_RPG, DFR_W_DSTRCT_RPG,
+  WF_REQ_SORT, TOT_WF_REQ_SORT, TOT_WF_DENY_SORT, SORT_DEGRADE_BF,
+  LPF_REQ, DPF_REQ, VP_EXP_COMPL, HP_EXP_COMPL, SYNC_HP_VP_RMVPG,
+  ASYN_HP_VP_RMVPG, HP_VP_RMVPG_FAIL, SYNC_HP_VP_WMVPG,
+  ASYN_HP_VP_WMVPG, HP_VP_WMVPG_FAIL, VPSIZE, HPSIZE, DPF_PGS,
+  LPF_PGS, DPF_IO, LPF_IO, GETPAGE_SQ, SYNCRIO, IOP_GPF,
+  PFSTREAM_MAX, IOP_PFF, IOP_NEGOT, IOP_PLF, PFDECR1, PFDECR2,
+  ASYN_HP_VP_RDMF, ASYN_HP_VP_RDMFF, ASYN_HP_VP_WDMF,
+  ASYN_HP_VP_WDMFF, HP_BACK_ES
+  FROM PTI.PTSA_BP_0200
+  ORDER BY BPID , SSID , INTERVAL_START
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 645       'UNLOAD TABLE PTI.PTSA_BP_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTSA$DB$.#0200.DATA')                              +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SSID, INTERVAL_START, INTERVAL_END, DBNAME, TSNAME,
+  TSBPID, TBNAME, CREATOR, ISNAME, ISBPID, DSNAM, DXNAM, TS_CNT,
+  DB_TS_DSN_CNT, DB_TS_XTNT_CNT, DB_TBL_CNT, IS_CNT, IS_DSN_CNT,
+  DB_IS_XTNT_CNT, TSTYPE, TS_TBL_CNT, TS_DSN_CNT, TS_XTNT_CNT,
+  SEG_SIZE, PART_CNT, TOT_GETPAGE, SEQ_GETPAGE, IDX_GETPAGE,
+  LNK_GETPAGE, IDX_COUNT, IDX_DSNCNT, IDX_DSNEXTCNT, TB_IDX_GETP,
+  ISTYPE, ISNAM2, DSN_CNT, IS_XTNT_CNT, ISDGP, VCAT_NAME,
+  "STOGROUP", EXTNT_CNT, FS_PCTPAGE, FS_PG_PAGE, PRI_ALLOC_UNIT,
+  SEC_ALLOC_UNIT, PRI_ALLOC_QTY, SEC_ALLOC_QTY, TSISCODE, VOLUME,
+  LOW_TTR, LOW_RBA, HI_RBA, HI_TTR, GETPAGE, SYNC_RIO, ASYN_RIO,
+  ASYN_RPG, SYNC_WIO, ASYN_WIO, ASYN_WPG, FMT_WIO, SES_WIO,
+  SYNC_HPR, ASYN_HPR
+  FROM PTI.PTSA_DB_0200
+  ORDER BY INTERVAL_START , DBNAME , TSNAME , TBNAME , CREATOR ,
+  ISNAME , DSNAM , DXNAM , SSID
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 650       'UNLOAD TABLE PTI.PTSA_DB_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTSA$VOL.$0200.DATA')                              +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SSID, INTERVAL_START, INTERVAL_END, VOLUME, UNIT,
+  VOL_TYPE, TOTAL_IO, DB2_IO, CONNECT_TIME, PEND_TIME,
+  DISCON_TIME, CURR_IO_Q_CNT, MAX_IO_Q_CNT, AVG_IO_Q_CNT,
+  IO_Q_TIME, GETPAGE, SYNC_RIO, ASYN_RIO, ASYN_RPG, SYNC_WIO,
+  ASYN_WIO, ASYN_WPG, FMT_WIO, SES_WIO, SYNC_HPR, ASYN_HPR
+  FROM PTI.PTSA_VOL_0200
+  ORDER BY SSID , INTERVAL_START , VOLUME
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 655       'UNLOAD TABLE PTI.PTSA_VOL_0200'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTSE$AD$.PREFX$01.#05.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(2,2)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT TBCREATOR, TBNAME, TBTYPE, PREFIX, CORR_NAME,
+  UPDATE_USER, UPDATE_DATE, UPDATE_TIME
+  FROM PTI.PTSE_AD_PREFX_0105
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 660       'UNLOAD TABLE PTI.PTSE_AD_PREFX_0105'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTSQL$DA.TA$0102.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SQL_TEXT_CREATOR, SQL_TEXT_NAME, SQL_PRODUCT, SQL_PANEL,
+  SQL_TABLE_CREATOR, SQL_TABLE_NAME, SQL_COLUMN_NAME,
+  SQL_CAST_INFO, SQL_ORDER_INFO, SQL_SELECT_INFO, SQL_WHERE_INFO,
+  SQL_CONJUNCTION
+  FROM PTI.PTSQL_DATA_0102
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 665       'UNLOAD TABLE PTI.PTSQL_DATA_0102'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTSQL$TE.XT$0101.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT SQL_TEXT_CREATOR, SQL_TEXT_NAME, SQL_DEFAULT, SQL_SHARE,
+  SQL_PANEL, SQL_SYSTEM, SQL_PRODUCT, SQL_QUERY_TYPE,
+  SQL_DATA_SOURCE, SQL_USE_COUNT, SQL_TABLE_CREATOR,
+  SQL_TABLE_NAME, SQL_SOURCE_SYSTEM, SQL_TARGET_SYSTEM,
+  SQL_DESCRIPTION, SQL_WHERE_TEXT, SQL_ORDER_TEXT
+  FROM PTI.PTSQL_TEXT_0101
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 670       'UNLOAD TABLE PTI.PTSQL_TEXT_0101'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTSSC$ST.RAT$0100.DATA')                           +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,10)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT DBNAME, TSIX_SPACE_NAME, OBJECT_CREATOR,
+  STRATEGY_CREATOR, "NAME", "TYPE", SEQNO, SHARE_OPTION,
+  DELETE_FLAG, PARTITION, CREATED_STAMP, ALTERED_STAMP,
+  TABLE_NAME, INDEX_NAME, SPACE_DATA
+  FROM PTI.PTSSC_STRAT_0100
+  ORDER BY DBNAME , TSIX_SPACE_NAME , OBJECT_CREATOR ,
+  STRATEGY_CREATOR , "NAME" , "TYPE" , SEQNO
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 675       'UNLOAD TABLE PTI.PTSSC_STRAT_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.PTSYS$DE.FAULT$01.#00.DATA')                       +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT USERID, DESCRIPTION, GLOBAL_DEFAULTS, SG_DEFAULTS,
+  DB_DEFAULTS, TS_DEFAULTS, TB_DEFAULTS, IX_DEFAULTS, VW_DEFAULTS,
+  AL_DEFAULTS
+  FROM PTI.PTSYS_DEFAULT_0100
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 680       'UNLOAD TABLE PTI.PTSYS_DEFAULT_0100'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RACA$CON.N$0206.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(9,7)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RACA_ACTPROC, RACA_ACTUSER, RACA_COLLPROC, RACA_COLLUSER,
+  RACA_OPTION, RACA_TYPE, RACA_DBNAME, RACA_OBJECT,
+  RACA_PARTITION, RACA_CREATOR, RACA_ORDER
+  FROM PTI.RACA_CONN_0206
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 685       'UNLOAD TABLE PTI.RACA_CONN_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RACD$STA.TS$0206.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RACD_PARTITION, RACD_TBOWNER, RACD_TBNAME, RACD_NAME,
+  RACD_DBNAME, RACD_TSNAME, RACD_SYSID, RACD_CARDF,
+  RACD_NUMCOLUMNS, RACD_COLGROUPNO, RACD_TIMESTAMP_D, RACD_STATUS,
+  RACD_TYPE, RACD_VERSION
+  FROM PTI.RACD_STATS_0206
+  ORDER BY RACD_TIMESTAMP_D
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 690       'UNLOAD TABLE PTI.RACD_STATS_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RACL$STA.TS$0206.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RACL_COLNAME, RACL_TBNAME, RACL_TBUSER, RACL_DBNAME,
+  RACL_TSNAME, RACL_SYSID, RACL_TBOBID, RACL_COLSEQ, RACL_COLTYPE,
+  RACL_NULL, RACL_SCALE, RACL_PART, RACL_LENGTH, RACL_COLMAX,
+  RACL_COLMIN, RACL_COLAVG, RACL_COLNULLS, RACL_HIGH2KEY,
+  RACL_LOW2KEY, RACL_HIGH1KEY, RACL_LOW1KEY, RACL_TYPE,
+  RACL_STATUS, RACL_TIMESTAMP_D, RACL_COLCARD_F, RACL_UDT_COLTYPE,
+  RACL_VERSION
+  FROM PTI.RACL_STATS_0206
+  ORDER BY RACL_DBNAME , RACL_TSNAME , RACL_PART
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 695       'UNLOAD TABLE PTI.RACL_STATS_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RACN$CON.N$0206.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(10,7)                                                     +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RACN_EXECPROC, RACN_EXECUSER, RACN_COLLPROC,
+  RACN_COLLUSER, RACN_TYPE, RACN_ORDER
+  FROM PTI.RACN_CONN_0206
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 700       'UNLOAD TABLE PTI.RACN_CONN_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RACP$PRO.CD$0206.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(9,7)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RACP_NAME, RACP_USERID, RACP_OPTION, RACP_DBNAME,
+  RACP_TSNAME, RACP_CREATOR, RACP_TBNAME, RACP_IXNAME, RACP_TYPE,
+  RACP_PARTITION
+  FROM PTI.RACP_PROCD_0206
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 705       'UNLOAD TABLE PTI.RACP_PROCD_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RACR$PRO.C$0206.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(9,7)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RACR_NAME, RACR_USERID, RACR_TYPE, RACR_DESCRIPTION,
+  RACR_SHROPTION, RACR_SYSID, RACR_PRT_CLASS, RACR_PRT_COPIES,
+  RACR_PRT_FORM, RACR_PRT_DEST, RACR_PRT_PLINES, RACR_CONDITIONAL,
+  RACR_SYMBOLICS, RACR_EXEC_CNT, RACR_DATA, RACR_FIX#JOBS,
+  RACR_FILLMODEL, RACR_GENJOBN, RACR_#STEPS_JOB, RACR_NEW_JOB_OBJ,
+  RACR_NEW_MEM_JOB, RACR_NEW_STEP_UT, RACR_LAST_UDATE_D,
+  RACR_LAST_UTIME_D, RACR_LAST_SDATE_D, RACR_LAST_STIME_D,
+  RACR_NUMCOLS, RACR_COUNT
+  FROM PTI.RACR_PROC_0206
+  ORDER BY RACR_NAME , RACR_USERID , RACR_TYPE
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 710       'UNLOAD TABLE PTI.RACR_PROC_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RAEP$PRO.C$0206.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(7,5)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RAEP_NAME, RAEP_USERID, RAEP_DESCRIPTION, RAEP_SHROPTION,
+  RAEP_LAST_UDATE_D, RAEP_LAST_UTIME_D, RAEP_LAST_SDATE_D,
+  RAEP_LAST_STIME_D
+  FROM PTI.RAEP_PROC_0206
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 715       'UNLOAD TABLE PTI.RAEP_PROC_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RAFQ$STA.TS$0206.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(14,11)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RAFQ_PARTITION, RAFQ_TBOWNER, RAFQ_TBNAME, RAFQ_NAME,
+  RAFQ_DBNAME, RAFQ_TSNAME, RAFQ_SYSID, RAFQ_COLVALUE,
+  RAFQ_FREQUENCYF, RAFQ_NUMCOLUMNS, RAFQ_COLGROUPNO,
+  RAFQ_TIMESTAMP_D, RAFQ_STATUS, RAFQ_TYPE, RAFQ_VERSION
+  FROM PTI.RAFQ_STATS_0206
+  ORDER BY RAFQ_TIMESTAMP_D
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 720       'UNLOAD TABLE PTI.RAFQ_STATS_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RAIK$STA.TS$0206.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RAIK_DBNAME, RAIK_TSNAME, RAIK_IXNAME, RAIK_IXUSER,
+  RAIK_SYSID, RAIK_PART, RAIK_COLSEQ, RAIK_TBOBID, RAIK_SEQNO,
+  RAIK_TYPE, RAIK_STATUS, RAIK_TIMESTAMP_D, RAIK_COLCARD_F,
+  RAIK_VERSION
+  FROM PTI.RAIK_STATS_0206
+  ORDER BY RAIK_TIMESTAMP_D , RAIK_TBOBID , RAIK_COLSEQ
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 725       'UNLOAD TABLE PTI.RAIK_STATS_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RAIX$STA.TS$0206.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RAIX_IXNAME, RAIX_CREATOR, RAIX_TBNAME, RAIX_TBUSER,
+  RAIX_DBNAME, RAIX_TSNAME, RAIX_CLUSTERED, RAIX_SYSID, RAIX_PART,
+  RAIX_PCTFREE, RAIX_FREEPAGE, RAIX_COLLEN, RAIX_KEYLEN,
+  RAIX_SUBPAGE, RAIX_HIGHKEY, RAIX_LOWKEY, RAIX_LEAF,
+  RAIX_NONLEAF, RAIX_LEVELS, RAIX_EXTENTS, RAIX_VOLUMES,
+  RAIX_PQTY_A, RAIX_PQTY_U, RAIX_SQTY_A, RAIX_SQTY_U, RAIX_ACTIVE,
+  RAIX_FREESPACE, RAIX_FREE_100, RAIX_FREE_090, RAIX_FREE_080,
+  RAIX_FREE_070, RAIX_FREE_060, RAIX_FREE_050, RAIX_FREE_040,
+  RAIX_FREE_030, RAIX_FREE_020, RAIX_FREE_010, RAIX_AVGLEAF,
+  RAIX_LEAF_1, RAIX_LEAF_2, RAIX_LEAF_3, RAIX_LEAF_4, RAIX_LEAF_5,
+  RAIX_LEAF_6, RAIX_LEAF_7, RAIX_LEAF_8, RAIX_LEAF_9,
+  RAIX_LEAF_10, RAIX_LEAF_20, RAIX_LEAF_30, RAIX_LEAF_40,
+  RAIX_LEAF_50, RAIX_LEAF_60, RAIX_LEAF_70, RAIX_LEAF_80,
+  RAIX_LEAF_90, RAIX_LEAF_100, RAIX_LEAF_200, RAIX_LEAF_300,
+  RAIX_LEAF_400, RAIX_LEAF_500, RAIX_LEAF_600, RAIX_LEAF_700,
+  RAIX_LEAF_800, RAIX_LEAF_900, RAIX_LEAF_1000, RAIX_LEAF_10T,
+  RAIX_LEAF_100T, RAIX_LEAF_1M, RAIX_CLUST_10, RAIX_CLUST_20,
+  RAIX_CLUST_30, RAIX_CLUST_40, RAIX_CLUST_50, RAIX_CLUST_60,
+  RAIX_CLUST_70, RAIX_CLUST_80, RAIX_CLUST_90, RAIX_CLUST_100,
+  RAIX_CLUST_200, RAIX_CLUST_300, RAIX_CLUST_400, RAIX_CLUST_500,
+  RAIX_CLUST_600, RAIX_CLUST_700, RAIX_CLUST_800, RAIX_CLUST_900,
+  RAIX_CLUST_1T, RAIX_CLUST_2T, RAIX_CLUST_3T, RAIX_CLUST_4T,
+  RAIX_CLUST_5T, RAIX_CLUST_6T, RAIX_CLUST_7T, RAIX_CLUST_8T,
+  RAIX_CLUST_9T, RAIX_CLUST_10T, RAIX_CLUST_100T, RAIX_CLUST_1M,
+  RAIX_CLUST_10M, RAIX_REORG_PAGES, RAIX_REORG_LEVELS, RAIX_ORDER,
+  RAIX_UNIQUE, RAIX_CLUSTER_IND, RAIX_EXTRACT_NAME,
+  RAIX_EXTRACT_USER, RAIX_EXTRACT_TYPE, RAIX_EXTRACT_SYSID,
+  RAIX_CLUSTERRATIO, RAIX_TYPE, RAIX_IXTYPE, RAIX_HURBA,
+  RAIX_RIDCHN_MAX, RAIX_STATUS, RAIX_PAGE_TRK, RAIX_SPACENAME,
+  RAIX_TIMESTAMP_D, RAIX_KEYS_F, RAIX_CLUSTER_F, RAIX_FULLKEY_F,
+  RAIX_FIRSTKEY_F, RAIX_CLUSTER_CNT_F, RAIX_RIDCHN_OCCS_F,
+  RAIX_RIDCHN_ENTS_F, RAIX_DELETD_RIDS_F, RAIX_PIECESIZE,
+  RAIX_VERSION, RAIX_CLUSTERRATIOF, RAIX_VERSND_KEYS_F
+  FROM PTI.RAIX_STATS_0206
+  ORDER BY RAIX_SYSID , RAIX_CREATOR , RAIX_IXNAME , RAIX_PART
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 730       'UNLOAD TABLE PTI.RAIX_STATS_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RARP$PRO.CD$0206.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RARP_NAME, RARP_USERID, RARP_TYPE, RARP_FORMAT,
+  RARP_QNAME, RARP_SNAME, RARP_SUSERID, RARP_REPORT, RARP_DATA
+  FROM PTI.RARP_PROCD_0206
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 735       'UNLOAD TABLE PTI.RARP_PROCD_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RATB$STA.TS$0206.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RATB_TBNAME, RATB_CREATOR, RATB_TSNAME, RATB_DBNAME,
+  RATB_SYSID, RATB_PSIZE, RATB_MAXLEN, RATB_SMLLEN, RATB_PART,
+  RATB_PAGES_USED, RATB_ROWS_SPACE, RATB_ROWS_TOTAL,
+  RATB_ROWS_RG64, RATB_ROWS_RL64, RATB_ROWS_RR10, RATB_ROWS_RR20,
+  RATB_ROWS_RR30, RATB_ROWS_RR40, RATB_ROWS_RR50, RATB_ROWS_RR60,
+  RATB_ROWS_RR70, RATB_ROWS_RR80, RATB_ROWS_RR90, RATB_ROWS_RR100,
+  RATB_ROWS_RR200, RATB_ROWS_RR300, RATB_ROWS_RR400,
+  RATB_ROWS_RR500, RATB_ROWS_RR600, RATB_ROWS_RR700,
+  RATB_ROWS_RR800, RATB_ROWS_RR900, RATB_ROWS_RR1000,
+  RATB_ROWS_RR2000, RATB_ROWS_RR3000, RATB_ROWS_RR4000,
+  RATB_ROWS_RR5000, RATB_ROWS_RR6000, RATB_ROWS_RR7000,
+  RATB_ROWS_RR8000, RATB_ROWS_RR9000, RATB_ROWS_RR10T,
+  RATB_ROWS_RR100T, RATB_ROWS_RR1M, RATB_ROWS_RR10M,
+  RATB_ROWS_RD10, RATB_ROWS_RD20, RATB_ROWS_RD30, RATB_ROWS_RD40,
+  RATB_ROWS_RD50, RATB_ROWS_RD60, RATB_ROWS_RD70, RATB_ROWS_RD80,
+  RATB_ROWS_RD90, RATB_ROWS_RD100, RATB_PAGE_RL10, RATB_PAGE_RL20,
+  RATB_PAGE_RL30, RATB_PAGE_RL40, RATB_PAGE_RL50, RATB_PAGE_RL60,
+  RATB_PAGE_RL70, RATB_PAGE_RL80, RATB_PAGE_RL90, RATB_PAGE_RL100,
+  RATB_ROWS_LR10, RATB_ROWS_LR20, RATB_ROWS_LR30, RATB_ROWS_LR40,
+  RATB_ROWS_LR50, RATB_ROWS_LR60, RATB_ROWS_LR70, RATB_ROWS_LR80,
+  RATB_ROWS_LR90, RATB_ROWS_LR100, RATB_ROWS_SR10, RATB_ROWS_SR20,
+  RATB_ROWS_SR30, RATB_ROWS_SR40, RATB_ROWS_SR50, RATB_ROWS_SR60,
+  RATB_ROWS_SR70, RATB_ROWS_SR80, RATB_ROWS_SR90, RATB_ROWS_SR100,
+  RATB_ROWS_AR10, RATB_ROWS_AR20, RATB_ROWS_AR30, RATB_ROWS_AR40,
+  RATB_ROWS_AR50, RATB_ROWS_AR60, RATB_ROWS_AR70, RATB_ROWS_AR80,
+  RATB_ROWS_AR90, RATB_ROWS_AR100, RATB_ROWS_FR10, RATB_ROWS_FR20,
+  RATB_ROWS_FR30, RATB_ROWS_FR40, RATB_ROWS_FR50, RATB_ROWS_FR60,
+  RATB_ROWS_FR70, RATB_ROWS_FR80, RATB_ROWS_FR90, RATB_ROWS_FR100,
+  RATB_ROWS_PD10, RATB_ROWS_PD20, RATB_ROWS_PD30, RATB_ROWS_PD40,
+  RATB_ROWS_PD50, RATB_ROWS_PD60, RATB_ROWS_PD70, RATB_ROWS_PD80,
+  RATB_ROWS_PD90, RATB_ROWS_PD100, RATB_SEGALLOC,
+  RATB_EXTRACT_NAME, RATB_EXTRACT_USER, RATB_EXTRACT_TYPE,
+  RATB_EXTRACT_SYSID, RATB_#ROWCOMP, RATB_PCTROWCOMP, RATB_TYPE,
+  RATB_STATUS, RATB_TIMESTAMP_D, RATB_VERSION
+  FROM PTI.RATB_STATS_0206
+  ORDER BY RATB_SYSID , RATB_DBNAME , RATB_TSNAME , RATB_PART ,
+  RATB_TBNAME , RATB_CREATOR
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 740       'UNLOAD TABLE PTI.RATB_STATS_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RATS$STA.TS$0206.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RATS_DBNAME, RATS_TSNAME, RATS_BPOOL, RATS_CATALOG,
+  RATS_SYSID, RATS_PART, RATS_PGSIZE, RATS_PCTFREE, RATS_FREEPAGE,
+  RATS_TOT_TABLES, RATS_MAXLEN, RATS_SMLLEN, RATS_AVGLEN,
+  RATS_MAXLEN_ACT, RATS_SMLLEN_ACT, RATS_AVGLEN_ACT, RATS_EXTENTS,
+  RATS_VOLUMES, RATS_PQTY_A, RATS_PQTY_U, RATS_SQTY_A,
+  RATS_SQTY_U, RATS_ROW_SPACE, RATS_TOT_UPDATE, RATS_TOT_FREESP,
+  RATS_ROWS_TOTAL, RATS_ROWS_HIGH, RATS_ROWS_DROPS,
+  RATS_ROWS_DROPC, RATS_ROWS_RELOC, RATS_ROWS_DR10,
+  RATS_ROWS_DR20, RATS_ROWS_DR30, RATS_ROWS_DR40, RATS_ROWS_DR50,
+  RATS_ROWS_DR60, RATS_ROWS_DR70, RATS_ROWS_DR80, RATS_ROWS_DR90,
+  RATS_ROWS_DR100, RATS_ROWS_FRSPM, RATS_ROWS_FRCNT,
+  RATS_ROWS_LRSPM, RATS_ROWS_LRCNT, RATS_ROWS_SRSPM,
+  RATS_ROWS_SRCNT, RATS_ROWS_ARSPM, RATS_ROWS_ARCNT,
+  RATS_PAGES_FP100, RATS_PAGES_FP90, RATS_PAGES_FP80,
+  RATS_PAGES_FP70, RATS_PAGES_FP60, RATS_PAGES_FP50,
+  RATS_PAGES_FP40, RATS_PAGES_FP30, RATS_PAGES_FP20,
+  RATS_PAGES_FP10, RATS_IDMAPS_CNT, RATS_IDMAPS_USED,
+  RATS_LHOLE_CNT, RATS_LHOLE_SPACE, RATS_SHOLE_CNT,
+  RATS_SHOLE_SPACE, RATS_SEG_SIZE, RATS_PAGES_REORG,
+  RATS_PAGES_ACTIVE, RATS_SEG_USED, RATS_PAGE_TRK, RATS_PAGESAVE,
+  RATS_SYSUT1, RATS_TYPE, RATS_HURBA, RATS_STATUS,
+  RATS_TIMESTAMP_D, RATS_TRACKMOD, RATS_TS_TYPE, RATS_DSSIZE,
+  RATS_VERSION
+  FROM PTI.RATS_STATS_0206
+  ORDER BY RATS_SYSID , RATS_DBNAME , RATS_TSNAME , RATS_PART
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 745       'UNLOAD TABLE PTI.RATS_STATS_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RAUT$HIS.T$0206.DATA')                             +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT UTL_JOBNAME, UTL_JOBID, UTL_USER, UTL_STEPNAME,
+  UTL_SYSID, UTL_UTIL, UTL_CREATOR, UTL_DBNAME, UTL_TSNAME,
+  UTL_TBNAME, UTL_IXNAME, UTL_PARTNUM, UTL_DB2_LVL, UTL_SMFID,
+  UTL_START_DATETIME, UTL_END_DATETIME, UTL_ELAPSED_TIME,
+  UTL_CPU_TIME, UTL_ELAPSED_WIND, UTL_CPU_WIND, UTL_AVG_CPU_BUSY,
+  UTL_RC, UTL_EXCP, UTL_CMD_TEXT, UTL_PARTNUM2
+  FROM PTI.RAUT_HIST_0206
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 750       'UNLOAD TABLE PTI.RAUT_HIST_0206'
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DB2N.PTI.RAVL$STA.TS$0206.DATA')                            +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(3,3)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT RAVL_CREATOR, RAVL_OBJECT, RAVL_DBNAME, RAVL_TSNAME,
+  RAVL_SYSID, RAVL_TYPE, RAVL_PART, RAVL_VOLSER, RAVL_PQTY,
+  RAVL_PQTY_USED, RAVL_SQTY, RAVL_SQTY_USED, RAVL_FREESPACE,
+  RAVL_UPDPAGE, RAVL_SQTY_ALLOC, RAVL_EXTENTS, RAVL_EXTALLOC,
+  RAVL_PAGE_TRK, RAVL_DSID, RAVL_COLLECT_TYPE, RAVL_STATUS,
+  RAVL_TIMESTAMP_D, RAVL_VERSION
+  FROM PTI.RAVL_STATS_0206
+  ORDER BY RAVL_TYPE , RAVL_SYSID , RAVL_CREATOR , RAVL_OBJECT ,
+  RAVL_PART
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 755       'UNLOAD TABLE PTI.RAVL_STATS_0206'
+
+--==============================================================================
+-- VRCM061        CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      06-28-01 10:59
+--==============================================================================

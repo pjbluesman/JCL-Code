@@ -1,0 +1,105 @@
+CREATE TABLE DT0072.DSN_FUNCTION_TABLE
+   (QUERYNO                INTEGER                     NOT NULL
+   ,QBLOCKNO               INTEGER                     NOT NULL
+   ,APPLNAME               CHAR(8    )                 NOT NULL
+   ,PROGNAME               CHAR(8    )                 NOT NULL
+   ,"COLLID"               CHAR(18   )                 NOT NULL
+   ,GROUP_MEMBER           CHAR(8    )                 NOT NULL
+   ,EXPLAIN_TIME           TIMESTAMP                   NOT NULL
+   ,SCHEMA_NAME            CHAR(8    )                 NOT NULL
+   ,FUNCTION_NAME          CHAR(18   )                 NOT NULL
+   ,SPEC_FUNC_NAME         CHAR(18   )                 NOT NULL
+   ,FUNCTION_TYPE          CHAR(2    )                 NOT NULL
+   ,VIEW_CREATOR           CHAR(8    )                 NOT NULL
+   ,VIEW_NAME              CHAR(18   )                 NOT NULL
+   ,"PATH"                 VARCHAR(254  )              NOT NULL
+   ,FUNCTION_TEXT          VARCHAR(254  )              NOT NULL
+   )
+   CCSID EBCDIC
+   ;
+
+
+CREATE TABLE DT0072.DSN_STATEMNT_TABLE
+   (QUERYNO                INTEGER                     NOT NULL
+   ,APPLNAME               CHAR(8    )                 NOT NULL
+   ,PROGNAME               CHAR(8    )                 NOT NULL
+   ,"COLLID"               CHAR(18   )                 NOT NULL
+   ,GROUP_MEMBER           CHAR(8    )                 NOT NULL
+   ,EXPLAIN_TIME           TIMESTAMP                   NOT NULL
+   ,STMT_TYPE              CHAR(6    )                 NOT NULL
+   ,COST_CATEGORY          CHAR(1    )                 NOT NULL
+   ,PROCMS                 INTEGER                     NOT NULL
+   ,PROCSU                 INTEGER                     NOT NULL
+   ,REASON                 VARCHAR(254  )              NOT NULL
+   )
+   CCSID EBCDIC
+   ;
+
+CREATE TABLE DT0072.PLAN_TABLE
+   (QUERYNO                INTEGER                     NOT NULL
+   ,QBLOCKNO               SMALLINT                    NOT NULL
+   ,APPLNAME               CHAR(8    )                 NOT NULL
+   ,PROGNAME               CHAR(8    )                 NOT NULL
+   ,PLANNO                 SMALLINT                    NOT NULL
+   ,METHOD                 SMALLINT                    NOT NULL
+   ,CREATOR                CHAR(8    )                 NOT NULL
+   ,TNAME                  CHAR(18   )                 NOT NULL
+   ,TABNO                  SMALLINT                    NOT NULL
+   ,ACCESSTYPE             CHAR(2    )                 NOT NULL
+   ,MATCHCOLS              SMALLINT                    NOT NULL
+   ,ACCESSCREATOR          CHAR(8    )                 NOT NULL
+   ,ACCESSNAME             CHAR(18   )                 NOT NULL
+   ,INDEXONLY              CHAR(1    )                 NOT NULL
+   ,SORTN_UNIQ             CHAR(1    )                 NOT NULL
+   ,SORTN_JOIN             CHAR(1    )                 NOT NULL
+   ,SORTN_ORDERBY          CHAR(1    )                 NOT NULL
+   ,SORTN_GROUPBY          CHAR(1    )                 NOT NULL
+   ,SORTC_UNIQ             CHAR(1    )                 NOT NULL
+   ,SORTC_JOIN             CHAR(1    )                 NOT NULL
+   ,SORTC_ORDERBY          CHAR(1    )                 NOT NULL
+   ,SORTC_GROUPBY          CHAR(1    )                 NOT NULL
+   ,TSLOCKMODE             CHAR(3    )                 NOT NULL
+   ,TIMESTAMP              CHAR(16   )                 NOT NULL
+   ,REMARKS                VARCHAR(254  )              NOT NULL
+   ,PREFETCH               CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+   ,COLUMN_FN_EVAL         CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+   ,MIXOPSEQ               SMALLINT                    NOT NULL
+          WITH DEFAULT
+   ,VERSION                VARCHAR(64   )              NOT NULL
+          WITH DEFAULT
+   ,"COLLID"               CHAR(18   )                 NOT NULL
+          WITH DEFAULT
+   ,ACCESS_DEGREE          SMALLINT
+   ,ACCESS_PGROUP_ID       SMALLINT
+   ,JOIN_DEGREE            SMALLINT
+   ,JOIN_PGROUP_ID         SMALLINT
+   ,SORTC_PGROUP_ID        SMALLINT
+   ,SORTN_PGROUP_ID        SMALLINT
+   ,PARALLELISM_MODE       CHAR(1    )
+   ,MERGE_JOIN_COLS        SMALLINT
+   ,CORRELATION_NAME       CHAR(18   )
+   ,PAGE_RANGE             CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+   ,JOIN_TYPE              CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+   ,GROUP_MEMBER           CHAR(8    )                 NOT NULL
+          WITH DEFAULT
+   ,IBM_SERVICE_DATA       VARCHAR(254  )              NOT NULL
+          WITH DEFAULT
+   ,WHEN_OPTIMIZE          CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+   ,QBLOCK_TYPE            CHAR(6    )                 NOT NULL
+          WITH DEFAULT
+   ,BIND_TIME              TIMESTAMP                   NOT NULL
+          WITH DEFAULT
+   ,OPTHINT                CHAR(8    )                 NOT NULL
+          WITH DEFAULT
+   ,HINT_USED              CHAR(8    )                 NOT NULL
+          WITH DEFAULT
+   ,PRIMARY_ACCESSTYPE     CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+   )
+   CCSID EBCDIC
+   ;

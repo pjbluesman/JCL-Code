@@ -1,0 +1,218 @@
+//UXD001X JOB ,'RDL RCC',CLASS=S,MSGCLASS=X,NOTIFY=DT0072
+//STEP1    EXEC PGM=PTLDRIVM,REGION=64M,PARM='EP=BPLBCTL'               00010003
+//STEPLIB  DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.LOADLIB
+//         DD DISP=SHR,DSN=SSXDT.DSNDBUG.DB2U.SDSNLOAD
+//         DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.LOADLIB
+//PTILIB   DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.LOADLIB
+//         DD DISP=SHR,DSN=SSXDT.DSNDBUG.DB2U.SDSNLOAD
+//         DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.LOADLIB
+//CTRANS   DD DSN=SSXDT.PLATINUM.TEST.CTRANS,DISP=SHR
+//PTIPARM  DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.PARMLIB
+//PTIXMSG  DD DISP=SHR,DSN=SSXDT.PLATINUM.TEST.XMESSAGE
+//SYSOUT   DD SYSOUT=*                                                  00120002
+//UTPRINT  DD SYSOUT=*                                                  00130002
+//ABNLIGNR DD DUMMY                 SUPPRESS ABENDAID DUMPS             00140002
+//SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(5,5))
+//SYSREC   DD UNIT=SYSDA,SPACE=(TRK,(1,1))
+//BPIIPT   DD *                                                         00174002
+--==============================================================================
+-- VRCM6.1.5    CA-DB2   RC/ALTER      ANALYSIS REPORT      04-01-02 16:29
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> RCUPDATE  DESCRIPTION  ===> RC/UPDATE ALTERATION
+--CREATOR  ==> DT0072    SHARE OPTION ===> N (U,Y,N,X,L)  SRC SSID ===> DB2U
+--
+--ALTERED OBJECTS:
+--   OBJECT TYPE       NAME                 CREATOR
+--   TABLE             GMT_TEST             D71018E
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> O (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> CATALOG
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> DT0072
+--
+--  SECURITY          ===> Y             STATISTICS   ===> N
+--  DEFAULT SQLID     ===>               CHECK DATA   ===> Y
+--                                       IMAGE COPY   ===> N
+--                                       BIND/REBIND  ===> R
+--  ALL ROWS          ===> Y             REORG        ===> N
+--  NUMBER ROWS       ===>               RECOVER IX   ===> N
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS         ===> Y             VSAM DEFINES  ===> Y
+--  SQL ONLY          ===> N             VSAM DELETES  ===> Y
+--  COMMIT ASAP       ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> N
+--  DELETE TEMPORARY DATASETS ===> Y
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+.SYSTEM UNLOADS
+.CONNECT DB2U
+
+
+.CALL UTLGLCTL PARM(DB2U,)                                             +
+   INDDN(SYSIN) OUTDDN(PTIMSG)
+.ALLOC FI(SYSREC01)                                                    +
+       DA('DT0072.D71018E.GMT$TEST.DATA')                              +
+       TRACKS                                                          +
+       SPACE(1,1)                                                      +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.DATA
+  FASTUNLOAD
+   UNLDDN          SYSREC
+   LIMIT           0
+   OUTPUT-FORMAT   DSNTIAUL
+   INPUT-FORMAT    TABLE
+   VSAM-BUFFERS    80
+   SORTNUM         2
+   SORTDEVT        SYSDA
+   ESTIMATED-ROWS  214
+   SQL-ACCESS      EXTENSION
+   SELECT THE_TIME_IS, CHAR_FLD, TIME_ZONE
+   INTO THE_TIME_IS, CHAR_FLD, TIME_ZONE_XX
+   FROM D71018E.GMT_TEST
+   ;
+.ENDDATA
+.FREE FILE(SYSREC01)
+
+.SYNC 5         'UNLOAD TABLE D71018E.GMT_TEST'
+
+.SYSTEM SQLDDL
+.CONNECT DB2U
+
+    DROP TABLE D71018E.GMT_TEST;
+
+.SYNC 10        'DROP TABLE D71018E.GMT_TEST'
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- D71018E.GMT_TEST WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DT0072';
+
+CREATE TABLE D71018E.GMT_TEST
+   (THE_TIME_IS            TIMESTAMP                   NOT NULL
+   ,CHAR_FLD               CHAR(10   )
+   ,TIME_ZONE_XX           DECIMAL(6     , 0    )
+   )
+   CCSID ASCII
+   ;
+
+.SYNC 15        'CREATE TABLE D71018E.GMT_TEST'
+    SET CURRENT SQLID = USER;
+
+
+.DISCONN
+
+.SYNC 20        'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+.CALL UTLGLCTL PARM(DB2U,)                                             +
+   INDDN(SYSIN) OUTDDN(PTIMSG)
+.ALLOC FI(SYSULD)                                                      +
+   DA('DT0072.D71018E.GMT$TEST.DATA')                                  +
+   SHR
+.ALLOC FI(SYSERR)                                                      +
+   DA('DT0072.D71018E.GMT$TEST.DATA.E')                                +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(SYSDISC)                                                     +
+   DA('DT0072.D71018E.GMT$TEST.DATA.D')                                +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(PTIREC)                                                      +
+   DA('DT0072.D71018E.GMT$TEST.DATA.U')                                +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(SYSMAP)                                                      +
+   DA('DT0072.D71018E.GMT$TEST.DATA.M')                                +
+   SPACE(1,1) TRACKS RLSE                                              +
+   UNIT(SYSDA) MOD CATALOG LRECL(145) BLKSIZE(14500)                   +
+   RECFM(F,B)
+.ALLOC FI(PTIUT1)                                                      +
+   DA('DT0072.D71018E.GMT$TEST.DATA.W')                                +
+   SPACE(1,2) CYL RLSE                                                 +
+   UNIT(SYSDA) MOD CATALOG
+.ALLOC FI(ST01MSG) SYSOUT(*)
+.DATA
+  FASTLOAD
+   INPUT-FORMAT    SEQ
+   OUTPUT-CONTROL  ALL
+   INDDN           SYSULD
+   WORKDDN         PTIUT1
+   UNLDDN          PTIREC
+   RESUME          YES
+   SORTNUM         2
+   SORTDEVT        SYSDA
+   ESTIMATED-ROWS  214
+   INTO TABLE      D71018E.GMT_TEST
+   (
+    THE_TIME_IS        POSITION(      1:    26 )
+      TIMESTAMP EXTERNAL (    26)
+          ,
+    CHAR_FLD           POSITION(     27:    36 )
+      CHAR               (    10)
+        NULLIF(    37 ) = '?'
+          ,
+    TIME_ZONE_XX       POSITION(     38:    41 )
+      DECIMAL PACKED
+        NULLIF(    42 ) = '?'
+   )
+.ENDDATA
+.FREE FI(SYSULD)
+.FREE FI(SYSERR)
+.FREE FI(ST01MSG)
+.FREE FI(PTIREC)
+.FREE FI(SYSDISC)
+.FREE FI(PTIUT1)
+.FREE FI(SYSMAP)
+
+.SYNC 25        'LOAD TABLE D71018E.GMT_TEST'
+
+.CALL LOADDEL
+.DATA
+  DSN(DT0072.D71018E.GMT$TEST.DATA.E)
+  DSN(DT0072.D71018E.GMT$TEST.DATA.D)
+  DSN(DT0072.D71018E.GMT$TEST.DATA.U)
+  DSN(DT0072.D71018E.GMT$TEST.DATA.M)
+  DSN(DT0072.D71018E.GMT$TEST.DATA.W)
+.ENDDATA
+
+.SYNC 30        'DELETE UNLOAD/TEMP DATASETS'
+
+
+--==============================================================================
+-- VRCM6.1.5      CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      04-01-02 16:29
+--==============================================================================
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                1
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      GMT_TEST           D71018E      Y
+/*
+//*
+//BPIOPT   DD *                                                         00177002
+.CONTROL BPID(DB2U-CINDY) +
+ LOGID(DB2U) UNIT(SYSDA)
+.LIST SYSOUT(*)
+.CONNECT DB2U
+/*
+//
+.RESTART SYNC

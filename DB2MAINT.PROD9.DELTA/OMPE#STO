@@ -1,0 +1,22 @@
+//UXC401M4 JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVS4                                <= Change SYSAFF
+//*********************************************************************
+//* FUNCTION : STOP OMPE XE
+//*
+//*********************************************************************
+//*
+//ISPF   EXEC PGM=IKJEFT01,DYNAMNBR=40
+//SYSEXEC  DD DSN=SSXQT.TSODAL.CLIST,DISP=(SHR)
+//SYSTSPRT DD SYSOUT=*,HOLD=YES
+//ISFULOG  DD SYSOUT=*
+//ISFMSG   DD SYSOUT=*
+//ISFMSG2  DD SYSOUT=*
+//SYSTSIN  DD *
+ @SYSCMD CMD("RO MVSF,P DBOFO2S")
+ @SYSCMD CMD("RO MVSI,P DBOIO2S")
+ @SYSCMD CMD("RO MVSQ,P DBOQO2S")
+ @SYSCMD CMD("RO MVSR,P DBORO2S")
+//
+ @SYSCMD CMD("D PROG,LINKLIST")
+/*

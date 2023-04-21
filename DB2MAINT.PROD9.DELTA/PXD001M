@@ -1,0 +1,71 @@
+//UXD001M JOB  D-813-000-N-00,                                          JCLP
+//             'CA7 DISTRIBUTION',                                      JCLP
+//             CLASS=S,                                                 JCLP
+//             MSGCLASS=X,                                              JCLP
+//*01-03-96GIL  V4 CHANGES
+//*12-10-94GIL
+//*02/08/93OVERBYE
+//*30OCT91ROSS                                                          JCLP
+//*03OCT91ROSS                                                          JCLP
+//             REGION=7000K,                                            JCLP
+//             TIME=1440                                                JCLP
+//* FULL IMAGE COPY FOR DB2 (DB2M) CATALOG AND DIRECTORY                JCLP
+//* YOU MUST BE INSTALL SYSADM AUTHID                                   JCLP
+//*      JCL UPDATED 1-22-93 ADD NEW TABLESPACES REQUIRED WITH          JCLP
+//*      2.3 VERSION OF DB2 - CNO                                       JCLP
+//*      JCL UPDATED 6-30-93 ADD DUAL IMAGE COPYING - CNO
+//*      JCL UPDATE  9-21-93 ADD REMOTE IMAGE COPYING - CNO
+//*      UPDATED 11-21-94 FOR VERSION 3 SYSSTATS
+//*
+//JOBLIB   DD DISP=SHR,                                                 JCLP
+//             DSN=SSXDP.DB2M.V4.SDSNLOAD                               JCLP
+//STEP01   EXEC  PXD001                                                 JCLP
+//SYSGROUP.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB06.SYSGROUP  COPYDDN CPY01,CPY01B                 JCLP
+                               RECOVERYDDN CPY01R
+//SYSGPAUT.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB06.SYSGPAUT  COPYDDN CPY02,CPY02B                 JCLP
+                               RECOVERYDDN CPY02R
+//SYSVIEWS.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB06.SYSVIEWS  COPYDDN CPY03,CPY03B                 JCLP
+                               RECOVERYDDN CPY03R
+//SYSPLAN.SYSIN DD *                                                    JCLP
+COPY TABLESPACE  DSNDB06.SYSPLAN   COPYDDN CPY04,CPY04B                 JCLP
+                               RECOVERYDDN CPY04R
+//SCT02.SYSIN DD *                                                      JCLP
+COPY TABLESPACE  DSNDB01.SCT02     COPYDDN CPY05,CPY05B                 JCLP
+                               RECOVERYDDN CPY05R
+//SYSDBASE.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB06.SYSDBASE  COPYDDN CPY06,CPY06B                 JCLP
+                               RECOVERYDDN CPY06R
+//SYSUSER.SYSIN DD *                                                    JCLP
+COPY TABLESPACE  DSNDB06.SYSUSER   COPYDDN CPY07,CPY07B                 JCLP
+                               RECOVERYDDN CPY07R
+//SYSDBAUT.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB06.SYSDBAUT  COPYDDN CPY08,CPY08B                 JCLP
+                               RECOVERYDDN CPY08R
+//SYSLGRNG.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB01.SYSLGRNX  COPYDDN CPY09,CPY09B                 JCLP
+                               RECOVERYDDN CPY09R
+//SYSCOPY.SYSIN DD *                                                    JCLP
+COPY TABLESPACE  DSNDB06.SYSCOPY   COPYDDN CPY10,CPY10B                 JCLP
+                               RECOVERYDDN CPY10R
+//DBD01.SYSIN DD *                                                      JCLP
+COPY TABLESPACE  DSNDB01.DBD01     COPYDDN CPY11,CPY11B                 JCLP
+                               RECOVERYDDN CPY11R
+//SYSUTIL.SYSIN DD *                                                    JCLP
+COPY TABLESPACE  DSNDB01.SYSUTILX  COPYDDN CPY12,CPY12B                 JCLP
+                               RECOVERYDDN CPY12R
+//SPT01.SYSIN DD *                                                      JCLP
+COPY TABLESPACE  DSNDB01.SPT01     COPYDDN CPY13,CPY13B                 JCLP
+                               RECOVERYDDN CPY13R
+//SYSSTR.SYSIN DD *                                                     JCLP
+COPY TABLESPACE  DSNDB06.SYSSTR    COPYDDN CPY14,CPY14B                 JCLP
+                               RECOVERYDDN CPY14R
+//SYSPKAGE.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB06.SYSPKAGE  COPYDDN CPY15,CPY15B                 JCLP
+                               RECOVERYDDN CPY15R
+//SYSSTATS.SYSIN DD *                                                   JCLP
+COPY TABLESPACE  DSNDB06.SYSSTATS  COPYDDN CPY16,CPY16B                 JCLP
+                               RECOVERYDDN CPY16R
+/*                                                                      JCLP

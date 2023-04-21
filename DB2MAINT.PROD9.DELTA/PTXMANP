@@ -1,0 +1,10 @@
+//UXD111M JOB (LOAD),'PTXMAN',                                          00000101
+//             CLASS=S,                                                 00000200
+//             MSGLEVEL=(1,1),                                          00000300
+//             MSGCLASS=X                                               00000401
+//*
+//*      *** MVSC
+//*
+//STEP02 EXEC PTXMAN                                                    00001000
+//**    USE FOR MVSC
+//*

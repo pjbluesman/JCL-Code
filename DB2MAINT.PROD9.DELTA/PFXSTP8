@@ -1,0 +1,39 @@
+//UXC401M8 JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00010001
+//         USER=SYSPRO,                                                 00011002
+//         NOTIFY=&SYSUID                                               00020003
+/*JOBPARM SYSAFF=MVSN                                                   00030004
+//*______________________________________________________________       00040000
+//* BIND DSNTIAD                                                        00050001
+//*                                                                     00060001
+//*______________________________________________________________       00070000
+//JOBLIB  DD  DSN=SSXDT.DB2Y.SDSNEXIT,DISP=SHR                          00080004
+//        DD  DSN=SDB2Y.SDSNLOAD,DISP=SHR                               00090004
+//*                                                                     00100001
+//DSNTIAD EXEC DSNHASM,MEM=DSNTIAD,PARM.PC='HOST(ASM),STDSQL(NO)'       00110001
+//PC.DBRMLIB   DD DSN=SSXDT.DB2Y.DBRMLIB.DATA(DSNTIAD),                 00120004
+//             DISP=SHR                                                 00130001
+//PC.SYSLIB    DD DSN=SDB2Y.SDSNSAMP,                                   00140004
+//             DISP=SHR                                                 00150001
+//PC.SYSIN     DD DSN=SDB2Y.SDSNSAMP(DSNTIAD),                          00160004
+//             DISP=SHR                                                 00170001
+//ASM.SYSLIB DD                                                         00180001
+//         DD DISP=SHR,                                                 00190001
+//         DSN=SDB2Y.SDSNSAMP                                           00200004
+//LKED.SYSLMOD DD DSN=SSXDT.DB2Y.RUNLIB.LOAD(DSNTIAD),                  00210004
+//             DISP=SHR                                                 00220001
+//LKED.SYSIN   DD *                                                     00230001
+  INCLUDE SYSLIB(DSNELI)                                                00240001
+  NAME DSNTIAD(R)                                                       00250001
+//*                                                                     00260001
+//DSNTIAS EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     00270001
+//SYSTSPRT DD  SYSOUT=*                                                 00280001
+//SYSPRINT DD  SYSOUT=*                                                 00290001
+//SYSUDUMP DD  SYSOUT=*                                                 00300001
+//SYSTSIN  DD  *                                                        00310001
+  DSN SYSTEM(DB2Y)                                                      00320004
+  BIND PLAN(DSNTIAD) MEM(DSNTIAD) -                                     00330001
+       ACT(REP) ISOLATION(CS) ENCODING(EBCDIC) -                        00340001
+       LIB('SSXDT.DB2Y.DBRMLIB.DATA')                                   00350004
+  END                                                                   00360001
+//SYSIN    DD  DUMMY                                                    00370001
+//*                                                                     00380001

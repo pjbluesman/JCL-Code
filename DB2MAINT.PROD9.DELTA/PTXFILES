@@ -1,0 +1,65 @@
+//DT0072X JOB ,'RDL RCC',CLASS=S,MSGCLASS=X,NOTIFY=DT0072
+//*********************************************************************
+//**                                                                 **
+//**  NOTE:  THIS JCL WILL ALLOCATE AND INITIALIZE A DETECTOR        **
+//**         DATASTORE BASED ON THE ALLOCATION INFORMATION           **
+//**         SUPPLIED.  THE DETECTOR CONTROL FILE IS ALSO UPDATED    **
+//**         TO REFLECT THE NEW DATASTORE.                           **
+//**                                                                 **
+//*********************************************************************
+//*
+//PDTDSALC EXEC PGM=PDTCBDCC
+//STEPLIB  DD  DSN=SSXDT.PLAT.P99.LOADLIB,DISP=SHR
+//SYSPRINT DD   SYSOUT=*
+//SYSUDUMP DD   SYSOUT=*
+//SYSOUT   DD   SYSOUT=*
+//SYSIN    DD   *
+XMID (0000)
+SSID (DB2V)
+DST  (DB2VSTOR)
+VCT  (SSXDT.DB2V)
+MAXI (048)
+DYN  (Y)
+SCA  (Y)
+*
+** ALLOCATION INFORMATION FOR STANDARD SQL COLLECTION
+*
+VOLS ()
+UNIS (CYLS)
+PRIS (0075)
+SECS (0005)
+SMSM ()
+SMSS ()
+SMSD ()
+*
+** ALLOCATION INFORMATION FOR EXCEPTION SQL COLLECTION
+*
+VOLX ()
+UNIX (CYLS)
+PRIX (0020)
+SECX (0005)
+SMMX ()
+SMSX ()
+SMDX ()
+*
+** ALLOCATION INFORMATION FOR SQLCA COLLECTION
+*
+VOLE ()
+UNIE (CYLS)
+PRIE (0020)
+SECE (0005)
+SMME ()
+SMSE ()
+SMDE ()
+*
+** ALLOCATION INFORMATION FOR EXCEPTION SQL COLLECTION WORK FILE
+*
+VOLW ()
+UNIW (CYLS)
+PRIW (0008)
+SECW (0001)
+SMMW ()
+SMSW ()
+SMDW ()
+/*
+//

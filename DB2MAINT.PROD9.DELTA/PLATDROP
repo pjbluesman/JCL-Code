@@ -1,0 +1,11 @@
+
+----------------------------------------------------------------------
+-- THE FOLLOWING DROP STATEMENTS WILL BE ISSUED IF YOU PRESS ENTER. --
+--    ONCE DROPPED THESE OBJECTS WILL NO LONGER BE RECOVERABLE.     --
+----------------------------------------------------------------------
+
+.AUTH D73294T
+
+    DROP TABLESPACE PTDB.PTITSRA2;
+
+.SYNC 5     'DROP TABLESPACE PTDB.PTITSRA2'

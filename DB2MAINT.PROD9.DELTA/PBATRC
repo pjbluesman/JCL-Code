@@ -1,0 +1,49 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSR
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR
+//*******************************************************************//
+//*                                                                 *//
+//*   MODULE NAME : BPOJIVPA                                        *//
+//*                                                                 *//
+//*   DESCRIPTION : DB2 BPA Installation Verification job           *//
+//*                                                                 *//
+//*   COPYRIGHT   : IBM DB2 Buffer Pool Analyzer for z/OS V4        *//
+//*                 Licensed Material - Property of IBM             *//
+//*                 5655-R98 (C) Copyright IBM Corp. 2001, 2006     *//
+//*                                                                 *//
+//*   FUNCTION    : Testing Batch Reporting                         *//
+//*                                                                 *//
+//*   Notes =                                                       *//
+//*     1.  ADD A VALID JOB CARD                                    *//
+//*     2.  CHANGE THE PREFIX OF THE LIBRARY <db2bpa>               *//
+//*                                                                 *//
+//*End of Specifications*********************************************//
+//*
+//DB2PE   EXEC PGM=DB2PE,REGION=0M
+//STEPLIB  DD  DSN=SSXDT.DB2TOOLS.BANHRTE.RKANMOD,DISP=SHR
+//INPUTDD  DD  DISP=SHR,DSN=T799172.OMEGAMON.TRACE.NEW
+//BPFILDD1 DD  DISP=SHR,DSN=T799172.BPA.BPD
+//*BPFILDD1 DD  DISP=(NEW,CATLG),DSN=T799172.BPA.BPD2,
+//*             DCB=(RECFM=VB,LRECL=9092,BLKSIZE=9096),UNIT=SYSDA,
+//*             SPACE=(9096,(1000,500),RLSE)
+//SYSPRINT DD  SYSOUT=*
+//SYSOUT   DD  SYSOUT=*
+//JOBSUMDD DD  SYSOUT=*
+//SYSPARMS DD  SYSOUT=*
+//SYSIN    DD  *
+BPACTIVITY
+ FILE LEVEL(SUMMARY)
+EXEC
+//
+BPACTIVITY
+   REPORT
+    FILE
+ FILE LEVEL(SUMMARY)
+    REPORT LEVEL(SUMMARY)
+  REPORT LEVEL(DETAIL)
+EXEC
+//BPFILDD1 DD  DISP=(NEW,CATLG),DSN=T799172.BPA.BPD2,
+//             DCB=(RECFM=VB,LRECL=9092,BLKSIZE=9096),UNIT=SYSDA,
+//             SPACE=(9096,(1000,500),RLSE)
