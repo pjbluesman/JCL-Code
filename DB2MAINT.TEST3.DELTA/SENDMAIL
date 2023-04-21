@@ -1,0 +1,20 @@
+//SENDMAIL JOB ,'SEND MAIL',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVS3
+//**********************************************************************
+//** Send files as an e-mail                                          **
+//** Alter email adress and the dataset name                          **
+//**********************************************************************
+//SNDMAIL EXEC  SAS,OPTIONS='SOURCE',COND=(4,LT)
+//SYSIN    DD  *
+ filename send email
+    from =  'paulo.silva@delta.com'
+      to = ('pangelo@br.ibm.com')
+ subject =  "PMR 27834,442,000 - DSNTIJUZ JOB"
+ attach  = (
+            "T496544.DEWQ.DSNTIJUZ.SYSOUT"
+            "T496544.DEWQ.DSNTIJUZ.JCL"
+           );
+ data _null_;
+ file send;
+ endsas;

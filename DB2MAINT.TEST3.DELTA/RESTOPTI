@@ -1,0 +1,16 @@
+//UXDRESTO  JOB ,'DB2 SUPPORT',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID        00010001
+/*JOBPARM SYSAFF=MVS3                                                   00030001
+//STEP2   EXEC PGM=ADRDSSU,REGION=0M  ,PARM=('TYPRUN=NORUN')            00040001
+//INDD    DD  DISP=SHR,DSN=SSXDT.DFDSSDMP.DB2TOOLS.OPT71AT.D090513      00050001
+//OUTDD   DD  UNIT=SYSDA,VOL=SER=L7SYM0,SPACE=(CYL,(2,1),RLSE)          00060001
+//SYSPRINT DD  SYSOUT=*                                                 00070001
+//SYSIN    DD  *                                                        00080001
+  RESTORE INDD(INDD) OUTDD(OUTDD) -                                     00090001
+    DATASET(INCLUDE(*.**)) -                                            00100001
+      TOLERATE(ENQFAILURE) -                                            00110001
+  RENUNC(*.*.*.**,SSXDT.DB2TOOLS.SFOP.**) -                             00120001
+              NMC NSC              -                                    00130001
+              IMPORT               -                                    00140001
+              CATALOG              -                                    00150001
+              REPLACE              -                                    00151001
+              CANCELERROR                                               00160001

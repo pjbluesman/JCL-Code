@@ -1,0 +1,4 @@
+SELECT WLM_ENVIRONMENT, NAME                                            00010000
+FROM SYSIBM.SYSROUTINES                                                 00020000
+WHERE WLM_ENVIRONMENT LIKE 'WLM%'                                       00021001
+ORDER BY 1;                                                             00030000

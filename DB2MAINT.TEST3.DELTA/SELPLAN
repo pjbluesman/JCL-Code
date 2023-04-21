@@ -1,0 +1,10 @@
+SELECT CHAR(                                                            00010008
+FROM SYSIBM.SYSPLAN                                                     00020000
+WHERE EXPLAN = 'Y'                                                      00030005
+ORDER BY 1,2 ;                                                          00031005
+--                                                                      00040000
+SELECT CHAR(OWNER,8), CHAR(CREATOR,8),NAME                              00050008
+FROM SYSIBM.SYSPACKAGE                                                  00060000
+WHERE EXPLAIN = 'Y'                                                     00070006
+ORDER BY 1,2  ;                                                         00071006
+--                                                                      00080000

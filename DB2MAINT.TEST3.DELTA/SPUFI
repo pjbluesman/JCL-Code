@@ -1,0 +1,24 @@
+SELECT *                                                                00010235
+  FROM SYSIBM.SYSTABLES    ;                                            00010337
+SELECT *                                                                00010435
+  FROM SYSIBM.SYSTABLES    ;                                            00010635
+ WHERE                                                                  00010734
+       VCATNAME = 'DB2E'                                                00010834
+   AND STORNAME NOT LIKE ('SAP%')                                       00010933
+ ORDER BY DBNAME                                                        00011033
+   FOR READ ONLY                                                        00011133
+  WITH UR;                                                              00011233
+                                                                        00011332
+SELECT *                                                                00012006
+  FROM SYSIBM.SYSINDEXPART                                              00013005
+ WHERE IXCREATOR <> 'SAPR3'                                             00014005
+-- AND STORTYPE   = 'I'                                                 00015005
+   AND VCATNAME   = 'DB2E'                                              00020005
+-- AND PARTITION  = 0                                                   00021005
+ ORDER BY 1 ;                                                           00022018
+SELECT * FROM SYSIBM.SYSTABLEPART                                       00040017
+ WHERE IXNAME IN                                                        00060017
+ (SELECT * FROM SYSIBM.SYSINDEXPART                                     00061017
+   WHERE IXCREATOR  <> 'SAPR3'                                          00063017
+     AND VCATNAME   =  'DB2E'                                           00065020
+     ORDER BY 1 ) ;                                                     00066019

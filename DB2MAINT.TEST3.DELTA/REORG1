@@ -1,0 +1,35 @@
+//DB2ERE2    JOB ,'DB2 RM 105',MSGCLASS=X,
+//         NOTIFY=&SYSUID,REGION=0M
+/*JOBPARM SYSAFF=MVSE
+//         JCLLIB ORDER=SSXDT.TOOLKIT.PROCLIB
+//JOBLIB   DD  DISP=SHR,
+//             DSN=SSXDT.DB2E.SDSNEXIT
+//         DD  DISP=SHR,
+//             DSN=SDB2E.SDSNLOAD
+//*********************************************************************
+//* REORG DSN8D81A.DSN8S81R
+//*********************************************************************
+//* RESTRICTIONS :
+//* - NONE
+//* BEST PRACTICES :
+//* - NONE
+//*------------------------------------------------------------------
+//STEP02  EXEC DB2UPROC,PARM='DB2E,REORGDBS',COND=(4,LT)
+//DSNTRACE DD  SYSOUT=*
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(CYL,(100,250),,,ROUND)
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(100,250),,,ROUND)
+//SYSREC   DD  UNIT=SYSDA,SPACE=(CYL,(100,250),,,ROUND)
+//COPYDDN  DD  DSN=SSXDT.DB2E.IMGREOR2.DSN8S81R,
+//             DISP=(NEW,CATLG),
+//             UNIT=SYSDA,
+//             SPACE=(CYL,(500,500),RLSE),
+//             DCB=BLKSIZE=8000
+//SYSIN    DD  *
+  REORG TABLESPACE DSN8D81A.DSN8S81R
+     COPYDDN(COPYDDN)
+     LOG NO
+     SORTDATA SORTDEVT 3390 SORTNUM 20
+//
+     MAPPINGTABLE LSEBDB2.T_REORG_MAP_LSEBDB2
+     STATISTICS TABLE(ALL) INDEX(ALL)
+     MAXRO 30

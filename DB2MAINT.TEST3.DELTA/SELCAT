@@ -1,0 +1,8 @@
+SELECT                                                                  00010003
+ 'GRANT SELECT ON SYSIBM.' || NAME || ' TO LSEOS;'                      00020003
+FROM SYSIBM.SYSTABLES                                                   00030000
+WHERE CREATOR = 'SYSIBM'                                                00040000
+AND NAME NOT LIKE '%AUTH'                                               00041004
+AND NAME LIKE 'SYS%'                                                    00042005
+AND TYPE = 'T'                                                          00043006
+ORDER BY NAME;                                                          00050000

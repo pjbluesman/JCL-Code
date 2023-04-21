@@ -1,0 +1,32 @@
+//REST#TOK JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00010001
+//         NOTIFY=&SYSUID,REGION=0M                                     00020000
+/*JOBPARM SYSAFF=MVS3                                                   00030001
+//******************************************************************    00040001
+//*                                                                *    00050001
+//*  UNTERSE                                                       *    00060001
+//******************************************************************    00070001
+//STEP01   EXEC PGM=TRSMAIN,PARM='UNPACK'                               00080001
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB                          00090001
+//SYSPRINT DD SYSOUT=*,DCB=(LRECL=133,BLKSIZE=12901,RECFM=FBA)          00100001
+//INFILE   DD DISP=SHR,DSN=SSXDT.DB2BLD.DFDSSDMP.TOOLKIT.TRS.D140417    00110001
+//OUTFILE  DD DSN=&&TOOLKIT,                                            00120001
+//  DISP=(NEW,PASS,DELETE),                                             00130001
+//  UNIT=SYSDA,SPACE=(CYL,(20,10),RLSE)                                 00140001
+//*                                                                     00150001
+//******************************************************************    00160001
+//*                                                                *    00170001
+//*  RESTORE TOOLKIT MADLON                                        *    00180001
+//******************************************************************    00190001
+//STEP2   EXEC PGM=ADRDSSU,REGION=0M ,PARM=('TYPRUN=NORUN')             00200001
+//INDD     DD  DISP=SHR,DSN=&&TOOLKIT                                   00210001
+//OUTDD    DD  UNIT=SYSDA,SPACE=(CYL,(2,1),RLSE)                        00220001
+//SYSPRINT DD  SYSOUT=*                                                 00230001
+//SYSIN    DD  *                                                        00240001
+  RESTORE INDD(INDD) OUTDD(OUTDD) -                                     00250001
+    DATASET(INCLUDE(*.**)) -                                            00260001
+      TOLERATE(ENQFAILURE) -                                            00270001
+  RENUNC(DB2BLD.*.**,SSXDT.*.**) -                                      00280001
+              NMC NSC              -                                    00290001
+              CATALOG              -                                    00300001
+              IMPORT               -                                    00310001
+              CANCELERROR                                               00320001

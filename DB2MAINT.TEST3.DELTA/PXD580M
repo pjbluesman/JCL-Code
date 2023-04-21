@@ -1,0 +1,14 @@
+//PXD580M  JOB D-813-000-N-00,
+//            'ESP DISTRIBUTION',
+//             CLASS=S,
+//             MSGCLASS=U,
+//             MSGLEVEL=(1,1),
+//             REGION=0M,
+//             TIME=1440
+/*ROUTE PRINT MVS
+//*
+//JOBLIB    DD DISP=SHR,DSN=SDEWD.SDSNLOAD
+//          DD DISP=SHR,DSN=SSXDT.DEWD.SDSNEXIT
+//        JCLLIB ORDER=SSXDT.DB2.PARMLIB
+//STEP01   EXEC  PXD580
+//

@@ -1,0 +1,32 @@
+//DB2SDROP JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSE
+//         JCLLIB ORDER=SSXDT.TOOLKIT.PROCLIB
+//JOBLIB   DD  DSN=SDB2S.SDSNLOAD,DISP=SHR
+//         DD  DSN=SSXDP.DB2S.RUNLIB.LOAD,DISP=SHR
+//*
+//*********************************************************************
+//* DROP TABLESPACE/DB                                                *
+//* 1- Include DBs already in UT - execute $DISPLAY to check it       *
+//* 2- Based on DSNTIJPA , check if there TABLESPACE/DB to be dropped *
+//* 3- Confirm on HC 'Last Reference' if not used more than 180days   *
+//* 4- Execute DDL for each DB or TS using ADMIN/GEN                  *
+//*********************************************************************
+//CHECKDB  EXEC TSOBATCH
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB2S)
+      RUN PROGRAM(DSNTEP2)
+  END
+/*
+//SYSIN    DD  *
+--*********************************************************************
+--* Set the CURRENT SQLID.                                            *
+--*********************************************************************
+  SET CURRENT SQLID='LSEBDB2';
+
+--*********************************************************************
+--* Drop TABLESPACE                                                   *
+--*********************************************************************
+ ALTER TABLE SYSIBM.DSNRLST01     DROP RESTRICT ON DROP;
+
+  COMMIT;

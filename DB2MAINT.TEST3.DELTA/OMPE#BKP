@@ -1,0 +1,37 @@
+//UXC401M3 JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00010000
+//         NOTIFY=&SYSUID                                               00020000
+/*JOBPARM SYSAFF=MVS3                                                   00030000
+//*                                                                     00040000
+//*-------------------------------------------------------------------*/00050000
+//* Job Function : COPY OMPE XE APF DSN TO SMS VOLUMES                  00060000
+//*-------------------------------------------------------------------*/00070000
+//*                                                                     00080000
+//BKP#OMPE EXEC  PGM=ADRDSSU,REGION=32M                                 00090001
+//SYSPRINT DD SYSOUT=*                                                  00100001
+//TAPE     DD UNIT=CART,DISP=(NEW,CATLG,DELETE),                        00110002
+//            DSN=SSXDT.DB2TOOLS.OMPE.S7S2T1.BKP,                       00120001
+//            LABEL=RETPD=90,VOL=(,,,5)                                 00130001
+//SYSIN    DD  *                                                        00140001
+    DUMP OUTDD(TAPE)                      -                             00150002
+         DS(INCLUDE(                      -                             00160002
+          SSXDT.DB2TOOLS.BANHRTE.RKANMOD  -                             00161002
+          SSXDT.DB2TOOLS.BANHRTE.RKANMODL -                             00162002
+          SSXDT.DB2TOOLS.BASURTE.RKANMOD  -                             00163002
+          SSXDT.DB2TOOLS.BASURTE.RKANMODL -                             00164002
+          SSXDT.DB2TOOLS.MVSERTE.RKANMOD  -                             00165002
+          SSXDT.DB2TOOLS.MVSERTE.RKANMODL -                             00166002
+          SSXDT.DB2TOOLS.MVSERTE.RKANMODU -                             00167002
+          SSXDT.DB2TOOLS.MVSHRTE.RKANMODU -                             00168002
+          SSXDT.DB2TOOLS.MVSJRTE.RKANMOD  -                             00169002
+          SSXDT.DB2TOOLS.MVSJRTE.RKANMODL -                             00169102
+          SSXDT.DB2TOOLS.MVSJRTE.RKANMODU -                             00169202
+          SSXDT.DB2TOOLS.MVSKRTE.RKANMOD  -                             00169302
+          SSXDT.DB2TOOLS.MVSKRTE.RKANMODL -                             00169402
+          SSXDT.DB2TOOLS.MVSKRTE.RKANMODU -                             00169502
+          SSXDT.DB2TOOLS.MVSNRTE.RKANMODU -                             00169602
+          SSXDT.DB2TOOLS.MVSSRTE.RKANMODU -                             00169702
+          SSXDT.DB2TOOLS.MVSURTE.RKANMODU -                             00169802
+          SSXDT.DB2TOOLS.MVS3RTE.RKANMODU -                             00169902
+                             ))       -                                 00170002
+                 TOL(ENQF)                                              00180001
+/*                                                                      00190001

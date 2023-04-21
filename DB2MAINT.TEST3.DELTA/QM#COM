@@ -1,0 +1,15 @@
+How to set DB2 subsystem        : DB2 QM Subsystem ID: ?
+========================================================================
+DB2 Command executed            : 4. View DB2 Command Activity
+                                  Interval
+              SSID  JOBNAME  AUTHID   Command Timestamp     Command Text
+               --  -------- -------- --------------------- -------------
+              DB2Z  DB2ZMSTR T032135  11/16/2016 - 15:39:25 -DIS GROUP
+========================================================================
+SQL Codes                       : 2. View SQLCODEs
+                                  Group by  S  => SQLCODE
+                                  Group by  A  => AUTHID
+               CMD  SQLCODE   Occurrences
+               --  --------- --------------
+               __  -904                   1
+========================================================================

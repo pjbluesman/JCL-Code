@@ -1,0 +1,12 @@
+//PXD581M    JOB ,'DB2 RM 102',CLASS=S,MSGCLASS=U                       00001000
+/*ROUTE PRINT MVS
+//***************************************************************/
+//*  JCL EXECUTES THE RUNSTATS UTILITY AGAINST DEWD CATALOG     */
+//*  THIS JOB MUST RUN ON MVSE                                  */
+//*                                                             */
+//***************************************************************/
+//*
+//JOBLIB    DD DISP=SHR,DSN=SDEWD.SDSNLOAD
+//          DD DISP=SHR,DSN=SSXDT.DEWD.SDSNEXIT
+//        JCLLIB ORDER=SSXDT.DB2.PARMLIB
+//STEP01   EXEC  PXD581

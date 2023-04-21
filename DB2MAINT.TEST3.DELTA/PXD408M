@@ -1,0 +1,29 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID,REGION=0M
+/*JOBPARM SYSAFF=MVSN
+//***************************************************************/
+//*  JCL EXECUTES THE MODIFY UTILITY AGAINST DB2O CATALOG        /
+//*  THIS JOB MUST RUN ON MVSN                                   /
+//*                                                              /
+//*  DELETE ALL ENTRIES FOR CATALOG AND DIRECTORY                /
+//*  PRIOR TO 65 DAYS BEFORE TODAY                               /
+//*                                                              /
+//*  REV: 02/23/2011                                            */
+//***************************************************************/
+//JOBLIB   DD DISP=SHR,DSN=SDB2O.SDSNLOAD
+//         DD DISP=SHR,DSN=SSXDT.DB2O.SDSNEXIT
+//*
+//MODIFCAT   EXEC PGM=DSNUTILB,PARM='DB2O,MODIFCAT'
+//UTPRINT  DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//DSNUPROC.SYSIN DD DISP=SHR,DSN=SSXDP.DB2.PARMLIB(MODIFV9)
+//*
+//DISPUTIL EXEC PGM=IKJEFT01,COND=EVEN
+//SYSTSPRT DD  SYSOUT=*
+//SYSPRINT DD  SYSOUT=*
+//SYSUDUMP DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB2O)
+  -DIS UTIL(*)
+  END
+//

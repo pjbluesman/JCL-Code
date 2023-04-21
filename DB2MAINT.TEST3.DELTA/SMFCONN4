@@ -1,0 +1,59 @@
+//UXD001M  JOB (,A3),'DB2 V9 ALIAS',REGION=6M,                          00000100
+//             CLASS=S,MSGCLASS=X,MSGLEVEL=(1,1)                        00000200
+/*JOBPARM SYSAFF=MVSK                                                   00000300
+//PEV410  EXEC PGM=DB2PM                                                00000400
+//STEPLIB  DD  DSN=SSXDP.DB2TOOLS.MVSRRTE.RKANMODU,DISP=SHR             00000500
+//         DD  DSN=SSXDP.DB2TOOLS.BARQ4RTE.RKANMOD,DISP=SHR             00000600
+//INPUTDD  DD  DISP=SHR,DSN=PSSXP.SMF.MVSS.DB2.G4199V00                 00000700
+//         DD  DISP=SHR,DSN=PSSXP.SMF.MVSS.DB2.G4200V00                 00000800
+//         DD  DISP=SHR,DSN=PSSXP.SMF.MVSS.DB2.G4201V00                 00000900
+//         DD  DISP=SHR,DSN=PSSXP.SMF.MVSU.DB2.G3818V00                 00001000
+//         DD  DISP=SHR,DSN=PSSXP.SMF.MVSU.DB2.G3819V00                 00002000
+//         DD  DISP=SHR,DSN=PSSXP.SMF.MVSU.DB2.G3820V00                 00003000
+//DPMLOG   DD  SYSOUT=*                                                 00006000
+//SORTWK01 DD SPACE=(CYL,(500,200)),UNIT=SYSDA                          00007000
+//SORTWK02 DD SPACE=(CYL,(500,200)),UNIT=SYSDA                          00008000
+//SORTWK03 DD SPACE=(CYL,(500,200)),UNIT=SYSDA                          00009000
+//SORTWK04 DD SPACE=(CYL,(500,200)),UNIT=SYSDA                          00010000
+//SORTWK05 DD SPACE=(CYL,(500,200)),UNIT=SYSDA                          00020000
+//SYSOUT   DD  SYSOUT=*                                                 00030000
+//SYSIN    DD  *                                                        00040000
+LIST (REQLOC(IPLIST(                                                    00080000
+                     10.64.90.65                                        00084402
+                     10.6.163.163                                       00084502
+                     10.64.50.61                                        00084602
+                     147.118.102.187                                    00084702
+                     10.68.216.11                                       00084802
+                     139.72.115.116                                     00084902
+                     10.64.59.99                                        00085002
+                     10.6.163.125                                       00085102
+                     10.6.163.41                                        00085202
+                     10.6.163.175                                       00085302
+                     10.6.163.123                                       00085402
+                     10.6.167.129                                       00085502
+                     10.6.167.27                                        00086002
+                     10.12.162.118                                      00087002
+                     10.12.161.37                                       00088002
+                     10.64.90.89                                        00088102
+                     10.64.90.91                                        00088202
+                     10.6.163.175                                       00088302
+                     10.68.36.160                                       00088402
+                     10.68.36.161                                       00088502
+                     10.68.36.162                                       00089002
+                     10.67.33.34                                        00090002
+                     10.67.33.35                                        00100002
+                     147.118.102.187                                    00110002
+                     10.64.90.65                                        00120002
+                     10.68.216.11                                       00130002
+                     10.6.163.163                                       00140002
+                     10.68.8.64                                         00141002
+                     10.68.8.65                                         00141102
+                     10.68.36.156                                       00141202
+                     10.68.36.157                                       00141302
+                     10.68.36.158                                       00141402
+                              )  ) )                                    00149000
+ACCOUNTING                                                              00150000
+   TRACE                                                                00160000
+      INCLUDE (REQLOC(L(IPLIST)))                                       00170000
+      LAYOUT(DDF)                                                       00180000
+EXEC                                                                    00190000

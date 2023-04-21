@@ -1,0 +1,9 @@
+//DB2WDELT JOB ,'DB2 RM102',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID
+//* *************************************************************** */  00150000
+//* DEL MEMBER
+//* *************************************************************** */  00170000
+//DSNTIC  EXEC PGM=IDCAMS                                               00180000
+//SYSPRINT DD SYSOUT=*                                                  00200000
+//SYSUDUMP DD SYSOUT=*                                                  00210000
+//SYSIN DD *                                                            00590000
+      DELETE T032135.DB2W.PARMLIB(PXD174N)                              01730001

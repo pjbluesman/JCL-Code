@@ -1,0 +1,10 @@
+//PXD81XM  JOB ,'DBOG BKPSYSTEM',CLASS=X,MSGCLASS=U,MSGLEVEL=(1,1),
+//      REGION=0M,TIME=1440 TYPRUN=SCAN
+/*JOBPARM SYSAFF=MVSN
+//***************************************************************/
+//*  JCL EXECUTES :                                             */
+//*   THE DB2 BACKUP SYSTEM FULL ON DB2Y                        */
+//*  THIS JOB MUST RUN ON MVSN                                  */
+//***************************************************************/
+//        JCLLIB ORDER=SSXDT.DB2.PARMLIB
+//STEP01   EXEC  PXD81X

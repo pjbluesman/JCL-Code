@@ -1,0 +1,39 @@
+//UXC401M3 JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00010001
+//         NOTIFY=&SYSUID                                               00020000
+/*JOBPARM SYSAFF=MVS3                                                   00030001
+//*                                                                     00040000
+//*-------------------------------------------------------------------*/00050000
+//* Job Function : COPY OMPE XE APF DSN TO SMS VOLUMES                  00060001
+//*-------------------------------------------------------------------*/00070000
+//*                                                                     00080000
+//ADRD010  EXEC PGM=ADRDSSU,REGION=4096K                                00090000
+//SYSPRINT DD   SYSOUT=*                                                00100000
+//DASD1    DD   DISP=SHR,UNIT=3390,VOL=SER=S7S2T1                       00110000
+//SYSIN    DD   *                                                       00120000
+     COPY DATASET(INCLUDE(                     -                        00130001
+               SSXDT.DB2TOOLS.BASURTE.RKANMOD  -                        00130101
+               SSXDT.DB2TOOLS.BASURTE.RKANMODL -                        00130201
+               SSXDT.DB2TOOLS.BANHRTE.RKANMODL -                        00130301
+               SSXDT.DB2TOOLS.BANHRTE.RKANMODL -                        00130401
+               SSXDT.DB2TOOLS.MVSERTE.RKANMODL -                        00130501
+               SSXDT.DB2TOOLS.MVSERTE.RKANMODL -                        00130601
+               SSXDT.DB2TOOLS.MVSERTE.RKANMODU -                        00130701
+               SSXDT.DB2TOOLS.MVSHRTE.RKANMODU -                        00130801
+               SSXDT.DB2TOOLS.MVSJRTE.RKANMODL -                        00130901
+               SSXDT.DB2TOOLS.MVSJRTE.RKANMODL -                        00131001
+               SSXDT.DB2TOOLS.MVSJRTE.RKANMODU -                        00131101
+               SSXDT.DB2TOOLS.MVSKRTE.RKANMODL -                        00131201
+               SSXDT.DB2TOOLS.MVSKRTE.RKANMODL -                        00131301
+               SSXDT.DB2TOOLS.MVSKRTE.RKANMODU -                        00131401
+               SSXDT.DB2TOOLS.MVSNRTE.RKANMODU -                        00131501
+               SSXDT.DB2TOOLS.MVSSRTE.RKANMODU -                        00131601
+               SSXDT.DB2TOOLS.MVSURTE.RKANMODU -                        00131701
+               SSXDT.DB2TOOLS.MVS3RTE.RKANMODU -                        00131801
+                                             ) -                        00132001
+                ) -                                                     00140000
+          LOGINDDNAME(DASD1)        -                                   00150000
+          DELETE PURGE CATALOG      -                                   00160000
+          ALLDATA(*) ALLEXCP SPHERE -                                   00170000
+          TGTALLOC(SOURCE) TGTGDS(SRC) TOL(IOERROR) WAIT(2,2) -         00180000
+          PERCENTUTILIZED(99)                                           00190000
+/*                                                                      00200000

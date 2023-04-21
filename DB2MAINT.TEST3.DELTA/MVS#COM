@@ -1,0 +1,26 @@
+login  specific tso             : LOGON APPLID(TSOx)
+ISPF   QW                       : to check spaces , dasd , storage group
+ISPF   open new window on tso   : START / SCRNAME XXXX
+ISPF   send message             : TSO SEND 'messages' USER(TXX1,TXX2)
+ISPF   see lib allocated on tso : TSO ISRDDN
+ISPF   search xxxx on link/lpa  : TSO FINDMOD xxxx     xxxx is a module
+ISPF   VSAM del file on catalog : DEL (/) NOSCR
+ISPF   VSAM catalog Non Vsam    : def nvsam(name(xxx) (3390) vol(vol))
+ISPF   TSO allocate file session: ALLOC FILE(ISPPLIB) DA('SSXDT.FILE')
+                                  REUSE
+ISPF   search for string on 3.4 : SRCHFOR 'MSGCLASS=A'
+ISPF   transfer a member        : XMIT LABSAP.T032135 DSN(/) MEMBER(xxx)
+LOG    access LOG lpar          : SDSF /LOG S / SYSID lpar
+LOG    apf                      : d prog,apf
+LOG    linklst                  : d prog,linklst
+LOG    time                     : D T
+LOG    spool                    : $dspl
+LOG    proclib concatenation    : $d proclib
+LOG    gbpool                   : D XCF,STR,STRNAME=DSNDBVG_*
+LOG    contention dataset       : D GRS,RES=(SYSDSN,ssxdp.db2x.sdsnexit)
+LOG    tcp address              : d tcpip,,n,home
+LOG    route command            : ro mvsk,-DB2Z DIS DDF
+LOG    syslog file              : MVxLOG.SYSLOG.*   x-lpar
+LOG    refresh , TERMINATE WLM  : V WLM,APPLENV=WLMxxxxx,REFRESH
+       and start new one
+LOG    START NEW WLM            : V WLM,APPLENV=WLMxxxxx,RESUME

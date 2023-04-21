@@ -1,0 +1,17 @@
+//UXC401Q  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID,REGION=0M
+/*JOBPARM SYSAFF=MVSN
+//***************************************************************/
+//*  JCL EXECUTES THE QUIESCE  UTILITY AGAINST DB2O CATALOG     */
+//*  THIS JOB MUST RUN ON MVSN                                  */
+//*                                                             */
+//*  REV: 02/23/2011                                            */
+//***************************************************************/
+//*
+//JOBLIB  DD DISP=SHR,DSN=SDB2O.SDSNLOAD
+//*
+//UTIL    EXEC DSNUPROC,SYSTEM=DB2O,UID='QUISO',UTPROC=''
+//SYSPRINT DD  SYSOUT=*
+//SYSUDUMP DD  SYSOUT=*
+//DSNUPROC.SYSIN DD DISP=SHR,DSN=SSXDP.DB2.PARMLIB(QUIESCV9)
+/*

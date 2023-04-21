@@ -1,0 +1,64 @@
+//REORGIN4 JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,REGION=0M,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVS3
+//JOBLIB    DD DISP=SHR,
+//             DSN=SSXDT.DB6V.SDSNEXIT
+//*
+//*********************************************************************
+//* STEP TERM UTIL
+//*********************************************************************
+//*
+//* IKJEFT01: TERMINATE PENDING DSNDTX01 UTILITIES
+//*
+//TERMUTIL EXEC PGM=IKJEFT01,DYNAMNBR=20
+//SYSOUT    DD SYSOUT=*
+//SYSPRINT  DD SYSOUT=*
+//SYSTSPRT  DD SYSOUT=*
+//SYSUDUMP  DD SYSOUT=*
+//SYSTSIN   DD *
+DSN SYSTEM(DB6V)
+-DIS UTILITY(*)
+-TERM UTILITY(DSNDTX01)
+END
+//*
+//*
+//* IDCAMS: ALLOCATE SHADOW DATA SETS FOR REORG DSNDTX01
+//*
+//DEFSHDW  EXEC PGM=IDCAMS
+//SYSPRINT  DD SYSOUT=*
+//SYSUDUMP  DD SYSOUT=*
+//SYSIN     DD *
+   DEFINE CLUSTER                             -
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDTX01.J0001.A001) -
+           VOLUMES(E9D2V1) -
+           LINEAR                             -
+           REUSE                              -
+           CYLINDERS(5 2)                -
+           SHAREOPTIONS(3 3) )                -
+      DATA                                    -
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDTX01.J0001.A001) -
+                              )
+//*
+//*
+//* DSNUTILB (REORG): DSNDTX01
+//*
+//REORGIX  EXEC PGM=DSNUTILB,REGION=0M,COND=(4,LT),
+//             PARM='DB6V,DSNDTX01'
+//SYSUT1 DD DSN=SSXDT.DB6V.DSNDTX01.SYSUT1,
+//             DISP=(MOD,DELETE,CATLG),
+//             SPACE=(TRK,(45,15),RLSE),
+//             UNIT=SYSDA
+//SORTOUT DD DSN=SSXDT.DB6V.DSNDTX01.SORTOUT,
+//             DISP=(MOD,DELETE,CATLG),
+//             SPACE=(TRK,(45,15),RLSE),
+//             UNIT=SYSDA
+//SYSPRINT  DD SYSOUT=*
+//UTPRINT   DD SYSOUT=*
+//SYSUDUMP  DD SYSOUT=*
+//SYSIN     DD *
+   REORG INDEX SYSIBM.DSNDTX01
+         SHRLEVEL CHANGE
+         SORTDEVT SYSDA
+         SORTNUM  4
+   RUNSTATS INDEX (SYSIBM.DSNDTX01) SHRLEVEL CHANGE
+   CHECK INDEX (SYSIBM.DSNDTX01) SHRLEVEL CHANGE

@@ -1,0 +1,1971 @@
+//DB2VSHAD   JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X,
+//         NOTIFY=&SYSUID,REGION=0M
+/*JOBPARM SYSAFF=MVS3
+//*                                                                     00490000
+//DSNTIC  PROC                                                          00500000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)
+//SYSPRINT DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//DSNTIC  PEND
+//*
+//*
+//DSNTDIR EXEC DSNTIC                                                   01810000
+//* *********************************************                       01820000
+//*  DEFINE DB2  DIRECTORY TABLE SPACES         *                       01830000
+//* *********************************************                       01840000
+//SYSIN    DD  *                                                        01850000
+   DEFINE CLUSTER                             -                         01860000
+         ( NAME(DB2V.DSNDBC.DSNDB01.DBD01.J0001.A001) -                 01870000
+           LINEAR                             -                         01880000
+           REUSE                              -                         01890000
+           VOLUMES(*.*.*)                     -                         01900000
+           CYLINDERS(400 50)                  -                         01930000
+           SHAREOPTIONS(3 3)  )               -                         01940000
+      DATA                                    -                         01950000
+         ( NAME(DB2V.DSNDBD.DSNDB01.DBD01.J0001.A001) -                 01960000
+                                 )                                      01990000
+                                                                        02010000
+   DEFINE CLUSTER                             -                         02020000
+         ( NAME(DB2V.DSNDBC.DSNDB01.SCT02.J0001.A001) -                 02030000
+           LINEAR                             -                         02040000
+           REUSE                              -                         02050000
+           VOLUMES(*.*.*)                     -                         02060000
+           CYLINDERS(400 50)                  -                         02090000
+           SHAREOPTIONS(3 3)     )            -                         02100000
+      DATA                                    -                         02110000
+         ( NAME(DB2V.DSNDBD.DSNDB01.SCT02.J0001.A001) -                 02120000
+                                 )                                      02150000
+                                                                        02170000
+   DEFINE CLUSTER                             -                         02180000
+         ( NAME(DB2V.DSNDBC.DSNDB01.DSNSCT02.J0001.A001) -              02190000
+           LINEAR                             -                         02200000
+           REUSE                              -                         02210000
+           VOLUMES(*.*.*)                     -                         02220000
+           CYLINDERS(30 10)                   -                         02250000
+           SHAREOPTIONS(3 3) )                -                         02260000
+      DATA                                    -                         02270000
+         ( NAME(DB2V.DSNDBD.DSNDB01.DSNSCT02.J0001.A001) -              02280000
+                              )                                         02310000
+                                                                        02330000
+   DEFINE CLUSTER                             -                         02340000
+         ( NAME(DB2V.DSNDBC.DSNDB01.SPT01.J0001.A001) -                 02350000
+           LINEAR                             -                         02360000
+           REUSE                              -                         02370000
+           VOLUMES(*.*.*)                     -                         02380000
+           CYLINDERS(400 50)                  -                         02410000
+           CONTROLINTERVALSIZE(8192)          -                         02415000
+           SHAREOPTIONS(3 3)     )            -                         02420000
+      DATA                                    -                         02430000
+         ( NAME(DB2V.DSNDBD.DSNDB01.SPT01.J0001.A001) -                 02440000
+                                 )                                      02470000
+                                                                        02490000
+   DEFINE CLUSTER                             -                         02500000
+         ( NAME(DB2V.DSNDBC.DSNDB01.DSNSPT01.J0001.A001) -              02510000
+           LINEAR                             -                         02520000
+           REUSE                              -                         02530000
+           VOLUMES(*.*.*)                     -                         02540000
+           CYLINDERS(30 10)                   -                         02570000
+           SHAREOPTIONS(3 3) )                -                         02580000
+      DATA                                    -                         02590000
+         ( NAME(DB2V.DSNDBD.DSNDB01.DSNSPT01.J0001.A001) -              02600000
+                              )                                         02630000
+                                                                        02650000
+   DEFINE CLUSTER                             -                         02660000
+         ( NAME(DB2V.DSNDBC.DSNDB01.DSNSPT02.J0001.A001) -              02670000
+           LINEAR                             -                         02680000
+           REUSE                              -                         02690000
+           VOLUMES(*.*.*)                     -                         02700000
+           CYLINDERS(30 10)                   -                         02730000
+           SHAREOPTIONS(3 3) )                -                         02740000
+      DATA                                    -                         02750000
+         ( NAME(DB2V.DSNDBD.DSNDB01.DSNSPT02.J0001.A001) -              02760000
+                              )                                         02790000
+                                                                        02810000
+   DEFINE CLUSTER                             -                         02820000
+         ( NAME(DB2V.DSNDBC.DSNDB01.SYSLGRNX.J0001.A001) -              02830000
+           LINEAR                             -                         02840000
+           REUSE                              -                         02850000
+           VOLUMES(*.*.*)                     -                         02860000
+           CYLINDERS(30 10)                   -                         02890000
+           SHAREOPTIONS(3 3) )                -                         02900000
+      DATA                                    -                         02910000
+         ( NAME(DB2V.DSNDBD.DSNDB01.SYSLGRNX.J0001.A001) -              02920000
+                              )                                         02950000
+                                                                        02970000
+   DEFINE CLUSTER                             -                         02980000
+         ( NAME(DB2V.DSNDBC.DSNDB01.DSNLLX01.J0001.A001) -              02990000
+           LINEAR                             -                         03000000
+           REUSE                              -                         03010000
+           VOLUMES(*.*.*)                     -                         03020000
+           CYLINDERS(30 10)                   -                         03050000
+           SHAREOPTIONS(3 3) )                -                         03060000
+      DATA                                    -                         03070000
+         ( NAME(DB2V.DSNDBD.DSNDB01.DSNLLX01.J0001.A001) -              03080000
+                              )                                         03110000
+                                                                        03130000
+   DEFINE CLUSTER                             -                         03140000
+         ( NAME(DB2V.DSNDBC.DSNDB01.DSNLLX02.J0001.A001) -              03150000
+           LINEAR                             -                         03160000
+           REUSE                              -                         03170000
+           VOLUMES(*.*.*)                     -                         03180000
+           CYLINDERS(30 10)                   -                         03210000
+           SHAREOPTIONS(3 3) )                -                         03220000
+      DATA                                    -                         03230000
+         ( NAME(DB2V.DSNDBD.DSNDB01.DSNLLX02.J0001.A001) -              03240000
+                              )                                         03270000
+                                                                        03290000
+   DEFINE CLUSTER                             -                         03300000
+         ( NAME(DB2V.DSNDBC.DSNDB01.SYSUTILX.J0001.A001) -              03310000
+           LINEAR                             -                         03320000
+           REUSE                              -                         03330000
+           VOLUMES(*.*.*)                     -                         03340000
+           CYLINDERS(30 10)                   -                         03370000
+           SHAREOPTIONS(3 3) )                -                         03380000
+      DATA                                    -                         03390000
+         ( NAME(DB2V.DSNDBD.DSNDB01.SYSUTILX.J0001.A001) -              03400000
+                              )                                         03430000
+                                                                        03450000
+   DEFINE CLUSTER                             -                         03460000
+         ( NAME(DB2V.DSNDBC.DSNDB01.DSNLUX01.J0001.A001) -              03470000
+           LINEAR                             -                         03480000
+           REUSE                              -                         03490000
+           VOLUMES(*.*.*)                     -                         03500000
+           CYLINDERS(30 10)                   -                         03530000
+           SHAREOPTIONS(3 3) )                -                         03540000
+      DATA                                    -                         03550000
+         ( NAME(DB2V.DSNDBD.DSNDB01.DSNLUX01.J0001.A001) -              03560000
+                              )                                         03590000
+                                                                        03610000
+   DEFINE CLUSTER                             -                         03620000
+         ( NAME(DB2V.DSNDBC.DSNDB01.DSNLUX02.J0001.A001) -              03630000
+           LINEAR                             -                         03640000
+           REUSE                              -                         03650000
+           VOLUMES(*.*.*)                     -                         03660000
+           CYLINDERS(30 10)                   -                         03690000
+           SHAREOPTIONS(3 3) )                -                         03700000
+      DATA                                    -                         03710000
+         ( NAME(DB2V.DSNDBD.DSNDB01.DSNLUX02.J0001.A001) -              03720000
+                              )                                         03750000
+                                                                        03770000
+//DSNTCOP EXEC DSNTIC                                                   03780000
+//* *********************************************                       03790000
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSCOPY   *                       03800000
+//* *********************************************                       03810000
+//SYSIN DD *                                                            03820000
+   DEFINE CLUSTER                             -                         03830000
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSCOPY.J0001.A001) -               03840000
+           LINEAR                             -                         03850000
+           REUSE                              -                         03860000
+           VOLUMES(*.*.*)                     -                         03870000
+           CYLINDERS(30 10)                   -                         03900000
+           SHAREOPTIONS(3 3) )                -                         03910000
+      DATA                                    -                         03920000
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSCOPY.J0001.A001) -               03930000
+                              )                                         03960000
+                                                                        03980000
+   DEFINE CLUSTER                             -                         03990000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNUCH01.J0001.A001) -              04000000
+           LINEAR                             -                         04010000
+           REUSE                              -                         04020000
+           VOLUMES(*.*.*)                     -                         04030000
+           CYLINDERS(30 10)                   -                         04060000
+           SHAREOPTIONS(3 3) )                -                         04070000
+      DATA                                    -                         04080000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNUCH01.J0001.A001) -              04090000
+                              )                                         04120000
+                                                                        04140000
+   DEFINE CLUSTER                             -                         04150000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNUCX01.J0001.A001) -              04160000
+           LINEAR                             -                         04170000
+           REUSE                              -                         04180000
+           VOLUMES(*.*.*)                     -                         04190000
+           CYLINDERS(30 10)                   -                         04220000
+           SHAREOPTIONS(3 3) )                -                         04230000
+      DATA                                    -                         04240000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNUCX01.J0001.A001) -              04250000
+                              )                                         04280000
+                                                                        04300000
+//DSNTDBS EXEC DSNTIC                                                   04310000
+//* *********************************************                       04320000
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSDBASE  *                       04330000
+//* *********************************************                       04340000
+//SYSIN DD *                                                            04350000
+   DEFINE CLUSTER                             -                         04360000
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSDBASE.J0001.A001) -              04370000
+           LINEAR                             -                         04380000
+           REUSE                              -                         04390000
+           VOLUMES(*.*.*)                     -                         04400000
+           CYLINDERS(100 50)                   -                        04430000
+           CONTROLINTERVALSIZE(8192)          -                         04435000
+           SHAREOPTIONS(3 3) )                -                         04440000
+      DATA                                    -                         04450000
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSDBASE.J0001.A001) -              04460000
+                              )                                         04490000
+                                                                        04510000
+   DEFINE CLUSTER                             -                         04520000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDCX01.J0001.A001) -              04530000
+           LINEAR                             -                         04540000
+           REUSE                              -                         04550000
+           VOLUMES(*.*.*)                     -                         04560000
+           CYLINDERS(400 100)                 -                         04590000
+           SHAREOPTIONS(3 3) )                -                         04600000
+      DATA                                    -                         04610000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDCX01.J0001.A001) -              04620000
+                              )                                         04650000
+                                                                        04670000
+   DEFINE CLUSTER                             -                         04680000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDCX02.J0001.A001) -              04680500
+           LINEAR                             -                         04681000
+           REUSE                              -                         04681600
+           VOLUMES(*.*.*)                     -                         04682200
+           CYLINDERS(400 100)                 -                         04684000
+           SHAREOPTIONS(3 3) )                -                         04684600
+      DATA                                    -                         04685200
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDCX02.J0001.A001) -              04685800
+                              )                                         04687600
+                                                                        04688800
+   DEFINE CLUSTER                             -                         04689400
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDLX01.J0001.A001) -              04690000
+           LINEAR                             -                         04700000
+           REUSE                              -                         04710000
+           VOLUMES(*.*.*)                     -                         04720000
+           CYLINDERS(30 10)                   -                         04750000
+           SHAREOPTIONS(3 3) )                -                         04760000
+      DATA                                    -                         04770000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDLX01.J0001.A001) -              04780000
+                              )                                         04810000
+                                                                        04830000
+   DEFINE CLUSTER                             -                         04840000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDTX01.J0001.A001) -              04850000
+           LINEAR                             -                         04860000
+           REUSE                              -                         04870000
+           VOLUMES(*.*.*)                     -                         04880000
+           CYLINDERS(30 10)                   -                         04910000
+           SHAREOPTIONS(3 3) )                -                         04920000
+      DATA                                    -                         04930000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDTX01.J0001.A001) -              04940000
+                              )                                         04970000
+                                                                        04990000
+   DEFINE CLUSTER                             -                         05000000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDTX02.J0001.A001) -              05010000
+           LINEAR                             -                         05020000
+           REUSE                              -                         05030000
+           VOLUMES(*.*.*)                     -                         05040000
+           CYLINDERS(30 10)                   -                         05070000
+           SHAREOPTIONS(3 3) )                -                         05080000
+      DATA                                    -                         05090000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDTX02.J0001.A001) -              05100000
+                              )                                         05130000
+                                                                        05150000
+   DEFINE CLUSTER                             -                         05160000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDSX01.J0001.A001) -              05170000
+           LINEAR                             -                         05180000
+           REUSE                              -                         05190000
+           VOLUMES(*.*.*)                     -                         05200000
+           CYLINDERS(30 10)                   -                         05230000
+           SHAREOPTIONS(3 3) )                -                         05240000
+      DATA                                    -                         05250000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDSX01.J0001.A001) -              05260000
+                              )                                         05290000
+                                                                        05310000
+   DEFINE CLUSTER                             -                         05320000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDXX01.J0001.A001) -              05330000
+           LINEAR                             -                         05340000
+           REUSE                              -                         05350000
+           VOLUMES(*.*.*)                     -                         05360000
+           CYLINDERS(30 10)                   -                         05390000
+           SHAREOPTIONS(3 3) )                -                         05400000
+      DATA                                    -                         05410000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDXX01.J0001.A001) -              05420000
+                              )                                         05450000
+                                                                        05470000
+   DEFINE CLUSTER                             -                         05480000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDXX02.J0001.A001) -              05490000
+           LINEAR                             -                         05500000
+           REUSE                              -                         05510000
+           VOLUMES(*.*.*)                     -                         05520000
+           CYLINDERS(30 10)                   -                         05550000
+           SHAREOPTIONS(3 3) )                -                         05560000
+      DATA                                    -                         05570000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDXX02.J0001.A001) -              05580000
+                              )                                         05610000
+                                                                        05630000
+   DEFINE CLUSTER                             -                         05640000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDYX01.J0001.A001) -              05650000
+           LINEAR                             -                         05660000
+           REUSE                              -                         05670000
+           VOLUMES(*.*.*)                     -                         05680000
+           CYLINDERS(30 10)                   -                         05710000
+           SHAREOPTIONS(3 3) )                -                         05720000
+      DATA                                    -                         05730000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDYX01.J0001.A001) -              05740000
+                              )                                         05770000
+                                                                        05790000
+   DEFINE CLUSTER                             -                         05800000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNATX01.J0001.A001) -              05810000
+           LINEAR                             -                         05820000
+           REUSE                              -                         05830000
+           VOLUMES(*.*.*)                     -                         05840000
+           CYLINDERS(30 10)                   -                         05870000
+           SHAREOPTIONS(3 3) )                -                         05880000
+      DATA                                    -                         05890000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNATX01.J0001.A001) -              05900000
+                              )                                         05930000
+                                                                        05950000
+   DEFINE CLUSTER                             -                         05960000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNATX02.J0001.A001) -              05970000
+           LINEAR                             -                         05980000
+           REUSE                              -                         05990000
+           VOLUMES(*.*.*)                     -                         06000000
+           CYLINDERS(30 10)                   -                         06030000
+           SHAREOPTIONS(3 3) )                -                         06040000
+      DATA                                    -                         06050000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNATX02.J0001.A001) -              06060000
+                              )                                         06090000
+                                                                        06110000
+   DEFINE CLUSTER                             -                         06120000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNATX03.J0001.A001) -              06130000
+           LINEAR                             -                         06140000
+           REUSE                              -                         06150000
+           VOLUMES(*.*.*)                     -                         06160000
+           CYLINDERS(30 10)                   -                         06190000
+           SHAREOPTIONS(3 3) )                -                         06200000
+      DATA                                    -                         06210000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNATX03.J0001.A001) -              06220000
+                              )                                         06250000
+                                                                        06270000
+   DEFINE CLUSTER                             -                         06280000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDKX01.J0001.A001) -              06290000
+           LINEAR                             -                         06300000
+           REUSE                              -                         06310000
+           VOLUMES(*.*.*)                     -                         06320000
+           CYLINDERS(30 10)                   -                         06350000
+           SHAREOPTIONS(3 3) )                -                         06360000
+      DATA                                    -                         06370000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDKX01.J0001.A001) -              06380000
+                              )                                         06410000
+                                                                        06430000
+   DEFINE CLUSTER                             -                         06440000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDXX03.J0001.A001) -              06450000
+           LINEAR                             -                         06460000
+           REUSE                              -                         06470000
+           VOLUMES(*.*.*)                     -                         06480000
+           CYLINDERS(30 10)                   -                         06510000
+           SHAREOPTIONS(3 3) )                -                         06520000
+      DATA                                    -                         06530000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDXX03.J0001.A001) -              06540000
+                              )                                         06570000
+                                                                        06590000
+   DEFINE CLUSTER                             -                         06600000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDRX01.J0001.A001) -              06610000
+           LINEAR                             -                         06620000
+           REUSE                              -                         06630000
+           VOLUMES(*.*.*)                     -                         06640000
+           CYLINDERS(30 10)                   -                         06670000
+           SHAREOPTIONS(3 3) )                -                         06680000
+      DATA                                    -                         06690000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDRX01.J0001.A001) -              06700000
+                              )                                         06730000
+                                                                        06750000
+   DEFINE CLUSTER                             -                         06760000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDRX02.J0001.A001) -              06760700
+           LINEAR                             -                         06761400
+           REUSE                              -                         06762100
+           VOLUMES(*.*.*)                     -                         06762800
+           CYLINDERS(30 10)                   -                         06763600
+           SHAREOPTIONS(3 3) )                -                         06764400
+      DATA                                    -                         06765200
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDRX02.J0001.A001) -              06766000
+                              )                                         06766800
+                                                                        06768400
+   DEFINE CLUSTER                             -                         06769200
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDPX01.J0001.A001) -              06770000
+           LINEAR                             -                         06780000
+           REUSE                              -                         06790000
+           VOLUMES(*.*.*)                     -                         06800000
+           CYLINDERS(30 10)                   -                         06830000
+           SHAREOPTIONS(3 3) )                -                         06840000
+      DATA                                    -                         06850000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDPX01.J0001.A001) -              06860000
+                              )                                         06890000
+                                                                        06910000
+   DEFINE CLUSTER                             -                         06910700
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDPX02.J0001.A001) -              06911400
+           LINEAR                             -                         06912100
+           REUSE                              -                         06912800
+           VOLUMES(*.*.*)                     -                         06913600
+           CYLINDERS(30 10)                   -                         06914400
+           SHAREOPTIONS(3 3) )                -                         06915200
+      DATA                                    -                         06916000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDPX02.J0001.A001) -              06916800
+                              )                                         06917600
+                                                                        06919200
+   DEFINE CLUSTER                             -                         06919220
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDPX03.J0001.A001) -              06919240
+           LINEAR                             -                         06919260
+           REUSE                              -                         06919280
+           VOLUMES(*.*.*)                     -                         06919300
+           CYLINDERS(30 10)                   -                         06919320
+           SHAREOPTIONS(3 3) )                -                         06919340
+      DATA                                    -                         06919360
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDPX03.J0001.A001) -              06919380
+                              )                                         06919400
+                                                                        06919420
+   DEFINE CLUSTER                             -                         06919440
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDRH01.J0001.A001) -              06919460
+           LINEAR                             -                         06919480
+           REUSE                              -                         06919500
+           VOLUMES(*.*.*)                     -                         06919520
+           CYLINDERS(30 10)                   -                         06919540
+           SHAREOPTIONS(3 3) )                -                         06919560
+      DATA                                    -                         06919580
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDRH01.J0001.A001) -              06919600
+                              )                                         06919620
+                                                                        06919640
+   DEFINE CLUSTER                             -                         06919670
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDXX04.J0001.A001) -              06919700
+           LINEAR                             -                         06919730
+           REUSE                              -                         06919760
+           VOLUMES(*.*.*)                     -                         06919790
+           CYLINDERS(30 10)                   -                         06919820
+           SHAREOPTIONS(3 3) )                -                         06919850
+      DATA                                    -                         06919880
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDXX04.J0001.A001) -              06919910
+                              )                                         06919940
+                                                                        06919970
+   DEFINE CLUSTER                             -                         06920000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDTX03.J0001.A001) -              06920200
+           LINEAR                             -                         06920400
+           REUSE                              -                         06920600
+           VOLUMES(*.*.*)                     -                         06920800
+           CYLINDERS(30 10)                   -                         06921000
+           SHAREOPTIONS(3 3) )                -                         06921200
+      DATA                                    -                         06921400
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDTX03.J0001.A001) -              06921600
+                              )                                         06921800
+                                                                        06922000
+   DEFINE CLUSTER                             -                         06922200
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNATX04.J0001.A001) -              06922400
+           LINEAR                             -                         06922600
+           REUSE                              -                         06922800
+           VOLUMES(*.*.*)                     -                         06923000
+           CYLINDERS(30 10)                   -                         06923200
+           SHAREOPTIONS(3 3) )                -                         06923400
+      DATA                                    -                         06923600
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNATX04.J0001.A001) -              06923800
+                              )                                         06924000
+                                                                        06924200
+   DEFINE CLUSTER                             -                         06924400
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDLX02.J0001.A001) -              06924600
+           LINEAR                             -                         06924800
+           REUSE                              -                         06925000
+           VOLUMES(*.*.*)                     -                         06925200
+           CYLINDERS(30 10)                   -                         06925400
+           SHAREOPTIONS(3 3) )                -                         06925600
+      DATA                                    -                         06925800
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDLX02.J0001.A001) -              06926000
+                              )                                         06926200
+                                                                        06926400
+   DEFINE CLUSTER                             -                         06926600
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNACX01.J0001.A001) -              06926800
+           LINEAR                             -                         06927000
+           REUSE                              -                         06927300
+           VOLUMES(*.*.*)                     -                         06927600
+           CYLINDERS(30 10)                   -                         06927900
+           SHAREOPTIONS(3 3) )                -                         06928200
+      DATA                                    -                         06928500
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNACX01.J0001.A001) -              06928800
+                              )                                         06929100
+                                                                        06929400
+//DSNTDBA EXEC DSNTIC                                                   06929700
+//* *********************************************                       06930000
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSDBAUT  *                       06940000
+//* *********************************************                       06950000
+//SYSIN DD *                                                            06960000
+   DEFINE CLUSTER                             -                         06970000
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSDBAUT.J0001.A001) -              06980000
+           LINEAR                             -                         06990000
+           REUSE                              -                         07000000
+           VOLUMES(*.*.*)                     -                         07010000
+           CYLINDERS(30 10)                   -                         07040000
+           SHAREOPTIONS(3 3) )                -                         07050000
+      DATA                                    -                         07060000
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSDBAUT.J0001.A001) -              07070000
+                              )                                         07100000
+                                                                        07120000
+   DEFINE CLUSTER                             -                         07130000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNADH01.J0001.A001) -              07140000
+           LINEAR                             -                         07150000
+           REUSE                              -                         07160000
+           VOLUMES(*.*.*)                     -                         07170000
+           CYLINDERS(30 10)                   -                         07200000
+           SHAREOPTIONS(3 3) )                -                         07210000
+      DATA                                    -                         07220000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNADH01.J0001.A001) -              07230000
+                              )                                         07260000
+                                                                        07280000
+   DEFINE CLUSTER                             -                         07290000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNADX01.J0001.A001) -              07300000
+           LINEAR                             -                         07310000
+           REUSE                              -                         07320000
+           VOLUMES(*.*.*)                     -                         07330000
+           CYLINDERS(30 10)                   -                         07360000
+           SHAREOPTIONS(3 3) )                -                         07370000
+      DATA                                    -                         07380000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNADX01.J0001.A001) -              07390000
+                              )                                         07420000
+                                                                        07440000
+   DEFINE CLUSTER                             -                         07450000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDDH01.J0001.A001) -              07460000
+           LINEAR                             -                         07470000
+           REUSE                              -                         07480000
+           VOLUMES(*.*.*)                     -                         07490000
+           CYLINDERS(30 10)                   -                         07520000
+           SHAREOPTIONS(3 3) )                -                         07530000
+      DATA                                    -                         07540000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDDH01.J0001.A001) -              07550000
+                              )                                         07580000
+                                                                        07600000
+   DEFINE CLUSTER                             -                         07610000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDDX02.J0001.A001) -              07620000
+           LINEAR                             -                         07630000
+           REUSE                              -                         07640000
+           VOLUMES(*.*.*)                     -                         07650000
+           CYLINDERS(30 10)                   -                         07680000
+           SHAREOPTIONS(3 3) )                -                         07690000
+      DATA                                    -                         07700000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDDX02.J0001.A001) -              07710000
+                              )                                         07740000
+                                                                        07760000
+//DSNTGPA EXEC DSNTIC                                                   07770000
+//* *********************************************                       07780000
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSGPAUT  *                       07790000
+//* *********************************************                       07800000
+//SYSIN DD *                                                            07810000
+   DEFINE CLUSTER                             -                         07820000
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSGPAUT.J0001.A001) -              07830000
+           LINEAR                             -                         07840000
+           REUSE                              -                         07850000
+           VOLUMES(*.*.*)                     -                         07860000
+           CYLINDERS(30 10)                   -                         07890000
+           SHAREOPTIONS(3 3) )                -                         07900000
+      DATA                                    -                         07910000
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSGPAUT.J0001.A001) -              07920000
+                              )                                         07950000
+                                                                        07970000
+   DEFINE CLUSTER                             -                         07980000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNAGH01.J0001.A001) -              07990000
+           LINEAR                             -                         08000000
+           REUSE                              -                         08010000
+           VOLUMES(*.*.*)                     -                         08020000
+           CYLINDERS(30 10)                   -                         08050000
+           SHAREOPTIONS(3 3) )                -                         08060000
+      DATA                                    -                         08070000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNAGH01.J0001.A001) -              08080000
+                              )                                         08110000
+                                                                        08130000
+   DEFINE CLUSTER                             -                         08140000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNAGX01.J0001.A001) -              08150000
+           LINEAR                             -                         08160000
+           REUSE                              -                         08170000
+           VOLUMES(*.*.*)                     -                         08180000
+           CYLINDERS(30 10)                   -                         08210000
+           SHAREOPTIONS(3 3) )                -                         08220000
+      DATA                                    -                         08230000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNAGX01.J0001.A001) -              08240000
+                              )                                         08270000
+                                                                        08290000
+//DSNTGRP EXEC DSNTIC                                                   08300000
+//* *********************************************                       08310000
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSGROUP  *                       08320000
+//* *********************************************                       08330000
+//SYSIN DD *                                                            08340000
+   DEFINE CLUSTER                             -                         08350000
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSGROUP.J0001.A001) -              08360000
+           LINEAR                             -                         08370000
+           REUSE                              -                         08380000
+           VOLUMES(*.*.*)                     -                         08390000
+           CYLINDERS(30 10)                   -                         08420000
+           SHAREOPTIONS(3 3) )                -                         08430000
+      DATA                                    -                         08440000
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSGROUP.J0001.A001) -              08450000
+                              )                                         08480000
+                                                                        08500000
+   DEFINE CLUSTER                             -                         08510000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNSSH01.J0001.A001) -              08520000
+           LINEAR                             -                         08530000
+           REUSE                              -                         08540000
+           VOLUMES(*.*.*)                     -                         08550000
+           CYLINDERS(30 10)                   -                         08580000
+           SHAREOPTIONS(3 3) )                -                         08590000
+      DATA                                    -                         08600000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNSSH01.J0001.A001) -              08610000
+                              )                                         08640000
+                                                                        08660000
+//DSNTPKG EXEC DSNTIC                                                   08670000
+//* *********************************************                       08680000
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSPKAGE  *                       08690000
+//* *********************************************                       08700000
+//SYSIN DD *                                                            08710000
+   DEFINE CLUSTER                             -                         08720000
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSPKAGE.J0001.A001) -              08730000
+           LINEAR                             -                         08740000
+           REUSE                              -                         08750000
+           VOLUMES(*.*.*)                     -                         08760000
+           CYLINDERS(30 10)                   -                         08790000
+           SHAREOPTIONS(3 3) )                -                         08800000
+      DATA                                    -                         08810000
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSPKAGE.J0001.A001) -              08820000
+                              )                                         08850000
+                                                                        08870000
+   DEFINE CLUSTER                             -                         08880000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNKLX01.J0001.A001) -              08890000
+           LINEAR                             -                         08900000
+           REUSE                              -                         08910000
+           VOLUMES(*.*.*)                     -                         08920000
+           CYLINDERS(30 10)                   -                         08950000
+           SHAREOPTIONS(3 3) )                -                         08960000
+      DATA                                    -                         08970000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNKLX01.J0001.A001) -              08980000
+                              )                                         09010000
+                                                                        09030000
+   DEFINE CLUSTER                             -                         09040000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNKLX02.J0001.A001) -              09050000
+           LINEAR                             -                         09060000
+           REUSE                              -                         09070000
+           VOLUMES(*.*.*)                     -                         09080000
+           CYLINDERS(30 10)                   -                         09110000
+           SHAREOPTIONS(3 3) )                -                         09120000
+      DATA                                    -                         09130000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNKLX02.J0001.A001) -              09140000
+                              )                                         09170000
+                                                                        09190000
+   DEFINE CLUSTER                             -                         09200000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNKKX01.J0001.A001) -              09210000
+           LINEAR                             -                         09220000
+           REUSE                              -                         09230000
+           VOLUMES(*.*.*)                     -                         09240000
+           CYLINDERS(30 10)                   -                         09270000
+           SHAREOPTIONS(3 3) )                -                         09280000
+      DATA                                    -                         09290000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNKKX01.J0001.A001) -              09300000
+                              )                                         09330000
+                                                                        09350000
+   DEFINE CLUSTER                             -                         09360000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNKKX02.J0001.A001) -              09370000
+           LINEAR                             -                         09380000
+           REUSE                              -                         09390000
+           VOLUMES(*.*.*)                     -                         09400000
+           CYLINDERS(30 10)                   -                         09430000
+           SHAREOPTIONS(3 3) )                -                         09440000
+      DATA                                    -                         09450000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNKKX02.J0001.A001) -              09460000
+                              )                                         09490000
+                                                                        09510000
+   DEFINE CLUSTER                             -                         09520000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNKSX01.J0001.A001) -              09530000
+           LINEAR                             -                         09540000
+           REUSE                              -                         09550000
+           VOLUMES(*.*.*)                     -                         09560000
+           CYLINDERS(30 10)                   -                         09590000
+           SHAREOPTIONS(3 3) )                -                         09600000
+      DATA                                    -                         09610000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNKSX01.J0001.A001) -              09620000
+                              )                                         09650000
+                                                                        09670000
+   DEFINE CLUSTER                             -                         09680000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNKDX01.J0001.A001) -              09690000
+           LINEAR                             -                         09700000
+           REUSE                              -                         09710000
+           VOLUMES(*.*.*)                     -                         09720000
+           CYLINDERS(30 10)                   -                         09750000
+           SHAREOPTIONS(3 3) )                -                         09760000
+      DATA                                    -                         09770000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNKDX01.J0001.A001) -              09780000
+                              )                                         09810000
+                                                                        09830000
+   DEFINE CLUSTER                             -                         09840000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNKDX02.J0001.A001) -              09850000
+           LINEAR                             -                         09860000
+           REUSE                              -                         09870000
+           VOLUMES(*.*.*)                     -                         09880000
+           CYLINDERS(30 10)                   -                         09910000
+           SHAREOPTIONS(3 3) )                -                         09920000
+      DATA                                    -                         09930000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNKDX02.J0001.A001) -              09940000
+                              )                                         09970000
+                                                                        09990000
+   DEFINE CLUSTER                             -                         10000000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNKDX03.J0001.A001) -              10000500
+           LINEAR                             -                         10001000
+           REUSE                              -                         10001600
+           VOLUMES(*.*.*)                     -                         10002200
+           CYLINDERS(30 10)                   -                         10004000
+           SHAREOPTIONS(3 3) )                -                         10004600
+      DATA                                    -                         10005200
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNKDX03.J0001.A001) -              10005800
+                              )                                         10007600
+                                                                        10008800
+   DEFINE CLUSTER                             -                         10009400
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNKAX01.J0001.A001) -              10010000
+           LINEAR                             -                         10020000
+           REUSE                              -                         10030000
+           VOLUMES(*.*.*)                     -                         10040000
+           CYLINDERS(30 10)                   -                         10070000
+           SHAREOPTIONS(3 3) )                -                         10080000
+      DATA                                    -                         10090000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNKAX01.J0001.A001) -              10100000
+                              )                                         10130000
+                                                                        10150000
+   DEFINE CLUSTER                             -                         10160000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNKAX02.J0001.A001) -              10170000
+           LINEAR                             -                         10180000
+           REUSE                              -                         10190000
+           VOLUMES(*.*.*)                     -                         10200000
+           CYLINDERS(30 10)                   -                         10230000
+           SHAREOPTIONS(3 3) )                -                         10240000
+      DATA                                    -                         10250000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNKAX02.J0001.A001) -              10260000
+                              )                                         10290000
+                                                                        10310000
+   DEFINE CLUSTER                             -                         10320000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNKAX03.J0001.A001) -              10330000
+           LINEAR                             -                         10340000
+           REUSE                              -                         10350000
+           VOLUMES(*.*.*)                     -                         10360000
+           CYLINDERS(30 10)                   -                         10390000
+           SHAREOPTIONS(3 3) )                -                         10400000
+      DATA                                    -                         10410000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNKAX03.J0001.A001) -              10420000
+                              )                                         10450000
+                                                                        10470000
+   DEFINE CLUSTER                             -                         10480000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNKPX01.J0001.A001) -              10490000
+           LINEAR                             -                         10500000
+           REUSE                              -                         10510000
+           VOLUMES(*.*.*)                     -                         10520000
+           CYLINDERS(30 10)                   -                         10550000
+           SHAREOPTIONS(3 3) )                -                         10560000
+      DATA                                    -                         10570000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNKPX01.J0001.A001) -              10580000
+                              )                                         10610000
+                                                                        10630000
+   DEFINE CLUSTER                             -                         10640000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNKYX01.J0001.A001) -              10650000
+           LINEAR                             -                         10660000
+           REUSE                              -                         10670000
+           VOLUMES(*.*.*)                     -                         10680000
+           CYLINDERS(30 10)                   -                         10710000
+           SHAREOPTIONS(3 3) )                -                         10720000
+      DATA                                    -                         10730000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNKYX01.J0001.A001) -              10740000
+                              )                                         10770000
+                                                                        10790000
+//DSNTPLN EXEC DSNTIC                                                   10960000
+//* *********************************************                       10970000
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSPLAN   *                       10980000
+//* *********************************************                       10990000
+//SYSIN DD *                                                            11000000
+   DEFINE CLUSTER                             -                         11010000
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSPLAN.J0001.A001) -               11020000
+           LINEAR                             -                         11030000
+           REUSE                              -                         11040000
+           VOLUMES(*.*.*)                     -                         11050000
+           CYLINDERS(30 10)                   -                         11080000
+           SHAREOPTIONS(3 3) )                -                         11090000
+      DATA                                    -                         11100000
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSPLAN.J0001.A001) -               11110000
+                              )                                         11140000
+                                                                        11160000
+   DEFINE CLUSTER                             -                         11170000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNGGX01.J0001.A001) -              11180000
+           LINEAR                             -                         11190000
+           REUSE                              -                         11200000
+           VOLUMES(*.*.*)                     -                         11210000
+           CYLINDERS(30 10)                   -                         11240000
+           SHAREOPTIONS(3 3) )                -                         11250000
+      DATA                                    -                         11260000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNGGX01.J0001.A001) -              11270000
+                              )                                         11300000
+                                                                        11320000
+   DEFINE CLUSTER                             -                         11330000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNAPX01.J0001.A001) -              11340000
+           LINEAR                             -                         11350000
+           REUSE                              -                         11360000
+           VOLUMES(*.*.*)                     -                         11370000
+           CYLINDERS(30 10)                   -                         11400000
+           SHAREOPTIONS(3 3) )                -                         11410000
+      DATA                                    -                         11420000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNAPX01.J0001.A001) -              11430000
+                              )                                         11460000
+                                                                        11480000
+   DEFINE CLUSTER                             -                         11490000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNAPH01.J0001.A001) -              11500000
+           LINEAR                             -                         11510000
+           REUSE                              -                         11520000
+           VOLUMES(*.*.*)                     -                         11530000
+           CYLINDERS(30 10)                   -                         11560000
+           SHAREOPTIONS(3 3) )                -                         11570000
+      DATA                                    -                         11580000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNAPH01.J0001.A001) -              11590000
+                              )                                         11620000
+                                                                        11640000
+   DEFINE CLUSTER                             -                         11650000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNPPH01.J0001.A001) -              11660000
+           LINEAR                             -                         11670000
+           REUSE                              -                         11680000
+           VOLUMES(*.*.*)                     -                         11690000
+           CYLINDERS(30 10)                   -                         11720000
+           SHAREOPTIONS(3 3) )                -                         11730000
+      DATA                                    -                         11740000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNPPH01.J0001.A001) -              11750000
+                              )                                         11780000
+                                                                        11800000
+//DSNTSTR EXEC DSNTIC                                                   11810000
+//* *********************************************                       11820000
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSSTR    *                       11830000
+//* *********************************************                       11840000
+//SYSIN DD *                                                            11850000
+   DEFINE CLUSTER                             -                         11860000
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSSTR.J0001.A001) -                11870000
+           LINEAR                             -                         11880000
+           REUSE                              -                         11890000
+           VOLUMES(*.*.*)                     -                         11900000
+           CYLINDERS(30 10)                   -                         11930000
+           CONTROLINTERVALSIZE(8192)          -                         11935000
+           SHAREOPTIONS(3 3) )                -                         11940000
+      DATA                                    -                         11950000
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSSTR.J0001.A001) -                11960000
+                              )                                         11990000
+                                                                        12010000
+   DEFINE CLUSTER                             -                         12020000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNSSX01.J0001.A001) -              12030000
+           LINEAR                             -                         12040000
+           REUSE                              -                         12050000
+           VOLUMES(*.*.*)                     -                         12060000
+           CYLINDERS(30 10)                   -                         12090000
+           SHAREOPTIONS(3 3) )                -                         12100000
+      DATA                                    -                         12110000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNSSX01.J0001.A001) -              12120000
+                              )                                         12150000
+                                                                        12170000
+   DEFINE CLUSTER                             -                         12180000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNSCX01.J0001.A001) -              12190000
+           LINEAR                             -                         12200000
+           REUSE                              -                         12210000
+           VOLUMES(*.*.*)                     -                         12220000
+           CYLINDERS(30 10)                   -                         12250000
+           SHAREOPTIONS(3 3) )                -                         12260000
+      DATA                                    -                         12270000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNSCX01.J0001.A001) -              12280000
+                              )                                         12310000
+                                                                        12330000
+   DEFINE CLUSTER                             -                         12340000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNSDX01.J0001.A001) -              12350000
+           LINEAR                             -                         12360000
+           REUSE                              -                         12370000
+           VOLUMES(*.*.*)                     -                         12380000
+           CYLINDERS(30 10)                   -                         12410000
+           SHAREOPTIONS(3 3) )                -                         12420000
+      DATA                                    -                         12430000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNSDX01.J0001.A001) -              12440000
+                              )                                         12470000
+                                                                        12490000
+   DEFINE CLUSTER                             -                         12490800
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNCHX01.J0001.A001) -              12491600
+           LINEAR                             -                         12492400
+           REUSE                              -                         12493200
+           VOLUMES(*.*.*)                     -                         12494000
+           CYLINDERS(30 10)                   -                         12494800
+           SHAREOPTIONS(3 3) )                -                         12495600
+      DATA                                    -                         12496400
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNCHX01.J0001.A001) -              12497300
+                              )                                         12498200
+                                                                        12499100
+//DSNTUSR EXEC DSNTIC                                                   12500000
+//* *********************************************                       12510000
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSUSER   *                       12520000
+//* *********************************************                       12530000
+//SYSIN DD *                                                            12540000
+   DEFINE CLUSTER                             -                         12550000
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSUSER.J0001.A001) -               12560000
+           LINEAR                             -                         12570000
+           REUSE                              -                         12580000
+           VOLUMES(*.*.*)                     -                         12590000
+           CYLINDERS(30 10)                   -                         12620000
+           SHAREOPTIONS(3 3) )                -                         12630000
+      DATA                                    -                         12640000
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSUSER.J0001.A001) -               12650000
+                              )                                         12680000
+                                                                        12700000
+   DEFINE CLUSTER                             -                         12710000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNAUH01.J0001.A001) -              12720000
+           LINEAR                             -                         12730000
+           REUSE                              -                         12740000
+           VOLUMES(*.*.*)                     -                         12750000
+           CYLINDERS(30 10)                   -                         12780000
+           SHAREOPTIONS(3 3) )                -                         12790000
+      DATA                                    -                         12800000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNAUH01.J0001.A001) -              12810000
+                              )                                         12840000
+                                                                        12860000
+   DEFINE CLUSTER                             -                         12870000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNAUX02.J0001.A001) -              12880000
+           LINEAR                             -                         12890000
+           REUSE                              -                         12900000
+           VOLUMES(*.*.*)                     -                         12910000
+           CYLINDERS(30 10)                   -                         12940000
+           SHAREOPTIONS(3 3) )                -                         12950000
+      DATA                                    -                         12960000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNAUX02.J0001.A001) -              12970000
+                              )                                         13000000
+                                                                        13020000
+//DSNTVTR EXEC DSNTIC                                                   13030000
+//* *********************************************                       13040000
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSVIEWS  *                       13050000
+//* *********************************************                       13060000
+//SYSIN DD *                                                            13070000
+   DEFINE CLUSTER                             -                         13080000
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSVIEWS.J0001.A001) -              13090000
+           LINEAR                             -                         13100000
+           REUSE                              -                         13110000
+           VOLUMES(*.*.*)                     -                         13120000
+           CYLINDERS(30 10)                   -                         13150000
+           CONTROLINTERVALSIZE(8192)          -                         13155000
+           SHAREOPTIONS(3 3) )                -                         13160000
+      DATA                                    -                         13170000
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSVIEWS.J0001.A001) -              13180000
+                              )                                         13210000
+                                                                        13230000
+   DEFINE CLUSTER                             -                         13240000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNVTH01.J0001.A001) -              13250000
+           LINEAR                             -                         13260000
+           REUSE                              -                         13270000
+           VOLUMES(*.*.*)                     -                         13280000
+           CYLINDERS(30 10)                   -                         13310000
+           SHAREOPTIONS(3 3) )                -                         13320000
+      DATA                                    -                         13330000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNVTH01.J0001.A001) -              13340000
+                              )                                         13370000
+                                                                        13390000
+   DEFINE CLUSTER                             -                         13400000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNGGX02.J0001.A001) -              13410000
+           LINEAR                             -                         13420000
+           REUSE                              -                         13430000
+           VOLUMES(*.*.*)                     -                         13440000
+           CYLINDERS(30 10)                   -                         13470000
+           SHAREOPTIONS(3 3) )                -                         13480000
+      DATA                                    -                         13490000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNGGX02.J0001.A001) -              13500000
+                              )                                         13530000
+                                                                        13550000
+   DEFINE CLUSTER                             -                         13560000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNGGX03.J0001.A001) -              13560500
+           LINEAR                             -                         13561000
+           REUSE                              -                         13561600
+           VOLUMES(*.*.*)                     -                         13562200
+           CYLINDERS(30 10)                   -                         13564000
+           SHAREOPTIONS(3 3) )                -                         13564600
+      DATA                                    -                         13565200
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNGGX03.J0001.A001) -              13565800
+                              )                                         13567600
+                                                                        13568800
+   DEFINE CLUSTER                             -                         13569400
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNVVX01.J0001.A001) -              13570000
+           LINEAR                             -                         13580000
+           REUSE                              -                         13590000
+           VOLUMES(*.*.*)                     -                         13600000
+           CYLINDERS(30 10)                   -                         13630000
+           SHAREOPTIONS(3 3) )                -                         13640000
+      DATA                                    -                         13650000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNVVX01.J0001.A001) -              13660000
+                              )                                         13690000
+                                                                        13710000
+   DEFINE CLUSTER                             -                         13710800
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNGGX04.J0001.A001) -              13711600
+           LINEAR                             -                         13712400
+           REUSE                              -                         13713200
+           VOLUMES(*.*.*)                     -                         13714000
+           CYLINDERS(30 10)                   -                         13714800
+           SHAREOPTIONS(3 3) )                -                         13715600
+      DATA                                    -                         13716400
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNGGX04.J0001.A001) -              13717300
+                              )                                         13718200
+                                                                        13719100
+//DSNTSTA EXEC DSNTIC                                                   13720000
+//* *********************************************                       13730000
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSSTATS  *                       13740000
+//* *********************************************                       13750000
+//SYSIN DD *                                                            13760000
+   DEFINE CLUSTER                             -                         13770000
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSSTATS.J0001.A001) -              13780000
+           LINEAR                             -                         13790000
+           REUSE                              -                         13800000
+           VOLUMES(*.*.*)                     -                         13810000
+           CYLINDERS(30 10)                   -                         13840000
+           CONTROLINTERVALSIZE(16384)         -                         13845000
+           SHAREOPTIONS(3 3) )                -                         13850000
+      DATA                                    -                         13860000
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSSTATS.J0001.A001) -              13870000
+                              )                                         13900000
+                                                                        13920000
+   DEFINE CLUSTER                             -                         13930000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNTNX01.J0001.A001) -              13940000
+           LINEAR                             -                         13950000
+           REUSE                              -                         13960000
+           VOLUMES(*.*.*)                     -                         13970000
+           CYLINDERS(30 10)                   -                         14000000
+           SHAREOPTIONS(3 3) )                -                         14010000
+      DATA                                    -                         14020000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNTNX01.J0001.A001) -              14030000
+                              )                                         14060000
+                                                                        14080000
+   DEFINE CLUSTER                             -                         14090000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNTCX01.J0001.A001) -              14100000
+           LINEAR                             -                         14110000
+           REUSE                              -                         14120000
+           VOLUMES(*.*.*)                     -                         14130000
+           CYLINDERS(30 10)                   -                         14160000
+           SHAREOPTIONS(3 3) )                -                         14170000
+      DATA                                    -                         14180000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNTCX01.J0001.A001) -              14190000
+                              )                                         14220000
+                                                                        14240000
+   DEFINE CLUSTER                             -                         14250000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNTXX01.J0001.A001) -              14260000
+           LINEAR                             -                         14270000
+           REUSE                              -                         14280000
+           VOLUMES(*.*.*)                     -                         14290000
+           CYLINDERS(30 10)                   -                         14320000
+           SHAREOPTIONS(3 3) )                -                         14330000
+      DATA                                    -                         14340000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNTXX01.J0001.A001) -              14350000
+                              )                                         14380000
+                                                                        14400000
+   DEFINE CLUSTER                             -                         14410000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNLNX01.J0001.A001) -              14420000
+           LINEAR                             -                         14430000
+           REUSE                              -                         14440000
+           VOLUMES(*.*.*)                     -                         14450000
+           CYLINDERS(30 10)                   -                         14480000
+           SHAREOPTIONS(3 3) )                -                         14490000
+      DATA                                    -                         14500000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNLNX01.J0001.A001) -              14500800
+                              )                                         14501600
+                                                                        14502400
+   DEFINE CLUSTER                             -                         14503200
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNTPX01.J0001.A001) -              14504000
+           LINEAR                             -                         14504800
+           REUSE                              -                         14505600
+           VOLUMES(*.*.*)                     -                         14506400
+           CYLINDERS(30 10)                   -                         14507200
+           SHAREOPTIONS(3 3) )                -                         14508000
+      DATA                                    -                         14508800
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNTPX01.J0001.A001) -              14510000
+                              )                                         14540000
+                                                                        14560000
+   DEFINE CLUSTER                             -                         14570000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNTTX01.J0001.A001) -              14580000
+           LINEAR                             -                         14590000
+           REUSE                              -                         14600000
+           VOLUMES(*.*.*)                     -                         14610000
+           CYLINDERS(30 10)                   -                         14640000
+           SHAREOPTIONS(3 3) )                -                         14650000
+      DATA                                    -                         14660000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNTTX01.J0001.A001) -              14670000
+                              )                                         14700000
+                                                                        14720000
+//DSNTDDF EXEC DSNTIC                                                   14730000
+//* *********************************************                       14740000
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSDDF    *                       14750000
+//* *********************************************                       14760000
+//SYSIN DD *                                                            14770000
+   DEFINE CLUSTER                             -                         14780000
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSDDF.J0001.A001) -                14790000
+           LINEAR                             -                         14800000
+           REUSE                              -                         14810000
+           VOLUMES(*.*.*)                     -                         14820000
+           CYLINDERS(30 10)                   -                         14850000
+           SHAREOPTIONS(3 3) )                -                         14860000
+      DATA                                    -                         14870000
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSDDF.J0001.A001) -                14880000
+                              )                                         14910000
+                                                                        14930000
+   DEFINE CLUSTER                             -                         14940000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNFCX01.J0001.A001) -              14950000
+           LINEAR                             -                         14960000
+           REUSE                              -                         14970000
+           VOLUMES(*.*.*)                     -                         14980000
+           CYLINDERS(30 10)                   -                         15010000
+           SHAREOPTIONS(3 3) )                -                         15020000
+      DATA                                    -                         15030000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNFCX01.J0001.A001) -              15040000
+                              )                                         15070000
+                                                                        15090000
+   DEFINE CLUSTER                             -                         15100000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNFNX01.J0001.A001) -              15110000
+           LINEAR                             -                         15120000
+           REUSE                              -                         15130000
+           VOLUMES(*.*.*)                     -                         15140000
+           CYLINDERS(30 10)                   -                         15170000
+           SHAREOPTIONS(3 3) )                -                         15180000
+      DATA                                    -                         15190000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNFNX01.J0001.A001) -              15200000
+                              )                                         15230000
+                                                                        15250000
+   DEFINE CLUSTER                             -                         15260000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNFEX01.J0001.A001) -              15270000
+           LINEAR                             -                         15280000
+           REUSE                              -                         15290000
+           VOLUMES(*.*.*)                     -                         15300000
+           CYLINDERS(30 10)                   -                         15330000
+           SHAREOPTIONS(3 3) )                -                         15340000
+      DATA                                    -                         15350000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNFEX01.J0001.A001) -              15360000
+                              )                                         15390000
+                                                                        15410000
+   DEFINE CLUSTER                             -                         15420000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNFLX01.J0001.A001) -              15430000
+           LINEAR                             -                         15440000
+           REUSE                              -                         15450000
+           VOLUMES(*.*.*)                     -                         15460000
+           CYLINDERS(30 10)                   -                         15490000
+           SHAREOPTIONS(3 3) )                -                         15500000
+      DATA                                    -                         15510000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNFLX01.J0001.A001) -              15520000
+                              )                                         15550000
+                                                                        15570000
+   DEFINE CLUSTER                             -                         15580000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNFLX02.J0001.A001) -              15590000
+           LINEAR                             -                         15600000
+           REUSE                              -                         15610000
+           VOLUMES(*.*.*)                     -                         15620000
+           CYLINDERS(30 10)                   -                         15650000
+           SHAREOPTIONS(3 3) )                -                         15660000
+      DATA                                    -                         15670000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNFLX02.J0001.A001) -              15680000
+                              )                                         15710000
+                                                                        15730000
+   DEFINE CLUSTER                             -                         15740000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNFMX01.J0001.A001) -              15750000
+           LINEAR                             -                         15760000
+           REUSE                              -                         15770000
+           VOLUMES(*.*.*)                     -                         15780000
+           CYLINDERS(30 10)                   -                         15810000
+           SHAREOPTIONS(3 3) )                -                         15820000
+      DATA                                    -                         15830000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNFMX01.J0001.A001) -              15840000
+                              )                                         15870000
+                                                                        15890000
+   DEFINE CLUSTER                             -                         15900000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNFDX01.J0001.A001) -              15910000
+           LINEAR                             -                         15920000
+           REUSE                              -                         15930000
+           VOLUMES(*.*.*)                     -                         15940000
+           CYLINDERS(30 10)                   -                         15970000
+           SHAREOPTIONS(3 3) )                -                         15980000
+      DATA                                    -                         15990000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNFDX01.J0001.A001) -              16000000
+                              )                                         16030000
+                                                                        16050000
+   DEFINE CLUSTER                             -                         16060000
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNFPX01.J0001.A001) -              16070000
+           LINEAR                             -                         16080000
+           REUSE                              -                         16090000
+           VOLUMES(*.*.*)                     -                         16100000
+           CYLINDERS(30 10)                   -                         16130000
+           SHAREOPTIONS(3 3) )                -                         16140000
+      DATA                                    -                         16150000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNFPX01.J0001.A001) -              16160000
+                              )                                         16190000
+                                                                        16203000
+   DEFINE CLUSTER                             -                         16203200
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDUX01.J0001.A001) -              16203400
+           LINEAR                             -                         16203600
+           REUSE                              -                         16203800
+           VOLUMES(*.*.*)                     -                         16204000
+           CYLINDERS(30 10)                   -                         16204200
+           SHAREOPTIONS(3 3) )                -                         16204500
+      DATA                                    -                         16204800
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDUX01.J0001.A001) -              16205100
+                              )                                         16205400
+                                                                        16205700
+//DSNTOBJ EXEC DSNTIC                                                   16206000
+//* *********************************************                       16210000
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSOBJ    *                       16210020
+//* *********************************************                       16210040
+//SYSIN DD *                                                            16210060
+   DEFINE CLUSTER                             -                         16210080
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSOBJ.J0001.A001) -                16210100
+           LINEAR                             -                         16210120
+           REUSE                              -                         16210140
+           VOLUMES(*.*.*)                     -                         16210160
+           CYLINDERS(30 10)                   -                         16210220
+           CONTROLINTERVALSIZE(8192)          -                         16210230
+           SHAREOPTIONS(3 3) )                -                         16210240
+      DATA                                    -                         16210260
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSOBJ.J0001.A001) -                16210280
+                              )                                         16210340
+                                                                        16210380
+   DEFINE CLUSTER                             -                         16210400
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOXX01.J0001.A001) -              16210420
+           LINEAR                             -                         16210440
+           REUSE                              -                         16210460
+           VOLUMES(*.*.*)                     -                         16210480
+           CYLINDERS(30 10)                   -                         16210540
+           SHAREOPTIONS(3 3) )                -                         16210560
+      DATA                                    -                         16210580
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOXX01.J0001.A001) -              16210600
+                              )                                         16210660
+                                                                        16210700
+   DEFINE CLUSTER                             -                         16210720
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOXX02.J0001.A001) -              16210740
+           LINEAR                             -                         16210760
+           REUSE                              -                         16210780
+           VOLUMES(*.*.*)                     -                         16210800
+           CYLINDERS(30 10)                   -                         16210860
+           SHAREOPTIONS(3 3) )                -                         16210880
+      DATA                                    -                         16210900
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOXX02.J0001.A001) -              16210920
+                              )                                         16210980
+                                                                        16211020
+   DEFINE CLUSTER                             -                         16211040
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNCCX01.J0001.A001) -              16211060
+           LINEAR                             -                         16211080
+           REUSE                              -                         16211100
+           VOLUMES(*.*.*)                     -                         16211120
+           CYLINDERS(30 10)                   -                         16211180
+           SHAREOPTIONS(3 3) )                -                         16211200
+      DATA                                    -                         16211220
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNCCX01.J0001.A001) -              16211240
+                              )                                         16211300
+                                                                        16211340
+   DEFINE CLUSTER                             -                         16211360
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNCCX02.J0001.A001) -              16211361
+           LINEAR                             -                         16211362
+           REUSE                              -                         16211363
+           VOLUMES(*.*.*)                     -                         16211364
+           CYLINDERS(30 10)                   -                         16211366
+           SHAREOPTIONS(3 3) )                -                         16211368
+      DATA                                    -                         16211370
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNCCX02.J0001.A001) -              16211372
+                              )                                         16211374
+                                                                        16211376
+   DEFINE CLUSTER                             -                         16211378
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNODX01.J0001.A001) -              16211380
+           LINEAR                             -                         16211400
+           REUSE                              -                         16211420
+           VOLUMES(*.*.*)                     -                         16211450
+           CYLINDERS(30 10)                   -                         16211540
+           SHAREOPTIONS(3 3) )                -                         16211570
+      DATA                                    -                         16211600
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNODX01.J0001.A001) -              16211630
+                              )                                         16211720
+                                                                        16211780
+   DEFINE CLUSTER                             -                         16211810
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNODX02.J0001.A001) -              16211840
+           LINEAR                             -                         16211870
+           REUSE                              -                         16211900
+           VOLUMES(*.*.*)                     -                         16211930
+           CYLINDERS(30 10)                   -                         16212020
+           SHAREOPTIONS(3 3) )                -                         16212050
+      DATA                                    -                         16212080
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNODX02.J0001.A001) -              16212110
+                              )                                         16212312
+                                                                        16212316
+   DEFINE CLUSTER                             -                         16212318
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOPX01.J0001.A001) -              16212320
+           LINEAR                             -                         16212350
+           REUSE                              -                         16212380
+           VOLUMES(*.*.*)                     -                         16212410
+           CYLINDERS(30 10)                   -                         16212500
+           SHAREOPTIONS(3 3) )                -                         16212530
+      DATA                                    -                         16212560
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOPX01.J0001.A001) -              16212590
+                              )                                         16212680
+                                                                        16212740
+   DEFINE CLUSTER                             -                         16212770
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOPX02.J0001.A001) -              16212800
+           LINEAR                             -                         16212830
+           REUSE                              -                         16212860
+           VOLUMES(*.*.*)                     -                         16212890
+           CYLINDERS(30 10)                   -                         16212980
+           SHAREOPTIONS(3 3) )                -                         16213010
+      DATA                                    -                         16213040
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOPX02.J0001.A001) -              16213070
+                              )                                         16213160
+                                                                        16213220
+   DEFINE CLUSTER                             -                         16213250
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOPX03.J0001.A001) -              16213280
+           LINEAR                             -                         16213310
+           REUSE                              -                         16213340
+           VOLUMES(*.*.*)                     -                         16213370
+           CYLINDERS(30 10)                   -                         16213460
+           SHAREOPTIONS(3 3) )                -                         16213490
+      DATA                                    -                         16213520
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOPX03.J0001.A001) -              16213550
+                              )                                         16213640
+                                                                        16213700
+   DEFINE CLUSTER                             -                         16213730
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOAX01.J0001.A001) -              16213760
+           LINEAR                             -                         16213790
+           REUSE                              -                         16213820
+           VOLUMES(*.*.*)                     -                         16213850
+           CYLINDERS(30 10)                   -                         16213940
+           SHAREOPTIONS(3 3) )                -                         16213970
+      DATA                                    -                         16214000
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOAX01.J0001.A001) -              16214030
+                              )                                         16214120
+                                                                        16214180
+   DEFINE CLUSTER                             -                         16214210
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOAX02.J0001.A001) -              16214240
+           LINEAR                             -                         16214270
+           REUSE                              -                         16214300
+           VOLUMES(*.*.*)                     -                         16214330
+           CYLINDERS(30 10)                   -                         16214420
+           SHAREOPTIONS(3 3) )                -                         16214450
+      DATA                                    -                         16214480
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOAX02.J0001.A001) -              16214510
+                              )                                         16214600
+                                                                        16214660
+   DEFINE CLUSTER                             -                         16214690
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOAX03.J0001.A001) -              16214720
+           LINEAR                             -                         16214750
+           REUSE                              -                         16214780
+           VOLUMES(*.*.*)                     -                         16214810
+           CYLINDERS(30 10)                   -                         16214900
+           SHAREOPTIONS(3 3) )                -                         16214930
+      DATA                                    -                         16214960
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOAX03.J0001.A001) -              16214990
+                              )                                         16215080
+                                                                        16215140
+   DEFINE CLUSTER                             -                         16215170
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOFX01.J0001.A001) -              16215200
+           LINEAR                             -                         16215230
+           REUSE                              -                         16215260
+           VOLUMES(*.*.*)                     -                         16215290
+           CYLINDERS(30 10)                   -                         16215380
+           SHAREOPTIONS(3 3) )                -                         16215410
+      DATA                                    -                         16215440
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOFX01.J0001.A001) -              16215470
+                              )                                         16215560
+                                                                        16215620
+   DEFINE CLUSTER                             -                         16215650
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOFX02.J0001.A001) -              16215680
+           LINEAR                             -                         16215710
+           REUSE                              -                         16215740
+           VOLUMES(*.*.*)                     -                         16215770
+           CYLINDERS(30 10)                   -                         16215860
+           SHAREOPTIONS(3 3) )                -                         16215890
+      DATA                                    -                         16215920
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOFX02.J0001.A001) -              16215950
+                              )                                         16216040
+                                                                        16216100
+   DEFINE CLUSTER                             -                         16216130
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOFX03.J0001.A001) -              16216160
+           LINEAR                             -                         16216190
+           REUSE                              -                         16216220
+           VOLUMES(*.*.*)                     -                         16216250
+           CYLINDERS(30 10)                   -                         16216340
+           SHAREOPTIONS(3 3) )                -                         16216370
+      DATA                                    -                         16216400
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOFX03.J0001.A001) -              16216430
+                              )                                         16216520
+                                                                        16216580
+   DEFINE CLUSTER                             -                         16216610
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOFX04.J0001.A001) -              16216640
+           LINEAR                             -                         16216670
+           REUSE                              -                         16216700
+           VOLUMES(*.*.*)                     -                         16216730
+           CYLINDERS(30 10)                   -                         16216820
+           SHAREOPTIONS(3 3) )                -                         16216850
+      DATA                                    -                         16216880
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOFX04.J0001.A001) -              16216910
+                              )                                         16217000
+                                                                        16217060
+   DEFINE CLUSTER                             -                         16217090
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOFX05.J0001.A001) -              16217120
+           LINEAR                             -                         16217150
+           REUSE                              -                         16217180
+           VOLUMES(*.*.*)                     -                         16217210
+           CYLINDERS(30 10)                   -                         16217300
+           SHAREOPTIONS(3 3) )                -                         16217330
+      DATA                                    -                         16217360
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOFX05.J0001.A001) -              16217390
+                              )                                         16217480
+                                                                        16217540
+   DEFINE CLUSTER                             -                         16217570
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOFX06.J0001.A001) -              16217600
+           LINEAR                             -                         16217630
+           REUSE                              -                         16217660
+           VOLUMES(*.*.*)                     -                         16217690
+           CYLINDERS(30 10)                   -                         16217780
+           SHAREOPTIONS(3 3) )                -                         16217810
+      DATA                                    -                         16217840
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOFX06.J0001.A001) -              16217870
+                              )                                         16217960
+                                                                        16218020
+   DEFINE CLUSTER                             -                         16218050
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOFX07.J0001.A001) -              16218051
+           LINEAR                             -                         16218052
+           REUSE                              -                         16218053
+           VOLUMES(*.*.*)                     -                         16218054
+           CYLINDERS(30 10)                   -                         16218055
+           SHAREOPTIONS(3 3) )                -                         16218056
+      DATA                                    -                         16218057
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOFX07.J0001.A001) -              16218058
+                              )                                         16218059
+                                                                        16218060
+   DEFINE CLUSTER                             -                         16218061
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOFX08.J0001.A001) -              16218062
+           LINEAR                             -                         16218063
+           REUSE                              -                         16218064
+           VOLUMES(*.*.*)                     -                         16218065
+           CYLINDERS(30 10)                   -                         16218066
+           SHAREOPTIONS(3 3) )                -                         16218068
+      DATA                                    -                         16218070
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOFX08.J0001.A001) -              16218072
+                              )                                         16218074
+                                                                        16218076
+   DEFINE CLUSTER                             -                         16218078
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNSKX01.J0001.A001) -              16218080
+           LINEAR                             -                         16218110
+           REUSE                              -                         16218140
+           VOLUMES(*.*.*)                     -                         16218170
+           CYLINDERS(30 10)                   -                         16218260
+           SHAREOPTIONS(3 3) )                -                         16218290
+      DATA                                    -                         16218320
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNSKX01.J0001.A001) -              16218350
+                              )                                         16218440
+                                                                        16218500
+   DEFINE CLUSTER                             -                         16218530
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNSKX02.J0001.A001) -              16218560
+           LINEAR                             -                         16218590
+           REUSE                              -                         16218620
+           VOLUMES(*.*.*)                     -                         16218650
+           CYLINDERS(30 10)                   -                         16218740
+           SHAREOPTIONS(3 3) )                -                         16218770
+      DATA                                    -                         16218800
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNSKX02.J0001.A001) -              16218830
+                              )                                         16218920
+                                                                        16218980
+   DEFINE CLUSTER                             -                         16219010
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOTX01.J0001.A001) -              16219040
+           LINEAR                             -                         16219070
+           REUSE                              -                         16219100
+           VOLUMES(*.*.*)                     -                         16219130
+           CYLINDERS(30 10)                   -                         16219220
+           SHAREOPTIONS(3 3) )                -                         16219250
+      DATA                                    -                         16219280
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOTX01.J0001.A001) -              16219310
+                              )                                         16219400
+                                                                        16219460
+   DEFINE CLUSTER                             -                         16219490
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOTX02.J0001.A001) -              16219520
+           LINEAR                             -                         16219550
+           REUSE                              -                         16219580
+           VOLUMES(*.*.*)                     -                         16219610
+           CYLINDERS(30 10)                   -                         16219700
+           SHAREOPTIONS(3 3) )                -                         16219730
+      DATA                                    -                         16219760
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOTX02.J0001.A001) -              16219790
+                              )                                         16219880
+                                                                        16219940
+   DEFINE CLUSTER                             -                         16219950
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNOTX03.J0001.A001) -              16219951
+           LINEAR                             -                         16219952
+           REUSE                              -                         16219953
+           VOLUMES(*.*.*)                     -                         16219954
+           CYLINDERS(30 10)                   -                         16219955
+           SHAREOPTIONS(3 3) )                -                         16219956
+      DATA                                    -                         16219957
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNOTX03.J0001.A001) -              16219958
+                              )                                         16219959
+                                                                        16219960
+   DEFINE CLUSTER                             -                         16219961
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNCUX01.J0001.A001) -              16219962
+           LINEAR                             -                         16219963
+           REUSE                              -                         16219964
+           VOLUMES(*.*.*)                     -                         16219965
+           CYLINDERS(30 10)                   -                         16219966
+           SHAREOPTIONS(3 3) )                -                         16219967
+      DATA                                    -                         16219968
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNCUX01.J0001.A001) -              16219969
+                              )                                         16219970
+                                                                        16219971
+   DEFINE CLUSTER                             -                         16219972
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNCNX01.J0001.A001) -              16219973
+           LINEAR                             -                         16219974
+           REUSE                              -                         16219975
+           VOLUMES(*.*.*)                     -                         16219976
+           CYLINDERS(30 10)                   -                         16219977
+           SHAREOPTIONS(3 3) )                -                         16219978
+      DATA                                    -                         16219979
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNCNX01.J0001.A001) -              16219980
+                              )                                         16219981
+                                                                        16219982
+   DEFINE CLUSTER                             -                         16219983
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNCNX02.J0001.A001) -              16219984
+           LINEAR                             -                         16219985
+           REUSE                              -                         16219986
+           VOLUMES(*.*.*)                     -                         16219987
+           CYLINDERS(30 10)                   -                         16219988
+           SHAREOPTIONS(3 3) )                -                         16219989
+      DATA                                    -                         16219990
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNCNX02.J0001.A001) -              16219991
+                              )                                         16219992
+                                                                        16219994
+//DSNTSEQ EXEC DSNTIC                                                   16219996
+//* *********************************************                       16219998
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSSEQ    *                       16220000
+//* *********************************************                       16220100
+//SYSIN DD *                                                            16220200
+   DEFINE CLUSTER                             -                         16220300
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSSEQ.J0001.A001) -                16220400
+           LINEAR                             -                         16220500
+           REUSE                              -                         16220600
+           VOLUMES(*.*.*)                     -                         16220700
+           CYLINDERS(30 10)                   -                         16220800
+           SHAREOPTIONS(3 3) )                -                         16220900
+      DATA                                    -                         16221000
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSSEQ.J0001.A001) -                16221100
+                              )                                         16221200
+                                                                        16221300
+   DEFINE CLUSTER                             -                         16221400
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNSQX01.J0001.A001) -              16221500
+           LINEAR                             -                         16221600
+           REUSE                              -                         16221700
+           VOLUMES(*.*.*)                     -                         16221800
+           CYLINDERS(30 10)                   -                         16221900
+           SHAREOPTIONS(3 3) )                -                         16222000
+      DATA                                    -                         16222100
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNSQX01.J0001.A001) -              16222200
+                              )                                         16222300
+                                                                        16222400
+   DEFINE CLUSTER                             -                         16222500
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNSQX02.J0001.A001) -              16222600
+           LINEAR                             -                         16222700
+           REUSE                              -                         16222800
+           VOLUMES(*.*.*)                     -                         16222900
+           CYLINDERS(30 10)                   -                         16223000
+           SHAREOPTIONS(3 3) )                -                         16223200
+      DATA                                    -                         16223400
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNSQX02.J0001.A001) -              16223600
+                              )                                         16223800
+                                                                        16224000
+//DSNTSEQ2 EXEC DSNTIC                                                  16224200
+//* *********************************************                       16224400
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSSEQ2   *                       16224600
+//* *********************************************                       16224800
+//SYSIN DD *                                                            16225000
+   DEFINE CLUSTER                             -                         16225200
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSSEQ2.J0001.A001) -               16225400
+           LINEAR                             -                         16225600
+           REUSE                              -                         16225800
+           VOLUMES(*.*.*)                     -                         16226000
+           CYLINDERS(30 10)                   -                         16226200
+           SHAREOPTIONS(3 3) )                -                         16226400
+      DATA                                    -                         16226600
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSSEQ2.J0001.A001) -               16226800
+                              )                                         16227000
+                                                                        16227200
+   DEFINE CLUSTER                             -                         16227400
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNSRX01.J0001.A001) -              16227600
+           LINEAR                             -                         16227800
+           REUSE                              -                         16228000
+           VOLUMES(*.*.*)                     -                         16228200
+           CYLINDERS(30 10)                   -                         16228400
+           SHAREOPTIONS(3 3) )                -                         16228600
+      DATA                                    -                         16228800
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNSRX01.J0001.A001) -              16229000
+                              )                                         16229200
+                                                                        16229400
+   DEFINE CLUSTER                             -                         16229402
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNSRX02.J0001.A001) -              16229404
+           LINEAR                             -                         16229406
+           REUSE                              -                         16229408
+           VOLUMES(*.*.*)                     -                         16229410
+           CYLINDERS(30 10)                   -                         16229412
+           SHAREOPTIONS(3 3) )                -                         16229414
+      DATA                                    -                         16229416
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNSRX02.J0001.A001) -              16229418
+                              )                                         16229420
+                                                                        16229422
+   DEFINE CLUSTER                             -                         16229424
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNWCX01.J0001.A001) -              16229426
+           LINEAR                             -                         16229428
+           REUSE                              -                         16229430
+           VOLUMES(*.*.*)                     -                         16229432
+           CYLINDERS(30 10)                   -                         16229434
+           SHAREOPTIONS(3 3) )                -                         16229436
+      DATA                                    -                         16229438
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNWCX01.J0001.A001) -              16229440
+                              )                                         16229442
+                                                                        16229444
+   DEFINE CLUSTER                             -                         16229446
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNWCX02.J0001.A001) -              16229448
+           LINEAR                             -                         16229450
+           REUSE                              -                         16229452
+           VOLUMES(*.*.*)                     -                         16229454
+           CYLINDERS(30 10)                   -                         16229456
+           SHAREOPTIONS(3 3) )                -                         16229458
+      DATA                                    -                         16229460
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNWCX02.J0001.A001) -              16229462
+                              )                                         16229464
+                                                                        16229466
+   DEFINE CLUSTER                             -                         16229468
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNWCX03.J0001.A001) -              16229470
+           LINEAR                             -                         16229473
+           REUSE                              -                         16229476
+           VOLUMES(*.*.*)                     -                         16229479
+           CYLINDERS(30 10)                   -                         16229482
+           SHAREOPTIONS(3 3) )                -                         16229485
+      DATA                                    -                         16229488
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNWCX03.J0001.A001) -              16229491
+                              )                                         16229494
+                                                                        16229497
+//DSNTHIST EXEC DSNTIC                                                  16229500
+//* *********************************************                       16229600
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSHIST   *                       16229800
+//* *********************************************                       16229830
+//SYSIN DD *                                                            16229860
+   DEFINE CLUSTER                             -                         16229890
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSHIST.J0001.A001) -               16229920
+           LINEAR                             -                         16229950
+           REUSE                              -                         16229980
+           VOLUMES(*.*.*)                     -                         16230010
+           CYLINDERS(30 10)                   -                         16230040
+           CONTROLINTERVALSIZE(8192)          -                         16230050
+           SHAREOPTIONS(3 3) )                -                         16230070
+      DATA                                    -                         16230100
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSHIST.J0001.A001) -               16230130
+                              )                                         16230160
+                                                                        16230190
+   DEFINE CLUSTER                             -                         16230220
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNHFX01.J0001.A001) -              16230250
+           LINEAR                             -                         16230280
+           REUSE                              -                         16230310
+           VOLUMES(*.*.*)                     -                         16230340
+           CYLINDERS(30 10)                   -                         16230370
+           SHAREOPTIONS(3 3) )                -                         16230400
+      DATA                                    -                         16230430
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNHFX01.J0001.A001) -              16230460
+                              )                                         16230490
+                                                                        16230520
+   DEFINE CLUSTER                             -                         16230550
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNHEX01.J0001.A001) -              16230580
+           LINEAR                             -                         16230610
+           REUSE                              -                         16230640
+           VOLUMES(*.*.*)                     -                         16230670
+           CYLINDERS(30 10)                   -                         16230700
+           SHAREOPTIONS(3 3) )                -                         16230730
+      DATA                                    -                         16230760
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNHEX01.J0001.A001) -              16230790
+                              )                                         16230820
+                                                                        16230850
+   DEFINE CLUSTER                             -                         16230880
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNHGX01.J0001.A001) -              16230910
+           LINEAR                             -                         16230940
+           REUSE                              -                         16230970
+           VOLUMES(*.*.*)                     -                         16231000
+           CYLINDERS(30 10)                   -                         16231030
+           SHAREOPTIONS(3 3) )                -                         16231060
+      DATA                                    -                         16231090
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNHGX01.J0001.A001) -              16231120
+                              )                                         16231150
+                                                                        16231180
+   DEFINE CLUSTER                             -                         16231210
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNHHX01.J0001.A001) -              16231240
+           LINEAR                             -                         16231270
+           REUSE                              -                         16231300
+           VOLUMES(*.*.*)                     -                         16231330
+           CYLINDERS(30 10)                   -                         16231360
+           SHAREOPTIONS(3 3) )                -                         16231400
+      DATA                                    -                         16231440
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNHHX01.J0001.A001) -              16231480
+                              )                                         16231520
+                                                                        16231560
+   DEFINE CLUSTER                             -                         16231600
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNHHX02.J0001.A001) -              16231603
+           LINEAR                             -                         16231606
+           REUSE                              -                         16231609
+           VOLUMES(*.*.*)                     -                         16231612
+           CYLINDERS(30 10)                   -                         16231615
+           SHAREOPTIONS(3 3) )                -                         16231618
+      DATA                                    -                         16231621
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNHHX02.J0001.A001) -              16231624
+                              )                                         16231628
+                                                                        16231632
+   DEFINE CLUSTER                             -                         16231636
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNHIX01.J0001.A001) -              16231640
+           LINEAR                             -                         16231680
+           REUSE                              -                         16231720
+           VOLUMES(*.*.*)                     -                         16231760
+           CYLINDERS(30 10)                   -                         16231800
+           SHAREOPTIONS(3 3) )                -                         16231840
+      DATA                                    -                         16231880
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNHIX01.J0001.A001) -              16231920
+                              )                                         16231960
+                                                                        16232000
+   DEFINE CLUSTER                             -                         16232040
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNHJX01.J0001.A001) -              16232080
+           LINEAR                             -                         16232120
+           REUSE                              -                         16232160
+           VOLUMES(*.*.*)                     -                         16232200
+           CYLINDERS(30 10)                   -                         16232240
+           SHAREOPTIONS(3 3) )                -                         16232280
+      DATA                                    -                         16232320
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNHJX01.J0001.A001) -              16232360
+                              )                                         16232400
+                                                                        16232440
+   DEFINE CLUSTER                             -                         16232480
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNHCX01.J0001.A001) -              16232520
+           LINEAR                             -                         16232560
+           REUSE                              -                         16232600
+           VOLUMES(*.*.*)                     -                         16232640
+           CYLINDERS(30 10)                   -                         16232680
+           SHAREOPTIONS(3 3) )                -                         16232720
+      DATA                                    -                         16232760
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNHCX01.J0001.A001) -              16232800
+                              )                                         16232840
+                                                                        16232880
+   DEFINE CLUSTER                             -                         16232920
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNHDX01.J0001.A001) -              16232960
+           LINEAR                             -                         16233000
+           REUSE                              -                         16233040
+           VOLUMES(*.*.*)                     -                         16233080
+           CYLINDERS(30 10)                   -                         16233120
+           SHAREOPTIONS(3 3) )                -                         16233160
+      DATA                                    -                         16233200
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNHDX01.J0001.A001) -              16233240
+                              )                                         16233280
+                                                                        16233320
+   DEFINE CLUSTER                             -                         16233360
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNHBX01.J0001.A001) -              16233400
+           LINEAR                             -                         16233440
+           REUSE                              -                         16233480
+           VOLUMES(*.*.*)                     -                         16233520
+           CYLINDERS(30 10)                   -                         16233560
+           SHAREOPTIONS(3 3) )                -                         16233600
+      DATA                                    -                         16233640
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNHBX01.J0001.A001) -              16233680
+                              )                                         16233720
+                                                                        16233760
+//DSNTGRTN EXEC DSNTIC                                                  16233800
+//* *********************************************                       16233840
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSGRTNS  *                       16233880
+//* *********************************************                       16233920
+//SYSIN DD *                                                            16233960
+   DEFINE CLUSTER                             -                         16234000
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSGRTNS.J0001.A001) -              16234040
+           LINEAR                             -                         16234080
+           REUSE                              -                         16234120
+           VOLUMES(*.*.*)                     -                         16234160
+           CYLINDERS(30 10)                   -                         16234200
+           CONTROLINTERVALSIZE(8192)          -                         16234220
+           SHAREOPTIONS(3 3) )                -                         16234240
+      DATA                                    -                         16234280
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSGRTNS.J0001.A001) -              16234320
+                              )                                         16234360
+                                                                        16234400
+   DEFINE CLUSTER                             -                         16234440
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNROX01.J0001.A001) -              16234480
+           LINEAR                             -                         16234520
+           REUSE                              -                         16234560
+           VOLUMES(*.*.*)                     -                         16234600
+           CYLINDERS(30 10)                   -                         16234640
+           SHAREOPTIONS(3 3) )                -                         16234680
+      DATA                                    -                         16234720
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNROX01.J0001.A001) -              16234760
+                              )                                         16234800
+                                                                        16234840
+   DEFINE CLUSTER                             -                         16234880
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNRSX01.J0001.A001) -              16234920
+           LINEAR                             -                         16234960
+           REUSE                              -                         16235000
+           VOLUMES(*.*.*)                     -                         16235040
+           CYLINDERS(30 10)                   -                         16235080
+           SHAREOPTIONS(3 3) )                -                         16235120
+      DATA                                    -                         16235160
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNRSX01.J0001.A001) -              16235200
+                              )                                         16235240
+                                                                        16235280
+   DEFINE CLUSTER                             -                         16235320
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNRSX02.J0001.A001) -              16235360
+           LINEAR                             -                         16235400
+           REUSE                              -                         16235440
+           VOLUMES(*.*.*)                     -                         16235480
+           CYLINDERS(30 10)                   -                         16235520
+           SHAREOPTIONS(3 3) )                -                         16235560
+      DATA                                    -                         16235600
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNRSX02.J0001.A001) -              16235640
+                              )                                         16235680
+                                                                        16235720
+//DSNTJAVA EXEC DSNTIC                                                  16235760
+//* *********************************************                       16235800
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSJAVA   *                       16235840
+//* *********************************************                       16235880
+//SYSIN DD *                                                            16235920
+   DEFINE CLUSTER                             -                         16235960
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSJAVA.J0001.A001) -               16236000
+           LINEAR                             -                         16236040
+           REUSE                              -                         16236080
+           VOLUMES(*.*.*)                     -                         16236120
+           CYLINDERS(30 10)                   -                         16236160
+           SHAREOPTIONS(3 3) )                -                         16236200
+      DATA                                    -                         16236240
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSJAVA.J0001.A001) -               16236280
+                              )                                         16236320
+                                                                        16236360
+   DEFINE CLUSTER                             -                         16236400
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNJCX01.J0001.A001) -              16236440
+           LINEAR                             -                         16236480
+           REUSE                              -                         16236520
+           VOLUMES(*.*.*)                     -                         16236560
+           CYLINDERS(30 10)                   -                         16236600
+           SHAREOPTIONS(3 3) )                -                         16236640
+      DATA                                    -                         16236680
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNJCX01.J0001.A001) -              16236720
+                              )                                         16236760
+                                                                        16236800
+   DEFINE CLUSTER                             -                         16236840
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNJOX01.J0001.A001) -              16236880
+           LINEAR                             -                         16236920
+           REUSE                              -                         16236960
+           VOLUMES(*.*.*)                     -                         16237000
+           CYLINDERS(30 10)                   -                         16237040
+           SHAREOPTIONS(3 3) )                -                         16237080
+      DATA                                    -                         16237120
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNJOX01.J0001.A001) -              16237160
+                              )                                         16237200
+                                                                        16237240
+   DEFINE CLUSTER                             -                         16237243
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNJVX01.J0001.A001) -              16237246
+           LINEAR                             -                         16237249
+           REUSE                              -                         16237252
+           VOLUMES(*.*.*)                     -                         16237255
+           CYLINDERS(30 10)                   -                         16237258
+           SHAREOPTIONS(3 3) )                -                         16237261
+      DATA                                    -                         16237264
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNJVX01.J0001.A001) -              16237268
+                              )                                         16237272
+                                                                        16237276
+//DSNTJAXA EXEC DSNTIC                                                  16237280
+//* *********************************************                       16237320
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSJAUXA  *                       16237360
+//* *********************************************                       16237400
+//SYSIN DD *                                                            16237440
+   DEFINE CLUSTER                             -                         16237480
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSJAUXA.J0001.A001) -              16237520
+           LINEAR                             -                         16237560
+           REUSE                              -                         16237600
+           VOLUMES(*.*.*)                     -                         16237640
+           CYLINDERS(30 10)                   -                         16237680
+           SHAREOPTIONS(3 3) )                -                         16237720
+      DATA                                    -                         16237760
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSJAUXA.J0001.A001) -              16237800
+                              )                                         16237840
+                                                                        16237880
+   DEFINE CLUSTER                             -                         16237920
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNJDX01.J0001.A001) -              16237960
+           LINEAR                             -                         16238000
+           REUSE                              -                         16238040
+           VOLUMES(*.*.*)                     -                         16238080
+           CYLINDERS(30 10)                   -                         16238120
+           SHAREOPTIONS(3 3) )                -                         16238160
+      DATA                                    -                         16238200
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNJDX01.J0001.A001) -              16238240
+                              )                                         16238720
+                                                                        16238760
+//DSNTJAXB EXEC DSNTIC                                                  16238800
+//* *********************************************                       16238840
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSJAUXB  *                       16238880
+//* *********************************************                       16238920
+//SYSIN DD *                                                            16238960
+   DEFINE CLUSTER                             -                         16239000
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSJAUXB.J0001.A001) -              16239040
+           LINEAR                             -                         16239080
+           REUSE                              -                         16239120
+           VOLUMES(*.*.*)                     -                         16239160
+           CYLINDERS(30 10)                   -                         16239200
+           SHAREOPTIONS(3 3) )                -                         16239240
+      DATA                                    -                         16239280
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSJAUXB.J0001.A001) -              16239320
+                              )                                         16239360
+                                                                        16239400
+   DEFINE CLUSTER                             -                         16239440
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNJSX01.J0001.A001) -              16239480
+           LINEAR                             -                         16239520
+           REUSE                              -                         16239560
+           VOLUMES(*.*.*)                     -                         16239600
+           CYLINDERS(30 10)                   -                         16239640
+           SHAREOPTIONS(3 3) )                -                         16239680
+      DATA                                    -                         16239720
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNJSX01.J0001.A001) -              16239760
+                              )                                         16239800
+                                                                        16239840
+//DSNTALTR EXEC DSNTIC                                                  16239860
+//* *********************************************                       16239880
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSALTER  *                       16239881
+//* *********************************************                       16239882
+//SYSIN DD *                                                            16239883
+   DEFINE CLUSTER                             -                         16239884
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSALTER.J0001.A001) -              16239885
+           LINEAR                             -                         16239886
+           REUSE                              -                         16239887
+           VOLUMES(*.*.*)                     -                         16239888
+           CYLINDERS(30 10)                   -                         16239889
+           CONTROLINTERVALSIZE(32768)         -                         16239891
+           SHAREOPTIONS(3 3) )                -                         16239892
+      DATA                                    -                         16239893
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSALTER.J0001.A001) -              16239894
+                              )                                         16239895
+                                                                        16239896
+   DEFINE CLUSTER                             -                         16239897
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDOB01.J0001.A001) -              16239898
+           LINEAR                             -                         16239899
+           REUSE                              -                         16239900
+           VOLUMES(*.*.*)                     -                         16239901
+           CYLINDERS(30 10)                   -                         16239902
+           SHAREOPTIONS(3 3) )                -                         16239903
+      DATA                                    -                         16239904
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDOB01.J0001.A001) -              16239905
+                              )                                         16239906
+                                                                        16239907
+   DEFINE CLUSTER                             -                         16239908
+         ( NAME(DB2V.DSNDBC.DSNDB06.DSNDOB02.J0001.A001) -              16239909
+           LINEAR                             -                         16239910
+           REUSE                              -                         16239911
+           VOLUMES(*.*.*)                     -                         16239912
+           CYLINDERS(30 10)                   -                         16239913
+           SHAREOPTIONS(3 3) )                -                         16239914
+      DATA                                    -                         16239915
+         ( NAME(DB2V.DSNDBD.DSNDB06.DSNDOB02.J0001.A001) -              16239916
+                              )                                         16239917
+                                                                        16239918
+//DSNEBCDC EXEC DSNTIC                                                  16239919
+//* *********************************************                       16239920
+//*  DEFINE DB2  CATALOG TABLESPACE = SYSEBCDC  *                       16239921
+//* *********************************************                       16239922
+//SYSIN DD *                                                            16239924
+   DEFINE CLUSTER                             -                         16239926
+         ( NAME(DB2V.DSNDBC.DSNDB06.SYSEBCDC.J0001.A001) -              16239928
+           LINEAR                             -                         16239930
+           REUSE                              -                         16239932
+           VOLUMES(*.*.*)                     -                         16239934
+           CYLINDERS(30 10)                   -                         16239936
+           SHAREOPTIONS(3 3) )                -                         16239939
+      DATA                                    -                         16239942
+         ( NAME(DB2V.DSNDBD.DSNDB06.SYSEBCDC.J0001.A001) -              16239945
+                              )                                         16239948
+//
+//
+//
+//* *********************************************                       16239990
+//*  LIST THE CATALOG                           *                       16239992
+//* *********************************************                       16239994
+//DSNTILC EXEC DSNTIC                                                   16240000
+//SYSIN DD *                                                            16250000
+    LISTCAT LEVEL(DB2V) ALL                                             16260000
+    LISTCAT LEVEL(DSN!!0) ALL                                           16270000
+//*                                                                     16280000

@@ -1,0 +1,29 @@
+//T492331X JOB CLASS=S,MSGCLASS=U,
+//      REGION=0M,TIME=1440
+/*JOBPARM SYSAFF=MVS3
+//*********************************************************************
+//*********************************************************************
+//         JCLLIB ORDER=SSXDT.HEALTH.CHECKING.EXEC
+//*********************************************************************
+//*******************************************************************
+//* PREPSRPT: Preparation for SEND DB2 HC AUDIT REPORT
+//*           Create SMTP HEADER WITH SAME LRECL AS REPORT
+//*******************************************************************
+//PREPSRPT EXEC PGM=IEBGENER
+//SYSPRINT DD  SYSOUT=*
+//SYSOUT   DD  SYSOUT=*
+//SYSUT2   DD DSN=&&SMTPHD1,DISP=(,PASS),LRECL=80,DSORG=PS,
+//      SPACE=(TRK,(2,1))
+//SYSUT1   DD  *
+MAIL FROM:<DB2HCID@MVS>
+RCPT TO: <GROSELI@BR.IBM.COM>
+DATA
+FROM: DB2VHC@MVS
+TO: <GROSELI@BR.IBM.COM>
+SUBJECT: DELTA - DB2 JOB QUIESCE
+//*******************************************************************
+//* SENDRPT:
+//*******************************************************************
+//SENDRPT EXEC MAIL80
+//MAILDD  DD DSN=&&SMTPHD1,DISP=(OLD,PASS)
+//        DD DISP=SHR,DSN=SSXDT.DB2MAINT(QUIES)

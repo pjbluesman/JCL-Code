@@ -1,0 +1,16 @@
+//UXC401R  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID,REGION=0M
+/*JOBPARM SYSAFF=MVSN
+//****************************************************************
+//*  JCL EXECUTES THE RUNSTATS UTILITY AGAINST DB2O CATALOG
+//*  THIS JOB MUST RUN ON MVSN
+//*
+//*  REV: 02/23/2011                                            */
+//*
+//****************************************************************
+//JOBLIB   DD DISP=SHR,DSN=SDB2O.SDSNLOAD
+//         DD DISP=SHR,DSN=SSXDT.DB2O.SDSNEXIT
+//*
+//UTILRS  EXEC DSNUPROC,SYSTEM=DB2O,UID='RUNSTO',UTPROC=''
+//DSNUPROC.SYSIN DD DISP=SHR,DSN=SSXDP.DB2.PARMLIB(RUNSTV9)
+//

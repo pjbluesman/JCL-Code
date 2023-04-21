@@ -1,0 +1,22 @@
+//TSORENA JOB ,'DB2 RM102',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVS3
+//* *************************************************************** */  00150000
+//* RENAME MEMBER
+//* *************************************************************** */  00170000
+//DSNTIC  EXEC PGM=IKJEFT01,DYNAMNBR=40                                 00180000
+//SYSPRINT DD SYSOUT=*                                                  00200000
+//SYSUDUMP DD SYSOUT=*                                                  00210000
+//SYSTSPRT DD SYSOUT=*                                                  00590000
+//SYSTSIN DD *                                                          00590000
+    RENAME 'T032135.DB2.PARMLIB(PXD573)' +                              01730001
+           'T032135.DB2.PARMLIB(PXD573O)'                               01730001
+//* *************************************************************** */  00150000
+//* RENAME MEMBER
+//* *************************************************************** */  00170000
+//DSNTIC  EXEC PGM=IKJEFT01,DYNAMNBR=40,COND=(4,LT)                     00180000
+//SYSPRINT DD SYSOUT=*                                                  00200000
+//SYSUDUMP DD SYSOUT=*                                                  00210000
+//SYSTSPRT DD SYSOUT=*                                                  00590000
+//SYSTSIN DD *                                                          00590000
+    RENAME 'T032135.DB2.PARMLIB(PXD573CM)' +                            01730001
+           'T032135.DB2.PARMLIB(PXD573)'                                01730001

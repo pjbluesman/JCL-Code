@@ -1,0 +1,70 @@
+//ZCPY207  JOB 'IC IBM DB3V',                                           JOB04387
+//             CLASS=S,                                                 00020000
+//             MSGCLASS=X,                                              00030000
+//             MSGLEVEL=(1,1),                                          00040000
+//             REGION=0M,                                               00050000
+//             TIME=1440,                                               00060000
+//             TYPRUN=HOLD,                                             00061000
+//             LINES=9999,                                              00070000
+//             NOTIFY=&SYSUID                                           00080001
+//*                                                                     00100000
+//**********************************************************************00160000
+//JOBLIB   DD DISP=SHR,DSN=SSXDT.DB3V.SDSNEXIT                          00170000
+//         DD DISP=SHR,DSN=SDB3V.SDSNLOAD                               00180000
+//         DD DISP=SHR,DSN=SSXDT.DB3V.RUNLIB.LOAD                       00190000
+//**********************************************************************00200000
+//*   PERFORM DB2 QUIESCE                                               00210000
+//**********************************************************************00220000
+//S1QUIESC  EXEC DSNUPROV,                                              00230000
+//        SYSTEM=DB3V,UID='QUIESCE207',                                 00240001
+//        UTPROC='',LIB='SDB3V.SDSNLOAD'                                00250000
+//DSNUPROV.SYSIN DD *                                                   00260000
+//  QUIESCE TABLESPACE EBKD3P98.TSKD0207                                00270001
+//*                                                                     00280000
+//**********************************************************************00290000
+//*  TERM UTILITY                                                       00300000
+//**********************************************************************00310000
+//S2TERMUT EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=EVEN                      00320000
+//SYSTSPRT DD  SYSOUT=*                                                 00330000
+//SYSUDUMP DD  SYSOUT=D,HOLD=YES                                        00340000
+//SYSIN    DD DUMMY                                                     00350000
+//SYSTSIN  DD *                                                         00360000
+ DSN SYSTEM(DB3V)                                                       00370000
+-DIS UTILITY (*)                                                        00380000
+-TERM UTILITY (QUIESCE207)                                              00390001
+END                                                                     00400000
+/*                                                                      00410000
+//**********************************************************************00420000
+//*  IMAGE COPY FOR TSKD0207                                            00430001
+//**********************************************************************00440000
+//S3IMCOPY EXEC PGM=DSNUTILB,REGION=0M,COND=EVEN,                       00450000
+//         PARM=(DB3V,'TS207IMCOPY')                                    00460001
+//*        PARM=(DB3V,'TS207IMCOPY',RESTART(PHASE))                     00470001
+//SYSABEND DD SYSOUT=D,HOLD=YES                                         00480000
+//UTPRINT  DD SYSOUT=*                                                  00490000
+//SYSPRINT DD SYSOUT=*                                                  00500000
+//*************************************************                     00510000
+  TEMPLATE ICDSN1 DSN  SSXDT.ICD&MO.&DA..DB3V.&DB..&TS.                 00520001
+    UNIT SYSDA  DISP (NEW,CATLG,DELETE) SPACE (2000,800) CYL            00530000
+  LISTDEF IMAGE_COPY_LIST                                               00540000
+          INCLUDE TABLESPACE  EBKD3P98.TSKD0207                         00550001
+  OPTIONS OFF                                                           00950000
+                                                                        00960000
+  COPY LIST IMAGE_COPY_LIST                                             00970000
+    PARALLEL 10                                                         00980000
+      COPYDDN ICDSN1                                                    00990000
+        SHRLEVEL REFERENCE                                              01000001
+//**********************************************************************01020000
+//*  TERM UTILITY                                                       01030000
+//**********************************************************************01040000
+//S4TERMUT EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=EVEN                      01050000
+//SYSTSPRT DD  SYSOUT=*                                                 01060000
+//SYSUDUMP DD  SYSOUT=D,HOLD=YES                                        01070000
+//SYSIN    DD DUMMY                                                     01080000
+//SYSTSIN  DD *                                                         01090000
+ DSN SYSTEM(DB3V)                                                       01100000
+-DIS UTILITY (*)                                                        01110000
+-TERM UTILITY (TS207IMCOPY)                                             01120001
+END                                                                     01130000
+/*                                                                      01140000
+//*                                                                     01150000

@@ -1,0 +1,7 @@
+SET CURRENT SQLID='LSEBDB2';                                            00010000
+SELECT *                                                                00020000
+FROM SYSIBM.INDEXSPACESTATS   A                                         00030000
+WHERE A.DBNAME < X'C000000000000000';                                   00040000
+SELECT *                                                                00050000
+FROM SYSIBM.TABLESPACESTATS   A                                         00060000
+WHERE A.DBNAME < X'C000000000000000';                                   00070000

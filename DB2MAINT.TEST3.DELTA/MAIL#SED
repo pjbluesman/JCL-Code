@@ -1,0 +1,14 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00010000
+//         NOTIFY=&SYSUID                                               00020000
+//**********************************************************************00140001
+//SMTPNOT  EXEC PGM=IKJEFT01,DYNAMNBR=20,REGION=2048K                   00150003
+//SYSEXEC  DD  DSN=SSXQP.TSODAL.CLIST,DISP=SHR                          00160001
+//SYSTSIN  DD  *                                                        00170001
+%SMTPNOTE BATCH +                                                       00180001
+ SUBJECT(TOC - RACF WLM PROFILES) +                                     00190002
+ TO(PANGELO@BR.IBM.COM) +                                               00200002
+ DA('SSXDT.RFC.C202109.WLM.PROFILE')                                    00210002
+//SYSTSPRT DD  SYSOUT=*                                                 00220001
+//SYSPRINT DD  SYSOUT=*                                                 00230001
+//SYSTERM  DD  SYSOUT=*                                                 00240001
+/*                                                                      00250001

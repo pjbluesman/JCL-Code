@@ -1,0 +1,12 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,REGION=0M,
+//         NOTIFY=&SYSUID,USER=SYSPRO
+/*JOBPARM SYSAFF=MVSE
+//***************************************************************
+//* DESCOBRIR TODAS PROFILES DATASET QUE INICIAM POR UM HLQ
+//***************************************************************
+//RACFLST EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)
+//SYSPRINT DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  SR MASK(PSSXD)
+//

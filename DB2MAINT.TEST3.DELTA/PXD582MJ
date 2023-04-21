@@ -1,0 +1,77 @@
+                        MVS JOB DOCUMENTATION
+                        GENERAL INFORMATION               DATE: 09/01/14
+
+  JOB NAME:PXD582M                 TRANSMISSION:  YES:   NO:X
+
+  JOB DESCRIPTION: MODIFY UTILITY FOR DEWD CATALOG ENTRIES
+
+  CONTROL PROCEDURE:N/A
+
+  PROJECT MANAGER:¦ OLIVEIRA, LEANDRO MALTA¦¦¦¦¦ROOM: IBM BRAZIL/MM32
+  EXTENSION: 55-19-2132-3677
+
+  ANALYST:  DB2 SYSTEM SUPPORT DISPATCHER ¦¦    ROOM: IBM BRAZIL/MM32
+  EXTENSION: 55-19-2132-9241
+
+                    SCHEDULING INFORMATION
+
+  SEVERITY CODE: 5  RUN TIME: 10 MINUTES
+
+  PREREQUISITE: N/A
+
+  RESTRICTIONS: DO NOT RUN WHILE JOB PXD580M IS RUNNING
+                 JOB MUST RUN ON TSOE
+
+  FREQUENCY:  DEMANDED:   SCHEDULED: X TRIGGERED:
+
+  TIME: 2100    2ND TUESDAY OF THE MONTH
+
+  DUE IN TIME: 2100
+
+  DUE OUT: PRIOR TO 2200
+
+
+                    SCHEDULING INFORMATION
+
+  SCHEDULE ID: N/A
+
+  JCL OVERRIDE: N/A
+
+ ACCEPTABLE NON-ZERO CONDITION CODE: N/A      STEP: N/A
+
+                  DEPENDENCIES/TRIGGERS
+
+  DEPENDENCIES FOR THIS JOB            THIS JOB IS TRIGGERED BY
+  -------------------------            ------------------------
+  JOB NAME:N/A                         JOB NAME:N/A
+  DSN:N/A                              DSN:N/A
+
+                                       THIS JOB TRIGGERS
+                                       -----------------
+                                       JOB NAME:N/A
+
+                       INPUTS/OUTPUTS
+
+  I/P DSN: N/A                              FROM JOB: N/A     MEDIA: N/A
+
+  O/P DSN: N/A                                TO JOB: N/A     MEDIA: N/A
+
+  CSR NBR: N/A
+
+
+                       RESTART/ERRORS
+
+  RESTART INSTRUCTIONS: N/A
+  JOB CANNOT BE RESTARTED WITHOUT INPUT FROM ANALYST.  REASON FOR
+  FAILURE WOULD NEED TO BE INVESTIGATED.
+
+  RERUN INSTRUCTIONS: N/A
+
+  ERROR MESSAGE: N/A
+  ACTION:N/A
+
+  SYSTEM ERROR MESSAGE: N/A
+  ACTION: N/A
+
+  MISCELLANEOUS: OPEN A SEV5 TICKET TO  IBM-LRGSYS-DB2  AND SEND A NOTE
+                 TO DELTAMF@BR.IBM.COM

@@ -1,0 +1,17 @@
+------------------------------------------------------------------------
+--SELECT COUNT(*) AS TOTAL
+--  FROM SYSIBM.SYSCOPY
+--  WITH UR
+--     ;
+------------------------------------------------------------------------
+  SELECT DBNAME, TSNAME
+       , COUNT(*) AS TOTAL
+       , MIN(ICDATE) AS FIRST_DATE
+       , MAX(ICDATE) AS LAST_DATE
+    FROM SYSIBM.SYSCOPY
+   WHERE DBNAME LIKE 'DSN%'
+   GROUP BY DBNAME, TSNAME
+   ORDER BY 5 ASC
+    WITH UR
+       ;
+ -----------------------------------------------------------------------

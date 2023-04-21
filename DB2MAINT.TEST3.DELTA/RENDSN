@@ -1,0 +1,15 @@
+//VSAMRENA JOB ,'DB2 RM102',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID,
+//         USER=SYSPRO
+/*JOBPARM SYSAFF=MVS4
+//* *************************************************************** */  00150000
+//* RENAME DATASET
+//* *************************************************************** */  00170000
+//DSNTIC  EXEC PGM=IDCAMS                                               00180000
+//*DDIN     DD DISP=SHR,DSN=T032135.DB2.PARMLIB
+//SYSPRINT DD SYSOUT=*                                                  00200000
+//SYSUDUMP DD SYSOUT=*                                                  00210000
+//SYSIN DD *                                                            00590000
+    ALTER PSSXP.SMF.DCOL.GBP -                                          01730001
+    NEWNAME (PSSXP.SMF.DCOL.GBP.D180302)                                01730001
+/*
+//*                                                                     00150000

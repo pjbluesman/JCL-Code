@@ -1,0 +1,17 @@
+//REPAIRX1 JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,REGION=0M,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSN
+//JOBLIB    DD DISP=SHR,
+//             DSN=SSXDT.DB2O.SDSNEXIT
+//*
+//*********************************************************************
+//* STEP TERM UTIL
+//*********************************************************************
+//*
+//* IKJEFT01: TERMINATE PENDING DSNTTX01 UTILITIES
+//*
+//REPAIR EXEC DSNUPROC,SYSTEM=DB2O,
+//             LIB='SDB2O.SDSNLOAD',
+//             UID=''
+//DSNUPROC.SYSIN  DD  *
+REPAIR LEVELID TABLESPACE DB2PM.PROCESS
