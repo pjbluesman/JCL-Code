@@ -1,0 +1,1 @@
+SET CURRENT SQLID = 'DB2DBA'                                            00010000;                                                                       00020000TRUNCATE TABLE DB2DBA.DBACHKTB1                                         00030003;                                                                       00040001
