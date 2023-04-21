@@ -1,0 +1,62 @@
+    SELECT CHAR('REBIND PACKAGE (-', 80)
+         , LASTUSED
+         , 'CURRENT ' AS PKGCOPY
+         , RTRIM(COLLID) || '.' ||
+           RTRIM(NAME) || '.(' ||
+           RTRIM(VERSION) || ')'
+           AS RESULT
+         , 1
+      FROM SYSIBM.SYSPACKAGE
+     WHERE RELBOUND <= 'M'
+   UNION ALL
+    SELECT CHAR(
+           RTRIM(COLLID) || '.' ||'"'||
+           RTRIM(NAME) || '".' ||
+           CASE
+             WHEN VERSION = '' THEN '())'
+             ELSE '("'||TRIM(VERSION)||'"))'
+           END, 80)
+         , LASTUSED
+         , 'CURRENT ' AS PKGCOPY
+         , RTRIM(COLLID) || '.' ||
+           RTRIM(NAME) || '.(' ||
+           RTRIM(VERSION) || ')'
+           AS RESULT
+         , 2
+      FROM SYSIBM.SYSPACKAGE
+     WHERE RELBOUND <= 'M'
+   UNION ALL
+    SELECT CHAR('REBIND PACKAGE (-', 80)
+         , LASTUSED
+         , CASE WHEN COPYID = 1 THEN 'PREVIOUS'
+                WHEN COPYID = 2 THEN 'ORIGINAL'
+                ELSE 'ERROR'
+           END AS PKGCOPY
+         , RTRIM(COLLID) || '.' ||
+           RTRIM(NAME) || '.(' ||
+           RTRIM(VERSION) || ')'
+           AS RESULT
+         , 3
+      FROM SYSIBM.SYSPACKCOPY
+     WHERE RELBOUND <= 'M'
+    UNION ALL
+    SELECT CHAR(
+           RTRIM(COLLID) || '.' ||'"'||
+           RTRIM(NAME) || '".' ||
+           CASE
+             WHEN VERSION = '' THEN '())'
+             ELSE '("'||TRIM(VERSION)||'"))'
+           END, 80)
+         , LASTUSED
+         , CASE WHEN COPYID = 1 THEN 'PREVIOUS'
+                WHEN COPYID = 2 THEN 'ORIGINAL'
+                ELSE 'ERROR'
+           END AS PKGCOPY
+         , RTRIM(COLLID) || '.' ||
+           RTRIM(NAME) || '.(' ||
+           RTRIM(VERSION) || ')'
+           AS RESULT
+         , 4
+      FROM SYSIBM.SYSPACKCOPY
+     WHERE RELBOUND <= 'M'
+  ORDER BY 4, 3, 5

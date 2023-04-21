@@ -1,0 +1,15 @@
+       SELECT DISTINCT 'REBIND PLAN ('||STRIP(A.NAME)||')'
+     --       , RPAD(A.VALID, 5, ' ')
+     --       , RPAD(A.OPERATIVE, 9, ' ')
+     --       , RTRIM( '""' || RTRIM(A.NAME) || '""' )
+     --         || '/'
+     --         || RTRIM( '""' || RTRIM(A.CREATOR) || '""' )
+     --         AS RESULT
+     --       , B.SYSTEM,B.ENABLE
+           FROM SYSIBM.SYSPLAN A
+              , SYSIBM.SYSPLSYSTEM B
+          WHERE A.RELBOUND IN( ' ',  'K', 'L', 'M' )
+            AND A.NAME = B.NAME
+     --ORDER BY 3
+  FOR FETCH ONLY
+;

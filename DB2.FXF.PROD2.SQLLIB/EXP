@@ -1,0 +1,14 @@
+SELECT COUNT(*) FROM SYSIBM.SYSTABLES
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,6 @@
+select count(*) from prod.image_pro_xref
+where pro_number = '1253131681'
+and form_type = 'BL';
+
+select count(*) from group04.osm_obj_dir
+where odname like 'IMG125.X3131681.BLXX%%%.IBX' ;

@@ -1,0 +1,1059 @@
+NO PROCESS;
+NO PROCESS;
+NO PROCESS;
+
+.CONNECT DSNB
+
+--#SET TERMINATOR ;
+
+
+ SET CURRENT SQLID = 'JXS0036';
+
+
+    CREATE STOGROUP OAMSG
+          VOLUMES
+          ("*"
+          )
+    VCAT DB2CATT;
+
+
+ SET CURRENT SQLID = 'JXS0036';
+
+
+    CREATE DATABASE T01HRIMG
+           BUFFERPOOL BP0
+           INDEXBP    BP0
+           STOGROUP OAMSG
+           CCSID EBCDIC;
+
+
+ SET CURRENT SQLID = 'JXS0036';
+
+
+    CREATE STOGROUP TA
+          VOLUMES
+          ("*"
+          )
+    VCAT DB2CATTA;
+
+
+ SET CURRENT SQLID = 'JXS0036';
+
+
+    CREATE TABLESPACE AFTSHRI4
+           IN T01HRIMG
+           USING STOGROUP TA
+               PRIQTY -1
+               SECQTY -1
+               ERASE NO
+           BUFFERPOOL BP32K
+           DSSIZE 4G
+           CLOSE YES
+           LOCKMAX SYSTEM
+           SEGSIZE 0
+           DEFINE YES
+           LOGGED
+           LOCKSIZE ANY
+           MAXROWS 255
+           CCSID EBCDIC
+           NUMPARTS 50
+          (PARTITION 1
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 2
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 3
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 4
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 5
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 6
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 7
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 8
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 9
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 10
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 11
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 12
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 13
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 14
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 15
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 16
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 17
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 18
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 19
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 20
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 21
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 22
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 23
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 24
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 25
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 26
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 27
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 28
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 29
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 30
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 31
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 32
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 33
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 34
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 35
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 36
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 37
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 38
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 39
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 40
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 41
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 42
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 43
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 44
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 45
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 46
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 47
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 48
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 49
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES
+          ,PARTITION 50
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     PCTFREE 5
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS NO
+                     TRACKMOD YES);
+
+
+ SET CURRENT SQLID = 'JXS0036';
+
+
+    CREATE TABLE HRI4TEST.OSM_32K_OBJ_TBL
+        (OTVER CHARACTER(1) FOR SBCS DATA
+                                                        NOT NULL
+        ,OTSEG SMALLINT
+                                                        NOT NULL
+        ,OTCLID INTEGER
+                                                        NOT NULL
+        ,OTNAME CHARACTER(34) FOR SBCS DATA
+                                                        NOT NULL
+        ,OTOBJ VARCHAR(32662) FOR SBCS DATA
+                                                        NOT NULL
+        )
+        IN T01HRIMG.AFTSHRI4
+   APPEND NO
+   NOT VOLATILE CARDINALITY
+   DATA CAPTURE NONE
+   AUDIT NONE
+   CCSID EBCDIC;
+
+
+ SET CURRENT SQLID = 'JXS0036';
+
+
+    CREATE UNIQUE INDEX HRI4TEST.OBJ324X1
+           ON HRI4TEST.OSM_32K_OBJ_TBL
+          (OTNAME ASC
+          ,OTSEG ASC
+          ,OTCLID ASC
+          )
+           CLUSTER
+           DEFINE YES
+           COMPRESS NO
+           BUFFERPOOL BP1
+           CLOSE NO
+           DEFER NO
+           COPY NO
+           PARTITION BY RANGE
+          (PARTITION 1    ENDING AT('IMG460.X4995120.DRE0020.9999999999'
+,99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 2    ENDING AT('IMG462.X1144710.DRA0001.9999999999'
+,99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 3    ENDING AT('IMG463.X8327160.DRC0005.9999999999'
+,99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 4    ENDING AT('IMG465.X5973090.DRI0001.9999999999'
+,99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 5    ENDING AT('IMG467.X4130630.DRD0014.9999999999'
+,99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 6    ENDING AT('IMG471.X6289320.DRC0018.9999999999'
+,99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 7    ENDING AT('IMG476.X9006780.DRB0005.9999999999'
+,99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 8    ENDING AT('IMG481.X0449280.DRE0047.9999999999'
+,99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 9    ENDING AT('IMG485.X5811570.DRB0047.9999999999'
+,99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 10    ENDING AT('IMG488.X6288460.DRE0165.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 11    ENDING AT('IMG490.X7891970.DRE0006.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 12    ENDING AT('IMG493.X5262100.DRS0019.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 13    ENDING AT('IMG495.X7420090.DRD0023.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 14    ENDING AT('IMG497.X9056220.DRD0063.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 15    ENDING AT('IMG500.X6670490.DRE0148.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 16    ENDING AT('IMG507.X1377810.DRC0021.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 17    ENDING AT('IMG511.X6414180.DRA0002.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 18    ENDING AT('IMG513.X9630330.DRE0003.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 19    ENDING AT('IMG519.X9671970.DRE0008.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 20    ENDING AT('IMG524.X1723950.DRE0031.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 21    ENDING AT('IMG529.X4786340.DRC0002.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 22    ENDING AT('IMG543.X1307600.DRI0006.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 23    ENDING AT('IMG549.X8072320.DRM0029.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 24    ENDING AT('IMG554.X7851300.DRE0013.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 25    ENDING AT('IMG560.X1378760.DRE0013.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 26    ENDING AT('IMG565.X7135710.DRS0065.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 27    ENDING AT('IMG570.X4998710.DRA0021.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 28    ENDING AT('IMG582.X7745820.DRB0001.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 29    ENDING AT('IMG587.X2964090.DRE0003.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 30    ENDING AT('IMG592.X3412730.DRD0058.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 31    ENDING AT('IMG600.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 32    ENDING AT('IMG605.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 33    ENDING AT('IMG610.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 34    ENDING AT('IMG615.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 35    ENDING AT('IMG620.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 36    ENDING AT('IMG625.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 37    ENDING AT('IMG630.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 38    ENDING AT('IMG635.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 39    ENDING AT('IMG640.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 40    ENDING AT('IMG645.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 41    ENDING AT('IMG650.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 42    ENDING AT('IMG655.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 43    ENDING AT('IMG660.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 44    ENDING AT('IMG665.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 45    ENDING AT('IMG670.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 46    ENDING AT('IMG675.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 47    ENDING AT('IMG680.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 48    ENDING AT('IMG685.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 49    ENDING AT('IMG690.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED
+          ,PARTITION 50    ENDING AT('IMG999.99999999.9999999.9999999999
+',99,9999)
+                     USING STOGROUP TA
+                                    PRIQTY -1
+                                    SECQTY -1
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE CHANGED);
+
+
+ SET CURRENT SQLID = 'JXS0036';
+
+
+    CREATE ALIAS AFTSHRI4.OSM_32K_OBJ_TBL
+               FOR HRI4TEST.OSM_32K_OBJ_TBL;
+

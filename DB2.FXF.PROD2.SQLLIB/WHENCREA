@@ -1,0 +1,24 @@
+SELECT DBNAME,TSNAME,CREATOR,NAME,TYPE,CREATEDTS
+  FROM SYSIBM.SYSTABLES
+ WHERE DBNAME IN ('AFWPSEXP',
+                  'AFWGLPS1',
+                  'AFWPSAPY',
+                  'AFWPSOFT',
+                  'AFWPSPRC',
+                  'AFWPSPUR',
+                  'AFWPSVND')
+   AND CREATEDTS >= '2017-07-21-00.00.00.000000'
+;
+--SELECT DISTINCT DBNAME, TSNAME, JOBNAME
+SELECT DISTINCT JOBNAME
+  FROM SYSIBM.SYSCOPY
+ WHERE DBNAME IN ('AFWPSEXP',
+                  'AFWGLPS1',
+                  'AFWPSAPY',
+                  'AFWPSOFT',
+                  'AFWPSPRC',
+                  'AFWPSPUR',
+                  'AFWPSVND')
+   AND TIMESTAMP >= '2017-07-21-00.00.00.000000'
+   AND ICTYPE IN ('I','F')
+;

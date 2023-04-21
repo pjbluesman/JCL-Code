@@ -1,0 +1,16 @@
+    SELECT CHAR(
+           RTRIM(COLLID) || '.' ||'"'||
+           RTRIM(NAME) || '".' ||
+           CASE
+             WHEN VERSION = '' THEN '()'
+             ELSE '("'||TRIM(VERSION)||'"))'
+           END, 80)
+         , LASTUSED
+         , 'CURRENT ' AS PKGCOPY
+         , RTRIM(COLLID) || '.' ||
+           RTRIM(NAME) || '.(' ||
+           RTRIM(VERSION) || ')'
+           AS RESULT
+         , 2
+      FROM SYSIBM.SYSPACKAGE
+     WHERE RELBOUND <= 'M'

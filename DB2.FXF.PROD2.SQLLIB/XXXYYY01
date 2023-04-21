@@ -1,0 +1,1415 @@
+
+--==============================================================================
+-- 19.0         CA-DB2   RC/Migrator   Analysis Report      19-08-28 13:31
+--==============================================================================
+--Strategy Information:
+--Strategy ==> TESTE     Description  ===> TESTE
+--Creator  ==> JXS0036   Share Option ===> N (U,Y,N,X,L)  Src SSID ===> DSNB
+--
+--
+--Analysis Options:
+--  Execution Mode    ===> B (O - Online, B - Batch)
+--  Analysis Override ===> N
+--  Access Mode       ===> CATALOG - LIMITED
+--  Model ID          ===> !CAUIBM
+--  Model Creator     ===> @DBATFS
+--  Target SSID       ===> DSNB
+--  Global Changes    ===> N
+--
+--  Aux Implode       ===> N             Statistics    ===> N
+--  MQT Implode       ===> N             Check Data    ===> N
+--  Sequence Implode  ===>               Image Copy    ===> N
+--  RI(Local/Global)  ===> N             Bind/Rebind   ===> N
+--  Security          ===> Y             Recover IX    ===> N
+--  Drop Objects      ===> N             Reorg         ===> N
+--  LOB Objects       ===> N
+--  Default SQLID     ===>
+--  Alias SQLID       ===>
+--  Table OBID        ===> N
+--  Rtn Implode       ===>
+--  Rtn Interaction   ===> N
+--  View (Imp/Exp)    ===> Y
+--
+--  All Rows          ===> N             VSAM Defines  ===> N
+--  Number Rows       ===>               VSAM Deletes  ===> N
+--  Data Statistics   ===> N
+--  Truncate          ===> N
+--  MQT Refresh       ===> N
+--  Set Terminator    ===> ;  (Value from PARMLIB)
+--
+--  No .AUTHS               ===> N
+--  No Set SQLID Stmts      ===> N
+--  Bnd/Dat/Sql/Stat/Grnt/RI===> S
+--  Commit ASAP             ===> N
+--
+--  Delete Unload Data Sets   ===> N
+--  Delete Temporary Datasets ===> N
+--
+--  RMA490W KEY ON TABLE SYSIBM.SYSINDEXES AND CONSTRAINT (PRIMARY KEY) DOES NOT
+--          HAVE A MATCHING UNIQUE INDEX.
+--**********************************************************************
+--*                           PRIMARY OBJECT                           *
+--**********************************************************************
+--
+-- Included Primary Object(s): Table
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- SYSIBM            SYSFIELDS
+--
+--   Implode: SG DB TS
+--            A  A  A
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            A  A  A   A    A  A  A  A  A   A     A  A
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- SYSIBM            SYSFOREIGNKEYS
+--
+--   Implode: SG DB TS
+--            A  A  A
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            A  A  A   A    A  A  A  A  A   A     A  A
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- SYSIBM            SYSINDEXCLEANUP
+--
+--   Implode: SG DB TS
+--            _  _  _
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            _  _  _   _    _  _  _  _  _   _     _  _
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- SYSIBM            SYSINDEXES
+--
+--   Implode: SG DB TS
+--            _  _  _
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            _  _  _   _    _  _  _  _  _   _     _  _
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- SYSIBM            SYSINDEXES_HIST
+--
+--   Implode: SG DB TS
+--            _  _  _
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            _  _  _   _    _  _  _  _  _   _     _  _
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- SYSIBM            SYSINDEXES_RTSECT
+--
+--   Implode: SG DB TS
+--            _  _  _
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            _  _  _   _    _  _  _  _  _   _     _  _
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- SYSIBM            SYSINDEXES_TREE
+--
+--   Implode: SG DB TS
+--            _  _  _
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            _  _  _   _    _  _  _  _  _   _     _  _
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+-- Legend:
+--   Strategy Inclusion Reasons               Object Types
+--     A - Table is aux-Table to base-Table     SG - Stogroup
+--     B - Table is base-table to aux-Table     DB - Database
+--     C - Table is an RI child                 TS - Tablespace
+--     D - Index supports RI                    T  - Table
+--     F - Table adopted a new child Table      MQ - Mqt
+--     I - Table has Index activity             I  - Index
+--     L - LOB TS related to base-Table         SQ - Sequence
+--     M - Imploded to from child               UF - Function
+--     P - Primary Object                       PR - Procedure
+--     Q - Tablespace has a partitioned Table   V  - View
+--     R - Table is an RI parent                S  - Synonym
+--     S - Selected in the strategy             A  - Alias
+--     X - Exploded to from parent              TG - Trigger
+--     Z - Potential parent on target
+--
+--   Implode/Explode Analysis General format:
+--   <Reason> <Object type> <Object name>
+--
+--     M DB SYSIBM.DSNDB06
+--     M   TS DSNDB06.SYSTSFOR
+--     P     T  SYSIBM.SYSFOREIGNKEYS
+--     X       I  FXFIBM.IXIFK2
+--     X       I  FXFIBM.IXIFK1
+--     X       I  SYSIBM.DSNDRH01
+--     X       I  FXFIBM.CAIX0012
+--     X       V  RDBI.FOREIGN_KEY_VIEW
+--     X       S  SYSPST.PST_SYSFOREIGNKEYS
+--     X       S  DAA1010D.CATFOREIGNKEYS
+--     X       S  ACT101D.CATFOREIGNKEYS
+--     X       A  DAA121D.CATFOREIGNKEYS
+--     X       A  DAA112D.CATFOREIGNKEYS
+--     X       A  ACT121D.CATFOREIGNKEYS
+--     X       A  ACT112D.CATFOREIGNKEYS
+--     M   TS DSNDB06.SYSTSFLD
+--     P     T  SYSIBM.SYSFIELDS
+--     X       I  SYSIBM.DSNDFX01
+--     X       I  FXFIBM.CAIX0010
+--     X       I  FXFIBM.CAIX0009
+--     X       S  SYSPST.PST_SYSFIELDS
+--     X       S  DAA1010D.CATFIELDS
+--     X       S  ACT101D.CATFIELDS
+--     X       A  DAA121D.CATFIELDS
+--     X       A  DAA112D.CATFIELDS
+--     X       A  ACT121D.CATFIELDS
+--     X       A  ACT112D.CATFIELDS
+--     P   T  SYSIBM.SYSINDEXES_TREE
+--     P   T  SYSIBM.SYSINDEXES_RTSECT
+--     P   T  SYSIBM.SYSINDEXES_HIST
+--     P   T  SYSIBM.SYSINDEXES
+--     P   T  SYSIBM.SYSINDEXCLEANUP
+--************************* END ANALYSIS HEADER ************************
+
+--  RMA234W AN IN-PLACE MIGRATION HAS BEEN GENERATED WITH THE DROP OBJECTS
+--         OPTION SET TO "N". SQL ERRORS MAY OCCUR.
+
+--  RMA238W THIS ANALYSIS WAS PERFORMED WITHOUT THE RI CONTROL OPTION. NO
+--         REFERENTIAL RELATIONSHIPS WILL BE GENERATED.
+
+--  RMA448W THIS ANALYSIS WAS PERFORMED WITHOUT THE LOB OBJECTS OPTION. TABLES
+--         CREATED CONTAINING LOB COLUMNS MAY BE MARKED INCOMPLETE.
+
+-- **************************************************************
+-- *                                                            *
+-- * DATABASE CREATE AND ALTER STATEMENTS                       *
+-- *                                                            *
+-- **************************************************************
+
+-- DSNDB06 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'SYSIBM';
+
+CREATE  DATABASE DSNDB06
+           INDEXBP    BP0
+           CCSID EBCDIC
+    ;
+
+    SET CURRENT SQLID = USER;
+
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT DBADM ON DATABASE DSNDB06
+                      TO      @DBATFD
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT IMAGCOPY   ON DATABASE DSNDB06
+                      TO      SWH3646;
+
+    SET CURRENT SQLID = USER;
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLESPACE CREATE AND ALTER STATEMENTS                     *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DSNDB06.SYSTSFLD WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    SET CURRENT SQLID = 'SYSIBM';
+
+
+CREATE  TABLESPACE SYSTSFLD
+        IN DSNDB06
+           MAXPARTITIONS    1
+           BUFFERPOOL BP0
+           LOCKSIZE ROW
+           CLOSE NO
+           SEGSIZE 32
+           LOCKMAX SYSTEM
+           CCSID UNICODE
+           DSSIZE  64G
+    ;
+
+    SET CURRENT SQLID = USER;
+
+
+
+-- DSNDB06.SYSTSFOR WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    SET CURRENT SQLID = 'SYSIBM';
+
+
+CREATE  TABLESPACE SYSTSFOR
+        IN DSNDB06
+           MAXPARTITIONS    1
+           BUFFERPOOL BP0
+           LOCKSIZE ROW
+           CLOSE NO
+           SEGSIZE 32
+           LOCKMAX SYSTEM
+           CCSID UNICODE
+           DSSIZE  64G
+    ;
+
+    SET CURRENT SQLID = USER;
+
+
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+-- "SYSIBM".SYSFIELDS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+CREATE  TABLE "SYSIBM".SYSFIELDS
+        ( TBCREATOR VARCHAR ( 128 ) NOT NULL
+        , TBNAME VARCHAR ( 128 ) NOT NULL
+        , COLNO SMALLINT NOT NULL
+        , "NAME" VARCHAR ( 128 ) NOT NULL
+        , FLDTYPE VARCHAR ( 24 ) NOT NULL
+        , LENGTH SMALLINT NOT NULL
+        , SCALE SMALLINT NOT NULL
+        , FLDPROC VARCHAR ( 24 ) NOT NULL
+        , WORKAREA SMALLINT NOT NULL
+        , IBMREQD CHAR ( 1 ) NOT NULL
+        , EXITPARML SMALLINT NOT NULL
+        , PARMLIST VARCHAR ( 762 ) NOT NULL
+        , EXITPARM VARCHAR ( 1530 ) NOT NULL
+          FOR BIT DATA
+        )
+        IN DSNDB06.SYSTSFLD
+   DATA CAPTURE CHANGES
+   CCSID         UNICODE
+   ;
+
+
+-- PST_SYSFIELDS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'SYSPST';
+
+CREATE  SYNONYM PST_SYSFIELDS FOR "SYSIBM".SYSFIELDS ;
+
+    SET CURRENT SQLID = USER;
+
+-- CATFIELDS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DAA1010D';
+
+CREATE  SYNONYM CATFIELDS FOR "SYSIBM".SYSFIELDS ;
+
+    SET CURRENT SQLID = USER;
+
+-- CATFIELDS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'ACT101D';
+
+CREATE  SYNONYM CATFIELDS FOR "SYSIBM".SYSFIELDS ;
+
+    SET CURRENT SQLID = USER;
+
+-- DAA121D.CATFIELDS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS DAA121D.CATFIELDS FOR "SYSIBM".SYSFIELDS ;
+
+
+-- DAA112D.CATFIELDS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS DAA112D.CATFIELDS FOR "SYSIBM".SYSFIELDS ;
+
+
+-- ACT121D.CATFIELDS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS ACT121D.CATFIELDS FOR "SYSIBM".SYSFIELDS ;
+
+
+-- ACT112D.CATFIELDS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS ACT112D.CATFIELDS FOR "SYSIBM".SYSFIELDS ;
+
+
+-- "SYSIBM".SYSFOREIGNKEYS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS
+-- .
+
+
+CREATE  TABLE "SYSIBM".SYSFOREIGNKEYS
+        ( CREATOR VARCHAR ( 128 ) NOT NULL
+        , TBNAME VARCHAR ( 128 ) NOT NULL
+        , RELNAME VARCHAR ( 128 ) NOT NULL
+        , COLNAME VARCHAR ( 128 ) NOT NULL
+        , COLNO SMALLINT NOT NULL
+        , COLSEQ SMALLINT NOT NULL
+        , IBMREQD CHAR ( 1 ) NOT NULL
+        )
+        IN DSNDB06.SYSTSFOR
+   DATA CAPTURE CHANGES
+   CCSID         UNICODE
+   ;
+
+
+-- PST_SYSFOREIGNKEYS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'SYSPST';
+
+CREATE  SYNONYM PST_SYSFOREIGNKEYS FOR "SYSIBM".SYSFOREIGNKEYS ;
+
+    SET CURRENT SQLID = USER;
+
+-- CATFOREIGNKEYS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DAA1010D';
+
+CREATE  SYNONYM CATFOREIGNKEYS FOR "SYSIBM".SYSFOREIGNKEYS ;
+
+    SET CURRENT SQLID = USER;
+
+-- CATFOREIGNKEYS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'ACT101D';
+
+CREATE  SYNONYM CATFOREIGNKEYS FOR "SYSIBM".SYSFOREIGNKEYS ;
+
+    SET CURRENT SQLID = USER;
+
+-- DAA121D.CATFOREIGNKEYS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS DAA121D.CATFOREIGNKEYS FOR "SYSIBM".SYSFOREIGNKEYS ;
+
+
+-- DAA112D.CATFOREIGNKEYS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS DAA112D.CATFOREIGNKEYS FOR "SYSIBM".SYSFOREIGNKEYS ;
+
+
+-- ACT121D.CATFOREIGNKEYS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS ACT121D.CATFOREIGNKEYS FOR "SYSIBM".SYSFOREIGNKEYS ;
+
+
+-- ACT112D.CATFOREIGNKEYS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS ACT112D.CATFOREIGNKEYS FOR "SYSIBM".SYSFOREIGNKEYS ;
+
+
+-- "SYSIBM".SYSINDEXCLEANUP WILL BE CREATED VIA THESE NATIVE DB2 COMMAND
+-- S.
+
+
+CREATE  TABLE "SYSIBM".SYSINDEXCLEANUP
+        ( DBNAME VARCHAR ( 24 )
+        , INDEXSPACE VARCHAR ( 24 )
+        , ENABLE_DISABLE CHAR ( 1 ) NOT NULL
+        , MONTH_WEEK CHAR ( 1 ) NOT NULL
+        , "MONTH" SMALLINT
+        , "DAY" SMALLINT
+        , START_TIME TIME
+        , END_TIME TIME
+        )
+        IN DSNDB06.SYSTSIXC
+   CCSID         UNICODE
+   ;
+
+
+-- "SYSIBM".SYSINDEXES WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE TABLE "SYSIBM".SYSINDEXES
+        ("NAME" VARCHAR(128)
+                                                        NOT NULL
+        ,CREATOR VARCHAR(128)
+                                                        NOT NULL
+        ,TBNAME VARCHAR(128)
+                                                        NOT NULL
+        ,TBCREATOR VARCHAR(128)
+                                                        NOT NULL
+        ,UNIQUERULE CHARACTER(1)
+                                                        NOT NULL
+        ,COLCOUNT SMALLINT
+                                                        NOT NULL
+        ,CLUSTERING CHARACTER(1)
+                                                        NOT NULL
+        ,CLUSTERED CHARACTER(1)
+                                                        NOT NULL
+        ,DBID SMALLINT
+                                                        NOT NULL
+        ,"OBID" SMALLINT
+                                                        NOT NULL
+        ,"ISOBID" SMALLINT
+                                                        NOT NULL
+        ,DBNAME VARCHAR(24)
+                                                        NOT NULL
+        ,INDEXSPACE VARCHAR(24)
+                                                        NOT NULL
+        ,FIRSTKEYCARD INTEGER
+                                                        NOT NULL
+        ,FULLKEYCARD INTEGER
+                                                        NOT NULL
+        ,NLEAF INTEGER
+                                                        NOT NULL
+        ,NLEVELS SMALLINT
+                                                        NOT NULL
+        ,BPOOL CHARACTER(8)
+                                                        NOT NULL
+        ,PGSIZE SMALLINT
+                                                        NOT NULL
+        ,ERASERULE CHARACTER(1)
+                                                        NOT NULL
+        ,DSETPASS VARCHAR(24)
+                                                        NOT NULL
+        ,CLOSERULE CHARACTER(1)
+                                                        NOT NULL
+        ,SPACE INTEGER
+                                                        NOT NULL
+        ,IBMREQD CHARACTER(1)
+                                                        NOT NULL
+        ,CLUSTERRATIO SMALLINT
+                                                        NOT NULL
+  WITH DEFAULT
+        ,CREATEDBY VARCHAR(128)
+                                                        NOT NULL
+  WITH DEFAULT
+        ,IOFACTOR SMALLINT
+                                                        NOT NULL
+  WITH DEFAULT
+        ,PREFETCHFACTOR SMALLINT
+                                                        NOT NULL
+  WITH DEFAULT
+        ,STATSTIME TIMESTAMP (6) WITHOUT TIME ZONE
+                                                        NOT NULL
+  WITH DEFAULT
+        ,INDEXTYPE CHARACTER(1)
+                                                        NOT NULL
+  WITH DEFAULT
+        ,FIRSTKEYCARDF FLOAT(53)
+                                                        NOT NULL
+  WITH DEFAULT -1
+        ,FULLKEYCARDF FLOAT(53)
+                                                        NOT NULL
+  WITH DEFAULT -1
+        ,CREATEDTS TIMESTAMP (6) WITHOUT TIME ZONE
+                                                        NOT NULL
+  WITH DEFAULT
+        ,ALTEREDTS TIMESTAMP (6) WITHOUT TIME ZONE
+                                                        NOT NULL
+  WITH DEFAULT
+        ,"PIECESIZE" INTEGER
+                                                        NOT NULL
+  WITH DEFAULT
+        ,COPY CHARACTER(1)
+                                                        NOT NULL
+  WITH DEFAULT 'N'
+        ,COPYLRSN CHARACTER(10) FOR BIT DATA
+                                                        NOT NULL
+  WITH DEFAULT X'000000000000'
+        ,CLUSTERRATIOF FLOAT(53)
+                                                        NOT NULL
+  WITH DEFAULT
+        ,SPACEF FLOAT(53)
+                                                        NOT NULL
+  WITH DEFAULT -1
+        ,REMARKS VARCHAR(762)
+                                                        NOT NULL
+  WITH DEFAULT
+        ,"PADDED" CHARACTER(1)
+                                                        NOT NULL
+  WITH DEFAULT ''
+        ,VERSION SMALLINT
+                                                        NOT NULL
+  WITH DEFAULT
+        ,OLDEST_VERSION SMALLINT
+                                                        NOT NULL
+  WITH DEFAULT
+        ,CURRENT_VERSION SMALLINT
+                                                        NOT NULL
+  WITH DEFAULT
+        ,RELCREATED CHARACTER(1)
+                                                        NOT NULL
+  WITH DEFAULT
+        ,AVGKEYLEN INTEGER
+                                                        NOT NULL
+  WITH DEFAULT -1
+        ,KEYTARGET_COUNT SMALLINT
+                                                        NOT NULL
+  WITH DEFAULT
+        ,UNIQUE_COUNT SMALLINT
+                                                        NOT NULL
+  WITH DEFAULT
+        ,IX_EXTENSION_TYPE CHARACTER(1)
+                                                        NOT NULL
+  WITH DEFAULT
+        ,COMPRESS CHARACTER(1)
+                                                        NOT NULL
+  WITH DEFAULT 'N'
+        ,OWNER VARCHAR(128)
+                                                        NOT NULL
+  WITH DEFAULT
+        ,OWNERTYPE CHARACTER(1)
+                                                        NOT NULL
+  WITH DEFAULT
+        ,DATAREPEATFACTORF FLOAT(53)
+                                                        NOT NULL
+  WITH DEFAULT -1
+        ,ENVID INTEGER
+                                                        NOT NULL
+  WITH DEFAULT
+        ,ROWID ROWID
+                                                        NOT NULL
+  GENERATED ALWAYS
+        ,HASH CHARACTER(1)
+                                                        NOT NULL
+  WITH DEFAULT 'N'
+        ,SPARSE CHARACTER(1)
+                                                        NOT NULL
+  WITH DEFAULT 'N'
+        ,PARSETREE BLOB(1G)
+                                                        NOT NULL
+      INLINE LENGTH 0
+  WITH DEFAULT
+        ,RTSECTION BLOB(1G)
+                                                        NOT NULL
+      INLINE LENGTH 0
+  WITH DEFAULT
+        ,CONSTRAINT CREATOR PRIMARY KEY
+        (CREATOR
+        ,"NAME"
+        )
+        ,CONSTRAINT DSNIXS_CLSTRATIOF CHECK
+        ((CLUSTERRATIOF >= 0 AND         CLUSTERRATIOF <= 1) OR
+CLUSTERRATIOF = -2
+        )
+        ,CONSTRAINT DSNIXS_CLSTRRATIO CHECK
+        ((CLUSTERRATIO >= 0 AND         CLUSTERRATIO <= 100) OR
+CLUSTERRATIO = -2
+        )
+        ,CONSTRAINT DSNIXS_CLUSTERED CHECK
+        (CLUSTERED IN('N','Y',' ')
+        )
+        ,CONSTRAINT DSNIXS_FIRSTKCARDF CHECK
+        (FIRSTKEYCARDF = -1 OR         FIRSTKEYCARDF >= 0
+        )
+        ,CONSTRAINT DSNIXS_FULLKCARDF CHECK
+        (FULLKEYCARDF = -1 OR FULLKEYCARDF >= 0
+        )
+        ,CONSTRAINT DSNIXS_NLEAF CHECK
+        (NLEAF = -1 OR NLEAF >= 0
+        )
+        ,CONSTRAINT DSNIXS_NLEVELS CHECK
+        (NLEVELS = -1 OR NLEVELS >= 0
+        )
+        ,CONSTRAINT DSNIXS_SPACEF CHECK
+        (SPACEF = -1 OR SPACEF >= 0
+        )
+        )
+        IN DSNDB06.SYSTSIXS
+   APPEND NO
+   NOT VOLATILE CARDINALITY
+   DATA CAPTURE CHANGES
+   AUDIT NONE
+   CCSID UNICODE;
+
+-- "SYSIBM".SYSINDEXES_HIST WILL BE CREATED VIA THESE NATIVE DB2 COMMAND
+-- S.
+
+
+CREATE  TABLE "SYSIBM".SYSINDEXES_HIST
+        ( "NAME" VARCHAR ( 128 ) NOT NULL
+        , CREATOR VARCHAR ( 128 ) NOT NULL
+        , TBNAME VARCHAR ( 128 ) NOT NULL
+        , TBCREATOR VARCHAR ( 128 ) NOT NULL
+        , CLUSTERING CHAR ( 1 ) NOT NULL
+        , NLEAF INTEGER NOT NULL
+          WITH DEFAULT
+        - 1
+        , NLEVELS SMALLINT NOT NULL
+          WITH DEFAULT
+        - 1
+        , STATSTIME TIMESTAMP NOT NULL
+        , FIRSTKEYCARDF FLOAT NOT NULL
+          WITH DEFAULT
+        - 1
+        , FULLKEYCARDF FLOAT NOT NULL
+          WITH DEFAULT
+        - 1
+        , CLUSTERRATIOF FLOAT NOT NULL
+        , SPACEF FLOAT NOT NULL
+          WITH DEFAULT
+        - 1
+        , IBMREQD CHAR ( 1 ) NOT NULL
+          WITH DEFAULT
+        'N'
+        , AVGKEYLEN INTEGER NOT NULL
+          WITH DEFAULT
+        - 1
+        , DATAREPEATFACTORF FLOAT NOT NULL
+          WITH DEFAULT
+        - 1
+        , CONSTRAINT DSNIXH_CLSTRATIOF CHECK (
+  (CLUSTERRATIOF >= 0 AND         CLUSTERRATIOF <= 1) OR         CLUSTER
+RATIOF = -2 )
+        , CONSTRAINT DSNIXH_FIRSTKCARDF CHECK (
+  FIRSTKEYCARDF = -1 OR         FIRSTKEYCARDF >= 0 )
+        , CONSTRAINT DSNIXH_FULLKCARDF CHECK (
+  FULLKEYCARDF = -1 OR         FULLKEYCARDF >= 0 )
+        , CONSTRAINT DSNIXH_NLEAF CHECK (
+  NLEAF = -1 OR NLEAF >= 0 )
+        , CONSTRAINT DSNIXH_NLEVELS CHECK (
+  NLEVELS = -1 OR NLEVELS >= 0 )
+        , CONSTRAINT DSNIXH_SPACEF CHECK (
+  SPACEF = -1 OR SPACEF >= 0 )
+        )
+        IN DSNDB06.SYSHIST
+   CCSID         UNICODE
+   ;
+
+
+-- "SYSIBM".SYSINDEXES_RTSECT WILL BE CREATED VIA THESE NATIVE DB2 COMMA
+-- NDS.
+
+
+CREATE  AUXILIARY TABLE "SYSIBM".SYSINDEXES_RTSECT
+   IN DSNDB06.SYSTSIXR
+        STORES "SYSIBM".SYSINDEXES
+        COLUMN RTSECTION
+   PART 1
+   ;
+
+
+-- "SYSIBM".SYSINDEXES_TREE WILL BE CREATED VIA THESE NATIVE DB2 COMMAND
+-- S.
+
+
+CREATE  AUXILIARY TABLE "SYSIBM".SYSINDEXES_TREE
+   IN DSNDB06.SYSTSIXT
+        STORES "SYSIBM".SYSINDEXES
+        COLUMN PARSETREE
+   PART 1
+   ;
+
+
+
+-- **************************************************************
+-- *                                                            *
+-- * INDEX CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- FXFIBM.CAIX0009 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+CREATE  INDEX FXFIBM.CAIX0009 ON "SYSIBM".SYSFIELDS
+        ( TBCREATOR ASC
+        , TBNAME ASC
+        , COLNO ASC
+        , FLDPROC ASC
+          )
+           NOT PADDED
+           USING VCAT 00000001
+           FREEPAGE 16
+           PCTFREE 10
+           BUFFERPOOL BP0
+           CLOSE YES
+           PIECESIZE 2G
+           COPY YES
+    ;
+
+
+
+-- FXFIBM.CAIX0010 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+CREATE  INDEX FXFIBM.CAIX0010 ON "SYSIBM".SYSFIELDS
+        ( TBCREATOR ASC
+        , TBNAME ASC
+        , "NAME" ASC
+          )
+           NOT PADDED
+           USING VCAT 00000001
+           FREEPAGE 16
+           PCTFREE 10
+           BUFFERPOOL BP0
+           CLOSE YES
+           PIECESIZE 2G
+           COPY YES
+    ;
+
+
+
+-- FXFIBM.CAIX0012 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+CREATE  INDEX FXFIBM.CAIX0012 ON "SYSIBM".SYSFOREIGNKEYS
+        ( TBNAME ASC
+        , CREATOR ASC
+        , RELNAME ASC
+          )
+           NOT PADDED
+           USING VCAT 00000001
+           FREEPAGE 16
+           PCTFREE 10
+           BUFFERPOOL BP0
+           CLOSE YES
+           PIECESIZE 2G
+           COPY YES
+    ;
+
+
+
+-- "SYSIBM".DSNDFX01 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+CREATE  INDEX "SYSIBM".DSNDFX01 ON "SYSIBM".SYSFIELDS
+        ( TBCREATOR ASC
+        , TBNAME ASC
+        , "NAME" ASC
+          )
+           NOT PADDED
+           USING VCAT        
+           FREEPAGE 0
+           PCTFREE 10
+           BUFFERPOOL BP0
+           CLOSE NO
+           PIECESIZE 2G
+           COPY YES
+    ;
+
+
+
+-- "SYSIBM".DSNDRH01 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+CREATE  INDEX "SYSIBM".DSNDRH01 ON "SYSIBM".SYSFOREIGNKEYS
+        ( CREATOR ASC
+        , TBNAME ASC
+        , RELNAME ASC
+          )
+           NOT PADDED
+           USING VCAT 00000001
+           FREEPAGE 0
+           PCTFREE 10
+           BUFFERPOOL BP0
+           CLOSE NO
+           PIECESIZE 2G
+           COPY YES
+    ;
+
+
+
+-- FXFIBM.IXIFK1 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+CREATE  INDEX FXFIBM.IXIFK1 ON "SYSIBM".SYSFOREIGNKEYS
+        ( CREATOR ASC
+        , TBNAME ASC
+        , COLSEQ ASC
+          )
+           NOT PADDED
+           USING VCAT 00000001
+           FREEPAGE 0
+           PCTFREE 10
+           BUFFERPOOL BP0
+           CLOSE YES
+           PIECESIZE 2G
+           COPY YES
+    ;
+
+
+
+-- FXFIBM.IXIFK2 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+CREATE  INDEX FXFIBM.IXIFK2 ON "SYSIBM".SYSFOREIGNKEYS
+        ( RELNAME ASC
+        , COLSEQ ASC
+          )
+           NOT PADDED
+           USING VCAT 00000001
+           FREEPAGE 0
+           PCTFREE 10
+           BUFFERPOOL BP0
+           CLOSE YES
+           PIECESIZE 2G
+           COPY YES
+    ;
+
+
+
+    SET CURRENT SQLID = 'SYSADM';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      "PUBLIC";
+
+    SET CURRENT SQLID = 'KBG1982';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      "PUBLIC";
+
+    SET CURRENT SQLID = 'SYSADM';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      "PUBLIC";
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      @APPTFA;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      @APPTFA;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      @APPTFA;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES_HIST
+                      TO      @APPTFA;
+
+    SET CURRENT SQLID = 'SYSADM2';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES_HIST
+                      TO      @XPYTFA;
+
+    SET CURRENT SQLID = 'SYSADM2';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      @XPYTFA;
+
+    SET CURRENT SQLID = 'SYSADM2';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      @XPYTFA;
+
+    SET CURRENT SQLID = 'SYSADM2';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      @XPYTFA;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      DB2RODW;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      @DBATFC
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      @DBATFC
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      @DBATFC
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES_HIST
+                      TO      @DBATFC
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      @SYSTFE;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      @SYSTFE;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      @SYSTFE;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES_HIST
+                      TO      @SYSTFE;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      DB2DDF;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      DB2DDF;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      DB2DDF;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES_HIST
+                      TO      DB2DDF;
+
+    SET CURRENT SQLID = '@DBATFS';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      @BNDTA;
+
+    SET CURRENT SQLID = '@DBATFS';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      @BNDTA;
+
+    SET CURRENT SQLID = '@DBATFS';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      @BNDTA;
+
+    SET CURRENT SQLID = '@DBATFS';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES_HIST
+                      TO      @BNDTA;
+
+    SET CURRENT SQLID = '@DBATFD';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      @APPTFR;
+
+    SET CURRENT SQLID = '@DBATFD';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      @APPTFR;
+
+    SET CURRENT SQLID = '@DBATFD';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      @APPTFR;
+
+    SET CURRENT SQLID = '@DBATFD';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES_HIST
+                      TO      @APPTFR;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES_HIST
+                      TO      @APPTCA;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      @APPTCA;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      @APPTCA;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      @APPTCA;
+
+    SET CURRENT SQLID = '@DBATFS';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      @APPTCR;
+
+    SET CURRENT SQLID = '@DBATFS';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      @APPTCR;
+
+    SET CURRENT SQLID = '@DBATFS';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      @APPTCR;
+
+    SET CURRENT SQLID = '@DBATFS';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES_HIST
+                      TO      @APPTCR;
+
+    SET CURRENT SQLID = '@DBATFD';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      @BNDTFA;
+
+    SET CURRENT SQLID = '@DBATFD';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      @BNDTFA;
+
+    SET CURRENT SQLID = '@DBATFD';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      @BNDTFA;
+
+    SET CURRENT SQLID = '@DBATFD';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES_HIST
+                      TO      @BNDTFA;
+
+    SET CURRENT SQLID = '@DBATFD';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      @SPWTSA;
+
+    SET CURRENT SQLID = '@DBATFD';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      @SPWTSA;
+
+    SET CURRENT SQLID = '@DBATFD';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      @SPWTSA;
+
+    SET CURRENT SQLID = '@DBATFD';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES_HIST
+                      TO      @SPWTSA;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      @DBATCC
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      @DBATCC
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      @DBATCC
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES_HIST
+                      TO      @DBATCC
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      @DBATCD
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      @DBATCD
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      @DBATCD
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES_HIST
+                      TO      @DBATCD
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBATFD';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      @FACTAR5;
+
+    SET CURRENT SQLID = '@DBATFD';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      @FACTAR5;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFIELDS
+                      TO      @SYSTCE;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSFOREIGNKEYS
+                      TO      @SYSTCE;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES
+                      TO      @SYSTCE;
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT SELECT
+                    ON TABLE "SYSIBM".SYSINDEXES_HIST
+                      TO      @SYSTCE;
+
+    SET CURRENT SQLID = USER;
+
+-- **************************************************************
+-- *                                                            *
+-- * VIEW CREATE AND ALTER STATEMENTS                           *
+-- *                                                            *
+-- **************************************************************
+
+
+-- RDBI.FOREIGN_KEY_VIEW WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'RDBI';
+
+
+CREATE  VIEW RDBI.FOREIGN_KEY_VIEW
+        ( "TABLE_SCHEMA" , "TABLE_NAME" , "COLUMN_NAME" , "KEY_SEQ" ) AS
+ SELECT  A."CREATOR" , A."TBNAME" , B."COLNAME" , B."COLSEQ"
+   FROM "SYSIBM"."SYSRELS" A , "SYSIBM"."SYSFOREIGNKEYS" B
+  WHERE A."RELNAME" = B."RELNAME"
+;
+
+COMMENT ON TABLE RDBI.FOREIGN_KEY_VIEW IS
+        'Foreign key listing view for RDBI' ;
+    SET CURRENT SQLID = USER;
+
+    SET CURRENT SQLID = '@DBATFS';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE RDBI.FOREIGN_KEY_VIEW
+                      TO      @DBATFD
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBATFS';
+
+    GRANT SELECT
+                    ON TABLE RDBI.FOREIGN_KEY_VIEW
+                      TO      "PUBLIC";
+
+    SET CURRENT SQLID = USER;
+
+--==============================================================================
+-- 19.0           CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      19-08-28 13:31
+--==============================================================================
+--
+--  OBJECT TYPE: DATABASE                   TOTAL:                1
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   DSNDB06
+--    SYSIBM
+--
+--  OBJECT TYPE: TABLESPACE                 TOTAL:                2
+--
+--   OBJECT NAME/DBNAME          EDITED NEW NAME/DBNAME
+--
+--   SYSTSFLD
+--    DSNDB06
+--   SYSTSFOR
+--    DSNDB06
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                7
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   SYSFIELDS
+--    SYSIBM
+--   SYSFOREIGNKEYS
+--    SYSIBM
+--   SYSINDEXCLEANUP
+--    SYSIBM
+--   SYSINDEXES
+--    SYSIBM
+--                      DUPLICATE GRANTS REMOVED =>               2
+--   SYSINDEXES_HIST
+--    SYSIBM
+--   SYSINDEXES_RTSECT
+--    SYSIBM
+--   SYSINDEXES_TREE
+--    SYSIBM
+--
+--  OBJECT TYPE: INDEX                      TOTAL:                7
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   CAIX0009
+--    FXFIBM
+--   CAIX0010
+--    FXFIBM
+--   CAIX0012
+--    FXFIBM
+--   DSNDFX01
+--    SYSIBM
+--   DSNDRH01
+--    SYSIBM
+--   IXIFK1
+--    FXFIBM
+--   IXIFK2
+--    FXFIBM
+--
+--  OBJECT TYPE: VIEW                       TOTAL:                1
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   FOREIGN_KEY_VIEW
+--    RDBI
+--
+--  OBJECT TYPE: SYNONYM                    TOTAL:                6
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   CATFIELDS
+--    ACT101D
+--   CATFIELDS
+--    DAA1010D
+--   PST_SYSFIELDS
+--    SYSPST
+--   CATFOREIGNKEYS
+--    ACT101D
+--   CATFOREIGNKEYS
+--    DAA1010D
+--   PST_SYSFOREIGNKEYS
+--    SYSPST
+--
+--  OBJECT TYPE: ALIAS                      TOTAL:                8
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   CATFIELDS
+--    ACT112D
+--   CATFIELDS
+--    ACT121D
+--   CATFIELDS
+--    DAA112D
+--   CATFIELDS
+--    DAA121D
+--   CATFOREIGNKEYS
+--    ACT112D
+--   CATFOREIGNKEYS
+--    ACT121D
+--   CATFOREIGNKEYS
+--    DAA112D
+--   CATFOREIGNKEYS
+--    DAA121D

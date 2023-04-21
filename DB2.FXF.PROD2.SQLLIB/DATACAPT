@@ -1,0 +1,13 @@
+SELECT *
+  FROM SYSIBM.SYSTABLES
+ WHERE DATACAPTURE = 'Y'
+   AND CREATOR = 'DB2FFU'
+   AND NAME IN ('PUBLSH_EVT_SHP_DTL',
+                'AR_PRT_INV_DTL_HST',
+                'SHIPMENT_HIST',
+                'SHIPMENT_ITEM_HIST',
+                'IMAGE_PRO_XREF',
+                'TFMTB044',
+                'TFMTB075',
+                'TFMTB076',
+                'AR_OPEN_GL_DTL_HST')

@@ -1,0 +1,43 @@
+SELECT
+          t2.TERMINAL_ID                      AS ORG_ID,
+             t1.PRO_NUMBER                        AS PRO,
+          t1.SVC_LEVEL_CD                  AS PC_PRODUCT,
+          t2.STOP_NUMBER                   AS PC_STOP,
+          t2.PICKUP_DRIVER_NO              AS PC_TDRIVER,
+          t2.MESSAGE_KEY                   AS PC_SENTTSP,
+          t1.ACTIVITY_TIMESTAMP            AS PC_CONFIRMTSP,
+          t1.TOTAL_PIECES_QTY              AS PC_PIECES,
+          t1.TOTAL_WEIGHT_QTY              AS PC_WEIGHT,
+          t1.HANDLING_UNIT_CNT             AS PC_HU,
+          t1.CONS_ZIP_CODE                 AS PC_CNZIP,
+          t1.CONS_NAME                     AS PC_CNNAME,
+          t1.CONS_CITY                     AS PC_CNCITY,
+          t1.SHIPPER_NM                    AS PC_SHNAME,
+          t1.PICKUP_DRIVER_NO              AS PC_FDRIVER,
+          t1.UNIT_NUMBER                   AS PC_TRAILER,
+          case when t2.SHIPPER_CODE = '''''''' then t3.SHIPPER_CODE
+                else t2.SHIPPER_CODE
+                end                            AS PC_SHCODE,
+             --t3.SHIPPER_CODE                     AS BILLED_SHIPPER_CODE,
+          t2.SHIPPER_NAME                  AS PC_SHNAMETO,
+          t2.SHIPPER_ADDR1_TEXT            AS PC_SHADDR1,
+          t2.SHIPPER_ADDR2_TEXT            AS PC_SHADDR2,
+          t2.SHIPPER_CITY                  AS PC_SHCITY,
+          t2.SHIPPER_STATE                 AS PC_SHSTATE,
+          t2.SHIPPER_ZIP_CODE              AS PC_SHZIP
+      FROM prod.PICKUP_FROM_PLATO t1
+        join prod.PICKUP_TO_PLATO t2
+                ON t1.TERMINAL_ID = t2.TERMINAL_ID
+                     AND t1.MESSAGE_ACTION_CD = t2.MESSAGE_ACTION_CD
+                     AND t1.PICKUP_DRIVER_NO = t2.PICKUP_DRIVER_NO
+                     AND t1.STOP_NUMBER = t2.STOP_NUMBER
+           left join prod.SHIPMENT t3
+                on t1.PRO_NUMBER = t3.PRO_NUMBER
+      WHERE t1.ACTIVITY_TIMESTAMP BETWEEN timestamp('2019-02-12')
+           AND timestamp('2019-02-13')
+        AND t1.TERMINAL_ID = t2.TERMINAL_ID
+        AND t1.MESSAGE_ACTION_CD = t2.MESSAGE_ACTION_CD
+        AND t1.PICKUP_DRIVER_NO = t2.PICKUP_DRIVER_NO
+        AND t1.STOP_NUMBER = t2.STOP_NUMBER
+           AND t1.PRO_NUMBER > '000000000'
+        ORDER BY PC_CONFIRMTSP

@@ -1,0 +1,1484 @@
+
+--==============================================================================
+-- 19.0         CA-DB2   RC/Migrator   Analysis Report      19-09-15 10:46
+--==============================================================================
+--Strategy Information:
+--Strategy ==> C0366852  Description  ===> DECOM C0366852
+--Creator  ==> JXS0036   Share Option ===> Y (U,Y,N,X,L)  Src SSID ===> DSN
+--
+--
+--Analysis Options:
+--  Execution Mode    ===> O (O - Online, B - Batch)
+--  Analysis Override ===> N
+--  Access Mode       ===> CATALOG - LIMITED
+--  Model ID          ===> !CAUIBM
+--  Model Creator     ===> @DBAPFS
+--  Target SSID       ===> DSN
+--  Global Changes    ===> N
+--
+--  Aux Implode       ===> N             Statistics    ===> N
+--  MQT Implode       ===> N             Check Data    ===> N
+--  Sequence Implode  ===>               Image Copy    ===> N
+--  RI(Local/Global)  ===> N             Bind/Rebind   ===> N
+--  Security          ===> Y             Recover IX    ===> N
+--  Drop Objects      ===> N             Reorg         ===> N
+--  LOB Objects       ===> N
+--  Default SQLID     ===>
+--  Alias SQLID       ===>
+--  Table OBID        ===> N
+--  Rtn Implode       ===>
+--  Rtn Interaction   ===> N
+--  View (Imp/Exp)    ===> Y
+--
+--  All Rows          ===> N             VSAM Defines  ===> N
+--  Number Rows       ===>               VSAM Deletes  ===> N
+--  Data Statistics   ===> N
+--  Truncate          ===> N
+--  MQT Refresh       ===> N
+--  Set Terminator    ===> ;  (Value from PARMLIB)
+--
+--  No .AUTHS               ===> N
+--  No Set SQLID Stmts      ===> N
+--  Bnd/Dat/Sql/Stat/Grnt/RI===> S
+--  Commit ASAP             ===> N
+--
+--  Delete Unload Data Sets   ===> N
+--  Delete Temporary Datasets ===> N
+--
+--**********************************************************************
+--*                           PRIMARY OBJECT                           *
+--**********************************************************************
+--
+-- Included Primary Object(s): Table
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- AFW               CS_ERRORS
+--
+--   Implode: SG DB TS
+--            _  _  _
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            A  A  A   A    A  A  A  A  A   A     A  A
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- TEMP              CS_ERRORS
+--
+--   Implode: SG DB TS
+--            _  _  _
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            A  A  A   A    A  A  A  A  A   A     A  A
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- AFW               CS_PAYABLE
+--
+--   Implode: SG DB TS
+--            _  _  _
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            A  A  A   A    A  A  A  A  A   A     A  A
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- TEMP              CS_PAYABLE
+--
+--   Implode: SG DB TS
+--            _  _  _
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            A  A  A   A    A  A  A  A  A   A     A  A
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- AFW               CS_SYSPARMS
+--
+--   Implode: SG DB TS
+--            _  _  _
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            A  A  A   A    A  A  A  A  A   A     A  A
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- MAC1065           CS_SYSPARMS
+--
+--   Implode: SG DB TS
+--            _  _  _
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            A  A  A   A    A  A  A  A  A   A     A  A
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- TEMP              CS_SYSPARMS
+--
+--   Implode: SG DB TS
+--            _  _  _
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            A  A  A   A    A  A  A  A  A   A     A  A
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+-- Legend:
+--   Strategy Inclusion Reasons               Object Types
+--     A - Table is aux-Table to base-Table     SG - Stogroup
+--     B - Table is base-table to aux-Table     DB - Database
+--     C - Table is an RI child                 TS - Tablespace
+--     D - Index supports RI                    T  - Table
+--     F - Table adopted a new child Table      MQ - Mqt
+--     I - Table has Index activity             I  - Index
+--     L - LOB TS related to base-Table         SQ - Sequence
+--     M - Imploded to from child               UF - Function
+--     P - Primary Object                       PR - Procedure
+--     Q - Tablespace has a partitioned Table   V  - View
+--     R - Table is an RI parent                S  - Synonym
+--     S - Selected in the strategy             A  - Alias
+--     X - Exploded to from parent              TG - Trigger
+--     Z - Potential parent on target
+--
+--   Implode/Explode Analysis General format:
+--   <Reason> <Object type> <Object name>
+--
+--     P T  AFW.CS_ERRORS
+--     X   I  AFW.AFIXCSER
+--     X   S  SYSADM.CS_ERRORS
+--     X   S  MRA5222.CS_ERRORS
+--     X   S  DKB1120.CS_ERRORS
+--     X   S  BRW6062.CS_ERRORS
+--     X   S  ARFW.CS_ERRORS
+--     X   A  RME2147.CS_ERRORS
+--     X   A  PROD.CS_ERRORS
+--     X   A  KBG1982.CS_ERRORS
+--     X   A  FFPA.CS_ERRORS
+--     X   A  DB2FFP.CS_ERRORS
+--     P T  TEMP.CS_ERRORS
+--     X   I  TEMP.TMIXCSER
+--     P T  AFW.CS_PAYABLE
+--     X   I  AFW.AFIXCSPY
+--     X   S  MRA5222.CS_PAYABLE
+--     X   S  DKB1120.CS_PAYABLE
+--     X   S  BRW6062.CS_PAYABLE
+--     X   S  ARFW.CS_PAYABLE
+--     X   A  PROD.CS_PAYABLE
+--     X   A  FFPA.CS_PAYABLE
+--     X   A  DB2FFP.CS_PAYABLE
+--     P T  TEMP.CS_PAYABLE
+--     X   I  TEMP.TMIXCSPY
+--     P T  AFW.CS_SYSPARMS
+--     X   I  AFW.CSIXSYSP
+--     X   A  RME2147.CS_SYSPARMS
+--     X   A  RHP7530.CS_SYSPARMS
+--     X   A  PROD.CS_SYSPARMS
+--     X   A  KBG1982.CS_SYSPARMS
+--     X   A  FFPA.CS_SYSPARMS
+--     X   A  DB2FFP.CS_SYSPARMS
+--     P T  MAC1065.CS_SYSPARMS
+--     X   I  MAC1065.TMIXSYSP
+--     P T  TEMP.CS_SYSPARMS
+--     X   I  TEMP.TMIXSYSP
+--************************* END ANALYSIS HEADER ************************
+
+--  RMA234W AN IN-PLACE MIGRATION HAS BEEN GENERATED WITH THE DROP OBJECTS
+--         OPTION SET TO "N". SQL ERRORS MAY OCCUR.
+
+--  RMA238W THIS ANALYSIS WAS PERFORMED WITHOUT THE RI CONTROL OPTION. NO
+--         REFERENTIAL RELATIONSHIPS WILL BE GENERATED.
+
+--  RMA448W THIS ANALYSIS WAS PERFORMED WITHOUT THE LOB OBJECTS OPTION. TABLES
+--         CREATED CONTAINING LOB COLUMNS MAY BE MARKED INCOMPLETE.
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+-- AFW.CS_ERRORS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+CREATE  TABLE AFW.CS_ERRORS
+        ( TF_PRO CHAR ( 35 ) NOT NULL
+        , TF_SUF CHAR ( 2 ) NOT NULL
+        , CS_ENDTOPAY_IND CHAR ( 1 ) NOT NULL
+        , CS_SETUP_DT DATE NOT NULL
+          WITH DEFAULT
+        , CS_ERROR_CD CHAR ( 6 ) NOT NULL
+        , CS_ERROR_TXT CHAR ( 68 ) NOT NULL
+        )
+        IN AFWCONTS.AFTSCSER
+   CCSID         EBCDIC
+   ;
+COMMENT ON TABLE AFW.CS_ERRORS IS 'CS ERRORS' ;
+
+
+
+-- CS_ERRORS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'SYSADM';
+
+CREATE  SYNONYM CS_ERRORS FOR AFW.CS_ERRORS ;
+
+    SET CURRENT SQLID = USER;
+
+-- CS_ERRORS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'MRA5222';
+
+CREATE  SYNONYM CS_ERRORS FOR AFW.CS_ERRORS ;
+
+    SET CURRENT SQLID = USER;
+
+-- CS_ERRORS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DKB1120';
+
+CREATE  SYNONYM CS_ERRORS FOR AFW.CS_ERRORS ;
+
+    SET CURRENT SQLID = USER;
+
+-- CS_ERRORS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'BRW6062';
+
+CREATE  SYNONYM CS_ERRORS FOR AFW.CS_ERRORS ;
+
+    SET CURRENT SQLID = USER;
+
+-- CS_ERRORS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'ARFW';
+
+CREATE  SYNONYM CS_ERRORS FOR AFW.CS_ERRORS ;
+
+    SET CURRENT SQLID = USER;
+
+-- RME2147.CS_ERRORS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS RME2147.CS_ERRORS FOR AFW.CS_ERRORS ;
+
+
+-- PROD.CS_ERRORS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS PROD.CS_ERRORS FOR AFW.CS_ERRORS ;
+
+
+-- KBG1982.CS_ERRORS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS KBG1982.CS_ERRORS FOR AFW.CS_ERRORS ;
+
+
+-- FFPA.CS_ERRORS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS FFPA.CS_ERRORS FOR AFW.CS_ERRORS ;
+
+
+-- DB2FFP.CS_ERRORS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS DB2FFP.CS_ERRORS FOR AFW.CS_ERRORS ;
+
+
+-- TEMP.CS_ERRORS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+CREATE  TABLE TEMP.CS_ERRORS
+        ( TF_PRO VARCHAR ( 16 ) NOT NULL
+        , TF_SUF CHAR ( 2 ) NOT NULL
+        , CS_ENDTOPAY_IND CHAR ( 1 ) NOT NULL
+        , CS_SETUP_DT DATE NOT NULL
+          WITH DEFAULT
+        , CS_ERROR_CD CHAR ( 6 ) NOT NULL
+        , CS_ERROR_TXT CHAR ( 68 ) NOT NULL
+        )
+        IN TEMPFXFP.TEMPCSER
+   CCSID         EBCDIC
+   ;
+
+
+-- AFW.CS_PAYABLE WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+CREATE  TABLE AFW.CS_PAYABLE
+        ( TF_PRO CHAR ( 35 ) NOT NULL
+        , TF_SUF CHAR ( 2 ) NOT NULL
+        , CS_ENDTOPAY_IND CHAR ( 1 ) NOT NULL
+        , TF_TRMID CHAR ( 9 ) NOT NULL
+          WITH DEFAULT
+        , TF_DVRID CHAR ( 9 ) NOT NULL
+          WITH DEFAULT
+        , TF_TYPCD CHAR ( 4 ) NOT NULL
+          WITH DEFAULT
+        , TF_KEYWD CHAR ( 4 ) NOT NULL
+          WITH DEFAULT
+        , TF_KEYWD_AMT DECIMAL ( 7 , 2 ) NOT NULL
+          WITH DEFAULT
+        , CS_NET_AMT DECIMAL ( 7 , 2 ) NOT NULL
+          WITH DEFAULT
+        , CS_RATECD CHAR ( 1 ) NOT NULL
+          WITH DEFAULT
+        , CS_RATEPCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_PAY_AMT DECIMAL ( 7 , 2 ) NOT NULL
+          WITH DEFAULT
+        , CS_SETUP_DT DATE NOT NULL
+          WITH DEFAULT
+        , CS_STATUS_CD CHAR ( 1 ) NOT NULL
+          WITH DEFAULT
+        )
+        IN AFWCONTS.AFTSCSPY
+   CCSID         EBCDIC
+   ;
+COMMENT ON TABLE AFW.CS_PAYABLE IS 'CS PAYABLE' ;
+
+
+
+-- CS_PAYABLE WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'MRA5222';
+
+CREATE  SYNONYM CS_PAYABLE FOR AFW.CS_PAYABLE ;
+
+    SET CURRENT SQLID = USER;
+
+-- CS_PAYABLE WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DKB1120';
+
+CREATE  SYNONYM CS_PAYABLE FOR AFW.CS_PAYABLE ;
+
+    SET CURRENT SQLID = USER;
+
+-- CS_PAYABLE WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'BRW6062';
+
+CREATE  SYNONYM CS_PAYABLE FOR AFW.CS_PAYABLE ;
+
+    SET CURRENT SQLID = USER;
+
+-- CS_PAYABLE WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'ARFW';
+
+CREATE  SYNONYM CS_PAYABLE FOR AFW.CS_PAYABLE ;
+
+    SET CURRENT SQLID = USER;
+
+-- PROD.CS_PAYABLE WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS PROD.CS_PAYABLE FOR AFW.CS_PAYABLE ;
+
+
+-- FFPA.CS_PAYABLE WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS FFPA.CS_PAYABLE FOR AFW.CS_PAYABLE ;
+
+
+-- DB2FFP.CS_PAYABLE WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS DB2FFP.CS_PAYABLE FOR AFW.CS_PAYABLE ;
+
+
+-- TEMP.CS_PAYABLE WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+CREATE  TABLE TEMP.CS_PAYABLE
+        ( TF_PRO VARCHAR ( 16 ) NOT NULL
+        , TF_SUF CHAR ( 2 ) NOT NULL
+        , CS_ENDTOPAY_IND CHAR ( 1 ) NOT NULL
+        , TF_TRMID CHAR ( 9 ) NOT NULL
+          WITH DEFAULT
+        , TF_DVRID CHAR ( 9 ) NOT NULL
+          WITH DEFAULT
+        , TF_TYPCD CHAR ( 4 ) NOT NULL
+          WITH DEFAULT
+        , TF_KEYWD CHAR ( 4 ) NOT NULL
+          WITH DEFAULT
+        , TF_KEYWD_AMT DECIMAL ( 7 , 2 ) NOT NULL
+          WITH DEFAULT
+        , CS_NET_AMT DECIMAL ( 7 , 2 ) NOT NULL
+          WITH DEFAULT
+        , CS_RATECD CHAR ( 1 ) NOT NULL
+          WITH DEFAULT
+        , CS_RATEPCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_PAY_AMT DECIMAL ( 7 , 2 ) NOT NULL
+          WITH DEFAULT
+        , CS_SETUP_DT DATE NOT NULL
+          WITH DEFAULT
+        , CS_STATUS_CD CHAR ( 1 ) NOT NULL
+          WITH DEFAULT
+        )
+        IN TEMPFXFP.TEMPCSPY
+   CCSID         EBCDIC
+   ;
+COMMENT ON TABLE TEMP.CS_PAYABLE IS 'CS PAYABLE' ;
+
+
+
+-- AFW.CS_SYSPARMS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+CREATE  TABLE AFW.CS_SYSPARMS
+        ( CS_WKEND_DT DATE NOT NULL
+        , CS_WKBGN_DT DATE NOT NULL
+        , CS_NTH_REC_NO DECIMAL ( 5 , 0 ) NOT NULL
+          WITH DEFAULT
+        , CS_NET_LIMIT_AMT DECIMAL ( 5 , 2 ) NOT NULL
+          WITH DEFAULT
+        , CS_KW_LIMIT_AMT DECIMAL ( 5 , 2 ) NOT NULL
+          WITH DEFAULT
+        , CS_WEEKNO DECIMAL ( 3 , 0 ) NOT NULL
+          WITH DEFAULT
+        , CS_MGR_NM CHAR ( 20 ) NOT NULL
+          WITH DEFAULT
+        , CS_LTL_MAX_WGT DECIMAL ( 5 , 0 ) NOT NULL
+          WITH DEFAULT
+        , CS_BB_LTL_MWGT DECIMAL ( 5 , 0 ) NOT NULL
+          WITH DEFAULT
+        , CS_BB_LTL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_BB_VOL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_CTGE_LTL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_CTGE_PL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_CTGE_TL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_OPER_LTL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_OPER_PL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_OPER_TL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_ROAD_LTL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_ROAD_PL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_ROAD_TL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_TRUCK_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_SET_STATUSCD CHAR ( 1 ) NOT NULL
+          WITH DEFAULT
+        )
+        IN AFWCONTS.AFTSSYSP
+   CCSID         EBCDIC
+   ;
+COMMENT ON TABLE AFW.CS_SYSPARMS IS 'CS SYSTEM PARMS' ;
+
+
+
+-- RME2147.CS_SYSPARMS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS RME2147.CS_SYSPARMS FOR AFW.CS_SYSPARMS ;
+
+
+-- RHP7530.CS_SYSPARMS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS RHP7530.CS_SYSPARMS FOR AFW.CS_SYSPARMS ;
+
+
+-- PROD.CS_SYSPARMS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS PROD.CS_SYSPARMS FOR AFW.CS_SYSPARMS ;
+
+
+-- KBG1982.CS_SYSPARMS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS KBG1982.CS_SYSPARMS FOR AFW.CS_SYSPARMS ;
+
+
+-- FFPA.CS_SYSPARMS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS FFPA.CS_SYSPARMS FOR AFW.CS_SYSPARMS ;
+
+
+-- DB2FFP.CS_SYSPARMS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+CREATE  ALIAS DB2FFP.CS_SYSPARMS FOR AFW.CS_SYSPARMS ;
+
+
+-- MAC1065.CS_SYSPARMS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+CREATE  TABLE MAC1065.CS_SYSPARMS
+        ( CS_WKEND_DT DATE NOT NULL
+        , CS_WKBGN_DT DATE NOT NULL
+        , CS_NTH_REC_NO DECIMAL ( 5 , 0 ) NOT NULL
+          WITH DEFAULT
+        , CS_NET_LIMIT_AMT DECIMAL ( 5 , 2 ) NOT NULL
+          WITH DEFAULT
+        , CS_KW_LIMIT_AMT DECIMAL ( 5 , 2 ) NOT NULL
+          WITH DEFAULT
+        , CS_WEEKNO DECIMAL ( 3 , 0 ) NOT NULL
+          WITH DEFAULT
+        , CS_MGR_NM CHAR ( 20 ) NOT NULL
+          WITH DEFAULT
+        , CS_LTL_MAX_WGT DECIMAL ( 5 , 0 ) NOT NULL
+          WITH DEFAULT
+        , CS_BB_LTL_MWGT DECIMAL ( 5 , 0 ) NOT NULL
+          WITH DEFAULT
+        , CS_BB_LTL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_BB_VOL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_CTGE_LTL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_CTGE_PL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_CTGE_TL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_OPER_LTL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_OPER_PL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_OPER_TL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_ROAD_LTL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_ROAD_PL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_ROAD_TL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_TRUCK_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_SET_STATUSCD CHAR ( 1 ) NOT NULL
+          WITH DEFAULT
+        )
+        IN TEMPFXFP.TEMPMARC
+   CCSID         EBCDIC
+   ;
+
+
+-- TEMP.CS_SYSPARMS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+CREATE  TABLE TEMP.CS_SYSPARMS
+        ( CS_WKEND_DT DATE NOT NULL
+        , CS_WKBGN_DT DATE NOT NULL
+        , CS_NTH_REC_NO DECIMAL ( 5 , 0 ) NOT NULL
+          WITH DEFAULT
+        , CS_NET_LIMIT_AMT DECIMAL ( 5 , 2 ) NOT NULL
+          WITH DEFAULT
+        , CS_KW_LIMIT_AMT DECIMAL ( 5 , 2 ) NOT NULL
+          WITH DEFAULT
+        , CS_WEEKNO DECIMAL ( 3 , 0 ) NOT NULL
+          WITH DEFAULT
+        , CS_MGR_NM CHAR ( 20 ) NOT NULL
+          WITH DEFAULT
+        , CS_LTL_MAX_WGT DECIMAL ( 5 , 0 ) NOT NULL
+          WITH DEFAULT
+        , CS_BB_LTL_MWGT DECIMAL ( 5 , 0 ) NOT NULL
+          WITH DEFAULT
+        , CS_BB_LTL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_BB_VOL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_CTGE_LTL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_CTGE_PL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_CTGE_TL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_OPER_LTL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_OPER_PL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_OPER_TL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_ROAD_LTL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_ROAD_PL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_ROAD_TL_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_TRUCK_PCT DECIMAL ( 5 , 4 ) NOT NULL
+          WITH DEFAULT
+        , CS_SET_STATUSCD CHAR ( 1 ) NOT NULL
+          WITH DEFAULT
+        )
+        IN TEMPFXFP.TEMPSYSP
+   CCSID         EBCDIC
+   ;
+
+
+
+-- **************************************************************
+-- *                                                            *
+-- * INDEX CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- AFW.AFIXCSER WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+CREATE  UNIQUE INDEX AFW.AFIXCSER ON AFW.CS_ERRORS
+        ( TF_PRO ASC
+        , TF_SUF ASC
+        , CS_ENDTOPAY_IND ASC
+        , CS_ERROR_CD ASC
+        , CS_SETUP_DT ASC
+          )
+        USING STOGROUP PRODDB2
+                                    PRIQTY 72000
+                                    SECQTY 108000
+                                    ERASE NO
+           FREEPAGE 0
+           PCTFREE 10
+           CLUSTER
+           BUFFERPOOL BP1
+           CLOSE NO
+           PIECESIZE 2G
+    ;
+
+
+
+-- AFW.AFIXCSPY WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+CREATE  UNIQUE INDEX AFW.AFIXCSPY ON AFW.CS_PAYABLE
+        ( TF_PRO ASC
+        , TF_SUF ASC
+        , CS_ENDTOPAY_IND ASC
+          )
+        USING STOGROUP PRODDB2
+                                    PRIQTY 720
+                                    SECQTY 720
+                                    ERASE NO
+           FREEPAGE 0
+           PCTFREE 15
+           CLUSTER
+           BUFFERPOOL BP1
+           CLOSE NO
+           PIECESIZE 2G
+    ;
+
+
+
+-- AFW.CSIXSYSP WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+CREATE  UNIQUE INDEX AFW.CSIXSYSP ON AFW.CS_SYSPARMS
+        ( CS_WKEND_DT ASC
+          )
+        USING STOGROUP PRODDB2
+                                    ERASE NO
+           FREEPAGE 0
+           PCTFREE 10
+           CLUSTER
+           BUFFERPOOL BP1
+           CLOSE NO
+           PIECESIZE 2G
+    ;
+
+
+
+-- TEMP.TMIXCSER WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+CREATE  UNIQUE INDEX TEMP.TMIXCSER ON TEMP.CS_ERRORS
+        ( TF_PRO ASC
+        , TF_SUF ASC
+        , CS_ENDTOPAY_IND ASC
+        , CS_ERROR_CD ASC
+        , CS_SETUP_DT ASC
+          )
+           NOT PADDED
+        USING STOGROUP SYSDEFLT
+                                    PRIQTY 72000
+                                    SECQTY 108000
+                                    ERASE NO
+           FREEPAGE 0
+           PCTFREE 10
+           CLUSTER
+           BUFFERPOOL BP1
+           CLOSE NO
+           PIECESIZE 2G
+    ;
+
+
+
+-- TEMP.TMIXCSPY WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+CREATE  UNIQUE INDEX TEMP.TMIXCSPY ON TEMP.CS_PAYABLE
+        ( TF_PRO ASC
+        , TF_SUF ASC
+        , CS_ENDTOPAY_IND ASC
+          )
+           NOT PADDED
+        USING STOGROUP SYSDEFLT
+                                    PRIQTY 720
+                                    SECQTY 720
+                                    ERASE NO
+           FREEPAGE 0
+           PCTFREE 15
+           CLUSTER
+           BUFFERPOOL BP1
+           CLOSE NO
+           PIECESIZE 2G
+    ;
+
+
+
+-- MAC1065.TMIXSYSP WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+CREATE  UNIQUE INDEX MAC1065.TMIXSYSP ON MAC1065.CS_SYSPARMS
+        ( CS_WKEND_DT ASC
+          )
+        USING STOGROUP DBASG
+                                    PRIQTY 720
+                                    SECQTY 720
+                                    ERASE NO
+           FREEPAGE 0
+           PCTFREE 10
+           CLUSTER
+           BUFFERPOOL BP1
+           CLOSE NO
+           PIECESIZE 2G
+    ;
+
+
+
+-- TEMP.TMIXSYSP WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+CREATE  UNIQUE INDEX TEMP.TMIXSYSP ON TEMP.CS_SYSPARMS
+        ( CS_WKEND_DT ASC
+          )
+        USING STOGROUP SYSDEFLT
+                                    PRIQTY 720
+                                    SECQTY 720
+                                    ERASE NO
+           FREEPAGE 0
+           PCTFREE 10
+           CLUSTER
+           BUFFERPOOL BP1
+           CLOSE NO
+           PIECESIZE 2G
+    ;
+
+
+
+    SET CURRENT SQLID = 'KBG1982';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      SBM6908;
+
+    SET CURRENT SQLID = 'KBG1982';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      KDK7902;
+
+    SET CURRENT SQLID = 'SYSADM';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      DKB1120;
+
+    SET CURRENT SQLID = 'SYSADM';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      BEM3610;
+
+    SET CURRENT SQLID = 'KBG1982';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      PKB1432;
+
+    SET CURRENT SQLID = 'VAD9114';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      WCT8554;
+
+    SET CURRENT SQLID = 'KBG1982';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      SBM6908;
+
+    SET CURRENT SQLID = 'KBG1982';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      KDK7902;
+
+    SET CURRENT SQLID = 'SYSADM';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      DKB1120;
+
+    SET CURRENT SQLID = 'SYSADM';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      BEM3610;
+
+    SET CURRENT SQLID = 'KBG1982';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      PKB1432;
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      VJN6595;
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      VJN6595;
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      AJB6947;
+
+    SET CURRENT SQLID = 'SYSADM3';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      LJL2901;
+
+    SET CURRENT SQLID = 'SYSADM3';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      AJB6947;
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      PED9910;
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      LJL2901;
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      VXN6595;
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      VXN6595;
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      CJW9307;
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      CJW9307;
+
+    SET CURRENT SQLID = 'MAC1065';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      KAB7007;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      MRA5222;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      MRA5222;
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE AFW.CS_ERRORS
+                      TO      "EXPLAIN";
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      "EXPLAIN";
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      QAREFRSH;
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      QAREFRSH;
+
+    SET CURRENT SQLID = 'AJR3911';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      AHB9460;
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      PED9910;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      @APPPFR;
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      @APPPFR;
+
+    SET CURRENT SQLID = 'AJR3911';
+
+    GRANT SELECT
+                    ON TABLE TEMP.CS_SYSPARMS
+                      TO      "PUBLIC";
+
+    SET CURRENT SQLID = 'AJR3911';
+
+    GRANT SELECT
+                    ON TABLE TEMP.CS_PAYABLE
+                      TO      "PUBLIC";
+
+    SET CURRENT SQLID = 'AJR3911';
+
+    GRANT SELECT
+                    ON TABLE TEMP.CS_ERRORS
+                      TO      "PUBLIC";
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      @PUBPBR;
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      @PUBPBR;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      EWM7988;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      ROP6238;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      @DBAPFR1;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      @DBAPFR1;
+
+    SET CURRENT SQLID = '@DBAPFS';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE AFW.CS_ERRORS
+                      TO      @BNDPA;
+
+    SET CURRENT SQLID = '@DBAPFS';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      @BNDPA;
+
+    SET CURRENT SQLID = '@DBAPFS';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE TEMP.CS_ERRORS
+                      TO      @BNDPA;
+
+    SET CURRENT SQLID = '@DBAPFS';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE TEMP.CS_PAYABLE
+                      TO      @BNDPA;
+
+    SET CURRENT SQLID = '@DBAPFS';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE TEMP.CS_SYSPARMS
+                      TO      @BNDPA;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      @PUBPBR;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      @PUBPBR;
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      @APPPCR;
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      @APPPCR;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE AFW.CS_ERRORS
+                      TO      @BNDPFA;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      @BNDPFA;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      SBM6908;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      DKB1120;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      BEM3610;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      PKB1432;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      PED9910;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      "PUBLIC";
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      CJW9307;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      "EXPLAIN";
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      QAREFRSH;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      @APPPFR;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      @PUBPBR;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      @DBAPFR1;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      @BNDPA;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      @APPPCR;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      @BNDPFA;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT ALTER
+         ,DELETE
+         ,INDEX
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+         ,REFERENCES
+         ,TRIGGER
+                    ON TABLE AFW.CS_ERRORS
+                      TO      @DBAPCD
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT ALTER
+         ,DELETE
+         ,INDEX
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+         ,REFERENCES
+         ,TRIGGER
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      @DBAPCD
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT ALTER
+         ,DELETE
+         ,INDEX
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+         ,REFERENCES
+         ,TRIGGER
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      @DBAPCD
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT ALTER
+         ,DELETE
+         ,INDEX
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+         ,REFERENCES
+         ,TRIGGER
+                    ON TABLE MAC1065.CS_SYSPARMS
+                      TO      @DBAPCD
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT ALTER
+         ,DELETE
+         ,INDEX
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+         ,REFERENCES
+         ,TRIGGER
+                    ON TABLE TEMP.CS_ERRORS
+                      TO      @DBAPCD
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT ALTER
+         ,DELETE
+         ,INDEX
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+         ,REFERENCES
+         ,TRIGGER
+                    ON TABLE TEMP.CS_PAYABLE
+                      TO      @DBAPCD
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT ALTER
+         ,DELETE
+         ,INDEX
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+         ,REFERENCES
+         ,TRIGGER
+                    ON TABLE TEMP.CS_SYSPARMS
+                      TO      @DBAPCD
+                      WITH GRANT OPTION;
+
+    SET CURRENT SQLID = '@DBAPCD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_ERRORS
+                      TO      @SHPPART;
+
+    SET CURRENT SQLID = '@DBAPCD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_PAYABLE
+                      TO      @SHPPART;
+
+    SET CURRENT SQLID = '@DBAPCD';
+
+    GRANT SELECT
+                    ON TABLE AFW.CS_SYSPARMS
+                      TO      @SHPPART;
+
+    SET CURRENT SQLID = '@DBAPCD';
+
+    GRANT SELECT
+                    ON TABLE MAC1065.CS_SYSPARMS
+                      TO      @SHPPART;
+
+    SET CURRENT SQLID = '@DBAPCD';
+
+    GRANT SELECT
+                    ON TABLE TEMP.CS_ERRORS
+                      TO      @SHPPART;
+
+    SET CURRENT SQLID = '@DBAPCD';
+
+    GRANT SELECT
+                    ON TABLE TEMP.CS_PAYABLE
+                      TO      @SHPPART;
+
+    SET CURRENT SQLID = '@DBAPCD';
+
+    GRANT SELECT
+                    ON TABLE TEMP.CS_SYSPARMS
+                      TO      @SHPPART;
+
+    SET CURRENT SQLID = USER;
+
+--==============================================================================
+-- 19.0           CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      19-09-15 10:46
+--==============================================================================
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                7
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   CS_ERRORS
+--    AFW
+--   CS_ERRORS
+--    TEMP
+--   CS_PAYABLE
+--    AFW
+--   CS_PAYABLE
+--    TEMP
+--   CS_SYSPARMS
+--    AFW
+--   CS_SYSPARMS
+--    MAC1065
+--   CS_SYSPARMS
+--    TEMP
+--
+--  OBJECT TYPE: INDEX                      TOTAL:                7
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   AFIXCSER
+--    AFW
+--   AFIXCSPY
+--    AFW
+--   CSIXSYSP
+--    AFW
+--   TMIXCSER
+--    TEMP
+--   TMIXCSPY
+--    TEMP
+--   TMIXSYSP
+--    MAC1065
+--   TMIXSYSP
+--    TEMP
+--
+--  OBJECT TYPE: SYNONYM                    TOTAL:                9
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   CS_ERRORS
+--    ARFW
+--   CS_ERRORS
+--    BRW6062
+--   CS_ERRORS
+--    DKB1120
+--   CS_ERRORS
+--    MRA5222
+--   CS_ERRORS
+--    SYSADM
+--   CS_PAYABLE
+--    ARFW
+--   CS_PAYABLE
+--    BRW6062
+--   CS_PAYABLE
+--    DKB1120
+--   CS_PAYABLE
+--    MRA5222
+--
+--  OBJECT TYPE: ALIAS                      TOTAL:               14
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   CS_ERRORS
+--    DB2FFP
+--   CS_ERRORS
+--    FFPA
+--   CS_ERRORS
+--    KBG1982
+--   CS_ERRORS
+--    PROD
+--   CS_ERRORS
+--    RME2147
+--   CS_PAYABLE
+--    DB2FFP
+--   CS_PAYABLE
+--    FFPA
+--   CS_PAYABLE
+--    PROD
+--   CS_SYSPARMS
+--    DB2FFP
+--   CS_SYSPARMS
+--    FFPA
+--   CS_SYSPARMS
+--    KBG1982
+--   CS_SYSPARMS
+--    PROD
+--   CS_SYSPARMS
+--    RHP7530
+--   CS_SYSPARMS
+--    RME2147

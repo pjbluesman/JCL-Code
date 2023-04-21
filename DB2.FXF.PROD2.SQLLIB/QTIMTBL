@@ -1,0 +1,68 @@
+SELECT COUNT(*) FROM JXS0036.REBIND_OBJ;
+FIM;
+SET CURRENT SQLID = '@DBAQFS';
+--CREATE TABLE JXS0036.REBIND_OBJ
+--  LIKE JXS0036.REBIND_OBJ;
+-- GRANT SELECT,INSERT,DELETE,UPDATE ON JXS0036.REBIND_OBJ TO PUBLIC;
+--.CONNECT DBX1
+
+TRUNCATE JXS0036.REBIND_OBJ;
+COMMIT;
+
+--ET CURRENT SQLID = 'JXS0036';
+
+
+    CREATE UNIQUE INDEX JXS0036.IRBND01
+           ON JXS0036.REBIND_OBJ
+          ("NAME" ASC
+          ,"COLLID" ASC
+          ,VERSION ASC
+          ,PLAN_PACKAGE ASC
+          ,CATEGORY ASC
+          )
+           NOT CLUSTER
+           NOT PADDED
+           DEFINE YES
+           COMPRESS NO
+           BUFFERPOOL BP13
+           CLOSE YES
+           DEFER NO
+           COPY NO
+           USING STOGROUP QISV
+               PRIQTY -1
+               SECQTY -1
+               ERASE NO
+           FREEPAGE 0
+           PCTFREE 10
+           GBPCACHE CHANGED
+           PIECESIZE 2097152K;
+
+--.CONNECT DBX1
+
+
+-- SET CURRENT SQLID = 'JXS0036';
+
+
+    CREATE INDEX JXS0036.IRBND02
+           ON JXS0036.REBIND_OBJ
+          (PLAN_PACKAGE ASC
+          ,CATEGORY ASC
+          ,"NAME" ASC
+          )
+           NOT CLUSTER
+           NOT PADDED
+           DEFINE YES
+           COMPRESS NO
+           BUFFERPOOL BP13
+           CLOSE YES
+           DEFER NO
+           COPY NO
+           USING STOGROUP QISV
+               PRIQTY -1
+               SECQTY -1
+               ERASE NO
+           FREEPAGE 0
+           PCTFREE 10
+           GBPCACHE CHANGED
+           PIECESIZE 2097152K;
+

@@ -1,0 +1,8 @@
+SELECT *
+  FROM SYSIBM.SYSTABLES
+ WHERE DATACAPTURE = 'Y'
+   AND NAME IN ('AF_SCAN_BATCH_ID'
+               ,'AF_SCAN_DOCUMENT'
+               ,'AF_SCAN_QUEUE_HIST'
+               ,'AF_SCAN_SYSTEM')
+WITH UR;

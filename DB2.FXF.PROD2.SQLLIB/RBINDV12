@@ -1,0 +1,224 @@
+ -- REPORT 05
+         SELECT 'REBIND PACKAGE (-'
+              , LASTUSED
+              , 'CURRENT ' AS PKGCOPY
+              , RTRIM(COLLID) || '.' ||
+                RTRIM(NAME) || '.(' ||
+                RTRIM(VERSION) || ')'
+                AS RESULT
+              , 1
+           FROM SYSIBM.SYSPACKAGE
+          WHERE RELBOUND <= 'M'
+        UNION ALL
+         SELECT ''''||
+                RTRIM(COLLID) || '.' ||
+                RTRIM(NAME) || '.(' ||
+                RTRIM(VERSION) ||')'''||')'
+              , LASTUSED
+              , 'CURRENT ' AS PKGCOPY
+              , RTRIM(COLLID) || '.' ||
+                RTRIM(NAME) || '.(' ||
+                RTRIM(VERSION) || ')'
+                AS RESULT
+              , 2
+           FROM SYSIBM.SYSPACKAGE
+          WHERE RELBOUND <= 'M'
+        UNION ALL
+         SELECT 'REBIND PACKAGE (-'
+              , LASTUSED
+              , CASE WHEN COPYID = 1 THEN 'PREVIOUS'
+                     WHEN COPYID = 2 THEN 'ORIGINAL'
+                     ELSE 'ERROR'
+                END AS PKGCOPY
+              , RTRIM(COLLID) || '.' ||
+                RTRIM(NAME) || '.(' ||
+                RTRIM(VERSION) || ')'
+                AS RESULT
+              , 3
+           FROM SYSIBM.SYSPACKCOPY
+          WHERE RELBOUND <= 'M'
+         UNION ALL
+         SELECT ''''||
+                RTRIM(COLLID) || '.' ||
+                RTRIM(NAME) || '.(' ||
+                RTRIM(VERSION) ||')'''||')'
+              , LASTUSED
+              , CASE WHEN COPYID = 1 THEN 'PREVIOUS'
+                     WHEN COPYID = 2 THEN 'ORIGINAL'
+                     ELSE 'ERROR'
+                END AS PKGCOPY
+              , RTRIM(COLLID) || '.' ||
+                RTRIM(NAME) || '.(' ||
+                RTRIM(VERSION) || ')'
+                AS RESULT
+              , 4
+           FROM SYSIBM.SYSPACKCOPY
+          WHERE RELBOUND <= 'M'
+       ORDER BY 4, 3, 5
+       FOR FETCH ONLY WITH UR
+;
+ -- REPORT 06
+       SELECT 'REBIND PACKAGE (-'
+            , RPAD(VALID, 5, ' ')
+              , RPAD(OPERATIVE, 9, ' ')
+              , LASTUSED
+              , CASE PLANMGMT
+                  WHEN 'B' THEN 'BASIC   '
+                  WHEN 'E' THEN 'EXTENDED'
+                  ELSE          'OFF     '
+                END
+              , CASE APREUSE
+                  WHEN 'E' THEN 'ERROR  '
+                  WHEN 'W' THEN 'WARN   '
+                  ELSE          'NONE   '
+                END
+              , RTRIM( '""' || RTRIM(COLLID)  || '""' )
+                || '.'
+                || RTRIM( '""' || RTRIM(NAME)    || '""' )
+                || '.'
+                || HEX(CONTOKEN)
+                AS RESULT, 1
+           FROM SYSIBM.SYSPACKAGE
+          WHERE RELBOUND IN( ' ',  'K', 'L', 'M' )
+       UNION ALL
+         SELECT ''''||
+                RTRIM(COLLID) || '.' ||
+                RTRIM(NAME) || '.(' ||
+                RTRIM(VERSION) ||')'''||')'
+            , RPAD(VALID, 5, ' ')
+              , RPAD(OPERATIVE, 9, ' ')
+              , LASTUSED
+              , CASE PLANMGMT
+                  WHEN 'B' THEN 'BASIC   '
+                  WHEN 'E' THEN 'EXTENDED'
+                  ELSE          'OFF     '
+                END
+              , CASE APREUSE
+                  WHEN 'E' THEN 'ERROR  '
+                  WHEN 'W' THEN 'WARN   '
+                  ELSE          'NONE   '
+                END
+              , RTRIM( '""' || RTRIM(COLLID)  || '""' )
+                || '.'
+                || RTRIM( '""' || RTRIM(NAME)    || '""' )
+                || '.'
+                || HEX(CONTOKEN)
+                AS RESULT, 2
+           FROM SYSIBM.SYSPACKAGE
+          WHERE RELBOUND IN( ' ',  'K', 'L', 'M' )
+       ORDER BY 7, 8
+;
+ -- REPORT 07
+       SELECT RPAD(A.VALID, 5, ' ')
+              , RPAD(A.OPERATIVE, 9, ' ')
+              , RTRIM( '""' || RTRIM(A.NAME) || '""' )
+                || '/'
+                || RTRIM( '""' || RTRIM(A.CREATOR) || '""' )
+                AS RESULT
+              , B.SYSTEM,B.ENABLE
+           FROM SYSIBM.SYSPLAN A
+              , SYSIBM.SYSPLSYSTEM B
+          WHERE A.RELBOUND IN( ' ',  'K', 'L', 'M' )
+            AND A.NAME = B.NAME
+       ORDER BY 3
+;
+ -- REPORT 08
+       SELECT DISTINCT 'REBIND PACKAGE (-',
+            SUBSTR(STRIP(BNAME) || '  ', 1, 18)
+         ,  STRIP(COLLID) || '.' || STRIP(NAME) || '.' ||
+              HEX(CONTOKEN),1
+         FROM SYSIBM.SYSPACKDEP, SYSIBM.SYSPACKAGE
+        WHERE BNAME IN ('SYSTABLEPART' ,'SYSTABLESPACE'  ,'DSNDOB02')
+          AND LOCATION = ' '
+          AND BQUALIFIER = 'SYSIBM'
+          AND BTYPE IN ('I','T')
+          AND COLLID = DCOLLID
+          AND NAME = DNAME
+          AND CONTOKEN = DCONTOKEN
+    UNION ALL
+         SELECT DISTINCT ''''||
+                RTRIM(DCOLLID) || '.' ||
+                RTRIM(DNAME) || '.(' ||
+                RTRIM(VERSION) ||')'''||')'
+         ,  SUBSTR(STRIP(BNAME) || '  ', 1, 18)
+         ,  STRIP(COLLID) || '.' || STRIP(NAME) || '.' ||
+              HEX(CONTOKEN),2
+         FROM SYSIBM.SYSPACKDEP, SYSIBM.SYSPACKAGE
+        WHERE BNAME IN ('SYSTABLEPART' ,'SYSTABLESPACE'  ,'DSNDOB02')
+          AND LOCATION = ' '
+          AND BQUALIFIER = 'SYSIBM'
+          AND BTYPE IN ('I','T')
+          AND COLLID = DCOLLID
+          AND NAME = DNAME
+          AND CONTOKEN = DCONTOKEN
+     ORDER BY 2,3,4
+   ;
+
+       SELECT DISTINCT 'REBIND PACKAGE (-',
+         SUBSTR(STRIP(BNAME) || '  ', 1, 18)
+          , STRIP(DCOLLID) || '.' || STRIP(DNAME) || '.' ||
+               HEX(DCONTOKEN),1
+         FROM SYSIBM.SYSPACKDEP, SYSIBM.SYSPACKAGE
+        WHERE COLLID = DCOLLID
+          AND NAME = DNAME
+          AND CONTOKEN = DCONTOKEN
+          AND (( BTYPE = 'R'
+                AND BQUALIFIER = 'DSNDB01'
+                AND BNAME IN( 'SYSLGRNX', 'SYSUTILX' )
+              )
+           OR ( BTYPE = 'R'
+                AND BQUALIFIER = 'DSNDB06'
+                AND BNAME IN ( 'SYSCOPY', 'SYSRTSTS', 'SYSSTR' )
+              )
+           OR ( BTYPE = 'T'
+                AND BQUALIFIER = 'SYSIBM'
+                AND BNAME IN( 'SYSCOPY',
+                            'SYSCHECKS', 'SYSCHECKS2',
+                            'SYSCHECKDEP', 'SYSSTRINGS',
+                            'SYSINDEXSPACESTATS',
+                            'SYSTABLESPACESTATS',
+                            'DBDR', 'SCTR', 'SPTR',
+                            'SYSCOLUMNS',
+                            'SYSINDEXES',
+                            'SYSPENDINGDDL',
+                            'SYSTABLES', 'SYSTABLESPACE',
+                            'SYSUTIL'
+                           )
+             ))
+   UNION ALL
+         SELECT DISTINCT ''''||
+                RTRIM(DCOLLID) || '.' ||
+                RTRIM(DNAME) || '.(' ||
+                RTRIM(VERSION) ||')'''||')'
+       , SUBSTR(STRIP(BNAME) || '  ', 1, 18)
+          , STRIP(DCOLLID) || '.' || STRIP(DNAME) || '.' ||
+               HEX(DCONTOKEN),2
+         FROM SYSIBM.SYSPACKDEP, SYSIBM.SYSPACKAGE
+        WHERE COLLID = DCOLLID
+          AND NAME = DNAME
+          AND CONTOKEN = DCONTOKEN
+          AND (( BTYPE = 'R'
+                AND BQUALIFIER = 'DSNDB01'
+                AND BNAME IN( 'SYSLGRNX', 'SYSUTILX' )
+              )
+           OR ( BTYPE = 'R'
+                AND BQUALIFIER = 'DSNDB06'
+                AND BNAME IN ( 'SYSCOPY', 'SYSRTSTS', 'SYSSTR' )
+              )
+           OR ( BTYPE = 'T'
+                AND BQUALIFIER = 'SYSIBM'
+                AND BNAME IN( 'SYSCOPY',
+                            'SYSCHECKS', 'SYSCHECKS2',
+                            'SYSCHECKDEP', 'SYSSTRINGS',
+                            'SYSINDEXSPACESTATS',
+                            'SYSTABLESPACESTATS',
+                            'DBDR', 'SCTR', 'SPTR',
+                            'SYSCOLUMNS',
+                            'SYSINDEXES',
+                            'SYSPENDINGDDL',
+                            'SYSTABLES', 'SYSTABLESPACE',
+                            'SYSUTIL'
+                           )
+             ))
+      ORDER BY 2, 3, 4
+;
