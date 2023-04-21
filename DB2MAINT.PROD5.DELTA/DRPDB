@@ -1,0 +1,23 @@
+
+----------------------------------------------------------------------
+-- THE FOLLOWING DROP STATEMENTS WILL BE ISSUED IF YOU PRESS ENTER. --
+--    ONCE DROPPED THESE OBJECTS WILL NO LONGER BE RECOVERABLE.     --
+----------------------------------------------------------------------
+
+.AUTH D54808T
+
+    DROP DATABASE DSN8D31A;
+
+.SYNC 5     'DROP DATABASE DSN8D31A'
+
+.AUTH D54808T
+
+    DROP DATABASE DSN8D31P;
+
+.SYNC 10    'DROP DATABASE DSN8D31P'
+
+.AUTH D54808T
+
+    DROP DATABASE DSN8D31U;
+
+.SYNC 15    'DROP DATABASE DSN8D31U'

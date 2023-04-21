@@ -1,0 +1,37 @@
+//UXD003M JOB ,'CJR RM 102',CLASS=P,MSGCLASS=X                          00000100
+//JOBLIB   DD DSN=SSXDT.DB2T.V2R3.DSNLOAD,UNIT=SYSDA,DISP=SHR           00000200
+//DSNTIC  PROC
+//DSNTIC  EXEC PGM=IDCAMS                                               00180000
+//SYSPRINT DD SYSOUT=*                                                  00200000
+//SYSUDUMP DD SYSOUT=*                                                  00210000
+//DSNTIC  PEND                                                          00220000
+//DSNTIDC EXEC DSNTIC                                                   00580000
+//SYSIN DD *                                                            00590000
+        VERIFY DATASET(DB2T.DSNDBC.DSNDB06.SYSDBAUT.I0001.A001)         00000200
+        VERIFY DATASET(DB2T.DSNDBC.DSNDB06.SYSGROUP.I0001.A001)
+        VERIFY DATASET(DB2T.DSNDBC.DSNDB06.SYSPLAN.I0001.A001)
+//                                                                      00000200
+/*
+        VERIFY DATASET(DB2T.DSNDBC.DSNDB06.SYSPLAN.I0001.A002)
+        VERIFY DATASET(DB2T.DSNDBC.DSNDB06.SYSVIEWS.I0001.A001)         00000200
+        VERIFY DATASET(DB2T.DSNDBC.DSNDB01.SYSLGRNG.I0001.A001)
+        VERIFY DATASET(DB2T.DSNDBC.DSNDB01.SYSUTIL.I0001.A001)
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DB2T.DSNDBC.DSNDB06.SYSDBAUT.I0001.A001,DISP=SHR
+//STEP4  EXEC PGM=DSN1CHKR                                              00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DB2T.DSNDBC.DSNDB06.SYSGROUP.I0001.A001,DISP=SHR
+//STEP5  EXEC PGM=DSN1CHKR                                              00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DB2T.DSNDBC.DSNDB06.SYSPLAN.I0001.A001,DISP=SHR
+//STEP6  EXEC PGM=DSN1CHKR                                              00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DB2T.DSNDBC.DSNDB06.SYSVIEWS.I0001.A001,DISP=SHR
+//STEP7  EXEC PGM=DSN1CHKR                                              00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DB2T.DSNDBC.DSNDB01.SYSLGRNG.I0001.A001,DISP=SHR
+//STEP8  EXEC PGM=DSN1CHKR                                              00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DB2T.DSNDBC.DSNDB01.SYSUTIL.I0001.A001,DISP=SHR
+/*
+//                                                                      00001700

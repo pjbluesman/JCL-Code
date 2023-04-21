@@ -1,0 +1,21 @@
+//UXC401MQ JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,REGION=0M,    00001001
+//         NOTIFY=&SYSUID,USER=SYSPRO                                   00002001
+//*JOBPARM SYSAFF=MVSQ                                                  00003001
+//ISPF   EXEC PGM=IKJEFT01,DYNAMNBR=40                                  00010000
+//SYSEXEC  DD DSN=SSXQT.TSODAL.CLIST,DISP=(SHR)                         00020000
+//SYSTSPRT DD SYSOUT=*,HOLD=YES                                         00030000
+//ISFULOG  DD SYSOUT=*                                                  00040000
+//ISFMSG   DD SYSOUT=*                                                  00050000
+//ISFMSG2  DD SYSOUT=*                                                  00060000
+//SYSTSIN  DD *                                                         00070000
+ @SYSCMD CMD("D PROG,APF")                                              00080000
+ @SYSCMD CMD("D SSI,SUBSYS=DB2R")                                       00090000
+ @SYSCMD CMD("D SSI,SUBSYS=DB3R")                                       00100000
+ @SYSCMD CMD("D SSI,SUBSYS=DB4R")                                       00110000
+ @SYSCMD CMD("D SSI,SUBSYS=DB5R")                                       00120000
+ @SYSCMD CMD("D SSI,SUBSYS=DB6R")                                       00130000
+ @SYSCMD CMD("D SSI,SUBSYS=RRLM")                                       00140000
+ @SYSCMD CMD("D SSI,SUBSYS=R3LM")                                       00150000
+ @SYSCMD CMD("D SSI,SUBSYS=R4LM")                                       00160000
+ @SYSCMD CMD("D SSI,SUBSYS=R5LM")                                       00170001
+ @SYSCMD CMD("D SSI,SUBSYS=R6LM")                                       00180001

@@ -1,0 +1,21 @@
+//UXC4012R JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSR                                <= Change SYSAFF
+//*********************************************************************
+//* JOB NAME = DISPLAY
+//*
+//*********************************************************************
+//*
+//DB2DISP  EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDP.DB2R.RUNLIB.LOAD
+//        DD DISP=SHR,DSN=SDB2R.SDSNLOAD
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB2R)
+    -DISPLAY THREAD(*)
+    -DISPLAY UTILITY(*)
+    -DISPLAY DATABASE(*) SPACENAM(*) RESTRICT LIMIT(*)
+  END

@@ -1,0 +1,22 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00000105
+//         NOTIFY=T492331                                               00000206
+/*JOBPARM SYSAFF=MVSR                                                   00000307
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU                 00000405
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR                        00000505
+//JOBLIB  DD  DSN=SSXDP.DB2R.SDSNEXIT,DISP=SHR                          00001607
+//        DD  DSN=SDB2R.SDSNLOAD,DISP=SHR                               00001707
+//        DD  DSN=SSXDP.DB2R.RUNLIB.LOAD,DISP=SHR                       00001807
+//*                                                                     00002203
+//DIAGNOSE EXEC PGM=DSNUTILB,                                           00002303
+//         PARM='DB2R,DIAGNOS'                                          00003007
+//SYSABEND DD  SYSOUT=*                                                 00004000
+//SYSPRINT DD  SYSOUT=*                                                 00005000
+//UTPRINT  DD  SYSOUT=*                                                 00006000
+//SORTWK01 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00007000
+//SORTWK02 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00008000
+//SORTWK03 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00009000
+//SORTWK04 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00010000
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00020000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00030000
+//SYSIN    DD  *                                                        00040000
+DIAGNOSE DISPLAY MEPL                                                   00050000

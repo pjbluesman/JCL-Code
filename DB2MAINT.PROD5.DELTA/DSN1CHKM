@@ -1,0 +1,28 @@
+//UXD001M  JOB ,'CJR RM 102',CLASS=S,MSGCLASS=X                         00000100
+//JOBLIB   DD DSN=SSXDP.DB2M.V2R3.DSNLOAD,UNIT=SYSDA,DISP=SHR           00000200
+//STEP1  EXEC PGM=DSN1CHKR                                              00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DB2M.DSNDBC.DSNDB01.DBD01.I0001.A001,DISP=SHR
+//STEP2  EXEC PGM=DSN1CHKR                                              00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DB2M.DSNDBC.DSNDB06.SYSDBASE.I0001.A001,DISP=SHR
+//STEP3  EXEC PGM=DSN1CHKR                                              00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DB2M.DSNDBC.DSNDB06.SYSDBAUT.I0001.A001,DISP=SHR
+//STEP4  EXEC PGM=DSN1CHKR                                              00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DB2M.DSNDBC.DSNDB06.SYSGROUP.I0001.A001,DISP=SHR
+//STEP5  EXEC PGM=DSN1CHKR                                              00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DB2M.DSNDBC.DSNDB06.SYSPLAN.I0001.A001,DISP=SHR
+//STEP6  EXEC PGM=DSN1CHKR                                              00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DB2M.DSNDBC.DSNDB06.SYSVIEWS.I0001.A001,DISP=SHR
+//STEP7  EXEC PGM=DSN1CHKR                                              00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DB2M.DSNDBC.DSNDB01.SYSLGRNG.I0001.A001,DISP=SHR
+//STEP8  EXEC PGM=DSN1CHKR                                              00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DSN=DB2M.DSNDBC.DSNDB01.SYSUTIL.I0001.A001,DISP=SHR
+/*
+//                                                                      00001700

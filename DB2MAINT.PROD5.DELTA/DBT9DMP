@@ -1,0 +1,41 @@
+//DBT9DMP  JOB (,A3),'DUMP DB2V9 LIBS',NOTIFY=&SYSUID,REGION=122M,      00001003
+//         CLASS=S,MSGCLASS=X,MSGLEVEL=(1,1)                            00010000
+//STEP01  EXEC PGM=ADRDSSU,REGION=0M,TIME=1440                          00020002
+//SYSPRINT DD SYSOUT=*                                                  00030002
+//INDD0    DD UNIT=3390,VOL=(PRIVATE,SER=S9S2F4),DISP=SHR  <== INPUT    00040003
+//OUT1     DD DSN=SSXDT.DB2V9.SMPE.RSU0906.DUMP,           <== OUTPUT   00041002
+//            DISP=(,CATLG,DELETE),                                     00041102
+//            SPACE=(CYL,(500,500),RLSE),UNIT=3390                      00041203
+//SYSIN    DD   *                                                       00070000
+  DUMP DATASET(INCLUDE(                              -                  00080003
+          SYS2.DB2V9.SDSNDBRM                        -                  00090003
+          SYS2.DB2V9.SDSNMACS                        -                  00100003
+          SYS2.DB2V9.SDSNCLST                        -                  00101003
+          SYS2.DB2V9.SDSNLOAD                        -                  00110003
+          SYS2.DB2V9.ADSNLOAD                        -                  00110103
+          SYS2.DB2V9.SDSNIVPD                        -                  00111003
+          SYS2.DB2V9.SDSNLOD2                        -                  00112003
+          SYS2.DB2V9.SDSNSAMP                        -                  00113003
+          SYS2.DB2V9.SDSNBASE                        -                  00114003
+          SYS2.DB2V9.SDSNALIB                        -                  00115003
+          SYS2.DB2V9.SDSNACLS                        -                  00116003
+          SYS2.DB2V9.SDSNSPFP                        -                  00117003
+          SYS2.DB2V9.SDSNSPFM                        -                  00118003
+          SYS2.DB2V9.SDSNLINK                        -                  00118103
+          SYS2.DB2V9.SDXRRESL                        -                  00118203
+                                             ))      -                  00120003
+  LOGINDDNAME(INDD0) -                                                  00121001
+  OUTDD(OUT1)        -                                                  00130003
+  ALLDATA(*) ALLEXCP -                                                  00140003
+  SHR TOL(ENQF)                                                         00149500
+//*                                                                     00150003
+//TERSE1  EXEC PGM=TRSMAIN,PARM='PACK',COND=(4,LT)                      00160003
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB                          00170002
+//SYSPRINT DD SYSOUT=*                                                  00180002
+//INFILE   DD DISP=SHR,                                                 00190002
+//            DSN=SSXDT.DB2V9.SMPE.RSU0906.DUMP        <= INPUT         00200004
+//OUTFILE  DD DSN=SSXDT.DB2V9.SMPE.RSU0906.TRS,        <= OUTPUT TERSED 00210004
+//            DISP=(,CATLG,DELETE),                                     00220002
+//            SPACE=(CYL,(500,300),RLSE),                               00230003
+//            UNIT=3390                                                 00240002
+//*                                                                     00250002

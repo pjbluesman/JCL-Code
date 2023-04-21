@@ -1,0 +1,21 @@
+//DEL4TOLS JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID,    00010001
+//   USER=SYSPRO                                                        00020000
+//********************************************************************* 00030400
+//* !!!!!! CUIDADO COM DELETE !!!!!!!!!!!!!!!!!!                      * 00030502
+//* RESTORE - DB2 TOOLS DATASETS  FROM PREVIOUS BACKUP                * 00030602
+//*                                                                   * 00030702
+//*                                                                   * 00030800
+//********************************************************************* 00030900
+//RESTORE  EXEC PGM=ADRDSSU,PARM=('TYPRUN=NORUN')                       00031003
+//SYSPRINT DD  SYSOUT=*                                                 00032001
+//OUTPUT   DD  DISP=(NEW,CATLG,DELETE),                                 00033001
+//             DSN=SSXDT.DB2TOOLS.C30290.D110811.BACKUPSD,              00034001
+//**           UNIT=SYSDA,SPACE=(CYL,(150,50),RLSE)                     00035001
+//             UNIT=CART,VOL=(,,,10),LABEL=(1,SL),RETPD=180             00036001
+//SYSIN    DD  *                                                        00037001
+ DUMP OUTDD(OUTPUT)  -                                                  00038001
+    DATASET(INCLUDE(SYS2.DB2V7.**)  -                                   00039002
+              EXCLUDE(SYS2.DB2V7.FPE210.** )) -                         00039102
+      TOLERATE(ENQFAILURE) COMPRESS SPHERE -                            00040001
+      DELETE                                                            00050001
+//                                                                      00060001

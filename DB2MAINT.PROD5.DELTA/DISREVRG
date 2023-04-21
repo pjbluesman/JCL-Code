@@ -1,0 +1,20 @@
+//UXC401MR JOB CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID,
+//      REGION=0M,TIME=1440
+/*JOBPARM SYSAFF=MVS4
+//*********************************************************************
+//*                                                                   *
+//* TRIGGER DISPLAY JOBS ON SAPPLEX DBRG DB2 SUBSYSTEMS               *
+//*                                                                   *
+//*********************************************************************
+//STEP1 EXEC PGM=IKJEFT01,DYNAMNBR=20,TIME=1440
+//SYSTSPRT DD  SYSOUT=*
+//SYSPRINT DD  SYSOUT=*
+//SYSUDUMP DD  SYSOUT=*
+//SYSTSIN  DD  *
+   SUB 'SSXDP.DB2MAINT(DISREV2R)'
+   SUB 'SSXDP.DB2MAINT(DISREV3R)'
+   SUB 'SSXDP.DB2MAINT(DISREV4R)'
+   SUB 'SSXDP.DB2MAINT(DISREV5R)'
+   SUB 'SSXDP.DB2MAINT(DISREV6R)'
+//SYSIN    DD  *
+//

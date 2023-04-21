@@ -1,0 +1,16 @@
+//UXD104M JOB ,'DSN1COMP',
+//   NOTIFY=D73294C,CLASS=S,MSGCLASS=X
+//**********************************************************************
+//**********************************************************************
+//* DSN1COMP -
+//**********************************************************************
+//JS010   EXEC PGM=DSN1COMP,
+//      PARM='32K,FREEPAGE(20),FULLCOPY'
+//STEPLIB   DD DSN=SSXDP.DB2M.V3.SDSNLOAD,DISP=SHR
+//SYSUT1    DD DSN=SUCOP.DBA.MACO0002.TSMPM174.G0211V00,
+//             DISP=SHR
+//SYSPRINT DD  SYSOUT=*
+//SYSDUMP  DD  SYSOUT=*
+//SYSABEND DD  SYSOUT=*
+//*
+//

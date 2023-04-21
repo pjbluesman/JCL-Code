@@ -1,0 +1,8 @@
+//U477625  JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,USER=SYSPRO
+/*JOBPARM SYSAFF=MVSN
+//JOBLIB  DD DSN=SDB2Y.SDSNLOAD,UNIT=SYSDA,DISP=SHR                     00000210
+//STEP1  EXEC PGM=DSN1COPY,PARM='RESET'                                 00000200
+//SYSPRINT DD SYSOUT=X                                                  00000220
+//SYSUT1   DD DISP=SHR,DSN=DB2Y.DSNDBC.DSNDB01.SYSLGRNX.I0001.A001
+//SYSUT2   DD DUMMY                                                     00000500
+/*

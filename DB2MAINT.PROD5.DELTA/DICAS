@@ -1,0 +1,149 @@
+*******************************************************************
+**  PARA  LIGAR  O DEBUG  NO DB2 ADMIN, BASTA TECLAR DENTRO DELE
+**  ATIVAR   : PROMPT SEL ON
+** DESATIVAR :  PROMPT SEL ON
+*******************************************************************
+*   PARA  DESCOBRIR  QUEM ESTA'  USANDO UM  DATASET
+*
+   /D GRS,RES=(SYSDSN,DSNAME)
+*******************************************************************
+//* ********************************************************************
+//* USE THE COMMAND -SET SYSPARM RELOAD TO ACTIVATE NEW PARAMETERS IN
+//* DSNZPARM THAT IS ACTIVE
+//* ********************************************************************
+-DB2U SET SYSPARM RELOAD
+-DB2U SET SYSPARM RELOAD ' '
+IEE295I COMMAND CHANGED BY EXIT 042
+ORIGINAL: -DB2U SET SYSPARM RELOAD ' '
+MODIFIED: -DB2U SET SYSPARM RELOAD
+-DB2U SET SYSPARM RELOAD
+DSN9022I  -DB2U DSNZCMD0 'SET SYSPARM' NORMAL COMPLETION
+DSNZ006I  -DB2U DSNZCMD1 SUBSYS DB2U SYSTEM 045
+PARAMETERS LOAD MODULE NAME DSNZPEEM IS BEING LOADED
+DSNZ007I  -DB2U DSNZCMD1 SUBSYS DB2U SYSTEM 046
+PARAMETERS LOAD MODULE NAME DSNZPEEM LOAD COMPLETE
+*******************************************************************
+  PARA DESCOBRIR QUAL GRUPO ESTA'  CONECTADO A UM DATASET :
+
+  TSO LD DA('SYS1.SEZA') ALL G
+
+*******************************************************************
+  PARA DESCOBRIR SE EXISTE PROFILE RACF :
+
+  TSO SR MASK(XXXX)
+  TSO LD DA('XXXX.YYYY') ALL
+*******************************************************************
+  PARA DAR DISPLAY NA LU :
+
+  /D NET,ID=XXXXXX ( VER NA VTAMLST O NOME DO MEMBRO )
+
+*******************************************************************
+  PARA DESCOBRIR SE A CLASSE  DSNR  ESTA'  ATIVA :
+    TSO  SETR LIST  E VERIFIQUE A CLASSES ACTIVE =
+
+*******************************************************************
+  PARA  DESCOBRIR  A  DATA  DO  IPL :
+    /D  IPLINFO
+*******************************************************************
+  PARA  RODAR  A  STORED PROCEDURE  DSNWZP  USANDO WLM  DEVE-SE
+  EXECUTAR O SEGUINTE COMANDO :
+
+  ALTER  PROCEDURE  SYSPROC.DSNWZP EXTERNAL NAME DSNWZPR
+*******************************************************************
+
+   PARA FAZER COM QUE UM ARQUIVO SMS ACEITE MULTI VOLUME, DEVE-SE
+   ALTERAR O DATACLAS  DO SMS, MAS EXISTE UMA SOLUCAO PALEATIVA QUE E'
+   COLOCAR NA FRENTE DO DATASET O SEGUINTE COMANDO :
+
+   ALTER / ADDVOLUMES(* * * * * *)
+*******************************************************************
+  PARA  VER  QUAL  RLMIT  QUE ESTA'  VALIDA  E' :SYSIBM.DSNRLST01
+   -DIS  RLIMIT
+   -STO RLIMIT   E  -STA RLIMIT ID=XX  (  O  DAD  FAZNA  OPCAO  Z.2R
+*******************************************************************
+ VER ESPACO EM DISCO
+OPCAO O - MVS OPERATIONS ->
+        Q - QUICK REFERENCE ->
+           S - REQUEST DASD FREE SPACE INFORMATION
+*******************************************************************
+  VER  DEFINICOES  DO  WLM :
+
+   SYS1.SBLSCLI0(IWMARIN0)
+*******************************************************************
+  VER  FASE DE UM UTILITARIO QUE ESTA'  GASTANDO MAIS TEMPO :
+
+  COLOCAR NO CARTAO EXEC   UTSTATS='STATSLVL(SUBPROCESS)'
+*******************************************************************
+  COMANDOS  PARA O  WLM :
+
+   ** PARA DAR  DISPLAY  ***
+    /D WLM,APPLENV=*
+   ** PARA  ATIVAR ****
+    V WLM,APPLENV=DBLOSPR6,RESUME
+
+   /V WLM,APPLENV=DBLOSPR6,REFRESH
+   TERMINA  E COMECA UMA NOVA STARTED TASK
+   /V WLM,APPLENV=DBLOSPR6,QUIESCE
+   TERMINA  SOMENTE QUANDO O USSUARIO NAO ESTIVER MAIS USANDO
+**********************************************************************
+
+PARA  LISTAR  AS AUTORIZACOES EM CIMA DESSE DATASET
+        TSO LD DA('DB2T.U.SDSNLOAD') ALL
+**********************************************************************
+   PARA DESCOBRIR QUAL GRUPO ESTA'  CONECTADO A UM DATASET :
+
+   TSO LD DA('SYS1.SEZA') ALL G
+
+ *******************************************************************
+   PARA DESCOBRIR SE EXISTE PROFILE RACF :
+
+   TSO SR MASK(XXXX)
+   TSO LD DA('XXXX.YYYY') ALL
+
+ *******************************************************************
+   PARA ALTERAR DINAMICAMENTE A DSNZPARM :
+
+   -SET  SYSPARM  RELOAD
+**********************************************************************
+   PARA LISTAR  AS  BIBLIOTECAS  APFS E  LNKLST :
+
+   /D PROG,APF
+   /D PROG,LNKLIST
+********************************************************************
+   PARA LISTAR  OS STATUS DA COUPLING FACILITY :
+
+   D XCF,STR,STRNAME=DSNDBVG_LOCK1
+**********************************************************************
+  PARA  LISTAR  OS  LOCKS  RETAINED  EM DATASHARING
+
+  F DB2VIRLM,STATUS,ALLD
+ *******************************************************************
+   PARA  PEGAR O IP  DO  TSO :
+   NETSTAT HOME NA OPCAO 6
+   PEGA  IP COM A LETRA  " P "  AO LADO
+   DEPOIS VAI NO PROMPT DE " DOS "  DA TUA MAQUINA
+   BATE FTP
+   OPEN <IP Q VC PEGOU NO MVS>
+   POE O USER E SENHA, Q VAI SER PEDIDOS
+   E AI  PUT  OU  GET
+ *******************************************************************
+  PARA  LISTAR  QUEM ESTA  ACESSANDO  UM DISCO
+
+   D U,DASD,ALLOC,810A,1
+**********************************************************************
+  PARA  PROCURAR EM QUAL DATASET ESTA' UM MEMBRO QUE ESTEJA ALOCADO
+
+    TSO ISRDDN,  DEPOIS    M  XXXXX ( NOME DO MEMBRO )
+**********************************************************************
+  PARA  DAR  DISPLAY  DE UMA LU  :
+    /D NET,ID=LUNAME,E
+
+  PARA ATIVAR  A LU :
+      V NET,ID=XXXXX,ACT
+
+  PARA DESATIVAR  A LU :
+      V NET,ID=XXXXX,INACT
+**********************************************************************
+
+ PARA DAR DISPLAY EM UM GROUPBUFFERPOOL
+  -DIS GROUPBUFFERPOOL(GBP6)

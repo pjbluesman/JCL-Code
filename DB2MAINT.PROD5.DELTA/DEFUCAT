@@ -1,0 +1,57 @@
+//UXDCJRM  JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,NOTIFY=T105546     00001000
+//CATALC1 EXEC PGM=IDCAMS,REGION=2M                                     00160000
+//SYSPRINT DD  SYSOUT=*                                                 00170000
+//CATVOL   DD  VOL=SER=XXXXXX,UNIT=3390,    <===== CHECK VOLSER         00180000
+//             DISP=OLD                                                 00190000
+//SYSIN    DD  *                                                        00200000
+ /********************************************/                         00210000
+ /*    DEFINE DB2 VOL SPECIFIC UCAT          */                         00220000
+ /********************************************/                         00230000
+ DEFINE USERCATALOG( -                                                  00240000
+           NAME(CATALOG.MVSICF1.DBTRS1)  -                              00250000
+           CYL(5 4) -                                                   00260000
+           VOL(XXXXXX) -                                                00270000
+           ICFCATALOG -                                                 00280000
+           FILE(CATVOL) -                                               00290000
+           STRNO(4) -                                                   00300000
+           SHAREOPTIONS(3 4) -                                          00310000
+           BUFSP(9728) -                                                00330000
+           BUFND(4) -                                                   00340000
+           BUFNI(4)) -                                                  00350000
+        DATA( -                                                         00360000
+           CISZ(4096)) -                                                00380000
+        INDEX( -                                                        00390000
+           CISZ(1536))                                                  00410000
+                                                                        00411000
+ DEFINE USERCATALOG( -                                                  00420000
+           NAME(CATALOG.MVSICF1.DBTRS2)  -                              00421000
+           CYL(5 4) -                                                   00422000
+           VOL(XXXXXX) -                                                00423000
+           ICFCATALOG -                                                 00424000
+           FILE(CATVOL) -                                               00425000
+           STRNO(4) -                                                   00426000
+           SHAREOPTIONS(3 4) -                                          00427000
+           BUFSP(9728) -                                                00428000
+           BUFND(4) -                                                   00429000
+           BUFNI(4)) -                                                  00429100
+        DATA( -                                                         00429200
+           CISZ(4096)) -                                                00429300
+        INDEX( -                                                        00429400
+           CISZ(1536))                                                  00429500
+                                                                        00429600
+ DEFINE USERCATALOG( -                                                  00429700
+           NAME(CATALOG.MVSICF1.DBTRS3)  -                              00429800
+           CYL(5 4) -                                                   00429900
+           VOL(XXXXXX) -                                                00430000
+           ICFCATALOG -                                                 00430100
+           FILE(CATVOL) -                                               00431000
+           STRNO(4) -                                                   00432000
+           SHAREOPTIONS(3 4) -                                          00433000
+           BUFSP(9728) -                                                00434000
+           BUFND(4) -                                                   00435000
+           BUFNI(4)) -                                                  00436000
+        DATA( -                                                         00437000
+           CISZ(4096)) -                                                00438000
+        INDEX( -                                                        00439000
+           CISZ(1536))                                                  00439100
+//                                                                      00439200

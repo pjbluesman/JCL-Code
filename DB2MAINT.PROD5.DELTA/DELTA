@@ -1,0 +1,86 @@
+
+--==============================================================================
+-- VRCM061      CA-DB2   RC/ALTER      ANALYSIS REPORT      08-10-01 11:28
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> RCUPDATE  DESCRIPTION  ===> RC/UPDATE ALTERATION
+--CREATOR  ==> DT0072    SHARE OPTION ===> N (U,Y,N,X,L)  SRC SSID ===> DB2U
+--
+--ALTERED OBJECTS:
+--   OBJECT TYPE       NAME                 CREATOR
+--   TABLE             SYSDUMMY1            DELTA
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> O (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> CATALOG
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> D36660E
+--
+--  SECURITY          ===> Y             STATISTICS   ===> N
+--  DEFAULT SQLID     ===>               CHECK DATA   ===> Y
+--                                       IMAGE COPY   ===> N
+--                                       BIND/REBIND  ===> R
+--  ALL ROWS          ===> N             REORG        ===> N
+--  NUMBER ROWS       ===>               RECOVER IX   ===> N
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS         ===> Y             VSAM DEFINES  ===> Y
+--  SQL ONLY          ===> N             VSAM DELETES  ===> Y
+--  COMMIT ASAP       ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> Y
+--  DELETE TEMPORARY DATASETS ===> Y
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+--RMA233W NO UNLOADS HAVE BEEN GENERATED DURING THIS ANALYSIS.
+
+.SYSTEM SQLDDL
+.CONNECT DB2U
+
+    DROP TABLE DELTA.SYSDUMMY1;
+
+.SYNC 5         'DROP TABLE DELTA.SYSDUMMY1'
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DELTA.SYSDUMMY1 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DT0072';
+
+CREATE TABLE DELTA.SYSDUMMY1
+   (IBMREQD                CHAR(1    )                 NOT NULL
+   )
+   CCSID ASCII
+   ;
+
+.SYNC 10        'CREATE TABLE DELTA.SYSDUMMY1'
+    SET CURRENT SQLID = USER;
+
+
+.DISCONN
+
+.SYNC 15        'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+--==============================================================================
+-- VRCM061        CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      08-10-01 11:28
+--==============================================================================
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                1
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      SYSDUMMY1          DELTA        Y

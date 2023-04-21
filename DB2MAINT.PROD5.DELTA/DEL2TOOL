@@ -1,0 +1,13 @@
+//UXC401N  JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID     00010000
+/*JOBPARM SYSAFF=MVSS                                                   00020000
+//********************************************************************* 00021000
+//*                                                                   * 00022000
+//* DELETE OLD/NOT USED DB2 TOOLS                                     * 00023000
+//*                                                                   * 00024000
+//********************************************************************* 00025000
+//DELTOOL EXEC PGM=IKJEFT01                                             00026000
+//SYSPRINT DD  SYSOUT=*                                                 00027000
+//SYSTSPRT DD  SYSOUT=*                                                 00028000
+//SYSTSIN  DD  *                                                        00029000
+  DELETE 'SYS2.DB2V7.HAA210.SHAALOAD'                                   00040000
+//*                                                                     00070000

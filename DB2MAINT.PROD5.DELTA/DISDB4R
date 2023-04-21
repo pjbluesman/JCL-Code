@@ -1,0 +1,42 @@
+//UXC401MR JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSR                                <= Change SYSAFF
+//*********************************************************************
+//* JOB NAME = DISPLAY
+//*
+//* DESCRIPTIVE NAME = DISPLAY TO CHECK ANY PROBLEM BEFORE PROCESS
+//*
+//*    LICENSED MATERIALS - PROPERTY OF IBM
+//*    5625-DB2
+//*    (C) COPYRIGHT 1982, 2003 IBM CORP.  ALL RIGHTS RESERVED.
+//*
+//*    STATUS = VERSION 8
+//*
+//* NOTES = Run this job on SOURCE DB2 system
+//*
+//*         Do not continue if there are any threads, utilities, or
+//*         restricted tablespaces, pages that need to be written or any
+//*         unresolved URID's.
+//*
+//*********************************************************************
+//*
+//DB2DISP  EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDP.DB4R.RUNLIB.LOAD   <= Change DB2ID
+//        DD DISP=SHR,DSN=SDB4R.SDSNLOAD           <= Change DB2ID
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB4R)                /*               <= Change DB2ID   */
+  -DIS THD(*) SERVICE(WAIT)
+  -DIS THD(*) DETAIL
+  -DISPLAY DATABASE(*) SPACENAM(*) RESTRICT
+  -DISPLAY DATABASE(EBKD3P03) SPACENAM(TSKD0879) LOCKS LIMIT(*)
+  -DISPLAY DATABASE(EBKD3P03) SPACENAM(TSKD0879) USE LIMIT(*)
+  -DISPLAY UTILITY(*)
+//
+  -DISPLAY THREAD(*)
+  -DISPLAY UTILITY(*)
+  -DISPLAY DATABASE(*) SPACENAM(*) RESTRICT LIMIT(*)
+  END

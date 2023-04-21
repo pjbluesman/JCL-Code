@@ -1,0 +1,28 @@
+//UXC401MR JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSQ                                <= Change SYSAFF
+//*********************************************************************
+//*********************************************************************
+//*
+//DB3R     EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDP.DB2R.RUNLIB.LOAD   <= Change DB2ID
+//        DD DISP=SHR,DSN=SDB2R.SDSNLOAD           <= Change DB2ID
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB3R)                /*               <= Change DB2ID   */
+  -DISPLAY DDF
+  END
+//DB5R     EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDP.DB2R.RUNLIB.LOAD   <= Change DB2ID
+//        DD DISP=SHR,DSN=SDB2R.SDSNLOAD           <= Change DB2ID
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB5R)                /*               <= Change DB2ID   */
+  -DISPLAY DDF
+  END

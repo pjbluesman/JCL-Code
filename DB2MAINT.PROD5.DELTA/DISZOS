@@ -1,0 +1,41 @@
+//DB2FZOS  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID,USER=SYSPRO
+/*JOBPARM SYSAFF=MVSF                                <= Change SYSAFF
+//*********************************************************************
+//* - Executes the several z/OS checkouts as DB2 upgrade pre-reqs
+//*********************************************************************
+//ISPF   EXEC PGM=IKJEFT01,DYNAMNBR=40
+//SYSEXEC  DD DSN=SSXQT.TSODAL.CLIST,DISP=(SHR)
+//SYSTSPRT DD SYSOUT=*,HOLD=YES
+//ISFULOG  DD SYSOUT=*
+//ISFMSG   DD SYSOUT=*
+//ISFMSG2  DD SYSOUT=*
+//SYSTSIN  DD *
+ @SYSCMD CMD("D IPLINFO")
+ @SYSCMD CMD("D PROG,APF")
+ @SYSCMD CMD("D PROG,LINKLIST")
+ @SYSCMD CMD("D A,RRS")
+ @SYSCMD CMD("D WLM,APPLENV=*")
+ @SYSCMD CMD("D UNI,ALL")
+ @SYSCMD CMD("D VS,HVSHARE")
+ @SYSCMD CMD("D DUMP,O")
+ @SYSCMD CMD("D SMS,OPTIONS")
+ @SYSCMD CMD("D OMVS,FILE")
+ @SYSCMD CMD("D GRS,RES=(SYSDSN,'SYS2.DB2V9.RSU1309.SDSNLOAD')")
+//
+ @SYSCMD CMD("D SSI,SUBSYS=DB6R")
+ @SYSCMD CMD("-DB2F DIS THD(*)")
+ @SYSCMD CMD("-DB2F DIS GROUP DETAIL")
+//**********************************************
+//* DISPLAY SYSTEM INFORMATIONS
+//**********************************************
+//SDSFBATC EXEC PGM=SDSF
+//PRINT    DD SYSOUT=*
+//ISFOUT   DD *
+//ISFIN    DD *
+  D IPLINFO
+  LOG S
+  BOT
+  FIND 'IPLINFO DISPLAY' PREV
+    PRINT * 999
+    PRINT CLOSE

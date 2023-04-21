@@ -1,0 +1,24 @@
+//UXC401M  JOB 'DB2 SYSPRO',CLASS=S,MSGCLASS=X,USER=SYSPRO,             00000158
+//      REGION=0M,TIME=1440,NOTIFY=&SYSUID                              00000258
+/*JOBPARM SYSAFF=MVSN                                                   00000358
+//*                                                                     00001300
+//JOBLIB  DD  DSN=SSXDT.DB2O.SDSNEXIT,DISP=SHR                          00001458
+//        DD  DSN=SDB2O.SDSNLOAD,DISP=SHR                               00001558
+//        DD  DSN=SSXDT.DSNDBOG.RUNLIB.LOAD,DISP=SHR                    00001658
+//**********************************************************************00001700
+//* 1) DIAGNOSE UTILITY - GET INFO ABOUT APAR APPLIED                   00001858
+//**********************************************************************00001900
+//*                                                                     00002000
+//DIAGNOSE EXEC PGM=DSNUTILB,                                           00002100
+//         PARM='DB2O,DIAGNOS'                                          00003058
+//SYSABEND DD  SYSOUT=*                                                 00004000
+//SYSPRINT DD  SYSOUT=*                                                 00005000
+//UTPRINT  DD  SYSOUT=*                                                 00006000
+//SORTWK01 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00007000
+//SORTWK02 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00008000
+//SORTWK03 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00009000
+//SORTWK04 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00010000
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00020000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00030000
+//SYSIN    DD  *                                                        00040000
+DIAGNOSE DISPLAY MEPL                                                   00050000

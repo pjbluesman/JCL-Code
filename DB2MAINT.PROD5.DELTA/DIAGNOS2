@@ -1,0 +1,22 @@
+//UXD999M  JOB ,'DB2 RCC 2ND',CLASS=S,                                  00001078
+//  MSGCLASS=X,REGION=4096K,NOTIFY=T105132,TIME=1440                    00001199
+//*                                                                     00001300
+//JOBLIB  DD  DSN=SDB2U.SDSNLOAD,DISP=SHR                               00001499
+//        DD  DSN=SSXDT.DB2U.RUNLIB.LOAD,DISP=SHR                       00001599
+//**********************************************************************00001600
+//* 1) REPAIR UTILITY - GET INFO ABOUT CATALOG, DIRECTORY               00001700
+//**********************************************************************00001800
+//*                                                                     00001900
+//DIAGNOSE EXEC PGM=DSNUTILB,                                           00002000
+//         PARM='DB2U,DIAGNOS'                                          00003099
+//SYSABEND DD  SYSOUT=*                                                 00004000
+//SYSPRINT DD  SYSOUT=*                                                 00005012
+//UTPRINT  DD  SYSOUT=*                                                 00006000
+//SORTWK01 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00007000
+//SORTWK02 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00008000
+//SORTWK03 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00009000
+//SORTWK04 DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00010000
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00020000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(50,50)),DISP=(NEW,DELETE)         00030000
+//SYSIN    DD  *                                                        00040000
+DIAGNOSE DISPLAY MEPL                                                   00050000
