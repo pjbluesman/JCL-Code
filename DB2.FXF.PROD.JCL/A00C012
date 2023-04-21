@@ -1,0 +1,153 @@
+)DEFAULT )&?!<|>
+)DOT &ZUSER
+)SET JOBFUNC = CC
+)IM JCLJOBCD
+//*******************************************************************
+//* MAINTENANCE CHECK JOB  A00C012
+//*******************************************************************
+//* General Instructions for Check Skeletons:
+//*  1. If you edit this job, set CAPS OFF.
+//*  2. Review the specific PTF information below and perform
+//*     additional actions as required.
+//*  3. Generate the skeleton with DBAGENER. It should be run
+//*     against every DB2 catalog that will receive the maintenance.
+//*  4. Submit the job. The job is non-destructive.
+//*  5. Review the outut. The output of this job is input to
+//*     the associated Action job.
+//*
+//* Restart Instructions:
+//*  - This Check job can be rerun from the beginning.
+//*  - The associated Action job can be rerun from the beginning.
+//*
+//*******************************************************************
+//* PTF Information:
+//*
+//* HOLD(UI27258) SYS FMID(HDBBB10) REASON(ACTION) DATE(15182)
+//* TO MAKE THIS FIX EFFECTIVE, AFTER APPLICATION OF THIS PTF,
+//* FOR EACH QUALIFIED TRIGGER FROM THE ABOVE QUERY, ISSUE REBIND
+//* TRIGGER PACKAGE COMMAND WITHOUT THE EXPLAIN(ONLY) SPECIFICATION
+//* TO ITS TRIGGER PACKAGE.
+//*
+//*******************************************************************
+//CLEANUP  EXEC IEFBR14,DSN=SYSD.DB2.V11.&GRPATT..SA00C012.D&&YYMMDD.
+//*
+//UI27258  EXEC DSNTIAUL,ENV=&ENV.,SSID=&GRPATT.
+//SYSIN    DD  *
+SET CURRENT SQLID='&SYSADM.';
+
+SELECT CHAR('REBIND TRIGGER PACKAGE ('
+            ||||STRIP(R.SCHEMA)
+            ||||'.'
+            ||||STRIP(R.NAME)
+            ||||');',80)
+       , R.SCHEMA, R.NAME, 1
+  FROM SYSIBM.SYSTRIGGERS R
+  WHERE NOT EXISTS(SELECT 1 FROM SYSIBM.SYSTABAUTH TA
+                     WHERE R.TBNAME = TA.TTNAME
+                       AND R.TBOWNER = TA.TCREATOR
+                       AND ( (R.OWNER = TA.GRANTEE AND
+                              R.OWNERTYPE = TA.GRANTEETYPE)
+                            OR
+                             (TA.GRANTEETYPE = ' ' AND
+                              TA.GRANTEE = 'PUBLIC')
+                           )
+                       AND TA.SELECTAUTH <<>> ' '
+                  )
+    AND NOT EXISTS(SELECT 1 FROM SYSIBM.SYSUSERAUTH UA
+                    WHERE ( (R.OWNERTYPE = UA.GRANTEETYPE AND
+                             R.OWNER = UA.GRANTEE)
+                           OR
+                            (UA.GRANTEETYPE = ' ' AND
+                             UA.GRANTEE = 'PUBLIC')
+                          )
+                      AND (UA.SYSADMAUTH <<>> ' ' OR
+                           UA.DATAACCESSAUTH <<>> ' '
+                          )
+                  )
+    AND NOT EXISTS(SELECT 1 FROM SYSIBM.SYSDBAUTH DA
+                               , SYSIBM.SYSTABLES T
+                    WHERE R.TBNAME = T.NAME
+                      AND R.TBOWNER = T.CREATOR
+                      AND T.DBNAME = DA.NAME
+                      AND ( (R.OWNERTYPE = DA.GRANTEETYPE AND
+                             R.OWNER = DA.GRANTEE)
+                           OR
+                            (DA.GRANTEETYPE = ' ' AND
+                             DA.GRANTEE = 'PUBLIC')
+                          )
+                      AND DA.DBADMAUTH <<>> ' '
+                  )
+    AND XMLEXISTS(
+         'if (fn:matches($s,"REFERENCING +OLD ","i")) then(1)
+          else
+          if (fn:matches($s,"REFERENCING +NEW ","i")) then(1)
+          else
+          if (fn:matches($s,"REFERENCING +OLD_TABLE ","i"))
+                                                      then(1)
+          else
+          if (fn:matches($s,"REFERENCING +NEW_TABLE ","i"))
+                                                      then(1)
+          else ()'
+         PASSING XMLCAST(R.STATEMENT AS XML) as "s")
+
+UNION
+SELECT CHAR('COMMIT;',80)
+       , R.SCHEMA, R.NAME, 2
+  FROM SYSIBM.SYSTRIGGERS R
+  WHERE NOT EXISTS(SELECT 1 FROM SYSIBM.SYSTABAUTH TA
+                     WHERE R.TBNAME = TA.TTNAME
+                       AND R.TBOWNER = TA.TCREATOR
+                       AND ( (R.OWNER = TA.GRANTEE AND
+                              R.OWNERTYPE = TA.GRANTEETYPE)
+                            OR
+                             (TA.GRANTEETYPE = ' ' AND
+                              TA.GRANTEE = 'PUBLIC')
+                           )
+                       AND TA.SELECTAUTH <<>> ' '
+                  )
+    AND NOT EXISTS(SELECT 1 FROM SYSIBM.SYSUSERAUTH UA
+                    WHERE ( (R.OWNERTYPE = UA.GRANTEETYPE AND
+                             R.OWNER = UA.GRANTEE)
+                           OR
+                            (UA.GRANTEETYPE = ' ' AND
+                             UA.GRANTEE = 'PUBLIC')
+                          )
+                      AND (UA.SYSADMAUTH <<>> ' ' OR
+                           UA.DATAACCESSAUTH <<>> ' '
+                          )
+                  )
+    AND NOT EXISTS(SELECT 1 FROM SYSIBM.SYSDBAUTH DA
+                               , SYSIBM.SYSTABLES T
+                    WHERE R.TBNAME = T.NAME
+                      AND R.TBOWNER = T.CREATOR
+                      AND T.DBNAME = DA.NAME
+                      AND ( (R.OWNERTYPE = DA.GRANTEETYPE AND
+                             R.OWNER = DA.GRANTEE)
+                           OR
+                            (DA.GRANTEETYPE = ' ' AND
+                             DA.GRANTEE = 'PUBLIC')
+                          )
+                      AND DA.DBADMAUTH <<>> ' '
+                  )
+    AND XMLEXISTS(
+         'if (fn:matches($s,"REFERENCING +OLD ","i")) then(1)
+          else
+          if (fn:matches($s,"REFERENCING +NEW ","i")) then(1)
+          else
+          if (fn:matches($s,"REFERENCING +OLD_TABLE ","i"))
+                                                      then(1)
+          else
+          if (fn:matches($s,"REFERENCING +NEW_TABLE ","i"))
+                                                      then(1)
+          else ()'
+         PASSING XMLCAST(R.STATEMENT AS XML) as "s")
+    ORDER BY 2, 3, 4, 1
+    WITH UR;
+/*
+//SYSPUNCH DD  SYSOUT=*
+//SYSREC00 DD  DSN=SYSD.DB2.V11.&GRPATT..SA00C012.D&&YYMMDD.,
+//             DISP=(NEW,CATLG,CATLG),
+//             UNIT=&DASDUNIT.,SPACE=(TRK,(1,1)),
+//             LRECL=80,RECFM=FB,BLKSIZE=3120,DSORG=PS
+//*
+)ENDDOT

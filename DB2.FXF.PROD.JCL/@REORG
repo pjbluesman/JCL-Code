@@ -1,0 +1,147 @@
+//DBAREORG JOB (X),'DB2 OLR',NOTIFY=&SYSUID.,                           00010000
+//             CLASS=2,                                                 00020000
+//             REGION=0M,                                               00030000
+//             MSGLEVEL=(1,1),                                          00040000
+//             MSGCLASS=X                                               00050000
+//*                                                                     00060000
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00070000
+//*                                                                     00080000
+// INCLUDE MEMBER=SETSYMBS                                              00090000
+//*                                                                     00100000
+//************************************************************          00101000
+//*   DISPLAY TABLESPACE, TO VERIFY STARTING STATUS                     00102000
+//************************************************************          00103000
+//DISP001 EXEC PGM=IKJEFT01,DYNAMNBR=100,                               00104000
+//        REGION=4M                                                     00105000
+//SYSPRINT DD SYSOUT=*                                                  00106000
+//SYSTSPRT DD SYSOUT=*                                                  00107000
+//LISTING  DD SYSOUT=*                                                  00108000
+//SYSTSIN DD *                                                          00109000
+ DSN SYSTEM(DSN)                                                        00109100
+ -DIS DB(SHPA0003) SPACE(TSHAD)     LIMIT(*) CLAIMERS                   00109208
+ END                                                                    00109308
+//*                                                                     00109408
+//* -DIS DB(AFWHRIMG) SPACE(AFTSHRI2)  LIMIT(*) CLAIMERS                00109508
+//* -DIS DB(AFWHRIMG) SPACE(AFTSHRI3)  LIMIT(*) CLAIMERS                00109608
+//* -DIS DB(RVPA003)  SPACE(TAPKH)     LIMIT(*) CLAIMERS                00109708
+//* -DIS DB(SHPA002)  SPACE(TSHIA)     LIMIT(*) CLAIMERS                00109908
+//* -DIS DB(XRVPP001) SPACE(TAILH)     LIMIT(*) CLAIMERS                00110008
+//* -DIS DB(XRVPP001) SPACE(TARLH)     LIMIT(*) CLAIMERS                00110108
+//*                                                                     00111008
+//JS1      EXEC DSNUPROC,SYSTEM=DSN,UID=DBAREORG                        00120000
+//PROIGN   DD DUMMY                 ** PMR                              00130010
+//SYSIN    DD  *                                                        00170007
+OPTIONS  EVENT    (ITEMERROR,SKIP)                                      00201006
+                                                                        00202006
+--LISTDEF REORGLST                                                      00210006
+--  INCLUDE TABLESPACE AFWHRIMG.AFTSHRI2 PARTLEVEL --TO BE DROPPED      00220006
+--  INCLUDE TABLESPACE AFWHRIMG.AFTSHRI3 PARTLEVEL --TO BE DROPPED      00220106
+--  INCLUDE TABLESPACE RVPA003.TAPKH     PARTLEVEL --DONE               00220206
+--  INCLUDE TABLESPACE SHPA0003.TSHAD    PARTLEVEL --MAX 1398105 TRKS   00220306
+--  INCLUDE TABLESPACE SHPA002.TSHIA     PARTLEVEL --MAX 1398105 TRKS   00220406
+--  INCLUDE TABLESPACE XRVPP001.TAILH    PARTLEVEL --MAX  128265 TRKS   00220506
+--**INCLUDE TABLESPACE XRVPP001.TARLH    PARTLEVEL --MAX  155400 TRKS   00220606
+                                                                        00221000
+TEMPLATE LPCOPY                                                         00221106
+         DSN      'DB2P.&DB..&SN..P&PA..&IC.&LR.&PB..D&JD.&HO.&MI.'     00221410
+         DISP     (NEW,CATLG,CATLG)                                     00221510
+         UNIT      TAPE                                                 00221610
+         DATACLAS  TAPELBI                                              00221710
+         STACK     YES                                                  00221810
+         VOLCNT    255                                                  00221910
+         RETPD     15                                                   00222010
+                                                                        00222110
+TEMPLATE UNLDREC                                                        00222210
+         DSN      'DB2P.&SSID..&JOBNAME..SYSREC.P&PA.'                  00222310
+         DISP     (NEW,CATLG,CATLG)                                     00222411
+         UNIT      SYSDA           -- DB2XTEMP                          00222516
+         SPACE    (3000,1000) CYL                                       00222615
+         DSNTYPE   LARGE           -- REMOVE 4GB LIMIT TEMPORARY DATASET00222716
+         VOLCNT    255                                                  00222814
+                                                                        00222914
+--       RETPD     15                                                   00223014
+--       UNIT      TAPE                                                 00223114
+--       STACK     YES                                                  00223214
+--       VOLCNT    255                                                  00223314
+--       RETPD     15                                                   00223414
+                                                                        00223514
+REORG TABLESPACE  SHPA0003.TSHAD                                        00223614
+    SORTDATA NO                      -- RECLUSTER NO NOSYSREC           00223714
+    COPYDDN     LPCOPY                                                  00223814
+    UNLDDN      UNLDREC                                                 00223914
+    SHRLEVEL    CHANGE                                                  00224014
+    FASTSWITCH  YES                                                     00224114
+    KEEPDICTIONARY                                                      00224214
+    SORTDEVT    SYSDA                                                   00224314
+    RETRY       25                                                      00224414
+    TIMEOUT     TERM                                                    00224514
+--  FORCE       READERS                                                 00224614
+--  RETRY_DELAY 3                                                       00224714
+--  DRAIN_WAIT  3                                                       00224814
+--  STATISTICS  TABLE(ALL)                                              00224914
+--              INDEX(ALL KEYCARD                                       00225014
+--                        FREQVAL NUMCOLS 1 COUNT 15                    00225114
+--                        FREQVAL NUMCOLS 2 COUNT 25                    00225214
+--                        FREQVAL NUMCOLS 3 COUNT 35                    00225314
+--                        FREQVAL NUMCOLS 4 COUNT 45                    00225414
+--                        FREQVAL NUMCOLS 5 COUNT 55                    00225514
+--                        FREQVAL NUMCOLS 6 COUNT 65)                   00225614
+--  UPDATE(ALL)                                                         00225714
+--  HISTORY(ALL)                                                        00225814
+--  MAPPINGTABLE @DBA.MAP_TABLE27                                       00226010
+//*                                                                     00250000
+//************************************************************          00260000
+//*   DISPLAY TABLESPACE, TO VERIFY STATUS AFTER OLR                    00270000
+//************************************************************          00280000
+//DISP002 EXEC PGM=IKJEFT01,DYNAMNBR=100,                               00290000
+//        REGION=4M,COND=EVEN                                           00300010
+//SYSPRINT DD SYSOUT=*                                                  00310000
+//SYSTSPRT DD SYSOUT=*                                                  00320000
+//LISTING  DD SYSOUT=*                                                  00330000
+//SYSTSIN DD *                                                          00340000
+ DSN SYSTEM(DSN)                                                        00350000
+ -DIS DB(SHPA0003) SPACE(TSHAD)     LIMIT(*) CLAIMERS                   00350108
+ -DIS  UTIL(DBAREORG)                                                   00350211
+ -TERM UTIL(DBAREORG)                                                   00350311
+ END                                                                    00350411
+//*                                                                     00350511
+//* -DIS DB(AFWHRIMG) SPACE(AFTSHRI2)  LIMIT(*) CLAIMERS                00350611
+//* -DIS DB(AFWHRIMG) SPACE(AFTSHRI3)  LIMIT(*) CLAIMERS                00350711
+//* -DIS DB(RVPA003)  SPACE(TAPKH)     LIMIT(*) CLAIMERS                00350811
+//* -DIS DB(SHPA002)  SPACE(TSHIA)     LIMIT(*) CLAIMERS                00350911
+//* -DIS DB(XRVPP001) SPACE(TAILH)     LIMIT(*) CLAIMERS                00351011
+//* -DIS DB(XRVPP001) SPACE(TARLH)     LIMIT(*) CLAIMERS                00352011
+//*----------------------------------------------------------------     00353012
+//*----------------------------------------------------------------     00353112
+//*----------------------------------------------------------------     00353212
+//DBAREORG JOB (X),'DB2 OLR',NOTIFY=&SYSUID.,                           00354012
+//             CLASS=2,                                                 00355012
+//             REGION=0M,                                               00356012
+//             MSGLEVEL=(1,1),                                          00357012
+//             MSGCLASS=X                                               00358012
+//*                                                                     00359012
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00360012
+//*                                                                     00370012
+// INCLUDE MEMBER=SETSYMBS                                              00380012
+//*                                                                     00390012
+//************************************************************          01150012
+//*   DISPLAY TABLESPACE, TO VERIFY STATUS AFTER OLR                    01160012
+//************************************************************          01170012
+//DISP002 EXEC PGM=IKJEFT01,DYNAMNBR=100,                               01180012
+//        REGION=4M,COND=EVEN                                           01190012
+//SYSPRINT DD SYSOUT=*                                                  01200012
+//SYSTSPRT DD SYSOUT=*                                                  01210012
+//LISTING  DD SYSOUT=*                                                  01220012
+//SYSTSIN DD *                                                          01230012
+ DSN SYSTEM(DSN)                                                        01240012
+ -DIS DB(SHPA0003) SPACE(TSHAD)     LIMIT(*) CLAIMERS                   01250012
+ -DIS  UTIL(DBAREORG)                                                   01260012
+ -TERM UTIL(DBAREORG)                                                   01270012
+ END                                                                    01280012
+//*                                                                     01290012
+//* -DIS DB(AFWHRIMG) SPACE(AFTSHRI2)  LIMIT(*) CLAIMERS                01300012
+//* -DIS DB(AFWHRIMG) SPACE(AFTSHRI3)  LIMIT(*) CLAIMERS                01310012
+//* -DIS DB(RVPA003)  SPACE(TAPKH)     LIMIT(*) CLAIMERS                01320012
+//* -DIS DB(SHPA002)  SPACE(TSHIA)     LIMIT(*) CLAIMERS                01330012
+//* -DIS DB(XRVPP001) SPACE(TAILH)     LIMIT(*) CLAIMERS                01340012
+//* -DIS DB(XRVPP001) SPACE(TARLH)     LIMIT(*) CLAIMERS                01350012

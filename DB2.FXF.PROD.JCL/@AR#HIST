@@ -1,0 +1,96 @@
+//DBAREORG JOB (X),'DB2 OLR',NOTIFY=&SYSUID.,                           00000101
+//             CLASS=2,                                                 00000201
+//             REGION=0M,                                               00000301
+//             MSGLEVEL=(1,1),                                          00000401
+//             MSGCLASS=X                                               00000501
+//*                                                                     00000601
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00000701
+//*                                                                     00000801
+// INCLUDE MEMBER=SETSYMBS                                              00000901
+//*                                                                     00001001
+//************************************************************          00001101
+//*   DISPLAY TABLESPACE, TO VERIFY STARTING STATUS                     00001201
+//************************************************************          00001301
+//DISP001 EXEC PGM=IKJEFT01,DYNAMNBR=100,                               00001401
+//        REGION=4M                                                     00001501
+//SYSPRINT DD SYSOUT=*                                                  00001601
+//SYSTSPRT DD SYSOUT=*                                                  00001701
+//LISTING  DD SYSOUT=*                                                  00001801
+//SYSTSIN DD *                                                          00001901
+ DSN SYSTEM(DSNB)                                                       00002001
+ -DIS DB(JXS0036) SPACE(SANDBOX)   LIMIT(*) CLAIMERS                    00002101
+ END                                                                    00002201
+//*                                                                     00002301
+//JS1      EXEC DSNUPROC,SYSTEM=DSNB,UID=DBAARHIS                       00003101
+//SYSIN    DD  *                                                        00003301
+OPTIONS  EVENT    (ITEMERROR,SKIP)                                      00003401
+TEMPLATE PUNCHDSN                                                       00003501
+         DSN         'AFDB.&SSID..&DB..&SN..PUNCH.D&JD.&HO.&MI.'        00003601
+         DISP        (NEW,CATLG,CATLG)                                  00003701
+         UNIT         TAPE                                              00003801
+         STACK        YES                                               00003901
+         VOLCNT       255                                               00004001
+         RETPD        15                                                00004101
+TEMPLATE LPCOPY                                                         00004201
+         DSN         'AFDB.&SSID..&DB..&SN..&IC.&LR.&PB..D&JD.&HO.&MI.' 00004301
+         DISP        (NEW,CATLG,CATLG)                                  00004401
+         UNIT         TAPE                                              00004501
+         STACK        YES                                               00004601
+         VOLCNT       255                                               00004701
+         RETPD        15                                                00004801
+TEMPLATE UNLDREC                                                        00004901
+         DSN         'AFDB.&SSID..&DB..&SN..UNLD.D&JD.&HO.&MI.'         00005001
+         DISP        (NEW,CATLG,CATLG)                                  00005101
+         UNIT         TAPE                                              00005201
+         STACK        YES                                               00005301
+         VOLCNT       255                                               00005401
+         RETPD        15                                                00005501
+TEMPLATE ARCHIVE                                                        00005601
+         DSN         'AFDB.&SSID..&DB..&SN..ARCH.D&JD.&HO.&MI.'         00005701
+         DISP        (NEW,CATLG,CATLG)                                  00005801
+         UNIT         TAPE                                              00005901
+         STACK        YES                                               00006001
+         VOLCNT       255                                               00006101
+         RETPD        15                                                00006201
+                                                                        00006301
+REORG    TABLESPACE   JXS0036.SANDBOX                                   00006401
+         STATISTICS TABLE(ALL)                                          00006501
+                    INDEX(ALL KEYCARD FREQVAL NUMCOLS 1 COUNT 15        00006601
+                                      FREQVAL NUMCOLS 2 COUNT 25        00006701
+                                      FREQVAL NUMCOLS 3 COUNT 35        00006801
+                                      FREQVAL NUMCOLS 4 COUNT 45        00006901
+                                      FREQVAL NUMCOLS 5 COUNT 55        00007001
+                                      FREQVAL NUMCOLS 6 COUNT 65)       00007101
+                    UPDATE(ALL)                                         00007201
+                    HISTORY(ALL)                                        00007301
+         UNLDDN       UNLDREC                                           00007401
+         PUNCHDDN     PUNCHDSN                                          00007501
+         DISCARDDN    ARCHIVE                                           00007601
+         COPYDDN      LPCOPY                                            00007701
+         SHRLEVEL     CHANGE                                            00007801
+         SORTNUM      128                                               00007901
+         FASTSWITCH  YES                                                00008001
+         TIMEOUT     TERM                                               00008101
+         FORCE       READERS                                            00008201
+         RETRY       50                                                 00008301
+         RETRY_DELAY 30                                                 00008401
+         DRAIN_WAIT  600                                                00008501
+         DISCARD FROM TABLE JXS0036.SANDBOX_001                         00008601
+                 WHEN (FK_HISTORY_TSP <=                                00008701
+                       '2012-12-31-24.00.00.000000')                    00008801
+//*                                                                     00009201
+//************************************************************          00009301
+//*   DISPLAY TABLESPACE, TO VERIFY STATUS AFTER OLR                    00009401
+//************************************************************          00009501
+//DISP002 EXEC PGM=IKJEFT01,DYNAMNBR=100,                               00009601
+//        REGION=4M,COND=EVEN                                           00009701
+//SYSPRINT DD SYSOUT=*                                                  00009801
+//SYSTSPRT DD SYSOUT=*                                                  00009901
+//LISTING  DD SYSOUT=*                                                  00010001
+//SYSTSIN DD *                                                          00010101
+ DSN SYSTEM(DSNB)                                                       00010201
+ -DIS DB(JXS0036) SPACE(SANDBOX)   LIMIT(*) CLAIMERS                    00010301
+ -DIS  UTIL(DBAARHIS)                                                   00010401
+ -TERM UTIL(DBAARHIS)                                                   00010501
+ END                                                                    00010601
+//*                                                                     00010701

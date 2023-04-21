@@ -1,0 +1,15 @@
+
+-- DB2FFI.BILLTRUST_CNTRL WILL BE ALTERED VIA THESE NATIVE DB2 COMMANDS.
+--
+
+ALTER   TABLE DB2FFI.BILLTRUST_CNTRL
+        ADD FTP_FILE_NM CHAR ( 30 )
+                                    NOT NULL WITH DEFAULT
+            ;
+
+
+ALTER   TABLE DB2FFU.BILLTRUST_CNTRL
+        ADD FTP_FILE_NM CHAR ( 30 )
+                                    NOT NULL WITH DEFAULT
+            ;
+

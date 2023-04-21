@@ -1,0 +1,46 @@
+//DBT400IC JOB X,'COPY CARD CREATE',NOTIFY=&SYSUID.,                    00010000
+//         CLASS=2,MSGCLASS=1,MSGLEVEL=(1,1),TIME=1440                  00020000
+//*                                                                     00030000
+/*ROUTE    PRINT AFWNODE                                                00040000
+//*                                                                     00050000
+/*JOBPARM LINES=9999                                                    00060000
+//*                                                                     00070000
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00080000
+//*                                                                     00090000
+//         INCLUDE MEMBER=SETSYMBS                                      00100000
+//*                                                                     00110000
+//* IN THE EVENT OF AN UNSUCCESSFULY COMPLETION, AN EMAIL WILL BE       00120000
+//*    SENT TO THE SUPPORT DBA TEAM. THE DBA ON-CALL SHOULD BE CALLED   00130000
+//*    AND INFORMED ABOUT THE FAILED JOB. A RC=04 IS ACCEPTABLE FOR     00140000
+//*    THIS JOB. IF THE RC > 04, THE DBA NEEDS TO CORRECT THE ISSUE     00150000
+//*    AND HAVE THE JOB RESTARTED IN THE FAILING STEP.                  00160000
+//*                                                                     00170000
+//* THIS STEP GENERATES THE LISTDEF INCLUDE/EXCLUDE CONTROL CARD        00180000
+//*      MEMBERS.                                                       00190000
+//*                                                                     00200000
+//JS010    EXEC TSOBATCH                                                00210000
+//SYSTSIN  DD  *                                                        00220000
+ISPSTART CMD(BLDLSTDF ENV=TEST HLQ=JXS0036)                             00230002
+//                                                                      00231001
+/*EOF                                                                   00232001
+//                                                                      00233001
+//                                                                      00234001
+//                                                                      00235001
+/*                                                                      00240000
+//*                                                                     00250000
+//* THIS STEP COMPRESSES THE PDS CONTAINING THE LISTDEF CONTROL CARDS   00260000
+//*                                                                     00270000
+//JS030    EXEC PGM=IEBCOPY,COND=(5,LT)                                 00280000
+//SYSPRINT DD  SYSOUT=*                                                 00290000
+//FROM     DD  DISP=SHR,DSN=AFDB.IMAGE.COPY.PDS.TEST                    00300000
+//TO       DD  DISP=SHR,DSN=AFDB.IMAGE.COPY.PDS.TEST                    00310000
+//SYSUT3   DD  UNIT=SYSDA,SPACE=(CYL,(10,10))                           00320000
+//SYSUT4   DD  UNIT=SYSDA,SPACE=(CYL,(10,10))                           00330000
+//SYSIN DD *                                                            00340000
+    COPY INDD=((FROM,R)),OUTDD=TO                                       00350000
+/*                                                                      00360000
+//*                                                                     00370000
+//* EMAIL THE SUPPORT DBA GROUP IF THE JOB HAD AN UNEXPECTED FAILURE    00380000
+//*                                                                     00390000
+//MAILFAIL EXEC MAILFAIL,ADDRLST=SDB                                    00400000
+//*                                                                     00410000

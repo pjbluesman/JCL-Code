@@ -1,0 +1,121 @@
+//DB2ALTPB JOB (X),'PAYNE',NOTIFY=&SYSUID.,CLASS=R,REGION=0M,
+//  MSGLEVEL=(1,1),MSGCLASS=X,TIME=1440,COND=(4,LT)
+//*
+//JCLLIB JCLLIB ORDER=(AFDB.PROD.PROCLIB)
+//************************************************************
+//************************************************************
+//*****  ITEMS TO CHANGE TO PREP JCL   (REPLACE X'S) *********
+//************************************************************
+//* 1) DATABASE NAME:    C XXXXXXXX XXXXXXXX ALL             *
+//* 2) TABLESPACE NAME:  C AFTSIVRH XXXXX ALL                *
+//* 3) GROUP NAME :      C DSN XXXX ALL                      *
+//* 4) AUTH ID :         C @DBATFC @DBAXFC ALL               *
+//* 5) ENVIRONMENT:      C ENV=TEST ENV=XXXX ALL             *
+//************************************************************
+//************************************************************ WARNING
+//***  NOTE: PLANS AND PACKAGES ARE INVALIDATED  FOR PBGS  *** <-----
+//************************************************************
+//************************************************************
+//************************************************************
+//*   DISPLAY TABLESPACE, TO VERIFY STARTING STATUS
+//************************************************************
+//STEP001 EXEC PGM=IKJEFT01,DYNAMNBR=100,
+//        REGION=4M
+//SYSPRINT DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//LISTING  DD SYSOUT=*
+//SYSTSIN DD *
+ DSN SYSTEM(DSN)
+ -DIS DB(AFWARINV) SPACE(AFTSIVRH) LIMIT(*) CLAIMERS
+//*
+//******************************************************************
+//*   ALTER TABLESPACE MAXPARTITIONS AND DSSIZE TO CONVERT TS TO PBG
+//******************************************************************
+//STEP002 EXEC PGM=IKJEFT01,DYNAMNBR=100,
+//        REGION=4M
+//SYSTSPRT DD SYSOUT=*
+//SYSTSIN DD *
+  DSN SYSTEM(DSN)
+  RUN PROGRAM(DSNTEP4) PLAN(DSNTEP4) PARMS('/ALIGN(LHS)') -
+     LIB('SYSD.DB2.DSN.RUNLIB.LOAD')
+//SYSPRINT DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//SYSIN   DD *
+ SET CURRENT SQLID = '@DBAPFC';
+ALTER TABLESPACE AFWARINV.AFTSIVRH
+          MAXPARTITIONS 64
+    ;
+COMMIT;
+ALTER TABLESPACE AFWARINV.AFTSIVRH
+          DSSIZE 16G
+    ;
+COMMIT;
+/*
+//*
+//************************************************************
+//*   DISPLAY TABLESPACE, WILL BE IN ADVISORY REORG
+//************************************************************
+//STEP003 EXEC PGM=IKJEFT01,DYNAMNBR=100,
+//        REGION=4M
+//SYSPRINT DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//LISTING  DD SYSOUT=*
+//SYSTSIN DD *
+ DSN SYSTEM(DSN)
+ -DIS DB(AFWARINV) SPACE(AFTSIVRH) LIMIT(*) CLAIMERS
+//*
+//************************************************************
+//*   ONLINE REORG OF TABLESPACE TO CLEAR ADVISORY REORG FLAG
+//************************************************************
+//STEP004  EXEC DB2BATCH,ENV=PROD,SSID=DSN,UID=DBA@PBGA
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(1000,500)),VOL=(,,,15)
+//SYSREC   DD  UNIT=SYSDA,SPACE=(CYL,(1000,500)),VOL=(,,,15)
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(CYL,(1000,500)),VOL=(,,,15)
+//SYSMAP   DD  UNIT=SYSDA,SPACE=(CYL,(100,500))
+//SYSERR   DD  UNIT=SYSDA,SPACE=(CYL,(100,500))
+//SYSIN    DD  DISP=SHR,DSN=AFDB.PROD.PARMLIB(OPTNSKIP)
+//         DD  DISP=SHR,DSN=AFDB.&ENV..TEMPLATE(LPICVTS)
+//         DD  *
+LISTDEF REORGLST
+INCLUDE TABLESPACE AFWARINV.AFTSIVRH
+
+REORG TABLESPACE LIST REORGLST
+      SHRLEVEL      CHANGE
+      MAPPINGTABLE  @DBA.MAP_TABLE_SPECIAL
+      COPYDDN      (LPCOPY)
+      RETRY         25
+      TIMEOUT       TERM
+      RETRY_DELAY   1
+      DRAIN_WAIT    1
+      STATISTICS TABLE(ALL)
+      INDEX(ALL
+            KEYCARD FREQVAL NUMCOLS 1 COUNT 15
+                    FREQVAL NUMCOLS 2 COUNT 25
+                    FREQVAL NUMCOLS 3 COUNT 35
+                    FREQVAL NUMCOLS 4 COUNT 45
+                    FREQVAL NUMCOLS 5 COUNT 55
+                    FREQVAL NUMCOLS 6 COUNT 65)
+      UPDATE(ALL) HISTORY(ALL)
+/*
+//*
+//************************************************************
+//*   DISPLAY TABLESPACE, VERIFY IN RW
+//************************************************************
+//STEP005 EXEC PGM=IKJEFT01,DYNAMNBR=100,
+//        REGION=4M
+//SYSPRINT DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//LISTING  DD SYSOUT=*
+//SYSTSIN DD *
+ DSN SYSTEM(DSN)
+ -DIS DB(AFWARINV) SPACE(AFTSIVRH) LIMIT(*) CLAIMERS
+//*
+//REBIND01 EXEC PGM=IKJEFT01,DYNAMNBR=100,REGION=4M
+//SYSTSPRT DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//SYSTSIN  DD *
+ DSN SYSTEM(DSN)
+//      DD DISP=SHR,DSN=AFDB.PROD.REBINDS.D151107.CLEAN
+/*
+//*

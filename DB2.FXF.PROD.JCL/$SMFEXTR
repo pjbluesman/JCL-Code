@@ -1,0 +1,703 @@
+//SMTPRSMF JOB (X),'SMIKE',                                             00010001
+//             CLASS=2,                                                 00020001
+//             NOTIFY=&SYSUID.,                                         00030001
+//             REGION=0M,                                               00040001
+//             TIME=1440,                                               00050001
+//             MSGLEVEL=(1,1),                                          00060001
+//             MSGCLASS=X                                               00070001
+//*                                                                     00080001
+/*JOBPARM  LINES=9999                                                   00090001
+//*                                                                     00100001
+/*ROUTE    XEQ    AFWNODE                                               00110001
+/*ROUTE    PRINT  AFWNODE                                               00120001
+//*                                                                     00130001
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00140001
+//*                                                                     00150001
+//         INCLUDE MEMBER=SETSYMBS                                      00160001
+//*                                                                     00170001
+//*------------------------------------------------------------*        00180001
+//*       JOB TO EXTRACT DB2-RELATED RECORDS FROM              *        00190001
+//*       SMF OR MVDB2-DATA COLLECTOR ARCHIVE FILES AND LOAD   *        00200001
+//*       THEM INTO MVDB2 PERFORMANCE REPORTER TABLES          *        00210001
+//*       FOR REPORTING.                                       *        00220001
+//* NOTE: SEE OVER-RIDE STEP:  STEP1.DFSPARM DD *              *        00230001
+//*       THE ENTRY: MODS E15=(DPRSE15,0,,N)                   *        00240001
+//*       IS VALID FOR BOTH DFSORT AND SYNCSORT AND IT WILL    *        00250001
+//*       LOAD THE DPRSE15 LOAD MODULE FROM EITHER STEPLIB,    *        00260001
+//*       LINKLST, OR THE JOBLIB DD.                           *        00270001
+//* NOTE: FOR INPUT FROM MVDB2-DATA COLLECTOR ARCHIVE FILES,   *        00280001
+//*       SPECIFY THE DSNAME WITH THE SMF PARAMETER.           *        00290001
+//* NOTE: FOR ACCT, DDFACCT, PKGACCT, BUFACCT SEPARATE STEP1   *        00300001
+//*       OUTPUT FILES ARE SUPPORTED.                          *        00310001
+//*------------------------------------------------------------*        00320001
+//DPPSMF  PROC HIDP='SYSV.BMC.SHRD.V2315',        <-- UPDATE            00330001
+//             HIDB2='SYSD.DB2.TEST',             <-- VERIFY            00340001
+//*            SMF='AFDB.DB2SMF.DUMP.D&LYYMMDD..HRS0024', SMF DATASET   00350001
+//             UNIT=SYSDA,                        <-- VERIFY            00360001
+//*                      THE FOLLOWING IS FOR DB2 LOAD UTILITY          00370001
+//             SYSTEM=DSNB,                       <-- UPDATE            00380001
+//             UID=SMTPRSMF,                      <-- UPDATE            00390001
+//*                      THE FOLLOWING IS FOR REPORTS FROM SMF          00400001
+//             RPTHI='SMT9831.MAINVIEW.T102',     <-- UPDATE            00410001
+//             RPTUNIT=SYSDA,                     <-- VERIFY            00420001
+//             DSSTAT=NEW,                        <-- OR OLD STAT       00430001
+//*                      THE FOLLOWING CAN DISABLE SUM / LOAD           00440001
+//             SUMPGM=DPSUMLD,                    <-- OR IEFBR14        00450001
+//             LOADPGM=DSNUTILB                   <-- OR IEFBR14        00460001
+//*------------------------------------------------------------*        00470001
+//*            EXTRACT 100 AND 101 RECORDS FROM SMF,           *        00480001
+//*            SORT, AND REFORMAT TO DPDACXXX AND DPDSTAT      *        00490001
+//*            DATASETS. OPTIONALLY EXTRACT 102 AUDIT          *        00500001
+//*            RECORDS, SORT AND REFORMAT TO DPDAUDIT          *        00510001
+//*------------------------------------------------------------*        00520001
+//*                                                                     00530001
+//STEP1   EXEC PGM=DPRDSMF                                              00540001
+//STEPLIB   DD DISP=SHR,DSN=&HIDP..BBLINK                               00550001
+//DPRLOG    DD SYSOUT=*              SMF EXTRACT LOG                    00560001
+//SYSOUT    DD SYSOUT=*              SORT MESSAGES                      00570001
+//SORTMSG   DD SYSOUT=*              SORT MESSAGES                      00580001
+//SYSUDUMP  DD SYSOUT=*                                                 00590001
+//DPDACCT   DD DSN=&RPTHI..DPDACCT,  INTERIM ACCT FILE FOR LOAD/RPTS    00600001
+//             DISP=(&DSSTAT,CATLG),UNIT=&RPTUNIT,                      00610001
+//             SPACE=(CYL,(1000,100),RLSE),DCB=BLKSIZE=27998            00620001
+//DPDSTOR   DD DSN=&RPTHI..DPDSTOR,  INTERIM STOR FILE FOR LOAD/RPTS    00630001
+//             DISP=(&DSSTAT,CATLG),UNIT=&RPTUNIT,                      00640001
+//             SPACE=(CYL,(1000,100),RLSE),DCB=BLKSIZE=27998            00650001
+//DPDACPKG  DD DSN=&RPTHI..DPDACPKG, INTERIM PKGACCT FILE FOR LOAD/RPTS 00660001
+//             DISP=(&DSSTAT,CATLG),UNIT=&RPTUNIT,                      00670001
+//             SPACE=(CYL,(1000,100),RLSE),DCB=BLKSIZE=27998            00680001
+//DPDACDDF  DD DSN=&RPTHI..DPDACDDF, INTERIM DDFACCT FILE FOR LOAD/RPTS 00690001
+//             DISP=(&DSSTAT,CATLG),UNIT=&RPTUNIT,                      00700001
+//             SPACE=(CYL,(1000,100),RLSE),DCB=BLKSIZE=27998            00710001
+//DPDACBUF  DD DSN=&RPTHI..DPDACBUF, INTERIM BUFACCT FILE FOR LOAD/RPTS 00720001
+//             DISP=(&DSSTAT,CATLG),UNIT=&RPTUNIT,                      00730001
+//             SPACE=(CYL,(1000,100),RLSE),DCB=BLKSIZE=27998            00740001
+//DPDSTAT   DD DISP=(,CATLG),UNIT=&UNIT,SPACE=(CYL,(1000,100),RLSE),    00750001
+//             DCB=BLKSIZE=27998,DSN=&RPTHI..DPDSTAT                    00760001
+//DPDAUDIT  DD DISP=(,CATLG),UNIT=&UNIT,SPACE=(CYL,(1000,1000),RLSE),   00770001
+//             DCB=BLKSIZE=27998,DSN=&RPTHI..DPDAUDIT,VOL=(,,,5)        00780001
+//*//SORTIN    DD DISP=SHR,DSN=&SMF                                     00790001
+//*//SORTIN    DD DISP=SHR,DSN=AFDB.DB2SMF.DUMP.D&LYYMMDD..HRS0024      00800001
+//SORTIN    DD DISP=SHR,DSN=SMT9831.DB2SMF.TYPE102.D&LYYMMDD..HRS0024   00810001
+//SORTWK01  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00820001
+//SORTWK02  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00830001
+//SORTWK03  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00840001
+//SORTWK04  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00850001
+//SORTWK05  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00860001
+//SORTWK06  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00870001
+//SORTWK07  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00880001
+//SORTWK08  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00890001
+//SORTWK09  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00900001
+//SORTWK10  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00910001
+//SORTWK11  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00920001
+//SORTWK12  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00930001
+//SORTWK13  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00940001
+//SORTWK14  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00950001
+//SORTWK15  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00960001
+//SORTWK16  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00970001
+//SORTWK17  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00980001
+//SORTWK18  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            00990001
+//SORTWK19  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01000001
+//SORTWK20  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01010001
+//SORTWK21  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01020001
+//SORTWK22  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01030001
+//SORTWK23  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01040001
+//SORTWK24  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01050001
+//SORTWK25  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01060001
+//SORTWK26  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01070001
+//SORTWK27  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01080001
+//SORTWK28  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01090001
+//SORTWK29  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01100001
+//SORTWK30  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01110001
+//SORTWK31  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01120001
+//SORTWK32  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01130001
+//SORTWK33  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01140001
+//SORTWK34  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01150001
+//SORTWK35  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01160001
+//SORTWK36  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01170001
+//SORTWK37  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01180001
+//SORTWK38  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01190001
+//SORTWK39  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01200001
+//SORTWK40  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01210001
+//DPRCNTL   DD DUMMY           CONTROL STATEMENTS                       01220001
+//*                                                                     01230001
+//DPRSTAT  IF RC < 8 THEN                                               01240001
+//*------------------------------------------------------------*        01250001
+//*            CHANGE STATS RECORDS FROM DB2 ACCUMULATED VALUES*        01260001
+//*            TO INTERVAL (DELTA) VALUES.                     *        01270001
+//**************************************************************        01280001
+//*****WARNING - THIS STEP MUST BE RUN FOR STATISTICS **********        01290001
+//*****WARNING - PROCESSING OR ELSE VERY LARGE NUMBERS**********        01300001
+//*****WARNING - IN STATISTICS REPORTS WILL OCCUR     **********        01310001
+//**************************************************************        01320001
+//*------------------------------------------------------------*        01330001
+//*                                                                     01340001
+//STEP2   EXEC PGM=DPRSTAT                                              01350001
+//STEPLIB   DD DISP=SHR,DSN=&HIDP..BBLINK                               01360001
+//DPRLOG    DD SYSOUT=*                                                 01370001
+//SYSOUT    DD SYSOUT=*              SORT MESSAGES                      01380001
+//SORTMSG   DD SYSOUT=*              SORT MESSAGES                      01390001
+//SYSUDUMP  DD SYSOUT=*                                                 01400001
+//SORTIN    DD DISP=(OLD,KEEP),DSN=*.STEP1.DPDSTAT                      01410001
+//*         DD DISP=OLD,DSN=&HIDP..SPIN  READ OLD SPIN DATA             01420001
+//          DD DISP=SHR,DSN=AFDB.DSNX.MAINVIEW.SPIN                     01430001
+//*//DPDSPIN   DD DISP=OLD,DSN=&HIDP..SPIN  WRITE NEW SPIN DATA         01440001
+//DPDSPIN   DD DISP=SHR,DSN=AFDB.DSNX.MAINVIEW.SPIN                     01450001
+//DPDSTAT   DD DSN=&RPTHI..DPDSTAT2, INTERIM STATS FILE FOR LOAD/RPTS   01460001
+//             DISP=(&DSSTAT,CATLG),                                    01470001
+//             UNIT=&RPTUNIT,                                           01480001
+//             SPACE=(CYL,(1000,100),RLSE),                             01490001
+//             DCB=BLKSIZE=27998                                        01500001
+//SORTWK01  DD UNIT=&UNIT,SPACE=(CYL,(1000,500))                        01510001
+//SORTWK02  DD UNIT=&UNIT,SPACE=(CYL,(1000,500))                        01520001
+//SORTWK03  DD UNIT=&UNIT,SPACE=(CYL,(1000,500))                        01530001
+//*                                                                     01540001
+//DPSUMLD  IF RC < 8 THEN                                               01550001
+//*                                                                     01560001
+//*//REPAIR  EXEC PGM=&LOADPGM,                                         01570001
+//*//             PARM='&SYSTEM,&UID'                                   01580001
+//*//STEPLIB   DD DSN=&HIDB2..SDSNLOAD,DISP=SHR                         01590001
+//*//          DD DSN=&HIDB2..SDSNEXIT,DISP=SHR                         01600001
+//*//SYSPRINT  DD SYSOUT=*                                              01610001
+//*//UTPRINT   DD SYSOUT=*                                              01620001
+//*//*SYSUDUMP  DD SYSOUT=*                                             01630001
+//*//SYSUT1    DD UNIT=&UNIT,SPACE=(CYL,(5,2))                          01640001
+//*------------------------------------------------------------*        01650001
+//*            BUILD DB2 LOAD CONTROL STATEMENTS,              *        01660001
+//*            SUMMARIZE ACCOUNTING AND DDF ACCOUNTING RECORDS,*        01670001
+//*            PURGE OLD RECORDS                               *        01680001
+//*------------------------------------------------------------*        01690001
+//*                                                                     01700001
+//STEP3   EXEC PGM=&SUMPGM                                              01710001
+//STEPLIB   DD DISP=SHR,DSN=&HIDB2..SDSNLOAD                            01720001
+//          DD DISP=SHR,DSN=&HIDB2..SDSNEXIT                            01730001
+//          DD DISP=SHR,DSN=&HIDP..BBLINK                               01740001
+//DPSYSOUT  DD SYSOUT=*            PROGRAM MESSAGES                     01750001
+//SYSOUT    DD SYSOUT=*            SORT MESSAGE                         01760001
+//SORTMSG   DD SYSOUT=*              SORT MESSAGES                      01770001
+//SYSUDUMP  DD SYSOUT=*                                                 01780001
+//SORTWK01  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01790001
+//SORTWK02  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01800001
+//SORTWK03  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01810001
+//SORTWK04  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01820001
+//SORTWK05  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01830001
+//SORTWK06  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01840001
+//SORTWK07  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01850001
+//SORTWK08  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01860001
+//SORTWK09  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01870001
+//SORTWK10  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01880001
+//SORTWK11  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01890001
+//SORTWK12  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01900001
+//SORTWK13  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01910001
+//SORTWK14  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01920001
+//SORTWK15  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01930001
+//SORTWK16  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01940001
+//SORTWK17  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01950001
+//SORTWK18  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01960001
+//SORTWK19  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01970001
+//SORTWK20  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01980001
+//SORTWK21  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            01990001
+//SORTWK22  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02000001
+//SORTWK23  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02010001
+//SORTWK24  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02020001
+//SORTWK25  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02030001
+//SORTWK26  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02040001
+//SORTWK27  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02050001
+//SORTWK28  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02060001
+//SORTWK29  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02070001
+//SORTWK30  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02080001
+//SORTWK31  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02090001
+//SORTWK32  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02100001
+//SORTWK33  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02110001
+//SORTWK34  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02120001
+//SORTWK35  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02130001
+//SORTWK36  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02140001
+//SORTWK37  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02150001
+//SORTWK38  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02160001
+//SORTWK39  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02170001
+//SORTWK40  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02180001
+//DPSYSIN   DD DUMMY            CONTROL STATEMENTS                      02190001
+//DPLOAD    DD UNIT=&UNIT,DISP=(,CATLG),SPACE=(TRK,(1,1),RLSE),         02200001
+//             DCB=(RECFM=FB,LRECL=80,BLKSIZE=3200),DSN=&RPTHI..DPLOAD  02210001
+//*                  USER-DEFINED DD STATEMENTS                         02220001
+//ACCTDD    DD DISP=(OLD,KEEP),DSN=&RPTHI..DPDACCT                      02230001
+//ACPKGDD   DD DISP=(OLD,KEEP),DSN=&RPTHI..DPDACPKG                     02240001
+//ACDDFDD   DD DISP=(OLD,KEEP),DSN=&RPTHI..DPDACDDF                     02250001
+//ACBUFDD   DD DISP=(OLD,KEEP),DSN=&RPTHI..DPDACBUF                     02260001
+//STATDD    DD DISP=(OLD,KEEP),DSN=&RPTHI..DPDSTAT2                     02270001
+//SUMMACCT  DD UNIT=&UNIT,DISP=(,CATLG),SPACE=(CYL,(1000,300),RLSE),    02280001
+//             DSN=&RPTHI..SUMMACCT,                                    02290001
+//             DCB=(LRECL=2048,BLKSIZE=27998,RECFM=VB)                  02300001
+//DDFSACCT  DD UNIT=&UNIT,DISP=(,CATLG),SPACE=(CYL,(1000,200),RLSE),    02310001
+//             DSN=&RPTHI..DDFSACCT,                                    02320001
+//             DCB=(LRECL=2048,BLKSIZE=27998,RECFM=VB)                  02330001
+//PKGSACCT  DD UNIT=&UNIT,DISP=(,CATLG),SPACE=(CYL,(1000,200),RLSE),    02340001
+//             DSN=&RPTHI..PKGSACCT,                                    02350001
+//             DCB=(LRECL=2048,BLKSIZE=27998,RECFM=VB)                  02360001
+//BUFSACCT  DD UNIT=&UNIT,DISP=(,CATLG),SPACE=(CYL,(1000,200),RLSE),    02370001
+//             DSN=&RPTHI..BUFSACCT,                                    02380001
+//             DCB=(LRECL=2048,BLKSIZE=27998,RECFM=VB)                  02390001
+//SUMMSTAT  DD UNIT=&UNIT,DISP=(,CATLG),SPACE=(CYL,(1000,200),RLSE),    02400001
+//             DSN=&RPTHI..SUMMSTAT,                                    02410001
+//             DCB=(LRECL=2048,BLKSIZE=27998,RECFM=VB)                  02420001
+//DDFSSTAT  DD UNIT=&UNIT,DISP=(,CATLG),SPACE=(CYL,(1000,200),RLSE),    02430001
+//             DSN=&RPTHI..DDFSSTAT,                                    02440001
+//             DCB=(LRECL=2048,BLKSIZE=27998,RECFM=VB)                  02450001
+//BUFSSTAT  DD UNIT=&UNIT,DISP=(,CATLG),SPACE=(CYL,(1000,200),RLSE),    02460001
+//             DSN=&RPTHI..BUFSSTAT,                                    02470001
+//             DCB=(LRECL=2048,BLKSIZE=27998,RECFM=VB)                  02480001
+//*                                                                     02490001
+//DB2LOAD  IF  RC < 8 THEN                                              02500001
+//*                                                                     02510001
+//*------------------------------------------------------------*        02520001
+//*            LOAD INTO DB2 TABLES                            *        02530001
+//*------------------------------------------------------------*        02540001
+//*                                                                     02550001
+//STEP4   EXEC PGM=&LOADPGM,                                            02560001
+//             PARM='&SYSTEM,&UID'                                      02570001
+//STEPLIB   DD DSN=&HIDB2..SDSNLOAD,DISP=SHR                            02580001
+//          DD DSN=&HIDB2..SDSNEXIT,DISP=SHR                            02590001
+//SYSPRINT  DD SYSOUT=*                                                 02600001
+//SORTMSG   DD SYSOUT=*              SORT MESSAGES                      02610001
+//UTPRINT   DD SYSOUT=*                                                 02620001
+//SYSUDUMP  DD SYSOUT=*                                                 02630001
+//SORTWK01  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02650001
+//SORTWK02  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02660001
+//SORTWK03  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02670001
+//SORTWK04  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02680001
+//SORTWK05  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02690001
+//SORTWK06  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02700001
+//SORTWK07  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02710001
+//SORTWK08  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02720001
+//SORTWK09  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02730001
+//SORTWK10  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02740001
+//SORTWK11  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02750001
+//SORTWK12  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02760001
+//SORTWK13  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02770001
+//SORTWK14  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02780001
+//SORTWK15  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02790001
+//SORTWK16  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02800001
+//SORTWK17  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02810001
+//SORTWK18  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02820001
+//SORTWK19  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02830001
+//SORTWK20  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02840001
+//SORTWK21  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02850001
+//SORTWK22  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02860001
+//SORTWK23  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02870001
+//SORTWK24  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02880001
+//SORTWK25  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02890001
+//SORTWK26  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02900001
+//SORTWK27  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02910001
+//SORTWK28  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02920001
+//SORTWK29  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02930001
+//SORTWK30  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02940001
+//SORTWK31  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02950001
+//SORTWK32  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02960001
+//SORTWK33  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02970001
+//SORTWK34  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02980001
+//SORTWK35  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            02990001
+//SORTWK36  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            03000001
+//SORTWK37  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            03010001
+//SORTWK38  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            03020001
+//SORTWK39  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            03030001
+//SORTWK40  DD UNIT=&UNIT,SPACE=(CYL,(3000,3000)),VOL=(,,,5)            03040001
+//SYSUT1    DD UNIT=&UNIT,SPACE=(CYL,(1000,500))                        03050001
+//SORTOUT   DD UNIT=&UNIT,SPACE=(CYL,(1000,500))                        03060001
+//SYSERR    DD UNIT=&UNIT,SPACE=(CYL,(100,100))                         03070001
+//SYSMAP    DD UNIT=&UNIT,SPACE=(CYL,(100,100))                         03080001
+//SYSIN     DD DISP=(OLD,KEEP),DSN=*.STEP3.DPLOAD                       03090001
+//          DD DISP=SHR,DSN=AFDB.TEST.TEMPLATE(LPICTAPE)                03100001
+//          DD DDNAME=COPYTBLS                                          03110001
+//ACCTDD    DD DISP=(OLD,KEEP),DSN=&RPTHI..DPDACCT                      03120001
+//ACPKGDD   DD DISP=(OLD,KEEP),DSN=&RPTHI..DPDACPKG                     03130001
+//ACDDFDD   DD DISP=(OLD,KEEP),DSN=&RPTHI..DPDACDDF                     03140001
+//ACBUFDD   DD DISP=(OLD,KEEP),DSN=&RPTHI..DPDACBUF                     03150001
+//STATDD    DD DISP=(OLD,KEEP),DSN=&RPTHI..DPDSTAT2                     03160001
+//STORDD    DD DISP=(OLD,KEEP),DSN=&RPTHI..DPDSTOR                      03170001
+//SUMMACCT  DD DISP=(OLD,KEEP),DSN=*.STEP3.SUMMACCT                     03180001
+//DDFSACCT  DD DISP=(OLD,KEEP),DSN=*.STEP3.DDFSACCT                     03190001
+//PKGSACCT  DD DISP=(OLD,KEEP),DSN=*.STEP3.PKGSACCT                     03200001
+//BUFSACCT  DD DISP=(OLD,KEEP),DSN=*.STEP3.BUFSACCT                     03210001
+//SUMMSTAT  DD DISP=(OLD,KEEP),DSN=*.STEP3.SUMMSTAT                     03220001
+//DDFSSTAT  DD DISP=(OLD,KEEP),DSN=*.STEP3.DDFSSTAT                     03230001
+//BUFSSTAT  DD DISP=(OLD,KEEP),DSN=*.STEP3.BUFSSTAT                     03240001
+//AUDITDD   DD DISP=(OLD,KEEP),DSN=*.STEP1.DPDAUDIT                     03250001
+//*                                                                     03260001
+//DB2LOAD  ENDIF                                                        03270001
+//DPSUMLD  ENDIF                                                        03280001
+//*                                                                     03290001
+//*                                                                     03300001
+//DPRSTAT  ENDIF                                                        03310001
+//*                                                                     03320001
+//         PEND                                                         03330001
+//*                                                                     03340001
+//JS010   EXEC DPPSMF                                                   03350001
+//STEP1.DPRCNTL DD *                                                    03360001
+   TYPE=(ACCT,DDFACCT,PKGACCT,BUFACCT)                                  03370001
+   TYPE=(STAT,DDFSTAT,BUFSTAT)                                          03380001
+   TYPE2=(AUDSUM,AUDFAIL,AUDGRV,AUDDDL,AUDDML,AUDDMB,AUDCHG,AUDUTL)     03390001
+   TYPE3=(ASPCSTOR,SYSTSTOR)                                            03400001
+//*                                                                     03410001
+//* NOTE: SEE OVER-RIDE STEP:  STEP1.DFSPARM DD *              *        03420001
+//*       THE ENTRY: MODS E15=(DPRSE15,0,,N)                   *        03430001
+//*       IS VALID FOR BOTH DFSORT AND SYNCSORT AND IT WILL    *        03440001
+//*       LOAD THE DPRSE15 LOAD MODULE FROM EITHER STEPLIB,    *        03450001
+//*       LINKLST, OR THE JOBLIB DD.                           *        03460001
+//*                                                                     03470001
+//STEP1.DFSPARM DD *                                                    03480001
+ MODS E15=(DPRSE15,0,,N)                                                03490001
+ OPTION VLSHRT                                                          03500001
+/*                                                                      03510001
+//*//REPAIR.SYSIN DD *                                                  03520001
+//*  REPAIR OBJECT LOG NO                                               03530001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUB NOCOPYPEND                 03540001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUC NOCOPYPEND                 03550001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUD NOCOPYPEND                 03560001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUF NOCOPYPEND                 03570001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUG NOCOPYPEND                 03580001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUM NOCOPYPEND                 03590001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUS NOCOPYPEND                 03600001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUU NOCOPYPEND                 03610001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTAD NOCOPYPEND                 03620001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTAS NOCOPYPEND                 03630001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTA2 NOCOPYPEND                 03640001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTDD NOCOPYPEND                 03650001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTDS NOCOPYPEND                 03660001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTD2 NOCOPYPEND                 03670001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTPD NOCOPYPEND                 03680001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTPS NOCOPYPEND                 03690001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTP2 NOCOPYPEND                 03700001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTID NOCOPYPEND                 03710001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTIS NOCOPYPEND                 03720001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTI2 NOCOPYPEND                 03730001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTSS NOCOPYPEND                 03740001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTTS NOCOPYPEND                 03750001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTT2 NOCOPYPEND                 03760001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTSF NOCOPYPEND                 03770001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTFS NOCOPYPEND                 03780001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTF2 NOCOPYPEND                 03790001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTBD NOCOPYPEND                 03800001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTBS NOCOPYPEND                 03810001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTB2 NOCOPYPEND                 03820001
+//*         SET TABLESPACE DMRPRDB1.DMRPRADT NOCOPYPEND                 03830001
+//*         SET TABLESPACE DMRPRDB1.DMRPRSDT NOCOPYPEND                 03840001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUB NORCVRPEND                 03850001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUC NORCVRPEND                 03860001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUD NORCVRPEND                 03870001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUF NORCVRPEND                 03880001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUG NORCVRPEND                 03890001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUM NORCVRPEND                 03900001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUS NORCVRPEND                 03910001
+//*         SET TABLESPACE DMRPRDB1.DMRPRAUU NORCVRPEND                 03920001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTAD NORCVRPEND                 03930001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTAS NORCVRPEND                 03940001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTA2 NORCVRPEND                 03950001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTDD NORCVRPEND                 03960001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTDS NORCVRPEND                 03970001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTD2 NORCVRPEND                 03980001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTPD NORCVRPEND                 03990001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTPS NORCVRPEND                 04000001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTP2 NORCVRPEND                 04010001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTID NORCVRPEND                 04020001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTIS NORCVRPEND                 04030001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTI2 NORCVRPEND                 04040001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTSS NORCVRPEND                 04050001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTTS NORCVRPEND                 04060001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTT2 NORCVRPEND                 04070001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTSF NORCVRPEND                 04080001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTFS NORCVRPEND                 04090001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTF2 NORCVRPEND                 04100001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTBD NORCVRPEND                 04110001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTBS NORCVRPEND                 04120001
+//*         SET TABLESPACE DMRPRDB1.DMRPRTB2 NORCVRPEND                 04130001
+//*         SET INDEX      DMRPRDB1.ACDTINDX NORCVRPEND                 04140001
+//*         SET INDEX      DMRPRDB1.ACSMINDX NORCVRPEND                 04150001
+//*         SET INDEX      DMRPRDB1.ACS2INDX NORCVRPEND                 04160001
+//*         SET INDEX      DMRPRDB1.ADDTINDX NORCVRPEND                 04170001
+//*         SET INDEX      DMRPRDB1.ADSMINDX NORCVRPEND                 04180001
+//*         SET INDEX      DMRPRDB1.ADS2INDX NORCVRPEND                 04190001
+//*         SET INDEX      DMRPRDB1.APDTINDX NORCVRPEND                 04200001
+//*         SET INDEX      DMRPRDB1.APSMINDX NORCVRPEND                 04210001
+//*         SET INDEX      DMRPRDB1.APS2INDX NORCVRPEND                 04220001
+//*         SET INDEX      DMRPRDB1.ABDTINDX NORCVRPEND                 04230001
+//*         SET INDEX      DMRPRDB1.ABSMINDX NORCVRPEND                 04240001
+//*         SET INDEX      DMRPRDB1.ABS2INDX NORCVRPEND                 04250001
+//*         SET INDEX      DMRPRDB1.AUCHINDX NORCVRPEND                 04260001
+//*         SET INDEX      DMRPRDB1.AUDBINDX NORCVRPEND                 04270001
+//*         SET INDEX      DMRPRDB1.AUDLINDX NORCVRPEND                 04280001
+//*         SET INDEX      DMRPRDB1.AUDMINDX NORCVRPEND                 04290001
+//*         SET INDEX      DMRPRDB1.AUFLINDX NORCVRPEND                 04300001
+//*         SET INDEX      DMRPRDB1.AUGRINDX NORCVRPEND                 04310001
+//*         SET INDEX      DMRPRDB1.AUSMINDX NORCVRPEND                 04320001
+//*         SET INDEX      DMRPRDB1.AUUTINDX NORCVRPEND                 04330001
+//*         SET INDEX      DMRPRDB1.STATINDX NORCVRPEND                 04340001
+//*         SET INDEX      DMRPRDB1.STSMINDX NORCVRPEND                 04350001
+//*         SET INDEX      DMRPRDB1.STS2INDX NORCVRPEND                 04360001
+//*         SET INDEX      DMRPRDB1.STDFINDX NORCVRPEND                 04370001
+//*         SET INDEX      DMRPRDB1.SDSMINDX NORCVRPEND                 04380001
+//*         SET INDEX      DMRPRDB1.SDS2INDX NORCVRPEND                 04390001
+//*         SET INDEX      DMRPRDB1.BFDTINDX NORCVRPEND                 04400001
+//*         SET INDEX      DMRPRDB1.SBSMINDX NORCVRPEND                 04410001
+//*         SET INDEX      DMRPRDB1.SBS2INDX NORCVRPEND                 04420001
+//*         SET INDEX      DMRPRDB1.ACDTINDX NORBDPEND                  04430001
+//*         SET INDEX      DMRPRDB1.ACSMINDX NORBDPEND                  04440001
+//*         SET INDEX      DMRPRDB1.ACS2INDX NORBDPEND                  04450001
+//*         SET INDEX      DMRPRDB1.ADDTINDX NORBDPEND                  04460001
+//*         SET INDEX      DMRPRDB1.ADSMINDX NORBDPEND                  04470001
+//*         SET INDEX      DMRPRDB1.ADS2INDX NORBDPEND                  04480001
+//*         SET INDEX      DMRPRDB1.APDTINDX NORBDPEND                  04490001
+//*         SET INDEX      DMRPRDB1.APSMINDX NORBDPEND                  04500001
+//*         SET INDEX      DMRPRDB1.APS2INDX NORBDPEND                  04510001
+//*         SET INDEX      DMRPRDB1.ABDTINDX NORBDPEND                  04520001
+//*         SET INDEX      DMRPRDB1.ABSMINDX NORBDPEND                  04530001
+//*         SET INDEX      DMRPRDB1.ABS2INDX NORBDPEND                  04540001
+//*         SET INDEX      DMRPRDB1.AUCHINDX NORBDPEND                  04550001
+//*         SET INDEX      DMRPRDB1.AUDBINDX NORBDPEND                  04560001
+//*         SET INDEX      DMRPRDB1.AUDLINDX NORBDPEND                  04570001
+//*         SET INDEX      DMRPRDB1.AUDMINDX NORBDPEND                  04580001
+//*         SET INDEX      DMRPRDB1.AUFLINDX NORBDPEND                  04590001
+//*         SET INDEX      DMRPRDB1.AUGRINDX NORBDPEND                  04600001
+//*         SET INDEX      DMRPRDB1.AUSMINDX NORBDPEND                  04610001
+//*         SET INDEX      DMRPRDB1.AUUTINDX NORBDPEND                  04620001
+//*         SET INDEX      DMRPRDB1.BFDTINDX NORBDPEND                  04630001
+//*         SET INDEX      DMRPRDB1.SBSMINDX NORBDPEND                  04640001
+//*         SET INDEX      DMRPRDB1.SBS2INDX NORBDPEND                  04650001
+//*         SET INDEX      DMRPRDB1.STATINDX NORBDPEND                  04660001
+//*         SET INDEX      DMRPRDB1.STSMINDX NORBDPEND                  04670001
+//*         SET INDEX      DMRPRDB1.STS2INDX NORBDPEND                  04680001
+//*         SET INDEX      DMRPRDB1.STDFINDX NORBDPEND                  04690001
+//*         SET INDEX      DMRPRDB1.SDSMINDX NORBDPEND                  04700001
+//*         SET INDEX      DMRPRDB1.SDS2INDX NORBDPEND                  04710001
+//*         SET INDEX      DMRPRDB1.ACDTRIDX NORCVRPEND                 04720001
+//*         SET INDEX      DMRPRDB1.ACSMRIDX NORCVRPEND                 04730001
+//*         SET INDEX      DMRPRDB1.ACS2RIDX NORCVRPEND                 04740001
+//*         SET INDEX      DMRPRDB1.ADDTRIDX NORCVRPEND                 04750001
+//*         SET INDEX      DMRPRDB1.ADSMRIDX NORCVRPEND                 04760001
+//*         SET INDEX      DMRPRDB1.ADS2RIDX NORCVRPEND                 04770001
+//*         SET INDEX      DMRPRDB1.APDTRIDX NORCVRPEND                 04780001
+//*         SET INDEX      DMRPRDB1.APSMRIDX NORCVRPEND                 04790001
+//*         SET INDEX      DMRPRDB1.APS2RIDX NORCVRPEND                 04800001
+//*         SET INDEX      DMRPRDB1.ABDTRIDX NORCVRPEND                 04810001
+//*         SET INDEX      DMRPRDB1.ABSMRIDX NORCVRPEND                 04820001
+//*         SET INDEX      DMRPRDB1.ABS2RIDX NORCVRPEND                 04830001
+//*         SET INDEX      DMRPRDB1.AUCHRIDX NORCVRPEND                 04840001
+//*         SET INDEX      DMRPRDB1.AUDBRIDX NORCVRPEND                 04850001
+//*         SET INDEX      DMRPRDB1.AUDLRIDX NORCVRPEND                 04860001
+//*         SET INDEX      DMRPRDB1.AUDMRIDX NORCVRPEND                 04870001
+//*         SET INDEX      DMRPRDB1.AUFLRIDX NORCVRPEND                 04880001
+//*         SET INDEX      DMRPRDB1.AUGRRIDX NORCVRPEND                 04890001
+//*         SET INDEX      DMRPRDB1.AUSMRIDX NORCVRPEND                 04900001
+//*         SET INDEX      DMRPRDB1.AUUTRIDX NORCVRPEND                 04910001
+//*         SET INDEX      DMRPRDB1.STATRIDX NORCVRPEND                 04920001
+//*         SET INDEX      DMRPRDB1.STSMRIDX NORCVRPEND                 04930001
+//*         SET INDEX      DMRPRDB1.STS2RIDX NORCVRPEND                 04940001
+//*         SET INDEX      DMRPRDB1.STDFRIDX NORCVRPEND                 04950001
+//*         SET INDEX      DMRPRDB1.SDSMRIDX NORCVRPEND                 04960001
+//*         SET INDEX      DMRPRDB1.SDS2RIDX NORCVRPEND                 04970001
+//*         SET INDEX      DMRPRDB1.BFDTRIDX NORCVRPEND                 04980001
+//*         SET INDEX      DMRPRDB1.SBSMRIDX NORCVRPEND                 04990001
+//*         SET INDEX      DMRPRDB1.SBS2RIDX NORCVRPEND                 05000001
+//*         SET INDEX      DMRPRDB1.ACDTRIDX NORBDPEND                  05010001
+//*         SET INDEX      DMRPRDB1.ACSMRIDX NORBDPEND                  05020001
+//*         SET INDEX      DMRPRDB1.ACS2RIDX NORBDPEND                  05030001
+//*         SET INDEX      DMRPRDB1.ADDTRIDX NORBDPEND                  05040001
+//*         SET INDEX      DMRPRDB1.ADSMRIDX NORBDPEND                  05050001
+//*         SET INDEX      DMRPRDB1.ADS2RIDX NORBDPEND                  05060001
+//*         SET INDEX      DMRPRDB1.APDTRIDX NORBDPEND                  05070001
+//*         SET INDEX      DMRPRDB1.APSMRIDX NORBDPEND                  05080001
+//*         SET INDEX      DMRPRDB1.APS2RIDX NORBDPEND                  05090001
+//*         SET INDEX      DMRPRDB1.ABDTRIDX NORBDPEND                  05100001
+//*         SET INDEX      DMRPRDB1.ABSMRIDX NORBDPEND                  05110001
+//*         SET INDEX      DMRPRDB1.ABS2RIDX NORBDPEND                  05120001
+//*         SET INDEX      DMRPRDB1.AUCHRIDX NORBDPEND                  05130001
+//*         SET INDEX      DMRPRDB1.AUDBRIDX NORBDPEND                  05140001
+//*         SET INDEX      DMRPRDB1.AUDLRIDX NORBDPEND                  05150001
+//*         SET INDEX      DMRPRDB1.AUDMRIDX NORBDPEND                  05160001
+//*         SET INDEX      DMRPRDB1.AUFLRIDX NORBDPEND                  05170001
+//*         SET INDEX      DMRPRDB1.AUGRRIDX NORBDPEND                  05180001
+//*         SET INDEX      DMRPRDB1.AUSMRIDX NORBDPEND                  05190001
+//*         SET INDEX      DMRPRDB1.AUUTRIDX NORBDPEND                  05200001
+//*         SET INDEX      DMRPRDB1.BFDTRIDX NORBDPEND                  05210001
+//*         SET INDEX      DMRPRDB1.SBSMRIDX NORBDPEND                  05220001
+//*         SET INDEX      DMRPRDB1.SBS2RIDX NORBDPEND                  05230001
+//*         SET INDEX      DMRPRDB1.STATRIDX NORBDPEND                  05240001
+//*         SET INDEX      DMRPRDB1.SADTRIDX NORBDPEND                  05250001
+//*         SET INDEX      DMRPRDB1.SSDTRIDX NORBDPEND                  05260001
+//*         SET INDEX      DMRPRDB1.SADTINDX NORBDPEND                  05270001
+//*         SET INDEX      DMRPRDB1.SSDTINDX NORBDPEND                  05280001
+//*         SET INDEX      DMRPRDB1.STSMRIDX NORBDPEND                  05290001
+//*         SET INDEX      DMRPRDB1.STS2RIDX NORBDPEND                  05300001
+//*         SET INDEX      DMRPRDB1.STDFRIDX NORBDPEND                  05310001
+//*         SET INDEX      DMRPRDB1.SDSMRIDX NORBDPEND                  05320001
+//*         SET INDEX      DMRPRDB1.SDS2RIDX NORBDPEND                  05330001
+//*                                                                     05340001
+//STEP3.DPSYSIN DD *                                                    05350001
+   GLOBAL LOG=NO,SSID=DSNB,INVFIELD=IGNORE,PLAN=DPSUMLD  <-- UPDATE     05360001
+   LOAD   TYPE=STAT,TABLE=DMRPR.DMRSTAT,FROMDD=STATDD                   05370001
+   LOAD   TYPE=DDFSTAT,TABLE=DMRPR.DMRSTDF,FROMDD=STATDD                05380001
+   LOAD   TYPE=BUFSTAT,TABLE=DMRPR.DMRSBFDT,FROMDD=STATDD               05390001
+   PURGE  TYPE=STAT,TABLE=DMRPR.DMRSTAT,RETPD=10D                       05400001
+   PURGE  TYPE=DDFSTAT,TABLE=DMRPR.DMRSTDF,RETPD=10D                    05410001
+   PURGE  TYPE=BUFSTAT,TABLE=DMRPR.DMRSBFDT,RETPD=10D                   05420001
+*-------------------------------------------------------------------*   05430001
+*                                                                       05440001
+*         --- LOAD SUMMARY STATISTICS TABLE (60-MINUTE INTERVAL) ---    05450001
+*         --- PURGE DATA THAT IS OLDER THAN 10 DAYS ---                 05460001
+*                                                                       05470001
+   SUMMARIZE TYPE=SUMSTAT,FROMDD=STATDD,                                05480001
+       TABLE=DMRPR.DMRSTSUM,                                            05490001
+       TODD=SUMMSTAT,                                                   05500001
+       SUMMSTART=*_1,                                                   05510001
+       SUMMEND=*,                                                       05520001
+       SUMMINT=60M,                                                     05530001
+       SUMMKEY=(SUBSYSTEM,SYSTEMID,LOCATION)                            05540001
+*                                                                       05550001
+   LOAD   TYPE=SUMSTAT,TABLE=DMRPR.DMRSTSUM,FROMDD=SUMMSTAT             05560001
+   PURGE  TYPE=SUMSTAT,TABLE=DMRPR.DMRSTSUM,RETPD=10D                   05570001
+*                                                                       05580001
+*         --- LOAD SUMMARY DDF STATISTICS TABLE (60-MINUTE INTERVAL)-   05590001
+*         --- PURGE DATA THAT IS OLDER THAN 10 DAYS ---                 05600001
+*                                                                       05610001
+   SUMMARIZE TYPE=SUMDDFSTAT,FROMDD=STATDD,                             05620001
+       TABLE=DMRPR.DMRSDSUM,                                            05630001
+       SUMMSTART=*_1,                                                   05640001
+       SUMMEND=*,                                                       05650001
+       SUMMINT=60M,                                                     05660001
+       TODD=DDFSSTAT,                                                   05670001
+       SUMMKEY=(SUBSYSTEM,SYSTEMID,LOCATION,DDFLOCATION)                05680001
+*                                                                       05690001
+   LOAD   TYPE=SUMDDFSTAT,TABLE=DMRPR.DMRSDSUM,FROMDD=DDFSSTAT          05700001
+   PURGE  TYPE=SUMDDFSTAT,TABLE=DMRPR.DMRSDSUM,RETPD=10D                05710001
+*                                                                       05720001
+*         --- LOAD SUMMARY BUF STATISTICS TABLE (60-MINUTE INTERVAL)-   05730001
+*         --- PURGE DATA THAT IS OLDER THAN 10 DAYS ---                 05740001
+*                                                                       05750001
+   SUMMARIZE TYPE=SUMBUFSTAT,FROMDD=STATDD,                             05760001
+       TABLE=DMRPR.DMRSBSUM,                                            05770001
+       SUMMSTART=*_1,                                                   05780001
+       SUMMEND=*,                                                       05790001
+       SUMMINT=60M,                                                     05800001
+       TODD=BUFSSTAT,                                                   05810001
+       SUMMKEY=(SUBSYSTEM,SYSTEMID,LOCATION,BPNAME)                     05820001
+*                                                                       05830001
+   LOAD   TYPE=SUMBUFSTAT,TABLE=DMRPR.DMRSBSUM,FROMDD=BUFSSTAT          05840001
+   PURGE  TYPE=SUMBUFSTAT,TABLE=DMRPR.DMRSBSUM,RETPD=10D                05850001
+*-------------------------------------------------------------------*   05860001
+*             THE FOLLOWING STATEMENTS ARE COMMENTED TO AVOID       *   05870001
+*             THE OVERHEAD OF LOADING THE DETAIL ACCOUNTING TABLES. *   05880001
+*             REMOVE THE COMMENTS IF THE DETAIL ACCOUNTING TABLES   *   05890001
+*             ARE DESIRED.                                          *   05900001
+*  LOAD   TYPE=ACCT,TABLE=DMRPR.DMRACDTL,FROMDD=ACCTDD              *   05910001
+*  LOAD   TYPE=DDFACCT,TABLE=DMRPR.DMRADDTL,FROMDD=ACDDFDD          *   05920001
+*  LOAD   TYPE=PKGACCT,TABLE=DMRPR.DMRAPDTL,FROMDD=ACPKGDD          *   05930001
+*  LOAD   TYPE=BUFACCT,TABLE=DMRPR.DMRABDTL,FROMDD=ACBUFDD          *   05940001
+*  PURGE  TYPE=ACCT,TABLE=DMRPR.DMRACDTL,RETPD=10D                  *   05950001
+*  PURGE  TYPE=DDFACCT,TABLE=DMRPR.DMRADDTL,RETPD=10D               *   05960001
+*  PURGE  TYPE=PKGACCT,TABLE=DMRPR.DMRAPDTL,RETPD=10D               *   05970001
+*  PURGE  TYPE=BUFACCT,TABLE=DMRPR.DMRABDTL,RETPD=10D               *   05980001
+*-------------------------------------------------------------------*   05990001
+*                                                                       06000001
+*         --- LOAD SUMMARY ACCOUNTING TABLE (30-MINUTE INTERVAL) ---    06010001
+*         --- PURGE DATA THAT IS OLDER THAN 10 DAYS ---                 06020001
+*                                                                       06030001
+   SUMMARIZE TYPE=SUMACCT,FROMDD=ACCTDD,                                06040001
+       TABLE=DMRPR.DMRACSUM,                                            06050001
+       TODD=SUMMACCT,                                                   06060001
+       SUMMSTART=*_1,                                                   06070001
+       SUMMEND=*,                                                       06080001
+       SUMMINT=30M,                                                     06090001
+       SUMMKEY=(LOCATION,SUBSYSTEM,PLANNAME,AUTHID)                     06100001
+*-------------------------------------------------------------------*   06110001
+*      OTHER POSSIBLE SUMMARY KEY VALUES ARE CONNECTION, CORRID     *   06120001
+*      ORIGPRIMID, LUWIDNID.                                        *   06130001
+*-------------------------------------------------------------------*   06140001
+   LOAD   TYPE=SUMACCT,TABLE=DMRPR.DMRACSUM,FROMDD=SUMMACCT             06150001
+   PURGE  TYPE=SUMACCT,TABLE=DMRPR.DMRACSUM,RETPD=10D                   06160001
+*                                                                       06170001
+*         --- LOAD SUMMARY DDF ACCOUNTING TABLE (30-MINUTE INTERVAL)-   06180001
+*         --- PURGE DATA THAT IS OLDER THAN 10 DAYS ---                 06190001
+*                                                                       06200001
+   SUMMARIZE TYPE=SUMDDFACCT,FROMDD=ACDDFDD,                            06210001
+       TABLE=DMRPR.DMRADSUM,                                            06220001
+       SUMMSTART=*_1,                                                   06230001
+       SUMMEND=*,                                                       06240001
+       SUMMINT=30M,                                                     06250001
+       TODD=DDFSACCT,                                                   06260001
+       SUMMKEY=(LOCATION,SUBSYSTEM,PLANNAME,AUTHID,DDFLOCATION)         06270001
+*-------------------------------------------------------------------*   06280001
+*      OTHER POSSIBLE SUMMARY KEY VALUES ARE CONNECTION, CORRID     *   06290001
+*      ORIGPRIMID, LUWIDNID.                                        *   06300001
+*-------------------------------------------------------------------*   06310001
+   LOAD   TYPE=SUMDDFACCT,TABLE=DMRPR.DMRADSUM,FROMDD=DDFSACCT          06320001
+   PURGE  TYPE=SUMDDFACCT,TABLE=DMRPR.DMRADSUM,RETPD=10D                06330001
+*                                                                       06340001
+*         --- LOAD SUMMARY PKG ACCOUNTING TABLE (30-MINUTE INTERVAL)-   06350001
+*         --- PURGE DATA THAT IS OLDER THAN 10 DAYS ---                 06360001
+*                                                                       06370001
+   SUMMARIZE TYPE=SUMPKGACCT,FROMDD=ACPKGDD,                            06380001
+       TABLE=DMRPR.DMRAPSUM,                                            06390001
+       SUMMSTART=*_1,                                                   06400001
+       SUMMEND=*,                                                       06410001
+       SUMMINT=30M,                                                     06420001
+       TODD=PKGSACCT,                                                   06430001
+       SUMMKEY=(LOCATION,SUBSYSTEM,PLANNAME,AUTHID,PROGRAMNAME)         06440001
+*-------------------------------------------------------------------*   06450001
+*      OTHER POSSIBLE SUMMARY KEY VALUES ARE CONNECTION, CORRID     *   06460001
+*      ORIGPRIMID, COLLECTIONID.                                    *   06470001
+*-------------------------------------------------------------------*   06480001
+   LOAD   TYPE=SUMPKGACCT,TABLE=DMRPR.DMRAPSUM,FROMDD=PKGSACCT          06490001
+   PURGE  TYPE=SUMPKGACCT,TABLE=DMRPR.DMRAPSUM,RETPD=10D                06500001
+*                                                                       06510001
+*         --- LOAD SUMMARY BUF ACCOUNTING TABLE (30-MINUTE INTERVAL)-   06520001
+*         --- PURGE DATA THAT IS OLDER THAN 10 DAYS ---                 06530001
+*                                                                       06540001
+   SUMMARIZE TYPE=SUMBUFACCT,FROMDD=ACBUFDD,                            06550001
+       TABLE=DMRPR.DMRABSUM,                                            06560001
+       SUMMSTART=*_1,                                                   06570001
+       SUMMEND=*,                                                       06580001
+       SUMMINT=30M,                                                     06590001
+       TODD=BUFSACCT,                                                   06600001
+       SUMMKEY=(LOCATION,SUBSYSTEM,PLANNAME,AUTHID,BPNAME)              06610001
+*-------------------------------------------------------------------*   06620001
+*      OTHER POSSIBLE SUMMARY KEY VALUES ARE CONNECTION, CORRID     *   06630001
+*      ORIGPRIMID                                                   *   06640001
+*-------------------------------------------------------------------*   06650001
+   LOAD   TYPE=SUMBUFACCT,TABLE=DMRPR.DMRABSUM,FROMDD=BUFSACCT          06660001
+   PURGE  TYPE=SUMBUFACCT,TABLE=DMRPR.DMRABSUM,RETPD=10D                06670001
+*-------------------------------------------------------------------*   06680001
+*             THE FOLLOWING STATEMENTS WILL LOAD AUDIT TABLES.      *   06690001
+*-------------------------------------------------------------------*   06700001
+   LOAD TYPE2=AUDSUM,TABLE=DMRPR.DMRAUSUM,FROMDD=AUDITDD                06710001
+   LOAD TYPE2=AUDFAIL,TABLE=DMRPR.DMRAUFAL,FROMDD=AUDITDD               06720001
+   LOAD TYPE2=AUDGRV,TABLE=DMRPR.DMRAUGRV,FROMDD=AUDITDD                06730001
+   LOAD TYPE2=AUDDDL,TABLE=DMRPR.DMRAUDDL,FROMDD=AUDITDD                06740001
+   LOAD TYPE2=AUDDML,TABLE=DMRPR.DMRAUDML,FROMDD=AUDITDD                06750001
+   LOAD TYPE2=AUDDMB,TABLE=DMRPR.DMRAUDMB,FROMDD=AUDITDD                06760001
+   LOAD TYPE2=AUDCHG,TABLE=DMRPR.DMRAUCHG,FROMDD=AUDITDD                06770001
+   LOAD TYPE2=AUDUTL,TABLE=DMRPR.DMRAUUTL,FROMDD=AUDITDD                06780001
+   PURGE  TYPE2=AUDSUM,TABLE=DMRPR.DMRAUSUM,RETPD=10D                   06790001
+   PURGE  TYPE2=AUDFAIL,TABLE=DMRPR.DMRAUFAL,RETPD=10D                  06800001
+   PURGE  TYPE2=AUDGRV,TABLE=DMRPR.DMRAUGRV,RETPD=10D                   06810001
+   PURGE  TYPE2=AUDDDL,TABLE=DMRPR.DMRAUDDL,RETPD=10D                   06820001
+   PURGE  TYPE2=AUDDML,TABLE=DMRPR.DMRAUDML,RETPD=10D                   06830001
+   PURGE  TYPE2=AUDDMB,TABLE=DMRPR.DMRAUDMB,RETPD=10D                   06840001
+   PURGE  TYPE2=AUDCHG,TABLE=DMRPR.DMRAUCHG,RETPD=10D                   06850001
+   PURGE  TYPE2=AUDUTL,TABLE=DMRPR.DMRAUUTL,RETPD=10D                   06860001
+*-------------------------------------------------------------------*   06870001
+*             THE FOLLOWING STATEMENTS WILL LOAD STORAGE TABLES.    *   06880001
+*-------------------------------------------------------------------*   06890001
+   LOAD TYPE3=ASPCSTOR,TABLE=DMRPR.DMRSTADT,FROMDD=STORDD               06900001
+   LOAD TYPE3=SYSTSTOR,TABLE=DMRPR.DMRSTSDT,FROMDD=STORDD               06910001
+   PURGE  TYPE3=ASPCSTOR,TABLE=DMRPR.DMRSTADT,RETPD=10D                 06920001
+   PURGE  TYPE3=SYSTSTOR,TABLE=DMRPR.DMRSTSDT,RETPD=10D                 06930001
+/*                                                                      06940001
+//STEP4.COPYTBLS  DD *                                                  06950001
+LISTDEF LDEFTS                                                          06960001
+        INCLUDE TABLESPACE BMCPRDB1.*                                   06970001
+                                                                        06980001
+COPY     LIST      LDEFTS                                               06990001
+         FULL      YES                                                  07000001
+         SHRLEVEL  CHANGE                                               07010001
+         COPYDDN  (LPCOPY)                                              07020001
+/*                                                                      07030001
+//*                                                                     07040001

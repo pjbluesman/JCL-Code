@@ -1,0 +1,38 @@
+
+-- DB2FFI.IBICL02 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+.AUTH  JXS0036
+
+
+    SET CURRENT SQLID = '@DBATCC';
+
+CREATE  INDEX DB2FFI.IBICL02 ON DB2FFI.BILLTRUST_CNTRL
+        ( FTP_FILE_NM ASC
+          )
+        USING STOGROUP DB2VI
+                                    ERASE NO
+           FREEPAGE 0
+           PCTFREE 10
+           BUFFERPOOL BP10
+           CLOSE YES
+    ;
+
+    SET CURRENT SQLID = USER;
+
+    SET CURRENT SQLID = '@DBATCC';
+
+CREATE  INDEX DB2FFU.IBICL02 ON DB2FFU.BILLTRUST_CNTRL
+        ( FTP_FILE_NM ASC
+          )
+        USING STOGROUP DB2VU
+                                    ERASE NO
+           FREEPAGE 0
+           PCTFREE 10
+           BUFFERPOOL BP6
+           CLOSE YES
+    ;
+
+
+    SET CURRENT SQLID = USER;
+

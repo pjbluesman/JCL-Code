@@ -1,0 +1,26 @@
+//SMTSMFX  JOB (X),'SMIKE',NOTIFY=&SYSUID.,                             00010000
+//             CLASS=2,                                                 00020000
+//             REGION=0M,                                               00030000
+//             TIME=1440,                                               00040000
+//             MSGLEVEL=(1,1),                                          00050000
+//             MSGCLASS=X                                               00060000
+//*                                                                     00070000
+/*JOBPARM  LINES=9999                                                   00080000
+//*                                                                     00090000
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00100000
+//*                                                                     00110000
+//SMF      EXEC PGM=IFASMFDP                                            00120000
+//SYSPRINT DD  SYSOUT=*                                                 00130000
+//SMFIN    DD  DISP=SHR,DSN=SYSZ.SMF.SHRD.BACK.DB2.DAILY.G0180V00       00140000
+//SMFOUT   DD  DSN=SMT9831.PM87394.SMF.TYPE100.D12241.RECORDS,          00150000
+//             DISP=(,CATLG,DELETE),VOL=(,,,15),                        00160001
+//             UNIT=SYSDA,SPACE=(CYL,(1000,500),RLSE),                  00170000
+//             BLKSIZE=27998,LRECL=27994,RECFM=VBS,DSORG=PS             00180001
+//SYSIN    DD  *                                                        00190000
+INDD(SMFIN,OPTIONS(DUMP))                                               00200000
+OUTDD(SMFOUT,TYPE(100,101,102))                                         00210000
+DATE(2012241,2012241)                                                   00220000
+START(0000)                                                             00230000
+END(2400)                                                               00240000
+/*                                                                      00250000
+//*                                                                     00260000

@@ -1,0 +1,75 @@
+//DBA@T1C1 JOB (X),'DBAGENER.B00C001',
+//             CLASS=3,REGION=0M,TIME=1440,
+//             MSGLEVEL=(1,1),MSGCLASS=X,NOTIFY=&SYSUID.
+//*
+/*JOBPARM  ROOM=70
+/*ROUTE    XEQ AFWNOD3
+/*JOBPARM  ROOM=70,LINES=9999,SYSAFF=AFW3
+//*
+//JCLLIB   JCLLIB ORDER=(AFDB.TEST.PROCLIB,AFDB.PROD.PROCLIB)
+//*
+//JOBLIB   DD  DISP=SHR,DSN=SYSD.DB2.V11.B00.SDSNEXIT
+//         DD  DISP=SHR,DSN=SYSD.DB2.V11.B00.SDSNLOAD
+//         DD  DISP=SHR,DSN=CEE.SCEERUN
+//*
+//         INCLUDE MEMBER=SETSYMBS
+//*
+//* JES NODE   = AFWNOD3
+//* LPAR       = AFW3
+//* DB2 SYSTEM = DBT1
+//* DS GROUP   = DSNB
+//*
+//*  FTINCL FOR SKELETON DSN: SYSD.IBM.DB2.V10.FXFINST
+//*                   MEMBER: B00C001
+//*
+//* MAINTENANCE CHECK JOB
+//*
+//* UI11759
+//*
+//* JOB INSTRUCTIONS:
+//*  1. EXPAND THE SKELETON; IT SHOULD RUN AGAINST EACH DB2
+//*     CATALOG THAT WILL BE AFFECTED BY THE MAINTENANCE.
+//*  2. REVIEW THE SPECIFIC PTF INSTRUCTIONS BELOW.
+//*  3. SUBMIT THE JOB.
+//*  4. REVIEW THE OUTUT. FOLLOW ANY INSTRUCTIONS FOR THE PTF.
+//*
+//* PTF INSTRUCTIONS:
+//*
+//*  (This apar corrects a problem where duplicate rows could have
+//*   been put in the catalog table SYSFOREIGNKEYS. To verify
+//*   if the catalog needs to be updated run the query:
+//*
+//*   SELECT *  FROM SYSIBM.SYSFOREIGNKEYS WHERE RELNAME='DSN1T@1T';
+//*
+//*   The query will return more then one row if it needs to be
+//*   updated. If the query returns more than one row update the
+//*   catalog by running the utility job
+//*
+//*   CATMAINT UPDATE UNLDDN PM96763
+//*
+//*   The job will replace any existing catalog rows for directory
+//*   objects that existed before the job is run.  This will
+//*   invalidate packages that are dependent on the directory tables.
+//*
+//*   The job is very quick and can be run at any time after applying
+//*   the apar when the system is in NFM.  Running the job multiple
+//*   times will not cause any problems.).
+//*
+//CLEANUP  EXEC IEFBR14,DSN=SYSD.DB2.V10.DSNB.SB00C001.D&YYMMDD.
+//*
+//UI11759  EXEC DSNTIAUL,ENV=TEST,SSID=DSNB
+//SYSIN    DD  *
+SELECT CASE WHEN COUNT(*) > 1
+                 THEN CHAR('CATMAINT UPDATE UNLDDN PM96763',80)
+                 ELSE CHAR(' ',80)
+       END
+   FROM SYSIBM.SYSFOREIGNKEYS
+  WHERE RELNAME = 'DSN1T@1T'
+WITH UR;
+/*
+//SYSPUNCH DD  SYSOUT=*
+//SYSREC00 DD  DSN=SYSD.DB2.V10.DSNB.SB00C001.D&YYMMDD.,
+//             DISP=(NEW,CATLG,CATLG),
+//             UNIT=SYSALLDA,SPACE=(TRK,(1,1)),
+//             LRECL=80,RECFM=FB,BLKSIZE=3120,DSORG=PS
+//*

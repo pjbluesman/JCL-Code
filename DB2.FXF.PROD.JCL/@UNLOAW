@@ -1,0 +1,62 @@
+//DBAUNLOD JOB (X),'DB2 OLR',NOTIFY=&SYSUID.,                           00010000
+//             CLASS=2,                                                 00020000
+//             REGION=0M,                                               00030000
+//             MSGLEVEL=(1,1),                                          00040000
+//             MSGCLASS=X                                               00050000
+//*                                                                     00060000
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00070000
+//*                                                                     00080000
+// INCLUDE MEMBER=SETSYMBS                                              00090000
+//*                                                                     00100000
+//JS1      EXEC DSNUPROC,SYSTEM=DSN,UID=DBAUNLOAD                       00110000
+//SREC     DD  SYSOUT=*                                                 00120000
+//SPUNCH   DD  SYSOUT=*                                                 00130000
+//SYSIN    DD  DISP=SHR,DSN=AFDB.PROD.PARMLIB(OPTNSKIP)                 00140000
+//         DD  DISP=SHR,DSN=AFDB.PROD.TEMPLATE(LPICVTS)                 00150000
+//         DD  DISP=SHR,DSN=AFDB.PROD.TEMPLATE(RPICTAPE)                00160000
+//         DD  *                                                        00170000
+TEMPLATE PUNCHDSN                                                       00171000
+         DSN      (AFDB.&DB..&SN..D&DT..T&TI..PUN)                      00172000
+         DISP     (NEW,CATLG,CATLG)                                     00173000
+         UNIT      SYSDA                                                00174000
+         VOLCNT    15                                                   00175000
+         SPACE    (1,1) CYL                                             00176000
+TEMPLATE UNLOADSN                                                       00177000
+         DSN      (AFDB.&DB..&SN..D&DT..T&TI..DAT)                      00178000
+         DISP     (NEW,CATLG,CATLG)                                     00179000
+         UNIT      SYSDA                                                00179100
+         VOLCNT    15                                                   00179200
+         SPACE    (10,10) CYL                                           00179300
+                                                                        00179600
+UNLOAD TABLESPACE ITPAPLAN.TPL00                                        00310002
+       UNLDDN UNLOADSN                                                  00320002
+       PUNCHDDN PUNCHDSN                                                00330002
+       SHRLEVEL REFERENCE                                               00340002
+   FROM TABLE PRODAPP.PLAN_TABLE                                        00350002
+       WHEN (PROGNAME = 'CBRHDBS'                                       00360002
+            AND COLLID = 'GROUP03'                                      00361002
+            )                                                           00370002
+UNLOAD TABLESPACE ITPAPLAN.TPL03                                        00371002
+       UNLDDN UNLOADSN                                                  00372002
+       PUNCHDDN PUNCHDSN                                                00373002
+       SHRLEVEL REFERENCE                                               00374002
+   FROM TABLE PRODCHG.PLAN_TABLE                                        00375002
+       WHEN (PROGNAME = 'CBRHDBS'                                       00376002
+            AND COLLID = 'GROUP03'                                      00376102
+            )                                                           00377002
+UNLOAD TABLESPACE ITPAPLAN.TST00                                        00380002
+       UNLDDN UNLOADSN                                                  00390002
+       PUNCHDDN PUNCHDSN                                                00400002
+       SHRLEVEL REFERENCE                                               00410002
+   FROM TABLE PRODAPP.DSN_STATEMNT_TABLE                                00420002
+       WHEN (PROGNAME = 'CBRHDBS'                                       00430002
+            AND COLLID = 'GROUP03'                                      00431002
+            )                                                           00440002
+UNLOAD TABLESPACE ITPAPLAN.TST04                                        00450002
+       UNLDDN UNLOADSN                                                  00460002
+       PUNCHDDN PUNCHDSN                                                00470002
+       SHRLEVEL REFERENCE                                               00480002
+   FROM TABLE PRODCHG.DSN_STATEMNT_TABLE                                00490002
+       WHEN (PROGNAME = 'CBRHDBS'                                       00500002
+            AND COLLID = 'GROUP03'                                      00501002
+            )                                                           00510002

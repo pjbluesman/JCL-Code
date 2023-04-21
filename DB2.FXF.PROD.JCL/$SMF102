@@ -1,0 +1,58 @@
+//SWA4831J JOB X,'DB2 SUPPORT',NOTIFY=&SYSUID,                          00010001
+//      CLASS=1,MSGLEVEL=(1,1),MSGCLASS=X,REGION=0M                     00020001
+//*ROUTE XEQ   AFWNOD1                                                  00030001
+/*JOBPARM LINES=99999,S=AFW1                                            00040001
+//********************************************************************* 00050001
+//* EXTRACT SMF RECORDS FROM THE CURRENTLY ACTIVE SMF LOG.              00060001
+//* THIS ALLOWS REPORTING ON CURRENT DATA PRIOR TO ARCHIVAL.            00070001
+//*                                                                     00080001
+//* INSTRUCTIONS:                                                       00090001
+//*  1. EDIT THE OUTDD1 DATASET NAME. THIS FILE SHOULD NORMALLY         00100001
+//*     GO TO TAPE BECAUSE OF SIZE.                                     00110001
+//*  2. SPECIFY THE TARGET LOG STREAM IN THE LSNAME PARM                00120001
+//*  3. SPECIFY ADDITIONAL LIMITER PARMS AS NEEDED. START AND END       00130001
+//*     TIME ARE HIGHLY RECOMMENDED TO REDUCE PROCESSING.               00140001
+//*  4. SUBMIT THE JOB ON THE TARGET SYSPLEX.                           00150001
+//*                                                                     00160001
+//* EXPRESS NOTES:                                                      00170001
+//*  - THE LOG STREAM IS FOR ONE DAY. DATE RANGE IS OPTIONAL.           00180001
+//*  - THE LOG STREAM IS ISOLATED BY LPAR. SID PARM IS OPTIONAL.        00190001
+//*  - ALL DB2 SUBSYSTEMS RUNNING ON THE LPAR WILL BE INCLUDED.         00200001
+//*  - AVAILABLE EXPRESS LOG STREAMS CAN BE DISPLAYED USING THE         00210001
+//*    "D SMF" CONSOLE COMMAND.  AT THIS TIME THEY INCLUDE:             00220001
+//*       IFASMF.DFLT.<LPAR-NAME>                                       00230001
+//*       IFASMF.DB2.<LPAR-NAME>                                        00240001
+//*                                                                     00250001
+//* FREIGHT NOTES:                                                      00260001
+//*  - THE LOG STREAM IS FOR TWO DAYS. DATE RANGE IS RECOMMENDED        00270001
+//*    TO REDUCE PROCESSING.                                            00280001
+//*  - THE LOG STREAM IS FOR THE ENTIRE SYSPLEX. THE SID PARM IS        00290001
+//*    RECOMMENDED TO REDUCE PROCESSING.                                00300001
+//*  - ALL DB2 SUBSYSTEMS RUNNING ON THE PLEX/SID WILL BE INCLUDED.     00310001
+//*  - AVAILABLE FREIGHT LOG STREAMS CAN BE DISPLAYED USING THE         00320001
+//*    "D SMF" CONSOLE COMMAND.  AT THIS TIME THEY INCLUDE:             00330001
+//*       IFASMF.SYSPLEX.DFLT                                           00340001
+//*       IFASMF.SYSPLEX.DB2                                            00350001
+//*       IFASMF.SYSPLEX.CICS                                           00360001
+//*       IFASMF.SYSPLEX.SCRT                                           00370001
+//*       IFASMF.SYSPLEX.RACF                                           00380001
+//*       IFASMF.SYSPLEX.RMF                                            00390001
+//*       IFASMF.SYSPLEX.CAT                                            00400001
+//*       IFASMF.SYSPLEX.CAT2                                           00410001
+//*                                                                     00420001
+//********************************************************************* 00430001
+//STEP010  EXEC PGM=IFASMFDL                                            00440001
+//SYSPRINT DD SYSOUT=*                                                  00450001
+//OUTDD1   DD DSN=&SYSUID..SMF.AFW1.D2019353.T130000A,                  00460001
+//            DISP=(,CATLG),                                            00470001
+//            DCB=BUFNO=25,                                             00480001
+//            UNIT=TAPE                                                 00490001
+//*           UNIT=SYSDA,STORCLAS=USER,SPACE=(CYL,(500,200),RLSE)       00500001
+//SYSIN    DD *                                                         00510001
+ LSNAME(IFASMF.SYSPLEX.DB2,OPTIONS(DUMP))   /* ACTIVE SMF LOG STREAM */ 00520001
+ OUTDD(OUTDD1,TYPE(100:102))                /* DB2 SMF RECORD ID'S   */ 00530001
+ SID(AFW1)                                  /* OPTIONAL LPAR         */ 00540001
+ DATE(2019353,2019353)                      /* OPTIONAL DATE RANGE   */ 00550001
+ START(1300)                                /* OPTIONAL START TIME   */ 00560001
+ END(1400)                                  /* OPTIONAL END TIME     */ 00570001
+/*                                                                      00580001

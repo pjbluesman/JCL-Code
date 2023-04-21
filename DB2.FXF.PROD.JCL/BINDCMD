@@ -1,0 +1,32 @@
+.CALL DSN PARM(DSNB)                                                    00010000
+.DATA                                                                   00020000
+   BIND PACKAGE(DSN_DEFAULT_COLLID_CUCP8TO9)                           -00030000
+        OWNER(@BNDPFA)                                                 -00040000
+        QUALIFIER(DB2FFI)                                              -00050000
+        MEMBER(CUCP8TO9)                                               -00060000
+        LIBRARY('ISPWP.FXF.QA.DBRMLIB')                                -00070000
+        CURRENTDATA(NO)                                                -00080000
+        VALIDATE(BIND)                                                 -00090000
+        EXPLAIN(YES)                                                   -00100000
+        ACTION(REPLACE)                                                -00110000
+        SQLERROR(NOPACKAGE)                                            -00120000
+        ISOLATION(UR)                                                  -00130000
+        RELEASE(COMMIT)                                                -00140000
+        DEGREE(1)                                                      -00150000
+        REOPT(NONE)                                                    -00160000
+        KEEPDYNAMIC(YES)                                               -00170000
+        DBPROTOCOL(DRDA)                                               -00180000
+        ENCODING(EBCDIC)                                               -00190000
+        IMMEDWRITE(NO)                                                 -00200000
+        DYNAMICRULES(BIND)                                             -00210000
+        ROUNDING(HALFEVEN)                                             -00220000
+        APREUSE(NO)                                                    -00230000
+        SYSTIMESENSITIVE(NO)                                           -00240000
+        BUSTIMESENSITIVE(NO)                                           -00250000
+        DESCSTAT(YES)                                                  -00260000
+        ARCHIVESENSITIVE(NO)                                           -00270000
+        APCOMPARE(NO)                                                  -00280000
+        APPLCOMPAT(V10R1)                                              -00290000
+        PATH("DB2FFP")                                                 -00300000
+        FLAG(I);                                                        00310000
+.ENDDATA                                                                00320000

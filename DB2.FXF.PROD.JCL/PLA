@@ -1,0 +1,79 @@
+//DBA0036A JOB (X),'CICERO',NOTIFY=&SYSUID.,CLASS=2,REGION=0M,
+//   TIME=1440,MSGLEVEL=(1,1),MSGCLASS=X
+//*****************************************************************//   00010000
+//* MODEL JCL FOR LOG ANALYZER LOG REPORTING                      *//   00020000
+//*****************************************************************//   00030000
+//STEP1    EXEC PGM=PTLDRIVM,REGION=4M,PARM='EP=BPLBCTL,ENV=DSN,'
+//*                                                                     00050000
+//STEPLIB  DD DISP=SHR,DSN=SYSD.CADB2.PROD.CDBALOAD
+//         DD DISP=SHR,DSN=SYSD.DB2.PROD.SDSNEXIT
+//         DD DISP=SHR,DSN=SYSD.DB2.PROD.SDSNLOAD
+//*                                                                     00070000
+//PTILIB   DD DISP=SHR,DSN=SYSD.CADB2.PROD.CDBALOAD
+//         DD DISP=SHR,DSN=SYSD.DB2.PROD.SDSNEXIT
+//         DD DISP=SHR,DSN=SYSD.DB2.PROD.SDSNLOAD
+//*                                                                     00090000
+//PTIPARM  DD DISP=SHR,DSN=SYSD.CADB2.PROD.CDBAPARM
+//*                                                                     00110000
+//SYSOUT   DD   SYSOUT=*                                                00120000
+//UTPRINT  DD   SYSOUT=*                                                00130000
+//ABNLIGNR DD   DUMMY                 SUPPRESS ABENDAID DUMPS           00140000
+//BPIIPT   DD   *                                                       00150000
+.CONTROL +
+ LOGID(DSN)  UNIT(SYSDA)
+.LIST SYSOUT(A)
+.OPTION NOERRORS
+.CONNECT DSN
+
+
+.ALLOC FI(LADXTRCT)                                                    +
+ DATASET('JXS0036.DB2.PLA.SHIP.EXT.D180129')                           +
+ CYL SPACE(200,1000) BLKSIZE(23200) LRECL(23200) RECFM(F,S)            +
+ NEW CATALOG UNIT(SYSDA)
+
+.ALLOC FI(LADXCNTL)                                                    +
+ DATASET('JXS0036.DB2.PLA.SHIP.CTL.D180129')                           +
+ TRACKS SPACE(50,50) BLKSIZE(7400) LRECL(7400) RECFM(F,S)              +
+ NEW CATALOG UNIT(SYSDA)
+
+.ALLOC FI(LADREPT)                                                     +
+ DATASET('JXS0036.DB2.PLA.SHIP.RPT.D180129')                           +
+ CYL SPACE(20,10) BLKSIZE(7448) LRECL(137) RECFM(V,B,A)                +
+ NEW CATALOG UNIT(SYSDA)
+
+.CALL LOG
+.DATA
+ SSID     = (DSN)
+ START    = (DATE(2018-01-29),TIME(00:00:00.000000))
+ END      = (DATE(2018-01-29),TIME(23:59:59.999999))
+ LOGSRC   = (GROUP)
+ OBJSRC   = (CATALOG)
+ COPYSRC  = (CATALOG)
+ DYNSORT  = (DSNUM(2),SPACE(10,10),MAINSIZE(1000),MSG(N))
+ GENUNIT  = (SYSDA)
+ RPTLINES = (60)
+ S99WAIT  = (YES)
+ RESOLVUR = (END)
+ WORKLOAD = (MEDIUM)
+ DMLREPT  = (LEVEL    (SUMMARY)
+            ,ROLLBACK (INCLUDE)
+            ,CATALOG  (EXCLUDE)
+            ,DSNDB01  (EXCLUDE)
+            ,UNDEFTB  (INCLUDE)
+            ,LOBDATA  (EXCLUDE)
+            ,XMLDATA  (EXCLUDE)
+            ,OPTS     (YES)
+            ,ORDERBY  (URID)
+            ,INCLUDE  (AND
+                      ,TABLE (FFPA.SHIPMENT_ITEM_AUD
+                             )
+                      ,STTYPE(INSERTS , DELETES )
+                      )
+            ,DISCARDS (0)
+            )
+ EXTRACT  = (FILTER)
+.ENDDATA
+
+.FREE  FI(LADXTRCT)
+.FREE  FI(LADXCNTL)
+.FREE  FI(LADREPT)

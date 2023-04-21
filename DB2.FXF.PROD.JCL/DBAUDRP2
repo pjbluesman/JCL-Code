@@ -1,0 +1,44 @@
+//DBA0036A JOB 'DB2',CLASS=2,MSGCLASS=X,REGION=8M,NOTIFY=&SYSUID        JOB02968
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//SORT1    EXEC PGM=SORT,COND=(4,LT)
+//SYSOUT   DD SYSOUT=*
+//SORTWK01 DD SPACE=(CYL,(500,100)),UNIT=SYSDA
+//SORTWK02 DD SPACE=(CYL,(500,100)),UNIT=SYSDA
+//SORTIN   DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.SAS.RPT5
+//         DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.SAS.RPT6
+//         DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.SAS.RPT1
+//         DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.SAS.RPT2
+//         DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.SAS.RPT3
+//         DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.SAS.RPT4
+//         DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.SAS.RPT7
+//SORTOUT  DD DSN=&&TEMPB,DISP=(,PASS)
+//*SYSIN    DD DISP=SHR,DSN=AFDB.PSYSIN.CONTROL(AUDITRPT)
+//SYSIN    DD *
+ OPTION COPY                                                            00010000
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//PRINTMSG EXEC PGM=IEBGENER
+//SYSIN DD DUMMY
+//SYSPRINT DD SYSOUT=*
+//SYSUT2 DD SYSOUT=*
+//SYSUT2 DD SYSOUT=*
+//*SYSUT2 DD DSN=JXS0036.DB2.DBAUDRPT.TEST,
+//*         DISP=(NEW,CATLG,DELETE),
+//*         UNIT=SYSDA,
+//*         SPACE=(TRK,(1,1),RLSE)
+//SYSUT1 DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.MAILHDR.CICERO
+//       DD DISP=SHR,DSN=&&TEMPB
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//IEBGENER EXEC PGM=IEBGENER
+//SYSIN DD DUMMY
+//SYSPRINT DD SYSOUT=*
+//SYSUT2 DD SYSOUT=(B,SMTP)
+//*SYSUT2 DD SYSOUT=*
+//SYSUT1 DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.MAILHDR.CICERO
+//       DD DISP=SHR,DSN=&&TEMPB
+//*

@@ -1,0 +1,64 @@
+//DBAREORG JOB (X),'DB2 OLR',NOTIFY=&SYSUID.,                           00010000
+//             CLASS=2,                                                 00020000
+//             REGION=0M,                                               00030000
+//             MSGLEVEL=(1,1),                                          00040000
+//             MSGCLASS=X                                               00050000
+//*                                                                     00060000
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00070000
+//*                                                                     00080000
+// INCLUDE MEMBER=SETSYMBS                                              00090000
+//*                                                                     00100000
+//JS1      EXEC DSNUPROC,SYSTEM=DSN,UID=DBAREORG                        00120000
+//SYSIN    DD  *                                                        00170000
+OPTIONS  EVENT    (ITEMERROR,SKIP)                                      00180001
+TEMPLATE UNLDREC                                                        00190001
+         DSN      'DB2P.&SSID..&JOBNAME..SYSREC'                        00200001
+         DISP     (MOD,DELETE,CATLG)                                    00210001
+         UNIT      SYSDA                                                00220001
+         VOLCNT    15                                                   00230001
+         SPACE    (3000,1000) CYL                                       00240001
+TEMPLATE WORKUT1                                                        00240101
+         DSN      'DB2P.&SSID..&JOBNAME..&LIST..SYSUT1'                 00240201
+         DISP     (MOD,CATLG,CATLG)                                     00240301
+         UNIT      TAPE                                                 00240401
+         DATACLAS  TAPELBI                                              00240501
+         VOLCNT    254                                                  00240601
+         RETPD     15                                                   00240701
+LISTDEF LDEFTS                                                          00247001
+        INCLUDE TABLESPACE RVPA001.*                                    00248001
+        INCLUDE TABLESPACE RVPA002.*                                    00249001
+        INCLUDE TABLESPACE RVPA003.*                                    00249101
+        INCLUDE TABLESPACE RVPA004.*                                    00249201
+        INCLUDE TABLESPACE RVPP002.*                                    00249301
+                                                                        00249401
+LISTDEF LDEFIX                                                          00249501
+        INCLUDE INDEXSPACE RVPA001.I*                                   00249601
+        INCLUDE INDEXSPACE RVPA002.I*                                   00249701
+        INCLUDE INDEXSPACE RVPA003.I*                                   00249801
+        INCLUDE INDEXSPACE RVPA004.I*                                   00249901
+        INCLUDE INDEXSPACE RVPP002.I*                                   00250001
+                                                                        00250101
+LISTDEF LDEFTSIX                                                        00250201
+        INCLUDE LIST LDEFTS                                             00250301
+        INCLUDE LIST LDEFIX                                             00250401
+                                                                        00250501
+REORG INDEX LIST LDEFIX                                                 00250601
+      SHRLEVEL CHANGE                                                   00250701
+      FASTSWITCH YES                                                    00250801
+      FORCE READERS                                                     00250901
+      LEAFDISTLIMIT 200                                                 00251001
+      TIMEOUT TERM                                                      00251101
+      RETRY 25                                                          00251201
+      RETRY_DELAY 3                                                     00251301
+      DRAIN_WAIT 3                                                      00251401
+      DEADLINE NONE                                                     00251501
+      WORKDDN (WORKUT1)                                                 00251601
+      STATISTICS KEYCARD FREQVAL NUMCOLS 1 COUNT 15                     00251701
+                         FREQVAL NUMCOLS 2 COUNT 25                     00251801
+                         FREQVAL NUMCOLS 3 COUNT 35                     00251901
+                         FREQVAL NUMCOLS 4 COUNT 45                     00252001
+                         FREQVAL NUMCOLS 5 COUNT 55                     00252101
+                         FREQVAL NUMCOLS 6 COUNT 65                     00252201
+                 UPDATE(ALL)                                            00252301
+                 HISTORY(ALL)                                           00252401
+//*                                                                     00253000

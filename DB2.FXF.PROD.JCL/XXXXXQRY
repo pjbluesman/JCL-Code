@@ -1,0 +1,147 @@
+--
+-------------------------------------------------------------------
+--  QUERIES HAVE BEEN UPDATED TO REFLECT VALID IN ('Y','A','H')
+--  ALSO ADDED 'ARFW' TO LIST OF CREATORS
+-------------------------------------------------------------------
+--  THE CREATION OF "$XXXXXXX" PLANS ON 6/17/2007 REQUIRES US TO
+--  EXCLUDE THESE PLANS FROM OUR REBINDS QUERY UNTIL FURTHER NOTICE.
+--
+--  BOTH QUERIES HAVE BEEN UPDATED IN THE EVENT WE HAVE "$" PACKAGES
+-------------------------------------------------------------------
+-- AFTER A07 VERSION OF THE DB2 LIBRARIES HAS BEEN MOVED TO PROD
+-- THE VALID IN ('Y','A','N') CAN BE CHANGED BACK TO
+--  VALID IN ('Y','A')  -- FIX PK21362 NEEDS APPLIED
+-------------------------------------------------------------------
+-- 16 JUN 2010 ADDED FFQA AND FFQB TO THE LISTS
+-------------------------------------------------------------------
+-- PLAN QUERY
+-------------------------------------------------------------------
+--  PLAN QUERY COMMENTED OUT AFTER VERSION 10
+-------------------------------------------------------------------
+--SELECT DISTINCT
+--' REBIND PLAN(' ||STRIP(B.NAME)|| ') EXPLAIN(YES) '
+--FROM SYSIBM.SYSPLANDEP A,
+--     SYSIBM.SYSPLAN B
+--WHERE BNAME IN
+--      (
+--       'PS_EMPLOYEES_NS_VW'
+--       )
+--AND BTYPE = 'T'
+----AND BCREATOR IN ('FFQA')
+--AND BCREATOR IN ('FFQA','FFQB')
+----AND BCREATOR IN ('FXQ5','FXQA','****','FXFQSHRD','FXQHRPST',
+----                 'FFQA','FFQB')
+--AND DNAME = NAME
+--AND NAME NOT LIKE '$%'
+--AND VALID IN ('Y','A','H','N')
+--WITH UR;
+-------------------------------------------------------------------
+-- PACKAGE QUERY (MAX PACKAGE FOR A GIVEN COLLECTION)
+-------------------------------------------------------------------
+SELECT
+' REBIND PACKAGE('||STRIP(COLLID)||'.-',
+'1', A.NAME, A.COLLID
+FROM SYSIBM.SYSPACKAGE A
+WHERE TIMESTAMP =
+  (SELECT MAX(TIMESTAMP)
+   FROM SYSIBM.SYSPACKAGE B
+   WHERE A.NAME = B.NAME
+   AND A.COLLID = B.COLLID
+   AND A.LOCATION = B.LOCATION )
+   AND EXISTS  (
+     SELECT DISTINCT DNAME
+     FROM SYSIBM.SYSPACKDEP D,
+          SYSIBM.SYSPACKAGE E
+     WHERE BTYPE IN ('T','V')
+     AND BQUALIFIER IN ('FXFP')
+-- AND BQUALIFIER IN ('FFQA','FFQB')
+--   AND BQUALIFIER IN ('FXQ5','FXQA','****','FXFQSHRD','FXQHRPST',
+--                      'FFQA','FFQB')
+     AND DNAME = NAME
+     AND NAME NOT LIKE '$%'
+     AND DCOLLID = COLLID
+     AND DLOCATION = LOCATION
+     AND DCONTOKEN = CONTOKEN
+     AND VALID IN ('Y','A','H','N')
+     AND DCOLLID = A.COLLID
+     AND DLOCATION = A.LOCATION
+     AND DNAME = A.NAME
+     AND BNAME IN (
+         'FB_CORR_REQ','FB_CORR_REQ_QUEUE'
+                  )
+  )
+
+UNION ALL
+
+SELECT
+' '||
+     CASE WHEN LENGTH(NAME) > 8 THEN '*'
+     ELSE STRIP(NAME) END||'.('||STRIP(VERSION)||')) - ',
+'2', A.NAME, A.COLLID
+FROM SYSIBM.SYSPACKAGE A
+WHERE TIMESTAMP =
+  (SELECT MAX(TIMESTAMP)
+   FROM SYSIBM.SYSPACKAGE B
+   WHERE A.NAME = B.NAME
+   AND A.COLLID = B.COLLID
+   AND A.LOCATION = B.LOCATION )
+   AND EXISTS  (
+     SELECT DISTINCT DNAME
+     FROM SYSIBM.SYSPACKDEP D,
+          SYSIBM.SYSPACKAGE E
+     WHERE BTYPE IN ('T','V')
+     AND BQUALIFIER IN ('FXFP')
+-- AND BQUALIFIER IN ('FFQA','FFQB')
+--   AND BQUALIFIER IN ('FXQ5','FXQA','****','FXFQSHRD','FXQHRPST',
+--                      'FFQA','FFQB')
+     AND DNAME = NAME
+     AND NAME NOT LIKE '$%'
+     AND DCOLLID = COLLID
+     AND DLOCATION = LOCATION
+     AND DCONTOKEN = CONTOKEN
+     AND VALID IN ('Y','A','H','N')
+     AND DCOLLID = A.COLLID
+     AND DLOCATION = A.LOCATION
+     AND DNAME = A.NAME
+     AND BNAME IN (
+         'FB_CORR_REQ','FB_CORR_REQ_QUEUE'
+                  )
+  )
+
+UNION ALL
+
+SELECT
+' EXPLAIN(YES) ',
+'3', A.NAME, A.COLLID
+FROM SYSIBM.SYSPACKAGE A
+WHERE TIMESTAMP =
+  (SELECT MAX(TIMESTAMP)
+   FROM SYSIBM.SYSPACKAGE B
+   WHERE A.NAME = B.NAME
+   AND A.COLLID = B.COLLID
+   AND A.LOCATION = B.LOCATION )
+   AND EXISTS  (
+     SELECT DISTINCT DNAME
+     FROM SYSIBM.SYSPACKDEP D,
+          SYSIBM.SYSPACKAGE E
+     WHERE BTYPE IN ('T','V')
+     AND BQUALIFIER IN ('FXFP')
+--   AND BQUALIFIER IN ('FFQA','FFQB')
+--   AND BQUALIFIER IN ('FXQ5','FXQA','****','FXFQSHRD','FXQHRPST',
+--                      'FFQA','FFQB')
+     AND DNAME = NAME
+     AND DCOLLID = COLLID
+     AND DLOCATION = LOCATION
+     AND DCONTOKEN = CONTOKEN
+     AND VALID IN ('Y','A','H','N')
+     AND DCOLLID = A.COLLID
+     AND DLOCATION = A.LOCATION
+     AND DNAME = A.NAME
+     AND NAME NOT LIKE '$%'
+     AND BNAME IN (
+         'FB_CORR_REQ','FB_CORR_REQ_QUEUE'
+                  )
+  )
+
+ORDER BY 4,3,2
+WITH UR;

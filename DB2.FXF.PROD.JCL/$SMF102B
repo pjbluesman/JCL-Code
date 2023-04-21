@@ -1,0 +1,26 @@
+//JXS0036S JOB (X),'DBA.SMF',NOTIFY=&SYSUID.,                           00010003
+//             CLASS=2,                                                 00020000
+//             REGION=0M,                                               00030000
+//             TIME=1440,                                               00040000
+//             MSGLEVEL=(1,1),                                          00050000
+//             MSGCLASS=X                                               00060000
+//*                                                                     00070000
+/*JOBPARM  LINES=9999                                                   00080000
+//*                                                                     00090000
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00100000
+//*                                                                     00110000
+//SMF      EXEC PGM=IFASMFDP                                            00140001
+//SYSPRINT DD  SYSOUT=*                                                 00150000
+//SMFIN    DD  DISP=SHR,DSN=SYSZ.SMF.SHRD.BACK.DB2.DAILY(0)             00160001
+//SMFOUT   DD  DSN=JXS0036.SMF.OUTPUT,                                  00170003
+//             DISP=(,CATLG,DELETE),                                    00180000
+//             UNIT=SYSDA,SPACE=(CYL,(3000,3000),RLSE),VOL=(,,,10),     00190001
+//             BLKSIZE=27998,LRECL=27994,RECFM=VBS,DSORG=PS             00200000
+//SYSIN    DD  *                                                        00210000
+INDD(SMFIN,OPTIONS(DUMP))                                               00220000
+OUTDD(SMFOUT,TYPE(100,101,102))                                         00230002
+DATE(2019353,2019353)                                                   00240003
+START(1000)                                                             00250003
+END(1100)                                                               00260003
+/*                                                                      00270000
+//*                                                                     00280000

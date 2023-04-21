@@ -1,0 +1,118 @@
+//JXS0036G JOB X,CLASS=2,MSGCLASS=X,REGION=0M,NOTIFY=&SYSUID            JOB15002
+//*---------------------------------------------------------------------
+//JCLLIB JCLLIB ORDER=(AFDB.PROD.PROCLIB)
+//         INCLUDE MEMBER=SETSYMBS
+//         SET SSID=DSNB,ENV=TEST                   ** CHANGE HERE
+//         SET DBA=@DBAPCD                          ** CHANGE HERE
+//         SET USERID=@ABITARB                      ** CHANGE HERE
+//*---------------------------------------------------------------------
+//* STEP     ACTION
+//* CMDSQL   CHANGE CREATOR, TABLE NAME AND WHO IS RECEIVING THE GRANT
+//* GRANT    CHANGE SQLID
+//*---------------------------------------------------------------------
+//CMDSQL   EXEC PGM=IEBGENER
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD DUMMY
+//SYSUT2   DD DSN=&&SQLCMD,DISP=(,PASS),
+//            UNIT=SYSDA,
+//            SPACE=(CYL,(15,15),RLSE),
+//            DCB=(LRECL=80,BLKSIZE=28000,RECFM=FB)
+//SYSUT1   DD *,SYMBOLS=JCLONLY
+SELECT
+  CHAR('GRANT SELECT ON '||STRIP(CREATOR)||'.'||STRIP(NAME),80),
+  CREATOR,NAME,1
+  FROM SYSIBM.SYSTABLES
+ WHERE TYPE = 'T'
+   AND CREATOR IN ('DB2FFI','DB2FFU')
+   AND NAME IN ('MCMTB064'
+                   ,'MCMTB067'
+                   ,'MCMTB058'
+                   ,'TFMTB020'
+                   ,'TFMTB021'
+                   ,'LANE_MOVEMENT'
+                   ,'TFMTB036'
+                   ,'ZIP_CITY_SERVICE'
+                   ,'DISPATCH'
+                   ,'MANIFEST_HISTORY'
+                   ,'PURCHASED_TRLR'
+                   ,'PURCHASED_TRLR_HST'
+                   ,'PURCHASED_LOAD'
+                   ,'PURCHASED_LOAD_HST'
+                   ,'PURCHASED_LEG'
+                   ,'PURCHASED_LEG_HST'
+                   ,'EQUIPMENT'
+                   ,'FUEL_PRICE_INDEX'
+                   ,'FUEL_SURCHRG_RATE'
+                   ,'PURCHASED_BROKER')
+UNION ALL
+SELECT
+  CHAR(' TO &USERID.;',80),CREATOR,NAME,2
+  FROM SYSIBM.SYSTABLES
+ WHERE TYPE = 'T'
+   AND CREATOR IN ('DB2FFI','DB2FFU')
+   AND NAME IN ('MCMTB064'
+                   ,'MCMTB067'
+                   ,'MCMTB058'
+                   ,'TFMTB020'
+                   ,'TFMTB021'
+                   ,'LANE_MOVEMENT'
+                   ,'TFMTB036'
+                   ,'ZIP_CITY_SERVICE'
+                   ,'DISPATCH'
+                   ,'MANIFEST_HISTORY'
+                   ,'PURCHASED_TRLR'
+                   ,'PURCHASED_TRLR_HST'
+                   ,'PURCHASED_LOAD'
+                   ,'PURCHASED_LOAD_HST'
+                   ,'PURCHASED_LEG'
+                   ,'PURCHASED_LEG_HST'
+                   ,'EQUIPMENT'
+                   ,'FUEL_PRICE_INDEX'
+                   ,'FUEL_SURCHRG_RATE'
+                   ,'PURCHASED_BROKER')
+ORDER BY 2,3,4;
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//DSNTIUAL EXEC DSNTIAUL,SSID=&SSID.
+//STEPLIB  DD DSN=SYS2.DB2.PROD.SDSNLOAD,DISP=SHR
+//SYSUDUMP DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSPUNCH DD SYSOUT=*
+//SYSIN    DD DSN=&&SQLCMD,DISP=OLD
+//SYSREC00 DD DSN=&&REPORT,DISP=(,PASS),
+//            UNIT=SYSDA,
+//            SPACE=(CYL,(15,15),RLSE),
+//            DCB=(LRECL=80,BLKSIZE=28000,RECFM=FB)
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//SORT     EXEC PGM=SORT
+//SYSOUT   DD SYSOUT=*
+//SORTIN   DD DSN=&&REPORT,DISP=OLD
+//SORTOUT  DD DSN=&&GRANTS,DISP=(,PASS),
+//            UNIT=SYSDA,
+//            SPACE=(CYL,(15,15),RLSE),
+//            DCB=(LRECL=80,BLKSIZE=28000,RECFM=FB)
+//SYSIN    DD *
+  SORT FIELDS=COPY
+  OUTREC FIELDS=(1,80)
+END
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//PRINTSQL EXEC PGM=IEBGENER
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD DUMMY
+//SYSUT2   DD SYSOUT=*
+//SYSUT1   DD DSN=&&GRANTS,DISP=OLD
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//GRANT    EXEC DSNTEP2,ENV=&ENV.,SSID=&SSID.
+//SYSIN    DD  *
+SET CURRENT SQLID='&DBA.';
+COMMIT;
+//*****    DD  DSN=&&GRANTS,DISP=OLD

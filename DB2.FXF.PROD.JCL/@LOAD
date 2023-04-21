@@ -1,0 +1,340 @@
+//DBAUNLOD JOB (X),'DB2 OLR',NOTIFY=&SYSUID.,                           00010000
+//             CLASS=2,                                                 00020000
+//             REGION=0M,                                               00030000
+//             MSGLEVEL=(1,1),                                          00040000
+//             MSGCLASS=X                                               00050000
+//*                                                                     00060000
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00070000
+//*                                                                     00080000
+// INCLUDE MEMBER=SETSYMBS                                              00090000
+//*                                                                     00100000
+//JS1      EXEC DSNUPROC,SYSTEM=DSNB,UID=DBALOAD                        00110001
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(1000,500)),VOL=(,,,15)            00131001
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(CYL,(1000,500)),VOL=(,,,15)            00133001
+//SYSIN    DD  DISP=SHR,DSN=AFDB.PROD.PARMLIB(OPTNSKIP)                 00140000
+//         DD  DISP=SHR,DSN=AFDB.PROD.TEMPLATE(LPICVTS)                 00150000
+//         DD  DISP=SHR,DSN=AFDB.PROD.TEMPLATE(RPICTAPE)                00160000
+//         DD  *                                                        00170000
+TEMPLATE G47YIEPY                                                       00180001
+     DSN('AFDB.ISHFSYS.TFBSH.D2019136.T143707.DAT')                     00190001
+     DISP(OLD,KEEP,KEEP)                                                00200001
+LOAD DATA INDDN G47YIEPY LOG NO  RESUME YES NOCOPYPEND                  00210001
+ EBCDIC  CCSID(00037,00000,00000)                                       00220001
+ INTO TABLE                                                             00230001
+ "DB2FFI".                                                              00240001
+ "SHIPMENT"                                                             00250001
+ WHEN(00001:00002) = X'0109'                                            00260001
+ NUMRECS                   45                                           00270001
+ ( "PRO_NUMBER"                                                         00280001
+  POSITION(  00003:00037) CHAR(00035)                                   00290001
+ , "SUFFIX_NUMBER"                                                      00300001
+  POSITION(  00038:00039) CHAR(00002)                                   00310001
+ , "CHANGE_USERID"                                                      00320001
+  POSITION(  00040:00047) CHAR(00008)                                   00330001
+ , "CHANGE_DATE"                                                        00340001
+  POSITION(  00048:00057) DATE EXTERNAL                                 00350001
+ , "CHANGE_TIME"                                                        00360001
+  POSITION(  00058:00065) TIME EXTERNAL                                 00370001
+ , "PPDCL_CODE"                                                         00380001
+  POSITION(  00066:00066) CHAR(00001)                                   00390001
+ , "TYPE_HAUL_CODE"                                                     00400001
+  POSITION(  00067:00067) CHAR(00001)                                   00410001
+ , "BILLING_DATE"                                                       00420001
+  POSITION(  00068:00077) DATE EXTERNAL                                 00430001
+ , "TOTAL_WEIGHT_QTY"                                                   00440001
+  POSITION(  00078:00081) INTEGER                                       00450001
+ , "TOTAL_PIECES_QTY"                                                   00460001
+  POSITION(  00082:00085) INTEGER                                       00470001
+ , "HANDLING_UNIT_CNT"                                                  00480001
+  POSITION(  00086:00089) INTEGER                                       00490001
+ , "APPT_FLAG"                                                          00500001
+  POSITION(  00090:00090) CHAR(00001)                                   00510001
+ , "POISON_FLAG"                                                        00520001
+  POSITION(  00091:00091) CHAR(00001)                                   00530001
+ , "HAZ_MATERIAL_FLAG"                                                  00540001
+  POSITION(  00092:00092) CHAR(00001)                                   00550001
+ , "FREEZABLE_FLAG"                                                     00560001
+  POSITION(  00093:00093) CHAR(00001)                                   00570001
+ , "FOOD_STUFF_FLAG"                                                    00580001
+  POSITION(  00094:00094) CHAR(00001)                                   00590001
+ , "HOT_FLAG"                                                           00600001
+  POSITION(  00095:00095) CHAR(00001)                                   00610001
+ , "DOUBLE_STACK_FLAG"                                                  00620001
+  POSITION(  00096:00096) CHAR(00001)                                   00630001
+ , "SHRINK_WRAP_FLAG"                                                   00640001
+  POSITION(  00097:00097) CHAR(00001)                                   00650001
+ , "SKID_SPACE_QTY"                                                     00660001
+  POSITION(  00098:00101) INTEGER                                       00670001
+ , "CUBIC_FEET_QTY"                                                     00680001
+  POSITION(  00102:00105) INTEGER                                       00690001
+ , "ADV_CARRIER_REVAMT"                                                 00700001
+  POSITION(  00106:00110) DECIMAL                                       00710001
+ , "CARRIER_REVAMT"                                                     00720001
+  POSITION(  00111:00115) DECIMAL                                       00730001
+ , "BEYOND_CARR_REVAMT"                                                 00740001
+  POSITION(  00116:00120) DECIMAL                                       00750001
+ , "TOT_FB_CHARGES_AMT"                                                 00760001
+  POSITION(  00121:00125) DECIMAL                                       00770001
+ , "COD_FLAG"                                                           00780001
+  POSITION(  00126:00126) CHAR(00001)                                   00790001
+ , "COD_AMOUNT"                                                         00800001
+  POSITION(  00127:00131) DECIMAL                                       00810001
+ , "COLLECT_ADV_AMT"                                                    00820001
+  POSITION(  00132:00136) DECIMAL                                       00830001
+ , "COLL_COD_FEE_AMT"                                                   00840001
+  POSITION(  00137:00141) DECIMAL                                       00850001
+ , "PREPD_COD_FEE_AMT"                                                  00860001
+  POSITION(  00142:00146) DECIMAL                                       00870001
+ , "ORIGIN_TERMINAL_ID"                                                 00880001
+  POSITION(  00147:00150) CHAR(00004)                                   00890001
+ , "DEST_TERMINAL_ID"                                                   00900001
+  POSITION(  00151:00154) CHAR(00004)                                   00910001
+ , "STD_SERVC_DAYS_CNT"                                                 00920001
+  POSITION(  00155:00156) SMALLINT                                      00930001
+ , "DELIVERY_DATE"                                                      00940001
+  POSITION(  00157:00166) DATE EXTERNAL                                 00950001
+ , "ADV_CARR_SCAC_CODE"                                                 00960001
+  POSITION(  00167:00170) CHAR(00004)                                   00970001
+ , "ADV_CARR_PRO_NUMBE"                                                 00980001
+  POSITION(  00171:00205) CHAR(00035)                                   00990001
+ , "ADV_CARR_PICKUP_DT"                                                 01000001
+  POSITION(  00206:00215) DATE EXTERNAL                                 01010001
+ , "BEYND_CARR_SCAC_CD"                                                 01020001
+  POSITION(  00216:00219) CHAR(00004)                                   01030001
+ , "BEYOND_CARR_PRO_NO"                                                 01040001
+  POSITION(  00220:00254) CHAR(00035)                                   01050001
+ , "BILL_TO_4X4A_CODE"                                                  01060001
+  POSITION(  00255:00258) CHAR(00004)                                   01070001
+ , "BILL_TO_4X4B_CODE"                                                  01080001
+  POSITION(  00259:00262) CHAR(00004)                                   01090001
+ , "BILL_TO_CODE"                                                       01100001
+  POSITION(  00263:00282) CHAR(00020)                                   01110001
+ , "BILL_TO_NAME"                                                       01120001
+  POSITION(  00283:00342) CHAR(00060)                                   01130001
+ , "BILL_TO_ADDR1_TEXT"                                                 01140001
+  POSITION(  00343:00402) CHAR(00060)                                   01150001
+ , "BILL_TO_ADDR2_TEXT"                                                 01160001
+  POSITION(  00403:00462) CHAR(00060)                                   01170001
+ , "BILL_TO_CITY"                                                       01180001
+  POSITION(  00463:00522) CHAR(00060)                                   01190001
+ , "BILL_TO_STATE"                                                      01200001
+  POSITION(  00523:00582) CHAR(00060)                                   01210001
+ , "BILL_TO_ZIP_CODE"                                                   01220001
+  POSITION(  00583:00595) CHAR(00013)                                   01230001
+ , "BILL_TO_COUNTRY_CD"                                                 01240001
+  POSITION(  00596:00597) CHAR(00002)                                   01250001
+ , "SHIPPER_4X4A_CODE"                                                  01260001
+  POSITION(  00598:00601) CHAR(00004)                                   01270001
+ , "SHIPPER_4X4B_CODE"                                                  01280001
+  POSITION(  00602:00605) CHAR(00004)                                   01290001
+ , "SHIPPER_CODE"                                                       01300001
+  POSITION(  00606:00625) CHAR(00020)                                   01310001
+ , "SHIPPER_NAME"                                                       01320001
+  POSITION(  00626:00685) CHAR(00060)                                   01330001
+ , "SHIPPER_ADDR1_TEXT"                                                 01340001
+  POSITION(  00686:00745) CHAR(00060)                                   01350001
+ , "SHIPPER_ADDR2_TEXT"                                                 01360001
+  POSITION(  00746:00805) CHAR(00060)                                   01370001
+ , "SHIPPER_CITY"                                                       01380001
+  POSITION(  00806:00865) CHAR(00060)                                   01390001
+ , "SHIPPER_STATE"                                                      01400001
+  POSITION(  00866:00925) CHAR(00060)                                   01410001
+ , "SHIPPER_ZIP_CODE"                                                   01420001
+  POSITION(  00926:00938) CHAR(00013)                                   01430001
+ , "SHIPPER_COUNTRY_CD"                                                 01440001
+  POSITION(  00939:00940) CHAR(00002)                                   01450001
+ , "SHIPPER_STORE_ID"                                                   01460001
+  POSITION(  00941:00950) CHAR(00010)                                   01470001
+ , "SHIPPER_DEPT_ID"                                                    01480001
+  POSITION(  00951:00970) CHAR(00020)                                   01490001
+ , "BOL_NUMBER"                                                         01500001
+  POSITION(  00971:00986) CHAR(00016)                                   01510001
+ , "CONS_4X4A_CODE"                                                     01520001
+  POSITION(  00987:00990) CHAR(00004)                                   01530001
+ , "CONS_4X4B_CODE"                                                     01540001
+  POSITION(  00991:00994) CHAR(00004)                                   01550001
+ , "CONS_CODE"                                                          01560001
+  POSITION(  00995:01014) CHAR(00020)                                   01570001
+ , "CONS_NAME"                                                          01580001
+  POSITION(  01015:01074) CHAR(00060)                                   01590001
+ , "CONS_ADDR1_TEXT"                                                    01600001
+  POSITION(  01075:01134) CHAR(00060)                                   01610001
+ , "CONS_ADDR2_TEXT"                                                    01620001
+  POSITION(  01135:01194) CHAR(00060)                                   01630001
+ , "CONS_CITY"                                                          01640001
+  POSITION(  01195:01254) CHAR(00060)                                   01650001
+ , "CONS_STATE"                                                         01660001
+  POSITION(  01255:01314) CHAR(00060)                                   01670001
+ , "CONS_ZIP_CODE"                                                      01680001
+  POSITION(  01315:01327) CHAR(00013)                                   01690001
+ , "CONS_COUNTRY_CODE"                                                  01700001
+  POSITION(  01328:01329) CHAR(00002)                                   01710001
+ , "CONS_STORE_ID"                                                      01720001
+  POSITION(  01330:01339) CHAR(00010)                                   01730001
+ , "CONS_DEPT_ID"                                                       01740001
+  POSITION(  01340:01359) CHAR(00020)                                   01750001
+ , "PO1_NUMBER"                                                         01760001
+  POSITION(  01360:01375) CHAR(00016)                                   01770001
+ , "PO2_NUMBER"                                                         01780001
+  POSITION(  01376:01391) CHAR(00016)                                   01790001
+ , "COPY_STATUS_FLAG"                                                   01800001
+  POSITION(  01392:01392) CHAR(00001)                                   01810001
+ , "PROP_OWNER_ID"                                                      01820001
+  POSITION(  01393:01396) CHAR(00004)                                   01830001
+ , "PROP_TIMESTAMP"                                                     01840001
+  POSITION(  01397:01422) TIMESTAMP EXTERNAL(026)                       01850001
+ , "PICKUP_DRIVER_NO"                                                   01860001
+  POSITION(  01423:01426) INTEGER                                       01870001
+ , "DELAY_CODE"                                                         01880001
+  POSITION(  01427:01432) CHAR(00006)                                   01890001
+ , "BILLER_INITIALS"                                                    01900001
+  POSITION(  01433:01435) CHAR(00003)                                   01910001
+ , "PICKUP_UNIT_ID"                                                     01920001
+  POSITION(  01436:01446) CHAR(00011)                                   01930001
+ , "SPLIT_SUFFIX_ONE"                                                   01940001
+  POSITION(  01447:01447) CHAR(00001)                                   01950001
+ , "SPLIT_SUFFIX_TWO"                                                   01960001
+  POSITION(  01448:01448) CHAR(00001)                                   01970001
+ , "POOL_OR_DIST_CODE"                                                  01980001
+  POSITION(  01449:01449) CHAR(00001)                                   01990001
+ , "IN_BOND_FLAG"                                                       02000001
+  POSITION(  01450:01450) CHAR(00001)                                   02010001
+ , "FRAGILE_FLAG"                                                       02020001
+  POSITION(  01451:01451) CHAR(00001)                                   02030001
+ , "COLLECTION_CODE1"                                                   02040001
+  POSITION(  01452:01453) CHAR(00002)                                   02050001
+ , "COLLECTION_AMT1"                                                    02060001
+  POSITION(  01454:01458) DECIMAL                                       02070001
+ , "COLLECTION_CODE2"                                                   02080001
+  POSITION(  01459:01460) CHAR(00002)                                   02090001
+ , "COLLECTION_AMT2"                                                    02100001
+  POSITION(  01461:01465) DECIMAL                                       02110001
+ , "COLLECT_REASON_CD"                                                  02120001
+  POSITION(  01466:01471) CHAR(00006)                                   02130001
+ , "EST_TERM_DEL_DT"                                                    02140001
+  POSITION(  01472:01481) DATE EXTERNAL                                 02150001
+ , "FORK_LIFT_FLAG"                                                     02160001
+  POSITION(  01482:01482) CHAR(00001)                                   02170001
+ , "DELIVERY_TIME"                                                      02180001
+  POSITION(  01483:01490) TIME EXTERNAL                                 02190001
+ , "QUOTE_TYPE_CODE"                                                    02200001
+  POSITION(  01491:01491) CHAR(00001)                                   02210001
+ , "CARRIER_SCAC_CODE"                                                  02220001
+  POSITION(  01492:01495) CHAR(00004)                                   02230001
+ , "SERVICE_TYPE_CODE"                                                  02240001
+  POSITION(  01496:01497) CHAR(00002)                                   02250001
+ , "PARTS_OF_TYPE_QTY"                                                  02260001
+  POSITION(  01498:01499) SMALLINT                                      02270001
+ , "GBL_FLAG"                                                           02280001
+  POSITION(  01500:01500) CHAR(00001)                                   02290001
+ , "SINGLE_SHIP_FLAG"                                                   02300001
+  POSITION(  01501:01501) CHAR(00001)                                   02310001
+ , "OSD_FLAG"                                                           02320001
+  POSITION(  01502:01502) CHAR(00001)                                   02330001
+ , "HIGH_VALUE_FLAG"                                                    02340001
+  POSITION(  01503:01503) CHAR(00001)                                   02350001
+ , "CUSTOMS_FLAG"                                                       02360001
+  POSITION(  01504:01504) CHAR(00001)                                   02370001
+ , "FOLLOW_UP_FLAG"                                                     02380001
+  POSITION(  01505:01505) CHAR(00001)                                   02390001
+ , "WILL_CALL_FLAG"                                                     02400001
+  POSITION(  01506:01506) CHAR(00001)                                   02410001
+ , "SPLIT_SHIP_FLAG"                                                    02420001
+  POSITION(  01507:01507) CHAR(00001)                                   02430001
+ , "UNIT_PRICING_FLAG"                                                  02440001
+  POSITION(  01508:01508) CHAR(00001)                                   02450001
+ , "TENDER_FLAG"                                                        02460001
+  POSITION(  01509:01509) CHAR(00001)                                   02470001
+ , "ACT_DELIVERY_TSP"                                                   02480001
+  POSITION(  01510:01535) TIMESTAMP EXTERNAL(026)                       02490001
+ , "ACT_SERVC_DAYS_QTY"                                                 02500001
+  POSITION(  01536:01537) SMALLINT                                      02510001
+ , "GHOST_CUST_NBR"                                                     02520001
+  POSITION(  01538:01557) CHAR(00020)                                   02530001
+ , "SHIP_NATL_ACCT_NBR"                                                 02540001
+  POSITION(  01558:01577) CHAR(00020)                                   02550001
+ , "CONS_NATL_ACCT_NBR"                                                 02560001
+  POSITION(  01578:01597) CHAR(00020)                                   02570001
+ , "CASH_COLLECT_FLAG"                                                  02580001
+  POSITION(  01598:01598) CHAR(00001)                                   02590001
+ , "POSTING_DATE"                                                       02600001
+  POSITION(  01599:01608) DATE EXTERNAL                                 02610001
+ , "POST_AUDIT_USERID"                                                  02620001
+  POSITION(  01609:01616) CHAR(00008)                                   02630001
+ , "POST_AUDIT_DATE"                                                    02640001
+  POSITION(  01617:01626) DATE EXTERNAL                                 02650001
+ , "BILLER_RATED_FLAG"                                                  02660001
+  POSITION(  01627:01627) CHAR(00001)                                   02670001
+ , "PALLET_CNT"                                                         02680001
+  POSITION(  01628:01631) INTEGER                                       02690001
+ , "ACTUAL_PCS_QTY"                                                     02700001
+  POSITION(  01632:01635) INTEGER                                       02710001
+ , "LENGTH_QTY"                                                         02720001
+  POSITION(  01636:01638) DECIMAL                                       02730001
+ , "WIDTH_QTY"                                                          02740001
+  POSITION(  01639:01641) DECIMAL                                       02750001
+ , "HEIGHT_QTY"                                                         02760001
+  POSITION(  01642:01644) DECIMAL                                       02770001
+ , "EXPEDITE_FLG"                                                       02780001
+  POSITION(  01645:01645) CHAR(00001)                                   02790001
+ , "CLEAR_ZPOST_CD"                                                     02800001
+  POSITION(  01646:01650) DECIMAL                                       02810001
+ , "VOID_FLG"                                                           02820001
+  POSITION(  01651:01651) CHAR(00001)                                   02830001
+ , "PD_ONLINE_FLG"                                                      02840001
+  POSITION(  01652:01652) CHAR(00001)                                   02850001
+ , "MANUAL_RATE_FLG"                                                    02860001
+  POSITION(  01653:01653) CHAR(00001)                                   02870001
+ , "PRO_AUDITED_FLG"                                                    02880001
+  POSITION(  01654:01654) CHAR(00001)                                   02890001
+ , "POST_BILL_NOW_FLG"                                                  02900001
+  POSITION(  01655:01655) CHAR(00001)                                   02910001
+ , "POST_PENDING_TSP"                                                   02920001
+  POSITION(  01656:01681) TIMESTAMP EXTERNAL(026)                       02930001
+ , "BILL_TO_ADDR3_TXT"                                                  02940001
+  POSITION(  01682:01741) CHAR(00060)                                   02950001
+ , "SHIPPER_ADDR3_TXT"                                                  02960001
+  POSITION(  01742:01801) CHAR(00060)                                   02970001
+ , "CONS_ADDR3_TXT"                                                     02980001
+  POSITION(  01802:01861) CHAR(00060)                                   02990001
+ , "SHP_GEOSUBDIV1_TXT"                                                 03000001
+  POSITION(  01862:01921) CHAR(00060)                                   03010001
+ , "CON_GEOSUBDIV1_TXT"                                                 03020001
+  POSITION(  01922:01981) CHAR(00060)                                   03030001
+ , "BT_GEOSUBDIV1_TXT"                                                  03040001
+  POSITION(  01982:02041) CHAR(00060)                                   03050001
+ , "TOT_WT_FGN_QTY"                                                     03060001
+  POSITION(  02042:02045) INTEGER                                       03070001
+ , "FGN_CURRENCY_ID"                                                    03080001
+  POSITION(  02046:02048) CHAR(00003)                                   03090001
+ , "FGN_CURCY_EFF_FLG"                                                  03100001
+  POSITION(  02049:02049) CHAR(00001)                                   03110001
+ , "ADV_REV_FGN_AMT"                                                    03120001
+  POSITION(  02050:02055) DECIMAL                                       03130001
+ , "CARR_REV_FGN_AMT"                                                   03140001
+  POSITION(  02056:02061) DECIMAL                                       03150001
+ , "BEY_REV_FGN_AMT"                                                    03160001
+  POSITION(  02062:02067) DECIMAL                                       03170001
+ , "TOT_CHARGE_FGN_AMT"                                                 03180001
+  POSITION(  02068:02073) DECIMAL                                       03190001
+ , "COD_FGN_AMT"                                                        03200001
+  POSITION(  02074:02079) DECIMAL                                       03210001
+ , "COL_ADV_FGN_AMT"                                                    03220001
+  POSITION(  02080:02085) DECIMAL                                       03230001
+ , "COLCOD_FEE_FGN_AMT"                                                 03240001
+  POSITION(  02086:02091) DECIMAL                                       03250001
+ , "PPDCOD_FEE_FGN_AMT"                                                 03260001
+  POSITION(  02092:02097) DECIMAL                                       03270001
+ , "COLLECT1_FGN_AMT"                                                   03280001
+  POSITION(  02098:02103) DECIMAL                                       03290001
+ , "COLLECT2_FGN_AMT"                                                   03300001
+  POSITION(  02104:02109) DECIMAL                                       03310001
+ , "CUBIC_METER_VOL"                                                    03320001
+  POSITION(  02110:02117) DECIMAL                                       03330001
+ , "PRODUCT_TYPE_CD"                                                    03340001
+  POSITION(  02118:02127) CHAR(00010)                                   03350001
+ , "SVC_LEVEL_CD"                                                       03360001
+  POSITION(  02128:02131) CHAR(00004)                                   03370001
+ , "SVC_LEVEL_DESC"                                                     03380001
+  POSITION(  02132:02151) CHAR(00020)                                   03390001
+ )                                                                      03400001

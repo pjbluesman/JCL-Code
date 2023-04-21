@@ -1,0 +1,1445 @@
+.CONTROL SN(JXS0036,TESTE)
+.OPTION BPCL
+
+--==============================================================================
+-- 19.0         CA-DB2   RC/Migrator   Analysis Report      18-06-17 00:14
+--==============================================================================
+--Strategy Information:
+--Strategy ==> TESTE     Description  ===> TESTE
+--Creator  ==> JXS0036   Share Option ===> Y (U,Y,N,X,L)  Src SSID ===> DBP3
+--
+--
+--Analysis Options:
+--  Execution Mode    ===> O (O - Online, B - Batch)
+--  Analysis Override ===> N
+--  Access Mode       ===> CATALOG - LIMITED
+--  Model ID          ===> !CAUIBM
+--  Model Creator     ===> @DBAPFS
+--  Target SSID       ===> DSN
+--  Global Changes    ===> N
+--
+--  Aux Implode       ===>               Statistics    ===> N
+--  MQT Implode       ===>               Check Data    ===> N
+--  Sequence Implode  ===>               Image Copy    ===> N
+--  RI(Local/Global)  ===> N             Bind/Rebind   ===> N
+--  Security          ===> N             Recover IX    ===> N
+--  Drop Objects      ===> N             Reorg         ===> N
+--  LOB Objects       ===> N
+--  Default SQLID     ===>
+--  Alias SQLID       ===>
+--  Table OBID        ===> N
+--  Rtn Implode       ===>
+--  Rtn Interaction   ===> N
+--  View (Imp/Exp)    ===> N
+--
+--  All Rows          ===> Y             VSAM Defines  ===> N
+--  Number Rows       ===>               VSAM Deletes  ===> N
+--  Data Statistics   ===> N
+--  Truncate          ===> N
+--  MQT Refresh       ===>
+--  Set Terminator    ===> ;  (Value from PARMLIB)
+--
+--  No .AUTHS               ===> N
+--  No Set SQLID Stmts      ===> N
+--  Bnd/Dat/Sql/Stat/Grnt/RI===> N
+--  Commit ASAP             ===> N
+--
+--  Delete Unload Data Sets   ===> N
+--  Delete Temporary Datasets ===> N
+--
+--**********************************************************************
+--*                           PRIMARY OBJECT                           *
+--**********************************************************************
+--
+-- Included Primary Object(s): Table
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- AFW               ABOL_CARTON_SCAN
+--
+--   Implode: SG DB TS
+--            A  A  A
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            A  A  A   A    A  A  A  A  A   A     A  A
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   _   _  _     Y      _   _______________
+--
+-- Legend:
+--   Strategy Inclusion Reasons               Object Types
+--     A - Table is aux-Table to base-Table     SG - Stogroup
+--     B - Table is base-table to aux-Table     DB - Database
+--     C - Table is an RI child                 TS - Tablespace
+--     D - Index supports RI                    T  - Table
+--     F - Table adopted a new child Table      MQ - Mqt
+--     I - Table has Index activity             I  - Index
+--     L - LOB TS related to base-Table         SQ - Sequence
+--     M - Imploded to from child               UF - Function
+--     P - Primary Object                       PR - Procedure
+--     Q - Tablespace has a partitioned Table   V  - View
+--     R - Table is an RI parent                S  - Synonym
+--     S - Selected in the strategy             A  - Alias
+--     X - Exploded to from parent              TG - Trigger
+--     Z - Potential parent on target
+--
+--   Implode/Explode Analysis General format:
+--   <Reason> <Object type> <Object name>
+--
+--     M SG SYSADM.PRODDB2
+--     M   DB KBG1982.AFWADBOL
+--     M     TS AFWADBOL.AFTSABCS
+--     P       T  AFW.ABOL_CARTON_SCAN
+--     X         I  AFW.AFX2ABCS
+--     X         I  AFW.AFIXABCS
+--     X         S  MGL1003.ABOL_CARTON_SCAN
+--     X         S  KBG1982.ABOL_CARTON_SCAN
+--     X         S  FXUTRATE.ABOL_CARTON_SCAN
+--     X         S  BRW6062.ABOL_CARTON_SCAN
+--     X         A  PROD.ABOL_CARTON_SCAN
+--     X         A  FFPA.ABOL_CARTON_SCAN
+--     X         A  DB2FFP.ABOL_CARTON_SCAN
+--************************* END ANALYSIS HEADER ************************
+
+--  RMA238W THIS ANALYSIS WAS PERFORMED WITHOUT THE RI CONTROL OPTION. NO
+--         REFERENTIAL RELATIONSHIPS WILL BE GENERATED.
+
+--  RMA448W THIS ANALYSIS WAS PERFORMED WITHOUT THE LOB OBJECTS OPTION. TABLES
+--         CREATED CONTAINING LOB COLUMNS MAY BE MARKED INCOMPLETE.
+
+.SYSTEM UNLOADS
+.CONNECT DBP3
+
+.AUTH BRR6062
+
+.CALL UTLGLCTL PARM(DBP3,)                                             +
+   INDDN(SYSIN) OUTDDN(PTIMSG)
+.ALLOC FI(SYSCTL01) DUMMY
+.ALLOC FI(SYSREC01)                                                    +
+       DA('JXS0036.C.AFWADBOL.TID44.T0014341.DATA')                    +
+       TRACKS                                                          +
+       SPACE(725,967)                                                  +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.DATA
+  FASTUNLOAD
+   UNLDDN          SYSREC
+   LIMIT           0
+   OUTPUT-FORMAT   DSNTIAUL
+   INPUT-FORMAT    TABLE
+   VSAM-BUFFERS    80
+   SORTNUM         32
+   SORTDEVT        SYSDA
+   ESTIMATED-ROWS  701903
+   SQL-ACCESS      EXTENSION
+   SHRLEVEL        CHANGE
+   TRUNCATE        NO
+   SELECT CARTON_NUMBER, SCAN_TIMESTAMP, SCAN_CUST_CTR_ID, SCAN_USERID
+   , TRAILER_NUMBER, TRAILER_OWNER, SCAN_LEVEL_CODE, DAMAGE_FLAG,
+   DAMAGE_TEXT, SCAN_TYPE, ACCT_NAME, PRO_NUMBER, SUFFIX_NUMBER,
+   EXCEPTION_TYPE
+   FROM AFW.ABOL_CARTON_SCAN
+   ORDER BY CARTON_NUMBER,  SCAN_TIMESTAMP
+   ;
+.ENDDATA
+.FREE FILE(SYSREC01)
+.FREE FILE(SYSCTL01)
+
+.SYNC 5         'UNLOAD TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH
+
+.SYNC 10        'DISCONNECTING FROM SSID DBP3, CONNECTING TO SSID DSN '
+
+.SYSTEM SQLDDL
+.CONNECT DSN
+
+-- **************************************************************
+-- *                                                            *
+-- * STOGROUP CREATE AND ALTER STATEMENTS                       *
+-- *                                                            *
+-- **************************************************************
+
+-- PRODDB2 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  SYSADM
+
+CREATE  STOGROUP PRODDB2
+          VOLUMES
+          ("*"
+          )
+    VCAT DB2CATP
+    ;
+
+.SYNC 15        'CREATE STOGROUP PRODDB2'
+
+
+-- **************************************************************
+-- *                                                            *
+-- * DATABASE CREATE AND ALTER STATEMENTS                       *
+-- *                                                            *
+-- **************************************************************
+
+-- AFWADBOL WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  KBG1982
+
+CREATE  DATABASE AFWADBOL
+        STOGROUP PRODDB2
+           BUFFERPOOL BP0
+           INDEXBP    BP0
+           CCSID EBCDIC
+    ;
+
+.SYNC 20        'CREATE DATABASE AFWADBOL'
+
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLESPACE CREATE AND ALTER STATEMENTS                     *
+-- *                                                            *
+-- **************************************************************
+
+
+-- AFWADBOL.AFTSABCS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+.AUTH  BRR6062
+
+
+CREATE  TABLESPACE AFTSABCS
+        IN AFWADBOL
+        USING STOGROUP PRODDB2
+                                    PRIQTY 11520
+                                    SECQTY 1440
+                                    ERASE NO
+           FREEPAGE 0
+           PCTFREE 10 FOR UPDATE 0
+           BUFFERPOOL BP4
+           LOCKSIZE PAGE
+           CLOSE NO
+           SEGSIZE 32
+           LOCKMAX 0
+           CCSID EBCDIC
+    ;
+
+.SYNC 25        'CREATE TABLESPACE AFTSABCS'
+
+
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+-- AFW.ABOL_CARTON_SCAN WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+.AUTH  BRR6062
+
+CREATE  TABLE AFW.ABOL_CARTON_SCAN
+        ( CARTON_NUMBER CHAR ( 48 ) NOT NULL
+        , SCAN_TIMESTAMP TIMESTAMP NOT NULL
+        , SCAN_CUST_CTR_ID CHAR ( 4 ) NOT NULL
+        , SCAN_USERID CHAR ( 8 ) NOT NULL
+        , TRAILER_NUMBER CHAR ( 7 ) NOT NULL
+        , TRAILER_OWNER CHAR ( 4 ) NOT NULL
+        , SCAN_LEVEL_CODE CHAR ( 2 ) NOT NULL
+          WITH DEFAULT
+        , DAMAGE_FLAG CHAR ( 1 ) NOT NULL
+          WITH DEFAULT
+        , DAMAGE_TEXT CHAR ( 25 ) NOT NULL
+          WITH DEFAULT
+        , SCAN_TYPE CHAR ( 10 ) NOT NULL
+          WITH DEFAULT
+        , ACCT_NAME CHAR ( 30 ) NOT NULL
+          WITH DEFAULT
+        , PRO_NUMBER CHAR ( 35 ) NOT NULL
+          WITH DEFAULT
+        , SUFFIX_NUMBER CHAR ( 2 ) NOT NULL
+          WITH DEFAULT
+        , EXCEPTION_TYPE CHAR ( 3 ) NOT NULL
+          WITH DEFAULT
+   ,PRIMARY KEY
+     (CARTON_NUMBER
+     ,SCAN_TIMESTAMP
+     )
+        )
+        IN AFWADBOL.AFTSABCS
+   CCSID         EBCDIC
+   ;
+
+.SYNC 30        'CREATE TABLE AFW.ABOL_CARTON_SCAN'
+
+
+-- ABOL_CARTON_SCAN WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  BRR6062
+    SET CURRENT SQLID = 'MGL1003';
+
+CREATE  SYNONYM ABOL_CARTON_SCAN FOR AFW.ABOL_CARTON_SCAN ;
+
+.SYNC 35        'CREATE SYNONYM MGL1003.ABOL_CARTON_SCAN'
+    SET CURRENT SQLID = USER;
+
+-- ABOL_CARTON_SCAN WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  BRR6062
+    SET CURRENT SQLID = 'KBG1982';
+
+CREATE  SYNONYM ABOL_CARTON_SCAN FOR AFW.ABOL_CARTON_SCAN ;
+
+.SYNC 40        'CREATE SYNONYM KBG1982.ABOL_CARTON_SCAN'
+    SET CURRENT SQLID = USER;
+
+-- ABOL_CARTON_SCAN WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  MGL1003
+    SET CURRENT SQLID = 'FXUTRATE';
+
+CREATE  SYNONYM ABOL_CARTON_SCAN FOR AFW.ABOL_CARTON_SCAN ;
+
+.SYNC 45        'CREATE SYNONYM FXUTRATE.ABOL_CARTON_SCAN'
+    SET CURRENT SQLID = USER;
+
+-- ABOL_CARTON_SCAN WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  KBG1982
+    SET CURRENT SQLID = 'BRW6062';
+
+CREATE  SYNONYM ABOL_CARTON_SCAN FOR AFW.ABOL_CARTON_SCAN ;
+
+.SYNC 50        'CREATE SYNONYM BRW6062.ABOL_CARTON_SCAN'
+    SET CURRENT SQLID = USER;
+
+-- PROD.ABOL_CARTON_SCAN WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  RWL9837
+
+CREATE  ALIAS PROD.ABOL_CARTON_SCAN FOR AFW.ABOL_CARTON_SCAN ;
+
+.SYNC 55        'CREATE ALIAS PROD.ABOL_CARTON_SCAN'
+
+
+-- FFPA.ABOL_CARTON_SCAN WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+.AUTH  KRP2920
+
+CREATE  ALIAS FFPA.ABOL_CARTON_SCAN FOR AFW.ABOL_CARTON_SCAN ;
+
+.SYNC 60        'CREATE ALIAS FFPA.ABOL_CARTON_SCAN'
+
+
+-- DB2FFP.ABOL_CARTON_SCAN WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS
+-- .
+
+.AUTH  SMT9831
+
+CREATE  ALIAS DB2FFP.ABOL_CARTON_SCAN FOR AFW.ABOL_CARTON_SCAN ;
+
+.SYNC 65        'CREATE ALIAS DB2FFP.ABOL_CARTON_SCAN'
+
+
+
+-- **************************************************************
+-- *                                                            *
+-- * INDEX CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- AFW.AFIXABCS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+.AUTH  BRR6062
+
+
+CREATE  UNIQUE INDEX AFW.AFIXABCS ON AFW.ABOL_CARTON_SCAN
+        ( CARTON_NUMBER ASC
+        , SCAN_TIMESTAMP ASC
+          )
+        USING STOGROUP PRODDB2
+                                    PRIQTY 6480
+                                    SECQTY 720
+                                    ERASE NO
+           FREEPAGE 0
+           PCTFREE 10
+           CLUSTER
+           BUFFERPOOL BP1
+           CLOSE NO
+           PIECESIZE 2G
+    ;
+
+.SYNC 70        'CREATE INDEX AFW.AFIXABCS'
+
+
+
+-- AFW.AFX2ABCS WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+.AUTH  MGL1003
+
+
+CREATE  INDEX AFW.AFX2ABCS ON AFW.ABOL_CARTON_SCAN
+        ( TRAILER_NUMBER ASC
+        , TRAILER_OWNER ASC
+        , SCAN_CUST_CTR_ID ASC
+        , SCAN_TIMESTAMP ASC
+          )
+        USING STOGROUP PRODDB2
+                                    PRIQTY 1440
+                                    SECQTY 720
+                                    ERASE NO
+           FREEPAGE 0
+           PCTFREE 10
+           BUFFERPOOL BP1
+           CLOSE NO
+           PIECESIZE 2G
+    ;
+
+.SYNC 75        'CREATE INDEX AFW.AFX2ABCS'
+
+
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      SBM6908;
+
+.SYNC 80        'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      AJB6947;
+
+.SYNC 85        'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      DWH3280;
+
+.SYNC 90        'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      DGS8011;
+
+.SYNC 95        'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      DRM4968;
+
+.SYNC 100       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      VJN6595;
+
+.SYNC 105       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      JCM1009;
+
+.SYNC 110       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      KDK7902;
+
+.SYNC 115       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      DKB1120;
+
+.SYNC 120       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      LJL2901;
+
+.SYNC 125       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      PAJ0226;
+
+.SYNC 130       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      PJS9137;
+
+.SYNC 135       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      PED9910;
+
+.SYNC 140       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      REV6958;
+
+.SYNC 145       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      RLC4810;
+
+.SYNC 150       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      RLM8628;
+
+.SYNC 155       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      SJT0441;
+
+.SYNC 160       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      SRC5323;
+
+.SYNC 165       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      TLA6623;
+
+.SYNC 170       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      KTW0959;
+
+.SYNC 175       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      TLB1245;
+
+.SYNC 180       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      VBW4119;
+
+.SYNC 185       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      WCT8554;
+
+.SYNC 190       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      RRR8113;
+
+.SYNC 195       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      TAM7762;
+
+.SYNC 200       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH SYSADM3
+
+    SET CURRENT SQLID = 'SYSADM3';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      JMG8566;
+
+.SYNC 205       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      SRC5323;
+
+.SYNC 210       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      CJR4857;
+
+.SYNC 215       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      RKP6247;
+
+.SYNC 220       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH SYSADM3
+
+    SET CURRENT SQLID = 'SYSADM3';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      RAS3114;
+
+.SYNC 225       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH SYSADM3
+
+    SET CURRENT SQLID = 'SYSADM3';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      TAW5247;
+
+.SYNC 230       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH BRR6062
+
+    SET CURRENT SQLID = 'BRR6062';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      EMK8861;
+
+.SYNC 235       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      CLG3960;
+
+.SYNC 240       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      CLH6810;
+
+.SYNC 245       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      VXN6595;
+
+.SYNC 250       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MAC1065
+
+    SET CURRENT SQLID = 'MAC1065';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      WRM1820;
+
+.SYNC 255       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MAC1065
+
+    SET CURRENT SQLID = 'MAC1065';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      EKK2278;
+
+.SYNC 260       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      CEM9548;
+
+.SYNC 265       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MAC1065
+
+    SET CURRENT SQLID = 'MAC1065';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      PSV7307;
+
+.SYNC 270       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      MXB8866;
+
+.SYNC 275       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      JXG8566;
+
+.SYNC 280       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      WKE1266;
+
+.SYNC 285       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      BRW6062;
+
+.SYNC 290       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      GWL4481;
+
+.SYNC 295       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      TAW5247;
+
+.SYNC 300       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      DKW7421;
+
+.SYNC 305       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      EXK2278;
+
+.SYNC 310       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      EAA9415;
+
+.SYNC 315       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      SXS3331;
+
+.SYNC 320       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      CTG1136;
+
+.SYNC 325       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      CTG1136;
+
+.SYNC 330       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      SXS3331;
+
+.SYNC 335       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      AAA0642;
+
+.SYNC 340       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      CMO6901;
+
+.SYNC 345       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      TLC8899;
+
+.SYNC 350       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      "EXPLAIN";
+
+.SYNC 355       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      QAREFRSH;
+
+.SYNC 360       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MAC1065
+
+    SET CURRENT SQLID = 'MAC1065';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      DWR1055;
+
+.SYNC 365       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH AJR3911
+
+    SET CURRENT SQLID = 'AJR3911';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      RLB0506;
+
+.SYNC 370       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      PJZ2153;
+
+.SYNC 375       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      FOS5071
+                      WITH GRANT OPTION;
+
+.SYNC 380       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      JAG8333;
+
+.SYNC 385       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH AJR3911
+
+    SET CURRENT SQLID = 'AJR3911';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      MJM7527;
+
+.SYNC 390       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      HPB7215;
+
+.SYNC 395       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      LMR9778;
+
+.SYNC 400       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      BMM2784;
+
+.SYNC 405       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      EMS0686;
+
+.SYNC 410       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      PJZ2153;
+
+.SYNC 415       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      JAG8333;
+
+.SYNC 420       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MGL1003
+
+    SET CURRENT SQLID = 'MGL1003';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      FOS5071;
+
+.SYNC 425       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RAC9296
+
+    SET CURRENT SQLID = 'RAC9296';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      @APPPFR;
+
+.SYNC 430       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH MAC1065
+
+    SET CURRENT SQLID = 'MAC1065';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      JRF2476;
+
+.SYNC 435       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH @DBAPFD
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      JHC4481;
+
+.SYNC 440       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH @DBAPFD
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      KVC3916;
+
+.SYNC 445       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      @PUBPBR;
+
+.SYNC 450       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      REO3028;
+
+.SYNC 455       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      MLA3001;
+
+.SYNC 460       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH @DBAPFD
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      DKW7421;
+
+.SYNC 465       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH @DBAPFD
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      @DBAPFR1;
+
+.SYNC 470       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH @DBAPFS
+
+    SET CURRENT SQLID = '@DBAPFS';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      @BNDPA;
+
+.SYNC 475       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH @DBAPFD
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      @PUBPBR;
+
+.SYNC 480       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH RWL9837
+
+    SET CURRENT SQLID = 'RWL9837';
+
+    GRANT SELECT
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      @APPPCR;
+
+.SYNC 485       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH @DBAPFD
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT DELETE
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      @BNDPFA;
+
+.SYNC 490       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+.AUTH @DBAPFD
+
+    SET CURRENT SQLID = '@DBAPFD';
+
+    GRANT ALTER
+         ,DELETE
+         ,INDEX
+         ,INSERT
+         ,SELECT
+         ,UPDATE
+         ,REFERENCES
+                    ON TABLE AFW.ABOL_CARTON_SCAN
+                      TO      @DBAPCD
+                      WITH GRANT OPTION;
+
+.SYNC 495       'GRANT TABLE AFW.ABOL_CARTON_SCAN'
+
+    SET CURRENT SQLID = USER;
+
+.AUTH
+.DISCONN
+
+.SYNC 500       'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+.CALL UTIL LOAD PARM(DSN)
+.ALLOC FI(PTILOAD)                                                     +
+   DA('JXS0036.C.AFWADBOL.TID44.T0014341.DATA')                        +
+   SHR
+.ALLOC FI(SYSDISC)                                                     +
+   DA('JXS0036.C.AFWADBOL.TID44.T0014341.DATA.D')                      +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(242,484) TRACKS RLSE
+.ALLOC FI(SYSERR)                                                      +
+   DA('JXS0036.C.AFWADBOL.TID44.T0014341.DATA.E')                      +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(28789,38386) BLK(4096) RLSE
+.ALLOC FI(SYSMAP)                                                      +
+   DA('JXS0036.C.AFWADBOL.TID44.T0014341.DATA.M')                      +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(1080,1440) BLK(4096) RLSE
+.ALLOC FI(PTIUT1) UNIT(SYSDA)                                          +
+   DA('JXS0036.C.AFWADBOL.TID44.T0014341.DATA.U')                      +
+   SPACE(182,109) CYL                                                  +
+   MOD CATALOG
+.ALLOC FI(PTIOUT) UNIT(SYSDA)                                          +
+   DA('JXS0036.C.AFWADBOL.TID44.T0014341.DATA.O')                      +
+   SPACE(182,109) CYL                                                  +
+   MOD CATALOG
+.DATA
+   LOAD DATA INDDN PTILOAD RESUME NO      LOG NO
+    ENFORCE CONSTRAINTS
+    DISCARDDN SYSDISC
+    ERRDDN   SYSERR
+    MAPDDN   SYSMAP
+    WORKDDN  (PTIUT1,PTIOUT)
+    SORTDEVT SYSDA
+    INTO TABLE AFW.ABOL_CARTON_SCAN
+      IGNOREFIELDS NO
+   (
+    CARTON_NUMBER                  POSITION(            1:          48 )
+      CHAR                      (    48)
+     ,
+    SCAN_TIMESTAMP                 POSITION(           49:          74 )
+      TIMESTAMP EXTERNAL        (    26)
+     ,
+    SCAN_CUST_CTR_ID               POSITION(           75:          78 )
+      CHAR                      (     4)
+     ,
+    SCAN_USERID                    POSITION(           79:          86 )
+      CHAR                      (     8)
+     ,
+    TRAILER_NUMBER                 POSITION(           87:          93 )
+      CHAR                      (     7)
+     ,
+    TRAILER_OWNER                  POSITION(           94:          97 )
+      CHAR                      (     4)
+     ,
+    SCAN_LEVEL_CODE                POSITION(           98:          99 )
+      CHAR                      (     2)
+     ,
+    DAMAGE_FLAG                    POSITION(          100:         100 )
+      CHAR                      (     1)
+     ,
+    DAMAGE_TEXT                    POSITION(          101:         125 )
+      CHAR                      (    25)
+     ,
+    SCAN_TYPE                      POSITION(          126:         135 )
+      CHAR                      (    10)
+     ,
+    ACCT_NAME                      POSITION(          136:         165 )
+      CHAR                      (    30)
+     ,
+    PRO_NUMBER                     POSITION(          166:         200 )
+      CHAR                      (    35)
+     ,
+    SUFFIX_NUMBER                  POSITION(          201:         202 )
+      CHAR                      (     2)
+     ,
+    EXCEPTION_TYPE                 POSITION(          203:         205 )
+      CHAR                      (     3)
+   )
+.ENDDATA
+.FREE FI(PTILOAD)
+.FREE FI(SYSDISC)
+.FREE FI(SYSERR)
+.FREE FI(SYSMAP)
+.FREE FI(PTIUT1)
+.FREE FI(PTIOUT)
+
+.SYNC 505       'LOAD TABLE AFW.ABOL_CARTON_SCAN'
+
+
+--==============================================================================
+-- 19.0           CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      18-06-17 00:14
+--==============================================================================
+--
+--  OBJECT TYPE: STOGROUP                   TOTAL:                1
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   PRODDB2
+--    SYSADM
+--
+--  OBJECT TYPE: DATABASE                   TOTAL:                1
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   AFWADBOL
+--    KBG1982
+--
+--  OBJECT TYPE: TABLESPACE                 TOTAL:                1
+--
+--   OBJECT NAME/DBNAME          EDITED NEW NAME/DBNAME
+--
+--   AFTSABCS
+--    AFWADBOL
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                1
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   ABOL_CARTON_SCAN
+--    AFW
+--
+--  OBJECT TYPE: INDEX                      TOTAL:                2
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   AFIXABCS
+--    AFW
+--   AFX2ABCS
+--    AFW
+--
+--  OBJECT TYPE: SYNONYM                    TOTAL:                4
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   ABOL_CARTON_SCAN
+--    BRW6062
+--   ABOL_CARTON_SCAN
+--    FXUTRATE
+--   ABOL_CARTON_SCAN
+--    KBG1982
+--   ABOL_CARTON_SCAN
+--    MGL1003
+--
+--  OBJECT TYPE: ALIAS                      TOTAL:                3
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   ABOL_CARTON_SCAN
+--    DB2FFP
+--   ABOL_CARTON_SCAN
+--    FFPA
+--   ABOL_CARTON_SCAN
+--    PROD
+--
+--==============================================================================
+--= 19.0       CA-DB2 MIGRATION CHANGE ANALYSIS REPORT    18-06-17 00:14       =
+--==============================================================================
+--
+--************************** SELECTED OBJECTS **********************************
+--   OBJECT TYPE   NAME/CREATOR
+--   -----------   ------------
+--     T           ABOL_CARTON_SCAN
+--                  AFW
+--
+--                             TOTAL SELECTED OBJECTS:         1
+--
+--+++++++++++++++++++++++++++ NO NEW OBJECTS +++++++++++++++++++++++++++++++++++
+--
+--+++++++++++++++++++++++++ NO ALTERED OBJECTS +++++++++++++++++++++++++++++++++
+--
+--======================= END OF ANALYSIS REPORT ===============================

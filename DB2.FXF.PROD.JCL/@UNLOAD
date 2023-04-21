@@ -1,0 +1,38 @@
+//DBAUNLOD JOB (X),'DB2 OLR',NOTIFY=&SYSUID.,                           00010000
+//             CLASS=2,                                                 00020000
+//             REGION=0M,                                               00030000
+//             MSGLEVEL=(1,1),                                          00040000
+//             MSGCLASS=X                                               00050000
+//*                                                                     00060000
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00070000
+//*                                                                     00080000
+// INCLUDE MEMBER=SETSYMBS                                              00090000
+//*                                                                     00100000
+//JS1      EXEC DSNUPROC,SYSTEM=DSN,UID=DBAUNLOAD                       00110004
+//*** SREC     DD  SYSOUT=*                                             00120003
+//*** SPUNCH   DD  SYSOUT=*                                             00130003
+//SYSIN    DD  DISP=SHR,DSN=AFDB.PROD.PARMLIB(OPTNSKIP)                 00140000
+//         DD  *                                                        00170000
+TEMPLATE UNLOADSN                                                       00170101
+         DSN      'AFDB.P2913526.&DB..&SN..UNLD.D&JD.'                  00170204
+         DISP     (NEW,CATLG,CATLG)                                     00170301
+         UNIT      TAPE                                                 00170401
+         DATACLAS  TAPELBI                                              00170501
+         STACK     YES                                                  00170601
+         VOLCNT    99                                                   00170701
+         RETPD     180                                                  00170801
+                                                                        00170901
+TEMPLATE PUNCHDSN                                                       00172003
+         DSN      'AFDB.P2913526.&DB..&SN..PUN.D&JD.'                   00172104
+         DISP     (NEW,CATLG,CATLG)                                     00174003
+         UNIT      SYSDA                                                00175003
+         SPACE    (1,1) TRK                                             00177003
+                                                                        00179600
+LISTDEF UNLLIST                                                         00179701
+    INCLUDE TABLESPACE ITPAPLAN.TPL02                                   00179804
+    INCLUDE TABLESPACE ITPAPLAN.TST02                                   00179904
+                                                                        00180001
+UNLOAD LIST UNLLIST                                                     00230001
+       UNLDDN UNLOADSN                                                  00250000
+       PUNCHDDN PUNCHDSN                                                00260000
+       SHRLEVEL REFERENCE                                               00270000

@@ -1,0 +1,39 @@
+//DBACOPYC JOB X,'IMAGE COPY',NOTIFY=&SYSUID.,REGION=0M,
+//         CLASS=2,MSGCLASS=X,MSGLEVEL=(1,1),TIME=1440
+//*
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB,ISPWP.DBA.PROD.PROCLIB)
+//*
+//         INCLUDE MEMBER=SETSYMBS
+//*
+//STEP0001 EXEC DB2BATCH,ENV=TEST,SSID=DSN,UID=DBACOPY
+//SYSIN    DD  *
+TEMPLATE LPCOPY                                                         00010000
+         DSN      'DB2P.&DB..&SN..P&PA..&IC.&LR.&PB..D&JD.&HO.&MI.'     00020010
+         DISP     (NEW,CATLG,CATLG)                                     00030000
+         UNIT      TAPE                                                 00040007
+         DATACLAS  TAPELBI                                              00050009
+         STACK     YES                                                  00060008
+         VOLCNT    99                                                   00070000
+         RETPD     15                                                   00080000
+LISTDEF LDEFTS
+        INCLUDE   TABLESPACE AFWHRPSF.TPPRJ
+        INCLUDE   TABLESPACE AFWHRPST.TPBUG
+        INCLUDE   TABLESPACE AFWHRPST.TPGAT
+        INCLUDE   TABLESPACE AFWHRPST.TPPRT
+        INCLUDE   TABLESPACE AFWPSOFT.AFTSPS07
+        INCLUDE   TABLESPACE AFWPSOFT.AFTSPS09
+        INCLUDE   TABLESPACE AFWPSOFT.AFTSPS13
+        INCLUDE   TABLESPACE AFWPSOFT.AFTSPS14
+        INCLUDE   TABLESPACE AFWPSOFT.AFTSPSJL
+        INCLUDE   TABLESPACE AFWPSOFT.AFTSTA01
+        INCLUDE   TABLESPACE AFWPSOFT.TPBUG
+        INCLUDE   TABLESPACE AFWPSOFT.TPJHE
+        INCLUDE   TABLESPACE AFWPSOFT.TPLDE
+
+LISTDEF LDEFTSIX
+        INCLUDE   LIST LDEFTS
+OPTIONS  EVENT    (ITEMERROR,SKIP)                                      00010001
+COPY     LIST      LDEFTSIX                                             00010001
+         FULL      YES                                                  00010001
+         SHRLEVEL  CHANGE                                               00010001
+         COPYDDN  (LPCOPY)                                              00010001

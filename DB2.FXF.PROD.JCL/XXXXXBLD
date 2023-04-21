@@ -1,0 +1,54 @@
+//DBADRBND JOB X,'REBIND',NOTIFY=&SYSUID,
+//         CLASS=3,MSGCLASS=X,MSGLEVEL=(1,1),TIME=1430
+//******
+/*JOBPARM LINES=15   < 15,000 PRINT LINES BEFORE EXCEEDED LINES MSG
+//******
+//*
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)
+//*
+//          INCLUDE MEMBER=SETSYMBS
+//*--------------------------------------------------------------------
+//* BUILD THE REBIND SCRIPT
+//*--------------------------------------------------------------------
+//*
+//* CLEAN UP DATASETS, UCC11 THE HARD WAY
+//UCC1100A EXEC IEFBR14,DSN=AFDB.QA.REBINDS.XXXX.D&YYMMDD..OUT
+//UCC1100B EXEC IEFBR14,DSN=AFDB.QA.REBINDS.XXXX.D&YYMMDD..CLEAN
+//*-----------------------------------------------------------
+//GENRBNDS EXEC PGM=IKJEFT01,DYNAMNBR=100,
+//        REGION=4M
+//SYSTSPRT DD SYSOUT=*
+//SYSTSIN DD *
+  DSN SYSTEM(DSN)
+  RUN PROGRAM(DSNTEP2) PLAN(DSNTEP2) PARM('ALIGN(LHS)') -
+     LIB('SYS2.DB2.QA.RUNLIB.LOAD')
+//SYSPRINT DD DSN=AFDB.QA.REBINDS.XXXX.D&YYMMDD..OUT,
+//            DISP=(NEW,CATLG,CATLG),
+//            UNIT=SYSDA,
+//            SPACE=(CYL,(10,50),RLSE)
+//SYSUDUMP DD SYSOUT=*
+//SYSIN   DD DSN=JXS0036.DB2.JCLLIB(XXXXXQRY),DISP=SHR
+//*
+//*-----------------------------------------------------------
+//GREPRBND EXEC PGM=SORT,REGION=8M
+//**************************************************
+//*  CLEAN UP SUPFI DATA TO EXTRACT ONLY REBIND ROWS
+//**************************************************
+//SYSOUT   DD SYSOUT=*
+//SORTIN   DD DSN=AFDB.QA.REBINDS.XXXX.D&YYMMDD..OUT,DISP=SHR
+//SORTOUT  DD DSN=AFDB.QA.REBINDS.XXXX.D&YYMMDD..CLEAN,
+//*            DISP=(OLD,KEEP,KEEP)
+//             DISP=(NEW,CATLG,CATLG),
+//             UNIT=SYSDA,
+//             SPACE=(CYL,(10,50),RLSE)
+//*SORTWK1 DD DSN=&&SORTWK1,DISP=(,PASS),SPACE=(CYL,(3000,100))
+//SYSIN    DD *
+ SORT FIELDS=COPY
+ OPTION VLSHRT
+ OUTFIL OUTREC=(11,80,TRAN=ALTSEQ),VTOF,VLFILL=X'40'
+ ALTSEQ CODE=(4F40)
+ INCLUDE COND=(12,12,CH,EQ,C'REBIND PACKA',OR,
+               08,04,CH,EQ,C'_|  ',OR,
+               12,12,CH,EQ,C'REBIND PLAN(',OR,
+               12,12,CH,EQ,C'EXPLAIN(YES)')
+/*

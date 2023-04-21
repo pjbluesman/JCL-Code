@@ -1,0 +1,282 @@
+** ORIGINAL JOB AS CREATED BY SCOTT
+** ORIGINAL JOB AS CREATED BY SCOTT
+** ORIGINAL JOB AS CREATED BY SCOTT
+** ORIGINAL JOB AS CREATED BY SCOTT
+//DBAUDRPT JOB 'DB2',CLASS=2,MSGCLASS=X,REGION=8M,NOTIFY=&SYSUID
+//********************************************* DBAUDRPT **************
+//*                                                                   *
+//*    WHEN DOES THE JOB RUN?                                         *
+//*        1. DAILY DB2 AUDIT REPORT                                  *
+//*    WHERE DOES THE JOB RUN?                                        *
+//*        1. AFW2 AGAINST DSNB                                       *
+//*    JOBS THAT MUST RUN PRIOR TO THIS JOB:                          *
+//*        1. NONE                                                    *
+//*    A SHORT DESCRIPTION OF WHAT JOB DOES:                          *
+//*        1. USING MAINVIEW AUDIT TABLES REPORTS ON ANY ACTIVITY     *
+//*           AGAINST TABLES WITH AUDITING TURNED ON IN PRODUCTION.   *
+//*    JOB RERUN INSTRUCTION(S):                                      *
+//*        1. FORCE COMPLETE FROM CA-7                                *
+//*                                                                   *
+//*********************************************************************
+//LOADPT1  EXEC DSNUPROC,SYSTEM=DSNX,UID='LOADOBID',UTPROC='',
+//       LIB='SYS2.DB2.QA.SDSNLOAD'
+//*********************************************************************
+//*    PROGRAM FUNCTION:                                              *
+//*        1. RUN CROSSLOADER TO POPULATE OBID XREF TABLE FROM DSN    *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*********************************************************************
+//OLDDATA DD DISP=SHR,DSN=SWA4831.QA.AUDTBL.LOAD.RPT
+//SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(500,500))
+//SORTOUT  DD UNIT=SYSDA,SPACE=(CYL,(500,500))
+//SYSIN    DD DSN=AFDB.PROD.SASRPT(XLOADR10),
+//            DISP=SHR
+//*********************************************************************
+//LOADPT2  EXEC DSNUPROC,SYSTEM=DSNX,UID='LOADOBID',UTPROC='',
+//       LIB='SYS2.DB2.QA.SDSNLOAD'
+//*********************************************************************
+//*                                                                   *
+//*    PROGRAM FUNCTION:                                              *
+//*        1. RUN CROSSLOADER TO APPEND DATA TO OBID XREF TABLE       *
+//*           FROM SRSB                                               *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*                                                                   *
+//*********************************************************************
+//SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(500,500))
+//SORTOUT  DD UNIT=SYSDA,SPACE=(CYL,(500,500))
+//SYSIN    DD DSN=AFDB.PROD.SASRPT(XLOADR20),
+//            DISP=SHR
+//***************************************************************
+//CLEANUP  EXEC PGM=IEFBR14
+//WAX1     DD DSN=AFDB.PROD.AUDITRPT.SAS.RPT1,
+//         DISP=(MOD,DELETE,DELETE),
+//         UNIT=SYSDA,
+//         SPACE=(TRK,(0))
+//WAX2     DD DSN=AFDB.PROD.AUDITRPT.SAS.RPT2,
+//         DISP=(MOD,DELETE,DELETE),
+//         UNIT=SYSDA,
+//         SPACE=(TRK,(0))
+//WAX3     DD DSN=AFDB.PROD.AUDITRPT.SAS.RPT3,
+//         DISP=(MOD,DELETE,DELETE),
+//         UNIT=SYSDA,
+//         SPACE=(TRK,(0))
+//WAX4     DD DSN=AFDB.PROD.AUDITRPT.SAS.RPT4,
+//         DISP=(MOD,DELETE,DELETE),
+//         UNIT=SYSDA,
+//         SPACE=(TRK,(0))
+//WAX5     DD DSN=AFDB.PROD.AUDITRPT.SAS.RPT5,
+//         DISP=(MOD,DELETE,DELETE),
+//         UNIT=SYSDA,
+//         SPACE=(TRK,(0))
+//WAX6     DD DSN=AFDB.PROD.AUDITRPT.SAS.RPT6,
+//         DISP=(MOD,DELETE,DELETE),
+//         UNIT=SYSDA,
+//         SPACE=(TRK,(0))
+//WAX7     DD DSN=AFDB.PROD.AUDITRPT.SAS.RPT7,
+//         DISP=(MOD,DELETE,DELETE),
+//         UNIT=SYSDA,
+//         SPACE=(TRK,(0))
+//*
+//RPT1  EXEC SASPROD,COND=(8,LE)
+//*********************************************************************
+//*                                                                   *
+//*    PROGRAM FUNCTION:                                              *
+//*        1. SQL AGAINST MAINVIEW AUDIT TABLE DMRAUDML TO SHOW       *
+//*           ACCESS DONE W/ ADMIN PRIVILEGES USING WRITE AGAINST     *
+//*           AUDIT TABLES                                            *
+//*        2. OUTPUT DATASET 'AFDB.PROD.AUDITRPT.SAS.RPT1'            *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*                                                                   *
+//*********************************************************************
+//SASLIST DD SYSOUT=*
+//SYSIN   DD DISP=SHR,DSN=AFDB.PROD.SASRPT(AUDRQRY1)
+//***************************************************************
+//*
+//RPT2  EXEC SASPROD,COND=(8,LE)
+//*********************************************************************
+//*                                                                   *
+//*    PROGRAM FUNCTION:                                              *
+//*        1. SQL AGAINST MAINVIEW AUDIT TABLE DMRAUDML TO SHOW       *
+//*           ROLLUP OF NON DBA ACCESS TO RESTRICTED DATA             *
+//*           FOR ANY ACCESS, NON-ONLINE OR PROD BATCH                *
+//*        2. OUTPUT DATASET 'AFDB.PROD.AUDITRPT.SAS.RPT2'            *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*                                                                   *
+//*********************************************************************
+//SASLIST DD SYSOUT=*
+//SYSIN   DD DISP=SHR,DSN=AFDB.PROD.SASRPT(AUDRQRY2)
+//*
+//RPT3  EXEC SASPROD,COND=(8,LE)
+//*********************************************************************
+//*                                                                   *
+//*    PROGRAM FUNCTION:                                              *
+//*        1. SQL AGAINST MAINVIEW AUDIT TABLE DMRAUDML TO SHOW       *
+//*           ROLLUP OF ACCESS ATTEMPTS TO AUDIT TABLES A             *
+//*            INCLUDES ONLY DMRAUDML FOR DML ACCESS                  *
+//*                      AND DMRAUFAL FOR AUTH FAILURES               *
+//*        2. OUTPUT DATASET 'AFDB.PROD.AUDITRPT.SAS.RPT3'            *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*                                                                   *
+//*********************************************************************
+//SASLIST DD SYSOUT=*
+//SYSIN   DD DISP=SHR,DSN=AFDB.PROD.SASRPT(AUDRQRY3)
+//*
+//RPT4  EXEC SASPROD,COND=(8,LE)
+//*********************************************************************
+//*                                                                   *
+//*    PROGRAM FUNCTION:                                              *
+//*        1. SQL AGAINST SYSDBAUTH TO SHOW                           *
+//*           DB2 GRANTED ACCESS TO AUDIT TABLES                      *
+//*              ( AT DATABASE LEVEL )                                *
+//*        2. OUTPUT DATASET 'AFDB.PROD.AUDITRPT.SAS.RPT4'            *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*                                                                   *
+//*********************************************************************
+//SASLIST DD SYSOUT=*
+//SYSIN   DD DISP=SHR,DSN=AFDB.PROD.SASRPT(AUDRQRY4)
+//*
+//RPT5  EXEC SASPROD,COND=(8,LE)
+//*********************************************************************
+//*                                                                   *
+//*    PROGRAM FUNCTION:                                              *
+//*        1. DATA RETENTION FOR DML ACCESS TBL (DMRAUDML)            *
+//*                (KEEP 90 DAYS ACTIVE)                              *
+//*        2. OUTPUT DATASET 'AFDB.PROD.AUDITRPT.SAS.RPT5'            *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*                                                                   *
+//*********************************************************************
+//SASLIST DD SYSOUT=*
+//SYSIN   DD DISP=SHR,DSN=AFDB.PROD.SASRPT(AUDRQRY5)
+//*
+//RPT6  EXEC SASPROD,COND=(8,LE)
+//*********************************************************************
+//*                                                                   *
+//*    PROGRAM FUNCTION:                                              *
+//*        1. DATA RETENTION FOR AUTH FAILURES TBL (DMRAUFAL)         *
+//*               (KEEP 90 DAYS ACTIVE)                               *
+//*        2. OUTPUT DATASET 'AFDB.PROD.AUDITRPT.SAS.RPT6'            *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*                                                                   *
+//*********************************************************************
+//SASLIST DD SYSOUT=*
+//SYSIN   DD DISP=SHR,DSN=AFDB.PROD.SASRPT(AUDRQRY6)
+//*
+//RPT7  EXEC SASPROD,COND=(8,LE)
+//*********************************************************************
+//*                                                                   *
+//*    PROGRAM FUNCTION:                                              *
+//*        1. SQL AGAINST MAINVIEW AUDIT TABLE DMRAUFAL TO SHOW       *
+//*           ROLLUP OF FAILED PROD DB2 ACCESS ATTEMPTS               *
+//*             ( ACTION ON INSERTS, UPDATES & DELETES )              *
+//*        2. OUTPUT DATASET 'AFDB.PROD.AUDITRPT.SAS.RPT7'            *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*                                                                   *
+//*********************************************************************
+//SASLIST DD SYSOUT=*
+//SYSIN   DD DISP=SHR,DSN=AFDB.PROD.SASRPT(AUDRQRY7)
+//*
+//DTL1  EXEC SASPROD,COND=(8,LE)
+//*********************************************************************
+//*                                                                   *
+//*    PROGRAM FUNCTION:                                              *
+//*        1. SQL AGAINST MAINVIEW AUDIT TABLE DMRAUDML TO SHOW       *
+//*           DETAIL LIST ACCESS DONE W/ ADMIN PRIVILEGES             *
+//*             TO GDG RETAINED FOR 110 DAYS                          *
+//*        2. OUTPUT DATASET 'DB2.PROD.AUDITDTL.SAS.RPT1(+1)'         *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*                                                                   *
+//*********************************************************************
+//SASLIST DD SYSOUT=*
+//SYSIN   DD DISP=SHR,DSN=AFDB.PROD.SASRPT(AUDDQRY1)
+//*
+//DTL2  EXEC SASPROD,COND=(8,LE)
+//*********************************************************************
+//*                                                                   *
+//*    PROGRAM FUNCTION:                                              *
+//*        1. SQL AGAINST MAINVIEW AUDIT TABLE DMRAUDML TO SHOW       *
+//*           DETAIL LIST NONDBA ACCESS TO RESTRICTED DATA            *
+//*             TO GDG RETAINED FOR 110 DAYS                          *
+//*        2. OUTPUT DATASET 'DB2.PROD.AUDITDTL.SAS.RPT2(+1)'         *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*                                                                   *
+//*********************************************************************
+//SASLIST DD SYSOUT=*
+//SYSIN   DD DISP=SHR,DSN=AFDB.PROD.SASRPT(AUDDQRY2)
+//*
+//DTL3  EXEC SASPROD,COND=(8,LE)
+//*********************************************************************
+//*                                                                   *
+//*    PROGRAM FUNCTION:                                              *
+//*        1. SQL AGAINST MAINVIEW AUDIT TABLE DMRAUDML TO SHOW       *
+//*           DETAILED LIST ACCESS ATTEMPTS TO AUDIT TABLES           *
+//*             TO GDG RETAINED FOR 110 DAYS                          *
+//*        2. OUTPUT DATASET 'DB2.PROD.AUDITDTL.SAS.RPT3(+1)'         *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*                                                                   *
+//*********************************************************************
+//SASLIST DD SYSOUT=*
+//SYSIN   DD DISP=SHR,DSN=AFDB.PROD.SASRPT(AUDDQRY3)
+//*
+//DTL7  EXEC SASPROD,COND=(8,LE)
+//*********************************************************************
+//*                                                                   *
+//*    PROGRAM FUNCTION:                                              *
+//*        1. DETAILED LIST OF FAILED PROD DB2 ACCESS ATTEMPTS        *
+//*             TO GDG RETAINED FOR 110 DAYS                          *
+//*        2. OUTPUT DATASET 'DB2.PROD.AUDITDTL.SAS.RPT7(+1)'         *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*                                                                   *
+//*********************************************************************
+//SASLIST DD SYSOUT=*
+//SYSIN   DD DISP=SHR,DSN=AFDB.PROD.SASRPT(AUDDQRY7)
+//*
+//SORT1    EXEC PGM=SORT,COND=(4,LT)
+//*********************************************************************
+//*                                                                   *
+//*    PROGRAM FUNCTION:                                              *
+//*        1. BUILD REPORT FROM RESULTS ABOVE                         *
+//*            (NOTE: NO ITEMS MEANS RESULTS FROM QUERY NO ROWS)      *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*                                                                   *
+//*********************************************************************
+//SYSOUT   DD SYSOUT=*
+//SORTWK01 DD SPACE=(CYL,(500,100)),UNIT=SYSDA
+//SORTWK02 DD SPACE=(CYL,(500,100)),UNIT=SYSDA
+//SORTIN   DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.SAS.RPT5
+//         DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.SAS.RPT6
+//         DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.SAS.RPT1
+//         DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.SAS.RPT2
+//         DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.SAS.RPT3
+//         DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.SAS.RPT4
+//         DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.SAS.RPT7
+//SORTOUT  DD DSN=&&TEMPB,DISP=(,PASS)
+//SYSIN    DD DISP=SHR,DSN=AFDB.PSYSIN.CONTROL(AUDITRPT)
+//*
+//IEBGENER EXEC PGM=IEBGENER
+//*********************************************************************
+//*                                                                   *
+//*    PROGRAM FUNCTION:                                              *
+//*        1. EMAIL REPORT TO DB2 DBA REQUEST FOLDER                  *
+//*    PROGRAM RESTART INSTRUCTION(S):                                *
+//*        1. RESTART FROM THE TOP                                    *
+//*                                                                   *
+//*********************************************************************
+//SYSIN DD DUMMY
+//SYSPRINT DD SYSOUT=*
+//SYSUT2 DD SYSOUT=(B,SMTP)
+//SYSUT1 DD DISP=SHR,DSN=AFDB.PROD.AUDITRPT.MAILHDR
+//       DD DISP=SHR,DSN=&&TEMPB
+//*

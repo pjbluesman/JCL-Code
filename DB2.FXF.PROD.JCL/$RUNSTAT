@@ -1,0 +1,20 @@
+ETR notification for 81726,370,000
+
+The ETR is a result of an access path change for transaction FS01SGL on
+stmt 12779 after migrating to DB2 9 CM.   Previously using
+PBES IX02 matching on PRO_NBR, SUFFIX_NBR and EVENT_CD
+to IXSCAN on IX03
+matching on PRO_NBR, then screening on SUFFIC_NBR.
+
+Following RUNSTATS on PBES restored previous access path
+
+  RUNSTATS TABLESPACE FXFPFUSN.FXTSPBES
+  TABLE(FXFP.PUBLSH_EVT_SHP_DTL)
+  SAMPLE 5
+  COLGROUP(PRO_NBR,SUFFIX_NBR)
+  FREQVAL COUNT 5
+  SORTDEVT SYSDA SORTNUM 64
+  SHRLEVEL CHANGE
+  REPORT YES
+
+======================================================================

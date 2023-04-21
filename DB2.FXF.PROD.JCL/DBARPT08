@@ -1,0 +1,198 @@
+//DBARPT08 JOB X,CLASS=1,MSGCLASS=X,REGION=0M,NOTIFY=&SYSUID            JOB22495
+//*---------------------------------------------------------------------
+//JCLLIB JCLLIB ORDER=(AFDB.PROD.PROCLIB)
+//         INCLUDE MEMBER=SETSYMBS
+//         SET SSID=DSN
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//CMDSQL1  EXEC PGM=IEBGENER
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD DUMMY
+//SYSUT2   DD DSN=&&SQLCMD1,DISP=(,PASS),
+//            UNIT=SYSDA,
+//            SPACE=(CYL,(15,15),RLSE),
+//            DCB=(LRECL=80,BLKSIZE=28000,RECFM=FB)
+//SYSUT1   DD *
+       SELECT DISTINCT CHAR('REBIND PACKAGE (-',80),
+            SUBSTR(STRIP(BNAME) || '  ', 1, 18)
+         ,  STRIP(COLLID) || '.' || STRIP(NAME) || '.' ||
+              HEX(CONTOKEN),1
+         FROM SYSIBM.SYSPACKDEP, SYSIBM.SYSPACKAGE
+        WHERE BNAME IN ('SYSTABLEPART' ,'SYSTABLESPACE'  ,'DSNDOB02')
+          AND LOCATION = ' '
+          AND BQUALIFIER = 'SYSIBM'
+          AND BTYPE IN ('I','T')
+          AND COLLID = DCOLLID
+          AND NAME = DNAME
+          AND CONTOKEN = DCONTOKEN
+    UNION ALL
+    SELECT DISTINCT CHAR(
+           RTRIM(DCOLLID) || '.' ||'"'||
+           RTRIM(DNAME) || '".' ||
+           CASE
+             WHEN VERSION = '' THEN '())'
+             ELSE '("'||TRIM(VERSION)||'"))'
+           END, 80)
+         ,  SUBSTR(STRIP(BNAME) || '  ', 1, 18)
+         ,  STRIP(COLLID) || '.' || STRIP(NAME) || '.' ||
+              HEX(CONTOKEN),2
+         FROM SYSIBM.SYSPACKDEP, SYSIBM.SYSPACKAGE
+        WHERE BNAME IN ('SYSTABLEPART' ,'SYSTABLESPACE'  ,'DSNDOB02')
+          AND LOCATION = ' '
+          AND BQUALIFIER = 'SYSIBM'
+          AND BTYPE IN ('I','T')
+          AND COLLID = DCOLLID
+          AND NAME = DNAME
+          AND CONTOKEN = DCONTOKEN
+     ORDER BY 2,3,4
+  FOR FETCH ONLY
+   ;
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//CMDSQL2  EXEC PGM=IEBGENER
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD DUMMY
+//SYSUT2   DD DSN=&&SQLCMD2,DISP=(,PASS),
+//            UNIT=SYSDA,
+//            SPACE=(CYL,(15,15),RLSE),
+//            DCB=(LRECL=80,BLKSIZE=28000,RECFM=FB)
+//SYSUT1   DD *
+       SELECT DISTINCT CHAR('REBIND PACKAGE (-',80),
+         SUBSTR(STRIP(BNAME) || '  ', 1, 18)
+          , STRIP(DCOLLID) || '.' || STRIP(DNAME) || '.' ||
+               HEX(DCONTOKEN),1
+         FROM SYSIBM.SYSPACKDEP, SYSIBM.SYSPACKAGE
+        WHERE COLLID = DCOLLID
+          AND NAME = DNAME
+          AND CONTOKEN = DCONTOKEN
+          AND (( BTYPE = 'R'
+                AND BQUALIFIER = 'DSNDB01'
+                AND BNAME IN( 'SYSLGRNX', 'SYSUTILX' )
+              )
+           OR ( BTYPE = 'R'
+                AND BQUALIFIER = 'DSNDB06'
+                AND BNAME IN ( 'SYSCOPY', 'SYSRTSTS', 'SYSSTR' )
+              )
+           OR ( BTYPE = 'T'
+                AND BQUALIFIER = 'SYSIBM'
+                AND BNAME IN( 'SYSCOPY',
+                            'SYSCHECKS', 'SYSCHECKS2',
+                            'SYSCHECKDEP', 'SYSSTRINGS',
+                            'SYSINDEXSPACESTATS',
+                            'SYSTABLESPACESTATS',
+                            'DBDR', 'SCTR', 'SPTR',
+                            'SYSCOLUMNS',
+                            'SYSINDEXES',
+                            'SYSPENDINGDDL',
+                            'SYSTABLES', 'SYSTABLESPACE',
+                            'SYSUTIL'
+                           )
+             ))
+   UNION ALL
+    SELECT DISTINCT CHAR(
+           RTRIM(DCOLLID) || '.' ||'"'||
+           RTRIM(DNAME) || '".' ||
+           CASE
+             WHEN VERSION = '' THEN '())'
+             ELSE '("'||TRIM(VERSION)||'"))'
+           END, 80)
+       , SUBSTR(STRIP(BNAME) || '  ', 1, 18)
+          , STRIP(DCOLLID) || '.' || STRIP(DNAME) || '.' ||
+               HEX(DCONTOKEN),2
+         FROM SYSIBM.SYSPACKDEP, SYSIBM.SYSPACKAGE
+        WHERE COLLID = DCOLLID
+          AND NAME = DNAME
+          AND CONTOKEN = DCONTOKEN
+          AND (( BTYPE = 'R'
+                AND BQUALIFIER = 'DSNDB01'
+                AND BNAME IN( 'SYSLGRNX', 'SYSUTILX' )
+              )
+           OR ( BTYPE = 'R'
+                AND BQUALIFIER = 'DSNDB06'
+                AND BNAME IN ( 'SYSCOPY', 'SYSRTSTS', 'SYSSTR' )
+              )
+           OR ( BTYPE = 'T'
+                AND BQUALIFIER = 'SYSIBM'
+                AND BNAME IN( 'SYSCOPY',
+                            'SYSCHECKS', 'SYSCHECKS2',
+                            'SYSCHECKDEP', 'SYSSTRINGS',
+                            'SYSINDEXSPACESTATS',
+                            'SYSTABLESPACESTATS',
+                            'DBDR', 'SCTR', 'SPTR',
+                            'SYSCOLUMNS',
+                            'SYSINDEXES',
+                            'SYSPENDINGDDL',
+                            'SYSTABLES', 'SYSTABLESPACE',
+                            'SYSUTIL'
+                           )
+             ))
+      ORDER BY 2, 3, 4
+  FOR FETCH ONLY
+;
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//DSNTIUAL EXEC DSNTIAUL,SSID=&SSID.
+//STEPLIB  DD DSN=SYS2.DB2.PROD.SDSNLOAD,DISP=SHR
+//SYSUDUMP DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSPUNCH DD SYSOUT=*
+//SYSIN    DD DSN=&&SQLCMD1,DISP=OLD
+//SYSREC00 DD DSN=&&REPORT1,DISP=(,PASS),
+//            UNIT=SYSDA,
+//            SPACE=(CYL,(15,15),RLSE),
+//            DCB=(LRECL=80,BLKSIZE=28000,RECFM=FB)
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//DSNTIUAL EXEC DSNTIAUL,SSID=&SSID.
+//STEPLIB  DD DSN=SYS2.DB2.PROD.SDSNLOAD,DISP=SHR
+//SYSUDUMP DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSPUNCH DD SYSOUT=*
+//SYSIN    DD DSN=&&SQLCMD2,DISP=OLD
+//SYSREC00 DD DSN=&&REPORT2,DISP=(,PASS),
+//            UNIT=SYSDA,
+//            SPACE=(CYL,(15,15),RLSE),
+//            DCB=(LRECL=80,BLKSIZE=28000,RECFM=FB)
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//RBINDCMD EXEC PGM=SORT
+//SYSOUT   DD SYSOUT=*
+//SORTIN   DD DSN=&&REPORT1,DISP=OLD
+//         DD DSN=&&REPORT2,DISP=OLD
+//SORTOUT  DD DSN=&&REBIND,DISP=(,PASS),
+//            UNIT=SYSDA,
+//            SPACE=(CYL,(15,15),RLSE),
+//            DCB=(LRECL=80,BLKSIZE=28000,RECFM=FB)
+//SYSIN    DD *
+  SORT FIELDS=COPY
+  OUTREC FIELDS=(1,80)
+END
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//RBINDCMD EXEC PGM=IEBGENER
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD DUMMY
+//SYSUT2   DD SYSOUT=*
+//SYSUT1   DD DSN=&&REBIND,DISP=OLD
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//REBIND   EXEC PGM=IKJEFT01,DYNAMNBR=100,REGION=4M
+//SYSTSPRT DD  SYSOUT=*
+//SYSPRINT DD  SYSOUT=*
+//LISTING  DD  SYSOUT=*
+//SYSTSIN  DD  DISP=SHR,DSN=AFDB.PROD.PARMLIB(SYS&SSID.)
+//         DD  DSN=&&REBIND,DISP=OLD
+//         DD  *
+END
+/*

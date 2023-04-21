@@ -1,0 +1,129 @@
+//DBARPT05 JOB X,CLASS=2,MSGCLASS=X,REGION=0M,NOTIFY=&SYSUID            JOB15002
+//*---------------------------------------------------------------------
+//JCLLIB JCLLIB ORDER=(AFDB.PROD.PROCLIB)
+//         INCLUDE MEMBER=SETSYMBS
+//         SET SSID=DSN
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//CMDSQL   EXEC PGM=IEBGENER
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD DUMMY
+//SYSUT2   DD DSN=&&SQLCMD,DISP=(,PASS),
+//            UNIT=SYSDA,
+//            SPACE=(CYL,(15,15),RLSE),
+//            DCB=(LRECL=80,BLKSIZE=28000,RECFM=FB)
+//SYSUT1   DD *
+    SELECT CHAR('REBIND PACKAGE (-', 80)
+         , LASTUSED
+         , 'CURRENT ' AS PKGCOPY
+         , RTRIM(COLLID) || '.' ||
+           RTRIM(NAME) || '.(' ||
+           RTRIM(VERSION) || ')'
+           AS RESULT
+         , 1
+      FROM SYSIBM.SYSPACKAGE
+     WHERE RELBOUND <= 'M'
+   UNION ALL
+    SELECT CHAR(
+           RTRIM(COLLID) || '.' ||'"'||
+           RTRIM(NAME) || '".' ||
+           CASE
+             WHEN VERSION = '' THEN '())'
+             ELSE '("'||TRIM(VERSION)||'"))'
+           END, 80)
+         , LASTUSED
+         , 'CURRENT ' AS PKGCOPY
+         , RTRIM(COLLID) || '.' ||
+           RTRIM(NAME) || '.(' ||
+           RTRIM(VERSION) || ')'
+           AS RESULT
+         , 2
+      FROM SYSIBM.SYSPACKAGE
+     WHERE RELBOUND <= 'M'
+   UNION ALL
+    SELECT CHAR('REBIND PACKAGE (-', 80)
+         , LASTUSED
+         , CASE WHEN COPYID = 1 THEN 'PREVIOUS'
+                WHEN COPYID = 2 THEN 'ORIGINAL'
+                ELSE 'ERROR'
+           END AS PKGCOPY
+         , RTRIM(COLLID) || '.' ||
+           RTRIM(NAME) || '.(' ||
+           RTRIM(VERSION) || ')'
+           AS RESULT
+         , 3
+      FROM SYSIBM.SYSPACKCOPY
+     WHERE RELBOUND <= 'M'
+    UNION ALL
+    SELECT CHAR(
+           RTRIM(COLLID) || '.' ||'"'||
+           RTRIM(NAME) || '".' ||
+           CASE
+             WHEN VERSION = '' THEN '())'
+             ELSE '("'||TRIM(VERSION)||'"))'
+           END, 80)
+         , LASTUSED
+         , CASE WHEN COPYID = 1 THEN 'PREVIOUS'
+                WHEN COPYID = 2 THEN 'ORIGINAL'
+                ELSE 'ERROR'
+           END AS PKGCOPY
+         , RTRIM(COLLID) || '.' ||
+           RTRIM(NAME) || '.(' ||
+           RTRIM(VERSION) || ')'
+           AS RESULT
+         , 4
+      FROM SYSIBM.SYSPACKCOPY
+     WHERE RELBOUND <= 'M'
+  ORDER BY 4, 3, 5
+  FOR FETCH ONLY WITH UR
+;
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//DSNTIUAL EXEC DSNTIAUL,SSID=&SSID.
+//STEPLIB  DD DSN=SYS2.DB2.PROD.SDSNLOAD,DISP=SHR
+//SYSUDUMP DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSPUNCH DD SYSOUT=*
+//SYSIN    DD DSN=&&SQLCMD,DISP=OLD
+//SYSREC00 DD DSN=&&REPORT,DISP=(,PASS),
+//            UNIT=SYSDA,
+//            SPACE=(CYL,(15,15),RLSE),
+//            DCB=(LRECL=80,BLKSIZE=28000,RECFM=FB)
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//RBINDCMD EXEC PGM=SORT
+//SYSOUT   DD SYSOUT=*
+//SORTIN   DD DSN=&&REPORT,DISP=OLD
+//SORTOUT  DD DSN=&&REBIND,DISP=(,PASS),
+//            UNIT=SYSDA,
+//            SPACE=(CYL,(15,15),RLSE),
+//            DCB=(LRECL=80,BLKSIZE=28000,RECFM=FB)
+//SYSIN    DD *
+  SORT FIELDS=COPY
+  OUTREC FIELDS=(1,80)
+END
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//RBINDCMD EXEC PGM=IEBGENER
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD DUMMY
+//SYSUT2   DD SYSOUT=*
+//SYSUT1   DD DSN=&&REBIND,DISP=OLD
+//*---------------------------------------------------------------------
+//*
+//*---------------------------------------------------------------------
+//REBIND   EXEC PGM=IKJEFT01,DYNAMNBR=100,REGION=4M
+//SYSTSPRT DD  SYSOUT=*
+//SYSPRINT DD  SYSOUT=*
+//LISTING  DD  SYSOUT=*
+//SYSTSIN  DD  DISP=SHR,DSN=AFDB.PROD.PARMLIB(SYS&SSID.)
+//         DD  DSN=&&REBIND,DISP=OLD
+//         DD  *
+END
+/*

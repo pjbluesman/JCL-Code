@@ -1,0 +1,35 @@
+//DBARBACK JOB (X),'DBA RBA CHECK',NOTIFY=&SYSUID.,                     00001001
+//             CLASS=2,                                                 00002001
+//             REGION=0M,                                               00003001
+//             MSGLEVEL=(1,1),                                          00004001
+//             MSGCLASS=X                                               00005001
+//*                                                                     00006001
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00060000
+//*                                                                     00070000
+//RBACHECK EXEC PGM=IKJEFT01,DYNAMNBR=100,                              06600000
+//             REGION=4M                                                06610000
+//SYSPRINT DD  SYSOUT=*                                                 06620000
+//SYSTSPRT DD  SYSOUT=*                                                 06630000
+//SYSPUNCH DD  SYSOUT=*                                                 06640000
+//LISTING  DD  SYSOUT=*                                                 06650000
+//SYSTSIN  DD  *                                                        06660000
+DSN SYSTEM(DSN)                                                         06670000
+RUN PROGRAM(DSNTEP2) PLAN(DSNTEP2) -                                    06680000
+    LIB('SYS2.DB2.PROD.RUNLIB.LOAD')                                    06690000
+END                                                                     06700000
+/*                                                                      06710000
+//SYSIN    DD  *                                                        06720000
+--  THIS STEP WILL CHECK THE NUMBER OF OBJECTS ALREADY CONVERTED        06730000
+--  TO 10 BYTES RBA                                                     06740000
+SET CURRENT SQLID = '@DBAPCC';                                          06750000
+SELECT A.CONVERTED,B.ALL, DEC(A.CONVERTED,15,2)/B.ALL * 100 AS          06760000
+       "%CONVERTED"                                                     06770000
+FROM (SELECT COUNT(*) AS CONVERTED                                      06780000
+        FROM SYSIBM.SYSTABLEPART                                        06790000
+       WHERE RBA_FORMAT='E') AS A,                                      06800000
+     (SELECT COUNT(*) AS ALL                                            06810000
+        FROM SYSIBM.SYSTABLEPART                                        06820000
+          WHERE                                                         06830000
+          TSNAME NOT LIKE 'DSN%K%'                                      06840000
+     AND  DBNAME NOT LIKE 'EXPLAN%') AS B                               06850000
+        WITH UR;                                                        06860000

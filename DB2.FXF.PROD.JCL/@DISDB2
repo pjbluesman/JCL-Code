@@ -1,0 +1,20 @@
+//DBAREORG JOB (X),'DB2 OLR',NOTIFY=&SYSUID.,                           00010000
+//             CLASS=2,                                                 00020000
+//             REGION=0M                                                00030001
+//*                                                                     00060000
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00070000
+//*                                                                     00080000
+// INCLUDE MEMBER=SETSYMBS                                              00090000
+//*                                                                     00100000
+//************************************************************          00101000
+//*   DISPLAY TABLESPACE, TO VERIFY STARTING STATUS                     00102000
+//************************************************************          00103000
+//DISP001 EXEC PGM=IKJEFT01,DYNAMNBR=100,                               00104000
+//        REGION=4M                                                     00105000
+//SYSPRINT DD SYSOUT=*                                                  00106000
+//SYSTSPRT DD SYSOUT=*                                                  00107000
+//LISTING  DD SYSOUT=*                                                  00108000
+//SYSTSIN DD *                                                          00109000
+ DSN SYSTEM(DSN)                                                        00109100
+ -DIS DB(SHPA0003) SPACE(TSHAD)     LIMIT(*) CLAIMERS                   00109200
+ END                                                                    00109300

@@ -1,0 +1,29 @@
+//DBAUNLOD JOB (X),'DB2 OLR',NOTIFY=&SYSUID.,                           00010001
+//             CLASS=2,                                                 00020000
+//             REGION=0M,                                               00030000
+//             MSGLEVEL=(1,1),                                          00040000
+//             MSGCLASS=X                                               00050000
+//*                                                                     00060000
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00070000
+//*                                                                     00080000
+// INCLUDE MEMBER=SETSYMBS                                              00090000
+//*                                                                     00100000
+//JS1      EXEC DSNUPROC,SYSTEM=DSNB,UID=DBAUNLOAD                      00120002
+//SREC     DD  SYSOUT=*                                                 00130002
+//SPUNCH   DD  SYSOUT=*                                                 00140002
+//SYSIN    DD  DISP=SHR,DSN=AFDB.PROD.PARMLIB(OPTNSKIP)                 00170000
+//         DD  DISP=SHR,DSN=AFDB.PROD.TEMPLATE(LPICVTS)                 00180000
+//         DD  DISP=SHR,DSN=AFDB.PROD.TEMPLATE(RPICTAPE)                00190000
+//         DD  *                                                        00200000
+--UNLOAD TABLESPACE RVPA003.TAPKH                                       00290002
+--       FROMCOPY DB2P.RVPA003.TAPKH.P00100.FLP.D0172020                00300002
+--       UNLDDN SREC                                                    00310002
+--       PUNCHDDN SPUNCH                                                00320002
+--       SHRLEVEL REFERENCE                                             00330002
+UNLOAD TABLESPACE ISHFSYS.TFBSH                                         00340002
+       FROMCOPY DB2T.ISHFSYS.TFBSH.P00000.FLP.D1310500                  00340102
+       UNLDDN SREC                                                      00340202
+       PUNCHDDN SPUNCH                                                  00340302
+       SHRLEVEL REFERENCE                                               00340402
+   FROM TABLE DB2FFI.SHIPMENT                                           00340502
+       WHEN (PRO_NUMBER = '400101274188')                               00341002

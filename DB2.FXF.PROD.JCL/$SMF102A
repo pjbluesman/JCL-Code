@@ -1,0 +1,64 @@
+//SWA4831S JOB  (X),'ABELL',CLASS=2,NOTIFY=&SYSUID,                     00010001
+//             MSGLEVEL=(1,1),MSGCLASS=X,REGION=0M                      00020001
+//*                                                                     00030001
+//JOBLIB    DD DISP=SHR,DSN=SYSD.CADB2.AFW1.CDBALOAD                    00040001
+//*                                                                     00050001
+//********************************************************************* 00060001
+//* RUN THE CA-INSIGHT REPORT WRITER.                                   00070001
+//*                                                                     00080001
+//* FOR MORE INFORMATION SEE:                                           00090001
+//*   - UNICENTER CA-INSIGHT BATCH REPORT REFERENCE.                    00100001
+//*   - UNICENTER CA-INSIGHT WRITING REQUESTS                           00110001
+//*                                                                     00120001
+//********************************************************************* 00130001
+//*                                                                     00140001
+//*                                                                     00150001
+//*------------------------------------------------------------------   00160001
+//* SUBSYSTEMS CAN BE SELECTED ON THE EXEC CARD.  IF "SSID"             00170001
+//* IS USED TO SELECT ALL SUBSYSTEMS IN A SUMMARY REPORT,               00180001
+//* THE INPUT SHOULD FIRST BE SORTED BY SSID, WHICH MAY NOT             00190001
+//* BE PRACTICAL.                                                       00200001
+//*------------------------------------------------------------------   00210001
+//IDB2RWJ  EXEC PGM=NSIGHTRW,PARM=''   ALL SUBSYSTEMS                   00220001
+//*IDB2RWJ  EXEC PGM=NSIGHTRW,PARM='/DBSUB=SSID'   ALL SUBSYSTEMS       00230001
+//*IDB2RWJ  EXEC PGM=NSIGHTRW,PARM='/DBSUB=DBP2'    ONE SUBSYSTEM       00240001
+//*                                                                     00250001
+//*                                                                     00260001
+//*------------------------------------------------------------------   00270001
+//* INPUT PARMS. (PLACE OVERRIDES ON EXEC PARM)                         00280001
+//*------------------------------------------------------------------   00290001
+//SYSPARMS  DD DISP=SHR,DSN=SYSD.CADB2.AFW1.SOURCE(IDRWPRMS)            00300001
+//*                                                                     00310001
+//*                                                                     00320001
+//*------------------------------------------------------------------   00330001
+//* GTF/SMF DATA IN TIME ORDER. FOR ALL SUBSYSTEMS, INPUT MUST          00340001
+//* BE IN SSID, DATE, AND TIME ORDER. INPUT CAN BE CONCATENATED.        00350001
+//*------------------------------------------------------------------   00360001
+//*                                                                     00370001
+//*  DAILY COLLECTION OF ALL PRODPLEX SUBSYSTEMS.  31 GENERATIONS       00380001
+//DB2DDN    DD DISP=SHR,DSN=SWA4831.SMF.AFW1.D2019353.T130000A          00390001
+//*                                                                     00400001
+//*------------------------------------------------------------------   00410001
+//* OPTIONAL OBID TRANSLATIONS: TRANSLATES DBIDS AND OBIDS INTO         00420001
+//* DATABASE AND TABLE SPACE NAMES.                                     00430001
+//*------------------------------------------------------------------   00440001
+//*OBIDTBL   DD DISP=SHR,DSN=SYSD.CADB2.D2PC.OBID                       00450001
+//*                                                                     00460001
+//*------------------------------------------------------------------   00470001
+//* DBGIN REQUESTS SPECIFIC REPORTS. SELECT ONE OR CONCATENATE          00480001
+//* FOR MULTIPLE REPORTS. ADDITIONAL SPECS CAN BE IN THE GLOBAL.        00490001
+//*------------------------------------------------------------------   00500001
+//DBGIN     DD DISP=SHR,DSN=AFDB.SMF.SYSVIEW.REPORTS.CNTL.R19(RATERPT)  00510001
+//*                                                                     00520001
+//*------------------------------------------------------------------   00530001
+//* PRINT FILE ALLOCATIONS PAIRED TO THE REPORTS ABOVE. UNCOMMENT       00540001
+//* THOSE THAT APPLY. THE FIRST SET IS FOR MY CUSTOMIZED REPORTS.       00550001
+//* THE SECOND SET IS FOR THE STANDARD INSIGHTS REPORTS.                00560001
+//*------------------------------------------------------------------   00570001
+//ACTLIST   DD SYSOUT=*                                                 00580001
+//*                                                                     00590001
+//*------------------------------------------------------------------   00600001
+//* STANDARD REQUIRED OUTPUT FILES.                                     00610001
+//*------------------------------------------------------------------   00620001
+//DBGPRINT  DD SYSOUT=*                                                 00630001
+//SYSUDUMP  DD SYSOUT=*                                                 00640001

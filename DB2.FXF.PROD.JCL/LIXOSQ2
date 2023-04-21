@@ -1,0 +1,238 @@
+.CONTROL SN(JXS0036,TESTE1)
+.OPTION BPCL
+
+--==============================================================================
+-- 19.0         CA-DB2   RC/Migrator   Analysis Report      17-12-26 15:07
+--==============================================================================
+--Strategy Information:
+--Strategy ==> TESTE1    Description  ===> TESTE1 SEQ
+--Creator  ==> JXS0036   Share Option ===> N (U,Y,N,X,L)  Src SSID ===> DSNB
+--
+--
+--Analysis Options:
+--  Execution Mode    ===> B (O - Online, B - Batch)
+--  Analysis Override ===> N
+--  Access Mode       ===> CATALOG
+--  Model ID          ===> !CAUIBM
+--  Model Creator     ===> @DBATFS
+--  Target SSID       ===> DSNB
+--  Global Changes    ===> Y
+--
+--  Aux Implode       ===> N             Statistics    ===> N
+--  MQT Implode       ===> N             Check Data    ===> N
+--  Sequence Implode  ===>               Image Copy    ===> N
+--  RI(Local/Global)  ===> N             Bind/Rebind   ===> N
+--  Security          ===> Y             Recover IX    ===> N
+--  Drop Objects      ===> N             Reorg         ===> N
+--  LOB Objects       ===> N
+--  Default SQLID     ===>
+--  Alias SQLID       ===>
+--  Table OBID        ===> N
+--  Rtn Implode       ===>
+--  Rtn Interaction   ===> N
+--  View (Imp/Exp)    ===> Y
+--
+--  All Rows          ===> Y             VSAM Defines  ===> N
+--  Number Rows       ===>               VSAM Deletes  ===> N
+--  Data Statistics   ===> N
+--  Truncate          ===> N
+--  MQT Refresh       ===> N
+--  Set Terminator    ===> ;  (Value from PARMLIB)
+--
+--  No .AUTHS               ===> N
+--  No Set SQLID Stmts      ===> N
+--  Bnd/Dat/Sql/Stat/Grnt/RI===> N
+--  Commit ASAP             ===> N
+--
+--  Delete Unload Data Sets   ===> N
+--  Delete Temporary Datasets ===> N
+--
+--Global Changes:
+--
+--  SET NAME          ===> CO 2 M0
+--  SET CREATOR       ===> DFH4910
+--
+--  CODE   DESCRIPTION
+--  AL     ALL OBJECT TYPES
+--  ALCB    CREATED BY
+--   FROM *                                 TO @DBATFC
+--  ALCR    CREATOR
+--   FROM FFC0                              TO FFM0
+--  ALDB    DATABASE NAME
+--   FROM ITC0IBM1                          TO ITM0IBM1
+--  ALSG    STOGROUP
+--   FROM TIBM                              TO TIBM
+--
+--  DBNM    NAME
+--   FROM ITC0IBM1                          TO ITM0IBM1
+--  DBGT    GRANTOR (NC)
+--   FROM *                                 TO @DBATFC
+--  DBSG    STOGROUP
+--   FROM TIBM                              TO TIBM
+--
+--  TSDB    DBNAME
+--   FROM ITC0IBM1                          TO ITM0IBM1
+--  TSPQ    PRIMARY QUANTITY
+--   FROM *                                 TO CALC(-1)
+--  TSSQ    SECONDARY QUANTITY
+--   FROM *                                 TO CALC(-1)
+--
+--  TBCR    CREATOR
+--   FROM FFC0                              TO FFM0
+--  TBDB    DBNAME
+--   FROM ITC0IBM1                          TO ITM0IBM1
+--
+--  IXCR    CREATOR
+--   FROM FFC0                              TO FFM0
+--  IXPQ    PRIMARY QUANTITY
+--   FROM *                                 TO CALC(-1)
+--  IXSQ    SECONDARY QUANTITY
+--   FROM *                                 TO CALC(-1)
+--
+--  TGOW    OWNER
+--   FROM FFC0                              TO FFM0
+--  TGTO    TBOWNER
+--   FROM FFC0                              TO FFM0
+--
+--**********************************************************************
+--*                           PRIMARY OBJECT                           *
+--**********************************************************************
+--
+-- Included Primary Object(s): Sequence
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- DB2FFU            MEET_OBJ_NBR_SEQ
+--
+--
+--   Other:   Security
+--               Y
+--
+-- Legend:
+--   Strategy Inclusion Reasons               Object Types
+--     A - Table is aux-Table to base-Table     SG - Stogroup
+--     B - Table is base-table to aux-Table     DB - Database
+--     C - Table is an RI child                 TS - Tablespace
+--     D - Index supports RI                    T  - Table
+--     F - Table adopted a new child Table      MQ - Mqt
+--     I - Table has Index activity             I  - Index
+--     L - LOB TS related to base-Table         SQ - Sequence
+--     M - Imploded to from child               UF - Function
+--     P - Primary Object                       PR - Procedure
+--     Q - Tablespace has a partitioned Table   V  - View
+--     R - Table is an RI parent                S  - Synonym
+--     S - Selected in the strategy             A  - Alias
+--     X - Exploded to from parent              TG - Trigger
+--     Z - Potential parent on target
+--
+--   Implode/Explode Analysis General format:
+--   <Reason> <Object type> <Object name>
+--
+--     P SQ DB2FFU.MEET_OBJ_NBR_SEQ
+--************************* END ANALYSIS HEADER ************************
+
+--  RMA234W AN IN-PLACE MIGRATION HAS BEEN GENERATED WITH THE DROP OBJECTS
+--         OPTION SET TO "N". SQL ERRORS MAY OCCUR.
+
+--  RMA238W THIS ANALYSIS WAS PERFORMED WITHOUT THE RI CONTROL OPTION. NO
+--         REFERENTIAL RELATIONSHIPS WILL BE GENERATED.
+
+--  RMA448W THIS ANALYSIS WAS PERFORMED WITHOUT THE LOB OBJECTS OPTION. TABLES
+--         CREATED CONTAINING LOB COLUMNS MAY BE MARKED INCOMPLETE.
+
+.SYSTEM SQLDDL
+.CONNECT DSNB
+
+-- **************************************************************
+-- *                                                            *
+-- * SEQUENCE CREATE AND ALTER STATEMENTS                       *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DB2FFU.MEET_OBJ_NBR_SEQ WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS
+-- .
+
+
+.AUTH  RWL9837
+
+    SET CURRENT SQLID = '@DBATFC';
+
+
+CREATE  SEQUENCE DB2FFU.MEET_OBJ_NBR_SEQ AS INTEGER
+               START WITH    1
+               INCREMENT BY  1
+                  MINVALUE   1
+                  MAXVALUE   999999999
+                  CYCLE
+                  CACHE      10
+               NO ORDER
+             ;
+.SYNC 5         'CREATE SEQUENCE DB2FFU.MEET_OBJ_NBR_SEQ'
+
+    SET CURRENT SQLID = USER;
+
+
+.AUTH @DBATFC
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT USAGE ON SEQUENCE  DB2FFU.MEET_OBJ_NBR_SEQ
+                      TO      @BNDTFA;
+
+.SYNC 10        'GRANT SEQUENCE DB2FFU.MEET_OBJ_NBR_SEQ'
+
+.AUTH @DBATFC
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT USAGE ON SEQUENCE  DB2FFU.MEET_OBJ_NBR_SEQ
+                      TO      @APPTFA;
+
+.SYNC 15        'GRANT SEQUENCE DB2FFU.MEET_OBJ_NBR_SEQ'
+
+.AUTH @DBATFC
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT USAGE ON SEQUENCE  DB2FFU.MEET_OBJ_NBR_SEQ
+                      TO      @APPTCA;
+
+.SYNC 20        'GRANT SEQUENCE DB2FFU.MEET_OBJ_NBR_SEQ'
+
+.AUTH @DBATFC
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT USAGE ON SEQUENCE  DB2FFU.MEET_OBJ_NBR_SEQ
+                      TO      @XPYTFA;
+
+.SYNC 25        'GRANT SEQUENCE DB2FFU.MEET_OBJ_NBR_SEQ'
+
+.AUTH @DBATFC
+
+    SET CURRENT SQLID = '@DBATFC';
+
+    GRANT ALTER,USAGE ON SEQUENCE  DB2FFU.MEET_OBJ_NBR_SEQ
+                      TO      @DBATCC
+       WITH GRANT OPTION;
+
+.SYNC 30        'GRANT SEQUENCE DB2FFU.MEET_OBJ_NBR_SEQ'
+
+    SET CURRENT SQLID = USER;
+
+.AUTH
+.DISCONN
+
+.SYNC 35        'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+
+--==============================================================================
+-- 19.0           CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      17-12-26 15:07
+--==============================================================================

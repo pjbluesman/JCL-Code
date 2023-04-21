@@ -1,0 +1,43 @@
+//DBAREBND JOB X,CLASS=1,MSGCLASS=X,NOTIFY=&SYSUID
+//*
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)
+//*
+//          INCLUDE MEMBER=SETSYMBS
+//REBIND01 EXEC PGM=IKJEFT01,DYNAMNBR=100,
+//         REGION=4M
+//SYSTSPRT DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//SYSTSIN  DD *
+ DSN SYSTEM(DSN)
+ BIND PACKAGE(A_RV)                                                  -
+      OWNER(@BNDPA)                                                  -
+      QUALIFIER(PROD)                                                -
+      MEMBER(PR74IA02)                                               -
+      LIBRARY('FFPA.GEN.DBRM')                                       -
+      CURRENTDATA(NO)                                                -
+      VALIDATE(BIND)                                                 -
+      EXPLAIN(YES)                                                   -
+      ACTION(REPLACE)                                                -
+      SQLERROR(NOPACKAGE)                                            -
+      ISOLATION(UR)                                                  -
+      RELEASE(COMMIT)                                                -
+      DEGREE(1)                                                      -
+      REOPT(NONE)                                                    -
+      KEEPDYNAMIC(YES)                                               -
+      DBPROTOCOL(DRDA)                                               -
+      ENCODING(EBCDIC)                                               -
+      IMMEDWRITE(NO)                                                 -
+      DYNAMICRULES(RUN)                                              -
+      NODEFER(PREPARE)                                               -
+      ROUNDING(HALFEVEN)                                             -
+     EXTENDEDINDICATOR(NO)                                          -
+     APREUSE(NO)                                                    -
+     SYSTIMESENSITIVE(NO)                                           -
+     BUSTIMESENSITIVE(NO)                                           -
+     DESCSTAT(YES)                                                  -
+     ARCHIVESENSITIVE(NO)                                           -
+     APCOMPARE(NO)                                                  -
+     APPLCOMPAT(V10R1)                                              -
+     FLAG(I);
+//*

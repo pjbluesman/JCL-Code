@@ -1,0 +1,201 @@
+.CONTROL SN(JXS0036,IDXCREAT)
+.OPTION BPCL
+
+--==============================================================================
+-- 19.0         CA-DB2   RC/Migrator   Analysis Report      17-12-13 11:56
+--==============================================================================
+--Strategy Information:
+--Strategy ==> IDXCREAT  Description  ===> INDEX CREATE
+--Creator  ==> JXS0036   Share Option ===> Y (U,Y,N,X,L)  Src SSID ===> DSNX
+--
+--
+--Analysis Options:
+--  Execution Mode    ===> B (O - Online, B - Batch)
+--  Analysis Override ===> N
+--  Access Mode       ===> CATALOG - LIMITED
+--  Model ID          ===> !CAUIBM
+--  Model Creator     ===> @DBAPFS
+--  Target SSID       ===> DSN
+--  Global Changes    ===> Y
+--
+--  Aux Implode       ===> N             Statistics    ===> N
+--  MQT Implode       ===> N             Check Data    ===> N
+--  Sequence Implode  ===>               Image Copy    ===> N
+--  RI(Local/Global)  ===> N             Bind/Rebind   ===> N
+--  Security          ===> N             Recover IX    ===> N
+--  Drop Objects      ===> N             Reorg         ===> N
+--  LOB Objects       ===> N
+--  Default SQLID     ===> @DBAPCC
+--  Alias SQLID       ===>
+--  Table OBID        ===> N
+--  Rtn Implode       ===>
+--  Rtn Interaction   ===> N
+--  View (Imp/Exp)    ===> Y
+--
+--  All Rows          ===> N             VSAM Defines  ===> N
+--  Number Rows       ===>               VSAM Deletes  ===> N
+--  Data Statistics   ===> N
+--  Truncate          ===> N
+--  MQT Refresh       ===> N
+--  Set Terminator    ===> ;  (Value from PARMLIB)
+--
+--  No .AUTHS               ===> Y
+--  No Set SQLID Stmts      ===> N
+--  Bnd/Dat/Sql/Stat/Grnt/RI===> N
+--  Commit ASAP             ===> N
+--
+--  Delete Unload Data Sets   ===> N
+--  Delete Temporary Datasets ===> N
+--
+--Global Changes:
+--
+--  SET NAME          ===> V 2 PCO
+--  SET CREATOR       ===> RWL9837
+--
+--  CODE   DESCRIPTION
+--  AL     ALL OBJECT TYPES
+--  ALCR    CREATOR
+--   FROM *                                 TO AFW
+--  ALDB    DATABASE NAME
+--   FROM *                                 TO AFWCLAIM
+--  ALGT    GRANTOR (NC)
+--   FROM *                                 TO @DBAPFD
+--  ALSG    STOGROUP
+--   FROM *                                 TO DB2VP
+--
+--  SGNM    NAME
+--   FROM *                                 TO DB2VP
+--
+--  TSDB    DBNAME
+--   FROM --Q----                           TO --P----
+--  TSDB    DBNAME
+--   FROM *                                 TO AFWCLAIM
+--  TSCR    CREATOR
+--   FROM *                                 TO @DBAPCC
+--
+--  TBCB    CREATED BY
+--   FROM *                                 TO @DBAPCC
+--  TBCR    CREATOR
+--   FROM *                                 TO AFW
+--  TBGE    GRANTEE (NC)
+--   FROM @QUAQFA                           TO EXPLAIN
+--  TBGE    GRANTEE (NC)
+--   FROM ----Q%                            TO ----P%
+--  TBDB    DBNAME
+--   FROM --Q----                           TO --P----
+--
+--  IXCR    CREATOR
+--   FROM *                                 TO AFW
+--  IXCB    CREATED BY
+--   FROM *                                 TO @DBAPCC
+--
+--  VWCB    CREATED BY
+--   FROM *                                 TO @DBAPCC
+--  VWCR    CREATOR
+--   FROM *                                 TO AFW
+--
+--  ASCR    CREATOR
+--   FROM QA                                TO PROD
+--
+--**********************************************************************
+--*                           PRIMARY OBJECT                           *
+--**********************************************************************
+--
+-- Included Primary Object(s): Index
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- DB2FFV            IOVCI02
+--
+--   Implode: SG DB TS TB TG
+--            _  _  _  _  _
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+-- Legend:
+--   Strategy Inclusion Reasons               Object Types
+--     A - Table is aux-Table to base-Table     SG - Stogroup
+--     B - Table is base-table to aux-Table     DB - Database
+--     C - Table is an RI child                 TS - Tablespace
+--     D - Index supports RI                    T  - Table
+--     F - Table adopted a new child Table      MQ - Mqt
+--     I - Table has Index activity             I  - Index
+--     L - LOB TS related to base-Table         SQ - Sequence
+--     M - Imploded to from child               UF - Function
+--     P - Primary Object                       PR - Procedure
+--     Q - Tablespace has a partitioned Table   V  - View
+--     R - Table is an RI parent                S  - Synonym
+--     S - Selected in the strategy             A  - Alias
+--     X - Exploded to from parent              TG - Trigger
+--     Z - Potential parent on target
+--
+--   Implode/Explode Analysis General format:
+--   <Reason> <Object type> <Object name>
+--
+--     P I  DB2FFV.IOVCI02
+--************************* END ANALYSIS HEADER ************************
+
+--  RMA238W THIS ANALYSIS WAS PERFORMED WITHOUT THE RI CONTROL OPTION. NO
+--         REFERENTIAL RELATIONSHIPS WILL BE GENERATED.
+
+--  RMA448W THIS ANALYSIS WAS PERFORMED WITHOUT THE LOB OBJECTS OPTION. TABLES
+--         CREATED CONTAINING LOB COLUMNS MAY BE MARKED INCOMPLETE.
+
+.SYSTEM SQLDDL
+.CONNECT DSN
+
+-- **************************************************************
+-- *                                                            *
+-- * INDEX CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- AFW.IOVCI02 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+
+    SET CURRENT SQLID = '@DBAPCC';
+
+CREATE  UNIQUE INDEX AFW.IOVCI02 ON AFW.OVERCHG_CLAIM_ITEM
+        ( TF_PRO ASC
+        , FK_CLAIMCLAIM_NUMB ASC
+          )
+        USING STOGROUP PA
+           ERASE NO
+           FREEPAGE 0
+           PCTFREE 0
+           BUFFERPOOL BP1
+           CLOSE YES
+           DEFER YES
+           PIECESIZE 2G
+    ;
+
+.SYNC 5         'CREATE INDEX AFW.IOVCI02'
+
+    SET CURRENT SQLID = USER;
+
+
+.DISCONN
+
+.SYNC 10        'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+
+--==============================================================================
+-- 19.0           CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      17-12-13 11:56
+--==============================================================================
+--
+--  OBJECT TYPE: INDEX                      TOTAL:                1
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   IOVCI02                            IOVCI02
+--    DB2FFV                             AFW

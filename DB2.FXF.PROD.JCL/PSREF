@@ -1,0 +1,374 @@
+.CONTROL SN(JXS0036,PSREFRSH)
+.OPTION BPCL
+
+--==============================================================================
+-- 19.0         CA-DB2   RC/Migrator   Analysis Report      18-07-19 15:40
+--==============================================================================
+--Strategy Information:
+--Strategy ==> PSREFRSH  Description  ===> PS REFRESH
+--Creator  ==> JXS0036   Share Option ===> Y (U,Y,N,X,L)  Src SSID ===> DSN
+--
+--
+--Analysis Options:
+--  Execution Mode    ===> B (O - Online, B - Batch)
+--  Analysis Override ===> N
+--  Access Mode       ===> CATALOG - LIMITED
+--  Model ID          ===> !CAUIBM
+--  Model Creator     ===> @DBAPFS
+--  Target SSID       ===> DSNB
+--  Global Changes    ===> N
+--
+--  Aux Implode       ===> N             Statistics    ===> N
+--  MQT Implode       ===> N             Check Data    ===> N
+--  Sequence Implode  ===>               Image Copy    ===> N
+--  RI(Local/Global)  ===> N             Bind/Rebind   ===> N
+--  Security          ===> N             Recover IX    ===> N
+--  Drop Objects      ===> N             Reorg         ===> N
+--  LOB Objects       ===> N
+--  Default SQLID     ===>
+--  Alias SQLID       ===>
+--  Table OBID        ===> N
+--  Rtn Implode       ===>
+--  Rtn Interaction   ===> N
+--  View (Imp/Exp)    ===> Y
+--
+--  All Rows          ===> Y             VSAM Defines  ===> N
+--  Number Rows       ===>               VSAM Deletes  ===> N
+--  Data Statistics   ===> N
+--  Truncate          ===> N
+--  MQT Refresh       ===> N
+--  Set Terminator    ===> ;  (Value from PARMLIB)
+--
+--  No Set SQLID Stmts      ===> N
+--  Bnd/Dat/Sql/Stat/Grnt/RI===> N
+--  Commit ASAP             ===> N
+--
+--  Delete Unload Data Sets   ===> N
+--  Delete Temporary Datasets ===> N
+--
+--**********************************************************************
+--*                           PRIMARY OBJECT                           *
+--**********************************************************************
+--
+-- Included Primary Object(s): Table
+--
+-- ---- Creator ---- ------------- Name ------------- -Edit-
+-- AFWHRPST          PS_AF_EFF_DRIVER
+--
+--   Implode: SG DB TS
+--            A  A  A
+--
+--   Explode: MQ(IX VW S/A)  IX VW(MQ(IX VW S/A)) S/A TG
+--            A  A  A   A    A  A  A  A  A   A     A  A
+--
+--            Aux Rtn MQT Seq             All  Number
+--   Other:   Imp Imp Imp Imp RI Security Rows of Rows
+--             _   _   N   _  _     _      _   _______________
+--
+-- Legend:
+--   Strategy Inclusion Reasons               Object Types
+--     A - Table is aux-Table to base-Table     SG - Stogroup
+--     B - Table is base-table to aux-Table     DB - Database
+--     C - Table is an RI child                 TS - Tablespace
+--     D - Index supports RI                    T  - Table
+--     F - Table adopted a new child Table      MQ - Mqt
+--     I - Table has Index activity             I  - Index
+--     L - LOB TS related to base-Table         SQ - Sequence
+--     M - Imploded to from child               UF - Function
+--     P - Primary Object                       PR - Procedure
+--     Q - Tablespace has a partitioned Table   V  - View
+--     R - Table is an RI parent                S  - Synonym
+--     S - Selected in the strategy             A  - Alias
+--     X - Exploded to from parent              TG - Trigger
+--     Z - Potential parent on target
+--
+--   Implode/Explode Analysis General format:
+--   <Reason> <Object type> <Object name>
+--
+--     M SG SYSADM1.PSOFTSG
+--     M   DB BRR6062.AFWHRPST
+--     M     TS AFWHRPST.AFTSHP74
+--     P       T  AFWHRPST.PS_AF_EFF_DRIVER
+--     X         I  AFWHRPST.PS_AF_EFF_DRIVER
+--     X         I  AFWHRPST.PF0PSAAFEFFDRIVER
+--     X         S  PED9910.PS_AF_EFF_DRIVER
+--     X         S  AFW.PS_AF_EFF_DRIVER
+--     X         A  PROD.PS_AF_EFF_DRIVER
+--     X         A  FFPA.PS_AF_EFF_DRIVER
+--     X         A  DB2FFP.PS_AF_EFF_DRIVER
+--************************* END ANALYSIS HEADER ************************
+
+--  RMA238W THIS ANALYSIS WAS PERFORMED WITHOUT THE RI CONTROL OPTION. NO
+--         REFERENTIAL RELATIONSHIPS WILL BE GENERATED.
+
+--  RMA448W THIS ANALYSIS WAS PERFORMED WITHOUT THE LOB OBJECTS OPTION. TABLES
+--         CREATED CONTAINING LOB COLUMNS MAY BE MARKED INCOMPLETE.
+
+.SYSTEM UNLOADS
+.CONNECT DSN
+
+
+.CALL UTLGLCTL PARM(DSN,)                                              +
+   INDDN(SYSIN) OUTDDN(PTIMSG)
+.ALLOC FI(SYSCTL01) DUMMY
+.ALLOC FI(SYSREC01)                                                    +
+       DA('JXS0036.C.AFWHRPST.TID3951.T1540480.DATA')                  +
+       TRACKS                                                          +
+       SPACE(501,668)                                                  +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.DATA
+  FASTUNLOAD
+   UNLDDN          SYSREC
+   LIMIT           0
+   OUTPUT-FORMAT   DSNTIAUL
+   INPUT-FORMAT    TABLE
+   VSAM-BUFFERS    80
+   SORTNUM         32
+   SORTDEVT        SYSDA
+   ESTIMATED-ROWS  562778
+   SQL-ACCESS      EXTENSION
+   SHRLEVEL        CHANGE
+   TRUNCATE        NO
+   SELECT EMPLID, EMPL_RCD, EFFDT, EFF_STATUS, AF_DRIVER_NBR,
+   AF_DRIVER_TYPE, AF_DRIVER_LICNUM, AF_DRIVER_LICSTATE,
+   AF_DRIVER_LICEXPDT, AF_CDL_CLASS, AF_CDL_ENDORSE1, AF_CDL_ENDORSE2,
+   AF_CDL_ENDORSE3, AF_NXT_PHYSICAL_DT, AF_PHYSICAL_FREQ,
+   AF_BLOOD_PRESS_CHK, AF_BLOOD_PRESS_DT, AF_DRIVER_VACRATE, ACTION_DT
+   , OPRID, UPDATE_TIMESTAMP, AF_LST_PHYSICAL_DT, AF_BLOOD_PRESS1,
+   AF_BLOOD_PRESS2, AF_REASON_CD, DRVR_UTIL_CD, SFTY_QUAL_DT,
+   DRVR_LOG_NBR, VENDOR_ID, AF_CDL_ENDORSE4, AF_DRIVER_HAZEXPDT
+   FROM AFWHRPST.PS_AF_EFF_DRIVER
+   ORDER BY EMPLID,  EMPL_RCD,  EFFDT  DESC
+   ;
+.ENDDATA
+.FREE FILE(SYSREC01)
+.FREE FILE(SYSCTL01)
+
+.SYNC 5         'UNLOAD TABLE AFWHRPST.PS_AF_EFF_DRIVER'
+
+
+.SYNC 10        'DISCONNECTING FROM SSID DSN , CONNECTING TO SSID DSNB'
+
+.SYSTEM SQLDDL
+.CONNECT DSNB
+
+.DISCONN
+
+.SYNC 70        'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+.CALL UTIL LOAD PARM(DSNB)
+.ALLOC FI(PTILOAD)                                                     +
+   DA('JXS0036.C.AFWHRPST.TID3951.T1540480.DATA')                      +
+   SHR
+.ALLOC FI(SYSDISC)                                                     +
+   DA('JXS0036.C.AFWHRPST.TID3951.T1540480.DATA.D')                    +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(167,334) TRACKS RLSE
+.ALLOC FI(SYSERR)                                                      +
+   DA('JXS0036.C.AFWHRPST.TID3951.T1540480.DATA.E')                    +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(23083,30777) BLK(4096) RLSE
+.ALLOC FI(SYSMAP)                                                      +
+   DA('JXS0036.C.AFWHRPST.TID3951.T1540480.DATA.M')                    +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(866,1155) BLK(4096) RLSE
+.ALLOC FI(PTIUT1) UNIT(SYSDA)                                          +
+   DA('JXS0036.C.AFWHRPST.TID3951.T1540480.DATA.U')                    +
+   SPACE(112,67) CYL                                                   +
+   MOD CATALOG
+.ALLOC FI(PTIOUT) UNIT(SYSDA)                                          +
+   DA('JXS0036.C.AFWHRPST.TID3951.T1540480.DATA.O')                    +
+   SPACE(112,67) CYL                                                   +
+   MOD CATALOG
+.DATA
+   LOAD DATA INDDN PTILOAD REPLACE  LOG NO
+    ENFORCE CONSTRAINTS
+    DISCARDDN SYSDISC
+    ERRDDN   SYSERR
+    MAPDDN   SYSMAP
+    WORKDDN  (PTIUT1,PTIOUT)
+    SORTDEVT SYSDA
+    INTO TABLE DB2FFI.PS_AF_EFF_DRIVER
+      IGNOREFIELDS NO
+   (
+    EMPLID                         POSITION(            1:          11 )
+      CHAR                      (    11)
+     ,
+    EMPL_RCD                       POSITION(           12:          13 )
+      SMALLINT
+     ,
+    EFFDT                          POSITION(           14:          23 )
+      DATE EXTERNAL             (    10)
+        NULLIF(          24 )=X'6F'
+     ,
+    EFF_STATUS                     POSITION(           25:          25 )
+      CHAR                      (     1)
+     ,
+    AF_DRIVER_NBR                  POSITION(           26:          34 )
+      CHAR                      (     9)
+     ,
+    AF_DRIVER_TYPE                 POSITION(           35:          38 )
+      CHAR                      (     4)
+     ,
+    AF_DRIVER_LICNUM               POSITION(           39:          56 )
+      CHAR                      (    18)
+     ,
+    AF_DRIVER_LICSTATE             POSITION(           57:          58 )
+      CHAR                      (     2)
+     ,
+    AF_DRIVER_LICEXPDT             POSITION(           59:          68 )
+      DATE EXTERNAL             (    10)
+        NULLIF(          69 )=X'6F'
+     ,
+    AF_CDL_CLASS                   POSITION(           70:          70 )
+      CHAR                      (     1)
+     ,
+    AF_CDL_ENDORSE1                POSITION(           71:          71 )
+      CHAR                      (     1)
+     ,
+    AF_CDL_ENDORSE2                POSITION(           72:          72 )
+      CHAR                      (     1)
+     ,
+    AF_CDL_ENDORSE3                POSITION(           73:          73 )
+      CHAR                      (     1)
+     ,
+    AF_NXT_PHYSICAL_DT             POSITION(           74:          83 )
+      DATE EXTERNAL             (    10)
+        NULLIF(          84 )=X'6F'
+     ,
+    AF_PHYSICAL_FREQ               POSITION(           85:          85 )
+      CHAR                      (     1)
+     ,
+    AF_BLOOD_PRESS_CHK             POSITION(           86:          86 )
+      CHAR                      (     1)
+     ,
+    AF_BLOOD_PRESS_DT              POSITION(           87:          96 )
+      DATE EXTERNAL             (    10)
+        NULLIF(          97 )=X'6F'
+     ,
+    AF_DRIVER_VACRATE              POSITION(           98:         100 )
+      DECIMAL PACKED
+     ,
+    ACTION_DT                      POSITION(          101:         110 )
+      DATE EXTERNAL             (    10)
+        NULLIF(         111 )=X'6F'
+     ,
+    OPRID                          POSITION(          112:         141 )
+      CHAR                      (    30)
+     ,
+    UPDATE_TIMESTAMP               POSITION(          142:         167 )
+      TIMESTAMP EXTERNAL        (    26)
+        NULLIF(         168 )=X'6F'
+     ,
+    AF_LST_PHYSICAL_DT             POSITION(          169:         178 )
+      DATE EXTERNAL             (    10)
+        NULLIF(         179 )=X'6F'
+     ,
+    AF_BLOOD_PRESS1                POSITION(          180:         181 )
+      SMALLINT
+     ,
+    AF_BLOOD_PRESS2                POSITION(          182:         183 )
+      SMALLINT
+     ,
+    AF_REASON_CD                   POSITION(          184:         186 )
+      CHAR                      (     3)
+     ,
+    DRVR_UTIL_CD                   POSITION(          187:         190 )
+      CHAR                      (     4)
+     ,
+    SFTY_QUAL_DT                   POSITION(          191:         200 )
+      DATE EXTERNAL             (    10)
+        NULLIF(         201 )=X'6F'
+     ,
+    DRVR_LOG_NBR                   POSITION(          202:         210 )
+      CHAR                      (     9)
+     ,
+    VENDOR_ID                      POSITION(          211:         214 )
+      INTEGER
+     ,
+    AF_CDL_ENDORSE4                POSITION(          215:         215 )
+      CHAR                      (     1)
+     ,
+    AF_DRIVER_HAZEXPDT             POSITION(          216:         225 )
+      DATE EXTERNAL             (    10)
+        NULLIF(         226 )=X'6F'
+   )
+.ENDDATA
+.FREE FI(PTILOAD)
+.FREE FI(SYSDISC)
+.FREE FI(SYSERR)
+.FREE FI(SYSMAP)
+.FREE FI(PTIUT1)
+.FREE FI(PTIOUT)
+
+.SYNC 75        'LOAD TABLE AFWHRPST.PS_AF_EFF_DRIVER'
+
+
+--==============================================================================
+-- 19.0           CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      18-07-19 15:40
+--==============================================================================
+--
+--  OBJECT TYPE: STOGROUP                   TOTAL:                1
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   PSOFTSG
+--    SYSADM1
+--
+--  OBJECT TYPE: DATABASE                   TOTAL:                1
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   AFWHRPST
+--    BRR6062
+--
+--  OBJECT TYPE: TABLESPACE                 TOTAL:                1
+--
+--   OBJECT NAME/DBNAME          EDITED NEW NAME/DBNAME
+--
+--   AFTSHP74
+--    AFWHRPST
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                1
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   PS_AF_EFF_DRIVER
+--    AFWHRPST
+--
+--  OBJECT TYPE: INDEX                      TOTAL:                2
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   PF0PSAAFEFFDRIVER
+--    AFWHRPST
+--   PS_AF_EFF_DRIVER
+--    AFWHRPST
+--
+--  OBJECT TYPE: SYNONYM                    TOTAL:                2
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   PS_AF_EFF_DRIVER
+--    AFW
+--   PS_AF_EFF_DRIVER
+--    PED9910
+--
+--  OBJECT TYPE: ALIAS                      TOTAL:                3
+--
+--   OBJECT NAME/CREATOR         EDITED NEW NAME/CREATOR
+--
+--   PS_AF_EFF_DRIVER
+--    DB2FFP
+--   PS_AF_EFF_DRIVER
+--    FFPA
+--   PS_AF_EFF_DRIVER
+--    PROD
