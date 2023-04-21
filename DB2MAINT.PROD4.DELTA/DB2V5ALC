@@ -1,0 +1,142 @@
+//UXD002M  JOB ,'GLK RM105',MSGCLASS=X,CLASS=S
+//*********************************************************************/00010000
+//* JOB NAME = DSNTIJAE                                               */00020000
+//*                                                                   */00030000
+//* DESCRIPTIVE NAME = INSTALLATION JOB STREAM                        */00040000
+//*                                                                   */00050000
+//*    LICENSED MATERIALS - PROPERTY OF IBM                           */00060000
+//*    5695-DB2                                                       */00070000
+//*    (C) COPYRIGHT 1982, 1995 IBM CORP.  ALL RIGHTS RESERVED.       */00080000
+//*                                                                   */00090000
+//*    STATUS = VERSION 5                                             */00100000
+//*                                                                   */00110000
+//* FUNCTION =                                                        */00120000
+//*   ALLOCATE DATASETS FOR DB2 INSTALLATION                          */00130000
+//*   ALLOCATE AND INITIALIZE THE DB2 SMP/E ENVIRONMENT               */00140000
+//*                                                                   */00150000
+//* NOTES =                                                           */00160000
+//* 1) SET THE TARGET LIBRARY PREFIX (&TARGPRE) AND THE DISTRIBUTION  */00170000
+//*    LIBRARY PREFIX (&DLIBPRE) TO THE SAME VALUE TO AVOID EXTRA     */00180000
+//*    MANUAL EDITING OF THE INSTALL JOBS.  SEE THE INSTALL GUIDE     */00190000
+//*    FOR MORE INFORMATION.                                          */00200000
+//* 2) REVIEW THE SMP CONTROL STATEMENTS BEFORE SUBMITTING THIS JOB.  */00210000
+//*    YOU MAY WISH TO CHANGE SOME OF THE SMP PARAMETERS, SUCH AS     */00220000
+//*    DSPREFIX, TO COMPLY WITH YOUR SITES NAMING STANDARDS.          */00230000
+//* 3) IF YOU CHANGE THE SMP PREFIX (&SMPPRE) YOU MUST ALSO CHANGE    */00240000
+//*    ALL OCCURRENCES IN THIS JOB OF "IMSVS" TO THE VALUE YOU        */00250000
+//*    SPECIFIED FOR &SMPPRE.                                         */00260000
+//* 4) ENSURE THAT YOU CHANGE ALL OCCURRENCES OF DSNV01 TO A VOLUME   */00270000
+//*    SERIAL THAT IS VALID FOR YOUR SITE.  DSNV01 IS THE DEFAULT     */00280000
+//*    IN BOTH THE SYMBOLIC PARAMETERS AT THE BEGINNING OF THE        */00290000
+//*    JOB AND ALSO IN THE IDCAMS CONTROL STATEMENTS FOR THE VSAM     */00300000
+//*    DEFINE.                                                        */00310000
+//* 5) TO USE THE DDDEF ENTRIES LISTED AT THE END OF THIS JOB,        */00320000
+//*    FOLLOW THESE INSTRUCTIONS ***BEFORE*** RUNNING THE JOB:        */00330000
+//*    - CHECK ALL DDDEF ENTRIES, AND MAKE ANY CHANGES NECESSARY FOR  */00340000
+//*      YOUR SYSTEM.                                                 */00350000
+//*    - REMOVE THESE TWO LINES:                                      */00360000
+//*      //* SAMPLE DDDEF ENTRIES FOLLOW                              */00370000
+//*      //                                                           */00380000
+//*                                                                   */00390000
+//*********************************************************************/00410000
+//DSNTIJAE PROC TARGPRE='SSXDP.DB2V5.DSNI',                             00420000
+//             DLIBPRE='SSXDP.DB2V5.DSNI'                               00430000
+//*            TARGVOL=A3D202,TARGUNT=3390,
+//*            DLIBVOL=A3D202,DLIBUNT=3390
+//ALLOC  EXEC PGM=IEFBR14                                               00460000
+//* ******************************************************************* 00730000
+//*           DB2 DISTRIBUTION LIBRARIES                                00740000
+//* ******************************************************************* 00750000
+//*                                                                     00760000
+//ADSNLOAD DD DSN=&DLIBPRE..ADSNLOAD,DISP=(NEW,CATLG),                  00770000
+//*           UNIT=&DLIBUNT,VOL=SER=&DLIBVOL,                           00780000
+//            DCB=BLKSIZE=6144,                                         00790000
+//            SPACE=(6144,(5500,500,600),,,ROUND)                       00800000
+//ADSNMACS DD DSN=&DLIBPRE..ADSNMACS,DISP=(NEW,CATLG),                  00810000
+//*           UNIT=&DLIBUNT,VOL=SER=&DLIBVOL,                           00820000
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     00830000
+//            SPACE=(6160,(3800,600,100),,,ROUND)                       00840000
+//*                                                                     00850000
+//* ******************************************************************* 00860000
+//*           DB2 TARGET LIBRARIES                                      00870000
+//* ******************************************************************* 00880000
+//*                                                                     00890000
+//SDSNMACS DD DSN=&TARGPRE..SDSNMACS,DISP=(NEW,CATLG),                  00900000
+//*           UNIT=&TARGUNT,VOL=SER=&TARGVOL,                           00910000
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     00920000
+//            SPACE=(6160,(700,200,10),,,ROUND)                         00930000
+//SDSNSPFP DD DSN=&TARGPRE..SDSNSPFP,DISP=(NEW,CATLG),                  00940000
+//*           UNIT=&TARGUNT,VOL=SER=&TARGVOL,                           00950000
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     00960000
+//            SPACE=(6160,(300,100,60),,,ROUND)                         00970000
+//SDSNSPFM DD DSN=&TARGPRE..SDSNSPFM,DISP=(NEW,CATLG),                  00980000
+//*           UNIT=&TARGUNT,VOL=SER=&TARGVOL,                           00990000
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     01000000
+//            SPACE=(6160,(80,20,10),,,ROUND)                           01010000
+//SDSNSPFS DD DSN=&TARGPRE..SDSNSPFS,DISP=(NEW,CATLG),                  01020000
+//*           UNIT=&TARGUNT,VOL=SER=&TARGVOL,                           01030000
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     01040000
+//            SPACE=(6160,(60,20,10),,,ROUND)                           01050000
+//SDSNSPFT DD DSN=&TARGPRE..SDSNSPFT,DISP=(NEW,CATLG),                  01052000
+//*           UNIT=&TARGUNT,VOL=SER=&TARGVOL,                           01054000
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     01056000
+//            SPACE=(6160,(40,10,10),,,ROUND)                           01058000
+//SDSNCLST DD DSN=&TARGPRE..SDSNCLST,DISP=(NEW,CATLG),                  01060000
+//*           UNIT=&TARGUNT,VOL=SER=&TARGVOL,                           01070000
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     01080000
+//            SPACE=(6160,(450,30,50),,,ROUND)                          01090000
+//SDSNSAMP DD DSN=&TARGPRE..SDSNSAMP,DISP=(NEW,CATLG),                  01100000
+//*           UNIT=&TARGUNT,VOL=SER=&TARGVOL,                           01110000
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     01120000
+//            SPACE=(6160,(2500,300,30),,,ROUND)                        01130000
+//SDSNDBRM DD DSN=&TARGPRE..SDSNDBRM,DISP=(NEW,CATLG),                  01140000
+//*           UNIT=&TARGUNT,VOL=SER=&TARGVOL,                           01150000
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     01160000
+//            SPACE=(6160,(30,20,10),,,ROUND)                           01170000
+//* SDSNLINK DD DSN=&TARGPRE..SDSNLINK,DISP=(NEW,CATLG),                01180000
+//*            UNIT=&TARGUNT,VOL=SER=&TARGVOL,                          01190000
+//*            DCB=BLKSIZE=6144,                                        01200000
+//*            SPACE=(6144,(75,,10),,,ROUND)                            01210000
+//SDSNLOAD DD DSN=&TARGPRE..SDSNLOAD,DISP=(NEW,CATLG),                  01220000
+//*           UNIT=&TARGUNT,VOL=SER=&TARGVOL,                           01230000
+//            DCB=BLKSIZE=6144,                                         01240000
+//            SPACE=(6144,(3700,400,60),,,ROUND)                        01250000
+//*                                                                     01260000
+//* ******************************************************************* 01270000
+//*           DATA SET TO HOLD USER EXITS AND DATA-ONLY MODULES         01280000
+//* ******************************************************************* 01290000
+//*                                                                     01300000
+//SDSNEXIT DD DSN=&TARGPRE..SDSNEXIT,DISP=(NEW,CATLG),                  01310000
+//*           UNIT=&TARGUNT,VOL=SER=&TARGVOL,                           01320000
+//            DCB=BLKSIZE=6144,                                         01330000
+//            SPACE=(6144,(200,,10),,,ROUND)                            01340000
+//*                                                                     01350000
+//* ******************************************************************* 01360000
+//*          IRLM DISTRIBUTION LIBRARIES                                01360500
+//* ******************************************************************* 01361000
+//*                                                                     01361500
+//ADXRSAMP DD DSN=&DLIBPRE..ADXRSAMP,DISP=(NEW,CATLG),                  01362000
+//*           UNIT=&DLIBUNT,VOL=SER=&DLIBVOL,                           01362500
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                     01363000
+//            SPACE=(CYL,(1,1,46))                                      01363500
+//ADXRLOAD DD DSN=&DLIBPRE..ADXRLOAD,DISP=(NEW,CATLG),                  01363590
+//*           UNIT=&DLIBUNT,VOL=SER=&DLIBVOL,                           01363680
+//            DCB=(RECFM=U,LRECL=0,BLKSIZE=6144),                       01363770
+//            SPACE=(CYL,(2,1,46))                                      01363860
+//*                                                                     01364000
+//* ******************************************************************* 01364500
+//*          IRLM TARGET LIBRARIES                                      01365000
+//* ******************************************************************* 01365500
+//*                                                                     01366000
+//* SDXRSAMP DD DSN=&TARGPRE..SDXRSAMP,DISP=(NEW,CATLG),                01366500
+//*            UNIT=&TARGUNT,VOL=SER=&TARGVOL,                          01367000
+//*            DCB=(RECFM=FB,LRECL=80,BLKSIZE=6160),                    01367600
+//*            SPACE=(CYL,(1,1,46))                                     01367690
+//* SDXRRESL DD DSN=&TARGPRE..SDXRRESL,DISP=(NEW,CATLG),                01367780
+//*            UNIT=&TARGUNT,VOL=SER=&TARGVOL,                          01367870
+//*            DCB=(RECFM=U,LRECL=0,BLKSIZE=6144),                      01367960
+//*            SPACE=(CYL,(1,1,46))                                     01368200
+//DSNTIJAE PEND
+//INVOKE   EXEC PROC=DSNTIJAE
+/*                                                                      01368800
+//*                                                                     03720000

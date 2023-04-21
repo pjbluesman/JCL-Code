@@ -1,0 +1,49 @@
+//UXD001M  JOB (,A3),'SYSPROG',CLASS=S,MSGCLASS=X,                      00010000
+//  REGION=86M,TIME=1440,NOTIFY=&SYSUID                                 00020000
+//**---------------------------------------------------**               00030000
+//**-------THIS IS THE BACK OUT JOB FOR DB2UCOPY-------**               00030100
+//**---------------------------------------------------**               00030200
+//**----NOTE: ALL DATA SETS MUST BE UNALLOCATE PRIOR---**               00030300
+//**----      TO EXECUTING THIS JOB DUE TO  RENAME'S---**               00030400
+//**----             MTS*IBM  09-10-04              ---**               00030500
+//**---------------------------------------------------**               00030600
+//RENAME  EXEC PGM=IDCAMS                                               00100000
+//SYSPRINT DD  SYSOUT=*                                                 00110000
+//SYSIN    DD  *                                                        00120000
+     ALTER  -                                                           00130000
+       SSXDT.DSNDBUG.DB2U.SDSNC.H -                                     00140000
+         NEWNAME(SSXDT.DSNDBUG.DB2U.SDSNC.H.SEP1104N)                   00150000
+     ALTER  -                                                           00160000
+       SSXDT.DSNDBUG.DB2U.SDSNCLST -                                    00170000
+         NEWNAME(SSXDT.DSNDBUG.DB2U.SDSNCLST.SEP1104N)                  00180000
+     ALTER  -                                                           00190000
+       SSXDT.DSNDBUG.DB2U.SDSNDBRM -                                    00200000
+         NEWNAME(SSXDT.DSNDBUG.DB2U.SDSNDBRM.SEP1104N)                  00210000
+     ALTER  -                                                           00220000
+       SSXDT.DSNDBUG.DB2U.SDSNLOAD -                                    00230000
+         NEWNAME(SSXDT.DSNDBUG.DB2U.SDSNLOAD.SEP1104N)                  00240000
+     ALTER  -                                                           00250000
+       SSXDT.DSNDBUG.DB2U.SDSNMACS -                                    00260000
+         NEWNAME(SSXDT.DSNDBUG.DB2U.SDSNMACS.SEP1104N)                  00270000
+     ALTER  -                                                           00280000
+       SSXDT.DSNDBUG.DB2U.SDSNSAMP.SEP1104 -                            00290000
+         NEWNAME(SSXDT.DSNDBUG.DB2U.SDSNSAMP.SEP1104N)                  00300000
+     ALTER .SEP1104 -                                                   00301000
+       SSXDT.DSNDBUG.DB2U.SDSNC.H.SEP1104 -                             00302000
+         NEWNAME(SSXDT.DSNDBUG.DB2U.SDSNC.H)                            00303000
+     ALTER .SEP1104 -                                                   00304000
+       SSXDT.DSNDBUG.DB2U.SDSNCLST.SEP1104 -                            00305000
+         NEWNAME(SSXDT.DSNDBUG.DB2U.SDSNCLST)                           00306000
+     ALTER .SEP1104 -                                                   00307000
+       SSXDT.DSNDBUG.DB2U.SDSNDBRM.SEP1104 -                            00308000
+         NEWNAME(SSXDT.DSNDBUG.DB2U.SDSNDBRM)                           00309000
+     ALTER .SEP1104 -                                                   00309100
+       SSXDT.DSNDBUG.DB2U.SDSNLOAD.SEP1104 -                            00309200
+         NEWNAME(SSXDT.DSNDBUG.DB2U.SDSNLOAD)                           00309300
+     ALTER .SEP1104 -                                                   00309400
+       SSXDT.DSNDBUG.DB2U.SDSNMACS.SEP1104 -                            00309500
+         NEWNAME(SSXDT.DSNDBUG.DB2U.SDSNMACS)                           00309600
+     ALTER .SEP1104 -                                                   00309700
+       SSXDT.DSNDBUG.DB2U.SDSNSAMP.SEP1104 -                            00309800
+         NEWNAME(SSXDT.DSNDBUG.DB2U.SDSNSAMP)                           00309900
+//*                                                                     00310000

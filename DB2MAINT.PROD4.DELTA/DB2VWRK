@@ -1,0 +1,65 @@
+//UXD001M JOB ,'DB2 A3',CLASS=S,MSGCLASS=X                              00000001
+//*********************************************************************/00010000
+//* JOB NAME = DSNTIJTM                                               */00020000
+//*                                                                   */00030000
+//* DESCRIPTIVE NAME = INSTALLATION JOB STREAM                        */00040000
+//*                                                                   */00050000
+//*    LICENSED MATERIALS - PROPERTY OF IBM                           */00060000
+//*    5645-DB2                                                       */00070000
+//*    (C) COPYRIGHT 1982, 1998 IBM CORP.  ALL RIGHTS RESERVED.       */00080000
+//*                                                                   */00090000
+//*    STATUS = VERSION 6                                             */00100000
+//*                                                                   */00110000
+//* FUNCTION = CREATE TEMPORARY FILES FOR DB2                         */00120000
+//*                                                                   */00130000
+//* PSEUDOCODE =                                                      */00140000
+//*   DSNTIC   PROC      FOR INVOKING AMS                             */00150000
+//*   DSNTIAS  STEP      ISSUES A STOP FOR DSNDB07 THEN DROP          */00200000
+//*                            ALSO BINDS DYNAMIC SQL PROGRAM         */00210000
+//*   DSNTICR  STEP      RUN PROGRAM TO CREATE DATA BASE              */00220000
+//*                            FOR TEMPS (DSNDB07)                    */00230000
+//*   DSNTTMP  STEP      AMS DEFINES FOR THE TEMPORARY                */00240000
+//*                            TABLE SPACE DATA SETS                  */00250000
+//*   DSNTIST  STEP      STOP DSNDB07, CREATE TEMPORARY TABLE         */00260000
+//*                            SPACES, START DSNDB07                  */00270000
+//*********************************************************************/00280000
+//JOBLIB  DD  DISP=SHR,                                                 00290000
+//            DSN=SSXDT.DSNDBVG.DB2V.SDSNLOAD                           00300000
+//DSNTIC  PROC                                                          00310000
+//* ***************************************************************** */00320000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE           */00330000
+//* ***************************************************************** */00340000
+//DSNTIC  EXEC PGM=IDCAMS                                               00350000
+//SYSPRINT DD SYSOUT=*                                                  00360000
+//SYSUDUMP DD SYSOUT=*                                                  00370000
+//DSNTIC  PEND                                                          00380000
+//*                                                                     00540000
+//DSNTIAS EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     00650000
+//SYSTSPRT DD  SYSOUT=*                                                 00660000
+//SYSPRINT DD  SYSOUT=*                                                 00670000
+//SYSUDUMP DD  SYSOUT=*                                                 00680000
+//SYSTSIN  DD  *                                                        00690000
+//*                                                                     00920000
+//DSNTTMP EXEC DSNTIC,COND=((12,LT,DSNTIAS),(4,LT,DSNTICR))             00930000
+//* ***********************************************                     00940000
+//*  DEFINE TEMPORARY TABLESPACES                 *                     00950000
+//*     THESE TABLE SPACES ARE USED FOR TEMPORARY *                     00960000
+//*     OR INTERMEDIATE TABLES BY DB2, IN SORTING *                     00970000
+//*     FOR ONE EXAMPLE.                          *                     00980000
+//* ***********************************************                     00990000
+//SYSIN DD *                                                            01000000
+    DEFINE CLUSTER -                                                    01000001
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2V.DSNDBC.WRKDB2V.DSN4K04.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E3SU03) -                                           01000041
+            CYL(2500 100) -                                             01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2V.DSNDBD.WRKDB2V.DSN4K04.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2V)                                                     01000047
+                                                                        01000048
+//*                                                                     01150000

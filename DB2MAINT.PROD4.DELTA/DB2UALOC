@@ -1,0 +1,21 @@
+//UXD001M  JOB (,A3),'SYSPROG',CLASS=S,MSGCLASS=X,                      00001000
+//  REGION=86M,TIME=1440,NOTIFY=&SYSUID                                 00002000
+//ALLOC    EXEC PGM=IEFBR14,REGION=64M,COND=(0,LT)                      00010000
+//NDSNCHDR DD DISP=(,CATLG),DSN=SSXDT.DSNDBUG.DB2U.SDSNC.H.TEMP,        00020001
+//            UNIT=3390,DCB=SSXDT.DSNDBUG.DB2U.SDSNC.H,                 00030000
+//            SPACE=(TRK,(44,50,9))                                     00040000
+//NDSNCLST DD DISP=(,CATLG),DSN=SSXDT.DSNDBUG.DB2U.SDSNCLST.TEMP,       00050001
+//            UNIT=3390,DCB=SSXDT.DSNDBUG.DB2U.SDSNCLST,                00060000
+//            SPACE=(TRK,(63,18,14))                                    00070000
+//NDSNDBRM DD DISP=(,CATLG),DSN=SSXDT.DSNDBUG.DB2U.SDSNDBRM.TEMP,       00080001
+//            UNIT=3390,DCB=SSXDT.DSNDBUG.DB2U.SDSNDBRM,                00090000
+//            SPACE=(TRK,(63,18,14))                                    00100000
+//NDSNLOAD DD DISP=(,CATLG),DSN=SSXDT.DSNDBUG.DB2U.SDSNLOAD.TEMP,       00110001
+//            UNIT=3390,DCB=SSXDT.DSNDBUG.DB2U.SDSNLOAD,                00120000
+//            SPACE=(TRK,(2363,720,140))                                00130000
+//NDSNMACS DD DISP=(,CATLG),DSN=SSXDT.DSNDBUG.DB2U.SDSNMACS.TEMP,       00140001
+//            UNIT=3390,DCB=SSXDT.DSNDBUG.DB2U.SDSNMACS,                00150000
+//            SPACE=(TRK,(180,50,18))                                   00160000
+//NDSNSAMP DD DISP=(,CATLG),DSN=SSXDT.DSNDBUG.DB2U.SDSNSAMP.TEMP,       00170001
+//            UNIT=3390,DCB=SSXDT.DSNDBUG.DB2U.SDSNSAMP,                00180000
+//            SPACE=(TRK,(720,50,54))                                   00190000

@@ -1,0 +1,16 @@
+//DT0072X  JOB ,'RDL RM102',CLASS=S,MSGCLASS=X,NOTIFY=DT0072            00000001
+//JOBLIB  DD  DSN=SSXDT.DSNDBNG.DB2N.SDSNLOAD,DISP=SHR                  00230008
+//*                                                                     01600001
+//*        RUN LOAD UTILITY TO LOAD TABLES                              01610001
+//*                                                                     01620001
+//LOAD    EXEC DSNUPRON,PARM='DB2N,DSNTEX'                              01630008
+//DSNTRACE DD  SYSOUT=*                                                 01650001
+//SORTWK01 DD  UNIT=SYSDA,SPACE=(4000,(20,20),,,ROUND)                  01670001
+//SORTWK02 DD  UNIT=SYSDA,SPACE=(4000,(20,20),,,ROUND)                  01680001
+//SORTWK03 DD  UNIT=SYSDA,SPACE=(4000,(20,20),,,ROUND)                  01690001
+//SORTWK04 DD  UNIT=SYSDA,SPACE=(4000,(20,20),,,ROUND)                  01700001
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(4000,(20,20),,,ROUND)                  01701005
+//SYSREC00 DD  DSN=DT0072.PROD.TEDS200.DATA,DISP=SHR                    01710008
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(4000,(20,20),,,ROUND)                  01750001
+//SYSIN    DD  DSN=DT0072.PROD.TEDS200.SYSPUNCH,DISP=SHR                01760008
+//                                                                      01810001

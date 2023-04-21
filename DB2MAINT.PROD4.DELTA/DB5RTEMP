@@ -1,0 +1,143 @@
+//UXD000M    JOB ,'CJR RM 105',CLASS=S,MSGCLASS=X                       00001000
+/*JOBPARM SYSAFF=MVSQ
+//JOBLIB  DD  DISP=SHR,                                                 00190000
+//            DSN=SDB5R.SDSNLOAD                                        00200000
+//DSNTIC  PROC                                                          00210000
+//DSNTIC  EXEC PGM=IDCAMS                                               00250000
+//SYSPRINT DD SYSOUT=*                                                  00270000
+//SYSUDUMP DD SYSOUT=*                                                  00280000
+//DSNTIC  PEND                                                          00290000
+//DSNTTMP EXEC DSNTIC                                                   00720000
+//SYSIN DD *                                                            01050000
+    DEFINE CLUSTER -                                                    01050013
+       ( NAME(DB2R.DSNDBC.WRKDB5R.DSN4K34.I0001.A001) -                 01050014
+            LINEAR     -                                                01050015
+            REUSE -                                                     01050016
+            VOLUMES(*) -                                                01050017
+            CYLINDERS(2912 0) -                                         01050018
+            SHAREOPTIONS(3 3) ) -                                       01050019
+       DATA -                                                           01050020
+       ( NAME(DB2R.DSNDBD.WRKDB5R.DSN4K34.I0001.A001) -                 01050021
+                          ) -                                           01050022
+      CATALOG(DB2R)                                                     01050023
+    DEFINE CLUSTER -                                                    01050013
+       ( NAME(DB2R.DSNDBC.WRKDB5R.DSN4K35.I0001.A001) -                 01050014
+            LINEAR     -                                                01050015
+            REUSE -                                                     01050016
+            VOLUMES(*) -                                                01050017
+            CYLINDERS(2912 0) -                                         01050018
+            SHAREOPTIONS(3 3) ) -                                       01050019
+       DATA -                                                           01050020
+       ( NAME(DB2R.DSNDBD.WRKDB5R.DSN4K35.I0001.A001) -                 01050021
+                          ) -                                           01050022
+      CATALOG(DB2R)                                                     01050023
+    DEFINE CLUSTER -                                                    01050013
+       ( NAME(DB2R.DSNDBC.WRKDB5R.DSN4K36.I0001.A001) -                 01050014
+            LINEAR     -                                                01050015
+            REUSE -                                                     01050016
+            VOLUMES(*) -                                                01050017
+            CYLINDERS(2912 0) -                                         01050018
+            SHAREOPTIONS(3 3) ) -                                       01050019
+       DATA -                                                           01050020
+       ( NAME(DB2R.DSNDBD.WRKDB5R.DSN4K36.I0001.A001) -                 01050021
+                          ) -                                           01050022
+      CATALOG(DB2R)                                                     01050023
+    DEFINE CLUSTER -                                                    01050013
+       ( NAME(DB2R.DSNDBC.WRKDB5R.DSN4K37.I0001.A001) -                 01050014
+            LINEAR     -                                                01050015
+            REUSE -                                                     01050016
+            VOLUMES(*) -                                                01050017
+            CYLINDERS(2912 0) -                                         01050018
+            SHAREOPTIONS(3 3) ) -                                       01050019
+       DATA -                                                           01050020
+       ( NAME(DB2R.DSNDBD.WRKDB5R.DSN4K37.I0001.A001) -                 01050021
+                          ) -                                           01050022
+      CATALOG(DB2R)                                                     01050023
+    DEFINE CLUSTER -                                                    01050013
+       ( NAME(DB2R.DSNDBC.WRKDB5R.DSN4K38.I0001.A001) -                 01050014
+            LINEAR     -                                                01050015
+            REUSE -                                                     01050016
+            VOLUMES(*) -                                                01050017
+            CYLINDERS(2912 0) -                                         01050018
+            SHAREOPTIONS(3 3) ) -                                       01050019
+       DATA -                                                           01050020
+       ( NAME(DB2R.DSNDBD.WRKDB5R.DSN4K38.I0001.A001) -                 01050021
+                          ) -                                           01050022
+      CATALOG(DB2R)                                                     01050023
+    DEFINE CLUSTER -                                                    01050013
+       ( NAME(DB2R.DSNDBC.WRKDB5R.DSN4K39.I0001.A001) -                 01050014
+            LINEAR     -                                                01050015
+            REUSE -                                                     01050016
+            VOLUMES(*) -                                                01050017
+            CYLINDERS(2912 0) -                                         01050018
+            SHAREOPTIONS(3 3) ) -                                       01050019
+       DATA -                                                           01050020
+       ( NAME(DB2R.DSNDBD.WRKDB5R.DSN4K39.I0001.A001) -                 01050021
+                          ) -                                           01050022
+      CATALOG(DB2R)                                                     01050023
+    DEFINE CLUSTER -                                                    01050013
+       ( NAME(DB2R.DSNDBC.WRKDB5R.DSN4K40.I0001.A001) -                 01050014
+            LINEAR     -                                                01050015
+            REUSE -                                                     01050016
+            VOLUMES(*) -                                                01050017
+            CYLINDERS(2912 0) -                                         01050018
+            SHAREOPTIONS(3 3) ) -                                       01050019
+       DATA -                                                           01050020
+       ( NAME(DB2R.DSNDBD.WRKDB5R.DSN4K40.I0001.A001) -                 01050021
+                          ) -                                           01050022
+      CATALOG(DB2R)                                                     01050023
+    DEFINE CLUSTER -                                                    01050013
+       ( NAME(DB2R.DSNDBC.WRKDB5R.DSN4K41.I0001.A001) -                 01050014
+            LINEAR     -                                                01050015
+            REUSE -                                                     01050016
+            VOLUMES(*) -                                                01050017
+            CYLINDERS(2912 0) -                                         01050018
+            SHAREOPTIONS(3 3) ) -                                       01050019
+       DATA -                                                           01050020
+       ( NAME(DB2R.DSNDBD.WRKDB5R.DSN4K41.I0001.A001) -                 01050021
+                          ) -                                           01050022
+      CATALOG(DB2R)                                                     01050023
+    DEFINE CLUSTER -                                                    01050013
+       ( NAME(DB2R.DSNDBC.WRKDB5R.DSN4K42.I0001.A001) -                 01050014
+            LINEAR     -                                                01050015
+            REUSE -                                                     01050016
+            VOLUMES(*) -                                                01050017
+            CYLINDERS(2912 0) -                                         01050018
+            SHAREOPTIONS(3 3) ) -                                       01050019
+       DATA -                                                           01050020
+       ( NAME(DB2R.DSNDBD.WRKDB5R.DSN4K42.I0001.A001) -                 01050021
+                          ) -                                           01050022
+      CATALOG(DB2R)                                                     01050023
+    DEFINE CLUSTER -                                                    01050013
+       ( NAME(DB2R.DSNDBC.WRKDB5R.DSN4K43.I0001.A001) -                 01050014
+            LINEAR     -                                                01050015
+            REUSE -                                                     01050016
+            VOLUMES(*) -                                                01050017
+            CYLINDERS(2912 0) -                                         01050018
+            SHAREOPTIONS(3 3) ) -                                       01050019
+       DATA -                                                           01050020
+       ( NAME(DB2R.DSNDBD.WRKDB5R.DSN4K43.I0001.A001) -                 01050021
+                          ) -                                           01050022
+      CATALOG(DB2R)                                                     01050023
+    DEFINE CLUSTER -                                                    01050013
+       ( NAME(DB2R.DSNDBC.WRKDB5R.DSN4K44.I0001.A001) -                 01050014
+            LINEAR     -                                                01050015
+            REUSE -                                                     01050016
+            VOLUMES(*) -                                                01050017
+            CYLINDERS(2912 0) -                                         01050018
+            SHAREOPTIONS(3 3) ) -                                       01050019
+       DATA -                                                           01050020
+       ( NAME(DB2R.DSNDBD.WRKDB5R.DSN4K44.I0001.A001) -                 01050021
+                          ) -                                           01050022
+      CATALOG(DB2R)                                                     01050023
+    DEFINE CLUSTER -                                                    01050013
+       ( NAME(DB2R.DSNDBC.WRKDB5R.DSN4K45.I0001.A001) -                 01050014
+            LINEAR     -                                                01050015
+            REUSE -                                                     01050016
+            VOLUMES(*) -                                                01050017
+            CYLINDERS(2912 0) -                                         01050018
+            SHAREOPTIONS(3 3) ) -                                       01050019
+       DATA -                                                           01050020
+       ( NAME(DB2R.DSNDBD.WRKDB5R.DSN4K45.I0001.A001) -                 01050021
+                          ) -                                           01050022
+      CATALOG(DB2R)                                                     01050023

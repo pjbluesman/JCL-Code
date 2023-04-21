@@ -1,0 +1,85 @@
+//UXD003M  JOB (,A3),'SYSPROG',CLASS=S,MSGCLASS=X,                      00010000
+//  REGION=86M,TIME=1440,NOTIFY=&SYSUID                                 00020000
+//**---------------------------------------------------**               00030000
+//**----NOTE: ALL DATA SETS MUST BE UNALLOCATE PRIOR---**               00030100
+//**----      TO EXECUTING THIS JOB DUE TO  RENAME'S---**               00030200
+//**----             MTS*IBM  09-10-04              ---**               00030300
+//**---------------------------------------------------**               00030400
+//*//BACKUP   EXEC  PGM=ADRDSSU,REGION=104M                             00030500
+//*//SYSPRINT DD SYSOUT=*                                               00030600
+//*//TAPE  DD DISP=(,CATLG),DSN=SSXDT.DB6RBKUP.DEC05,                   00030702
+//*//   LABEL=RETPD=90,UNIT=HIGHCAP                                     00030800
+//*//SYSIN  DD  *                                                       00030900
+//*  DUMP OUTDD(TAPE)  -                                                00031000
+//*    DS(       -                                                      00032000
+//*     INCLUDE( -                                                      00033000
+//*       SSXDP.DSNDBRG.DB6R.SDSNCLST, -                                00034001
+//*       SSXDP.DSNDBRG.DB6R.SDSNDBRM, -                                00035001
+//*       SSXDP.DSNDBRG.DB6R.SDSNLOAD, -                                00036001
+//*       SSXDP.DSNDBRG.DB6R.SDSNMACS, -                                00037001
+//*       SSXDP.DSNDBRG.DB6R.SDSNSAMP, -                                00038001
+//*         ))   -                                                      00039000
+//*        ALLDATA(*) -                                                 00040000
+//*        ALLEXCP -                                                    00050000
+//*        SPHERE  -                                                    00060000
+//*        TOLERATE(ENQFAILURE) -                                       00070000
+//*        SHARE                                                        00080000
+//RENAME  EXEC PGM=IDCAMS,COND=(0,LT)                                   00090000
+//SYSPRINT DD  SYSOUT=*                                                 00100000
+//SYSIN    DD  *                                                        00110000
+     ALTER  -                                                           00120000
+       SSXDP.DSNDBRG.DB6R.SDSNCLST -                                    00130001
+         NEWNAME(SSXDP.DSNDBRG.DB6R.SDSNCLST.DEC05)                     00140002
+     ALTER  -                                                           00150000
+       SSXDP.DSNDBRG.DB6R.SDSNDBRM -                                    00160001
+         NEWNAME(SSXDP.DSNDBRG.DB6R.SDSNDBRM.DEC05)                     00170002
+     ALTER  -                                                           00180000
+       SSXDP.DSNDBRG.DB6R.SDSNLOAD -                                    00190001
+         NEWNAME(SSXDP.DSNDBRG.DB6R.SDSNLOAD.DEC05)                     00200002
+     ALTER  -                                                           00210000
+       SSXDP.DSNDBRG.DB6R.SDSNMACS -                                    00220001
+         NEWNAME(SSXDP.DSNDBRG.DB6R.SDSNMACS.DEC05)                     00230002
+     ALTER  -                                                           00240000
+       SSXDP.DSNDBRG.DB6R.SDSNSAMP -                                    00250001
+         NEWNAME(SSXDP.DSNDBRG.DB6R.SDSNSAMP.DEC05)                     00260002
+//*                                                                     00270000
+//ALLOC    EXEC PGM=IEFBR14,REGION=64M,COND=(0,LT)                      00280000
+//NDSNCLST DD DISP=(,CATLG),DSN=SSXDP.DSNDBRG.DB6R.SDSNCLST,            00290001
+//            UNIT=3390,DCB=SSXDP.DSNDBRG.DB6R.SDSNCLST.DEC05,          00300002
+//            SPACE=(TRK,(63,18,14))                                    00310000
+//NDSNDBRM DD DISP=(,CATLG),DSN=SSXDP.DSNDBRG.DB6R.SDSNDBRM,            00320001
+//            UNIT=3390,DCB=SSXDP.DSNDBRG.DB6R.SDSNDBRM.DEC05,          00330002
+//            SPACE=(TRK,(63,18,14))                                    00340000
+//NDSNLOAD DD DISP=(,CATLG),DSN=SSXDP.DSNDBRG.DB6R.SDSNLOAD,            00341001
+//            UNIT=3390,DCB=SSXDP.DSNDBRG.DB6R.SDSNLOAD.DEC05,          00342002
+//            SPACE=(TRK,(2363,720,140))                                00343000
+//NDSNMACS DD DISP=(,CATLG),DSN=SSXDP.DSNDBRG.DB6R.SDSNMACS,            00344001
+//            UNIT=3390,DCB=SSXDP.DSNDBRG.DB6R.SDSNMACS.DEC05,          00345002
+//            SPACE=(TRK,(900,50,180))                                  00346000
+//NDSNSAMP DD DISP=(,CATLG),DSN=SSXDP.DSNDBRG.DB6R.SDSNSAMP,            00347001
+//            UNIT=3390,DCB=SSXDP.DSNDBRG.DB6R.SDSNSAMP.DEC05,          00348002
+//            SPACE=(TRK,(720,50,54))                                   00349000
+//*                                                                     00350000
+//COPYSTEP EXEC PGM=IEBCOPY,REGION=64M,COND=(0,LT)                      00360000
+//SYSPRINT DD SYSOUT=*                                                  00370000
+//SYSUT3    DD  UNIT=SYSDA,SPACE=(CYL,(23,18))                          00380000
+//SYSUT4    DD  UNIT=SYSDA,SPACE=(CYL,(23,18))                          00390000
+//SDSNCLST DD DISP=SHR,UNIT=3390,VOL=SER=S3S2E3,DSN=SYS2.DB2V7.SDSNCLST 00400000
+//SDSNDBRM DD DISP=SHR,UNIT=3390,VOL=SER=S3S2E3,DSN=SYS2.DB2V7.SDSNDBRM 00401000
+//SDSNLOAD DD DISP=SHR,UNIT=3390,VOL=SER=S3S2E3,DSN=SYS2.DB2V7.SDSNLOAD 00402000
+//SDSNMACS DD DISP=SHR,UNIT=3390,VOL=SER=S3S2E3,DSN=SYS2.DB2V7.SDSNMACS 00403000
+//SDSNSAMP DD DISP=SHR,UNIT=3390,VOL=SER=S3S2E3,DSN=SYS2.DB2V7.SDSNSAMP 00404000
+//SDXRRESL DD DISP=SHR,UNIT=3390,VOL=SER=S3S2E3,DSN=SYS2.DB2V7.SDXRRESL 00405000
+//NDSNCLST DD DISP=SHR,DSN=SSXDP.DSNDBRG.DB6R.SDSNCLST                  00406001
+//NDSNDBRM DD DISP=SHR,DSN=SSXDP.DSNDBRG.DB6R.SDSNDBRM                  00407001
+//NDSNLOAD DD DISP=SHR,DSN=SSXDP.DSNDBRG.DB6R.SDSNLOAD                  00408001
+//NDSNMACS DD DISP=SHR,DSN=SSXDP.DSNDBRG.DB6R.SDSNMACS                  00409001
+//NDSNSAMP DD DISP=SHR,DSN=SSXDP.DSNDBRG.DB6R.SDSNSAMP                  00410001
+//SYSIN    DD *                                                         00420000
+  COPY INDD=SDSNCLST,OUTDD=NDSNCLST                                     00430000
+  COPY INDD=SDSNDBRM,OUTDD=NDSNDBRM                                     00440000
+  COPY INDD=SDSNLOAD,OUTDD=NDSNLOAD                                     00450000
+  COPY INDD=SDSNMACS,OUTDD=NDSNMACS                                     00460000
+  COPY INDD=SDSNSAMP,OUTDD=NDSNSAMP                                     00470000
+  COPY INDD=((SDXRRESL,R)),OUTDD=NDSNLOAD                               00486001
+//                                                                      00490000

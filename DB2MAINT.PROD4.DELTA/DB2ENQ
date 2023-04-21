@@ -1,0 +1,24 @@
+//DB6RENQC  JOB ,'DB2 V10 RSU1704',CLASS=S,MSGCLASS=X,
+//         NOTIFY=&SYSUID,TIME=1440,REGION=0M
+/*JOBPARM SYSAFF=MVSQ
+//*********************************************************************
+//* This member has been edited by the LOCALJCL edit macro.           *
+//*********************************************************************
+//*********************************************************************
+//*                                                                   *
+//* DB2ENQCK: This job performs the following functions:              *
+//*                                                                   *
+//*  . Check the allocated status of the runtime and staging          *
+//*    libraries.                                                     *
+//*                                                                   *
+//*********************************************************************
+//         JCLLIB ORDER=SSXDT.TOOLKIT.PROCLIB
+//*********************************************************************
+//*                                                                   *
+//* Check the allocated status of the runtime and staging libraries.  *
+//*                                                                   *
+//*********************************************************************
+//ENQLIST  EXEC ISPBATCH,
+//             TKITPRE=SSXDT,ISPPRE=SYS1
+//SYSTSIN  DD  *
+  %ENQLIST DSN(SUOPP.PROD.ASCJCL)

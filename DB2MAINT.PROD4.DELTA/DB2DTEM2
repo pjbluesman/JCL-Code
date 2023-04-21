@@ -1,0 +1,43 @@
+//UXD000M    JOB ,'CJR RM 105',CLASS=S,MSGCLASS=X                       00001000
+//* *************************************************************** */  00180000
+//JOBLIB  DD  DISP=SHR,                                                 00190000
+//            DSN=SSXDP.DB2M.V3.SDSNLOAD                                00200000
+//DSNTIC  PROC                                                          00210000
+//* *************************************************************** */  00220000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE         */  00230000
+//* *************************************************************** */  00240000
+//DSNTIC  EXEC PGM=IDCAMS                                               00250000
+//SYSPRINT DD SYSOUT=*                                                  00270000
+//SYSUDUMP DD SYSOUT=*                                                  00280000
+//DSNTIC  PEND                                                          00290000
+//DSNTTMP EXEC DSNTIC                                                   00720000
+//* ***********************************************                     00730000
+//*    JCL MODIFIED 10/8/92 BY CJR TO FOLLOW RECOMMENDATION OF CNO
+//*         ALLOCATE ALL BUT ONE DATASET WITH 0 SECONDARY QTY
+//*            & DSN4K04 MOVED TO VOLUME D2SP10
+//*
+//*  DELETES THEN RE-DEFINE THE TEMPORARY TABLESPACES *                 00740000
+//*     THESE TABLE SPACES ARE USED FOR TEMPORARY *                     00750000
+//*     OR INTERMEDIATE TABLES BY DB2, IN SORTING *                     00760000
+//*     FOR ONE EXAMPLE.                          *                     00770000
+//* ***********************************************                     00780000
+//SYSIN DD *                                                            01050000
+      DELETE -                                                          01730001
+             (DB2M.DSNDBC.DSNDB04.DSNCJ02.I0001.A001) -                 01730002
+             CATALOG(DB2M)                                              01730003
+                                                                        01050012
+    DEFINE CLUSTER -                                                    01050013
+       ( NAME(DB2M.DSNDBC.DSNDB04.DSNCJ02.I0001.A001) -                 01050014
+            LINEAR     -                                                01050015
+            REUSE -                                                     01050016
+            VOLUMES(D2SP12) -                                           01050017
+            CYLINDERS(400 0) -                                          01050018
+            SHAREOPTIONS(3 3) ) -                                       01050019
+       DATA -                                                           01050020
+       ( NAME(DB2M.DSNDBD.DSNDB04.DSNCJ02.I0001.A001) -                 01050021
+                          ) -                                           01050022
+      CATALOG(DB2M)                                                     01050023
+                                                                        01050024
+                                                                        01050048
+                                                                        01050060
+//*                                                                     01491000

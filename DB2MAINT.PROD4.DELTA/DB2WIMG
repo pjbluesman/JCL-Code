@@ -1,0 +1,52 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00000100
+//         NOTIFY=&SYSUID                                               00000200
+/*JOBPARM SYSAFF=MVS4                                                   00000300
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU                 00000400
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR                        00000500
+//**********************************************************************00010000
+//*                                                                    *00015000
+//*  BATCH SPUFI                                                       *00020000
+//*                                                                    *00030000
+//**********************************************************************00370000
+//JOBLIB   DD  DISP=SHR,DSN=SSXDP.DB2W.SDSNEXIT                         00380000
+//         DD  DISP=SHR,DSN=SDB2W.SDSNLOAD                              00381000
+//         DD  DISP=SHR,DSN=SYS1.CEE.SCEERUN                            00390000
+//*                                                                     00400000
+//PH01LS04 EXEC PGM=IKJEFT01,DYNAMNBR=20                                00869000
+//SYSTSPRT DD  SYSOUT=*                                                 00871000
+//SYSPRINT DD  SYSOUT=*                                                 00872000
+//SYSUDUMP DD  SYSOUT=*                                                 00873000
+//SYSTSIN  DD  *                                                        00874000
+ DSN SYSTEM(DB2W)                                                       00875000
+ RUN  PROGRAM(DSNTEP2) PLAN(DSNTEP2) +                                  00880000
+      LIB('SSXDP.DB2W.RUNLIB.LOAD') +                                   00881000
+      PARMS('/ALIGN(LHS)')                                              00882000
+ END                                                                    00884000
+//*                                                                     00885000
+//SYSIN    DD *                                                         00886000
+  SELECT DISTINCT(DBNAME)                                               00887000
+  FROM SYSIBM.SYSCOPY                                                   00888000
+  WHERE ICTYPE ='F'                                                     00889000
+  ORDER BY 1      ;                                                     00890000
+  --                                                                    00900000
+  SELECT DISTINCT(NAME)                                                 00901000
+  FROM SYSIBM.SYSTABLESPACE                                             00902000
+  WHERE DBNAME = 'EBKDHSTP'                                             00903000
+  ORDER BY 1      ;                                                     00904000
+  --                                                                    00905000
+  SELECT DISTINCT(NAME)                                                 00906000
+  FROM SYSIBM.SYSTABLESPACE                                             00907000
+  WHERE DBNAME = 'EBKLHSTP'                                             00908000
+  ORDER BY 1      ;                                                     00909000
+  --                                                                    00909100
+  SELECT DBNAME,TSNAME, TIMESTAMP                                       00910000
+  FROM SYSIBM.SYSCOPY                                                   00920000
+  WHERE ICTYPE ='F' AND                                                 00930000
+  DBNAME IN ('EBKDHSTP','EBKLHSTP')                                     00940000
+  ORDER BY 1,2, 3 ;                                                     00980000
+  --                                                                    00990000
+  SELECT DBNAME,TSNAME,MIN(TIMESTAMP), MAX(TIMESTAMP)                   01000000
+  FROM SYSIBM.SYSCOPY                                                   01010000
+  WHERE ICTYPE ='F' AND                                                 01020000
+  DBNAME IN ('EBKDHSTP','EBKLHSTP')                                     01021000
+  GROUP BY DBNAME,TSNAME;                                               01070000

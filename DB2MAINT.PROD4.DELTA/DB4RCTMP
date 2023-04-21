@@ -1,0 +1,57 @@
+//UXD004M JOB ,'DB2 ANNEX',CLASS=S,MSGCLASS=X
+/*JOBPARM SYSAFF=MVSR
+//JOBLIB  DD  DISP=SHR,                                                 00290000
+//*           DSN=SSXDP.DSNDBRG.DB2R.SDSNLOAD                           00300000
+//            DSN=SDB4R.SDSNLOAD                                        00300000
+//DSNTIST EXEC PGM=IKJEFT01                                             01020000
+//SYSTSPRT DD  SYSOUT=*                                                 01040000
+//SYSPRINT DD  SYSOUT=*                                                 01050000
+//SYSUDUMP DD  SYSOUT=*                                                 01060000
+//SYSTSIN  DD  *                                                        01070000
+  DSN SYSTEM(DB4R)                                                      01080000
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIAD) -                                 01100000
+       LIB('SSXDP.DB4R.RUNLIB.LOAD')                                    01110000
+  END                                                                   01130000
+//SYSIN    DD  *                                                        01140000
+SET CURRENT SQLID='LSEBDB2';
+ CREATE TABLESPACE DSN4K36 IN WRKDB4R
+        BUFFERPOOL BP40
+        CLOSE NO
+        USING VCAT DB2R;
+ CREATE TABLESPACE DSN4K37 IN WRKDB4R
+        BUFFERPOOL BP40
+        CLOSE NO
+        USING VCAT DB2R;
+ CREATE TABLESPACE DSN4K38 IN WRKDB4R
+        BUFFERPOOL BP40
+        CLOSE NO
+        USING VCAT DB2R;
+ CREATE TABLESPACE DSN4K39 IN WRKDB4R
+        BUFFERPOOL BP40
+        CLOSE NO
+        USING VCAT DB2R;
+ CREATE TABLESPACE DSN4K40 IN WRKDB4R
+        BUFFERPOOL BP40
+        CLOSE NO
+        USING VCAT DB2R;
+ CREATE TABLESPACE DSN4K41 IN WRKDB4R
+        BUFFERPOOL BP40
+        CLOSE NO
+        USING VCAT DB2R;
+ CREATE TABLESPACE DSN4K42 IN WRKDB4R
+        BUFFERPOOL BP40
+        CLOSE NO
+        USING VCAT DB2R;
+ CREATE TABLESPACE DSN4K43 IN WRKDB4R
+        BUFFERPOOL BP40
+        CLOSE NO
+        USING VCAT DB2R;
+ CREATE TABLESPACE DSN4K44 IN WRKDB4R
+        BUFFERPOOL BP40
+        CLOSE NO
+        USING VCAT DB2R;
+ CREATE TABLESPACE DSN4K45 IN WRKDB4R
+        BUFFERPOOL BP40
+        CLOSE NO
+        USING VCAT DB2R;
+//*                                                                     01150000

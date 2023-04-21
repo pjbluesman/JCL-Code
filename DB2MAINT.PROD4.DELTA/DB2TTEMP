@@ -1,0 +1,38 @@
+//UXD002M   JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X                        00001000
+//* *************************************************************** */  00180000
+//JOBLIB  DD  DISP=SHR,                                                 00190000
+//            DSN=SSXDT.DB2T.V4.SDSNLOAD                                00200000
+//DSNTIC  PROC                                                          00210000
+//* *************************************************************** */  00220000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE         */  00230000
+//* *************************************************************** */  00240000
+//DSNTIC  EXEC PGM=IDCAMS                                               00250000
+//SYSPRINT DD SYSOUT=*                                                  00270000
+//SYSUDUMP DD SYSOUT=*                                                  00280000
+//DSNTIC  PEND                                                          00290000
+//DSNTTMP EXEC DSNTIC                                                   00720000
+//* ***********************************************                     00730000
+//*  DELETES THEN RE-DEFINE THE TEMPORARY TABLESPACES *                 00740000
+//*     THESE TABLE SPACES ARE USED FOR TEMPORARY *                     00750000
+//*     OR INTERMEDIATE TABLES BY DB2, IN SORTING *                     00760000
+//*     FOR ONE EXAMPLE.                          *                     00770000
+//* ***********************************************                     00780000
+//SYSIN DD *                                                            01050000
+      DELETE -                                                          01730001
+             (DB2T.DSNDBC.DSNDB07.DSN4K04.I0001.A001) -                 01730002
+             CATALOG(DB2T)                                              01730003
+                                                                        01780000
+    DEFINE CLUSTER -                                                    01050037
+       ( NAME(DB2T.DSNDBC.DSNDB07.DSN4K04.I0001.A001) -                 01050038
+            LINEAR     -                                                01050039
+            REUSE -                                                     01050040
+            VOLUMES(A3D2C0 A3D2AN) -                                    01050041
+            CYLINDERS(400 200) -                                        01050042
+            SHAREOPTIONS(3 3) ) -                                       01050043
+       DATA -                                                           01050044
+       ( NAME(DB2T.DSNDBD.DSNDB07.DSN4K04.I0001.A001) -                 01050045
+                          ) -                                           01050046
+      CATALOG(DB2T)                                                     01050047
+                                                                        01050048
+                                                                        01050060
+//*                                                                     01491000

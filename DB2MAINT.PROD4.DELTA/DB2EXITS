@@ -1,0 +1,115 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSE
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR
+//*********************************************************************
+//* copied from SSXDP.TOOLKIT.JCL(DB2EXITS)                          *
+//* DB2EXITS: This job performs the following functions:              *
+//*                                                                   *
+//*  . Determine the current location of the primary DB2 exit modules.*
+//*                                                                   *
+//*********************************************************************
+//**Begin**************************************************************
+//*                                                                   *
+//* Change "DB2_Pre"  to the DB2 library prefix.                      *
+//* Change "SSXDP" to the DB2 Toolkit library prefix.                 *
+//*                                                                   *
+//*********************************************************************
+//         JCLLIB ORDER=SSXDP.TOOLKIT.PROCLIB
+//*********************************************************************
+//*                                                                   *
+//* Determine the current location of the primary DB2 exit modules.   *
+//*                                                                   *
+//*********************************************************************
+//DB2EXITS EXEC TSOBATCH
+//SYSPROC  DD  DISP=SHR,DSN=SSXDP.TOOLKIT.CLIST
+//SYSTSIN  DD  *
+  %DB2EXITS
+/*
+//*********************************************************************
+//*                                                                   *
+//* Make sure the libraries in the DB2LIBS DD statement are the       *
+//* same, and in the same order, as those in the STEPLIB DD           *
+//* statement of the ssidMSTR address space. Update the DB2LIBS DD    *
+//* statement if necessary.                                           *
+//*                                                                   *
+//*********************************************************************
+//DB2LIBS  DD  DSN=SSXDT.DB2E.SDSNEXIT,DISP=SHR
+//         DD  DISP=SHR,DSN=SDB2E.SDSNLOAD
+//         DD  DISP=SHR,DSN=SYS1.LINKLIB
+//         DD  DISP=SHR,DSN=SYS1.MIGLIB
+//         DD  DISP=SHR,DSN=SYS1.CSSLIB
+//         DD  DISP=SHR,DSN=SYS1.SIEALNKE
+//         DD  DISP=SHR,DSN=SYS1.SIEAMIGE
+//         DD  DISP=SHR,DSN=SYS1.SAPKMOD1
+//         DD  DISP=SHR,DSN=SYS1.SASMMOD1
+//         DD  DISP=SHR,DSN=SYS1.SCCNCMP
+//         DD  DISP=SHR,DSN=SYS1.SCLBDLL
+//         DD  DISP=SHR,DSN=SYS1.SCLBDLL2
+//         DD  DISP=SHR,DSN=SYS1.SCEERUN
+//         DD  DISP=SHR,DSN=SYS1.SCEERUN2
+//         DD  DISP=SHR,DSN=SYS1.CMDLIB
+//         DD  DISP=SHR,DSN=SYS1.VTAMLIB
+//         DD  DISP=SHR,DSN=SYS1.SCSFMOD0
+//         DD  DISP=SHR,DSN=SYS1.DFQLLIB
+//         DD  DISP=SHR,DSN=SYS1.DGTLLIB
+//         DD  DISP=SHR,DSN=SYS1.DIT.V1R3M0.SDITMOD1
+//         DD  DISP=SHR,DSN=SYS1.FTP.LINKLIB
+//         DD  DISP=SHR,DSN=SYS1.SEPHLOD1
+//         DD  DISP=SHR,DSN=SYS1.SEOYLOAD
+//         DD  DISP=SHR,DSN=SYS1.SEUVLINK
+//         DD  DISP=SHR,DSN=SYS1.SEPWMOD2
+//         DD  DISP=SHR,DSN=SYS1.SEPWMOD4
+//         DD  DISP=SHR,DSN=SYS1.FMN.SFMNMOD1
+//         DD  DISP=SHR,DSN=SYS1.GDDM.SADMMOD
+//         DD  DISP=SHR,DSN=SYS1.SGIMLMD0
+//         DD  DISP=SHR,DSN=SYS1.IDI.LINKLIB
+//         DD  DISP=SHR,DSN=SYS1.IGY.SIGYCOMP
+//         DD  DISP=SHR,DSN=SYS1.ING.SINGMOD1
+//         DD  DISP=SHR,DSN=SYS1.ING.SINGMOD2
+//         DD  DISP=SHR,DSN=SYS1.SIOALMOD
+//         DD  DISP=SHR,DSN=SYS1.SIOELMOD
+//         DD  DISP=SHR,DSN=SYS1.SISFLINK
+//         DD  DISP=SHR,DSN=SYS1.SISFLOAD
+//         DD  DISP=SHR,DSN=SYS1.ISP.SISPLOAD
+//         DD  DISP=SHR,DSN=SYS1.XML.SIXMLOD1
+//         DD  DISP=SHR,DSN=SYS1.MQM.SCSQAUTH
+//         DD  DISP=SHR,DSN=SYS1.NETVIEW.CNMLINK
+//         DD  DISP=SHR,DSN=SYS1.NETVIEW.SCNMLNKN
+//         DD  DISP=SHR,DSN=SYS1.NFSLIBE
+//         DD  DISP=SHR,DSN=SYS1.SEAGALT
+//         DD  DISP=SHR,DSN=SYS1.SBDTCMD
+//         DD  DISP=SHR,DSN=SYS1.SBDTLIB
+//         DD  DISP=SHR,DSN=SYS1.SBDTLINK
+//         DD  DISP=SHR,DSN=SYS1.SCBDHENU
+//         DD  DISP=SHR,DSN=SYS1.SCUNIMG
+//         DD  DISP=SHR,DSN=SYS1.SERBLINK
+//         DD  DISP=SHR,DSN=SYS1.SHASLNKE
+//         DD  DISP=SHR,DSN=SYS1.SHASMIG
+//         DD  DISP=SHR,DSN=SYS1.SEZALOAD
+//         DD  DISP=SHR,DSN=SYS1.ADSM.SANRLNKE
+//         DD  DISP=SHR,DSN=SYS3T.SYNCSORT.V1R3I.SYNCLINK
+//         DD  DISP=SHR,DSN=SYS3T.SYNCSORT.V1R3H.SYNCLINK
+//         DD  DISP=SHR,DSN=SYS1.SICELINK
+//         DD  DISP=SHR,DSN=SYS1.SORTLPA
+//         DD  DISP=SHR,DSN=SYS3P.EMC.SRDF530.LINKLIB
+//         DD  DISP=SHR,DSN=SYS3P.EMC.SRDF521.LINKLIB
+//         DD  DISP=SHR,DSN=SYS3P.EMC.SSCF550.LINKLIB
+//         DD  DISP=SHR,DSN=SYS3P.EMC.SSCF540.LINKLIB
+//         DD  DISP=SHR,DSN=SYS3T.OEM.LINKLIB
+//         DD  DISP=SHR,DSN=SYS3P.CSL86.AUTHLOAD
+//         DD  DISP=SHR,DSN=SYS2.DB2V8.SDSNLINK
+//         DD  DISP=SHR,DSN=SYS2.DB2TOOLS.SINZLINK
+//*********************************************************************
+//*                                                                   *
+//* On DB2 V8 subsystems, add the following exit:                     *
+//*    DSNHMCID                                                       *
+//*                                                                   *
+//*********************************************************************
+//EXITLIST DD  *
+INZSTI00
+INZUTILB
+INZUTILK
+INZUTL1
+/*

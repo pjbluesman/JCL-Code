@@ -1,0 +1,21 @@
+//UXD104M JOB ,'CJR RM105',CLASS=S,MSGCLASS=X
+//* *************************************************************** */  00010000
+//*       MTC ON CATALOG AND DIRECTORY FOR DB2P                     */  00052000
+//*                                                                 */  00060000
+//* MOVED SYSSTR AND ITS INDEX TO NEW DASD - 2/25/95/CJR
+//*
+//* *************************************************************** */  00130000
+//DSNTIC  PROC                                                          00140000
+//* *************************************************************** */  00150000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE         */  00160000
+//* *************************************************************** */  00170000
+//DSNTIC  EXEC PGM=IDCAMS                                               00180000
+//SYSPRINT DD SYSOUT=*                                                  00200000
+//SYSUDUMP DD SYSOUT=*                                                  00210000
+//DSNTIC  PEND                                                          00220000
+//DSNTIDC EXEC DSNTIC                                                   00580000
+//SYSIN DD *                                                            00590000
+      DELETE         -                                                  00630000
+             (DB2P.DSNDBC.DSNDB01.SYSUTIL.I0001.A001) -                 00640000
+             CATALOG(DB2P)                                              00650000
+/*

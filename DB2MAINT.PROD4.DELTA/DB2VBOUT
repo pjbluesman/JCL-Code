@@ -1,0 +1,49 @@
+//UXD001M  JOB (,A3),'SYSPROG',CLASS=S,MSGCLASS=X,                      00010000
+//  REGION=86M,TIME=1440,NOTIFY=&SYSUID                                 00020000
+//**---------------------------------------------------**               00030000
+//**-------THIS IS THE BACK OUT JOB FOR DB2VCOPY-------**               00030100
+//**---------------------------------------------------**               00030200
+//**----NOTE: ALL DATA SETS MUST BE UNALLOCATE PRIOR---**               00030300
+//**----      TO EXECUTING THIS JOB DUE TO  RENAME'S---**               00030400
+//**----             MTS*IBM  09-10-04              ---**               00030500
+//**---------------------------------------------------**               00030600
+//RENAME  EXEC PGM=IDCAMS                                               00030700
+//SYSPRINT DD  SYSOUT=*                                                 00030800
+//SYSIN    DD  *                                                        00030900
+     ALTER  -                                                           00031000
+       SSXDT.DSNDBVG.DB2V.SDSNC.H -                                     00032000
+         NEWNAME(SSXDT.DSNDBVG.DB2V.SDSNC.H.SEP1104N)                   00033000
+     ALTER  -                                                           00034000
+       SSXDT.DSNDBVG.DB2V.SDSNCLST -                                    00035000
+         NEWNAME(SSXDT.DSNDBVG.DB2V.SDSNCLST.SEP1104N)                  00036000
+     ALTER  -                                                           00037000
+       SSXDT.DSNDBVG.DB2V.SDSNDBRM -                                    00038000
+         NEWNAME(SSXDT.DSNDBVG.DB2V.SDSNDBRM.SEP1104N)                  00039000
+     ALTER  -                                                           00040000
+       SSXDT.DSNDBVG.DB2V.SDSNLOAD -                                    00050000
+         NEWNAME(SSXDT.DSNDBVG.DB2V.SDSNLOAD.SEP1104N)                  00060000
+     ALTER  -                                                           00070000
+       SSXDT.DSNDBVG.DB2V.SDSNMACS -                                    00080000
+         NEWNAME(SSXDT.DSNDBVG.DB2V.SDSNMACS.SEP1104N)                  00090000
+     ALTER  -                                                           00100000
+       SSXDT.DSNDBVG.DB2V.SDSNSAMP.SEP1104 -                            00110000
+         NEWNAME(SSXDT.DSNDBVG.DB2V.SDSNSAMP.SEP1104N)                  00120000
+     ALTER .SEP1104 -                                                   00130000
+       SSXDT.DSNDBVG.DB2V.SDSNC.H.SEP1104 -                             00140000
+         NEWNAME(SSXDT.DSNDBVG.DB2V.SDSNC.H)                            00150000
+     ALTER .SEP1104 -                                                   00160000
+       SSXDT.DSNDBVG.DB2V.SDSNCLST.SEP1104 -                            00170000
+         NEWNAME(SSXDT.DSNDBVG.DB2V.SDSNCLST)                           00180000
+     ALTER .SEP1104 -                                                   00190000
+       SSXDT.DSNDBVG.DB2V.SDSNDBRM.SEP1104 -                            00200000
+         NEWNAME(SSXDT.DSNDBVG.DB2V.SDSNDBRM)                           00210000
+     ALTER .SEP1104 -                                                   00220000
+       SSXDT.DSNDBVG.DB2V.SDSNLOAD.SEP1104 -                            00230000
+         NEWNAME(SSXDT.DSNDBVG.DB2V.SDSNLOAD)                           00240000
+     ALTER .SEP1104 -                                                   00250000
+       SSXDT.DSNDBVG.DB2V.SDSNMACS.SEP1104 -                            00260000
+         NEWNAME(SSXDT.DSNDBVG.DB2V.SDSNMACS)                           00270000
+     ALTER .SEP1104 -                                                   00280000
+       SSXDT.DSNDBVG.DB2V.SDSNSAMP.SEP1104 -                            00290000
+         NEWNAME(SSXDT.DSNDBVG.DB2V.SDSNSAMP)                           00300000
+//*                                                                     00310000

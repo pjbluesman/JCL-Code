@@ -1,0 +1,194 @@
+//UXC401MR JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID,REGION=0M
+/*JOBPARM SYSAFF=MVSR
+//* TESTSAP - SAPLEX MVSE MVSH MVSJ MVSK MVSN MVSS MVSU
+//* PRODSAP - SAPLEX MVS4 MVSF MVSI MVSQ OU MVSR
+//PEV410  EXEC PGM=DB2PM
+//STEPLIB  DD  DSN=SSXDP.DB2TOOLS.MVSRRTE.RKANMODU,DISP=SHR
+//         DD  DSN=SSXDP.DB2TOOLS.BARQ4RTE.RKANMOD,DISP=SHR
+//* SE FOR DO DIA ATUAL, PROCURA NA SYSOUT A ULTIMA SYS1.MVSR
+//*INPUTDD  DD  DISP=SHR,DSN=SYS1.MVSR.MANC
+//*INPUTDD  DD  DISP=SHR,DSN=SYS1.MVSR.MANB
+//* SE FOR DO DIA ANTERIOR, PEGA DA GERACAO DO SMF
+//INPUTDD  DD  DISP=SHR,DSN=PSSXP.SMF.MVSR.DB2(0)
+//*INPUTDD  DD  DISP=SHR,DSN=PSSXP.SMF.MVSR.DAY.G0002V00
+//*         DD  DISP=SHR,DSN=PSSXP.SMF.MVSR.DAY.G0003V00
+//*INPUTDD  DD  DISP=SHR,DSN=PSSXP.SMF.MVSR.DB2.G3222V00
+//*INPUTDD  DD  DISP=SHR,DSN=PSSXP.SMF.MVSR.WEEK(-1)
+//DPMLOG   DD  SYSOUT=*
+//SORTWK01 DD SPACE=(CYL,(500,200)),UNIT=SYSDA
+//SORTWK02 DD SPACE=(CYL,(500,200)),UNIT=SYSDA
+//SORTWK03 DD SPACE=(CYL,(500,200)),UNIT=SYSDA
+//SORTWK04 DD SPACE=(CYL,(500,200)),UNIT=SYSDA
+//SORTWK05 DD SPACE=(CYL,(500,200)),UNIT=SYSDA
+//SYSOUT   DD  SYSOUT=*
+//SYSIN    DD  *
+GLOBAL
+ INCLUDE (DATABASE (DB2R DB4R DB3R DB5R) )
+                     FROM(11/04/12,18:05:00.00)
+                       TO(11/04/12,18:55:00.00)
+ ACCOUNTING
+ REPORT
+    INCLUDE(PRIMAUTH
+    (TKTRETR))
+    LAYOUT(LONG)
+ EXEC
+//
+    (EBKDPAPP))
+    (ETCKT))
+    (TACSPROD))
+LIST (REQLOC(IPLIST(10.65.53.125,
+                    10.65.202.48,
+                    10.64.170.30,
+                    10.64.170.31,
+                    10.64.170.146,
+                    10.64.18.57,
+                    10.64.18.58,
+                    10.64.18.122,
+                    10.64.204.169,
+                    10.67.0.71,
+                    10.67.0.70,
+                    10.64.225.11,
+                    10.64.225.17,
+                    10.64.225.19,
+                    10.64.46.36,
+                    10.65.53.140,
+                    10.65.53.141,
+                    10.64.34.76,
+                    10.64.34.82,
+                    10.64.34.84,
+                    10.64.50.105,
+                    10.64.59.44,
+                    10.67.0.67,
+                    10.68.34.75) ) )
+ACCOUNTING
+   TRACE
+      INCLUDE (REQLOC(L(IPLIST)))
+      LAYOUT(DDF)
+EXEC
+//
+
+ACCOUNTING
+   TRACE
+      INCLUDE (REQLOC(*) )
+      LAYOUT(DDF)
+//
+ACCOUNTING
+   REPORT
+     INCLUDE ( PLANNAME (DISTSERV) )
+      LAYOUT(LONG)
+EXEC
+//
+UTILITY
+     TRACE
+EXEC
+//
+        ORDER (PRIMAUTH-PLANNAME-INSTANCE)
+ACCOUNTING
+     REPORT
+         TOP(20)
+STATISTICS
+    REPORT
+       LAYOUT(LONG)
+EXEC
+//
+ BPACTIVITY
+   REPORT LEVEL(DETAIL)
+ EXEC
+//
+ BPACTIVITY
+    REPORT
+     FILE
+  FILE LEVEL(SUMMARY)
+     REPORT LEVEL(SUMMARY)
+   REPORT LEVEL(DETAIL)
+ EXEC
+//
+STATISTICS
+     REPORT
+        DSETSTAT
+           LAYOUT(LONG)
+EXEC
+//
+RECTRACE
+     TRACE
+        LEVEL (SUMMARY)
+EXEC
+// PARA LISTAR SOMENTE O QUE RODOU DE UTILITARIOS
+UTILITY
+     REPORT
+EXEC
+// PARA LISTAR DETALHES DOS UTILITARIOS RODADOS
+UTILITY
+     TRACE
+        ORDER (PRIMAUTH-PLANNAME-INSTANCE)
+EXEC
+//
+ACCOUNTING
+   TRACE
+   LAYOUT (SHORT)
+EXEC
+//
+ACCOUNTING
+   REPORT
+   LAYOUT (SHORT)
+   ORDER  (ENDUSER-WSNAME-TRANSACT)
+   SCOPE  (MEMBER)
+EXEC
+//
+STATISTICS
+    REPORT
+       LAYOUT(LONG)
+EXEC
+//
+ACCOUNTING
+            REPORT                    /*TESTE*/
+                     DDNAME(TESTE)
+                     NOEXCEPTION
+                     SCOPE(MEMBER)
+                     ORDER(
+                           PRIMAUTH
+                          )
+                     TOP       (10
+                                   TOTAL
+                                        INAPPLET
+                                        INAPPLPT
+                                        INAPPLWT
+                                        INDB2ET
+                                        INDB2PT
+                                        INDB2WT
+                                        OUTDB2ET
+                                        OUTDB2PT
+                                        OUTDB2WT
+                                        NOTACCT
+                                        TOTSUSTM
+                                        TOTSUSP
+                                        DMLSTAT
+                                        DCLSTAT
+                                        DDLSTAT
+                                        UPDPERCM
+                                        CMPERUPD
+                                        GETPAGES
+                                        BUFUPDTS
+                                        SYNCREAD
+                                        TOTPREF
+                                        PINDBET
+                                        PINDBPT
+                                        PINDBWT
+                                        PTSUSTME
+                                        PNOTACCT
+                               )
+EXEC
+//
+ACCOUNTING
+     REPORT
+         TOP(20)
+EXEC
+//
+//
+ACCOUNTING
+            REPORT LAYOUT (LONG)   /*ACCOUNT*/
+                     DDNAME(ACCOUN)
+                     NOEXCEPTION
+                     SCOPE(GROUP)
+EXEC

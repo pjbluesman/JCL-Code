@@ -1,0 +1,35 @@
+//UXD001M   JOB ,'CJR RM 102',CLASS=S,MSGCLASS=X                        00001000
+//* *************************************************************** */  00010000
+//*   DATASET MAITENANCE ON THE DB2M CATALOG AND/OR DIRECTORY       */  00020000
+//*     TO BE USED IN CONJUNCTION W/DB2MDEL                         */  00030000
+//*                                                                 */  00040000
+//*                                                                 */  00050000
+//*                                                                 */  00060000
+//*                                                                 */  00070000
+//DSNTIC  PROC                                                          00380000
+//* *************************************************************** */  00390000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE         */  00400000
+//* *************************************************************** */  00410000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)                                   00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//DSNTCOP EXEC DSNTIC                                                   02540000
+//* *********************************************                       01700000
+//*  DEFINE DB2  CATALOG TABLE SPACES         *                         01710000
+//*              5/30/92 - REALLOCATE SYSCOPY, SYSPLAN,
+//*              5/30/92 - REALLOCATE SYSPLAN,
+//* *********************************************                       01720000
+//SYSIN DD *                                                            02580000
+   DEFINE CLUSTER                             -                         02750000
+         ( NAME(DB2M.DSNDBC.TEST.GIL.I0001.A001) -                      02760000
+           LINEAR                             -                         02770000
+           REUSE                              -                         02780000
+           VOLUMES(A3D2AN)                    -                         02790000
+           TRACKS(10 10)                      -                         02820000
+           SHAREOPTIONS(3 3) )                -                         02830000
+      DATA                                    -                         02840000
+         ( NAME(DB2M.DSNDBD.TEST.GIL.I0001.A001) -                      02850000
+                              )               -                         02880000
+      CATALOG(DB2M)                                                     02890000
+//*                                                                     08290000

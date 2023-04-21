@@ -1,0 +1,12 @@
+//PKD072B  JOB ,'RDL RM2144',CLASS=S,MSGCLASS=X,NOTIFY=DT0072,          00010003
+//  TYPRUN=HOLD                                                         00011003
+//JOBLIB  DD  DSN=SSXDP.DSNDBRG.DB2R.SDSNLOAD,DISP=SHR                  00020000
+//STEP001  EXEC PGM=DSNUTILB,REGION=0K,                                 00030000
+//         PARM='DBRG,TEDSQU'                                           00040000
+//SYSPRINT DD   SYSOUT=*                                                00041000
+//UTPRINT  DD   SYSOUT=*                                                00042000
+//SYSUDUMP DD   SYSOUT=*                                                00043000
+//SYSIN DD  *                                                           00057200
+ QUIESCE TABLESPACE EBKD2P02.TSKD0144                                   00057400
+/*                                                                      00078000
+//                                                                      00079000

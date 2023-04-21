@@ -1,0 +1,88 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,REGION=0M,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSN
+//*******************************************************************//
+//*                                                                 *//
+//*   MODULE NAME : BPOQBTCH                                        *//
+//*                                                                 *//
+//*   DESCRIPTION : DB2 BPA BATCH SAMPLE JOB                        *//
+//*                                                                 *//
+//*   COPYRIGHT   : IBM DB2 BUFFER POOL ANALYZER FOR Z/OS  V4       *//
+//*                 LICENSED MATERIALS - PROPERTY OF IBM            *//
+//*                 5697-H82 (C) COPYRIGHT IBM CORP. 2001, 2006     *//
+//*                                                                 *//
+//*   STATUS      : VERSION 4                                       *//
+//*                                                                 *//
+//*   FUNCTION    : CREATE BATCH REPORTS AND A FILE                 *//
+//*                                                                 *//
+//*                                                                 *//
+//*   NOTES =                                                       *//
+//*     1.  ADD A VALID JOB CARD                                    *//
+//*     2.  CHANGE THE INPUTDD AND BPFILDD1 DD STATEMENTS           *//
+//*     THE COMMANDS IN THE SYSIN DD FILE CAN BE CHANGED            *//
+//*     AS DESCRIBED IN THE BPA USER'S GUIDE                        *//
+//*END OF SPECIFICATIONS*********************************************//
+//*
+//DB2BP   EXEC PGM=DB2BP
+//*   CHANGE THE PREFIX OF THE LIBRARY DB2BPA
+//STEPLIB  DD  DSN=SSXDT.DB2TOOLS.MVSKRTE.RKANMOD,DISP=SHR
+//*   DD STATEMENT FOR TRACE DATA SET
+//INPUTDD  DD  DISP=SHR,DSN=T492331.OUTPUT
+//SYSPRINT DD  SYSOUT=*
+//SYSOUT   DD  SYSOUT=*
+//*  DD STATEMENT FOR MESSAGES REFERING TO THE TRACE DATA SET
+//JOBSUMDD DD  SYSOUT=*
+//*  DD STATEMENT FOR MESSAGES REFERING TO EXECUTION OF THE JOB PHASES
+//DPMLOG   DD  SYSOUT=*
+//*  DD STATEMENT FOR SECOND REPORT
+//BPAREP2  DD  SYSOUT=*
+//*  DD STATEMENT FOR FILE, CHANGE PARAMETERS ACCORDING TO YOUR NEEDS
+//BPFILDD1 DD  DISP=(NEW,CATLG),DSN=T492331.BPOOL.OUTPUT,
+//             DCB=(RECFM=VB,LRECL=9092,BLKSIZE=9096),UNIT=SYSDA,
+//             SPACE=(9096,(1000,500),RLSE)
+//*  DD STATEMENT FOR BPA COMMANDS AND PARAMETERS
+//SYSIN    DD  *
+GLOBAL
+      TIMEZONE (-5:00)
+BPACTIVITY
+   REPORT
+         LEVEL(DETAIL)
+         ORDER(PLANNAME-BPID-QPAGESET
+               SORTBY(PLANNAME,GETPAGE) TOP(5))
+   FILE
+EXEC
+//
+*    GLOBAL COMMAND TO ADJUST REPORTED GMT TO LOCAL TIME
+GLOBAL
+      TIMEZONE (-1:00)
+*    COMMAND WITH SUBCOMMANDS TO CREATE BUFFER POOL ACTIVITY REPORTS
+*    AND FILE WITH DATA TO BE LOADED INTO A DB2 TABLE OR USED ON THE
+*    CLIENT FOR GRAPHICAL DISPLAY OR FOR EXPERT ANALYSIS
+BPACTIVITY
+*    DEFAULT REPORT, OUTPUT GOES TO DEFAULT DD NAME BPREPDD
+   REPORT
+*    FOLLOWING REPORT HAS DATA SUMMARIZED BY PLAN, BUFFER POOL ID, AND
+*    PAGE SET. THE DATA ARE SORTED BY PLAN AND NUMBER OF GETPAGES.
+*    ONLY THE FIRST 5 COMBINATIONS OF BUFFER POOL ID AND PAGE SET
+*    PER PLAN ARE REPORTED AND THE REMAINDER.
+   REPORT
+         LEVEL(DETAIL)
+         ORDER(PLANNAME-BPID-QPAGESET
+               SORTBY(PLANNAME,GETPAGE) TOP(5))
+*    OUTPUT GOES TO DD NAME BPAREP2
+         DDNAME(BPAREP2)
+*    THE NEXT IS A SUMMARY REPORT WHERE ONLY THE 11 MOST
+*    ACTIVE PAGE SETS IN TERMS OF ASYNCHRONOUS PAGE ACTIVITY IS
+*    PRODUCED. BUFFER POOL ACTIVITY IS ALWAYS THERE.
+   REPORT
+         LEVEL(SUMMARY)
+         ORDER( SORTBY(ASYNCPAGE) TOP(11))
+*    OUTPUT GOES TO THE SAME DD NAME AS THE PREVIOUS REPORT.
+         DDNAME(BPAREP2)
+*    FILE, OUTPUT GOES TO DEFAULT DD NAME BPFILDD1
+   FILE
+*    EXEC COMMAND TERMINATES READING OF COMMAND INPUT AND STARTS
+*    PROCESSING OF TRACE INPUT.
+EXEC
+//
+INPUTDD

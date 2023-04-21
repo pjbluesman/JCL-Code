@@ -1,0 +1,22 @@
+//DB2PM PROC
+//*
+//*******************************************************************//
+//*                                                                 *//
+//*   MODULE NAME : DGOJIVPC                                        *//
+//*                                                                 *//
+//*   DESCRIPTION : DB2 PM Installation Verification job            *//
+//*                                                                 *//
+//*   COPYRIGHT   : IBM  DB2  UDB  Performance  Monitor  for OS/390  V6
+//*                 Licensed Material - Property of IBM             *//
+//*                 5645-DB2 (C) Copyright IBM Corp. 1997, 1998     *//
+//*                                                                 *//
+//*   STATUS      : Version 7                                       *//
+//*                                                                 *//
+//*                                                                 *//
+//*End of Specifications*********************************************//
+//*
+//DB2PM   EXEC PGM=DGOVM000,REGION=0M
+//STEPLIB  DD  DSN=SSXDT.DSNDBAG.DB2A.SDSNLOAD,DISP=SHR
+//         DD  DSN=SSXDT.DB2PMV7.SDGOLOAD,DISP=SHR
+//SYSPRINT DD  SYSOUT=*
+//DCPARMS  DD  DSN=SSXDT.DB2PMV7.SDGOINS1(DGOJIVAA),DISP=SHR
