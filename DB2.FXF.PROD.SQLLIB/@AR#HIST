@@ -1,0 +1,212 @@
+--
+--         (FK_AR_NBR DECIMAL(12, 0)                       NOT NULL
+--         ,FK_COMPANY_ID CHARACTER(5) FOR SBCS DATA       NOT NULL
+--         ,FK_HISTORY_TSP TIMESTAMP (6) WITHOUT TIME ZONE NOT NULL
+--         ,SEQUENCE_NBR SMALLINT                          NOT NULL
+--         ,DETAIL_DESC CHARACTER(80) FOR SBCS DATA        NOT NULL
+--         ,PRODUCT_NMFC_CD CHARACTER(12) FOR SBCS DATA    NOT NULL
+--         ,PRODUCT_CLASS_CD CHARACTER(5) FOR SBCS DATA    NOT NULL
+--         ,DETAIL_QTY DECIMAL(9, 4)                       NOT NULL
+--         ,DETAIL_RATE_AMT DECIMAL(9, 4)                  NOT NULL
+--         ,DETAIL_LINE_AMT DECIMAL(12, 2)                 NOT NULL
+--         ,ADDED_TSP TIMESTAMP (6) WITHOUT TIME ZONE      NOT NULL
+--         ,ADDED_USERID CHARACTER(8) FOR SBCS DATA        NOT NULL
+--         ,FK_TRAN_COMPANY_ID CHARACTER(5) FOR SBCS DATA
+--   WITH DEFAULT NULL
+--         ,FK_CATEGORY_NM CHARACTER(15) FOR SBCS DATA
+--   WITH DEFAULT NULL
+--         ,FK_TRANSACTION_CD CHARACTER(15) FOR SBCS DATA
+--   WITH DEFAULT NULL
+--         ,DETAIL_LINE_PD_AMT DECIMAL(12, 2)              NOT NULL
+--   WITH DEFAULT
+--         ,EXCEPTION_CD CHARACTER(8) FOR SBCS DATA        NOT NULL
+--   WITH DEFAULT
+--         ,REASON_CD CHARACTER(8) FOR SBCS DATA           NOT NULL
+--   WITH DEFAULT
+--         ,DTL_LN_FGN_AMT DECIMAL(15, 2)                  NOT NULL
+--   WITH DEFAULT
+--         ,DTL_LN_PD_FGN_AMT DECIMAL(15, 2)               NOT NULL
+--   WITH DEFAULT
+--      ,CONSTRAINT FK_AR_NBR PRIMARY KEY
+--      (FK_AR_NBR
+--      ,FK_COMPANY_ID
+--      ,FK_HISTORY_TSP
+--      ,SEQUENCE_NBR
+--      )
+--      )
+--      IN RVPA001.TARDH
+
+ SET CURRENT SQLID = '@DBATCC';
+
+ CREATE DATABASE JXS0036
+        BUFFERPOOL BP4
+        INDEXBP    BP1
+        STOGROUP TA
+        CCSID EBCDIC;
+COMMIT;
+
+    CREATE TABLESPACE SANDBOX
+           IN JXS0036
+           USING STOGROUP TA
+               PRIQTY 720
+               SECQTY 7200
+               ERASE NO
+           BUFFERPOOL BP5
+           DSSIZE 16G
+           CLOSE YES
+           LOCKMAX 0
+           SEGSIZE 0
+           DEFINE YES
+           LOGGED
+           LOCKSIZE PAGE
+           MAXROWS 255
+           CCSID EBCDIC
+           NUMPARTS 6
+          (PARTITION 1
+                     USING STOGROUP TA
+                                    PRIQTY 720
+                                    SECQTY 7200
+                                    ERASE NO
+                     PCTFREE 0 FOR UPDATE 0
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS YES
+                     TRACKMOD YES
+          ,PARTITION 2
+                     USING STOGROUP TA
+                                    PRIQTY 720
+                                    SECQTY 7200
+                                    ERASE NO
+                     PCTFREE 0 FOR UPDATE 0
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS YES
+                     TRACKMOD YES
+          ,PARTITION 3
+                     USING STOGROUP TA
+                                    PRIQTY 720
+                                    SECQTY 7200
+                                    ERASE NO
+                     PCTFREE 0 FOR UPDATE 0
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS YES
+                     TRACKMOD YES
+          ,PARTITION 4
+                     USING STOGROUP TA
+                                    PRIQTY 720
+                                    SECQTY 7200
+                                    ERASE NO
+                     PCTFREE 0 FOR UPDATE 0
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS YES
+                     TRACKMOD YES
+          ,PARTITION 5
+                     USING STOGROUP TA
+                                    PRIQTY 720
+                                    SECQTY 7200
+                                    ERASE NO
+                     PCTFREE 0 FOR UPDATE 0
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS YES
+                     TRACKMOD YES
+          ,PARTITION 6
+                     USING STOGROUP TA
+                                    PRIQTY 720
+                                    SECQTY 7200
+                                    ERASE NO
+                     PCTFREE 0 FOR UPDATE 0
+                     FREEPAGE 0
+                     GBPCACHE CHANGED
+                     COMPRESS YES
+                     TRACKMOD YES)
+;
+COMMIT;
+
+    CREATE TABLE JXS0036.SANDBOX_001
+        (FK_HISTORY_TSP TIMESTAMP (6) WITHOUT TIME ZONE NOT NULL)
+   IN JXS0036.SANDBOX
+   APPEND NO
+   NOT VOLATILE CARDINALITY
+   DATA CAPTURE NONE
+   AUDIT NONE
+   CCSID EBCDIC
+   PARTITION BY RANGE
+        (FK_HISTORY_TSP NULLS LAST ASC
+        )
+        ( PARTITION 1
+           ENDING ( '2003-08-10-24.00.00.000000') INCLUSIVE
+        , PARTITION 2
+           ENDING ( '2004-01-25-24.00.00.000000') INCLUSIVE
+        , PARTITION 3
+           ENDING ( '2004-02-22-24.00.00.000000') INCLUSIVE
+        , PARTITION 4
+           ENDING ( '2004-03-21-24.00.00.000000') INCLUSIVE
+        , PARTITION 5
+           ENDING ( '2004-04-18-24.00.00.000000') INCLUSIVE
+        , PARTITION 6
+           ENDING ( '9999-12-31-24.00.00.000000') INCLUSIVE
+        );
+COMMIT;
+-- PARTICAO 1
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2003-08-07-20.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2003-08-08-20.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2003-08-09-20.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2003-08-10-20.00.00.000000');
+COMMIT;
+-- PARTICAO 2
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-01-22-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-01-23-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-01-24-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-01-25-24.00.00.000000');
+COMMIT;
+-- PARTICAO 3
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-02-19-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-02-20-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-02-21-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-02-22-24.00.00.000000');
+COMMIT;
+-- PARTICAO 4
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-03-18-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-03-19-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-03-20-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-03-21-24.00.00.000000');
+COMMIT;
+-- PARTICAO 5
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-04-15-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-04-16-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-04-17-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2004-04-18-24.00.00.000000');
+COMMIT;
+-- PARTICAO 6
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2019-04-15-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2019-04-16-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2019-04-17-24.00.00.000000');
+INSERT INTO JXS0036.SANDBOX_001
+ VALUES ('2019-04-18-24.00.00.000000');
+COMMIT;

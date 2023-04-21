@@ -1,0 +1,403 @@
+-- PROGNAME: TB23I001
+-- QUERYNO: 1730
+
+DECLARE CUR_0102098708_1
+    CURSOR FOR
+    SELECT CUSTOMER_ADDR_VW01 . "CUSTOMER_NAME", CUSTOMER_ADDR_VW01 .
+           "ADDRESS1", CUSTOMER_ADDR_VW01 . "ADDRESS2",
+           CUSTOMER_ADDR_VW01 . "CITY", CUSTOMER_ADDR_VW01 . "STATE",
+           CUSTOMER_ADDR_VW01 . "ZIP_CODE", CUSTOMER_ADDR_VW01 .
+           "USE_ALIAS_FLAG", CUSTOMER_ADDR_VW01 . "COUNTRY_CD",
+           CUSTOMER_ADDR_VW01 . "ADDRESS3_TXT", CUSTOMER_ADDR_VW01 .
+           "GEO_POLITICAL1_TXT", CUSTOMER_ADDR_VW01 . "SUITE_TXT",
+           CUSTOMER_ADDR_VW01 . "PRIMARY_FLOOR_TXT", CUSTOMER_ADDR_VW01
+           . "APARTMENT_TXT", CUSTOMER_ADDR_VW01 . "DEPARTMENT_NM",
+           CUSTOMER_ADDR_VW01 . "DIVISION_ID", CUSTOMER_ADDR_VW01 .
+           "ATTENTION_TO_TXT", CUSTOMER_ADDR_VW01 . "STORE_ID",
+           CUSTOMER_ADDR_VW01 . "TYPE_CODE", CUSTOMER_ADDR_VW01 .
+           "FK_CUSTOMER_NUMBER", CUSTOMER_PROFILE02 .
+           "ACCOUNT_TYPE_CODE", CUSTOMER_PROFILE02 . "CUSTOMER_NUMBER",
+           CUSTOMER_PROFILE02 . "TERMINAL_ID", CUSTOMER_PROFILE02 .
+           "CONTROL_TYPE_CODE", CUSTOMER_PROFILE02 . "AVERAGE_BILL_QTY",
+           CUSTOMER_PROFILE02 . "PRICING_FLG", CUSTOMER_PROFILE02 .
+           "CARRIER_SCAC_CD", CUSTOMER_PROFILE02 . "ALLOW_USE_FLG",
+           CUSTOMER_PROFILE02 . "CUSTOMER_ROLE_CD"
+    FROM "CUSTOMER_ADDR_VW" CUSTOMER_ADDR_VW01, "CUSTOMER_PROFILE"
+         CUSTOMER_PROFILE02
+    WHERE CUSTOMER_ADDR_VW01 . "CUSTOMER_NAME" LIKE : H
+          AND ( CUSTOMER_ADDR_VW01 . "ADDRESS1" LIKE : H
+          OR CUSTOMER_ADDR_VW01 . "ADDRESS2" LIKE : H )
+          AND CUSTOMER_ADDR_VW01 . "CITY" LIKE : H
+          AND CUSTOMER_ADDR_VW01 . "STATE" LIKE : H
+          AND CUSTOMER_ADDR_VW01 . "ZIP_CODE" LIKE : H
+          AND ( CUSTOMER_ADDR_VW01 . "TYPE_CODE" = : H
+          OR CUSTOMER_ADDR_VW01 . "TYPE_CODE" LIKE : H )
+          AND CUSTOMER_ADDR_VW01 . "FK_CUSTOMER_NUMBER" =
+          CUSTOMER_PROFILE02 . "CUSTOMER_NUMBER"
+          AND ( CUSTOMER_PROFILE02 . "ACCOUNT_TYPE_CODE" = : H
+          OR CUSTOMER_PROFILE02 . "ACCOUNT_TYPE_CODE" = 'A' )
+          AND CUSTOMER_PROFILE02 . "CONTROL_TYPE_CODE" <> 'D'
+          AND CUSTOMER_PROFILE02 . "ALLOW_USE_FLG" <> 'N'
+    ORDER BY 24 DESC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

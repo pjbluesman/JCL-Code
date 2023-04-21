@@ -1,0 +1,28 @@
+SELECT *
+  FROM (SELECT
+         GRANTOR,GRANTEE,SUBSTR(GRANTEE,7,1) AS AUTH_TYPE,
+         SELECTAUTH,INSERTAUTH,UPDATEAUTH,DELETEAUTH,
+         CASE SUBSTR(GRANTEE,7,1)
+          WHEN 'A' THEN
+                    CASE WHEN SELECTAUTH = 'Y'
+                          AND INSERTAUTH = 'Y'
+                          AND DELETEAUTH = 'Y'
+                          AND UPDATEAUTH = 'Y' THEN 'OK'
+                    ELSE 'NOTC'
+                    END
+          WHEN 'R' THEN
+                    CASE WHEN SELECTAUTH = 'Y'
+                          AND INSERTAUTH = ' '
+                          AND DELETEAUTH = ' '
+                          AND UPDATEAUTH = ' ' THEN 'OK'
+                    ELSE 'NOTC'
+                    END
+          ELSE '**ERROR**'
+         END AS FLAG
+          FROM SYSIBM.SYSTABAUTH
+         WHERE GRANTEE LIKE '@%'
+           AND 'G' NOT IN (SELECTAUTH,INSERTAUTH,DELETEAUTH,UPDATEAUTH)
+           AND SUBSTR(GRANTEE,7,1) IN ('R', 'A')
+       ) AS TMPTABLE
+ WHERE FLAG <> 'OK'
+;

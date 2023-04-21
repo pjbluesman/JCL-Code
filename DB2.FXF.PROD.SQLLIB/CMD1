@@ -1,0 +1,109 @@
+select  a.billing_date as blng_date , a.pro_number as shp_pro_nbr ,
+        a.suffix_number as shp_sufx_cd , a.origin_terminal_id as
+        orig_loc_cd , a.dest_terminal_id as dest_loc_cd , b.keyword_code
+        as kewyword , case when (
+select  max ( lift.keyword_code )
+   from prod.shipment_item lift
+  where lift.fk_pro_number = a.pro_number
+    and lift.fk_suffix_number = a.suffix_number
+    and lift.keyword_code in ( 'LIFC' , 'LIFP' ) ) is not null then 'Y'
+        else 'N' end as "LIFT" , case when (
+select  max ( lmtd.keyword_code )
+   from prod.shipment_item lmtd
+  where lmtd.fk_pro_number = a.pro_number
+    and lmtd.fk_suffix_number = a.suffix_number
+    and lmtd.keyword_code = 'LTDD' ) is not null then 'Y' else 'N' end
+        as "LTDD" , case when (
+select  max ( resd.keyword_code )
+   from prod.shipment_item resd
+  where resd.fk_pro_number = a.pro_number
+    and resd.fk_suffix_number = a.suffix_number
+    and resd.keyword_code = 'RESD' ) is not null then 'Y' else 'N' end
+        as "RESD" , case when (
+select  max ( ncm.keyword_code )
+   from prod.shipment_item ncm
+  where ncm.fk_pro_number = a.pro_number
+    and ncm.fk_suffix_number = a.suffix_number
+    and ncm.keyword_code in ( 'NCM' , 'NCMP' , 'NCMC' ) ) is not null
+        then 'Y' else 'N' end as "NCM_NCP_NCMC" , (
+select  max ( ncmc.charge_amount )
+   from prod.shipment_item ncmc
+  where ncmc.fk_pro_number = a.pro_number
+    and ncmc.fk_suffix_number = a.suffix_number
+    and ncmc.keyword_code in ( 'NCM' , 'NCMP' , 'NCMC' ) ) as notify_chg
+        , case when (
+select  max ( cda.keyword_code )
+   from prod.shipment_item cda
+  where cda.fk_pro_number = a.pro_number
+    and cda.fk_suffix_number = a.suffix_number
+    and cda.keyword_code = 'CDA' ) is not null then 'Y' else 'N' end as
+        "CDA" , case when (
+select  max ( cbd.keyword_code )
+   from prod.shipment_item cbd
+  where cbd.fk_pro_number = a.pro_number
+    and cbd.fk_suffix_number = a.suffix_number
+    and cbd.keyword_code = 'CBD' ) is not null then 'Y' else 'N' end as
+        "CBD" , a.shipper_name as shpr_nm , a.cons_name as cnsgn_nm
+   from prod.shipment as a inner join prod.shipment_item as b on
+        b.fk_pro_number = a.pro_number
+    and b.fk_suffix_number = a.suffix_number
+  where a.billing_date >= current date - 6 months
+    and a.suffix_number = 'R0'
+    and a.void_flg <> 'Y'
+    and b.keyword_code = 'APT1'
+  union all
+select  hist.billing_date as blng_date , hist.pro_number as shp_pro_nbr
+        , hist.suffix_number as shp_sufx_cd , hist.origin_terminal_id as
+        orig_loc_cd , hist.dest_terminal_id as dest_loc_cd ,
+        ithst.keyword_code as kewyword , case when (
+select  max ( lift.keyword_code )
+   from prod.shipment_item_hist lift
+  where lift.fk_pro_number = hist.pro_number
+    and lift.fk_suffix_number = hist.suffix_number
+    and lift.keyword_code in ( 'LIFC' , 'LIFP' ) ) is not null then 'Y'
+        else 'N' end as "LIFT" , case when (
+select  max ( lmtd.keyword_code )
+   from prod.shipment_item_hist lmtd
+  where lmtd.fk_pro_number = hist.pro_number
+    and lmtd.fk_suffix_number = hist.suffix_number
+    and lmtd.keyword_code = 'LTDD' ) is not null then 'Y' else 'N' end
+        as "LTDD" , case when (
+select  max ( resd.keyword_code )
+   from prod.shipment_item_hist resd
+  where resd.fk_pro_number = hist.pro_number
+    and resd.fk_suffix_number = hist.suffix_number
+    and resd.keyword_code = 'RESD' ) is not null then 'Y' else 'N' end
+        as "RESD" , case when (
+select  max ( ncm.keyword_code )
+   from prod.shipment_item_hist ncm
+  where ncm.fk_pro_number = hist.pro_number
+    and ncm.fk_suffix_number = hist.suffix_number
+    and ncm.keyword_code in ( 'NCM' , 'NCMP' , 'NCMC' ) ) is not null
+        then 'Y' else 'N' end as "NCM_NCP_NCMC" , (
+select  max ( ncmc.charge_amount )
+   from prod.shipment_item_hist ncmc
+  where ncmc.fk_pro_number = hist.pro_number
+    and ncmc.fk_suffix_number = hist.suffix_number
+    and ncmc.keyword_code in ( 'NCM' , 'NCMP' , 'NCMC' ) ) as notify_chg
+        , case when (
+select  max ( cda.keyword_code )
+   from prod.shipment_item_hist cda
+  where cda.fk_pro_number = hist.pro_number
+    and cda.fk_suffix_number = hist.suffix_number
+    and cda.keyword_code = 'CDA' ) is not null then 'Y' else 'N' end as
+        "CDA" , case when (
+select  max ( cbd.keyword_code )
+   from prod.shipment_item_hist cbd
+  where cbd.fk_pro_number = hist.pro_number
+    and cbd.fk_suffix_number = hist.suffix_number
+    and cbd.keyword_code = 'CBD' ) is not null then 'Y' else 'N' end as
+        "CBD" , hist.shipper_name as shpr_nm , hist.cons_name as
+        cnsgn_nm
+   from prod.shipment_hist as hist inner join prod.shipment_item_hist as
+        ithst on ithst.fk_pro_number = hist.pro_number
+    and ithst.fk_suffix_number = hist.suffix_number
+  where hist.billing_date >= current date - 6 months
+    and hist.suffix_number = 'R0'
+    and hist.void_flg <> 'Y'
+    and ithst.keyword_code = 'APT1' FOR FETCH ONLY
+

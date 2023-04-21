@@ -1,0 +1,51 @@
+SELECT
+  'GRANT SELECT,INSERT,DELETE,UPDATE ON '||STRIP(CREATOR)||'.'||
+  STRIP(NAME),CREATOR,NAME,1
+  FROM SYSIBM.SYSTABLES
+ WHERE TYPE = 'T'
+   AND NAME IN ('MCMTB064'
+                   ,'MCMTB067'
+                   ,'MCMTB058'
+                   ,'TFMTB020'
+                   ,'TFMTB021'
+                   ,'LANE_MOVEMENT'
+                   ,'TFMTB036'
+                   ,'ZIP_CITY_SERVICE'
+                   ,'DISPATCH'
+                   ,'MANIFEST_HISTORY'
+                   ,'PURCHASED_TRLR'
+                   ,'PURCHASED_TRLR_HST'
+                   ,'PURCHASED_LOAD'
+                   ,'PURCHASED_LOAD_HST'
+                   ,'PURCHASED_LEG'
+                   ,'PURCHASED_LEG_HST'
+                   ,'EQUIPMENT'
+                   ,'FUEL_PRICE_INDEX'
+                   ,'FUEL_SURCHRG_RATE'
+                   ,'PURCHASED_BROKER')
+UNION ALL
+SELECT
+  ' TO @ABIPARB;',CREATOR,NAME,2
+  FROM SYSIBM.SYSTABLES
+ WHERE TYPE = 'T'
+   AND NAME IN ('MCMTB064'
+                   ,'MCMTB067'
+                   ,'MCMTB058'
+                   ,'TFMTB020'
+                   ,'TFMTB021'
+                   ,'LANE_MOVEMENT'
+                   ,'TFMTB036'
+                   ,'ZIP_CITY_SERVICE'
+                   ,'DISPATCH'
+                   ,'MANIFEST_HISTORY'
+                   ,'PURCHASED_TRLR'
+                   ,'PURCHASED_TRLR_HST'
+                   ,'PURCHASED_LOAD'
+                   ,'PURCHASED_LOAD_HST'
+                   ,'PURCHASED_LEG'
+                   ,'PURCHASED_LEG_HST'
+                   ,'EQUIPMENT'
+                   ,'FUEL_PRICE_INDEX'
+                   ,'FUEL_SURCHRG_RATE'
+                   ,'PURCHASED_BROKER')
+ORDER BY 2,3,4

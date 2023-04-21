@@ -1,0 +1,27 @@
+  SELECT CASE WHEN COUNT(*) > 1
+                   THEN CHAR('CATMAINT UPDATE UNLDDN PI10808',80)
+                   ELSE CHAR(' ',80)
+         END
+--  SUBSTR(O.NAME,1,18) AS NAME,TSNAME,O.VERSION,
+--   T.CURRENT_VERSION
+     FROM SYSIBM.SYSTABLES O, SYSIBM.SYSTABLESPACE T
+     WHERE O.DBNAME='DSNDB06'
+     AND O.TYPE='T'
+     AND O.DBID = T.DBID
+     AND O.TSNAME = T.NAME
+     AND O.VERSION ^= T.CURRENT_VERSION
+     AND 1 =
+     (SELECT COUNT(*) FROM SYSIBM.SYSTABLES X
+     WHERE X.TSNAME = O.TSNAME);
+
+  SELECT CASE WHEN COUNT(*) > 1
+                   THEN CHAR('CATMAINT UPDATE UNLDDN PI10808',80)
+                   ELSE CHAR(' ',80)
+         END
+      FROM SYSIBM.SYSOBDS O
+     WHERE O.DBID = 6 AND O.OBDTYPE = 'R'
+       AND NOT EXISTS (SELECT *
+                         FROM SYSIBM.SYSTABLESPACE T
+                        WHERE T.DBID = O.DBID
+                          AND T.PSID = O.PSID
+                      );

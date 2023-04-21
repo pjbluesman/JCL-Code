@@ -1,0 +1,9 @@
+  SELECT CASE WHEN COUNT(*) > 1
+                   THEN CHAR('CATMAINT UPDATE UNLDDN PI62151',80)
+                   ELSE CHAR(' ',80)
+         END
+ --  NAME, DBNAME, PARTITION
+     FROM SYSIBM.SYSTABLESPACESTATS
+        WHERE NAME IN ('SYSLGRNX', 'SPT01', 'DBD01') AND
+              PARTITION=0 AND
+              DBID=1;

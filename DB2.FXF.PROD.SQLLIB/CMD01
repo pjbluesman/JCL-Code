@@ -1,0 +1,21 @@
+select  a.billing_date as blng_date , a.pro_number as shp_pro_nbr ,
+        a.suffix_number as shp_sufx_cd , a.origin_terminal_id as
+        orig_loc_cd , a.dest_terminal_id as dest_loc_cd , b.keyword_code
+        as kewyword , case when (
+select  max ( lift.keyword_code )
+   from prod.shipment_item lift
+  where lift.fk_pro_number = a.pro_number
+    and lift.fk_suffix_number = a.suffix_number
+    and lift.keyword_code in ( 'LIFC' , 'LIFP' ) ) is not null then 'Y'
+        else 'N' end as "LIFT" , case when (
+select  max ( lmtd.keyword_code )
+   from prod.shipment_item lmtd
+  where lmtd.fk_pro_number = a.pro_number
+    and lmtd.fk_suffix_number = a.suffix_number
+    and lmtd.keyword_code = 'LTDD' ) is not null then 'Y' else 'N' end
+        as "LTDD" , case when (
+select  max ( resd.keyword_code )
+   from prod.shipment_item resd
+  where resd.fk_pro_number = a.pro_number
+    and resd.fk_suffix_number = a.suffix_number
+    and resd.keyword_code = 'RESD' ) is not null then 'Y' else 'N' end

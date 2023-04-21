@@ -1,0 +1,9 @@
+SELECT CASE WHEN COUNT(*) > 1
+               THEN CHAR('CATMAINT UPDATE UNLDDN PM98848',80)
+               ELSE CHAR(' ',80)
+     END
+       FROM SYSIBM.SYSDEPENDENCIES
+          WHERE   BNAME = 'XMLTABLE' AND
+                  BTYPE = 'F' AND
+                  DTYPE = 'M'
+       WITH UR;

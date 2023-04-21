@@ -1,0 +1,69 @@
+--
+-- SELECT DISTINCT BPOOL FROM SYSIBM.SYSTABLESPACE;
+-- SELECT DISTINCT BPOOL
+--   FROM SYSIBM.SYSTABLESPACE
+--  WHERE NACTIVE <= 0
+-- ;
+-- SELECT DBNAME,NAME,BPOOL,NACTIVE
+--   FROM SYSIBM.SYSTABLESPACE
+--  WHERE NACTIVE <= 0
+-- ;
+SELECT CHAR('ALTER TABLESPACE '||
+            STRIP(DBNAME)||'.'||STRIP(NAME)||
+            ' BUFFERPOOL '||
+            CASE
+              WHEN INT(LOG10(NACTIVE)) <= 1 THEN 'BP40'
+              WHEN INT(LOG10(NACTIVE)) <= 3 THEN 'BP42'
+              WHEN INT(LOG10(NACTIVE)) <= 5 THEN 'BP44'
+              ELSE 'BP46'
+            END ||
+            ';', 80)
+            ,PARTITIONS,NACTIVE,BPOOL,
+            CASE
+              WHEN INT(LOG10(NACTIVE)) <= 1 THEN 'BP40'
+              WHEN INT(LOG10(NACTIVE)) <= 3 THEN 'BP42'
+              WHEN INT(LOG10(NACTIVE)) <= 5 THEN 'BP44'
+              ELSE 'BP46'
+            END AS NEWBPOOL
+  FROM SYSIBM.SYSTABLESPACE
+ WHERE NACTIVE > 0
+   AND BPOOL NOT IN ('BP0',
+                     'BP7',
+                     'BP16K0',
+                     'BP32K',
+                     'BP32K1',
+                     'BP32K7',
+                     'BP8K0',
+                     'BP8K1')
+ ORDER BY NEWBPOOL, NACTIVE
+;
+SELECT NEWBPOOL,COUNT(*) FROM (
+    SELECT CHAR('ALTER TABLESPACE '||
+                STRIP(DBNAME)||'.'||STRIP(NAME)||
+                ' BUFFERPOOL '||
+                CASE
+                  WHEN INT(LOG10(NACTIVE)) <= 1 THEN 'BP40'
+                  WHEN INT(LOG10(NACTIVE)) <= 3 THEN 'BP42'
+                  WHEN INT(LOG10(NACTIVE)) <= 5 THEN 'BP44'
+                  ELSE 'BP46'
+                END ||
+                ';', 80) AS CMDSQL
+                ,NACTIVE,BPOOL,
+                CASE
+                  WHEN INT(LOG10(NACTIVE)) <= 1 THEN 'BP40'
+                  WHEN INT(LOG10(NACTIVE)) <= 3 THEN 'BP42'
+                  WHEN INT(LOG10(NACTIVE)) <= 5 THEN 'BP44'
+                  ELSE 'BP46'
+                END AS NEWBPOOL
+      FROM SYSIBM.SYSTABLESPACE
+     WHERE NACTIVE > 0
+       AND BPOOL NOT IN ('BP0',
+                         'BP7',
+                         'BP16K0',
+                         'BP32K',
+                         'BP32K1',
+                         'BP32K7',
+                         'BP8K0',
+                         'BP8K1') ) AS TEMP
+   GROUP BY NEWBPOOL
+;

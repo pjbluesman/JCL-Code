@@ -1,0 +1,51 @@
+SELECT SUBSTR(R.SCHEMA||'.'||R.NAME,1,36) TRIGGER
+     , SUBSTR(R.TBOWNER||'.'||R.TBNAME,1,36) TABLE
+     , SUBSTR(R.OWNER,1,10) OWNER
+  FROM SYSIBM.SYSTRIGGERS R
+  WHERE NOT EXISTS(SELECT 1 FROM SYSIBM.SYSTABAUTH TA
+                     WHERE R.TBNAME = TA.TTNAME
+                       AND R.TBOWNER = TA.TCREATOR
+                       AND ( (R.OWNER = TA.GRANTEE AND
+                              R.OWNERTYPE = TA.GRANTEETYPE)
+                            OR
+                             (TA.GRANTEETYPE = ' ' AND
+                              TA.GRANTEE = 'PUBLIC')
+                           )
+                       AND TA.SELECTAUTH <> ' '
+                  )
+    AND NOT EXISTS(SELECT 1 FROM SYSIBM.SYSUSERAUTH UA
+                    WHERE ( (R.OWNERTYPE = UA.GRANTEETYPE AND
+                             R.OWNER = UA.GRANTEE)
+                           OR
+                            (UA.GRANTEETYPE = ' ' AND
+                             UA.GRANTEE = 'PUBLIC')
+                          )
+                      AND (UA.SYSADMAUTH <> ' ' OR
+                           UA.DATAACCESSAUTH <> ' '
+                          )
+                  )
+    AND NOT EXISTS(SELECT 1 FROM SYSIBM.SYSDBAUTH DA
+                               , SYSIBM.SYSTABLES T
+                    WHERE R.TBNAME = T.NAME
+                      AND R.TBOWNER = T.CREATOR
+                      AND T.DBNAME = DA.NAME
+                      AND ( (R.OWNERTYPE = DA.GRANTEETYPE AND
+                             R.OWNER = DA.GRANTEE)
+                           OR
+                            (DA.GRANTEETYPE = ' ' AND
+                             DA.GRANTEE = 'PUBLIC')
+                          )
+                      AND DA.DBADMAUTH <> ' '
+                  )
+    AND XMLEXISTS(
+         'if (fn:matches($s,"REFERENCING +OLD ","i")) then(1)
+          else
+          if (fn:matches($s,"REFERENCING +NEW ","i")) then(1)
+          else
+          if (fn:matches($s,"REFERENCING +OLD_TABLE ","i"))
+                                                      then(1)
+          else
+          if (fn:matches($s,"REFERENCING +NEW_TABLE ","i"))
+                                                      then(1)
+          else ()'
+         PASSING XMLCAST(R.STATEMENT AS XML) as "s");

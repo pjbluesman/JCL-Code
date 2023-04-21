@@ -1,0 +1,76 @@
+  SELECT SUBSTR(A.IXNAME, 1, 10) AS IXNAME_,
+         SUBSTR(A.IXSCHEMA, 1, 10) AS IXSCHEMA_,
+         COUNT(*) AS COL#,
+         SUM((CASE A.DATATYPEID
+               WHEN(484) THEN (A.LENGTH/2) + 1
+               WHEN(485) THEN (A.LENGTH/2) + 1
+               WHEN(468) THEN A.LENGTH * 2
+               WHEN(469) THEN A.LENGTH * 2
+               WHEN(464) THEN A.LENGTH * 2
+               WHEN(465) THEN A.LENGTH * 2
+               WHEN(472) THEN A.LENGTH * 2
+               WHEN(473) THEN A.LENGTH * 2
+               WHEN(996) THEN A.LENGTH + 1
+               WHEN(997) THEN A.LENGTH + 1
+               ELSE A.LENGTH END
+             ) +
+             (CASE A.NULLS
+               WHEN ('Y') THEN 1
+               ELSE 0 END
+             )+
+             (CASE B.PADDED
+               WHEN('N') THEN
+                 (CASE A.DATATYPEID
+                   WHEN(448) THEN 2
+                   WHEN(449) THEN 2
+                   WHEN(456) THEN 2
+                   WHEN(457) THEN 2
+                   WHEN(908) THEN 2
+                   WHEN(909) THEN 2
+                   WHEN(464) THEN 2
+                   WHEN(465) THEN 2
+                   WHEN(472) THEN 2
+                   WHEN(473) THEN 2
+                   ELSE 0 END
+                 )
+               ELSE 0 END
+             )) AS TOT_LEN
+    FROM SYSIBM.SYSKEYTARGETS A,
+         SYSIBM.SYSINDEXES    B
+   WHERE A.IXNAME = B.NAME
+     AND A.IXSCHEMA = B.TBCREATOR
+   GROUP BY A.IXNAME, A.IXSCHEMA
+   HAVING SUM((CASE A.DATATYPEID
+                WHEN(484) THEN (A.LENGTH/2) + 1
+                WHEN(485) THEN (A.LENGTH/2) + 1
+                WHEN(468) THEN A.LENGTH * 2
+                WHEN(469) THEN A.LENGTH * 2
+                WHEN(464) THEN A.LENGTH * 2
+                WHEN(465) THEN A.LENGTH * 2
+                WHEN(472) THEN A.LENGTH * 2
+                WHEN(473) THEN A.LENGTH * 2
+                WHEN(996) THEN A.LENGTH + 1
+                WHEN(997) THEN A.LENGTH + 1
+              ELSE A.LENGTH END
+            ) +
+            (CASE A.NULLS
+              WHEN ('Y') THEN 1
+              ELSE 0 END
+            )+
+            (CASE B.PADDED
+              WHEN('N') THEN
+                (CASE A.DATATYPEID
+                  WHEN(448) THEN 2
+                  WHEN(449) THEN 2
+                  WHEN(456) THEN 2
+                  WHEN(457) THEN 2
+                  WHEN(908) THEN 2
+                  WHEN(909) THEN 2
+                  WHEN(464) THEN 2
+                  WHEN(465) THEN 2
+                  WHEN(472) THEN 2
+                      WHEN(473) THEN 2
+                    ELSE 0 END
+                  )
+                ELSE 0 END
+              )) > 2000 ;

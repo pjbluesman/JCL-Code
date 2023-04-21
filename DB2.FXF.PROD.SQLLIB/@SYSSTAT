@@ -1,0 +1,176 @@
+--------------------------------------------------------
+--   DELETE FROM SYSIBM.SYSSTATFEEDBACK
+--    WHERE TBCREATOR = '
+--             TBNAME =
+--          IXCREATOR =
+--             IXNAME =
+--            COLNAME =
+--      COLGROUPCOLNO =
+--         NUMCOLUMNS =
+--               TYPE =
+--------------------------------------------------------
+SELECT      TBCREATOR ,
+               TBNAME ,
+            IXCREATOR ,
+               IXNAME ,
+              COLNAME ,
+     LENGTH(COLGROUPCOLNO) AS ZZZ,
+           NUMCOLUMNS ,
+                 TYPE
+              FROM SYSIBM.SYSSTATFEEDBACK B
+      WHERE NOT EXISTS (SELECT '1'
+                           FROM SYSIBM.SYSTABLES A
+                          WHERE B.TBCREATOR = A.CREATOR
+                            AND B.TBNAME = A.NAME
+                            AND A.TYPE = 'T')
+;
+--------------------------------------------------------
+SELECT CHAR('DELETE FROM SYSIBM.SYSSTATFEEDBACK',80),
+            TBCREATOR ,
+               TBNAME ,
+            IXCREATOR ,
+               IXNAME ,
+              COLNAME ,
+        COLGROUPCOLNO ,
+           NUMCOLUMNS ,
+                 TYPE , 1
+              FROM SYSIBM.SYSSTATFEEDBACK B
+      WHERE NOT EXISTS (SELECT '1'
+                           FROM SYSIBM.SYSTABLES A
+                          WHERE B.TBCREATOR = A.CREATOR
+                            AND B.TBNAME = A.NAME
+                            AND A.TYPE = 'T')
+UNION ALL
+SELECT CHAR(' WHERE TBCREATOR='||''''||STRIP(TBCREATOR)||'''',80),
+            TBCREATOR ,
+               TBNAME ,
+            IXCREATOR ,
+               IXNAME ,
+              COLNAME ,
+        COLGROUPCOLNO ,
+           NUMCOLUMNS ,
+                 TYPE , 2
+              FROM SYSIBM.SYSSTATFEEDBACK B
+      WHERE NOT EXISTS (SELECT '1'
+                           FROM SYSIBM.SYSTABLES A
+                          WHERE B.TBCREATOR = A.CREATOR
+                            AND B.TBNAME = A.NAME
+                            AND A.TYPE = 'T')
+UNION ALL
+SELECT CHAR('   AND TBNAME='||''''||STRIP(TBNAME)||'''',80),
+            TBCREATOR ,
+               TBNAME ,
+            IXCREATOR ,
+               IXNAME ,
+              COLNAME ,
+        COLGROUPCOLNO ,
+           NUMCOLUMNS ,
+                 TYPE , 3
+              FROM SYSIBM.SYSSTATFEEDBACK B
+      WHERE NOT EXISTS (SELECT '1'
+                           FROM SYSIBM.SYSTABLES A
+                          WHERE B.TBCREATOR = A.CREATOR
+                            AND B.TBNAME = A.NAME
+                            AND A.TYPE = 'T')
+UNION ALL
+SELECT CHAR('   AND IXCREATOR='||''''||STRIP(IXCREATOR)||'''',80),
+            TBCREATOR ,
+               TBNAME ,
+            IXCREATOR ,
+               IXNAME ,
+              COLNAME ,
+        COLGROUPCOLNO ,
+           NUMCOLUMNS ,
+                 TYPE , 4
+              FROM SYSIBM.SYSSTATFEEDBACK B
+      WHERE NOT EXISTS (SELECT '1'
+                           FROM SYSIBM.SYSTABLES A
+                          WHERE B.TBCREATOR = A.CREATOR
+                            AND B.TBNAME = A.NAME
+                            AND A.TYPE = 'T')
+UNION ALL
+SELECT CHAR('   AND IXNAME='||''''||STRIP(IXNAME)||'''',80),
+            TBCREATOR ,
+               TBNAME ,
+            IXCREATOR ,
+               IXNAME ,
+              COLNAME ,
+        COLGROUPCOLNO ,
+           NUMCOLUMNS ,
+                 TYPE , 5
+              FROM SYSIBM.SYSSTATFEEDBACK B
+      WHERE NOT EXISTS (SELECT '1'
+                           FROM SYSIBM.SYSTABLES A
+                          WHERE B.TBCREATOR = A.CREATOR
+                            AND B.TBNAME = A.NAME
+                            AND A.TYPE = 'T')
+UNION ALL
+SELECT CHAR('   AND COLNAME='||''''||STRIP(COLNAME)||'''',80),
+            TBCREATOR ,
+               TBNAME ,
+            IXCREATOR ,
+               IXNAME ,
+              COLNAME ,
+        COLGROUPCOLNO ,
+           NUMCOLUMNS ,
+                 TYPE , 6
+              FROM SYSIBM.SYSSTATFEEDBACK B
+      WHERE NOT EXISTS (SELECT '1'
+                           FROM SYSIBM.SYSTABLES A
+                          WHERE B.TBCREATOR = A.CREATOR
+                            AND B.TBNAME = A.NAME
+                            AND A.TYPE = 'T')
+--
+   UNION ALL
+   SELECT      CASE
+                 WHEN NUMCOLUMNS <= 1 THEN ''
+                 ELSE CHAR('   AND COLGROUPCOLNO='||
+                      'X'||''''||HEX(COLGROUPCOLNO)||'''',80)
+               END,
+               TBCREATOR ,
+                  TBNAME ,
+               IXCREATOR ,
+                  IXNAME ,
+                 COLNAME ,
+           COLGROUPCOLNO ,
+              NUMCOLUMNS ,
+                    TYPE , 7
+                 FROM SYSIBM.SYSSTATFEEDBACK B
+         WHERE NOT EXISTS (SELECT '1'
+                              FROM SYSIBM.SYSTABLES A
+                             WHERE B.TBCREATOR = A.CREATOR
+                               AND B.TBNAME = A.NAME
+                               AND A.TYPE = 'T')
+UNION ALL
+SELECT CHAR('   AND NUMCOLUMNS='||CHAR(NUMCOLUMNS),80),
+            TBCREATOR ,
+               TBNAME ,
+            IXCREATOR ,
+               IXNAME ,
+              COLNAME ,
+        COLGROUPCOLNO ,
+           NUMCOLUMNS ,
+                 TYPE , 8
+              FROM SYSIBM.SYSSTATFEEDBACK B
+      WHERE NOT EXISTS (SELECT '1'
+                           FROM SYSIBM.SYSTABLES A
+                          WHERE B.TBCREATOR = A.CREATOR
+                            AND B.TBNAME = A.NAME
+                            AND A.TYPE = 'T')
+UNION ALL
+SELECT CHAR('   AND TYPE='||''''||STRIP(TYPE)||''''||';',80),
+            TBCREATOR ,
+               TBNAME ,
+            IXCREATOR ,
+               IXNAME ,
+              COLNAME ,
+        COLGROUPCOLNO ,
+           NUMCOLUMNS ,
+                 TYPE , 9
+              FROM SYSIBM.SYSSTATFEEDBACK B
+      WHERE NOT EXISTS (SELECT '1'
+                           FROM SYSIBM.SYSTABLES A
+                          WHERE B.TBCREATOR = A.CREATOR
+                            AND B.TBNAME = A.NAME
+                            AND A.TYPE = 'T')
+ORDER BY 2,3,4,5,6,7,8,9,10

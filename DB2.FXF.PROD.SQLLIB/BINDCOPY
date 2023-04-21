@@ -1,0 +1,132 @@
+--BIND PACKAGE({LOCATION.}COLLECTION)                                   00020000
+--  COPY(COLLECTION.PACKAGE)                                            00030000
+--  ACTION(ADD)                                                         00040000
+--  QUAL(DB2TEST)                                                       00050000
+--  OWNER(DB2TEST)                                                      00060000
+--  VALID(B)                                                            00070000
+--  ISOL(UR)                                                            00080000
+--  REL(C)                                                              00090000
+--  EXPL(YES)                                                           00100000
+--  CURRENTD(N)                                                         00110000
+--  DEGREE(1)                                                           00120000
+--  DYNAMICRULES(RUN)                                                   00130000
+--  KEEPDYNAMIC(N)                                                      00140000
+--  REOPT(NONE)                                                         00150000
+--  DBPROTOCOL(D)                                                       00160000
+--  ENCODING(         37)                                               00170000
+--  IMMEDWRITE(N)                                                       00180000
+--  ROUNDING(HALFEVEN)                                                  00190000
+SELECT                                                                  00200000
+  'BIND PACKAGE('||SUBSTR(NAME,1,3)||'P_'||STRIP(NAME)||')'             00210000
+  ,COLLID,NAME,1                                                        00220000
+  FROM SYSIBM.SYSPACKAGE                                                00230000
+ WHERE COLLID LIKE 'CONVTOV10'                                          00240000
+UNION ALL                                                               00250000
+SELECT                                                                  00260000
+  '  COPY('||STRIP(COLLID)||'.'||STRIP(NAME)||')'                       00270000
+  ,COLLID,NAME,2                                                        00280000
+  FROM SYSIBM.SYSPACKAGE                                                00290000
+ WHERE COLLID LIKE 'CONVTOV10'                                          00300000
+UNION ALL                                                               00301000
+SELECT                                                                  00302000
+  '  ACTION(ADD)'                                                       00303000
+  ,COLLID,NAME,3                                                        00304000
+  FROM SYSIBM.SYSPACKAGE                                                00305000
+ WHERE COLLID LIKE 'CONVTOV10'                                          00306000
+UNION ALL                                                               00307000
+SELECT                                                                  00308000
+  '  QUAL('||STRIP(QUALIFIER)||') OWNER('||STRIP(OWNER)||')'            00309000
+  ,COLLID,NAME,4                                                        00309100
+  FROM SYSIBM.SYSPACKAGE                                                00309200
+ WHERE COLLID LIKE 'CONVTOV10'                                          00309300
+UNION ALL                                                               00309400
+SELECT                                                                  00309500
+  '  VALID('||STRIP(VALIDATE)||') ISOL('||                              00309600
+  CASE                                                                  00309700
+    WHEN ISOLATION = 'R' THEN 'RR'                                      00309800
+    WHEN ISOLATION = 'S' THEN 'CS'                                      00309900
+    WHEN ISOLATION = 'T' THEN 'RS'                                      00310000
+    WHEN ISOLATION = 'U' THEN 'UR'                                      00310100
+    ELSE ''                                                             00310500
+  END||')'                                                              00310600
+  ,COLLID,NAME,5                                                        00310700
+  FROM SYSIBM.SYSPACKAGE                                                00310800
+ WHERE COLLID LIKE 'CONVTOV10'                                          00311000
+UNION ALL                                                               00312000
+SELECT                                                                  00313000
+  '  REL('||STRIP(RELEASE)||') EXPL('||                                 00314000
+  CASE                                                                  00315000
+    WHEN EXPLAIN = 'N' THEN 'NO'                                        00316000
+    WHEN EXPLAIN = 'Y' THEN 'YES'                                       00317000
+  END||')'                                                              00319200
+  ,COLLID,NAME,6                                                        00319300
+  FROM SYSIBM.SYSPACKAGE                                                00319400
+ WHERE COLLID LIKE 'CONVTOV10'                                          00319500
+UNION ALL                                                               00319600
+SELECT                                                                  00319700
+  '  CURRENTD('||                                                       00319900
+  CASE                                                                  00320000
+    WHEN DEFERPREP = 'A' THEN 'YES'                                     00320100
+    WHEN DEFERPREP = 'B' THEN 'NO'                                      00320200
+    WHEN DEFERPREP = 'C' THEN 'YES'                                     00320300
+    ELSE ' '                                                            00322400
+  END||') DEGREE('||STRIP(DEGREE)||')'                                  00322500
+  ,COLLID,NAME,7                                                        00323000
+  FROM SYSIBM.SYSPACKAGE                                                00324000
+ WHERE COLLID LIKE 'CONVTOV10'                                          00325000
+UNION ALL                                                               00326000
+SELECT                                                                  00327000
+  '  DYNAMICRULES('||                                                   00328000
+  CASE                                                                  00328100
+    WHEN DYNAMICRULES = 'B' THEN 'BIND'                                 00328200
+    WHEN DYNAMICRULES = 'D' THEN 'DEFINEBIND'                           00328300
+    WHEN DYNAMICRULES = 'E' THEN 'DEFINERUN'                            00328400
+    WHEN DYNAMICRULES = 'H' THEN 'INVOKEBIND'                           00328500
+    WHEN DYNAMICRULES = 'I' THEN 'INVOKERUN'                            00328600
+    WHEN DYNAMICRULES = 'R' THEN 'RUN'                                  00328700
+    ELSE ' '                                                            00328800
+  END||') KEEPDYNAMIC('||STRIP(KEEPDYNAMIC)||')'                        00328900
+  ,COLLID,NAME,8                                                        00329000
+  FROM SYSIBM.SYSPACKAGE                                                00329100
+ WHERE COLLID LIKE 'CONVTOV10'                                          00329200
+UNION ALL                                                               00329300
+SELECT                                                                  00329400
+  '  REOPT('||                                                          00329500
+  CASE                                                                  00329600
+    WHEN REOPTVAR = 'A' THEN 'AUTO'                                     00329700
+    WHEN REOPTVAR = 'N' THEN 'NONE'                                     00329800
+    WHEN REOPTVAR = 'Y' THEN 'ALWAYS'                                   00329900
+    WHEN REOPTVAR = '1' THEN 'ONCE'                                     00330000
+    ELSE ' '                                                            00333000
+  END||') DBPROTOCOL(D)'                                                00334000
+  ,COLLID,NAME,9                                                        00335000
+  FROM SYSIBM.SYSPACKAGE                                                00336000
+ WHERE COLLID LIKE 'CONVTOV10'                                          00337000
+UNION ALL                                                               00338000
+SELECT                                                                  00339000
+  '  ENCODING('||STRIP(CHAR(ENCODING_CCSID))||') IMMEDWRITE('||         00339100
+  CASE                                                                  00339200
+    WHEN IMMEDWRITE = 'N' THEN 'NO'                                     00339300
+    WHEN IMMEDWRITE = 'Y' THEN 'YES'                                    00339400
+    WHEN IMMEDWRITE = '1' THEN 'PH1'                                    00339500
+  END||')'                                                              00340000
+  ,COLLID,NAME,10                                                       00340100
+  FROM SYSIBM.SYSPACKAGE                                                00340200
+ WHERE COLLID LIKE 'CONVTOV10'                                          00341000
+UNION ALL                                                               00341100
+SELECT                                                                  00343000
+  '  ROUNDING('||                                                       00344000
+  CASE                                                                  00345000
+    WHEN ROUNDING = 'C' THEN 'CEILING'                                  00346000
+    WHEN ROUNDING = 'D' THEN 'DOWN'                                     00346100
+    WHEN ROUNDING = 'F' THEN 'FLOOR'                                    00346200
+    WHEN ROUNDING = 'G' THEN 'HALFDOWN'                                 00346300
+    WHEN ROUNDING = 'E' THEN 'HALFEVEN'                                 00346400
+    WHEN ROUNDING = 'H' THEN 'HALFUP'                                   00346500
+    WHEN ROUNDING = 'U' THEN 'UP'                                       00346600
+    ELSE ' '                                                            00346700
+  END||')'                                                              00349000
+  ,COLLID,NAME,11                                                       00349100
+  FROM SYSIBM.SYSPACKAGE                                                00349200
+ WHERE COLLID LIKE 'CONVTOV10'                                          00349300
+ORDER BY 2,3,4                                                          00350000
