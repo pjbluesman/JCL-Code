@@ -1,0 +1,33 @@
+//UXC401MT JOB CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID,                      
+//      REGION=0M,TIME=1440,USER=DB2HCID                               
+/*JOBPARM SYSAFF=MVST                                                  
+//*********************************************************************
+//* RECEIVE : This job performs the following functions:              *
+//*********************************************************************
+//RECEIVE  EXEC PGM=IKJEFT01,DYNAMNBR=20                               
+//SYSPRINT DD SYSOUT=*                                                 
+//SYSTSPRT DD SYSOUT=*                                                 
+//SYSOUT   DD SYSOUT=*                                                 
+//SYSTSIN  DD *                                                        
+  RECEIVE                                                              
+  DA('SSXDT.SECURITY.SAPPLEX.HEALTAUD.DUMP')                           
+/*                                                                     
+//*********************************************************************
+//* RECEIVE : This job performs the following functions:              *
+//*********************************************************************
+//RESTORE  EXEC PGM=ADRDSSU,REGION=0M                                  
+//INDD     DD  DISP=SHR,DSN=SSXDT.SECURITY.SAPPLEX.HEALTAUD.DUMP       
+//OUTDD    DD  UNIT=SYSDA,SPACE=(CYL,(2,1),RLSE)                       
+//* STORCLAS=NONSMS                                                    
+//SYSPRINT DD  SYSOUT=*                                                
+//SYSIN    DD  *                                                       
+  RESTORE INDD(INDD) OUTDD(OUTDD) -                                    
+    DATASET(INCLUDE(*.**))   -                                         
+           NMC NSC                -                                    
+            CATALOG                -   
+            IMPORT                 -   
+            CANCELERROR                
+ /*                                    
+ //                                    
+     RENUNC(*.*.*.*.**,*.*.*.*.*.TXT) -
+            TOLERATE(ENQFAILURE) -     
