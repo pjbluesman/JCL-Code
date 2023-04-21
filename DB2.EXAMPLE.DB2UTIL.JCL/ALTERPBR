@@ -1,0 +1,120 @@
+//DBA@PBRA JOB (X),'PBR',NOTIFY=&SYSUID.,CLASS=2,REGION=0M,
+//             TIME=1440,MSGLEVEL=(1,1),MSGCLASS=X,COND=(4,LT)
+//*
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)
+//*
+//         INCLUDE MEMBER=SETSYMBS
+//************************************************************
+//************************************************************
+//*****  ITEMS TO CHANGE TO PREP JCL   (REPLACE X'S) *********
+//************************************************************
+//* 1) CORRECT JOBPARM / ROUTE ABOVE                         *
+//* 2) DATABASE NAME:    C USHFUSN XXXXXXXX ALL              *
+//* 3) TABLESPACE NAME:  C TPBES XXXXXXXX ALL                *
+//* 4) GROUP NAME :      C DSNB XXXX ALL                     *
+//* 5) AUTH ID :         C @DBATFC @DBAXFC ALL               *
+//* 6) ENVIRONMENT:      C ENV=TEST ENV=XXXX ALL             *
+//************************************************************
+//************************************************************
+//************************************************************
+//*   DISPLAY TABLESPACE, TO VERIFY STARTING STATUS
+//************************************************************
+//STEP001 EXEC PGM=IKJEFT01,DYNAMNBR=100,
+//        REGION=4M
+//SYSPRINT DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//LISTING  DD SYSOUT=*
+//SYSTSIN DD *
+ DSN SYSTEM(DSNB)
+ -DIS DB(USHFUSN) SPACE(TPBES) LIMIT(*) CLAIMERS
+//*
+//************************************************************
+//*   ALTER TABLESPACE SEGSIZE AND DSSIZE TO CONVERT TS TO PBR
+//************************************************************
+//STEP002 EXEC PGM=IKJEFT01,DYNAMNBR=100,
+//        REGION=4M
+//SYSTSPRT DD SYSOUT=*
+//SYSTSIN DD *
+  DSN SYSTEM(DSNB)
+  RUN PROGRAM(DSNTEP4) PLAN(DSNTEP4) PARMS('/ALIGN(LHS)') -
+     LIB('SYSD.DB2.DSNB.RUNLIB.LOAD')
+//SYSPRINT DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//SYSIN   DD *
+ SET CURRENT SQLID = '@DBATFC';
+ALTER TABLESPACE USHFUSN.TPBES
+          SEGSIZE 64
+    ;
+COMMIT;
+ALTER TABLESPACE USHFUSN.TPBES
+          DSSIZE 16G
+    ;
+COMMIT;
+/*
+//*
+//************************************************************
+//*   DISPLAY TABLESPACE, WILL BE IN ADVISORY REORG
+//************************************************************
+//STEP003 EXEC PGM=IKJEFT01,DYNAMNBR=100,
+//        REGION=4M
+//SYSPRINT DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//LISTING  DD SYSOUT=*
+//SYSTSIN DD *
+ DSN SYSTEM(DSNB)
+ -DIS DB(USHFUSN) SPACE(TPBES) LIMIT(*) CLAIMERS
+//*
+//************************************************************
+//*   ONLINE REORG OF TABLESPACE TO CLEAR ADVISORY REORG FLAG
+//************************************************************
+//STEP004  EXEC DB2BATCH,ENV=TEST,SSID=DSNB,UID=DBA@PBRA
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(1000,500)),VOL=(,,,15)
+//SYSREC   DD  UNIT=SYSDA,SPACE=(CYL,(1000,500)),VOL=(,,,15)
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(CYL,(1000,500)),VOL=(,,,15)
+//SYSMAP   DD  UNIT=SYSDA,SPACE=(CYL,(100,500))
+//SYSERR   DD  UNIT=SYSDA,SPACE=(CYL,(100,500))
+//SYSIN    DD  DISP=SHR,DSN=AFDB.PROD.PARMLIB(OPTNSKIP)
+//         DD  DISP=SHR,DSN=AFDB.&ENV..TEMPLATE(LPICVTS)
+//         DD  *
+
+REORG TABLESPACE USHFUSN.TPBES
+      SHRLEVEL      CHANGE
+      MAPPINGTABLE  @DBA.MAP_TABLE_SPECIAL
+      COPYDDN      (LPCOPY)
+      RETRY         25
+      FORCE         ALL
+      TIMEOUT       TERM
+      RETRY_DELAY   1
+      DRAIN_WAIT    1
+      STATISTICS TABLE(ALL)
+      INDEX(ALL
+            KEYCARD FREQVAL NUMCOLS 1 COUNT 15
+                    FREQVAL NUMCOLS 2 COUNT 25
+                    FREQVAL NUMCOLS 3 COUNT 35
+                    FREQVAL NUMCOLS 4 COUNT 45
+                    FREQVAL NUMCOLS 5 COUNT 55
+                    FREQVAL NUMCOLS 6 COUNT 65)
+      UPDATE(ALL) HISTORY(ALL)
+/*
+//*
+//************************************************************
+//*   DISPLAY TABLESPACE, VERIFY IN RW
+//************************************************************
+//STEP005 EXEC PGM=IKJEFT01,DYNAMNBR=100,
+//        REGION=4M
+//SYSPRINT DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//LISTING  DD SYSOUT=*
+//SYSTSIN DD *
+ DSN SYSTEM(DSNB)
+  -DIS DB(USHFUSN) SPACE(TPBES) LIMIT(*) CLAIMERS
+//*
+//REBIND01 EXEC PGM=IKJEFT01,DYNAMNBR=100,REGION=4M
+//SYSTSPRT DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//SYSTSIN  DD *
+ DSN SYSTEM(DSNB)
+//      DD DISP=SHR,DSN=<FOR REBINDS>
+/*
+//*

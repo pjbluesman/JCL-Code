@@ -1,0 +1,26 @@
+//DBATEP4 JOB (X),'SMIKE',NOTIFY=&SYSUID.,                              00010000
+//             CLASS=2,                                                 00020000
+//             REGION=0M,                                               00030000
+//             TIME=1440,                                               00040000
+//             MSGLEVEL=(1,1),                                          00050000
+//             MSGCLASS=X                                               00060000
+//*                                                                     00070000
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00080000
+//*                                                                     00090000
+//         INCLUDE MEMBER=SETSYMBS                                      00091000
+//*                                                                     00092000
+//JS1      EXEC DSNTEP4,ENV=TEST,SSID=DSNB                              00100000
+//SYSIN    DD  *                                                        00110000
+SELECT NAME, COLLID, CONTOKEN, 0, 0                                     00120000
+  FROM SYSIBM.SYSPACKAGE PKG                                            00130000
+ WHERE CONTOKEN IN (SELECT MAX(CONTOKEN) FROM SYSIBM.SYSPACKAGE MAX     00140000
+                     WHERE MAX.LOCATION = PKG.LOCATION                  00150000
+                       AND MAX.NAME = PKG.NAME)                         00160000
+UNION ALL                                                               00170000
+SELECT NAME, COLLID, ' ', 1, COUNT(*)                                   00171000
+  FROM SYSIBM.SYSPACKAGE                                                00172000
+GROUP BY NAME, COLLID                                                   00173000
+ORDER BY NAME, 4, 5                                                     00173100
+WITH UR                                                                 00174000
+/*                                                                      00180000
+//*                                                                     00190000

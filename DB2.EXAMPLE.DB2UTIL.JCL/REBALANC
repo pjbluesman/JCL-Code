@@ -1,0 +1,47 @@
+//DB2RREB  JOB (X),'SMIKE',NOTIFY=&SYSUID.,CLASS=8,REGION=0M,           00010003
+//    TIME=1440,MSGLEVEL=(1,1),MSGCLASS=X                               00020000
+//*                                                                     00021000
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00022000
+//*                                                                     00023000
+//         INCLUDE MEMBER=SETSYMBS                                      00024000
+//*                                                                     00025000
+//STEP010  EXEC DB2BATCH,SSID=DBT2,UID=JJE3134                          00120003
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(1000,500)),VOL=(,,,15)            00130003
+//*  WHEN RUNNING THIS THE FIRST TIME WE RAN OUT OF SPACE               00131000
+//*  WE SUSPECT THE NUMBER OF VOLUMES IN SYSREC MUST BE >=              00132000
+//*  THE NUMBER OF PARTITIONS IN THE TABLE.                             00133000
+//SYSREC   DD  UNIT=SYSDA,SPACE=(CYL,(2000,1000)),VOL=(,,,30)           00140003
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(CYL,(1000,500)),VOL=(,,,15)            00150003
+//SYSMAP   DD  UNIT=SYSDA,SPACE=(CYL,(100,500))                         00160003
+//SYSERR   DD  UNIT=SYSDA,SPACE=(CYL,(100,500))                         00170003
+//SYSIN    DD  DISP=SHR,DSN=AFDB.PROD.PARMLIB(LPICVTS)                  00180002
+//         DD  *                                                        00190000
+OPTIONS  EVENT    (ITEMERROR,SKIP)                                      00200000
+                                                                        00210000
+LISTDEF  REORGLIST                                                      00220000
+         INCLUDE TABLESPACE FWB1019D.FWS0019D PARTLEVEL                 00230000
+                                                                        00280000
+REORG    TABLESPACE    LIST REORGLIST                                   00290000
+         REBALANCE                                                      00291000
+         SHRLEVEL REFERENCE                                             00300000
+         COPYDDN      (LPCOPY)                                          00320000
+         SORTDEVT      SYSDA                                            00323003
+         SORTNUM       64                                               00330000
+         RETRY         50                                               00340000
+ --      TIMEOUT       TERM                                             00350000
+         RETRY_DELAY   1                                                00360000
+         DRAIN_WAIT    1                                                00370000
+         STATISTICS                                                     00380000
+         UPDATE       (ALL)                                             00390000
+         HISTORY      (ALL)                                             00400000
+         TABLE        (ALL)                                             00410000
+         INDEX        (ALL                                              00420000
+               KEYCARD FREQVAL NUMCOLS 1 COUNT 15                       00430000
+                       FREQVAL NUMCOLS 2 COUNT 25                       00440000
+                       FREQVAL NUMCOLS 3 COUNT 35                       00450000
+                       FREQVAL NUMCOLS 4 COUNT 45                       00460000
+                       FREQVAL NUMCOLS 5 COUNT 55                       00470000
+                       FREQVAL NUMCOLS 6 COUNT 65)                      00480000
+--       MAPPINGTABLE  @DBA.MAP_TABLE_SPECIAL                           00481000
+/*                                                                      00490000
+//*                                                                     00500000

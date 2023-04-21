@@ -1,0 +1,36 @@
+//SMTMOVE1 JOB (X),'SMIKE',NOTIFY=&SYSUID.,                             00010000
+//             CLASS=1,                                                 00020000
+//             REGION=0M,                                               00030000
+//             TIME=1440,                                               00040000
+//             MSGLEVEL=(1,1),                                          00050000
+//             MSGCLASS=X                                               00060000
+//*                                                                     00070000
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00080000
+//*                                                                     00090000
+//JS010    EXEC PGM=ADRDSSU COND=(5,LT)                                 00100000
+//OLDVOLS  DD  UNIT=SYSDA,VOL=SER=(DPA296,DPA118,DPA203,DPA230,         00110000
+//             DPA312,DPA264,DPA247,DPA131,DPA277),DISP=SHR             00120000
+//NEWVOL   DD  DISP=SHR,UNIT=SYSDA,VOL=SER=DPA101                       00130000
+//SYSPRINT DD  SYSOUT=*                                                 00140000
+//SYSIN    DD  *                                                        00150000
+     COPY -                                                             00160000
+       DS(INCL( -                                                       00170000
+               DB2CATPA.DSNDB*.SHPA002.TSHIA.I0001.A005 -               00180000
+              )  -                                                      00190000
+          EXCL( -                                                       00200000
+               SYS1.VTOCIX.*, -                                         00210000
+               SYS1.VVDS.* -                                            00220000
+              )  -                                                      00230000
+         ) -                                                            00240000
+     LOGINDDNAME(OLDVOLS)      -                                        00250000
+     OUTDD(NEWVOL)             -                                        00260000
+     ALLDATA(*)                -                                        00270000
+     ALLEXCP                   -                                        00280000
+     SELECTMULTI(ANY)          -                                        00290000
+     NULLMGMTCLAS              -                                        00300000
+     NULLSTORCLAS              -                                        00310000
+     DELETE                    -                                        00320000
+     CATALOG                   -                                        00330000
+     WAIT(0,0)                                                          00340000
+/*                                                                      00350000
+//*                                                                     00360000

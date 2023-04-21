@@ -1,0 +1,49 @@
+//DBAAGRNT JOB SPUFI,CLASS=8,MSGCLASS=X,REGION=8M,NOTIFY=&SYSUID        00001000
+/*JOBPARM LINES=15
+//TESTGRNT EXEC PGM=IKJEFT01,DYNAMNBR=100,                              00000500
+//        REGION=4M                                                     00000600
+//SYSPRINT DD SYSOUT=*                                                  00000700
+//SYSTSPRT DD SYSOUT=*                                                  00000800
+//LISTING  DD SYSOUT=*                                                  00000900
+//SYSTSIN DD *                                                          00001000
+ DSN SYSTEM(DSNB)                                                       00002000
+ RUN PROGRAM(DSNTEP2) PLAN(DSNTEP2) -                                   00003000
+     LIB('SYS2.DB2.TEST.RUNLIB.LOAD')                                   00004000
+//SYSIN   DD *                                                          00005000
+SET CURRENT SQLID = '@DBATFD';
+SET CURRENT SCHEMA = 'FFTA';
+-- INSERT GRANT STATEMENTS HERE WITH UNQUALIFIED TABLES.
+SET CURRENT SCHEMA = 'DB2FFIB';
+-- INSERT GRANT STATEMENTS HERE WITH UNQUALIFIED TABLES.
+//QAGRNT EXEC PGM=IKJEFT01,DYNAMNBR=100,                                00000500
+//        REGION=4M                                                     00000600
+//SYSPRINT DD SYSOUT=*                                                  00000700
+//SYSTSPRT DD SYSOUT=*                                                  00000800
+//LISTING  DD SYSOUT=*                                                  00000900
+//SYSTSIN DD *                                                          00001000
+ DSN SYSTEM(DSNX)                                                       00002000
+ RUN PROGRAM(DSNTEP2) PLAN(DSNTEP2) -                                   00003000
+     LIB('SYS2.DB2.QA.RUNLIB.LOAD')                                     00004000
+//SYSIN   DD *                                                          00005000
+SET CURRENT SQLID = '@DBAQFD';
+SET CURRENT SCHEMA = 'FFQA';
+-- INSERT GRANT STATEMENTS HERE WITH UNQUALIFIED TABLES.
+SET CURRENT SCHEMA = 'FFQB';
+-- INSERT GRANT STATEMENTS HERE WITH UNQUALIFIED TABLES.
+SET CURRENT SCHEMA = 'DB2FFE';
+-- INSERT GRANT STATEMENTS HERE WITH UNQUALIFIED TABLES.
+SET CURRENT SCHEMA = 'DB2FFQ';
+-- INSERT GRANT STATEMENTS HERE WITH UNQUALIFIED TABLES.
+//PRODGRNT EXEC PGM=IKJEFT01,DYNAMNBR=100,                              00000500
+//        REGION=4M                                                     00000600
+//SYSPRINT DD SYSOUT=*                                                  00000700
+//SYSTSPRT DD SYSOUT=*                                                  00000800
+//LISTING  DD SYSOUT=*                                                  00000900
+//SYSTSIN DD *                                                          00001000
+ DSN SYSTEM(DSN)                                                        00002000
+ RUN PROGRAM(DSNTEP2) PLAN(DSNTEP2) -                                   00003000
+     LIB('SYS2.DB2.PROD.RUNLIB.LOAD')                                   00004000
+//SYSIN   DD *                                                          00005000
+SET CURRENT SQLID = '@DBAPFD';
+SET CURRENT SCHEMA = 'DB2FFP';
+-- INSERT GRANT STATEMENTS HERE WITH UNQUALIFIED TABLES.

@@ -1,0 +1,40 @@
+//DB2REORG JOB (X),'SMIKE',NOTIFY=&SYSUID.,                             00010001
+//    CLASS=2,REGION=0M,TIME=1440,MSGLEVEL=(1,1),MSGCLASS=X             00020007
+//*                                                                     00030000
+//JCLLIB   JCLLIB ORDER=(AFDB.PROD.PROCLIB)                             00030000
+//*                                                                     00030000
+//         INCLUDE MEMBER=SETSYMBS
+//*                                                                     00040000
+//JS1      EXEC DB2BATCH,ENV=SBOX,SSID=DSNS,UID=DB2REORG                00050009
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(1000,1000)),VOL=(,,,15)           00060000
+//SORTOUT  DD  UNIT=SYSDA,SPACE=(CYL,(1000,1000)),VOL=(,,,15)           00070000
+//SYSMAP   DD  UNIT=SYSDA,SPACE=(CYL,(1000,1000)),VOL=(,,,15)           00080000
+//SYSREC   DD  UNIT=SYSDA,SPACE=(CYL,(1000,1000)),VOL=(,,,15)           00090000
+//SYSIN    DD  DISP=SHR,DSN=AFDB.PROD.PARMLIB(OPTNSKIP)
+//         DD  DISP=SHR,DSN=AFDB.&ENV..TEMPLATE(LPICVTS)
+//         DD  DISP=SHR,DSN=AFDB.&ENV..TEMPLATE(RPICTAPE)
+//         DD  *                                                        00130004
+LISTDEF IXLIST                                                          00140000
+        INCLUDE INDEXSPACE SHTA001.ISHIA*                               00150000
+                                                                        00160000
+REORG INDEX LIST IXLIST                                                 00170000
+      SHRLEVEL CHANGE                                                   00180000
+      RETRY         25                                                  00190002
+      TIMEOUT       TERM                                                00200002
+      RETRY_DELAY   3                                                   00210002
+      DRAIN_WAIT    3                                                   00220002
+      FASTSWITCH    YES                                                 00230002
+      WORKDDN       WORKUT1                                             00240006
+      SORTDEVT      SYSALLDA                                            00250002
+      SORTNUM       8                                                   00260002
+      STATISTICS                                                        00270002
+      FORCEROLLUP YES                                                   00280002
+                (KEYCARD FREQVAL NUMCOLS 1 COUNT 15                     00290002
+                         FREQVAL NUMCOLS 2 COUNT 25                     00300002
+                         FREQVAL NUMCOLS 3 COUNT 35                     00310002
+                         FREQVAL NUMCOLS 4 COUNT 45                     00320002
+                         FREQVAL NUMCOLS 5 COUNT 55                     00330002
+                         FREQVAL NUMCOLS 6 COUNT 65)                    00340002
+      UPDATE(ALL)                                                       00350002
+/*                                                                      00360000
+//*                                                                     00370000
