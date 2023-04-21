@@ -1,0 +1,38 @@
+//UXD001M JOB ,'DB2 A3-ANNEX',CLASS=S,MSGCLASS=X                        00000001
+//*********************************************************************/00010000
+//*********************************************************************/00280000
+//JOBLIB  DD  DISP=SHR,                                                 00290000
+//            DSN=SSXDT.DSNDBVG.DB3V.SDSNLOAD                           00300000
+//DSNTIC  PROC                                                          00210000
+//* *************************************************************** */  00220000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE         */  00230000
+//* *************************************************************** */  00240000
+//DSNTIC  EXEC PGM=IDCAMS                                               00250000
+//SYSPRINT DD SYSOUT=*                                                  00270000
+//SYSUDUMP DD SYSOUT=*                                                  00280000
+//DSNTIC  PEND                                                          00290000
+//DSNTTMP EXEC DSNTIC                                                   00720000
+//SYSIN DD *                                                            01000000
+  DEFINE CLUSTER -
+     ( NAME(DB2V.DSNDBC.WRKDB2V.DSN4K22.I0001.A002) -
+          LINEAR     -
+          REUSE -
+          VOLUMES(E9D2V4) -
+          CYLINDERS(2000 300) -
+          SHAREOPTIONS(3 3) ) -
+     DATA -
+     ( NAME(DB2V.DSNDBD.WRKDB2V.DSN4K22.I0001.A002) -
+                        ) -
+    CATALOG(DB2V)
+  DEFINE CLUSTER -
+     ( NAME(DB2V.DSNDBC.WRKDB3V.DSN4K22.I0001.A002) -
+          LINEAR     -
+          REUSE -
+          VOLUMES(E9D2V2) -
+          CYLINDERS(2000 300) -
+          SHAREOPTIONS(3 3) ) -
+     DATA -
+     ( NAME(DB2V.DSNDBD.WRKDB3V.DSN4K22.I0001.A002) -
+                        ) -
+    CATALOG(DB2V)
+//*

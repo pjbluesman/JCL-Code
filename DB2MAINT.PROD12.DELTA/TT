@@ -1,0 +1,2 @@
+-- select * from sysibm.sysdummy1                                       00010002
+SELECT DISTINCT WLM_ENVIRONMENT FROM SYSIBM.SYSROUTINES                 00020002

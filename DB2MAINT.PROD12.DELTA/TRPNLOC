@@ -1,0 +1,859 @@
+.CONTROL SN(DT0072,TRPNLOC)
+
+--==============================================================================
+-- VRCM6.1.5    CA-DB2   RC/MIGRATOR   ANALYSIS REPORT      07-22-02 13:43
+--==============================================================================
+--STRATEGY INFORMATION:
+--STRATEGY ==> TRPNLOC   DESCRIPTION  ===> COPY OF TRPNLOC
+--CREATOR  ==> DT0072    SHARE OPTION ===> N (U,Y,N,X,L)  SRC SSID ===> DB2U
+--
+--IMPLODE/EXPLODE OPTIONS:
+--   +-- IMPLODE OPTIONS ---+ +----- PRIMARY OBJECT ----+ +- EXPLODE OPTIONS --+
+--S  STOGRP DATABASE TBLSPACE TABLE NAME         CREATOR  INDEX VIEW SYN/AL TRIG
+--_     _      _        A     TRPN_LOC           EBKCM01    A    _     _     _
+--
+--
+--OTHER MIGRATION OPTIONS:
+--   +----- PRIMARY OBJECT -----+  AUX               ALL  NUMBER
+--S   TABLE NAME         CREATOR IMPLODE RI SECURITY ROWS OF ROWS  WHERE
+--_   TRPN_LOC           EBKCM01    _    _     _      Y   ________ _ ________
+--
+--ANALYSIS OPTIONS:
+--  EXECUTION MODE    ===> O (O - ONLINE, B - BATCH)
+--  ANALYSIS OVERRIDE ===> N
+--  ACCESS MODE       ===> VSAM - LIMITED
+--  MODEL ID          ===> @DEFAULT
+--  MODEL CREATOR     ===> D36660E
+--  TARGET SSID       ===> DB2U
+--  GLOBAL CHANGES    ===> Y
+--
+--  AUX IMPLODE       ===> N             STATISTICS    ===> Y
+--  RI(LOCAL/GLOBAL)  ===> N             CHECK DATA    ===> N
+--  SECURITY          ===> Y             IMAGE COPY    ===> N
+--  DROP OBJECTS      ===> N             BIND/REBIND   ===> N
+--  DEFAULT SQLID     ===>
+--                                       RECOVER IX    ===> N
+--
+--  ALL ROWS          ===> Y             VSAM DEFINES  ===> N
+--  NUMBER ROWS       ===>               VSAM DELETES  ===> N
+--  DATA STATISTICS   ===> N
+--
+--  NO .AUTHS               ===> Y
+--  NO SET SQLID STMTS      ===> N
+--  BND/DAT/SQL/STAT/GRNT/RI===> N  (B nd, D at, R -Stat, S QL, G rnt, R I or N)
+--  COMMIT ASAP             ===> N
+--
+--  DELETE UNLOAD DATASETS    ===> Y
+--  DELETE TEMPORARY DATASETS ===> Y
+--
+--GLOBAL CHANGES:
+--
+--  SET NAME          ===> TEMP
+--  SET CREATOR       ===> DT0072
+--
+--  CODE   DESCRIPTION              FROM                  TO
+--  AL     ALL OBJECT TYPES
+--  ALCR    CREATOR                 *                     DT0072
+--  ALDB    DATABASE NAME           *                     DSNDB04
+--  ALTS    TABLESPACE NAME         *                     STRPNLOC
+--
+--********************** END OF ANALYSIS HEADER ********************************
+
+
+.SYSTEM UNLOADS
+.CONNECT DB2U
+
+
+.ALLOC FI(PTIUNLD)                                                     +
+       DA('DT0072.EBKCM01.TRPN$LOC.DATA')                              +
+       BLKSIZE(6336) LRECL(72)                                         +
+       TRACKS                                                          +
+       SPACE(43,33)                                                    +
+       UNIT(SYSDA)                                                     +
+       NEW CATALOG
+.CALL UNLOAD
+.DATA
+  FILE(PTIUNLD)
+  SELECT TRPN_LOC_CD, BAG_SRT_SYS_TYP_CD, BRDG_PASS_STN_NM,
+  CNTNT_CD, CTRY_CD, CTRY_SDIV_CD, DL_TKTG_LOC_NM,
+  DLM_DST_SLOT_NB, DLM_INTL_TO_US_IND, DPC_MTSCTY_GRP_NB,
+  DSH_MTSCTY_GRP_NB, DST_OBSD_IND, FIDS_DMATV_MNT_CT,
+  FIDS_INATV_MNT_CT, GMT_DIFF_MNT_CT, HAS_ALNC_SVC_IND,
+  HAS_ARPT_IND, HAS_BSN_OFC_IND, HAS_BUS_TERNL_IND,
+  HAS_CREW_BS_IND, HAS_CTO_IND, HAS_DL_CNSVC_IND,
+  HAS_DL_MKCDSR_IND, HAS_DL_SHTSVC_IND, HAS_DL_SVC_IND,
+  HAS_DLE_SVC_IND, HAS_DPC_MTSCTY_IND, HAS_DSH_MTSCTY_IND,
+  HAS_FTO_IND, HAS_GSE_SVC_IND, HAS_HRSR_LOC_IND,
+  HAS_ICAOAP_CD_IND, HAS_METRO_AREA_IND, HAS_MTC_BS_IND,
+  HAS_RAIL_STN_IND, HAS_TRPN_CTY_IND, IATA_CTRY_TM_DV_CD,
+  IATA_PRORT_SARE_CD, IATA_TRFC_CONF_CD, IATA_TZ_CTRY_CD,
+  INBG_SCTY_RQD_IND, IS_ARPT_IND, IS_BSN_OFC_IND,
+  IS_BUS_TERNL_IND, IS_CREW_BS_IND, IS_CTO_IND, IS_DLCOM_ENBD_IND,
+  IS_DL_NTWK_HUB_IND, IS_DL_SPC_LOC_IND, IS_DL_TEST_LOC_IND,
+  IS_DL_VRL_LOC_IND, IS_DLM_LOC_IND, IS_DPC_MTSCTY_IND,
+  IS_DSH_MTSCTY_IND, IS_FTO_IND, IS_HRSR_LOC_IND,
+  IS_IN_DL_SCH_IND, IS_IN_OA_SCH_IND, IS_METRO_AREA_IND,
+  IS_MTC_BS_IND, IS_RAIL_STN_IND, IS_TRPN_CTY_IND,
+  LST_DY_OF_OP_LDT, METRO_AREA_CD, METRO_AREA_NM, OAG_INAV_IND,
+  OPS_SCTR_CD, SUPRS_ADJT_CHG_IND, TM_ADJT_TBL_IND, TRPN_CTY_CD,
+  TRPN_CTY_NM, TRPN_LOC_NM, TRPN_LOC_USG_CD, TRPN_STN_NM,
+  TSOAG_LAT_DCML_QTY, TSOAG_LAT_DIRN_CD, TSOAG_LAT_DMS_CT,
+  TSOAG_LGT_DCML_QTY, TSOAG_LGT_DIRN_CD, TSOAG_LGT_DMS_CT,
+  LST_UPDT_USR_ID, LST_UPDT_GTS
+  FROM EBKCM01.TRPN_LOC
+  ORDER BY TRPN_LOC_CD
+  FOR FETCH ONLY
+  ;
+  LIMIT(ALL)
+.ENDDATA
+.FREE FI(PTIUNLD)
+
+.SYNC 5         'UNLOAD TABLE EBKCM01.TRPN_LOC'
+
+.SYSTEM SQLDDL
+.CONNECT DB2U
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLESPACE CREATE AND ALTER STATEMENTS                     *
+-- *                                                            *
+-- **************************************************************
+
+
+.SYNC 6         'UNLOAD TABLE EBKCM01.TRPN_LOC'
+-- DSNDB04.STRPNLOC WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DT0072';
+
+.SYNC 7         'UNLOAD TABLE EBKCM01.TRPN_LOC'
+    DROP   TABLESPACE DSNDB04.STRPNLOC  ;
+    COMMIT ;
+
+    CREATE TABLESPACE STRPNLOC
+           IN DSNDB04
+                     USING STOGROUP EBKCSGM1
+                                    PRIQTY 48
+                                    SECQTY 48
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+           BUFFERPOOL BP13
+           LOCKSIZE ANY
+           CLOSE YES
+           SEGSIZE 32
+           LOCKMAX SYSTEM
+           CCSID ASCII
+    ;
+
+.SYNC 10        'CREATE TABLESPACE DSNDB04.STRPNLOC'
+    SET CURRENT SQLID = USER;
+
+
+-- **************************************************************
+-- *                                                            *
+-- * TABLE CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DT0072.TRPN_LOC WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+CREATE TABLE DT0072.TRPN_LOC
+   (TRPN_LOC_CD            CHAR(5    )                 NOT NULL
+   ,BAG_SRT_SYS_TYP_CD     CHAR(1    )
+   ,BRDG_PASS_STN_NM       CHAR(17   )
+   ,CNTNT_CD               CHAR(1    )
+   ,CTRY_CD                CHAR(2    )
+   ,CTRY_SDIV_CD           CHAR(3    )
+   ,DL_TKTG_LOC_NM         CHAR(17   )
+   ,DLM_DST_SLOT_NB        CHAR(3    )
+   ,DLM_INTL_TO_US_IND     CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,DPC_MTSCTY_GRP_NB      DECIMAL(6     , 0    )
+   ,DSH_MTSCTY_GRP_NB      DECIMAL(6     , 0    )
+   ,DST_OBSD_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,FIDS_DMATV_MNT_CT      DECIMAL(4     , 0    )
+   ,FIDS_INATV_MNT_CT      DECIMAL(4     , 0    )
+   ,GMT_DIFF_MNT_CT        DECIMAL(4     , 0    )
+   ,HAS_ALNC_SVC_IND       CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_ARPT_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_BSN_OFC_IND        CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_BUS_TERNL_IND      CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_CREW_BS_IND        CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_CTO_IND            CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_DL_CNSVC_IND       CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_DL_MKCDSR_IND      CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_DL_SHTSVC_IND      CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_DL_SVC_IND         CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_DLE_SVC_IND        CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_DPC_MTSCTY_IND     CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_DSH_MTSCTY_IND     CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_FTO_IND            CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_GSE_SVC_IND        CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_HRSR_LOC_IND       CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_ICAOAP_CD_IND      CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_METRO_AREA_IND     CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_MTC_BS_IND         CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_RAIL_STN_IND       CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,HAS_TRPN_CTY_IND       CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IATA_CTRY_TM_DV_CD     CHAR(2    )
+   ,IATA_PRORT_SARE_CD     CHAR(2    )
+   ,IATA_TRFC_CONF_CD      CHAR(1    )
+   ,IATA_TZ_CTRY_CD        CHAR(2    )
+   ,INBG_SCTY_RQD_IND      CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_ARPT_IND            CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_BSN_OFC_IND         CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_BUS_TERNL_IND       CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_CREW_BS_IND         CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_CTO_IND             CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_DLCOM_ENBD_IND      CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_DL_NTWK_HUB_IND     CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_DL_SPC_LOC_IND      CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_DL_TEST_LOC_IND     CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_DL_VRL_LOC_IND      CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_DLM_LOC_IND         CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_DPC_MTSCTY_IND      CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_DSH_MTSCTY_IND      CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_FTO_IND             CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_HRSR_LOC_IND        CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_IN_DL_SCH_IND       CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_IN_OA_SCH_IND       CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_METRO_AREA_IND      CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_MTC_BS_IND          CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_RAIL_STN_IND        CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,IS_TRPN_CTY_IND        CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,LST_DY_OF_OP_LDT       DATE
+   ,METRO_AREA_CD          CHAR(5    )
+   ,METRO_AREA_NM          CHAR(22   )
+   ,OAG_INAV_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,OPS_SCTR_CD            CHAR(1    )
+   ,SUPRS_ADJT_CHG_IND     CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,TM_ADJT_TBL_IND        CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,TRPN_CTY_CD            CHAR(5    )
+   ,TRPN_CTY_NM            CHAR(150  )
+   ,TRPN_LOC_NM            CHAR(80   )
+   ,TRPN_LOC_USG_CD        CHAR(1    )
+   ,TRPN_STN_NM            CHAR(80   )
+   ,TSOAG_LAT_DCML_QTY     DECIMAL(6     , 4    )
+   ,TSOAG_LAT_DIRN_CD      CHAR(2    )
+   ,TSOAG_LAT_DMS_CT       CHAR(8    )
+   ,TSOAG_LGT_DCML_QTY     DECIMAL(8     , 5    )
+   ,TSOAG_LGT_DIRN_CD      CHAR(2    )
+   ,TSOAG_LGT_DMS_CT       CHAR(9    )
+   ,LST_UPDT_USR_ID        CHAR(8    )                 NOT NULL
+          WITH DEFAULT  USER
+   ,LST_UPDT_GTS           TIMESTAMP                   NOT NULL
+          WITH DEFAULT
+   ,PRIMARY KEY
+   (TRPN_LOC_CD
+   )
+   ,CONSTRAINT DLM_INTL_TO_US_IND CHECK(DLM_INTL_TO_US_IND IN('Y','N','U
+'))
+   ,CONSTRAINT DST_OBSD_IND CHECK(DST_OBSD_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_ALNC_SVC_IND CHECK(HAS_ALNC_SVC_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_ARPT_IND CHECK(HAS_ARPT_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_ARPT_IND1 CHECK(HAS_ARPT_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_BSN_OFC_IND CHECK(HAS_BSN_OFC_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_BUS_TERNL_IND CHECK(HAS_BUS_TERNL_IND IN('Y','N','U')
+)
+   ,CONSTRAINT HAS_CREW_BS_IND CHECK(HAS_CREW_BS_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_CTO_IND CHECK(HAS_CTO_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_DL_CNSVC_IND CHECK(HAS_DL_CNSVC_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_DL_MKCDSR_IND CHECK(HAS_DL_MKCDSR_IND IN('Y','N','U')
+)
+   ,CONSTRAINT HAS_DL_SHTSVC_IND CHECK(HAS_DL_SHTSVC_IND IN('Y','N','U')
+)
+   ,CONSTRAINT HAS_DL_SVC_IND CHECK(HAS_DL_SVC_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_DLE_SVC_IND CHECK(HAS_DLE_SVC_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_DPC_MTSCTY_IND CHECK(HAS_DPC_MTSCTY_IND IN('Y','N','U
+'))
+   ,CONSTRAINT HAS_DSH_MTSCTY_IND CHECK(HAS_DSH_MTSCTY_IND IN('Y','N','U
+'))
+   ,CONSTRAINT HAS_FTO_IND CHECK(HAS_FTO_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_GSE_SVC_IND CHECK(HAS_GSE_SVC_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_HRSR_LOC_IND CHECK(HAS_HRSR_LOC_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_ICAOAP_CD_IND CHECK(HAS_ICAOAP_CD_IND IN('Y','N','U')
+)
+   ,CONSTRAINT HAS_METRO_AREA_IND CHECK(HAS_METRO_AREA_IND IN('Y','N','U
+'))
+   ,CONSTRAINT HAS_MTC_BS_IND CHECK(HAS_MTC_BS_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_RAIL_STN_IND CHECK(HAS_RAIL_STN_IND IN('Y','N','U'))
+   ,CONSTRAINT HAS_TRPN_CTY_IND CHECK(HAS_TRPN_CTY_IND IN('Y','N','U'))
+   ,CONSTRAINT INBG_SCTY_RQD_IND CHECK(INBG_SCTY_RQD_IND IN('Y','N','U')
+)
+   ,CONSTRAINT IS_BSN_OFC_IND CHECK(IS_BSN_OFC_IND IN('Y','N','U'))
+   ,CONSTRAINT IS_BUS_TERNL_IND CHECK(IS_BUS_TERNL_IND IN('Y','N','U'))
+   ,CONSTRAINT IS_CREW_BS_IND CHECK(IS_CREW_BS_IND IN('Y','N','U'))
+   ,CONSTRAINT IS_CTO_IND CHECK(IS_CTO_IND IN('Y','N','U'))
+   ,CONSTRAINT IS_DL_NTWK_HUB_IND CHECK(IS_DL_NTWK_HUB_IND IN('Y','N','U
+'))
+   ,CONSTRAINT IS_DL_SPC_LOC_IND CHECK(IS_DL_SPC_LOC_IND IN('Y','N','U')
+)
+   ,CONSTRAINT IS_DL_TEST_LOC_IND CHECK(IS_DL_TEST_LOC_IND IN('Y','N','U
+'))
+   ,CONSTRAINT IS_DL_VRL_LOC_IND CHECK(IS_DL_VRL_LOC_IND IN('Y','N','U')
+)
+   ,CONSTRAINT IS_DLCOM_ENBD_IND CHECK(IS_DLCOM_ENBD_IND IN('Y','N','U')
+)
+   ,CONSTRAINT IS_DLM_LOC_IND CHECK(IS_DLM_LOC_IND IN('Y','N','U'))
+   ,CONSTRAINT IS_DPC_MTSCTY_IND CHECK(IS_DPC_MTSCTY_IND IN('Y','N','U')
+)
+   ,CONSTRAINT IS_DSH_MTSCTY_IND CHECK(IS_DSH_MTSCTY_IND IN('Y','N','U')
+)
+   ,CONSTRAINT IS_FTO_IND CHECK(IS_FTO_IND IN('Y','N','U'))
+   ,CONSTRAINT IS_HRSR_LOC_IND CHECK(IS_HRSR_LOC_IND IN('Y','N','U'))
+   ,CONSTRAINT IS_IN_DL_SCH_IND CHECK(IS_IN_DL_SCH_IND IN('Y','N','U'))
+   ,CONSTRAINT IS_IN_OA_SCH_IND CHECK(IS_IN_OA_SCH_IND IN('Y','N','U'))
+   ,CONSTRAINT IS_METRO_AREA_IND CHECK(IS_METRO_AREA_IND IN('Y','N','U')
+)
+   ,CONSTRAINT IS_MTC_BS_IND CHECK(IS_MTC_BS_IND IN('Y','N','U'))
+   ,CONSTRAINT IS_RAIL_STN_IND CHECK(IS_RAIL_STN_IND IN('Y','N','U'))
+   ,CONSTRAINT IS_TRPN_CTY_IND CHECK(IS_TRPN_CTY_IND IN('Y','N','U'))
+   ,CONSTRAINT OAG_INAV_IND CHECK(OAG_INAV_IND IN('Y','N','U'))
+   ,CONSTRAINT SUPRS_ADJT_CHG_IND CHECK(SUPRS_ADJT_CHG_IND IN('Y','N','U
+'))
+   ,CONSTRAINT TM_ADJT_TBL_IND CHECK(TM_ADJT_TBL_IND IN('Y','N','U'))
+   )
+   IN  STRPNLOC
+   CCSID ASCII
+   ;
+
+.SYNC 15        'CREATE TABLE DT0072.TRPN_LOC'
+
+
+
+    SET CURRENT SQLID = USER;
+
+-- **************************************************************
+-- *                                                            *
+-- * INDEX CREATE AND ALTER STATEMENTS                          *
+-- *                                                            *
+-- **************************************************************
+
+
+-- DT0072.IXCKC356 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        UNIQUE INDEX DT0072.IXCKC356
+           ON DT0072.TRPN_LOC
+          (TRPN_LOC_CD          ASC
+          )
+                     USING STOGROUP EBKCSGM1
+                                    PRIQTY 720
+                                    SECQTY 144
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 10
+                     GBPCACHE ALL
+           CLUSTER
+           BUFFERPOOL BP13
+           CLOSE YES
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 45        'CREATE INDEX DT0072.IXCKC356'
+
+    CREATE        INDEX DT0072.IXROG1
+           ON DT0072.TRPN_LOC
+          (TRPN_LOC_CD          ASC
+          ,IS_TRPN_CTY_IND      ASC
+          ,DSH_MTSCTY_GRP_NB    ASC
+          ,IS_DSH_MTSCTY_IND    ASC
+          ,IS_ARPT_IND          ASC
+          ,TRPN_CTY_CD       ASC
+          ,TRPN_CTY_NM       ASC
+          )
+                     USING STOGROUP EBKCSGM1
+                                    PRIQTY 720
+                                    SECQTY 48
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+           BUFFERPOOL BP13
+           CLOSE NO
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 58        'CREATE INDEX DT0072.IXROG1'
+
+
+    CREATE        INDEX DT0072.IXROG2
+           ON DT0072.TRPN_LOC
+          (DSH_MTSCTY_GRP_NB    ASC
+          ,IS_ARPT_IND          ASC
+          )
+                     USING STOGROUP EBKCSGM1
+                                    PRIQTY 720
+                                    SECQTY 48
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+           BUFFERPOOL BP13
+           CLOSE NO
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 56        'CREATE INDEX DT0072.IXROG2'
+
+
+-- DT0072.IX1KC356 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX DT0072.IX1KC356
+           ON DT0072.TRPN_LOC
+          (METRO_AREA_CD        ASC
+          )
+                     USING STOGROUP EBKCSGM1
+                                    PRIQTY 100
+                                    SECQTY 100
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+           BUFFERPOOL BP13
+           CLOSE YES
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 60        'CREATE INDEX DT0072.IX1KC356'
+
+
+-- DT0072.IX2KC356 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX DT0072.IX2KC356
+           ON DT0072.TRPN_LOC
+          (TRPN_CTY_CD          ASC
+          )
+                     USING STOGROUP EBKCSGM1
+                                    PRIQTY 100
+                                    SECQTY 100
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+           BUFFERPOOL BP13
+           CLOSE YES
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 65        'CREATE INDEX DT0072.IX2KC356'
+
+
+-- DT0072.IX3KC356 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX DT0072.IX3KC356
+           ON DT0072.TRPN_LOC
+          (CNTNT_CD             ASC
+          )
+                     USING STOGROUP EBKCSGM1
+                                    PRIQTY 100
+                                    SECQTY 100
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+           BUFFERPOOL BP13
+           CLOSE YES
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 70        'CREATE INDEX DT0072.IX3KC356'
+
+
+-- DT0072.IX5KC356 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX DT0072.IX5KC356
+           ON DT0072.TRPN_LOC
+          (OPS_SCTR_CD          ASC
+          )
+                     USING STOGROUP EBKCSGM1
+                                    PRIQTY 100
+                                    SECQTY 100
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+           BUFFERPOOL BP13
+           CLOSE YES
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 75        'CREATE INDEX DT0072.IX5KC356'
+
+
+-- DT0072.IX7KC356 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX DT0072.IX7KC356
+           ON DT0072.TRPN_LOC
+          (BAG_SRT_SYS_TYP_CD   ASC
+          )
+                     USING STOGROUP EBKCSGM1
+                                    PRIQTY 100
+                                    SECQTY 100
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+           BUFFERPOOL BP13
+           CLOSE YES
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 80        'CREATE INDEX DT0072.IX7KC356'
+
+
+-- DT0072.IX8KC356 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX DT0072.IX8KC356
+           ON DT0072.TRPN_LOC
+          (TRPN_LOC_USG_CD      ASC
+          )
+                     USING STOGROUP EBKCSGM1
+                                    PRIQTY 100
+                                    SECQTY 100
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+           BUFFERPOOL BP13
+           CLOSE YES
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 85        'CREATE INDEX DT0072.IX8KC356'
+
+
+-- DT0072.IX9KC356 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+
+    CREATE        INDEX DT0072.IX9KC356
+           ON DT0072.TRPN_LOC
+          (DSH_MTSCTY_GRP_NB    ASC
+          )
+                     USING STOGROUP EBKCSGM1
+                                    PRIQTY 100
+                                    SECQTY 100
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 5
+           BUFFERPOOL BP13
+           CLOSE YES
+           PIECESIZE 2097152K
+    ;
+
+.SYNC 90        'CREATE INDEX DT0072.IX9KC356'
+
+
+.DISCONN
+
+.SYNC 95        'UTILITIES SECTION'
+
+-- **************************************************************
+-- *                                                            *
+-- * UTILITY STATEMENTS                                         *
+-- *                                                            *
+-- **************************************************************
+
+
+.CALL UTIL LOAD PARM(DB2U)
+.ALLOC FI(PTILOAD)                                                     +
+   DA('DT0072.EBKCM01.TRPN$LOC.DATA')                                  +
+   SHR
+.ALLOC FI(SYSDISC)                                                     +
+   DA('DT0072.EBKCM01.TRPN$LOC.DATA.D')                                +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(11,22) TRACKS RLSE
+.ALLOC FI(SYSERR)                                                      +
+   DA('DT0072.EBKCM01.TRPN$LOC.DATA.E')                                +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(65,86) BLK(4096) RLSE
+.ALLOC FI(SYSMAP)                                                      +
+   DA('DT0072.EBKCM01.TRPN$LOC.DATA.M')                                +
+   MOD CATALOG UNIT(SYSDA)                                             +
+   SPACE(13,17) BLK(4096) RLSE
+.ALLOC FI(PTIUT1) UNIT(SYSDA)                                          +
+   DA('DT0072.EBKCM01.TRPN$LOC.DATA.U')                                +
+   SPACE(8,5) CYL                                                      +
+   MOD CATALOG
+.ALLOC FI(PTIOUT) UNIT(SYSDA)                                          +
+   DA('DT0072.EBKCM01.TRPN$LOC.DATA.O')                                +
+   SPACE(8,5) CYL                                                      +
+   MOD CATALOG
+.DATA
+   LOAD DATA INDDN PTILOAD RESUME NO      LOG NO   ENFORCE CONSTRAINTS
+    DISCARDDN SYSDISC
+    ERRDDN   SYSERR
+    MAPDDN   SYSMAP
+    WORKDDN  (PTIUT1,PTIOUT)
+    SORTDEVT SYSDA
+    CONTINUEIF (72) = X'FF'
+    INTO TABLE DT0072.TRPN_LOC
+    (TRPN_LOC_CD          POSITION(    32) CHAR(     5)
+    ,BAG_SRT_SYS_TYP_CD   POSITION(     *) CHAR(     1)
+                              NULLIF(     1) = X'FF'
+    ,BRDG_PASS_STN_NM     POSITION(     *) CHAR(    17)
+                              NULLIF(     2) = X'FF'
+    ,CNTNT_CD             POSITION(     *) CHAR(     1)
+                              NULLIF(     3) = X'FF'
+    ,CTRY_CD              POSITION(     *) CHAR(     2)
+                              NULLIF(     4) = X'FF'
+    ,CTRY_SDIV_CD         POSITION(     *) CHAR(     3)
+                              NULLIF(     5) = X'FF'
+    ,DL_TKTG_LOC_NM       POSITION(     *) CHAR(    17)
+                              NULLIF(     6) = X'FF'
+    ,DLM_DST_SLOT_NB      POSITION(     *) CHAR(     3)
+                              NULLIF(     7) = X'FF'
+    ,DLM_INTL_TO_US_IND   POSITION(     *) CHAR(     1)
+    ,DPC_MTSCTY_GRP_NB    POSITION(     *) DECIMAL
+                              NULLIF(     8) = X'FF'
+    ,DSH_MTSCTY_GRP_NB    POSITION(     *) DECIMAL
+                              NULLIF(     9) = X'FF'
+    ,DST_OBSD_IND         POSITION(     *) CHAR(     1)
+    ,FIDS_DMATV_MNT_CT    POSITION(     *) DECIMAL
+                              NULLIF(    10) = X'FF'
+    ,FIDS_INATV_MNT_CT    POSITION(     *) DECIMAL
+                              NULLIF(    11) = X'FF'
+    ,GMT_DIFF_MNT_CT      POSITION(     *) DECIMAL
+                              NULLIF(    12) = X'FF'
+    ,HAS_ALNC_SVC_IND     POSITION(     *) CHAR(     1)
+    ,HAS_ARPT_IND         POSITION(     *) CHAR(     1)
+    ,HAS_BSN_OFC_IND      POSITION(     *) CHAR(     1)
+    ,HAS_BUS_TERNL_IND    POSITION(     *) CHAR(     1)
+    ,HAS_CREW_BS_IND      POSITION(     *) CHAR(     1)
+    ,HAS_CTO_IND          POSITION(     *) CHAR(     1)
+    ,HAS_DL_CNSVC_IND     POSITION(     *) CHAR(     1)
+    ,HAS_DL_MKCDSR_IND    POSITION(     *) CHAR(     1)
+    ,HAS_DL_SHTSVC_IND    POSITION(     *) CHAR(     1)
+    ,HAS_DL_SVC_IND       POSITION(     *) CHAR(     1)
+    ,HAS_DLE_SVC_IND      POSITION(     *) CHAR(     1)
+    ,HAS_DPC_MTSCTY_IND   POSITION(     *) CHAR(     1)
+    ,HAS_DSH_MTSCTY_IND   POSITION(     *) CHAR(     1)
+    ,HAS_FTO_IND          POSITION(     *) CHAR(     1)
+    ,HAS_GSE_SVC_IND      POSITION(     *) CHAR(     1)
+    ,HAS_HRSR_LOC_IND     POSITION(     *) CHAR(     1)
+    ,HAS_ICAOAP_CD_IND    POSITION(     *) CHAR(     1)
+    ,HAS_METRO_AREA_IND   POSITION(     *) CHAR(     1)
+    ,HAS_MTC_BS_IND       POSITION(     *) CHAR(     1)
+    ,HAS_RAIL_STN_IND     POSITION(     *) CHAR(     1)
+    ,HAS_TRPN_CTY_IND     POSITION(     *) CHAR(     1)
+    ,IATA_CTRY_TM_DV_CD   POSITION(     *) CHAR(     2)
+                              NULLIF(    13) = X'FF'
+    ,IATA_PRORT_SARE_CD   POSITION(     *) CHAR(     2)
+                              NULLIF(    14) = X'FF'
+    ,IATA_TRFC_CONF_CD    POSITION(     *) CHAR(     1)
+                              NULLIF(    15) = X'FF'
+    ,IATA_TZ_CTRY_CD      POSITION(     *) CHAR(     2)
+                              NULLIF(    16) = X'FF'
+    ,INBG_SCTY_RQD_IND    POSITION(     *) CHAR(     1)
+    ,IS_ARPT_IND          POSITION(     *) CHAR(     1)
+    ,IS_BSN_OFC_IND       POSITION(     *) CHAR(     1)
+    ,IS_BUS_TERNL_IND     POSITION(     *) CHAR(     1)
+    ,IS_CREW_BS_IND       POSITION(     *) CHAR(     1)
+    ,IS_CTO_IND           POSITION(     *) CHAR(     1)
+    ,IS_DLCOM_ENBD_IND    POSITION(     *) CHAR(     1)
+    ,IS_DL_NTWK_HUB_IND   POSITION(     *) CHAR(     1)
+    ,IS_DL_SPC_LOC_IND    POSITION(     *) CHAR(     1)
+    ,IS_DL_TEST_LOC_IND   POSITION(     *) CHAR(     1)
+    ,IS_DL_VRL_LOC_IND    POSITION(     *) CHAR(     1)
+    ,IS_DLM_LOC_IND       POSITION(     *) CHAR(     1)
+    ,IS_DPC_MTSCTY_IND    POSITION(     *) CHAR(     1)
+    ,IS_DSH_MTSCTY_IND    POSITION(     *) CHAR(     1)
+    ,IS_FTO_IND           POSITION(     *) CHAR(     1)
+    ,IS_HRSR_LOC_IND      POSITION(     *) CHAR(     1)
+    ,IS_IN_DL_SCH_IND     POSITION(     *) CHAR(     1)
+    ,IS_IN_OA_SCH_IND     POSITION(     *) CHAR(     1)
+    ,IS_METRO_AREA_IND    POSITION(     *) CHAR(     1)
+    ,IS_MTC_BS_IND        POSITION(     *) CHAR(     1)
+    ,IS_RAIL_STN_IND      POSITION(     *) CHAR(     1)
+    ,IS_TRPN_CTY_IND      POSITION(     *) CHAR(     1)
+    ,LST_DY_OF_OP_LDT     POSITION(     *) DATE EXTERNAL(    10)
+                              NULLIF(    17) = X'FF'
+    ,METRO_AREA_CD        POSITION(     *) CHAR(     5)
+                              NULLIF(    18) = X'FF'
+    ,METRO_AREA_NM        POSITION(     *) CHAR(    22)
+                              NULLIF(    19) = X'FF'
+    ,OAG_INAV_IND         POSITION(     *) CHAR(     1)
+    ,OPS_SCTR_CD          POSITION(     *) CHAR(     1)
+                              NULLIF(    20) = X'FF'
+    ,SUPRS_ADJT_CHG_IND   POSITION(     *) CHAR(     1)
+    ,TM_ADJT_TBL_IND      POSITION(     *) CHAR(     1)
+    ,TRPN_CTY_CD          POSITION(     *) CHAR(     5)
+                              NULLIF(    21) = X'FF'
+    ,TRPN_CTY_NM          POSITION(     *) CHAR(   150)
+                              NULLIF(    22) = X'FF'
+    ,TRPN_LOC_NM          POSITION(     *) CHAR(    80)
+                              NULLIF(    23) = X'FF'
+    ,TRPN_LOC_USG_CD      POSITION(     *) CHAR(     1)
+                              NULLIF(    24) = X'FF'
+    ,TRPN_STN_NM          POSITION(     *) CHAR(    80)
+                              NULLIF(    25) = X'FF'
+    ,TSOAG_LAT_DCML_QTY   POSITION(     *) DECIMAL
+                              NULLIF(    26) = X'FF'
+    ,TSOAG_LAT_DIRN_CD    POSITION(     *) CHAR(     2)
+                              NULLIF(    27) = X'FF'
+    ,TSOAG_LAT_DMS_CT     POSITION(     *) CHAR(     8)
+                              NULLIF(    28) = X'FF'
+    ,TSOAG_LGT_DCML_QTY   POSITION(     *) DECIMAL
+                              NULLIF(    29) = X'FF'
+    ,TSOAG_LGT_DIRN_CD    POSITION(     *) CHAR(     2)
+                              NULLIF(    30) = X'FF'
+    ,TSOAG_LGT_DMS_CT     POSITION(     *) CHAR(     9)
+                              NULLIF(    31) = X'FF'
+    ,LST_UPDT_USR_ID      POSITION(     *) CHAR(     8)
+    ,LST_UPDT_GTS         POSITION(     *) TIMESTAMP EXTERNAL(    26)
+    )
+.ENDDATA
+.FREE FI(PTILOAD)
+.FREE FI(SYSDISC)
+.FREE FI(SYSERR)
+.FREE FI(SYSMAP)
+.FREE FI(PTIUT1)
+.FREE FI(PTIOUT)
+
+.SYNC 100       'LOAD TABLE DT0072.TRPN_LOC'
+
+.CALL LOADDEL
+.DATA
+  DSN(DT0072.EBKCM01.TRPN$LOC.DATA)
+  DSN(DT0072.EBKCM01.TRPN$LOC.DATA.D)
+  DSN(DT0072.EBKCM01.TRPN$LOC.DATA.E)
+  DSN(DT0072.EBKCM01.TRPN$LOC.DATA.M)
+  DSN(DT0072.EBKCM01.TRPN$LOC.DATA.U)
+  DSN(DT0072.EBKCM01.TRPN$LOC.DATA.O)
+.ENDDATA
+
+.SYNC 105       'DELETE UNLOAD/TEMP DATASETS'
+
+
+.CALL UTIL RUNSTATS PARM(DB2U)
+.DATA
+   RUNSTATS TABLESPACE (DSNDB04.STRPNLOC) TABLE INDEX
+.ENDDATA
+
+.SYNC 110       'RUNSTATS TABLESPACE DSNDB04.STRPNLOC'
+
+--==============================================================================
+-- VRCM6.1.5      CA-DB2 RC/MIGRATOR IMPACT ANALYSIS      07-22-02 13:43
+--==============================================================================
+--
+--  OBJECT TYPE: TABLESPACE                 TOTAL:                1
+--
+--      OBJECT NAME/DBNAME        EDITED         NEW NAME/DBNAME
+--
+--      TSKC0356           EBKC1M01             STRPNLOC           DSNDB04
+--
+--  OBJECT TYPE: TABLE                      TOTAL:                1
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      TRPN_LOC           EBKCM01              TRPN_LOC           DT0072
+--
+--  OBJECT TYPE: INDEX                      TOTAL:               10
+--
+--      OBJECT NAME/CREATOR       EDITED         NEW NAME/CREATOR
+--
+--      IXCKC356           EBKCM01              IXCKC356           DT0072
+--      IXRAY1             EBKCM01              IXRAY1             DT0072
+--      IXRAY2             EBKCM01              IXRAY2             DT0072
+--      IX1KC356           EBKCM01              IX1KC356           DT0072
+--      IX2KC356           EBKCM01              IX2KC356           DT0072
+--      IX3KC356           EBKCM01              IX3KC356           DT0072
+--      IX5KC356           EBKCM01              IX5KC356           DT0072
+--      IX7KC356           EBKCM01              IX7KC356           DT0072
+--      IX8KC356           EBKCM01              IX8KC356           DT0072
+--      IX9KC356           EBKCM01              IX9KC356           DT0072

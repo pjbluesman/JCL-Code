@@ -1,0 +1,157 @@
+SELECT s1.ATP_Svc_Fee_Typ_Cd, s1.ATP_Svc_Fee_Seq_Nb,
+s1.Rtn_To_Orig_Typ_Cd, s1.POS_Geog_Typ_Cd, s1.POS_Geog_Loc_Id,
+s1.POS_Typ_Cd, s1.POS_Loc_Id, s1.POT_Geog_Typ_Cd, s1.POT_Geog_Loc_Id,
+s1.Jrny_DirSpc_Typ_Cd, s1.JrLc_One_GcTp_Cd, s1.JrLc_One_GLoc_Id,
+s1.JrLc_Two_GcTp_Cd, s1.JrLc_Two_GLoc_Id, s1.Jrny_Via_GcTp_Cd,
+s1.Jrny_Via_GLoc_Id, s1.Jrny_Withn_GcTp_Cd, s1.Jrny_Withn_GLoc_Id,
+s1.Sctr_Ptn_Typ_Cd, s1.SrPn_Dirn_Typ_Cd, s1.SrPnLc_One_GcTp_Cd,
+s1.SrPnLc_One_GLoc_Id, s1.SrPnLc_Two_GcTp_Cd, s1.SrPnLc_Two_GLoc_Id,
+s1.SrPn_Via_GTp_Cd, s1.SrPn_Via_GLoc_Id, s1.SrPnV_Itdt_Typ_Cd,
+s1.SrPnV_Exc_SoDn_Ct, s1.SrPnV_ESoDn_Typ_Cd, s1.SrPnV_Cnx_Exmp_Ind,
+s1.SrPn_DIntl_Typ_Cd, s1.Crr_Flt_Apcn_Id, s1.Frst_RBDsg_Cd,
+s1.Secd_RBDsg_Cd, s1.Thir_RBDsgr_Cd, s1.Eqp_Typ_Cd, s1.FBsTD_Txt,
+s1.ATP_Svc_Fee_Amt, s1.ATPSF_Curr_Cd, s1.ATPSF_BF_Pctg_Nb,
+s1.ATPSF_Catg_Cd, s1.Cpmt_Cd, s1.Crr_Fare_Cls_Id, s1.Tkt_Dsgtr_Id,
+s1.Res_Bkg_Dsgtr_Id
+FROM EBKDP03.atp_s1_svc_fee s1
+where s1.Mkd_Crr_Cd = 'DL' and s1.ATPSF_Snpst_LDt = '2018-01-22' and
+ATPSF_Trvl_Eff_LDt <= '2018-03-22' and ATPSF_TrDs_LDt >= '2018-03-22'
+and ATPSF_Tktg_Eff_LDt <= '2018-01-22' and ATPSF_TkDs_LDt >=
+'2018-01-22' and (((s1.JRLC_ONE_GCTP_CD = 'µ' ) or ((s1.JRLC_ONE_GCTP_CD
+ != 'µ' and (s1.JRNY_DIRSPC_TYP_CD = 'A' or JRNY_DIRSPC_TYP_CD = 'µ' )
+and (( (s1.JRLC_ONE_GCTP_CD = 'A' and s1.JRLC_ONE_GLOC_ID = '1' ) or
+(s1.JRLC_ONE_GCTP_CD='Z' and (s1.JRLC_ONE_GLOC_ID='001') or (
+s1.JRLC_ONE_GLOC_ID='000')) or (s1.JRLC_ONE_GCTP_CD='N' and
+s1.JRLC_ONE_GLOC_ID='US') or (s1.JRLC_ONE_GCTP_CD='S' and
+s1.JRLC_ONE_GLOC_ID='SC') or (s1.JRLC_ONE_GCTP_CD='C' and
+s1.JRLC_ONE_GLOC_ID='CAE') or (s1.JRLC_ONE_GCTP_CD='P' and
+s1.JRLC_ONE_GLOC_ID='CAE') or s1.JRLC_ONE_GCTP_CD='U') AND
+(s1.JRLC_TWO_GCTP_CD = 'µ' or ((s1.JRLC_TWO_GCTP_CD = 'A' and
+s1.JRLC_TWO_GLOC_ID = '1' ) or (s1.JRLC_TWO_GCTP_CD='Z' and
+(s1.JRLC_TWO_GLOC_ID='001') or (s1.JRLC_TWO_GLOC_ID='000')) or
+(s1.JRLC_TWO_GCTP_CD='N' and s1.JRLC_TWO_GLOC_ID='US') or
+(s1.JRLC_TWO_GCTP_CD='S' and s1.JRLC_TWO_GLOC_ID='CO') or
+(s1.JRLC_TWO_GCTP_CD='C' and s1.JRLC_TWO_GLOC_ID='DEN') or
+(s1.JRLC_TWO_GCTP_CD='P' and s1.JRLC_TWO_GLOC_ID='DEN') or
+s1.JRLC_TWO_GCTP_CD='U'))) or (s1.JRLC_ONE_GCTP_CD != 'µ' and
+s1.JRNY_DIRSPC_TYP_CD = 'µ' ) and (( (s1.JRLC_ONE_GCTP_CD='A' and
+s1.JRLC_ONE_GLOC_ID='1') or (s1.JRLC_ONE_GCTP_CD='Z' and
+(s1.JRLC_ONE_GLOC_ID='001') or (s1.JRLC_ONE_GLOC_ID='000')) or
+(s1.JRLC_ONE_GCTP_CD='N' and s1.JRLC_ONE_GLOC_ID='US') or
+(s1.JRLC_ONE_GCTP_CD='S' and s1.JRLC_ONE_GLOC_ID='CO') or
+(s1.JRLC_ONE_GCTP_CD='C' and s1.JRLC_ONE_GLOC_ID='DEN') or
+(s1.JRLC_ONE_GCTP_CD='P' and s1.JRLC_ONE_GLOC_ID='DEN') or
+s1.JRLC_ONE_GCTP_CD='U') AND (S1.JRLC_TWO_GCTP_CD = 'µ' or (
+(s1.JRLC_TWO_GCTP_CD='A' and s1.JRLC_TWO_GLOC_ID='1') or
+(s1.JRLC_TWO_GCTP_CD='Z' and (s1.JRLC_TWO_GLOC_ID='001') or
+(s1.JRLC_TWO_GLOC_ID='000')) or (s1.JRLC_TWO_GCTP_CD='N' and
+s1.JRLC_TWO_GLOC_ID='US') or (s1.JRLC_TWO_GCTP_CD='S' and
+s1.JRLC_TWO_GLOC_ID='SC') or (s1.JRLC_TWO_GCTP_CD='C' and
+s1.JRLC_TWO_GLOC_ID='CAE') or (s1.JRLC_TWO_GCTP_CD='P' and
+s1.JRLC_TWO_GLOC_ID='CAE') or s1.JRLC_TWO_GCTP_CD='U')))))) AND
+((s1.POS_GEOG_TYP_CD = 'µ' ) )AND ((s1.POT_GEOG_TYP_CD = 'µ' ) ) AND
+(s1.POS_TYP_CD = 'µ' or (s1.POS_TYP_CD != 'µ' and ((s1.POS_TYP_CD = 'T'
+or s1.POS_TYP_CD = 'I' ) and ( s1.POS_LOC_ID = '11617270' or
+s1.POS_LOC_ID = 'µ' )))) and (s1.ATP_PSGR_TYP_CD = 'µ' or
+s1.ATP_PSGR_TYP_CD = 'ADT' ) and (s1.RTN_TO_ORIG_TYP_CD = 'Y' or
+s1.RTN_TO_ORIG_TYP_CD = 'µ' ) AND (s1.CRR_APCN_ID = 'µ' or 0 < (select
+count(*)
+from EBKDP03.atp_190_crr_apcn crr190
+where crr190.CRR_APCN_CRR_CD='DL' and crr190.ATPSF_Snpst_LDt =
+'2018-01-22' and crr190.crr_apcn_prmd_ind = 'Y' and
+crr190.crr_apcn_id=s1.CRR_APCN_ID or (crr190.crr_apcn_id=s1.CRR_APCN_ID
+and crr190.crr_apcn_crr_cd = '$$' and 'DL' not in ( select
+crr_apcn_crr_cd
+from EBKDP03.atp_190_crr_apcn nested190
+where nested190.ATPSF_Snpst_LDt = '2018-01-22' and nested190.crr_apcn_id
+ = s1.crr_apcn_id and nested190.crr_apcn_crr_cd <> '$$' and
+nested190.crr_apcn_prmd_ind = 'N' )) ))) AND ( ((FRST_RBDSG_CD = 'µ' and
+ SECD_RBDSG_CD = 'µ' and THIR_RBDSGR_CD = 'µ' and RES_BKG_DSGTR_ID = 'µ'
+ ) or (FRST_RBDSG_CD = 'Q' or SECD_RBDSG_CD ='Q' or THIR_RBDSGR_CD = 'Q'
+ OR RES_BKG_DSGTR_ID != 'µ' ) ) AND ((FBSTD_TXT = 'µ' and
+CRR_FARE_CLS_ID = 'µ' and TKT_DSGTR_ID = 'µ' ) or (FBSTD_TXT='QR0NA0MQ')
+ or (FBSTD_TXT not like '%/%' and FBSTD_TXT LIKE '%-%' ) OR
+(CRR_FARE_CLS_ID != 'µ' or TKT_DSGTR_ID != 'µ' ) ) AND
+(SRPN_DINTL_TYP_CD = 'µ' or SRPN_DINTL_TYP_CD='D') AND (CPMT_CD = 'µ' or
+ CPMT_CD='Y') ) AND ((( (SRPN_DIRN_TYP_CD ='1' or SRPN_DIRN_TYP_CD = 'µ'
+ ) and SCTR_PTN_TYP_CD = 'S' and ((SRPNLC_ONE_GCTP_CD = 'µ' ) or
+((SRPNLC_ONE_GCTP_CD = 'A' and SRPNLC_ONE_GLOC_ID = '1' ) or
+(SRPNLC_ONE_GCTP_CD = 'Z' and (SRPNLC_ONE_GLOC_ID = '001' or
+SRPNLC_ONE_GLOC_ID = '000' )) or (SRPNLC_ONE_GCTP_CD = 'N' and
+SRPNLC_ONE_GLOC_ID = 'US' ) or (SRPNLC_ONE_GCTP_CD = 'S' and
+SRPNLC_ONE_GLOC_ID = 'GA' ) or (SRPNLC_ONE_GCTP_CD = 'C' and
+SRPNLC_ONE_GLOC_ID = 'ATL' ) or (SRPNLC_ONE_GCTP_CD = 'P' and
+SRPNLC_ONE_GLOC_ID = 'ATL' ) or (SRPNLC_ONE_GCTP_CD = 'U' ))) and
+((SRPNLC_TWO_GCTP_CD = 'µ' ) or ((SRPNLC_TWO_GCTP_CD = 'A' and
+SRPNLC_TWO_GLOC_ID = '1' ) or (SRPNLC_TWO_GCTP_CD = 'Z' and
+(SRPNLC_TWO_GLOC_ID = '001' or SRPNLC_TWO_GLOC_ID = '000' )) or
+(SRPNLC_TWO_GCTP_CD = 'N' and SRPNLC_TWO_GLOC_ID = 'US' ) or
+(SRPNLC_TWO_GCTP_CD = 'S' and SRPNLC_TWO_GLOC_ID = 'SC' ) or
+(SRPNLC_TWO_GCTP_CD = 'C' and SRPNLC_TWO_GLOC_ID = 'CAE' ) or
+(SRPNLC_TWO_GCTP_CD = 'P' and SRPNLC_TWO_GLOC_ID = 'CAE' ) or
+(SRPNLC_TWO_GCTP_CD = 'U' )))) or ( (SRPN_DIRN_TYP_CD ='2' or
+SRPN_DIRN_TYP_CD = 'µ' ) and SCTR_PTN_TYP_CD = 'S' and
+((SRPNLC_ONE_GCTP_CD = 'µ' ) or ((SRPNLC_ONE_GCTP_CD = 'A' and
+SRPNLC_ONE_GLOC_ID = '1' ) or (SRPNLC_ONE_GCTP_CD = 'Z' and
+(SRPNLC_ONE_GLOC_ID = '001' or SRPNLC_ONE_GLOC_ID = '000' )) or
+(SRPNLC_ONE_GCTP_CD = 'N' and SRPNLC_ONE_GLOC_ID = 'US' ) or
+(SRPNLC_ONE_GCTP_CD = 'S' and SRPNLC_ONE_GLOC_ID = 'SC' ) or
+(SRPNLC_ONE_GCTP_CD = 'C' and SRPNLC_ONE_GLOC_ID = 'CAE' ) or
+(SRPNLC_ONE_GCTP_CD = 'P' and SRPNLC_ONE_GLOC_ID = 'CAE' ) or
+(SRPNLC_ONE_GCTP_CD = 'U' ))) and ((SRPNLC_TWO_GCTP_CD = 'µ' ) or
+((SRPNLC_TWO_GCTP_CD = 'A' and SRPNLC_TWO_GLOC_ID = '1' ) or
+(SRPNLC_TWO_GCTP_CD = 'Z' and (SRPNLC_TWO_GLOC_ID = '001' or
+SRPNLC_TWO_GLOC_ID = '000' )) or (SRPNLC_TWO_GCTP_CD = 'N' and
+SRPNLC_TWO_GLOC_ID = 'US' ) or (SRPNLC_TWO_GCTP_CD = 'S' and
+SRPNLC_TWO_GLOC_ID = 'GA' ) or (SRPNLC_TWO_GCTP_CD = 'C' and
+SRPNLC_TWO_GLOC_ID = 'ATL' ) or (SRPNLC_TWO_GCTP_CD = 'P' and
+SRPNLC_TWO_GLOC_ID = 'ATL' )or (SRPNLC_TWO_GCTP_CD = 'U' ))))) or
+(SCTR_PTN_TYP_CD = 'P' and ((SRPN_DIRN_TYP_CD ='1' and
+((SRPNLC_ONE_GCTP_CD = 'µ' ) or ((SRPNLC_ONE_GCTP_CD = 'A' and
+SRPNLC_ONE_GLOC_ID = '1' ) or (SRPNLC_ONE_GCTP_CD = 'Z' and
+(SRPNLC_ONE_GLOC_ID = '001' or SRPNLC_ONE_GLOC_ID = '000' )) or
+(SRPNLC_ONE_GCTP_CD = 'N' and SRPNLC_ONE_GLOC_ID = 'US' ) or
+(SRPNLC_ONE_GCTP_CD = 'S' and SRPNLC_ONE_GLOC_ID = 'GA' ) or
+(SRPNLC_ONE_GCTP_CD = 'C' and SRPNLC_ONE_GLOC_ID = 'ATL' ) or
+(SRPNLC_ONE_GCTP_CD = 'P' and SRPNLC_ONE_GLOC_ID = 'ATL' ) or
+(SRPNLC_ONE_GCTP_CD = 'U' )))) or (SRPN_DIRN_TYP_CD ='2' and
+((SRPNLC_ONE_GCTP_CD = 'µ' ) or ((SRPNLC_ONE_GCTP_CD = 'A' and
+SRPNLC_ONE_GLOC_ID = '1' ) or (SRPNLC_ONE_GCTP_CD = 'Z' and
+(SRPNLC_ONE_GLOC_ID = '001' or SRPNLC_ONE_GLOC_ID = '000' )) or
+(SRPNLC_ONE_GCTP_CD = 'N' and SRPNLC_ONE_GLOC_ID = 'US' ) or
+(SRPNLC_ONE_GCTP_CD = 'S' and SRPNLC_ONE_GLOC_ID = 'SC' ) or
+(SRPNLC_ONE_GCTP_CD = 'C' and SRPNLC_ONE_GLOC_ID = 'CAE' ) or
+(SRPNLC_ONE_GCTP_CD = 'P' and SRPNLC_ONE_GLOC_ID = 'CAE' ) or
+(SRPNLC_ONE_GCTP_CD = 'U' )))) or (SRPN_DIRN_TYP_CD = 'µ' and
+(((SRPNLC_ONE_GCTP_CD = 'µ' ) or ((SRPNLC_ONE_GCTP_CD = 'A' and
+SRPNLC_ONE_GLOC_ID = '1' ) or (SRPNLC_ONE_GCTP_CD = 'Z' and
+(SRPNLC_ONE_GLOC_ID = '001' or SRPNLC_ONE_GLOC_ID = '000' )) or
+(SRPNLC_ONE_GCTP_CD = 'N' and SRPNLC_ONE_GLOC_ID = 'US' ) or
+(SRPNLC_ONE_GCTP_CD = 'S' and SRPNLC_ONE_GLOC_ID = 'GA' ) or
+(SRPNLC_ONE_GCTP_CD = 'C' and SRPNLC_ONE_GLOC_ID = 'ATL' ) or
+(SRPNLC_ONE_GCTP_CD = 'P' and SRPNLC_ONE_GLOC_ID = 'ATL' ) or
+(SRPNLC_ONE_GCTP_CD = 'U' )) or ((SRPNLC_TWO_GCTP_CD = 'µ' ) or
+((SRPNLC_TWO_GCTP_CD = 'A' and SRPNLC_TWO_GLOC_ID = '1' ) or
+(SRPNLC_TWO_GCTP_CD = 'Z' and (SRPNLC_TWO_GLOC_ID = '001' or
+SRPNLC_TWO_GLOC_ID = '000' )) or (SRPNLC_TWO_GCTP_CD = 'N' and
+SRPNLC_TWO_GLOC_ID = 'US' ) or (SRPNLC_TWO_GCTP_CD = 'S' and
+SRPNLC_TWO_GLOC_ID = 'SC' ) or (SRPNLC_TWO_GCTP_CD = 'C' and
+SRPNLC_TWO_GLOC_ID = 'CAE' ) or (SRPNLC_TWO_GCTP_CD = 'P' and
+SRPNLC_TWO_GLOC_ID = 'CAE' ) or (SRPNLC_TWO_GCTP_CD = 'U' )))) or
+((SRPNLC_ONE_GCTP_CD = 'A' and SRPNLC_ONE_GLOC_ID = '1' ) or
+(SRPNLC_ONE_GCTP_CD = 'Z' and (SRPNLC_ONE_GLOC_ID = '001' or
+SRPNLC_ONE_GLOC_ID = '000' )) or (SRPNLC_ONE_GCTP_CD = 'N' and
+SRPNLC_ONE_GLOC_ID = 'US' ) or (SRPNLC_ONE_GCTP_CD = 'S' and
+SRPNLC_ONE_GLOC_ID = 'SC' ) or (SRPNLC_ONE_GCTP_CD = 'C' and
+SRPNLC_ONE_GLOC_ID = 'CAE' ) or (SRPNLC_ONE_GCTP_CD = 'P' and
+SRPNLC_ONE_GLOC_ID = 'CAE' ) or (SRPNLC_ONE_GCTP_CD = 'U' )) or
+((SRPNLC_TWO_GCTP_CD = 'µ' ) or ((SRPNLC_TWO_GCTP_CD = 'A' and
+SRPNLC_TWO_GLOC_ID = '1' ) or (SRPNLC_TWO_GCTP_CD = 'Z' and
+(SRPNLC_TWO_GLOC_ID = '001' or SRPNLC_TWO_GLOC_ID = '000' )) or
+(SRPNLC_TWO_GCTP_CD = 'N' and SRPNLC_TWO_GLOC_ID = 'US' ) or
+(SRPNLC_TWO_GCTP_CD = 'S' and SRPNLC_TWO_GLOC_ID = 'GA' ) or
+(SRPNLC_TWO_GCTP_CD = 'C' and SRPNLC_TWO_GLOC_ID = 'ATL' ) or
+(SRPNLC_TWO_GCTP_CD = 'P' and SRPNLC_TWO_GLOC_ID = 'ATL' ) or
+(SRPNLC_TWO_GCTP_CD = 'U' )))))))) order by s1.ATP_Svc_Fee_Typ_Cd,
+s1.ATP_Svc_Fee_Seq_Nb for fetch only
+with UR

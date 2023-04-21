@@ -1,0 +1,26 @@
+//D54808TM   JOB ,'DB2-GLK',CLASS=S,MSGCLASS=X
+//**********************************************************************
+//*         RO       MJUTLRO D73294T
+//**********************************************************************
+//UTIL0001  EXEC PGM=DSNUTILB,REGION=4M,PARM='DB2F'
+//STEPLIB   DD   DISP=SHR,DSN=SSXDP.DSNDBFG.DB2F.SDSNLOAD
+//SYSPRINT  DD   SYSOUT=*
+//UTPRINT   DD   SYSOUT=*
+//*
+//SYSREC   DD  DSN=T032135.SYSREC,
+//         UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(75,20))
+//SYSUT1   DD  DSN=T032135.SYSUT1,
+//         UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(75,20))
+//SORTOUT  DD  DSN=T032135.SORTOUT,
+//         UNIT=SYSDA,DISP=(,DELETE,CATLG),
+//         SPACE=(CYL,(75,20))
+//SYSPUNCH DD DSN=T032135.SYSPUNCH,
+//         DISP=(NEW,CATLG,CATLG),
+//         UNIT=SYSDA,SPACE=(TRK,(1,1))
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  UNLOAD TABLESPACE DSN8D81A.DSN8S81E
+    FROM TABLE DSN8810.EMP
+    WHEN (WORKDEPT = 'D11' AND SALARY > 25000)

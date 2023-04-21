@@ -1,0 +1,38 @@
+//UXD001M JOB ,'DB2 A3',CLASS=S,MSGCLASS=X                              00000001
+//*********************************************************************/00010000
+//*********************************************************************/00280000
+//JOBLIB  DD  DISP=SHR,                                                 00290000
+//            DSN=SDB2N.SDSNLOAD                                        00300000
+//DSNTIC  PROC                                                          00210000
+//* *************************************************************** */  00220000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE         */  00230000
+//* *************************************************************** */  00240000
+//DSNTIC  EXEC PGM=IDCAMS                                               00250000
+//SYSPRINT DD SYSOUT=*                                                  00270000
+//SYSUDUMP DD SYSOUT=*                                                  00280000
+//DSNTIC  PEND                                                          00290000
+//DSNTTMP EXEC DSNTIC                                                   00720000
+//SYSIN DD *                                                            01000000
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2N.DSNDBC.WRKDB2N.DSN4K24.I0001.A002) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2N1,E9D2N1) -                                    01000041
+            CYLINDERS(2000  200) -                                      01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2N.DSNDBD.WRKDB2N.DSN4K24.I0001.A002) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2N)                                                     01000047
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2N.DSNDBC.WRKDB3N.DSN4K24.I0001.A002) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2N1,E9D2N1) -                                    01000041
+            CYLINDERS(2000  200) -                                      01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2N.DSNDBD.WRKDB3N.DSN4K24.I0001.A002) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2N)                                                     01000047
+//*                                                                     01491000

@@ -1,0 +1,96 @@
+//UXD001R JOB ,'RDL RM102',CLASS=S,MSGCLASS=X,NOTIFY=DT0072             00000100
+//ASM     EXEC PGM=ASMA90,PARM='RENT,OBJECT,NODECK'                     00000200
+//SYSLIB   DD  DSN=SYS1.MACLIB,DISP=SHR                                 00000400
+//         DD  DSN=SYS1.CEE.SCEERUN,DISP=SHR                            00000500
+//         DD  DSN=SYS1.CEE.SCEEMAC,DISP=SHR                            00000600
+//SYSLIN   DD  DSN=&&LOADSET,DISP=(MOD,PASS),UNIT=SYSDA,                00000700
+//             SPACE=(800,(5000,5000)),DCB=(BLKSIZE=800)                00000800
+//SYSPRINT DD  SYSOUT=*                                                 00000900
+//SYSUDUMP DD  SYSOUT=*                                                 00001000
+//SYSUT1   DD  SPACE=(800,(5000,5000),,,ROUND),UNIT=SYSDA               00001100
+//SYSIN    DD  *                                                        00001200
+TODATE   CEEENTRY AUTO=WORKSIZE,MAIN=YES,PLIST=OS                       00003200
+         USING WORKAREA,R13                                             00003300
+         STM   R1,R12,SAVEAREA                                          00003400
+         LR    R5,R1                                                    00004000
+         USING COMMAREA,R5                                              00005000
+         L     R10,RES1DPTR    GET ADDRESS OF AREA FOR RESULT           00007000
+         L     R9,RES1IPTR     GET ADDRESS OF RESULT INDICATOR          00008000
+         XC    0(2,R9),R9      SET THE INDICATOR TO ZERO                00009000
+         L     R7,FLD1IPTR     GET POINTER TO INPUT DATE INDICATOR      00020000
+         XR    R8,R8           CLEAR REGISTER 8                         00021000
+         ICM   R8,B'0011',0(R7) MOVE INPUT DATE INDICATOR TO WORK AREA  00030000
+         LTR   R8,R8           IS THE INPUT DATE FIELD NULL?            00050000
+         BM    NULLIN          YES -- GO TO NULLIN                      00060000
+         L     R7,FLD2IPTR     GET POINTER TO INPUT FORMAT INDICATOR    00080000
+         ICM   R8,B'0011',0(R7) MOVE INPUT DATE INDICATOR TO WORK AREA  00082000
+         LTR   R8,R8           IS THE INPUT DATE FIELD NULL?            00083000
+         BM    NULLIN          YES -- GO TO NULLIN                      00120000
+         L     R7,FLD1DPTR     GET POINTER TO INPUT DATE FIELD          00140000
+         MVC   0(4,R10),2(R7)  FORMAT THE RESULT DATE                   00150000
+         MVI   4(R10),C'-'                                              00160000
+         MVC   5(2,R10),6(R7)                                           00170000
+         MVI   7(R10),C'-'                                              00180000
+         MVC   8(2,R10),8(R7)                                           00190000
+RETURN   EQU   *                                                        00195000
+         LM    R1,R12,SAVEAREA                                          00196000
+         CEETERM RC=0                                                   00196100
+         EJECT                                                          00196200
+NULLIN   EQU   *                                                        00196300
+         WTO   'TODATE: NULL PROCESS INVOKED',ROUTCDE=(2,11)            00196401
+         MVC   0(2,R9),=H'-1' SET RESULT INDICATOR TO INDICATE NULL     00196500
+         B     RETURN                                                   00196600
+         EJECT                                                          00196700
+*******************************************************************     00196800
+*  VARIABLE DECLARATIONS AND EQUATES                              *     00196900
+*******************************************************************     00197000
+R0       EQU   0               REGISTER 0                               00198000
+R1       EQU   1               REGISTER 1                               00199000
+R2       EQU   2               REGISTER 2                               00200000
+R3       EQU   3               REGISTER 3                               00210000
+R4       EQU   4               REGISTER 4                               00220000
+R5       EQU   5               REGISTER 5                               00230000
+R6       EQU   6               REGISTER 6                               00240000
+R7       EQU   7               REGISTER 7                               00250000
+R8       EQU   8               REGISTER 8                               00251000
+R9       EQU   9               REGISTER 9                               00252000
+R10      EQU   10              REGISTER 10                              00253000
+R11      EQU   11              REGISTER 11                              00254000
+R12      EQU   12              REGISTER 12                              00255000
+R13      EQU   13              REGISTER 13                              00256000
+         EJECT                                                          00257000
+         LTORG ,               PLACE LITERAL POOL HERE                  00259700
+PPA      CEEPPA  ,             CONSTANTS DESCRIBING THE CODE BL         00259800
+WORKAREA DSECT                                                          00259900
+         ORG   *+CEEDSASZ      LEAVE SPACE FOR THE DSA FIXED PA         00260000
+SAVEAREA DS    12F                                                      00270000
+WORKSIZE EQU   *-WORKAREA                                               00370000
+         CEEDSA  ,             MAPPING OF THE DYNAMIC SAVE AREA         00380000
+         CEECAA  ,             MAPPING OF THE COMMON ANCHOR AR          00390000
+COMMAREA DSECT                                                          00391000
+FLD1DPTR DS    AL4                                                      00392000
+FLD2DPTR DS    AL4                                                      00393000
+RES1DPTR DS    AL4                                                      00394000
+FLD1IPTR DS    AL4                                                      00395000
+FLD2IPTR DS    AL4                                                      00396000
+RES1IPTR DS    AL4                                                      00397000
+         END   TODATE                                                   00398000
+//*                                                                     00399000
+//*            LINKEDIT IF THE PRECOMPILER AND ASSEMBLER                00400000
+//*            RETURN CODES ARE 4 OR LESS                               00410000
+//*                                                                     00420000
+//LKED    EXEC PGM=IEWL,PARM='XREF,RENT,AMODE(31),RMODE(ANY)',          00430000
+//             COND=(4,LT,ASM)                                          00440000
+//SYSLIB   DD  DSN=SYS1.CEE.SCEELKED,DISP=SHR                           00450000
+//         DD  DSN=SSXDT.DSNDBUG.DB2U.SDSNLOAD,DISP=SHR                 00460000
+//SYSLIN   DD  DSN=&&LOADSET,DISP=(OLD,DELETE)                          00470000
+//         DD  DDNAME=SYSIN                                             00480000
+//SYSLMOD  DD  DSN=SSXDT.DSNDBUG.DB2U.RUNLIB.LOAD,DISP=SHR              00490001
+//SYSPRINT DD  SYSOUT=*                                                 00510000
+//SYSUDUMP DD  SYSOUT=*                                                 00520000
+//SYSUT1   DD  SPACE=(1024,(50,50)),UNIT=SYSDA                          00530000
+//SYSIN    DD  *                                                        00540000
+  INCLUDE SYSLIB(DSNALI)                                                00550000
+  NAME TODATE(R)                                                        00560000
+/*                                                                      00570000
+//                                                                      00580000

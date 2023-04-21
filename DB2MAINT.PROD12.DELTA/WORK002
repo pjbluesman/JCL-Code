@@ -1,0 +1,41 @@
+CREATE TABLE EBKDP02.WT_CPN_HST
+   (TKT_DOC_NB             CHAR(15   )                 NOT NULL
+   ,TKT_DOC_ISS_LDT        DATE                        NOT NULL
+   ,TKT_DOC_SQ_NB          SMALLINT                    NOT NULL
+   ,CPN_NB                 SMALLINT                    NOT NULL
+   ,CPN_HST_SQ_NB          SMALLINT                    NOT NULL
+   ,ACN_NB                 CHAR(8    )
+   ,ALT_FLT_IND            CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,COS_CD                 CHAR(2    )
+   ,COS_CRR_CD             CHAR(3    )
+   ,TKCP_TRAC_TYP_CD       CHAR(3    )
+   ,DEST_TRPN_STN_CD       CHAR(5    )
+   ,ET_STLMT_AUTH_ID       CHAR(15   )
+   ,FLT_DPRT_LDT           DATE
+   ,FLT_DPRT_LTM_TXT       CHAR(5    )
+   ,FLT_ORIG_LDT           DATE
+   ,HS_SYS_RQST_CD         CHAR(3    )
+   ,MKD_CRR_CD             CHAR(3    )
+   ,MKD_FLT_NB             CHAR(6    )
+   ,ORIG_TRPN_STN_CD       CHAR(5    )
+   ,PNR_UPDT_IND           CHAR(1    )                 NOT NULL
+          WITH DEFAULT
+                    'U'
+   ,PVI_CHG_TYP_CD         CHAR(1    )
+   ,TKT_CPN_ET_STT_CD      CHAR(1    )
+   ,TRNS_AGT_ID            CHAR(11   )
+   ,TRNS_AGT_IN_HSE_ID     CHAR(9    )
+   ,TRNS_DL_LOC_ID         CHAR(9    )
+   ,TRNS_GTS               TIMESTAMP
+   ,TRNS_PSDO_CTY_CD       CHAR(5    )
+   ,TRNS_TERNL_ID          CHAR(6    )
+   ,LST_TRNS_EVT_GTS       TIMESTAMP                   NOT NULL
+   ,PRTTN_KEY_ID           DECIMAL(3     , 0    )      NOT NULL
+   ,ERROR_ID               INTEGER                     NOT NULL
+          WITH DEFAULT
+   )
+   IN EBKD2P02.TSKDW128
+   CCSID ASCII
+   ;

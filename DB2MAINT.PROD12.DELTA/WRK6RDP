@@ -1,0 +1,37 @@
+//UXD001M JOB ,'GLK DB2',CLASS=S,MSGCLASS=X
+//*********************************************************************/00010000
+//JOBLIB  DD  DISP=SHR,                                                 00290000
+//            DSN=SDB6R.SDSNLOAD                                        00300000
+//DSNTIDR EXEC PGM=IKJEFT01                                             00800000
+//SYSTSPRT DD  SYSOUT=*                                                 00820000
+//SYSPRINT DD  SYSOUT=*                                                 00830000
+//SYSUDUMP DD  SYSOUT=*                                                 00840000
+//SYSTSIN  DD  *                                                        00850000
+  -STOP DATABASE(WRKDB6R)
+  DSN SYSTEM(DB6R)                                                      00860000
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIAD) PARM('RC0')   -                   00870000
+       LIB('SSXDP.DB6R.RUNLIB.LOAD')                                    00880000
+  END                                                                   00890000
+//SYSIN    DD  *                                                        00900000
+   DROP TABLESPACE WRKDB6R.DSN4K01 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K02 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K03 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K04 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K05 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K06 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K07 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K08 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K09 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K10 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K11 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K12 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K13 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K14 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K15 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K16 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K17 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K18 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN4K19 ; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN32K01; COMMIT;                            00910000
+   DROP TABLESPACE WRKDB6R.DSN32K02; COMMIT;                            00910000
+//*                                                                     00920000

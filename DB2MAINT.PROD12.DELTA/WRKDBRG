@@ -1,0 +1,60 @@
+//UXD001M JOB ,'GIL RCC',CLASS=S,MSGCLASS=X                             00000001
+//*********************************************************************/00010000
+//*********************************************************************/00280000
+//JOBLIB  DD  DISP=SHR,                                                 00290000
+//            DSN=SSXDP.DSNDBRG.DB4R.SDSNLOAD                           00300000
+//DSNTIC  PROC                                                          00210000
+//* *************************************************************** */  00220000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE         */  00230000
+//* *************************************************************** */  00240000
+//DSNTIC  EXEC PGM=IDCAMS                                               00250000
+//SYSPRINT DD SYSOUT=*                                                  00270000
+//SYSUDUMP DD SYSOUT=*                                                  00280000
+//DSNTIC  PEND                                                          00290000
+//DSNTTMP EXEC DSNTIC                                                   00720000
+//SYSIN DD *                                                            01000000
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB2R.DSN4K22.I0001.A005) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            CYLINDERS(2500 500) -                                       01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB2R.DSN4K22.I0001.A005) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB3R.DSN4K22.I0001.A005) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            CYLINDERS(2500 500) -                                       01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB3R.DSN4K22.I0001.A005) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB4R.DSN4K22.I0001.A005) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            CYLINDERS(2500 500) -                                       01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB4R.DSN4K22.I0001.A005) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB5R.DSN4K22.I0001.A005) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            CYLINDERS(2500 500) -                                       01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB5R.DSN4K22.I0001.A005) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+//*                                                                     01491000

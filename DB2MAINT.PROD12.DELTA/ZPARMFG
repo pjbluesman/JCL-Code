@@ -1,0 +1,153 @@
+1  ISRSUPC   -   MVS/PDF FILE/LINE/WORD/BYTE/SFOR COMPARE UTILITY- ISPF FOR z/OS
+ NEW: SSXDP.DB2DBA.MAINT(JUZDB2F)                             OLD: SSXDP.DB2DBA.
+
+                      LISTING OUTPUT SECTION (LINE COMPARE)
+
+ ID       SOURCE LINES
+     ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+
+
+ I -                ABIND=COEXIST,                                          X003
+ D -                ABIND=YES,                                              X
+ D -                ADMTPROC=,                                              X
+
+ I -                CACHEPAC=32768,                                         X003
+ I -                CACHERAC=32768,                                         X003
+ I -                CATALOG=DB2F,                                           X003
+ D -                CACHEDYN_FREELOCAL=0,                                   X
+ D -                CACHEPAC=102400,                                        X
+ D -                CACHERAC=102400,                                        X
+ D -                CATALOG=DB2G,                                           X
+
+ D -                COMCRIT=NO,                                             X
+
+ I -                DSMAX=10000,                                            X003
+ D -                DSMAX=6000,                                             X
+
+ I -                EDMDBDC=229446,                                         X003
+ D -                EDMDBDC=193846,                                         X
+ I -                EDMPOOL=100000,                                         X003
+ D -                EDMPOOL=32768,                                          X
+
+ I -                IRLMPRC=DB2FIRLM,                                       X003
+ D -                IRLMPRC=DB2GIRLM,                                       X
+ I -                IRLMSID=FRLM,                                           X003
+ D -                IRLMSID=GRLM,                                           X
+
+ I -                MAXRBLK=100000,                                         X003
+ D -                MAXRBLK=8000,                                           X
+ I -                MAXKEEPD=8000,                                          X003
+ D -                MAXKEEPD=12000,                                         X
+
+ D -                MAX_UTIL_PARTS=254,                                     X
+
+ D -                MORE_UNION_DISTRIBUTION=OFF,                            X
+
+ D -                OPTHINTS=YES,                                           X
+
+ I -                OPTHINTS=YES,                                           X003
+
+ I -                RETLWAIT=0,                                             X003
+ D -                RETLWAIT=1,                                             X
+
+ I -                SJTABLES=4,                                             X003
+ D -                SJTABLES=10,                                            X
+
+ I -                SRTPOOL=28000,                                          X003
+1  ISRSUPC   -   MVS/PDF FILE/LINE/WORD/BYTE/SFOR COMPARE UTILITY- ISPF FOR z/OS
+ NEW: SSXDP.DB2DBA.MAINT(JUZDB2F)                             OLD: SSXDP.DB2DBA.
+
+                      LISTING OUTPUT SECTION (LINE COMPARE)
+
+ ID       SOURCE LINES
+     ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+
+ D -                SRTPOOL=2000,                                           X
+
+ I -                SYSOPR2=SYSOP1,                                         X003
+ I -                TABLES_JOINED_THRESHOLD=10,                             X
+ D -                SYSOPR2=SYSPRO,                                         X
+
+ I -                ARCPFX1=SSXDP.DB2F.ARCHIVE1,                            X003
+ D -                ARCPFX1=SSXDP.DB2G.ARCHIVE1,                            X
+ I -                ARCPFX2=SSXDP.DB2F.ARCHIVE2,                            X003
+ D -                ARCPFX2=SSXDP.DB2G.ARCHIVE2,                            X
+ I -                ARCRETN=31,                                             X003
+ D -                ARCRETN=21,                                             X
+
+ I -                OUTBUFF=4000,                                           X003
+ D -                OUTBUFF=8192,                                           X
+
+ I -    DSN6SYSP    ACCUMACC=100,                                           X003
+ D -    DSN6SYSP    ACCUMACC=5,                                             X
+
+ I -                AUDITST=*,                                              X003
+ D -                AUDITST=NO,                                             X
+
+ I -                CHKFREQ=10,                                             X003
+ D -                CHKFREQ=15,                                             X
+ I -                CONDBAT=1450,                                           X003
+ D -                CONDBAT=500,                                            X
+ I -                CTHREAD=450,                                            X003
+ D -                CTHREAD=400,                                            X
+
+ I -                IDBACK=500,                                             X003
+ D -                IDBACK=50,                                              X
+ I -                IDFORE=90,                                              X003
+ D -                IDFORE=40,                                              X
+
+ I -                LBACKOUT=NO,                                            X003
+ D -                LBACKOUT=AUTO,                                          X
+
+ I -                MAXDBAT=1000,                                           X003
+ D -                MAXDBAT=100,                                            X
+
+ I -                STORPROC=DB2FSPAS,                                      X003
+ D -                STORPROC=,                                              X
+
+ I -                TRACSTR=NO,                                             X003
+ D -                TRACSTR=YES,                                            X
+
+ I -                URCHKTH=100,                                            X003
+ D -                URCHKTH=20,                                             X
+1  ISRSUPC   -   MVS/PDF FILE/LINE/WORD/BYTE/SFOR COMPARE UTILITY- ISPF FOR z/OS
+ NEW: SSXDP.DB2DBA.MAINT(JUZDB2F)                             OLD: SSXDP.DB2DBA.
+
+                      LISTING OUTPUT SECTION (LINE COMPARE)
+
+ ID       SOURCE LINES
+     ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+
+
+ I -                WLMENV=WLMDB205,                                        X003
+ D -                WLMENV=WLMDB2IA,                                        X
+
+ I -     DSN6GRP    DSHARE=YES,                                             X003
+ D -     DSN6GRP    DSHARE=NO,                                              X
+ I -                GRPNAME=DSNDBFG,                                        X003
+ D -                GRPNAME=DSNCAT,                                         X
+ I -                MEMBNAME=DB2F,                                          X003
+ D -                MEMBNAME=DSN1,                                          X
+ I -                COORDNTR=YES,                                           X003
+ D -                COORDNTR=NO,                                            X
+ I -                ASSIST=YES,                                             X003
+ D -                ASSIST=NO,                                              X
+
+ I -                SSID=DBFG,                                              X027
+ D -                SSID=DB2G,                                              X
+
+ D - //*
+ D - //*********************************************************************
+
+1  ISRSUPC   -   MVS/PDF FILE/LINE/WORD/BYTE/SFOR COMPARE UTILITY- ISPF FOR z/OS
+ NEW: SSXDP.DB2DBA.MAINT(JUZDB2F)                             OLD: SSXDP.DB2DBA.
+
+                        LINE COMPARE SUMMARY AND STATISTICS
+
+      179 NUMBER OF LINE MATCHES              48  TOTAL CHANGES (PAIRED+NONPAIRE
+        0 REFORMATTED LINES                   38  PAIRED CHANGES (REFM+PAIRED IN
+       40 NEW FILE LINE INSERTIONS             2  NON-PAIRED INSERTS
+       46 OLD FILE LINE DELETIONS              8  NON-PAIRED DELETES
+      219 NEW FILE LINES PROCESSED
+      225 OLD FILE LINES PROCESSED
+
+ LISTING-TYPE = DELTA      COMPARE-COLUMNS =    1:72        LONGEST-LINE = 80
+ PROCESS OPTIONS USED: SEQ(DEFAULT)
+

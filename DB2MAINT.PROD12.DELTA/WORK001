@@ -1,0 +1,55 @@
+-- EBKD2P02.TSKDW128 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DT0072';
+
+    CREATE TABLESPACE TSKDW128
+           IN EBKD2P02
+           NUMPARTS    5
+          (PART 1
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 100000
+                                    SECQTY 25000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 2
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 100000
+                                    SECQTY 25000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 3
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 100000
+                                    SECQTY 25000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 4
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 100000
+                                    SECQTY 25000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          ,PART 5
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 100000
+                                    SECQTY 25000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+                     COMPRESS YES
+          )
+           BUFFERPOOL BP25
+           LOCKSIZE ANY
+           CLOSE YES
+           LOCKMAX SYSTEM
+           CCSID ASCII
+           LOCKPART YES
+    ;

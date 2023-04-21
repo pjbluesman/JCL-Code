@@ -1,0 +1,243 @@
+//UXC401M   JOB ,'DB2 SYSPROG MGA',CLASS=S,                             00000001
+//         USER=XXXXXX,PASSWORD=,
+//         MSGCLASS=X,NOTIFY=T479012                                    00000002
+//*********************************************************************/00010000
+//JOBLIB  DD  DISP=SHR,                                                 00360000
+//            DSN=SDB4V.SDSNLOAD                                        00370000
+//DSNTIC  PROC                                                          00380000
+//* ***************************************************************** */00390000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE           */00400000
+//* ***************************************************************** */00410000
+//DSNTIC  EXEC PGM=IDCAMS                                               00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//*                                                                     00460000
+//DSNTTMP EXEC DSNTIC                                                   00780000
+//* ***********************************************                     00790000
+//*  DEFINE TEMPORARY TABLESPACES                 *                     00800000
+//*     THESE TABLE SPACES ARE USED FOR TEMPORARY *                     00810000
+//*     OR INTERMEDIATE TABLES BY DB2, IN SORTING *                     00820000
+//*     FOR ONE EXAMPLE.                          *                     00830000
+//* ***********************************************                     00840000
+//SYSIN DD *                                                            00850000
+    DEFINE CLUSTER -                                                    00850001
+       ( NAME(DB2V.DSNDBC.WRKDB4V.DSN4K22.I0001.A001) -                 00850002
+            LINEAR     -                                                00850003
+            REUSE -                                                     00850004
+            VOLUMES(E9D2V5) -                                           00850005
+            CYLINDERS(2000 300)  -                                      00850006
+            SHAREOPTIONS(3 3) ) -                                       00850007
+       DATA -                                                           00850008
+       ( NAME(DB2V.DSNDBD.WRKDB4V.DSN4K22.I0001.A001) -                 00850009
+                          ) -                                           00850010
+      CATALOG(DB2V)                                                     00850011
+
+    DEFINE CLUSTER -                                                    00850001
+       ( NAME(DB2V.DSNDBC.WRKDB4V.DSN4K22.I0001.A002) -                 00850002
+            LINEAR     -                                                00850003
+            REUSE -                                                     00850004
+            VOLUMES(E9D2V5) -                                           00850005
+            CYLINDERS(2000 300)  -                                      00850006
+            SHAREOPTIONS(3 3) ) -                                       00850007
+       DATA -                                                           00850008
+       ( NAME(DB2V.DSNDBD.WRKDB4V.DSN4K22.I0001.A002) -                 00850009
+                          ) -                                           00850010
+      CATALOG(DB2V)                                                     00850011
+
+    DEFINE CLUSTER -                                                    00850001
+       ( NAME(DB2V.DSNDBC.WRKDB4V.DSN4K22.I0001.A003) -                 00850002
+            LINEAR     -                                                00850003
+            REUSE -                                                     00850004
+            VOLUMES(E9D2V5) -                                           00850005
+            CYLINDERS(2000 300)  -                                      00850006
+            SHAREOPTIONS(3 3) ) -                                       00850007
+       DATA -                                                           00850008
+       ( NAME(DB2V.DSNDBD.WRKDB4V.DSN4K22.I0001.A003) -                 00850009
+                          ) -                                           00850010
+      CATALOG(DB2V)                                                     00850011
+
+    DEFINE CLUSTER -                                                    00850001
+       ( NAME(DB2V.DSNDBC.WRKDB4V.DSN4K22.I0001.A004) -                 00850002
+            LINEAR     -                                                00850003
+            REUSE -                                                     00850004
+            VOLUMES(E9D2V5) -                                           00850005
+            CYLINDERS(2000 300)  -                                      00850006
+            SHAREOPTIONS(3 3) ) -                                       00850007
+       DATA -                                                           00850008
+       ( NAME(DB2V.DSNDBD.WRKDB4V.DSN4K22.I0001.A004) -                 00850009
+                          ) -                                           00850010
+      CATALOG(DB2V)                                                     00850011
+
+    DEFINE CLUSTER -                                                    00850001
+       ( NAME(DB2V.DSNDBC.WRKDB4V.DSN4K22.I0001.A005) -                 00850002
+            LINEAR     -                                                00850003
+            REUSE -                                                     00850004
+            VOLUMES(E9D2V5) -                                           00850005
+            CYLINDERS(2000 300)  -                                      00850006
+            SHAREOPTIONS(3 3) ) -                                       00850007
+       DATA -                                                           00850008
+       ( NAME(DB2V.DSNDBD.WRKDB4V.DSN4K22.I0001.A005) -                 00850009
+                          ) -                                           00850010
+      CATALOG(DB2V)                                                     00850011
+
+    DEFINE CLUSTER -                                                    00850001
+       ( NAME(DB2V.DSNDBC.WRKDB4V.DSN4K22.I0001.A006) -                 00850002
+            LINEAR     -                                                00850003
+            REUSE -                                                     00850004
+            VOLUMES(E9D2V5) -                                           00850005
+            CYLINDERS(2000 300)  -                                      00850006
+            SHAREOPTIONS(3 3) ) -                                       00850007
+       DATA -                                                           00850008
+       ( NAME(DB2V.DSNDBD.WRKDB4V.DSN4K22.I0001.A006) -                 00850009
+                          ) -                                           00850010
+      CATALOG(DB2V)                                                     00850011
+
+    DEFINE CLUSTER -                                                    00850001
+       ( NAME(DB2V.DSNDBC.WRKDB4V.DSN4K22.I0001.A007) -                 00850002
+            LINEAR     -                                                00850003
+            REUSE -                                                     00850004
+            VOLUMES(E9D2V5) -                                           00850005
+            CYLINDERS(2000 300)  -                                      00850006
+            SHAREOPTIONS(3 3) ) -                                       00850007
+       DATA -                                                           00850008
+       ( NAME(DB2V.DSNDBD.WRKDB4V.DSN4K22.I0001.A007) -                 00850009
+                          ) -                                           00850010
+      CATALOG(DB2V)                                                     00850011
+
+    DEFINE CLUSTER -                                                    00850001
+       ( NAME(DB2V.DSNDBC.WRKDB4V.DSN4K22.I0001.A008) -                 00850002
+            LINEAR     -                                                00850003
+            REUSE -                                                     00850004
+            VOLUMES(E9D2V5) -                                           00850005
+            CYLINDERS(2000 300)  -                                      00850006
+            SHAREOPTIONS(3 3) ) -                                       00850007
+       DATA -                                                           00850008
+       ( NAME(DB2V.DSNDBD.WRKDB4V.DSN4K22.I0001.A008) -                 00850009
+                          ) -                                           00850010
+      CATALOG(DB2V)                                                     00850011
+
+    DEFINE CLUSTER -                                                    00850001
+       ( NAME(DB2V.DSNDBC.WRKDB4V.DSN4K22.I0001.A009) -                 00850002
+            LINEAR     -                                                00850003
+            REUSE -                                                     00850004
+            VOLUMES(E9D2V5) -                                           00850005
+            CYLINDERS(2000 300)  -                                      00850006
+            SHAREOPTIONS(3 3) ) -                                       00850007
+       DATA -                                                           00850008
+       ( NAME(DB2V.DSNDBD.WRKDB4V.DSN4K22.I0001.A009) -                 00850009
+                          ) -                                           00850010
+      CATALOG(DB2V)                                                     00850011
+
+    DEFINE CLUSTER -                                                    00850001
+       ( NAME(DB2V.DSNDBC.WRKDB4V.DSN4K22.I0001.A010) -                 00850002
+            LINEAR     -                                                00850003
+            REUSE -                                                     00850004
+            VOLUMES(E9D2V5) -                                           00850005
+            CYLINDERS(2000 300)  -                                      00850006
+            SHAREOPTIONS(3 3) ) -                                       00850007
+       DATA -                                                           00850008
+       ( NAME(DB2V.DSNDBD.WRKDB4V.DSN4K22.I0001.A010) -                 00850009
+                          ) -                                           00850010
+      CATALOG(DB2V)                                                     00850011
+
+    DEFINE CLUSTER -                                                    00850001
+       ( NAME(DB2V.DSNDBC.WRKDB4V.DSN4K23.I0001.A001) -                 00850002
+            LINEAR     -                                                00850003
+            REUSE -                                                     00850004
+            VOLUMES(E9D2V5) -                                           00850005
+            CYLINDERS(2000 300)  -                                      00850006
+            SHAREOPTIONS(3 3) ) -                                       00850007
+       DATA -                                                           00850008
+       ( NAME(DB2V.DSNDBD.WRKDB4V.DSN4K23.I0001.A001) -                 00850009
+                          ) -                                           00850010
+      CATALOG(DB2V)                                                     00850011
+
+    DEFINE CLUSTER -                                                    00850001
+       ( NAME(DB2V.DSNDBC.WRKDB4V.DSN4K23.I0001.A002) -                 00850002
+            LINEAR     -                                                00850003
+            REUSE -                                                     00850004
+            VOLUMES(E9D2V5) -                                           00850005
+            CYLINDERS(2000 300)  -                                      00850006
+            SHAREOPTIONS(3 3) ) -                                       00850007
+       DATA -                                                           00850008
+       ( NAME(DB2V.DSNDBD.WRKDB4V.DSN4K23.I0001.A002) -                 00850009
+                          ) -                                           00850010
+      CATALOG(DB2V)                                                     00850011
+
+    DEFINE CLUSTER -                                                    00850001
+       ( NAME(DB2V.DSNDBC.WRKDB4V.DSN4K23.I0001.A003) -                 00850002
+            LINEAR     -                                                00850003
+            REUSE -                                                     00850004
+            VOLUMES(E9D2V5) -                                           00850005
+            CYLINDERS(2000 300)  -                                      00850006
+            SHAREOPTIONS(3 3) ) -                                       00850007
+       DATA -                                                           00850008
+       ( NAME(DB2V.DSNDBD.WRKDB4V.DSN4K23.I0001.A003) -                 00850009
+                          ) -                                           00850010
+      CATALOG(DB2V)                                                     00850011
+
+    DEFINE CLUSTER -                                                    00850001
+       ( NAME(DB2V.DSNDBC.WRKDB4V.DSN4K23.I0001.A004) -                 00850002
+            LINEAR     -                                                00850003
+            REUSE -                                                     00850004
+            VOLUMES(E9D2V5) -                                           00850005
+            CYLINDERS(2000 300)  -                                      00850006
+            SHAREOPTIONS(3 3) ) -                                       00850007
+       DATA -                                                           00850008
+       ( NAME(DB2V.DSNDBD.WRKDB4V.DSN4K23.I0001.A004) -                 00850009
+                          ) -                                           00850010
+      CATALOG(DB2V)                                                     00850011
+
+                                                                        00850276
+//*                                                                     00860000
+//STRTDB  EXEC PGM=IKJEFT01,DYNAMNBR=20,                                00870000
+//     COND=(4,LT,DSNTTMP.DSNTIC)                                       00880000
+//SYSTSPRT DD  SYSOUT=*                                                 00890000
+//SYSPRINT DD  SYSOUT=*                                                 00900000
+//SYSUDUMP DD  SYSOUT=*                                                 00910000
+//SYSTSIN  DD  *                                                        00920000
+  DSN SYSTEM(DB4V)                                                      00930000
+  -START DATABASE(WRKDB4V)                                              00970000
+  END                                                                   00980000
+//SYSIN    DD  DUMMY                                                    00990000
+//                                                                      00860000
+//                                                                      00860000
+//                                                                      00860000
+//                                                                      00860000
+//                                                                      00860000
+//                                                                      00860000
+//DSNTIST EXEC PGM=IKJEFT01,DYNAMNBR=20,                                00870000
+//     COND=(4,LT,DSNTTMP.DSNTIC)                                       00880000
+//SYSTSPRT DD  SYSOUT=*                                                 00890000
+//SYSPRINT DD  SYSOUT=*                                                 00900000
+//SYSUDUMP DD  SYSOUT=*                                                 00910000
+//SYSTSIN  DD  *                                                        00920000
+  DSN SYSTEM(DB4V)                                                      00930000
+  -STOP DATABASE(WRKDB4V)                                               00940000
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIAD) -                                 00950000
+       LIB('SSXDT.DB4V.RUNLIB.LOAD')                                    00960000
+  -START DATABASE(WRKDB4V)                                              00970000
+  END                                                                   00980000
+//SYSIN    DD  *                                                        00990000
+ CREATE TABLESPACE DSN4K26 IN WRKDB4V                                   00990001
+        BUFFERPOOL BP40                                                 00990002
+        CLOSE NO                                                        00990003
+        USING VCAT DB2V;                                                00990004
+ CREATE TABLESPACE DSN4K27 IN WRKDB4V                                   00990005
+        BUFFERPOOL BP40                                                 00990006
+        CLOSE NO                                                        00990007
+        USING VCAT DB2V;                                                00990008
+ CREATE TABLESPACE DSN4K28 IN WRKDB4V                                   00990009
+        BUFFERPOOL BP40                                                 00990010
+        CLOSE NO                                                        00990011
+        USING VCAT DB2V;                                                00990012
+ CREATE TABLESPACE DSN4K29 IN WRKDB4V                                   00990013
+        BUFFERPOOL BP40                                                 00990014
+        CLOSE NO                                                        00990015
+        USING VCAT DB2V;                                                00990016
+ CREATE TABLESPACE DSN4K30 IN WRKDB4V                                   00990017
+        BUFFERPOOL BP40                                                 00990018
+        CLOSE NO                                                        00990019
+        USING VCAT DB2V;                                                00990020
+//*                                                                     01000000

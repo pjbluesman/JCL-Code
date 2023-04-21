@@ -1,0 +1,105 @@
+1  ISRSUPC   -   MVS/PDF FILE/LINE/WORD/BYTE/SFOR COMPARE UTILITY- ISPF FOR z/OS
+ NEW: SSXDP.DB2DBA.MAINT(JUZDB2E)                             OLD: SSXDP.DB2DBA.
+
+                      LISTING OUTPUT SECTION (LINE COMPARE)
+
+ ID       SOURCE LINES
+     ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+
+
+ D -                ADMTPROC=,                                              X
+
+ D -                CACHEDYN_FREELOCAL=0,                                   X
+
+ I -                CATALOG=DB2E,                                           X003
+ D -                CATALOG=DB2S,                                           X
+
+ D -                COMCRIT=NO,                                             X
+
+ I -                DSMAX=10000,                                            X003
+ D -                DSMAX=6000,                                             X
+
+ I -                EDMSTMTC=193846,                                        X003
+ D -                EDMSTMTC=300000,                                        X
+
+ I -                IRLMPRC=DB2EIRLM,                                       X003
+ D -                IRLMPRC=DB2SIRLM,                                       X
+ I -                IRLMSID=ERLM,                                           X003
+ D -                IRLMSID=SRLM,                                           X
+
+ I -                MAXRBLK=100000,                                         X003
+ D -                MAXRBLK=8000,                                           X
+ I -                MAXKEEPD=8000,                                          X003
+ D -                MAXKEEPD=12000,                                         X
+
+ D -                MAX_UTIL_PARTS=254,                                     X
+
+ D -                MORE_UNION_DISTRIBUTION=OFF,                            X
+
+ I -                SJTABLES=4,                                             X003
+ D -                SJTABLES=10,                                            X
+
+ I -                SRTPOOL=28000,                                          X003
+ D -                SRTPOOL=2000,                                           X
+
+ I -                SYSOPR2=SYSOP1,                                         X003
+ I -                TABLES_JOINED_THRESHOLD=10,                             X
+ D -                SYSOPR2=SYSPRO,                                         X
+
+ I -                ARCPFX1=SSXDT.DB2E.ARCHIVE1,                            X003
+ D -                ARCPFX1=SSXDT.DB2S.ARCHIVE1,                            X
+ I -                ARCPFX2=SSXDT.DB2E.ARCHIVE2,                            X003
+ D -                ARCPFX2=SSXDT.DB2S.ARCHIVE2,                            X
+
+ I -                CHKFREQ=10,                                             X003
+ D -                CHKFREQ=15,                                             X
+
+1  ISRSUPC   -   MVS/PDF FILE/LINE/WORD/BYTE/SFOR COMPARE UTILITY- ISPF FOR z/OS
+ NEW: SSXDP.DB2DBA.MAINT(JUZDB2E)                             OLD: SSXDP.DB2DBA.
+
+                      LISTING OUTPUT SECTION (LINE COMPARE)
+
+ ID       SOURCE LINES
+     ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+
+ I -                IDBACK=250,                                             X003
+ D -                IDBACK=50,                                              X
+
+ I -                LBACKOUT=NO,                                            X003
+ D -                LBACKOUT=AUTO,                                          X
+
+ I -                SMFSTAT=(1,3),                                          X003
+ D -                SMFSTAT=(1,3,4,5,6),                                    X
+
+ I -                STORPROC=DB2ESPAS,                                      X003
+ D -                STORPROC=,                                              X
+
+ I -                TRACSTR=NO,                                             X003
+ D -                TRACSTR=YES,                                            X
+
+ I -                URCHKTH=1,                                              X003
+ D -                URCHKTH=20,                                             X
+ I -                URLGWTH=100,                                            X003
+ D -                URLGWTH=0,                                              X
+ I -                WLMENV=WLMDB202,                                        X003
+ D -                WLMENV=WLMDB2EA,                                        X
+
+ I -                SSID=DB2E,                                              X027
+ D -                SSID=DB2S,                                              X
+
+ I - //*                                                                     029
+ D - //SYSIN    DD  *
+
+1  ISRSUPC   -   MVS/PDF FILE/LINE/WORD/BYTE/SFOR COMPARE UTILITY- ISPF FOR z/OS
+ NEW: SSXDP.DB2DBA.MAINT(JUZDB2E)                             OLD: SSXDP.DB2DBA.
+
+                        LINE COMPARE SUMMARY AND STATISTICS
+
+      197 NUMBER OF LINE MATCHES              29  TOTAL CHANGES (PAIRED+NONPAIRE
+        0 REFORMATTED LINES                   23  PAIRED CHANGES (REFM+PAIRED IN
+       24 NEW FILE LINE INSERTIONS             1  NON-PAIRED INSERTS
+       28 OLD FILE LINE DELETIONS              5  NON-PAIRED DELETES
+      221 NEW FILE LINES PROCESSED
+      225 OLD FILE LINES PROCESSED
+
+ LISTING-TYPE = DELTA      COMPARE-COLUMNS =    1:72        LONGEST-LINE = 80
+ PROCESS OPTIONS USED: SEQ(DEFAULT)
+

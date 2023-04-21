@@ -1,0 +1,475 @@
+//UXD888M  JOB ,'DB2 SYSPRO',CLASS=S,MSGCLASS=X                         00000000
+//*********************************************************************/00010000
+//* JOB NAME = DSNTIJIC                                               */00020000
+//*                                                                   */00030000
+//* DESCRIPTIVE NAME = INSTALLATION JOB STREAM                        */00040000
+//*                                                                   */00050000
+//*    LICENSED MATERIALS - PROPERTY OF IBM                           */00060000
+//*    5625-DB2                                                       */00070000
+//*    (C) COPYRIGHT 1982, 2003 IBM CORP.  ALL RIGHTS RESERVED.       */00080000
+//*                                                                   */00090000
+//*    STATUS = VERSION 8                                             */00100000
+//*                                                                   */00110000
+//* FUNCTION = CREATE IMAGE COPIES OF ALL THE SYSTEM CATALOG TABLES   */00120000
+//*                                                                   */00130000
+//* NOTES =                                                           */00140000
+//*                                                                   */00150000
+//*   THIS JOB CREATES IMAGE COPIES OF THE DB2 DIRECTORY AND CATALOG. */00160000
+//*                                                                   */00170000
+//*   THE IMAGE COPY FOR EACH TABLE SPACE IS DONE IN A SEPARATE STEP  */00180000
+//*   SO THAT THE JOB WILL EXECUTE SUCCESSFULLY WHEN AN IMAGE COPY    */00190000
+//*   OUTPUT DATA SET SPANS MORE THAN ONE VOLUME.  EACH STEP'S DATA   */00200000
+//*   SET IS PASSED TO THE NEXT STEP SO THAT A TAPE WILL NOT HAVE TO  */00210000
+//*   BE DEMOUNTED AND REMOUNTED AFTER EVERY STEP.  HOWEVER, WE ALSO  */00220000
+//*   RECOMMEND THAT THE IMAGE COPY TAPES BE MOUNTED AS PRIVATE       */00230000
+//*   VOLUMES TO PREVENT THIS PROBLEM.                                */00240000
+//*                                                                   */00250000
+//*   IF A FAILURE OCCURS IN ONE STEP, FIX THE PROBLEM AND RERUN THE  */00260000
+//*   JOB, BEGINNING WITH THE STEP THAT FAILED.                       */00270000
+//*                                                                   */00280000
+//*   IF YOU ARE REMIGRATING, YOU WILL NEED TO EITHER:                */00290000
+//*                                                                   */00300000
+//*   1)  CHANGE THE NAMES OF THE DATA SETS IN WHICH THE              */00310000
+//*       NEW IMAGE COPIES WILL RESIDE (MIGRATION IMAGES              */00320000
+//*       COPIES ARE USING THE CURRENT DATA SET NAMES) OR             */00330000
+//*   2)  RUN THE MODIFY UTILITY TO REMOVE THE MIGRATION              */00340000
+//*       IMAGE COPIES                                                */00350000
+//*                                                                   */00360000
+//*   THE SYSLGRNX STEP MUST BE THE NEXT TO LAST STEP IN THE JOB AND  */00370000
+//*   THE SYSCOPY STEP MUST BE THE LAST STEP IN THE JOB               */00380000
+//*                                                                   */00390000
+//* CHANGE LOG:                                                       */00400000
+//*                                                                   */00410000
+//*********************************************************************/00420000
+//JOBLIB   DD  DISP=SHR,                                                00430000
+//             DSN=SSXDP.DB2R.SDSNEXIT                                  00440000
+//         DD  DISP=SHR,                                                00441000
+//             DSN=SDB2R.SDSNLOAD                                       00442000
+//* ***************************************************************** */00450000
+//* SYSUTILX IMAGE COPY STEP                                          */00460000
+//* ***************************************************************** */00470000
+//DSNTICX EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K           00480000
+//SYSCOPYX DD  DSN=SSXDP.DB2R.JUL20JNE.SYSUTILX,                        00490000
+//             DISP=(NEW,PASS,DELETE),                                  00500000
+//             UNIT=3390,SPACE=(CYL,(200,200),RLSE),                    00510000
+//             VOL=(,RETAIN,,99),LABEL=(01,SL)                          00520000
+//SYSPRINT DD  SYSOUT=*                                                 00530000
+//SYSUDUMP DD  SYSOUT=*                                                 00540000
+//SYSIN    DD  *                                                        00550000
+   COPY TABLESPACE DSNDB01.SYSUTILX  COPYDDN SYSCOPYX                   00560000
+//* ***************************************************************** */00570000
+//* DBD01    IMAGE COPY STEP                                          */00580000
+//* ***************************************************************** */00590000
+//DSNTIC1 EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          00600000
+//             COND=(4,LT)                                              00610000
+//SYSCOPYX DD  DSN=SSXDP.DB2R.JUL20JNE.SYSUTILX,                        00620000
+//             DISP=(OLD,KEEP)                                          00630000
+//SYSCOPY1 DD  DSN=SSXDP.DB2R.JUL20JNE.DBD01,                           00640000
+//             DISP=(NEW,PASS,DELETE),                                  00650000
+//             UNIT=AFF=SYSCOPYX,                                       00660000
+//             SPACE=(CYL,(200,200),RLSE),                              00661000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICX.SYSCOPYX),LABEL=(02,SL)   00662000
+//SYSPRINT DD  SYSOUT=*                                                 00680000
+//SYSUDUMP DD  SYSOUT=*                                                 00690000
+//SYSIN    DD  *                                                        00700000
+   COPY TABLESPACE DSNDB01.DBD01     COPYDDN SYSCOPY1                   00710000
+//* ***************************************************************** */00720000
+//* DSNSCT02 IMAGE COPY STEP                                          */00730000
+//* ***************************************************************** */00740000
+//DSNTIC2 EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          00750000
+//             COND=(4,LT)                                              00760000
+//SYSCOPY1 DD  DSN=SSXDP.DB2R.JUL20JNE.DBD01,                           00770000
+//             DISP=(OLD,KEEP)                                          00780000
+//SYSCOPY2 DD  DSN=SSXDP.DB2R.JUL20JNE.SCT02,                           00790000
+//             DISP=(NEW,PASS,DELETE),                                  00800000
+//             UNIT=AFF=SYSCOPY1,                                       00810000
+//             SPACE=(CYL,(200,200),RLSE),                              00811000
+//             VOL=(,RETAIN,,99,REF=*.DSNTIC1.SYSCOPY1),LABEL=(03,SL)   00820000
+//SYSPRINT DD  SYSOUT=*                                                 00830000
+//SYSUDUMP DD  SYSOUT=*                                                 00840000
+//SYSIN    DD  *                                                        00850000
+   COPY TABLESPACE DSNDB01.SCT02     COPYDDN SYSCOPY2                   00860000
+//* ***************************************************************** */00870000
+//* SPT01    IMAGE COPY STEP                                          */00880000
+//* ***************************************************************** */00890000
+//DSNTIC3 EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          00900000
+//             COND=(4,LT)                                              00910000
+//SYSCOPY2 DD  DSN=SSXDP.DB2R.JUL20JNE.SCT02,                           00920000
+//             DISP=(OLD,KEEP)                                          00930000
+//SYSCOPY3 DD  DSN=SSXDP.DB2R.JUL20JNE.SPT01,                           00940000
+//             DISP=(NEW,PASS,DELETE),                                  00950000
+//             UNIT=AFF=SYSCOPY2,                                       00960000
+//             SPACE=(CYL,(200,200),RLSE),                              00961000
+//             VOL=(,RETAIN,,99,REF=*.DSNTIC2.SYSCOPY2),LABEL=(04,SL)   00970000
+//SYSPRINT DD  SYSOUT=*                                                 00980000
+//SYSUDUMP DD  SYSOUT=*                                                 00990000
+//SYSIN    DD  *                                                        01000000
+   COPY TABLESPACE DSNDB01.SPT01     COPYDDN SYSCOPY3                   01010000
+//* ***************************************************************** */01020000
+//* SYSDBASE IMAGE COPY STEP                                          */01030000
+//* ***************************************************************** */01040000
+//DSNTIC4 EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          01050000
+//             COND=(4,LT)                                              01060000
+//SYSCOPY3 DD  DSN=SSXDP.DB2R.JUL20JNE.SPT01,                           01070000
+//             DISP=(OLD,KEEP)                                          01080000
+//SYSCOPY4 DD  DSN=SSXDP.DB2R.JUL20JNE.SYSDBASE,                        01090000
+//             DISP=(NEW,PASS,DELETE),                                  01100000
+//             UNIT=AFF=SYSCOPY3,                                       01110000
+//             SPACE=(CYL,(400,200),RLSE),                              01111000
+//             VOL=(,RETAIN,,99,REF=*.DSNTIC3.SYSCOPY3),LABEL=(05,SL)   01120000
+//SYSPRINT DD  SYSOUT=*                                                 01130000
+//SYSUDUMP DD  SYSOUT=*                                                 01140000
+//SYSIN    DD  *                                                        01150000
+   COPY TABLESPACE DSNDB06.SYSDBASE  COPYDDN SYSCOPY4                   01160000
+//* ***************************************************************** */01170000
+//* SYSDBAUT IMAGE COPY STEP                                          */01180000
+//* ***************************************************************** */01190000
+//DSNTIC5 EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          01200000
+//             COND=(4,LT)                                              01210000
+//SYSCOPY4 DD  DSN=SSXDP.DB2R.JUL20JNE.SYSDBASE,                        01220000
+//             DISP=(OLD,KEEP)                                          01230000
+//SYSCOPY5 DD  DSN=SSXDP.DB2R.JUL20JNE.SYSDBAUT,                        01240000
+//             DISP=(NEW,PASS,DELETE),                                  01250000
+//             UNIT=AFF=SYSCOPY4,                                       01260000
+//             SPACE=(CYL,(200,200),RLSE),                              01261000
+//             VOL=(,RETAIN,,99,REF=*.DSNTIC4.SYSCOPY4),LABEL=(06,SL)   01270000
+//SYSPRINT DD  SYSOUT=*                                                 01280000
+//SYSUDUMP DD  SYSOUT=*                                                 01290000
+//SYSIN    DD  *                                                        01300000
+   COPY TABLESPACE DSNDB06.SYSDBAUT  COPYDDN SYSCOPY5                   01310000
+//* ***************************************************************** */01320000
+//* SYSGPAUT IMAGE COPY STEP                                          */01330000
+//* ***************************************************************** */01340000
+//DSNTIC6 EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          01350000
+//             COND=(4,LT)                                              01360000
+//SYSCOPY5 DD  DSN=SSXDP.DB2R.JUL20JNE.SYSDBAUT,                        01370000
+//             DISP=(OLD,KEEP)                                          01380000
+//SYSCOPY6 DD  DSN=SSXDP.DB2R.JUL20JNE.SYSGPAUT,                        01390000
+//             DISP=(NEW,PASS,DELETE),                                  01400000
+//             UNIT=AFF=SYSCOPY5,                                       01410000
+//             SPACE=(CYL,(200,200),RLSE),                              01411000
+//             VOL=(,RETAIN,,99,REF=*.DSNTIC5.SYSCOPY5),LABEL=(07,SL)   01420000
+//SYSPRINT DD  SYSOUT=*                                                 01430000
+//SYSUDUMP DD  SYSOUT=*                                                 01440000
+//SYSIN    DD  *                                                        01450000
+   COPY TABLESPACE DSNDB06.SYSGPAUT  COPYDDN SYSCOPY6                   01460000
+//* ***************************************************************** */01470000
+//* SYSGROUP IMAGE COPY STEP                                          */01480000
+//* ***************************************************************** */01490000
+//DSNTIC7 EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          01500000
+//             COND=(4,LT)                                              01510000
+//SYSCOPY6 DD  DSN=SSXDP.DB2R.JUL20JNE.SYSGPAUT,                        01520000
+//             DISP=(OLD,KEEP)                                          01530000
+//SYSCOPY7 DD  DSN=SSXDP.DB2R.JUL20JNE.SYSGROUP,                        01540000
+//             DISP=(NEW,PASS,DELETE),                                  01550000
+//             UNIT=AFF=SYSCOPY6,                                       01560000
+//             SPACE=(CYL,(200,200),RLSE),                              01561000
+//             VOL=(,RETAIN,,99,REF=*.DSNTIC6.SYSCOPY6),LABEL=(08,SL)   01570000
+//SYSPRINT DD  SYSOUT=*                                                 01580000
+//SYSUDUMP DD  SYSOUT=*                                                 01590000
+//SYSIN    DD  *                                                        01600000
+   COPY TABLESPACE DSNDB06.SYSGROUP  COPYDDN SYSCOPY7                   01610000
+//* ***************************************************************** */01620000
+//* SYSPLAN  IMAGE COPY STEP                                          */01630000
+//* ***************************************************************** */01640000
+//DSNTIC8 EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          01650000
+//             COND=(4,LT)                                              01660000
+//SYSCOPY7 DD  DSN=SSXDP.DB2R.JUL20JNE.SYSGROUP,                        01670000
+//             DISP=(OLD,KEEP)                                          01680000
+//SYSCOPY8 DD  DSN=SSXDP.DB2R.JUL20JNE.SYSPLAN,                         01690000
+//             DISP=(NEW,PASS,DELETE),                                  01700000
+//             UNIT=AFF=SYSCOPY7,                                       01710000
+//             SPACE=(CYL,(200,200),RLSE),                              01711000
+//             VOL=(,RETAIN,,99,REF=*.DSNTIC7.SYSCOPY7),LABEL=(09,SL)   01720000
+//SYSPRINT DD  SYSOUT=*                                                 01730000
+//SYSUDUMP DD  SYSOUT=*                                                 01740000
+//SYSIN    DD  *                                                        01750000
+   COPY TABLESPACE DSNDB06.SYSPLAN   COPYDDN SYSCOPY8                   01760000
+//* ***************************************************************** */01770000
+//* SYSPKAGE IMAGE COPY STEP                                          */01780000
+//* ***************************************************************** */01790000
+//DSNTIC9 EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          01800000
+//             COND=(4,LT)                                              01810000
+//SYSCOPY8 DD  DSN=SSXDP.DB2R.JUL20JNE.SYSPLAN,                         01820000
+//             DISP=(OLD,KEEP)                                          01830000
+//SYSCOPY9 DD  DSN=SSXDP.DB2R.JUL20JNE.SYSPKAGE,                        01840000
+//             DISP=(NEW,PASS,DELETE),                                  01850000
+//             UNIT=AFF=SYSCOPY8,                                       01860000
+//             SPACE=(CYL,(200,200),RLSE),                              01861000
+//             VOL=(,RETAIN,,99,REF=*.DSNTIC8.SYSCOPY8),LABEL=(10,SL)   01870000
+//SYSPRINT DD  SYSOUT=*                                                 01880000
+//SYSUDUMP DD  SYSOUT=*                                                 01890000
+//SYSIN    DD  *                                                        01900000
+   COPY TABLESPACE DSNDB06.SYSPKAGE  COPYDDN SYSCOPY9                   01910000
+//* ***************************************************************** */01920000
+//* SYSUSER  IMAGE COPY STEP                                          */01930000
+//* ***************************************************************** */01940000
+//DSNTICA EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          01950000
+//             COND=(4,LT)                                              01960000
+//SYSCOPY9 DD  DSN=SSXDP.DB2R.JUL20JNE.SYSPKAGE,                        01970000
+//             DISP=(OLD,KEEP)                                          01980000
+//SYSCOPYA DD  DSN=SSXDP.DB2R.JUL20JNE.SYSUSER,                         01990000
+//             DISP=(NEW,PASS,DELETE),                                  02000000
+//             UNIT=AFF=SYSCOPY9,                                       02010000
+//             SPACE=(CYL,(200,200),RLSE),                              02011000
+//             VOL=(,RETAIN,,99,REF=*.DSNTIC9.SYSCOPY9),LABEL=(11,SL)   02020000
+//SYSPRINT DD  SYSOUT=*                                                 02030000
+//SYSUDUMP DD  SYSOUT=*                                                 02040000
+//SYSIN    DD  *                                                        02050000
+   COPY TABLESPACE DSNDB06.SYSUSER   COPYDDN SYSCOPYA                   02060000
+//* ***************************************************************** */02070000
+//* SYSSTR   IMAGE COPY STEP                                          */02080000
+//* ***************************************************************** */02090000
+//DSNTICB EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          02100000
+//             COND=(4,LT)                                              02110000
+//SYSCOPYA DD  DSN=SSXDP.DB2R.JUL20JNE.SYSUSER,                         02120000
+//             DISP=(OLD,KEEP)                                          02130000
+//SYSCOPYB DD  DSN=SSXDP.DB2R.JUL20JNE.SYSSTR,                          02140000
+//             DISP=(NEW,PASS,DELETE),                                  02150000
+//             UNIT=AFF=SYSCOPYA,                                       02160000
+//             SPACE=(CYL,(200,200),RLSE),                              02161000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICA.SYSCOPYA),LABEL=(12,SL)   02170000
+//SYSPRINT DD  SYSOUT=*                                                 02180000
+//SYSUDUMP DD  SYSOUT=*                                                 02190000
+//SYSIN    DD  *                                                        02200000
+   COPY TABLESPACE DSNDB06.SYSSTR    COPYDDN SYSCOPYB                   02210000
+//* ***************************************************************** */02220000
+//* SYSVIEWS IMAGE COPY STEP                                          */02230000
+//* ***************************************************************** */02240000
+//DSNTICC EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          02250000
+//             COND=(4,LT)                                              02260000
+//SYSCOPYB DD  DSN=SSXDP.DB2R.JUL20JNE.SYSSTR,                          02270000
+//             DISP=(OLD,KEEP)                                          02280000
+//SYSCOPYC DD  DSN=SSXDP.DB2R.JUL20JNE.SYSVIEWS,                        02290000
+//             DISP=(NEW,PASS,DELETE),                                  02300000
+//             UNIT=AFF=SYSCOPYB,                                       02310000
+//             SPACE=(CYL,(200,200),RLSE),                              02311000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICB.SYSCOPYB),LABEL=(13,SL)   02320000
+//SYSPRINT DD  SYSOUT=*                                                 02330000
+//SYSUDUMP DD  SYSOUT=*                                                 02340000
+//SYSIN    DD  *                                                        02350000
+   COPY TABLESPACE DSNDB06.SYSVIEWS  COPYDDN SYSCOPYC                   02360000
+//* ***************************************************************** */02370000
+//* SYSSTATS IMAGE COPY STEP                                          */02380000
+//* ***************************************************************** */02390000
+//DSNTICD EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          02400000
+//             COND=(4,LT)                                              02410000
+//SYSCOPYC DD  DSN=SSXDP.DB2R.JUL20JNE.SYSVIEWS,                        02420000
+//             DISP=(OLD,KEEP)                                          02430000
+//SYSCOPYD DD  DSN=SSXDP.DB2R.JUL20JNE.SYSSTATS,                        02440000
+//             DISP=(NEW,PASS,DELETE),                                  02450000
+//             UNIT=AFF=SYSCOPYC,                                       02460000
+//             SPACE=(CYL,(200,200),RLSE),                              02461000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICC.SYSCOPYC),LABEL=(14,SL)   02470000
+//SYSPRINT DD  SYSOUT=*                                                 02480000
+//SYSUDUMP DD  SYSOUT=*                                                 02490000
+//SYSIN    DD  *                                                        02500000
+   COPY TABLESPACE DSNDB06.SYSSTATS  COPYDDN SYSCOPYD                   02510000
+//* ***************************************************************** */02520000
+//* SYSDDF  IMAGE COPY STEP                                           */02530000
+//* ***************************************************************** */02540000
+//DSNTICE EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          02550000
+//             COND=(4,LT)                                              02560000
+//SYSCOPYD DD  DSN=SSXDP.DB2R.JUL20JNE.SYSSTATS,                        02570000
+//             DISP=(OLD,KEEP)                                          02580000
+//SYSCOPYE DD  DSN=SSXDP.DB2R.JUL20JNE.SYSDDF,                          02590000
+//             DISP=(NEW,PASS,DELETE),                                  02600000
+//             UNIT=AFF=SYSCOPYD,                                       02610000
+//             SPACE=(CYL,(200,200),RLSE),                              02611000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICD.SYSCOPYD),LABEL=(15,SL)   02620000
+//SYSPRINT DD  SYSOUT=*                                                 02630000
+//SYSUDUMP DD  SYSOUT=*                                                 02640000
+//SYSIN    DD  *                                                        02650000
+   COPY TABLESPACE DSNDB06.SYSDDF   COPYDDN SYSCOPYE                    02660000
+//* ***************************************************************** */02670000
+//* SYSOBJ  IMAGE COPY STEP                                           */02680000
+//* ***************************************************************** */02690000
+//DSNTICF EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          02700000
+//             COND=(4,LT)                                              02710000
+//SYSCOPYE DD  DSN=SSXDP.DB2R.JUL20JNE.SYSDDF,                          02720000
+//             DISP=(OLD,KEEP)                                          02730000
+//SYSCOPYF DD  DSN=SSXDP.DB2R.JUL20JNE.SYSOBJ,                          02740000
+//             DISP=(NEW,PASS,DELETE),                                  02750000
+//             UNIT=AFF=SYSCOPYE,                                       02760000
+//             SPACE=(CYL,(200,200),RLSE),                              02761000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICE.SYSCOPYE),LABEL=(16,SL)   02770000
+//SYSPRINT DD  SYSOUT=*                                                 02780000
+//SYSUDUMP DD  SYSOUT=*                                                 02790000
+//SYSIN    DD  *                                                        02800000
+   COPY TABLESPACE DSNDB06.SYSOBJ   COPYDDN SYSCOPYF                    02810000
+//* ***************************************************************** */02820000
+//* SYSSEQ  IMAGE COPY STEP                                           */02830000
+//* ***************************************************************** */02840000
+//DSNTICG EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          02850000
+//             COND=(4,LT)                                              02860000
+//SYSCOPYF DD  DSN=SSXDP.DB2R.JUL20JNE.SYSOBJ,                          02870000
+//             DISP=(OLD,KEEP)                                          02880000
+//SYSCOPYG DD  DSN=SSXDP.DB2R.JUL20JNE.SYSSEQ,                          02890000
+//             DISP=(NEW,PASS,DELETE),                                  02900000
+//             UNIT=AFF=SYSCOPYF,                                       02910000
+//             SPACE=(CYL,(200,200),RLSE),                              02911000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICF.SYSCOPYF),LABEL=(17,SL)   02920000
+//SYSPRINT DD  SYSOUT=*                                                 02930000
+//SYSUDUMP DD  SYSOUT=*                                                 02940000
+//SYSIN    DD  *                                                        02950000
+   COPY TABLESPACE DSNDB06.SYSSEQ   COPYDDN SYSCOPYG                    02960000
+//* ***************************************************************** */02970000
+//* SYSSEQ2 IMAGE COPY STEP                                           */02980000
+//* ***************************************************************** */02990000
+//DSNTICH EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          03000000
+//             COND=(4,LT)                                              03010000
+//SYSCOPYG DD  DSN=SSXDP.DB2R.JUL20JNE.SYSSEQ,                          03020000
+//             DISP=(OLD,KEEP)                                          03030000
+//SYSCOPYH DD  DSN=SSXDP.DB2R.JUL20JNE.SYSSEQ2,                         03040000
+//             DISP=(NEW,PASS,DELETE),                                  03050000
+//             UNIT=AFF=SYSCOPYG,                                       03060000
+//             SPACE=(CYL,(200,200),RLSE),                              03061000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICG.SYSCOPYG),LABEL=(18,SL)   03070000
+//SYSPRINT DD  SYSOUT=*                                                 03080000
+//SYSUDUMP DD  SYSOUT=*                                                 03090000
+//SYSIN    DD  *                                                        03100000
+   COPY TABLESPACE DSNDB06.SYSSEQ2  COPYDDN SYSCOPYH                    03110000
+//* ***************************************************************** */03120000
+//* SYSHIST IMAGE COPY STEP                                           */03130000
+//* ***************************************************************** */03140000
+//DSNTICI EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          03150000
+//             COND=(4,LT)                                              03160000
+//SYSCOPYH DD  DSN=SSXDP.DB2R.JUL20JNE.SYSSEQ2,                         03170000
+//             DISP=(OLD,KEEP)                                          03180000
+//SYSCOPYI DD  DSN=SSXDP.DB2R.JUL20JNE.SYSHIST,                         03190000
+//             DISP=(NEW,PASS,DELETE),                                  03200000
+//             UNIT=AFF=SYSCOPYH,                                       03210000
+//             SPACE=(CYL,(200,200),RLSE),                              03211000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICH.SYSCOPYH),LABEL=(19,SL)   03220000
+//SYSPRINT DD  SYSOUT=*                                                 03230000
+//SYSUDUMP DD  SYSOUT=*                                                 03240000
+//SYSIN    DD  *                                                        03250000
+   COPY TABLESPACE DSNDB06.SYSHIST  COPYDDN SYSCOPYI                    03260000
+//* ***************************************************************** */03270000
+//* SYSGRTNS IMAGE COPY STEP                                          */03280000
+//* ***************************************************************** */03290000
+//DSNTICJ EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          03300000
+//             COND=(4,LT)                                              03310000
+//SYSCOPYI DD  DSN=SSXDP.DB2R.JUL20JNE.SYSHIST,                         03320000
+//             DISP=(OLD,KEEP)                                          03330000
+//SYSCOPYJ DD  DSN=SSXDP.DB2R.JUL20JNE.SYSGRTNS,                        03340000
+//             DISP=(NEW,PASS,DELETE),                                  03350000
+//             UNIT=AFF=SYSCOPYI,                                       03360000
+//             SPACE=(CYL,(200,200),RLSE),                              03361000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICI.SYSCOPYI),LABEL=(20,SL)   03370000
+//SYSPRINT DD  SYSOUT=*                                                 03380000
+//SYSUDUMP DD  SYSOUT=*                                                 03390000
+//SYSIN    DD  *                                                        03400000
+   COPY TABLESPACE DSNDB06.SYSGRTNS COPYDDN SYSCOPYJ                    03410000
+//* ***************************************************************** */03420000
+//* SYSJAVA  IMAGE COPY STEP                                          */03430000
+//* ***************************************************************** */03440000
+//DSNTICK EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          03450000
+//             COND=(4,LT)                                              03460000
+//SYSCOPYJ DD  DSN=SSXDP.DB2R.JUL20JNE.SYSGRTNS,                        03470000
+//             DISP=(OLD,KEEP)                                          03480000
+//SYSCOPYK DD  DSN=SSXDP.DB2R.JUL20JNE.SYSJAVA,                         03490000
+//             DISP=(NEW,PASS,DELETE),                                  03500000
+//             UNIT=AFF=SYSCOPYJ,                                       03510000
+//             SPACE=(CYL,(200,200),RLSE),                              03511000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICJ.SYSCOPYJ),LABEL=(21,SL)   03520000
+//SYSPRINT DD  SYSOUT=*                                                 03530000
+//SYSUDUMP DD  SYSOUT=*                                                 03540000
+//SYSIN    DD  *                                                        03550000
+   COPY TABLESPACE DSNDB06.SYSJAVA  COPYDDN SYSCOPYK                    03560000
+//* ***************************************************************** */03570000
+//* SYSJAUXA IMAGE COPY STEP                                          */03580000
+//* ***************************************************************** */03590000
+//DSNTICL EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          03600000
+//             COND=(4,LT)                                              03610000
+//SYSCOPYK DD  DSN=SSXDP.DB2R.JUL20JNE.SYSJAVA,                         03620000
+//             DISP=(OLD,KEEP)                                          03630000
+//SYSCOPYL DD  DSN=SSXDP.DB2R.JUL20JNE.SYSJAUXA,                        03640000
+//             DISP=(NEW,PASS,DELETE),                                  03650000
+//             UNIT=AFF=SYSCOPYK,                                       03660000
+//             SPACE=(CYL,(200,200),RLSE),                              03661000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICK.SYSCOPYK),LABEL=(22,SL)   03670000
+//SYSPRINT DD  SYSOUT=*                                                 03680000
+//SYSUDUMP DD  SYSOUT=*                                                 03690000
+//SYSIN    DD  *                                                        03700000
+   COPY TABLESPACE DSNDB06.SYSJAUXA COPYDDN SYSCOPYL                    03710000
+//* ***************************************************************** */03720000
+//* SYSJAUXB IMAGE COPY STEP                                          */03730000
+//* ***************************************************************** */03740000
+//DSNTICM EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          03750000
+//             COND=(4,LT)                                              03760000
+//SYSCOPYL DD  DSN=SSXDP.DB2R.JUL20JNE.SYSJAUXA,                        03770000
+//             DISP=(OLD,KEEP)                                          03780000
+//SYSCOPYM DD  DSN=SSXDP.DB2R.JUL20JNE.SYSJAUXB,                        03790000
+//             DISP=(NEW,PASS,DELETE),                                  03800000
+//             UNIT=AFF=SYSCOPYL,                                       03810000
+//             SPACE=(CYL,(200,200),RLSE),                              03811000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICL.SYSCOPYL),LABEL=(23,SL)   03820000
+//SYSPRINT DD  SYSOUT=*                                                 03830000
+//SYSUDUMP DD  SYSOUT=*                                                 03840000
+//SYSIN    DD  *                                                        03850000
+   COPY TABLESPACE DSNDB06.SYSJAUXB COPYDDN SYSCOPYM                    03860000
+//* ***************************************************************** */03870000
+//* SYSALTER IMAGE COPY STEP                                          */03880000
+//* ***************************************************************** */03890000
+//DSNTICN EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          03900000
+//             COND=(4,LT)                                              03910000
+//SYSCOPYM DD  DSN=SSXDP.DB2R.JUL20JNE.SYSJAUXB,                        03920000
+//             DISP=(OLD,KEEP)                                          03930000
+//SYSCOPYN DD  DSN=SSXDP.DB2R.JUL20JNE.SYSALTER,                        03940000
+//             DISP=(NEW,PASS,DELETE),                                  03950000
+//             UNIT=AFF=SYSCOPYM,                                       03960000
+//             SPACE=(CYL,(200,200),RLSE),                              03961000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICM.SYSCOPYM),LABEL=(24,SL)   03970000
+//SYSPRINT DD  SYSOUT=*                                                 03980000
+//SYSUDUMP DD  SYSOUT=*                                                 03990000
+//SYSIN    DD  *                                                        04000000
+   COPY TABLESPACE DSNDB06.SYSALTER COPYDDN SYSCOPYN                    04010000
+//* ***************************************************************** */04020000
+//* SYSEBCDC IMAGE COPY STEP                                          */04030000
+//* ***************************************************************** */04040000
+//DSNTICO EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          04050000
+//             COND=(4,LT)                                              04060000
+//SYSCOPYN DD  DSN=SSXDP.DB2R.JUL20JNE.SYSALTER,                        04070000
+//             DISP=(OLD,KEEP)                                          04080000
+//SYSCOPYO DD  DSN=SSXDP.DB2R.JUL20JNE.SYSEBCDC,                        04090000
+//             DISP=(NEW,PASS,DELETE),                                  04100000
+//             UNIT=AFF=SYSCOPYN,                                       04110000
+//             SPACE=(CYL,(200,200),RLSE),                              04111000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICN.SYSCOPYN),LABEL=(25,SL)   04120000
+//SYSPRINT DD  SYSOUT=*                                                 04130000
+//SYSUDUMP DD  SYSOUT=*                                                 04140000
+//SYSIN    DD  *                                                        04150000
+   COPY TABLESPACE DSNDB06.SYSEBCDC COPYDDN SYSCOPYO                    04160000
+//* ***************************************************************** */04170000
+//* SYSLGRNX IMAGE COPY STEP (SYSLGRNX IS ALWAYS COPIED NEXT TO LAST!)*/04180000
+//* ***************************************************************** */04190000
+//DSNTICY EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          04200000
+//             COND=(4,LT)                                              04210000
+//SYSCOPYO DD  DSN=SSXDP.DB2R.JUL20JNE.SYSEBCDC,                        04220000
+//             DISP=(OLD,KEEP)                                          04230000
+//SYSCOPYY DD  DSN=SSXDP.DB2R.JUL20JNE.SYSLGRNX,                        04240000
+//             DISP=(NEW,PASS,DELETE),                                  04250000
+//             UNIT=AFF=SYSCOPYO,                                       04260000
+//             SPACE=(CYL,(1000,200),RLSE),                             04261000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICO.SYSCOPYO),LABEL=(26,SL)   04270000
+//SYSPRINT DD  SYSOUT=*                                                 04280000
+//SYSUDUMP DD  SYSOUT=*                                                 04290000
+//SYSIN    DD  *                                                        04300000
+   COPY TABLESPACE DSNDB01.SYSLGRNX  COPYDDN SYSCOPYY                   04310000
+//* ***************************************************************** */04320000
+//* SYSCOPY  IMAGE COPY STEP (SYSCOPY IS ALWAYS IMAGE COPIED LAST!)   */04330000
+//* ***************************************************************** */04340000
+//DSNTICZ EXEC PGM=DSNUTILB,PARM='DB2R,JUL20JNE',REGION=4096K,          04350000
+//             COND=(4,LT)                                              04360000
+//SYSCOPYY DD  DSN=SSXDP.DB2R.JUL20JNE.SYSLGRNX,                        04370000
+//             DISP=(OLD,KEEP)                                          04380000
+//SYSCOPYZ DD  DSN=SSXDP.DB2R.JUL20JNE.SYSCOPY,                         04390000
+//             DISP=(NEW,KEEP,DELETE),                                  04400000
+//             UNIT=AFF=SYSCOPYY,                                       04410000
+//             SPACE=(CYL,(200,200),RLSE),                              04411000
+//             VOL=(,RETAIN,,99,REF=*.DSNTICY.SYSCOPYY),LABEL=(27,SL)   04420000
+//SYSPRINT DD  SYSOUT=*                                                 04430000
+//SYSUDUMP DD  SYSOUT=*                                                 04440000
+//SYSIN    DD  *                                                        04450000
+   COPY TABLESPACE DSNDB06.SYSCOPY   COPYDDN SYSCOPYZ                   04460000

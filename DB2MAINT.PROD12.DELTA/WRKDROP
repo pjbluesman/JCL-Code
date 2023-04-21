@@ -1,0 +1,28 @@
+//UXD001M JOB ,'GLK RM102',CLASS=S,MSGCLASS=X
+//*********************************************************************/00010000
+//JOBLIB  DD  DISP=SHR,                                                 00290000
+//            DSN=SSXDP.DSNDBFG.DB2F.SDSNLOAD                           00300000
+//DSNTIDR EXEC PGM=IKJEFT01                                             00800000
+//SYSTSPRT DD  SYSOUT=*                                                 00820000
+//SYSPRINT DD  SYSOUT=*                                                 00830000
+//SYSUDUMP DD  SYSOUT=*                                                 00840000
+//SYSTSIN  DD  *                                                        00850000
+  -STOP DATABASE(DSNDB07)
+  DSN SYSTEM(DB2F)                                                      00860000
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIAD) PARM('RC0')   -                   00870000
+       LIB('SSXDP.DSNDBFG.DB2F.RUNLIB.LOAD')                            00880000
+  END                                                                   00890000
+//SYSIN    DD  *                                                        00900000
+   DROP TABLESPACE DSNDB07.DSN4K01 ; COMMIT;                            00910000
+   DROP TABLESPACE DSNDB07.DSN4K02 ; COMMIT;                            00910000
+   DROP TABLESPACE DSNDB07.DSN4K03 ; COMMIT;                            00910000
+   DROP TABLESPACE DSNDB07.DSN4K04 ; COMMIT;                            00910000
+   DROP TABLESPACE DSNDB07.DSN4K05 ; COMMIT;                            00910000
+   DROP TABLESPACE DSNDB07.DSN4K06 ; COMMIT;                            00910000
+   DROP TABLESPACE DSNDB07.DSN4K07 ; COMMIT;                            00910000
+   DROP TABLESPACE DSNDB07.DSN4K08 ; COMMIT;                            00910000
+   DROP TABLESPACE DSNDB07.DSN4K09 ; COMMIT;                            00910000
+   DROP TABLESPACE DSNDB07.DSN4K10 ; COMMIT;                            00910000
+   DROP TABLESPACE DSNDB07.DSN4K11 ; COMMIT;                            00910000
+   DROP TABLESPACE DSNDB07.DSN4K12 ; COMMIT;                            00910000
+//*                                                                     00920000

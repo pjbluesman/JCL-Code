@@ -1,0 +1,70 @@
+//UXD001M  JOB ,'PHILLIPS',CLASS=X,MSGCLASS=Y
+//*
+//*
+//***
+//*********************************************************************
+//*********************************************************************
+//***                                                               ***
+//***         OMEGAMON FOR DB2 BATCH REPORTING JCL                  ***
+//***        --------------------------------------                 ***
+//***                                                               ***
+//***  THIS JCL EXECUTES THE HISTORICAL REPORTER IN BATCH MODE.     ***
+//***                                                               ***
+//***                                                               ***
+//*********************************************************************
+//*********************************************************************
+//JOBLIB   DD  DISP=SHR,DSN=SSXDP.CDB.V260.TLOADLIB
+//***
+//H2REPORT OUTPUT CLASS=A
+//***
+//********
+//***
+//O2REPORT EXEC PGM=KO2RPRTB,DYNAMNBR=20,REGION=4096K
+//O2RMLOG  DD  SYSOUT=*                       ** MSG DSN
+//O2CMSGS  DD  SYSOUT=*                       ** STD C MSG DSN
+//SYSUDUMP DD  SYSOUT=*                       ** DEBUG DSN (NOT USED)
+//O2SRMSG  DD  SYSOUT=*                       ** SORT MSGS
+//H2REPORT DD  SYSOUT=(,),OUTPUT=*.H2REPORT   ** REPORT OUTPUT DEFAULT
+//*********************************************************************
+//***                                                               ***
+//***    THE REPORTER WILL DYNAMICALLY ALLOCATE SORT WORK SPACE.    ***
+//***    HOWEVER, DEPENDING ON THE VOLUME OF ROWS BEING REPORTED,   ***
+//***    SORT WORK SPACE DD STATEMENTS MUST BE ADDED TO INCREASE    ***
+//***    THE SORT CAPACITY.  THE REPORTER USES THE FOLLOWING        ***
+//***    NAMING CONVENTION FOR THE SORT WORK DD STATEMENTS:         ***
+//***        O2XXWKNN  WHERE:  XX = SORT PHASE,                     ***
+//***        ========          NN = SORT WORK NUMBER.               ***
+//***    PLEASE UNCOMMENT THE DD STATEMENTS, AND REPLACE THE        ***
+//***    XX WITH THE SORT PHASE THAT FAILED DUE TO INSUFFICIENT     ***
+//***    SORT WORK SPACE.                                           ***
+//***                                                               ***
+//*O2XXWK01 DD UNIT=SYSDA,SPACE=(CYL,(50,50))
+//*O2XXWK02 DD UNIT=SYSDA,SPACE=(CYL,(50,50))
+//*O2XXWK03 DD UNIT=SYSDA,SPACE=(CYL,(50,50))
+//*********************************************************************
+//*
+//*  INPUT EXTRACTED DB2 DATA
+//*
+//*  NOTE: VSAM DATASETS CANNOT BE CONCATENATED.
+//*
+//H2X0001  DD  DISP=SHR,DSN=SSXDP.CDB.DB2M.D940929.T0732
+//H2X0002  DD  DISP=SHR,DSN=SSXDP.CDB.DB2M.D940930.T0229
+//***
+//*
+//*  OUTPUT REPORTS
+//*
+//O2RPT1 DD  SYSOUT=(,),OUTPUT=*.H2REPORT
+//*
+//*  REPORT REQUEST LANGUAGE INPUT
+//*
+//O2RPARM  DD  *
+   SET GLOBAL
+      FOR DATES FROM 09/30/1994 00:01 TO 09/30/1994 08:00
+          TIMES 00:00-24:00
+      SELECT CONNID =
+                    'CICMPRD1'
+    OUTPUT
+       TO H2REPORT
+   REPORT  ACCT DETAIL
+    OUTPUT
+       TO O2RPT1

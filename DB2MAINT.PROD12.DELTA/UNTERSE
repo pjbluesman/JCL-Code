@@ -1,0 +1,19 @@
+//U477625  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00001003
+//         NOTIFY=T477625,REGION=0M                                     00002003
+/*JOBPARM SYSAFF=MVSN                                                   00003006
+//STEP01   EXEC PGM=TRSMAIN,PARM='UNPACK'                               00010000
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB                          00020000
+//SYSPRINT DD SYSOUT=*,                                                 00030003
+//  DCB=(LRECL=133,BLKSIZE=12901,RECFM=FBA)                             00031003
+//INFILE   DD DISP=SHR,DSN=SSXDT.DFDSSDMP.TOOLKIT.D120723.MVSX.TRS      00040007
+//OUTFILE  DD DSN=SSXDT.DFDSSDMP.TOOLKIT.D120723.MVSX,                  00050007
+//  DISP=(NEW,CATLG,DELETE),                                            00060000
+//  UNIT=SYSDA,SPACE=(TRK,(500,50))                                     00070003
+//STEP02   EXEC PGM=TRSMAIN,PARM='UNPACK'                               00080007
+//STEPLIB  DD DISP=SHR,DSN=SSXVP.TERSE.PACKLIB                          00090007
+//SYSPRINT DD SYSOUT=*,                                                 00100007
+//  DCB=(LRECL=133,BLKSIZE=12901,RECFM=FBA)                             00110007
+//INFILE   DD DISP=SHR,DSN=SSXDT.DFDSSDMP.DB2TOOLS.ADB10BT.MVSX.TRS     00120007
+//OUTFILE  DD DSN=SSXDT.DFDSSDMP.DB2TOOLS.ADB10BT.MVSX,                 00130007
+//  DISP=(NEW,CATLG,DELETE),                                            00140007
+//  UNIT=SYSDA,SPACE=(TRK,(500,50))                                     00150007

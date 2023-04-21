@@ -1,0 +1,23 @@
+//UXD001M JOB ,'GLK RM102',CLASS=S,MSGCLASS=X
+//*********************************************************************/00280000
+//JOBLIB  DD  DISP=SHR,                                                 00290000
+//            DSN=SDB5R.SDSNLOAD                                        00300000
+//DSNTIST EXEC PGM=IKJEFT01                                             01020000
+//SYSTSPRT DD  SYSOUT=*                                                 01040000
+//SYSPRINT DD  SYSOUT=*                                                 01050000
+//SYSUDUMP DD  SYSOUT=*                                                 01060000
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB5R)
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIAD) PARM('RC0')   -
+      LIBRARY('SSXDP.DB5R.RUNLIB.LOAD')
+  END
+//SYSIN    DD  *                                                        01140000
+ CREATE TABLESPACE DSN32K01 IN WRKDB5R                                  01140013
+        BUFFERPOOL BP32K9                                               01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN32K02 IN WRKDB5R                                  01140013
+        BUFFERPOOL BP32K9                                               01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+//*                                                                     01150000

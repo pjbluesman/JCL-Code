@@ -1,0 +1,79 @@
+XDATE    CEEENTRY AUTO=WORKSIZE,MAIN=NO,PLIST=OS                        00001000
+         USING WORKAREA,R13                                             00002000
+         STM   R1,R12,SAVEAREA  SAVE REGISTERS FROM LE/370 INVOCATION   00003000
+         LR    R5,R1            LOAD INPUT PARAMETER LIST FROM DB2      00004000
+         USING PARMLIST,R5      ESTABLISH DSECT BASE REGISTER           00005000
+         L     R10,RES1DPTR     GET ADDRESS OF AREA FOR RESULT          00006000
+         L     R9,RES1IPTR      GET ADDRESS OF RESULT INDICATOR         00007000
+         XC    0(2,R9),R9       SET THE RESULTS INDICATOR TO X'0000'    00008000
+         L     R7,FLD1IPTR      GET POINTER TO INPUT DATE INDICATOR     00009000
+         XR    R8,R8            CLEAR REGISTER 8                        00010000
+         ICM   R8,B'0011',0(R7) LOAD DATE INDICATOR INTO REGISTER 8     00020000
+         LTR   R8,R8            IS THE INPUT DATE FIELD NULL?           00030000
+         BM    PARMNULL         YES -- GO TO PARMNULL                   00040000
+         L     R7,FLD1DPTR      GET POINTER TO INPUT DATE FIELD         00090000
+         L     R6,SCRCHSZ       ACQUIRE 32 BYTE SCRATCH AREA            00100000
+         GETMAIN R,LV=(6)                                               00110000
+         LR    R6,R1            LOAD ADDRESS OF SCRATCH AREA            00120000
+         USING SCRATCH,R6       ESTABLISH SCRATCH AREA DSECT BASE       00130000
+         MVC   FULLWORD,0(R7)   MOVE DATE INPUT TO SCRATCH AREA         00140005
+         L     R8,FULLWORD                                              00150000
+         CVD   R8,DECDATE           CONVERT INPUT DATE TO DECIMAL       00160000
+         UNPK  DSPDATE,DECDATE      UNPACK THE INPUT DATE               00170000
+         OI    DSPDATE+7,X'F0'      CLEAR SIGN                          00180000
+         MVC   0(4,R10),DSPDATE     MOVE TO OUTPUT DATA AREA            00190000
+         MVI   4(R10),C'-'                                              00191000
+         MVC   5(2,R10),DSPDATE+4                                       00192000
+         MVI   7(R10),C'-'                                              00193000
+         MVC   8(2,R10),DSPDATE+6                                       00194000
+         L     R7,SCRCHSZ       RELOAD SCRATCH AREA SIZE                00195000
+         FREEMAIN R,LV=(7),A=(R6)                                       00196000
+RETURN   EQU   *                                                        00197000
+         LM    R1,R12,SAVEAREA  RELOAD LE/370 REGISTERS                 00197100
+         CEETERM RC=0                                                   00197200
+         EJECT                                                          00197300
+PARMNULL EQU   *                                                        00197400
+         MVC   0(2,R9),=H'-1'   SET OUTPUT RESULT INDICATOR TO NULL     00197500
+         B     RETURN           GO TO RETURN                            00197600
+         EJECT                                                          00197700
+*******************************************************************     00197800
+*  VARIABLE DECLARATIONS AND EQUATES                              *     00197900
+*******************************************************************     00198000
+R0       EQU   0               REGISTER 0                               00199000
+R1       EQU   1               REGISTER 1                               00200000
+R2       EQU   2               REGISTER 2                               00210000
+R3       EQU   3               REGISTER 3                               00220000
+R4       EQU   4               REGISTER 4                               00230000
+R5       EQU   5               REGISTER 5                               00240000
+R6       EQU   6               REGISTER 6                               00250000
+R7       EQU   7               REGISTER 7                               00251000
+R8       EQU   8               REGISTER 8                               00252000
+R9       EQU   9               REGISTER 9                               00253000
+R10      EQU   10              REGISTER 10                              00254000
+R11      EQU   11              REGISTER 11                              00255000
+R12      EQU   12              REGISTER 12                              00256000
+R13      EQU   13              REGISTER 13                              00257000
+         EJECT                                                          00258000
+SCRCHSZ  DC    F'32'           SCRATCH AREA SIZE                        00259000
+         EJECT                                                          00260000
+         LTORG ,               PLACE LITERAL POOL HERE                  00260100
+PPA      CEEPPA  ,             CONSTANTS DESCRIBING THE CODE BL         00260200
+WORKAREA DSECT                                                          00260300
+         ORG   *+CEEDSASZ      LEAVE SPACE FOR THE DSA FIXED PA         00260400
+SAVEAREA DS    12F                                                      00260500
+         SPACE 2                                                        00260600
+WORKSIZE EQU   *-WORKAREA                                               00260700
+         CEEDSA  ,             MAPPING OF THE DYNAMIC SAVE AREA         00260800
+         CEECAA  ,             MAPPING OF THE COMMON ANCHOR AR          00260900
+PARMLIST DSECT                                                          00261000
+FLD1DPTR DS    A                                                        00262000
+RES1DPTR DS    A                                                        00264000
+FLD1IPTR DS    A                                                        00265000
+RES1IPTR DS    A                                                        00267002
+         SPACE 2                                                        00268000
+SCRATCH  DSECT                                                          00269000
+         DS    0D                                                       00270000
+DECDATE  DS    D                                                        00280000
+FULLWORD DS    F                                                        00290000
+DSPDATE  DS    CL8                                                      00300000
+         END   XDATE                                                    00310000

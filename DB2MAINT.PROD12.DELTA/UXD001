@@ -1,0 +1,383 @@
+//**********************************************************************00010000
+//* FULL IMAGE COPY FOR DB2 (DB2P) CATALOG AND DIRECTORY                00011000
+//*     ALL FIRST  COPIES ARE WRITTEN TO THE SAME TAPE                  00012002
+//*     ALL DUAL   COPIES ARE WRITTEN TO THE SAME TAPE                  00012102
+//*     ALL REMOTE COPIES ARE WRITTEN TO THE SAME TAPE                  00012202
+//**********************************************************************00013000
+//*JCLPREP RUN ON 04/13/93 AT 08:35:09 BY O27614T                       00014000
+//UXD001  PROC                                                          00015004
+//SYSGROUP EXEC  PGM=DSNUTILB,                                          00016000
+//             PARM='DB2P,IMAGCOPY'                                     00017000
+//CPY01    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00018000
+//             DISP=(NEW,CATLG,DELETE),                                 00019000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.SYSGROUP(+1),              00020001
+//             LABEL=(1,SL),                                            00021000
+//             SPACE=(CYL,(10,10),RLSE),                                00022000
+//             UNIT=CART,                                               00023000
+//             VOL=(,RETAIN)                                            00024000
+//CPY01B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00024100
+//             DISP=(NEW,CATLG,DELETE),                                 00024200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.SYSGROUP(+1),             00024301
+//             LABEL=(1,SL),                                            00024400
+//             SPACE=(CYL,(10,10),RLSE),                                00024500
+//             UNIT=CART,                                               00024600
+//             VOL=(,RETAIN)                                            00024700
+//CPY01R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00024801
+//             DISP=(NEW,CATLG,DELETE),                                 00024901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.SYSGROUP(+1),             00025001
+//             LABEL=(1,SL),                                            00025101
+//             SPACE=(CYL,(10,10),RLSE),                                00025201
+//             UNIT=CART,                                               00025301
+//             VOL=(,RETAIN)                                            00025401
+//SYSPRINT DD SYSOUT=*                                                  00025500
+//SYSUDUMP DD SYSOUT=*                                                  00026000
+//SYSGPAUT EXEC  PGM=DSNUTILB,                                          00027000
+//             PARM='DB2P,IMAGCOPY'                                     00028000
+//CPY02    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00029000
+//             DISP=(NEW,CATLG,DELETE),                                 00030000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.SYSGPAUT(+1),              00031001
+//             LABEL=(2,SL),                                            00032000
+//             SPACE=(CYL,(10,10),RLSE),                                00033000
+//             UNIT=CART,                                               00034000
+//             VOL=(,RETAIN,REF=*.SYSGROUP.CPY01)                       00035000
+//CPY02B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00035100
+//             DISP=(NEW,CATLG,DELETE),                                 00035200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.SYSGPAUT(+1),             00035301
+//             LABEL=(2,SL),                                            00035400
+//             SPACE=(CYL,(10,10),RLSE),                                00035500
+//             UNIT=CART,                                               00035600
+//             VOL=(,RETAIN,REF=*.SYSGROUP.CPY01B)                      00035700
+//CPY02R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00035801
+//             DISP=(NEW,CATLG,DELETE),                                 00035901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.SYSGPAUT(+1),             00036001
+//             LABEL=(2,SL),                                            00036101
+//             SPACE=(CYL,(10,10),RLSE),                                00036201
+//             UNIT=CART,                                               00036301
+//             VOL=(,RETAIN,REF=*.SYSGROUP.CPY01R)                      00036401
+//SYSPRINT DD SYSOUT=*                                                  00036500
+//SYSUDUMP DD SYSOUT=*                                                  00037000
+//SYSVIEWS EXEC  PGM=DSNUTILB,                                          00038000
+//             PARM='DB2P,IMAGCOPY'                                     00039000
+//CPY03    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00040000
+//             DISP=(NEW,CATLG,DELETE),                                 00041000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.SYSVIEWS(+1),              00042001
+//             LABEL=(3,SL),                                            00043000
+//             SPACE=(CYL,(10,10),RLSE),                                00044000
+//             UNIT=CART,                                               00045000
+//             VOL=(,RETAIN,REF=*.SYSGPAUT.CPY02)                       00046000
+//CPY03B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00046100
+//             DISP=(NEW,CATLG,DELETE),                                 00046200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.SYSVIEWS(+1),             00046301
+//             LABEL=(3,SL),                                            00046400
+//             SPACE=(CYL,(10,10),RLSE),                                00046500
+//             UNIT=CART,                                               00046600
+//             VOL=(,RETAIN,REF=*.SYSGPAUT.CPY02B)                      00046700
+//CPY03R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00046801
+//             DISP=(NEW,CATLG,DELETE),                                 00046901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.SYSVIEWS(+1),             00047001
+//             LABEL=(3,SL),                                            00047101
+//             SPACE=(CYL,(10,10),RLSE),                                00047201
+//             UNIT=CART,                                               00047301
+//             VOL=(,RETAIN,REF=*.SYSGPAUT.CPY02R)                      00047401
+//SYSPRINT DD SYSOUT=*                                                  00047500
+//SYSUDUMP DD SYSOUT=*                                                  00048000
+//SYSPLAN  EXEC  PGM=DSNUTILB,                                          00049000
+//             PARM='DB2P,IMAGCOPY'                                     00050000
+//CPY04    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00051000
+//             DISP=(NEW,CATLG,DELETE),                                 00052000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.SYSPLAN(+1),               00053001
+//             LABEL=(4,SL),                                            00054000
+//             SPACE=(CYL,(50,50),RLSE),                                00055000
+//             UNIT=CART,                                               00056000
+//             VOL=(,RETAIN,,9,REF=*.SYSVIEWS.CPY03)                    00057000
+//CPY04B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00057100
+//             DISP=(NEW,CATLG,DELETE),                                 00057200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.SYSPLAN(+1),              00057301
+//             LABEL=(4,SL),                                            00057400
+//             SPACE=(CYL,(50,50),RLSE),                                00057500
+//             UNIT=CART,                                               00057600
+//             VOL=(,RETAIN,,9,REF=*.SYSVIEWS.CPY03B)                   00057700
+//CPY04R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00057801
+//             DISP=(NEW,CATLG,DELETE),                                 00057901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.SYSPLAN(+1),              00058001
+//             LABEL=(4,SL),                                            00058101
+//             SPACE=(CYL,(50,50),RLSE),                                00058201
+//             UNIT=CART,                                               00058301
+//             VOL=(,RETAIN,,9,REF=*.SYSVIEWS.CPY03R)                   00058401
+//SYSPRINT DD SYSOUT=*                                                  00058500
+//SYSUDUMP DD SYSOUT=*                                                  00059000
+//SCT02    EXEC  PGM=DSNUTILB,                                          00060000
+//             PARM='DB2P,IMAGCOPY'                                     00061000
+//CPY05    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00062000
+//             DISP=(NEW,CATLG,DELETE),                                 00063000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.SCT02(+1),                 00064001
+//             LABEL=(5,SL),                                            00065000
+//             SPACE=(CYL,(50,50),RLSE),                                00066000
+//             UNIT=CART,                                               00067000
+//             VOL=(,RETAIN,,9,REF=*.SYSPLAN.CPY04)                     00068000
+//CPY05B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00068100
+//             DISP=(NEW,CATLG,DELETE),                                 00068200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.SCT02(+1),                00068301
+//             LABEL=(5,SL),                                            00068400
+//             SPACE=(CYL,(50,50),RLSE),                                00068500
+//             UNIT=CART,                                               00068600
+//             VOL=(,RETAIN,,9,REF=*.SYSPLAN.CPY04B)                    00068700
+//CPY05R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00068803
+//             DISP=(NEW,CATLG,DELETE),                                 00068901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.SCT02(+1),                00069001
+//             LABEL=(5,SL),                                            00069101
+//             SPACE=(CYL,(50,50),RLSE),                                00069201
+//             UNIT=CART,                                               00069301
+//             VOL=(,RETAIN,,9,REF=*.SYSPLAN.CPY04R)                    00069401
+//SYSPRINT DD SYSOUT=*                                                  00069500
+//SYSUDUMP DD SYSOUT=*                                                  00070000
+//SYSDBASE EXEC  PGM=DSNUTILB,                                          00071000
+//             PARM='DB2P,IMAGCOPY'                                     00072000
+//CPY06    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00073000
+//             DISP=(NEW,CATLG,DELETE),                                 00074000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.SYSDBASE(+1),              00075001
+//             LABEL=(6,SL),                                            00076000
+//             SPACE=(CYL,(10,10),RLSE),                                00077000
+//             UNIT=CART,                                               00078000
+//             VOL=(,RETAIN,REF=*.SCT02.CPY05)                          00079000
+//CPY06B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00079100
+//             DISP=(NEW,CATLG,DELETE),                                 00079200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.SYSDBASE(+1),             00079301
+//             LABEL=(6,SL),                                            00079400
+//             SPACE=(CYL,(10,10),RLSE),                                00079500
+//             UNIT=CART,                                               00079600
+//             VOL=(,RETAIN,REF=*.SCT02.CPY05B)                         00079700
+//CPY06R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00079801
+//             DISP=(NEW,CATLG,DELETE),                                 00079901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.SYSDBASE(+1),             00080001
+//             LABEL=(6,SL),                                            00080101
+//             SPACE=(CYL,(10,10),RLSE),                                00080201
+//             UNIT=CART,                                               00080301
+//             VOL=(,RETAIN,REF=*.SCT02.CPY05R)                         00080401
+//SYSPRINT DD SYSOUT=*                                                  00080500
+//SYSUDUMP DD SYSOUT=*                                                  00081000
+//SYSUSER  EXEC  PGM=DSNUTILB,                                          00082000
+//             PARM='DB2P,IMAGCOPY'                                     00083000
+//CPY07    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00084000
+//             DISP=(NEW,CATLG,DELETE),                                 00085000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.SYSUSER(+1),               00086001
+//             LABEL=(7,SL),                                            00087000
+//             SPACE=(CYL,(50,50),RLSE),                                00088000
+//             UNIT=CART,                                               00089000
+//             VOL=(,RETAIN,REF=*.SYSDBASE.CPY06)                       00090000
+//CPY07B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00090100
+//             DISP=(NEW,CATLG,DELETE),                                 00090200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.SYSUSER(+1),              00090301
+//             LABEL=(7,SL),                                            00090400
+//             SPACE=(CYL,(50,50),RLSE),                                00090500
+//             UNIT=CART,                                               00090600
+//             VOL=(,RETAIN,REF=*.SYSDBASE.CPY06B)                      00090700
+//CPY07R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00090801
+//             DISP=(NEW,CATLG,DELETE),                                 00090901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.SYSUSER(+1),              00091001
+//             LABEL=(7,SL),                                            00091101
+//             SPACE=(CYL,(50,50),RLSE),                                00091201
+//             UNIT=CART,                                               00091301
+//             VOL=(,RETAIN,REF=*.SYSDBASE.CPY06R)                      00091401
+//SYSPRINT DD SYSOUT=*                                                  00091500
+//SYSUDUMP DD SYSOUT=*                                                  00092000
+//SYSDBAUT EXEC  PGM=DSNUTILB,                                          00093000
+//             PARM='DB2P,IMAGCOPY'                                     00094000
+//CPY08    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00095000
+//             DISP=(NEW,CATLG,DELETE),                                 00096000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.SYSDBAUT(+1),              00097001
+//             LABEL=(8,SL),                                            00098000
+//             SPACE=(CYL,(10,10),RLSE),                                00099000
+//             UNIT=CART,                                               00100000
+//             VOL=(,RETAIN,REF=*.SYSUSER.CPY07)                        00101000
+//CPY08B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00101100
+//             DISP=(NEW,CATLG,DELETE),                                 00101200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.SYSDBAUT(+1),             00101301
+//             LABEL=(8,SL),                                            00101400
+//             SPACE=(CYL,(10,10),RLSE),                                00101500
+//             UNIT=CART,                                               00101600
+//             VOL=(,RETAIN,REF=*.SYSUSER.CPY07B)                       00101700
+//CPY08R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00101801
+//             DISP=(NEW,CATLG,DELETE),                                 00101901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.SYSDBAUT(+1),             00102001
+//             LABEL=(8,SL),                                            00102101
+//             SPACE=(CYL,(10,10),RLSE),                                00102201
+//             UNIT=CART,                                               00102301
+//             VOL=(,RETAIN,REF=*.SYSUSER.CPY07R)                       00102401
+//SYSPRINT DD SYSOUT=*                                                  00102500
+//SYSUDUMP DD SYSOUT=*                                                  00103000
+//SYSLGRNG EXEC  PGM=DSNUTILB,                                          00104000
+//             PARM='DB2P,IMAGCOPY'                                     00105000
+//CPY09    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00106000
+//             DISP=(NEW,CATLG,DELETE),                                 00107000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.SYSLGRNG(+1),              00108001
+//             LABEL=(9,SL),                                            00109000
+//             SPACE=(CYL,(10,10),RLSE),                                00110000
+//             UNIT=CART,                                               00111000
+//             VOL=(,RETAIN,REF=*.SYSDBAUT.CPY08)                       00112000
+//CPY09B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00112100
+//             DISP=(NEW,CATLG,DELETE),                                 00112200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.SYSLGRNG(+1),             00112301
+//             LABEL=(9,SL),                                            00112400
+//             SPACE=(CYL,(10,10),RLSE),                                00112500
+//             UNIT=CART,                                               00112600
+//             VOL=(,RETAIN,REF=*.SYSDBAUT.CPY08B)                      00112700
+//CPY09R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00112801
+//             DISP=(NEW,CATLG,DELETE),                                 00112901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.SYSLGRNG(+1),             00113001
+//             LABEL=(9,SL),                                            00113101
+//             SPACE=(CYL,(10,10),RLSE),                                00113201
+//             UNIT=CART,                                               00113301
+//             VOL=(,RETAIN,REF=*.SYSDBAUT.CPY08R)                      00113401
+//SYSPRINT DD SYSOUT=*                                                  00113500
+//SYSUDUMP DD SYSOUT=*                                                  00114000
+//SYSCOPY  EXEC  PGM=DSNUTILB,                                          00115000
+//             PARM='DB2P,IMAGCOPY'                                     00116000
+//CPY10    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00117000
+//             DISP=(NEW,CATLG,DELETE),                                 00118000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.SYSCOPY(+1),               00119001
+//             LABEL=(10,SL),                                           00120000
+//             SPACE=(CYL,(10,10),RLSE),                                00121000
+//             UNIT=CART,                                               00122000
+//             VOL=(,RETAIN,REF=*.SYSLGRNG.CPY09)                       00123000
+//CPY10B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00123100
+//             DISP=(NEW,CATLG,DELETE),                                 00123200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.SYSCOPY(+1),              00123301
+//             LABEL=(10,SL),                                           00123400
+//             SPACE=(CYL,(10,10),RLSE),                                00123500
+//             UNIT=CART,                                               00123600
+//             VOL=(,RETAIN,REF=*.SYSLGRNG.CPY09B)                      00123700
+//CPY10R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00123801
+//             DISP=(NEW,CATLG,DELETE),                                 00123901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.SYSCOPY(+1),              00124001
+//             LABEL=(10,SL),                                           00124101
+//             SPACE=(CYL,(10,10),RLSE),                                00124201
+//             UNIT=CART,                                               00124301
+//             VOL=(,RETAIN,REF=*.SYSLGRNG.CPY09R)                      00124401
+//SYSPRINT DD SYSOUT=*                                                  00124500
+//SYSUDUMP DD SYSOUT=*                                                  00125000
+//DBD01    EXEC  PGM=DSNUTILB,                                          00126000
+//             PARM='DB2P,IMAGCOPY'                                     00127000
+//CPY11    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00128000
+//             DISP=(NEW,CATLG,DELETE),                                 00129000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.DBD01(+1),                 00130001
+//             LABEL=(11,SL),                                           00131000
+//             SPACE=(CYL,(10,10),RLSE),                                00132000
+//             UNIT=CART,                                               00133000
+//             VOL=(,RETAIN,REF=*.SYSCOPY.CPY10)                        00134000
+//CPY11B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00134100
+//             DISP=(NEW,CATLG,DELETE),                                 00134200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.DBD01(+1),                00134301
+//             LABEL=(11,SL),                                           00134400
+//             SPACE=(CYL,(10,10),RLSE),                                00134500
+//             UNIT=CART,                                               00134600
+//             VOL=(,RETAIN,REF=*.SYSCOPY.CPY10B)                       00134700
+//CPY11R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00134801
+//             DISP=(NEW,CATLG,DELETE),                                 00134901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.DBD01(+1),                00135001
+//             LABEL=(11,SL),                                           00135101
+//             SPACE=(CYL,(10,10),RLSE),                                00135201
+//             UNIT=CART,                                               00135301
+//             VOL=(,RETAIN,REF=*.SYSCOPY.CPY10R)                       00135401
+//SYSPRINT DD SYSOUT=*                                                  00135500
+//SYSUDUMP DD SYSOUT=*                                                  00136000
+//SYSUTIL  EXEC  PGM=DSNUTILB,                                          00137000
+//             PARM='DB2P,IMAGCOPY'                                     00138000
+//CPY12    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00139000
+//             DISP=(NEW,CATLG,DELETE),                                 00140000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.SYSUTIL(+1),               00141001
+//             LABEL=(12,SL),                                           00142000
+//             SPACE=(CYL,(10,10),RLSE),                                00143000
+//             UNIT=CART,                                               00144000
+//             VOL=(,RETAIN,REF=*.DBD01.CPY11)                          00145000
+//CPY12B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00145100
+//             DISP=(NEW,CATLG,DELETE),                                 00145200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.SYSUTIL(+1),              00145301
+//             LABEL=(12,SL),                                           00145400
+//             SPACE=(CYL,(10,10),RLSE),                                00145500
+//             UNIT=CART,                                               00145600
+//             VOL=(,RETAIN,REF=*.DBD01.CPY11B)                         00145700
+//CPY12R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00145801
+//             DISP=(NEW,CATLG,DELETE),                                 00145901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.SYSUTIL(+1),              00146001
+//             LABEL=(12,SL),                                           00146101
+//             SPACE=(CYL,(10,10),RLSE),                                00146201
+//             UNIT=CART,                                               00146301
+//             VOL=(,RETAIN,REF=*.DBD01.CPY11R)                         00146401
+//SYSPRINT DD SYSOUT=*                                                  00146500
+//SYSUDUMP DD SYSOUT=*                                                  00147000
+//SPT01    EXEC  PGM=DSNUTILB,                                          00148000
+//             PARM='DB2P,IMAGCOPY'                                     00149000
+//CPY13    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00150000
+//             DISP=(NEW,CATLG,DELETE),                                 00151000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.SPT01(+1),                 00152001
+//             LABEL=(13,SL),                                           00153000
+//             SPACE=(CYL,(10,10),RLSE),                                00154000
+//             UNIT=CART,                                               00155000
+//             VOL=(,RETAIN,REF=*.SYSUTIL.CPY12)                        00156000
+//CPY13B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00156100
+//             DISP=(NEW,CATLG,DELETE),                                 00156200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.SPT01(+1),                00156301
+//             LABEL=(13,SL),                                           00156400
+//             SPACE=(CYL,(10,10),RLSE),                                00156500
+//             UNIT=CART,                                               00156600
+//             VOL=(,RETAIN,REF=*.SYSUTIL.CPY12B)                       00156700
+//CPY13R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00156801
+//             DISP=(NEW,CATLG,DELETE),                                 00156901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.SPT01(+1),                00157001
+//             LABEL=(13,SL),                                           00157101
+//             SPACE=(CYL,(10,10),RLSE),                                00157201
+//             UNIT=CART,                                               00157301
+//             VOL=(,RETAIN,REF=*.SYSUTIL.CPY12R)                       00157401
+//SYSPRINT DD SYSOUT=*                                                  00157500
+//SYSUDUMP DD SYSOUT=*                                                  00158000
+//SYSSTR   EXEC  PGM=DSNUTILB,                                          00159000
+//             PARM='DB2P,IMAGCOPY'                                     00160000
+//CPY14    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00161000
+//             DISP=(NEW,CATLG,DELETE),                                 00162000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.SYSSTR(+1),                00163001
+//             LABEL=(14,SL),                                           00164000
+//             SPACE=(CYL,(10,10),RLSE),                                00165000
+//             UNIT=CART,                                               00166000
+//             VOL=(,RETAIN,REF=*.SPT01.CPY13)                          00167000
+//CPY14B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00167100
+//             DISP=(NEW,CATLG,DELETE),                                 00167200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.SYSSTR(+1),               00167301
+//             LABEL=(14,SL),                                           00167400
+//             SPACE=(CYL,(10,10),RLSE),                                00167500
+//             UNIT=CART,                                               00167600
+//             VOL=(,RETAIN,REF=*.SPT01.CPY13B)                         00167700
+//CPY14R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00167801
+//             DISP=(NEW,CATLG,DELETE),                                 00167901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.SYSSTR(+1),               00168001
+//             LABEL=(14,SL),                                           00168101
+//             SPACE=(CYL,(10,10),RLSE),                                00168201
+//             UNIT=CART,                                               00168301
+//             VOL=(,RETAIN,REF=*.SPT01.CPY13R)                         00168401
+//SYSPRINT DD SYSOUT=*                                                  00168500
+//SYSUDUMP DD SYSOUT=*                                                  00169000
+//SYSPKAGE EXEC  PGM=DSNUTILB,                                          00170000
+//             PARM='DB2P,IMAGCOPY'                                     00171000
+//CPY15    DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00172000
+//             DISP=(NEW,CATLG,DELETE),                                 00173000
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY.SYSPKAG(+1),               00174001
+//             LABEL=(15,SL),                                           00175000
+//             SPACE=(CYL,(10,10),RLSE),                                00176000
+//             UNIT=CART,                                               00177000
+//             VOL=(,RETAIN,REF=*.SYSSTR.CPY14)                         00178000
+//CPY15B   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00178100
+//             DISP=(NEW,CATLG,DELETE),                                 00178200
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPY2.SYSPKAG(+1),              00178301
+//             LABEL=(15,SL),                                           00178400
+//             SPACE=(CYL,(10,10),RLSE),                                00178500
+//             UNIT=CART,                                               00178600
+//             VOL=(,RETAIN,REF=*.SYSSTR.CPY14B)                        00178700
+//CPY15R   DD DCB=(GDG,RECFM=FB,BLKSIZE=28672,LRECL=4096),              00178801
+//             DISP=(NEW,CATLG,DELETE),                                 00178901
+//             DSN=PSSXD.XD104M.DB2P.IMAGCPYR.SYSPKAG(+1),              00179001
+//             LABEL=(15,SL),                                           00179101
+//             SPACE=(CYL,(10,10),RLSE),                                00179201
+//             UNIT=CART,                                               00179301
+//             VOL=(,RETAIN,REF=*.SYSSTR.CPY14R)                        00179401
+//SYSPRINT DD SYSOUT=*                                                  00179500
+//SYSUDUMP DD SYSOUT=*                                                  00180000

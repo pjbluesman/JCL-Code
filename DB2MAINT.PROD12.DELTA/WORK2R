@@ -1,0 +1,76 @@
+//UXD002M JOB ,'DB2 SUPPORT A3 ANNEX',CLASS=S,MSGCLASS=X                00000001
+//*********************************************************************/00020000
+//* JOB NAME = DSNTIJTM                                               */00020000
+//* (FOR DB2R AND DB4R - SIZES CHANGED 11/1/04 - CJR                  */00030000
+//* FUNCTION = CREATE TEMPORARY FILES FOR DB2                         */00120000
+//*********************************************************************/00280000
+//JOBLIB  DD  DISP=SHR,                                                 00290000
+//            DSN=SSXDP.DSNDBRG.DB4R.SDSNLOAD                           00300000
+//DSNTIC  PROC                                                          00320000
+//* ***************************************************************** */00320000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE           */00330000
+//* ***************************************************************** */00340000
+//DSNTIC  EXEC PGM=IDCAMS                                               00350000
+//SYSPRINT DD SYSOUT=*                                                  00360000
+//SYSUDUMP DD SYSOUT=*                                                  00370000
+//DSNTIC  PEND                                                          00380000
+//*                                                                     00385000
+//DSNTTMP EXEC DSNTIC                                                   00930000
+//* ***********************************************                     00940000
+//*  DEFINE TEMPORARY TABLESPACES                 *                     00950000
+//*     THESE TABLE SPACES ARE USED FOR TEMPORARY *                     00960000
+//*     OR INTERMEDIATE TABLES BY DB2, IN SORTING *                     00970000
+//*     FOR ONE EXAMPLE.                          *                     00980000
+//* ***********************************************                     00990000
+//SYSIN DD *                                                            02000000
+                                                                        02000036
+                                                                        02000048
+    DEFINE CLUSTER -                                                    02000037
+       ( NAME(DB2R.DSNDBC.WRKDB4R.DSN4K22.I0001.A003) -                 02000038
+            LINEAR     -                                                02000039
+            REUSE -                                                     02000040
+            VOLUMES(E9D2R6) -                                           02000041
+            CYLINDERS(2000 300) -                                       02000042
+            SHAREOPTIONS(3 3) ) -                                       02000043
+       DATA -                                                           02000044
+       ( NAME(DB2R.DSNDBD.WRKDB4R.DSN4K22.I0001.A003) -                 02000045
+                          ) -                                           02000046
+      CATALOG(DB2R)                                                     02000047
+                                                                        02000048
+    DEFINE CLUSTER -                                                    02000037
+       ( NAME(DB2R.DSNDBC.WRKDB2R.DSN4K22.I0001.A003) -                 02000038
+            LINEAR     -                                                02000039
+            REUSE -                                                     02000040
+            VOLUMES(E9D2R6) -                                           02000041
+            CYLINDERS(2000 300) -                                       02000042
+            SHAREOPTIONS(3 3) ) -                                       02000043
+       DATA -                                                           02000044
+       ( NAME(DB2R.DSNDBD.WRKDB2R.DSN4K22.I0001.A003) -                 02000045
+                          ) -                                           02000046
+      CATALOG(DB2R)                                                     02000047
+                                                                        02000048
+    DEFINE CLUSTER -                                                    02000037
+       ( NAME(DB2R.DSNDBC.WRKDB3R.DSN4K22.I0001.A003) -                 02000038
+            LINEAR     -                                                02000039
+            REUSE -                                                     02000040
+            VOLUMES(E9D2R6) -                                           02000041
+            CYLINDERS(2000 300) -                                       02000042
+            SHAREOPTIONS(3 3) ) -                                       02000043
+       DATA -                                                           02000044
+       ( NAME(DB2R.DSNDBD.WRKDB3R.DSN4K22.I0001.A003) -                 02000045
+                          ) -                                           02000046
+      CATALOG(DB2R)                                                     02000047
+                                                                        02000048
+    DEFINE CLUSTER -                                                    02000037
+       ( NAME(DB2R.DSNDBC.WRKDB5R.DSN4K22.I0001.A003) -                 02000038
+            LINEAR     -                                                02000039
+            REUSE -                                                     02000040
+            VOLUMES(E9D2R6) -                                           02000041
+            CYLINDERS(2000 300) -                                       02000042
+            SHAREOPTIONS(3 3) ) -                                       02000043
+       DATA -                                                           02000044
+       ( NAME(DB2R.DSNDBD.WRKDB5R.DSN4K22.I0001.A003) -                 02000045
+                          ) -                                           02000046
+      CATALOG(DB2R)                                                     02000047
+                                                                        01020000
+//*                                                                     01150000

@@ -1,0 +1,33 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00000100
+//         NOTIFY=&SYSUID                                               00000200
+//JOBLIB   DD  DISP=SHR,DSN=SSXDT.DBVG.SDSNEXIT                         00380004
+//         DD  DISP=SHR,DSN=SDBVG.SDSNLOAD                              00381004
+//         DD  DISP=SHR,DSN=SYS1.CEE.SCEERUN                            00390000
+//*                                                                     00400000
+//PH01LS04 EXEC PGM=IKJEFT01,DYNAMNBR=20                                00869000
+//SYSTSPRT DD  SYSOUT=*                                                 00871000
+//SYSPRINT DD  SYSOUT=*                                                 00872000
+//SYSUDUMP DD  SYSOUT=*                                                 00873000
+//SYSTSIN  DD  *                                                        00874000
+ DSN SYSTEM(DBVG)                                                       00875004
+ RUN  PROGRAM(DSNTEP2) PLAN(DSNTEP2) +                                  00880000
+      LIB('SSXDT.DBVG.RUNLIB.LOAD') +                                   00881004
+      PARMS('/ALIGN(MID)')                                              00882000
+ END                                                                    00884000
+//*                                                                     00885000
+//SYSIN    DD *                                                         00886000
+--SET CURRENT SQLID = 'LSEBDB2';                                        00886101
+  SELECT '-STOP PROC(' || OWNER || '.' ||                               00886201
+         NAME || ')'                                                    00886301
+         FROM SYSIBM.SYSROUTINES                                        00886401
+         WHERE WLM_ENVIRONMENT ='WLMDB20A'                              00886501
+  UNION                                                                 00886801
+  SELECT 'ALTER PROCEDURE ' || SCHEMA || '.' ||                         00886901
+         NAME || ' WLM ENVIRONMENT WLMDB202;  '                         00887002
+         FROM SYSIBM.SYSROUTINES                                        00887101
+         WHERE WLM_ENVIRONMENT ='WLMDB20A'                              00887201
+  UNION                                                                 00887701
+  SELECT '-START PROC(' || OWNER || '.' ||                              00887801
+         NAME || ')'                                                    00887901
+         FROM SYSIBM.SYSROUTINES                                        00888001
+         WHERE WLM_ENVIRONMENT ='WLMDB20A'                              00888101

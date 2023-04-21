@@ -1,0 +1,360 @@
+//UXD001M JOB ,'GIL RCC',CLASS=S,MSGCLASS=X                             00000001
+//*********************************************************************/00010000
+//*********************************************************************/00280000
+//JOBLIB  DD  DISP=SHR,                                                 00290000
+//            DSN=SSXDP.DSNDBFG.DB2F.SDSNLOAD                           00300000
+//DSNTIC  PROC                                                          00210000
+//* *************************************************************** */  00220000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE         */  00230000
+//* *************************************************************** */  00240000
+//DSNTIC  EXEC PGM=IDCAMS                                               00250000
+//SYSPRINT DD SYSOUT=*                                                  00270000
+//SYSUDUMP DD SYSOUT=*                                                  00280000
+//DSNTIC  PEND                                                          00290000
+//DSNTTMP EXEC DSNTIC                                                   00720000
+//SYSIN DD *                                                            01000000
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K01.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K01.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K01.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K02.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K02.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K02.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K03.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K03.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K03.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K04.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K04.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K04.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K05.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K05.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K05.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K06.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K06.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K06.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K07.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K07.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K07.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K08.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K08.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K08.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K09.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K09.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K09.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K10.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K10.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K10.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K11.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K11.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K11.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K12.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K12.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K12.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K13.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K13.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K13.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K14.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K14.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K14.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K15.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K15.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K15.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K16.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K16.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K16.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K17.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K17.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K17.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K18.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K18.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K18.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K19.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K19.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K19.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K20.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K20.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K20.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K21.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K21.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K21.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K22.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K22.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 0) -                                           01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K22.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003
+      DELETE -                                                          01730001
+             (DB2F.DSNDBC.DSNDB07.DSN4K23.I0001.A001) -                 01730002
+             CATALOG(DB2F)                                              01730003
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2F.DSNDBC.DSNDB07.DSN4K23.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2R2,E9D2R1) -                                    01000041
+            TRACKS(40000 300) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2F.DSNDBD.DSNDB07.DSN4K23.I0001.A001) -                 01000045
+                          ) -                                           01000046
+             CATALOG(DB2F)                                              01730003

@@ -1,0 +1,85 @@
+SET CURRENT SQLID = 'SYSPRO';
+ CREATE TABLESPACE DSN4K01 IN WRKDB6R                                   01140001
+        BUFFERPOOL BP40                                                 01140002
+        CLOSE NO                                                        01140003
+        USING VCAT DB2R;                                                01140004
+ CREATE TABLESPACE DSN4K02 IN WRKDB6R                                   01140005
+        BUFFERPOOL BP40                                                 01140006
+        CLOSE NO                                                        01140007
+        USING VCAT DB2R;                                                01140008
+ CREATE TABLESPACE DSN4K03 IN WRKDB6R                                   01140009
+        BUFFERPOOL BP40                                                 01140010
+        CLOSE NO                                                        01140011
+        USING VCAT DB2R;                                                01140012
+ CREATE TABLESPACE DSN4K04 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K05 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K06 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K07 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K08 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K09 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K10 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K11 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K12 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K13 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K14 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K15 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K16 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K17 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K18 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN4K19 IN WRKDB6R                                   01140013
+        BUFFERPOOL BP40                                                 01140014
+        CLOSE NO                                                        01140015
+        USING VCAT DB2R;                                                01140016
+ CREATE TABLESPACE DSN32K01 IN WRKDB6R                                  01140017
+        BUFFERPOOL BP32K9                                               01140018
+        CLOSE NO                                                        01140019
+        USING VCAT DB2R;                                                01140020
+ CREATE TABLESPACE DSN32K02 IN WRKDB6R                                  01140017
+        BUFFERPOOL BP32K9                                               01140018
+        CLOSE NO                                                        01140019
+        USING VCAT DB2R;                                                01140020

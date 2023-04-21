@@ -1,0 +1,27 @@
+//UXD001M JOB ,'DB2 A3',CLASS=S,MSGCLASS=X                              00000001
+//*********************************************************************/00010000
+//*********************************************************************/00280000
+//JOBLIB  DD  DISP=SHR,                                                 00290000
+//            DSN=SDB2F.SDSNLOAD                                        00300000
+//DSNTIC  PROC                                                          00210000
+//* *************************************************************** */  00220000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE         */  00230000
+//* *************************************************************** */  00240000
+//DSNTIC  EXEC PGM=IDCAMS                                               00250000
+//SYSPRINT DD SYSOUT=*                                                  00270000
+//SYSUDUMP DD SYSOUT=*                                                  00280000
+//DSNTIC  PEND                                                          00290000
+//DSNTTMP EXEC DSNTIC                                                   00720000
+//SYSIN DD *                                                            01000000
+  DEFINE CLUSTER -
+    ( NAME(DB2F.DSNDBC.WRKDB2F.DSN4K24.I0001.A003) -
+         LINEAR     -
+         REUSE -
+         VOLUMES(E9D2F1) -
+         CYLINDERS(1000 200) -
+         SHAREOPTIONS(3 3) ) -
+    DATA -
+    ( NAME(DB2F.DSNDBD.WRKDB2F.DSN4K24.I0001.A003) -
+                       ) -
+    CATALOG(DB2F)
+//

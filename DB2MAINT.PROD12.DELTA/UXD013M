@@ -1,0 +1,11 @@
+//UXD013M JOB (,712),CLASS=S,MSGCLASS=X,TIME=1440                       00010001
+//CDB1     EXEC PGM=CDBSSPGM,                                           00020000
+//         PARM='DSN=15360,SQA=256,DSNM=1000',TIME=1440,                00030000
+//         REGION=0M                                                    00040000
+//**********************************************************            00050000
+//*****  MUST BE APF AUTHORIZED   **************************            00060000
+//STEPLIB  DD DISP=SHR,DSN=SSXDT.CDB.PTF19.LOADLIB                      00070000
+//**********************************************************            00080000
+//LOGPDS   DD DISP=SHR,DSN=SSXDT.CDB.PTF19.LOGPDS                       00090000
+//SYSUDUMP DD SYSOUT=*                                                  00100000
+//SYSPRINT DD SYSOUT=X                                                  00110000

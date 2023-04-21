@@ -1,0 +1,277 @@
+//UXD002M JOB ,'DB2 SUPPORT A3',CLASS=S,MSGCLASS=X                      00000001
+//*********************************************************************/00010000
+//*********************************************************************/00280000
+//JOBLIB  DD  DISP=SHR,                                                 00290000
+//            DSN=SDB6R.SDSNLOAD                                        00300000
+//DSNTIC  PROC                                                          00310000
+//* ***************************************************************** */00320000
+//* DIRECTORY/CATALOG AMS INVOCATION INSTREAM JCL PROCEDURE           */00330000
+//* ***************************************************************** */00340000
+//DSNTIC  EXEC PGM=IDCAMS                                               00350000
+//SYSPRINT DD SYSOUT=*                                                  00360000
+//SYSUDUMP DD SYSOUT=*                                                  00370000
+//DSNTIC  PEND                                                          00380000
+//*                                                                     00385000
+//*                                                                     00920000
+//DSNTTMP EXEC DSNTIC                                                   00930000
+//* ***********************************************                     00940000
+//*  DEFINE TEMPORARY TABLESPACES                 *                     00950000
+//*     THESE TABLE SPACES ARE USED FOR TEMPORARY *                     00960000
+//*     OR INTERMEDIATE TABLES BY DB2, IN SORTING *                     00970000
+//*     FOR ONE EXAMPLE.                          *                     00980000
+//* ***********************************************                     00990000
+//SYSIN DD *                                                            01000000
+    DEFINE CLUSTER -                                                    01000001
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K01.I0001.A001) -                 01000002
+            LINEAR     -                                                01000003
+            REUSE -                                                     01000004
+            VOLUMES(E9D2RA) -                                           01000005
+            CYLINDERS(2000 0) -                                         01000006
+            SHAREOPTIONS(3 3) ) -                                       01000007
+       DATA -                                                           01000008
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K01.I0001.A001) -                 01000009
+                          ) -                                           01000010
+      CATALOG(DB2R)                                                     01000011
+                                                                        01000012
+    DEFINE CLUSTER -                                                    01000013
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K02.I0001.A001) -                 01000014
+            LINEAR     -                                                01000015
+            REUSE -                                                     01000016
+            VOLUMES(E9D2RA) -                                           01000017
+            CYLINDERS(2000 0) -                                         01000018
+            SHAREOPTIONS(3 3) ) -                                       01000019
+       DATA -                                                           01000020
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K02.I0001.A001) -                 01000021
+                          ) -                                           01000022
+      CATALOG(DB2R)                                                     01000023
+                                                                        01000024
+    DEFINE CLUSTER -                                                    01000025
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K03.I0001.A001) -                 01000026
+            LINEAR     -                                                01000027
+            REUSE -                                                     01000028
+            VOLUMES(E9D2RA) -                                           01000029
+            CYLINDERS(2000 0) -                                         01000030
+            SHAREOPTIONS(3 3) ) -                                       01000031
+       DATA -                                                           01000032
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K03.I0001.A001) -                 01000033
+                          ) -                                           01000034
+      CATALOG(DB2R)                                                     01000035
+                                                                        01000036
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K04.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K04.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K05.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K05.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K06.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K06.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K07.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K07.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K08.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K08.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K09.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K09.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K10.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K10.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K11.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K11.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K12.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K12.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K13.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K13.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K14.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K14.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K15.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K15.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K16.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K16.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K17.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K17.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K18.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 0) -                                         01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K18.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000037
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN4K19.I0001.A001) -                 01000038
+            LINEAR     -                                                01000039
+            REUSE -                                                     01000040
+            VOLUMES(E9D2RA) -                                           01000041
+            CYLINDERS(2000 200) -                                       01000042
+            SHAREOPTIONS(3 3) ) -                                       01000043
+       DATA -                                                           01000044
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN4K19.I0001.A001) -                 01000045
+                          ) -                                           01000046
+      CATALOG(DB2R)                                                     01000047
+                                                                        01000048
+                                                                        01000048
+    DEFINE CLUSTER -                                                    01000049
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN32K01.I0001.A001) -                01000050
+            LINEAR     -                                                01000051
+            REUSE -                                                     01000052
+            VOLUMES(E9D2RA) -                                           01000053
+            CYLINDERS(935 0) -                                          01000054
+            SHAREOPTIONS(3 3) ) -                                       01000055
+       DATA -                                                           01000056
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN32K01.I0001.A001) -                01000057
+                          ) -                                           01000058
+      CATALOG(DB2R)                                                     01000059
+                                                                        01000060
+    DEFINE CLUSTER -                                                    01000049
+       ( NAME(DB2R.DSNDBC.WRKDB6R.DSN32K02.I0001.A001) -                01000050
+            LINEAR     -                                                01000051
+            REUSE -                                                     01000052
+            VOLUMES(E9D2RA) -                                           01000053
+            CYLINDERS(935 0) -                                          01000054
+            SHAREOPTIONS(3 3) ) -                                       01000055
+       DATA -                                                           01000056
+       ( NAME(DB2R.DSNDBD.WRKDB6R.DSN32K02.I0001.A001) -                01000057
+                          ) -                                           01000058
+      CATALOG(DB2R)                                                     01000059
+                                                                        01000060
+//*                                                                     01150000

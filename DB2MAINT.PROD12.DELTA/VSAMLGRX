@@ -1,0 +1,27 @@
+//DB2RDFVS   JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X,
+//         NOTIFY=&SYSUID,REGION=0M
+/*JOBPARM SYSAFF=MVS4
+//*                                                                     00490000
+//DSNTIC  PROC                                                          00500000
+//DSNTIC  EXEC PGM=IDCAMS,COND=(2,LT)
+//SYSPRINT DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//DSNTIC  PEND
+//*
+//*
+//DSNTDIR EXEC DSNTIC                                                   01810000
+//* *********************************************                       01820000
+//*  DEFINE DB2  DIRECTORY TABLE SPACES         *                       01830000
+//* *********************************************                       01840000
+//SYSIN    DD  *                                                        01850000
+   DEFINE CLUSTER                             -                         02820000
+         ( NAME(DB2R.DSNDBC.DSNDB01.SYSLGRNX.I0001.A007) -              02830000
+           LINEAR                             -                         02840000
+           REUSE                              -                         02850000
+           VOLUMES(*.*.*)                     -                         02860000
+           CYLINDERS(2913 300)                -                         02890000
+           SHAREOPTIONS(3 3) )                -                         02900000
+      DATA                                    -                         02910000
+         ( NAME(DB2R.DSNDBD.DSNDB01.SYSLGRNX.I0001.A007) -              02920000
+                              )                                         02950000
+                                                                        02970000

@@ -1,0 +1,37 @@
+//UXC401MI JOB ,'DB2 SYSPROG RCC',CLASS=P,MSGCLASS=X,NOTIFY=&SYSUID     00010003
+/*JOBPARM SYSAFF=MVSI                                                   00020005
+//*************************************************************         00030000
+//** THIS JOB RUN A SQL                                                 00040000
+//*************************************************************         00050000
+//DSNTIAS EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     00060000
+//STEPLIB  DD  DISP=SHR,DSN=SSXDP.DB2G.SDSNEXIT                         00070005
+//         DD  DISP=SHR,DSN=SDB2G.SDSNLOAD                              00070105
+//         DD  DISP=SHR,DSN=SSXDP.DB2G.RUNLIB.LOAD                      00071005
+//SYSTSPRT DD  SYSOUT=*                                                 00080000
+//SYSPRINT DD  SYSOUT=*                                                 00090000
+//SYSPUNCH DD  DUMMY                                                    00100000
+//SYSREC00 DD  DISP=MOD,                                                00101001
+//             DSN=T496544.WLMGUTIL.SEARCH,                             00102001
+//             DCB=(RECFM=FB,LRECL=500,BLKSIZE=27500),                  00103001
+//             UNIT=SYSDA,SPACE=(CYL,(10,1),RLSE)                       00104001
+//SYSTSIN  DD  *                                                        00110000
+  DSN SYSTEM(DB2G)                                                      00120005
+      RUN PROGRAM(DSNTIAUL) PARMS('SQL')                                00130000
+  END                                                                   00150000
+//*                                                                     00160000
+//SYSIN    DD  *                                                        00170000
+   SELECT 'DB2G - SCHEMA: ',                                            00290005
+          CHAR(SCHEMA,8)   AS SCHEMA,'NAME: ',                          00291001
+          CHAR(NAME,25)    AS NAME,                                     00300000
+          CASE                                                          00330000
+          WHEN WLM_ENVIRONMENT = '   '                                  00340000
+               THEN  'RUNS IN SPAS'                                     00350000
+               ELSE  'RUNS IN WLM='                                     00360000
+          END ||                                                        00370000
+          RTRIM(CHAR(WLM_ENVIRONMENT,20)) AS WLM_ENVIRONMENT            00380000
+     FROM SYSIBM.SYSROUTINES                                            00390000
+    WHERE WLM_ENVIRONMENT IN ('DB2GUTIL')                               00400001
+    ORDER BY 1,2                                                        00410000
+      FOR FETCH ONLY                                                    00420000
+     WITH UR;                                                           00430000
+                                                                        00440001

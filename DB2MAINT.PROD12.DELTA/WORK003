@@ -1,0 +1,65 @@
+
+-- EBKDP02.IXCKW128 WILL BE CREATED VIA THESE NATIVE DB2 COMMANDS.
+
+    SET CURRENT SQLID = 'DT0072';
+
+    CREATE        INDEX EBKDP02.IXCKW128
+           ON EBKDP02.WT_CPN_HST
+          (PRTTN_KEY_ID         ASC
+          )
+           CLUSTER
+          (PART 1
+           VALUES
+          (
+           200.)
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 10000
+                                    SECQTY 7000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 2
+           VALUES
+          (
+           400.)
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 10000
+                                    SECQTY 7000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 3
+           VALUES
+          (
+           600.)
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 10000
+                                    SECQTY 7000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 4
+           VALUES
+          (
+           800.)
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 10000
+                                    SECQTY 7000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          ,PART 5
+           VALUES
+          (
+           999.)
+                     USING STOGROUP EBKDSGP2
+                                    PRIQTY 10000
+                                    SECQTY 7000
+                                    ERASE NO
+                     FREEPAGE 0
+                     PCTFREE 0
+          )
+           BUFFERPOOL BP9
+           CLOSE YES
+    ;
+

@@ -1,0 +1,48 @@
+MYMAIN   CEEENTRY AUTO=PROGSIZE,MAIN=YES,PLIST=OS                       00010000
+         USING PROGAREA,R13                                             00020000
+         L     R7,0(R1)        GET POINTER TO PARM1                     00030001
+         MVC   PARM1(4),0(R7)  MOVE VALUE INTO LOCAL COPY OF PA         00040001
+         L     R7,4(R1)        GET POINTER TO PARM2                     00050001
+         MVC   PARM1(4),0(R7)  MOVE VALUE INTO LOCAL COPY OF PA         00060001
+         L     R7,12(R1)       GET POINTER TO INDICATOR 1               00070001
+         MVC   F_IND1(2),0(R7) MOVE PARM1 INDICATOR TO LOCAL STORA      00080001
+         LH    R7,F_IND1       MOVE PARM1 INDICATOR INTO R7             00090001
+         LTR   R7,R7           CHECK IF IT IS NEGATIVE                  00100001
+         BM    NULLIN          IF SO, PARM1 IS NULL                     00110001
+         L     R7,16(R1)       GET POINTER TO INDICATOR 2               00120001
+         MVC   F_IND2(2),0(R7) MOVE PARM2 INDICATOR TO LOCAL STORA      00130001
+         LH    R7,F_IND2       MOVE PARM2 INDICATOR INTO R7             00140001
+         LTR   R7,R7           CHECK IF IT IS NEGATIVE                  00150001
+         BM    NULLIN          IF SO, PARM2 IS NULL                     00160001
+       .                                                                00170000
+       .                                                                00180000
+         L     R7,8(R1)            GET ADDRESS OF AREA FOR RESULT       00181002
+NULLIN   MVC   0(9,R7),RESULT      MOVE A VALUE INTO RESULT AREA        00182002
+         L     R7,20(R1)           GET ADDRESS OF AREA FOR RESULT I     00183002
+         MVC   0(2,R7),=H'0'       MOVE A VALUE INTO INDICATOR AREA     00184002
+                                                                        00185002
+       .                                                                00190000
+       .                                                                00191002
+       .                                                                00192002
+       .                                                                00193002
+       .                                                                00194002
+         CEETERM  RC=0                                                  00200000
+*******************************************************************     00210000
+*  VARIABLE DECLARATIONS AND EQUATES                              *     00220000
+*******************************************************************     00230000
+R1       EQU   1               REGISTER 1                               00240001
+R7       EQU   7               REGISTER 7                               00250001
+PPA      CEEPPA  ,             CONSTANTS DESCRIBING THE CODE BL         00260001
+         LTORG ,               PLACE LITERAL POOL HERE                  00270001
+PROGAREA DSECT                                                          00280000
+         ORG   *+CEEDSASZ      LEAVE SPACE FOR DSA FIXED PART           00290001
+PARM1    DS    F               PARAMETER 1                              00300001
+PARM2    DS    F               PARAMETER 2                              00310001
+RESULT   DS    CL9             RESULT                                   00320001
+F_IND1   DS    H               INDICATOR FOR PARAMETER 1                00330001
+F_IND2   DS    H               INDICATOR FOR PARAMETER 2                00340001
+F_INDR   DS    H               INDICATOR FOR RESULT                     00350001
+PROGSIZE EQU   *-PROGAREA                                               00360000
+         CEEDSA  ,             MAPPING OF THE DYNAMIC SAVE AREA         00370001
+         CEECAA  ,             MAPPING OF THE COMMON ANCHOR AR          00380001
+         END   MYMAIN                                                   00400000
