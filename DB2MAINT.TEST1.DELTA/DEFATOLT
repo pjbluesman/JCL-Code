@@ -1,0 +1,14 @@
+//UXC401M  JOB ,'DB2 SYS ALIAS T',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID     00000102
+//             MSGLEVEL=(1,1)                                           00001002
+//DELETE   EXEC PGM=IDCAMS                                              00470000
+//SYSPRINT DD  SYSOUT=*                                                 00480000
+//SYSIN   DD  *                                                         00490000
+ DELETE DB2TOOLT ALIAS CAT(CATALOG.MVSICFM.CATTAS1B  )                  00500000
+ DEF ALIAS(REL(CATALOG.MVSICF1.DBTRS1) NAME(DB2TOOLT)) -                00510000
+           CAT(CATALOG.MVSICFM.CATTAS1B  )                              00520000
+/*                                                                      00591000
+//                                                                      00591100
+//*---- PREVIOUS DEFINITION                                             00591200
+ DELETE DB2TOOLT ALIAS CAT(CATALOG.MVSICFM.CATTAS1B  )                  00592000
+ DEF ALIAS(REL(CATALOG.MVSICF1.DBTRS3) NAME(DB2TOOLT)) -                00593000
+           CAT(CATALOG.MVSICFM.CATTAS1B  )                              00594000

@@ -1,0 +1,23 @@
+//AD#RSU13 JOB ,'DB2 SYSPROG RCC',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID     00010001
+/*JOBPARM SYSAFF=MVSE                                                   00020001
+//DUMP     EXEC PGM=ADRDSSU,COND=(4,LT)                                 00030000
+//OUTPUT   DD  DSN=SSXDT.DEWD.DUMPDEWD.BKP.D140808,                     00040001
+//             DISP=(NEW,CATLG,DELETE),                                 00041000
+//             UNIT=SYSDA,SPACE=(CYL,(100,20),RLSE)                     00050000
+//SYSPRINT DD  SYSOUT=*                                                 00060000
+//SYSIN    DD  *                                                        00070000
+  DUMP OUTDD(OUTPUT) -                                                  00080000
+       COMPRESS      -                                                  00090000
+       OPTIMIZE(4)   -                                                  00100000
+       TOLERATE(ENQFAILURE) -                                           00110000
+       DATASET(INCLUDE( -                                               00120000
+                       SSXDT.DEWD.DBRMLIB.DATA              -           00130001
+                       SSXDT.DEWD.TAILOR.SDSNSAMP           -           00160001
+                       SSXDT.DEWD.RUNLIB.LOAD               -           00180001
+                       SSXDT.DEWD.SDSNEXIT                  -           00190001
+                       SSXDT.DEWD.SRCLIB.DATA               -           00200001
+                       SSXDT.DEWD.SDSNEXIT                  -           00209901
+                       SSXDT.DEWD.STG91EWD.TAILOR.SDSNSAMP   -          00210001
+                       SSXDT.DSNDEWD.DEWD.RUNLIB.LOAD -                 00210501
+                       ) -                                              00212000
+              )                                                         00220000

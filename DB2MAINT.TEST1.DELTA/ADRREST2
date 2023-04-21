@@ -1,0 +1,46 @@
+//DB2WBDEF JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVS4
+//*---------------------------------------------------------------------
+//*  DEFINE NEW BSDS
+//*
+//*  NOTE: CHECK CURRENT BSDS AND UPDATE NAME IF NEEDED
+//*---------------------------------------------------------------------
+//DSNTIC  EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//SYSIN    DD  *
+   DEFINE CLUSTER                              -
+          ( NAME(DB2W.BSDS01)          -
+            VOLUMES(E9D1W1)                   -
+            REUSE                              -
+            SHAREOPTIONS(2 3) )                -
+     DATA -
+        ( NAME(DB2W.BSDS01.DATA)       -
+          CYL( 20 10 )                         -
+          RECORDSIZE(4089 4089)                -
+          CONTROLINTERVALSIZE(4096)            -
+          FREESPACE(0 20)                      -
+          KEYS(4 0) )                          -
+     INDEX -
+        ( NAME(DB2W.BSDS01.INDEX)      -
+          CYL( 2 1 )                           -
+          CONTROLINTERVALSIZE(1024) )
+
+   DEFINE CLUSTER                              -
+          ( NAME(DB2W.BSDS02)          -
+            VOLUMES(E9D1W2)                   -
+            REUSE                              -
+            SHAREOPTIONS(2 3) )                -
+     DATA -
+        ( NAME(DB2W.BSDS02.DATA)       -
+          CYL( 20 10 )                         -
+          RECORDSIZE(4089 4089)                -
+          CONTROLINTERVALSIZE(4096)            -
+          FREESPACE(0 20)                      -
+          KEYS(4 0) )                          -
+     INDEX -
+        ( NAME(DB2W.BSDS02.INDEX)      -
+          CYL( 2 1 )                           -
+          CONTROLINTERVALSIZE(1024) )
+/*

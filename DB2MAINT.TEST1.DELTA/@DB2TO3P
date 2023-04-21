@@ -1,0 +1,79 @@
+)ATTR DEFAULT(%+_)
+@ type(text)    intens(low)  color(yellow)
+* type(dataout) intens(low)  color(yellow)
+$ type(text)    intens(high) color(green)
+^ type(text)    intens(low)  color(YELLOW)
+{ type(dataout) intens(low)  color(turq)
+# type(text)    intens(low)  color(red)    hilite(uscore)
+_ type(input)   intens(low)  color(white)
+! type(text)    intens(high) color(pink)
+| type(dataout) intens(high) color(pink)
+~ type(output)  intens(high) color(red)    caps(off) hilite(blink)
+º area(dynamic) scroll(on)   extend(on)
+` type(dataout) intens(high) color(white)
+)BODY
+%----------------------- DB2 Options Menu -----------------------------&SYSID
+%                                                                      &ZUSER
+%Option ===>_ZCMD                                                     %&ZDATE
+%                       ^ IBM DB2 Tools %                             %&ZTIME
+%
+%            % E    + DB2I - VERSION 9
+%            % CP   + DB2 Command Processor
+%            % S    + DB2I - VERSION 8
+%            ^ ADM  + DB2 Administration Tool         V 10.1
+%            ^ DA   + DB2 Automation Tool             V 3.1
+%            ^ PE   + DB2 Performance Expert for z/OS V 2
+%            ^ QM   + Query Monitor                   V 3.1
+%            ^ SPA  + SQL Performance Analyzer        V 4.1
+%            ^ TE   + Table Editor                    V 4.3
+%            ^ HPU  + High Perfomance Unload          V 4.1
+%            ^ OMPE + Tivoli Omegamon XE Perf.Expert  V 4.1
+%
+)INIT
+  .HELP = ISR00003
+  &D1 = &Z
+  VGET SYSID ASIS
+  IF (&SYSID = 'MVSS')
+    &D1 = 'SSXDT.DB2TOOLS.MVSSRTE.RKD2SAM(FPEJINIT)'
+  IF (&SYSID = 'MVSJ')
+    &D1 = 'SSXDT.DB2TOOLS.MVSJRTE.RKD2SAM(FPEJINIT)'
+  IF (&SYSID = 'MVSN')
+    &D1 = 'SSXDT.DB2TOOLS.MVSNRTE.RKD2SAM(FPEJINIT)'
+  IF (&SYSID = 'MVSH')
+    &D1 = 'SSXDT.DB2TOOLS.MVSHRTE.RKD2SAM(FPEJINIT)'
+  IF (&SYSID = 'MVSE')
+    &D1 = 'SSXDT.DB2TOOLS.MVSERTE.RKD2SAM(FPEJINIT)'
+  IF (&SYSID = 'MVSK')
+    &D1 = 'SSXDT.DB2TOOLS.MVSKRTE.RKD2SAM(FPEJINIT)'
+  IF (&SYSID = 'MVSU')
+    &D1 = 'SSXDT.DB2TOOLS.MVSURTE.RKD2SAM(FPEJINIT)'
+  IF (&SYSID = 'MVS3')
+    &D1 = 'SSXDT.DB2TOOLS.MVS3RTE.RKD2SAM(FPEJINIT)'
+)PROC
+ &ZSEL = TRANS( TRUNC (&ZCMD,'.')
+       ARCH,'CMD(%$ARCH)'
+       ADM,'CMD(%ADBL)'
+      GADM,'CMD(%ADBLV7G)'
+        CP,'CMD(%$DB2CPN)'
+        DA,'CMD(%HAAV31)'
+        DP,'CMD(%DGOJINIT)'
+        DU,'CMD(%EZKMAIN)'
+        DX,'CMD(%ADBL)'
+         E,'CMD(%$DB2B)'
+         M,'CMD(%$DB2MANT)'
+         N,'CMD(%$DB2NEW)'
+        PE,'CMD(%FPEJINIT)'
+     PEADM,'CMD(%FPEJINIT DGOVMAIN)'
+        QM,'CMD(%CQM)'
+       RRK,'CMD(%RRKTEST)'
+         S,'CMD(%$DB2U)'
+     SDB2C,'CMD(%DB2C)'
+       SPA,'CMD(%ANLCANLI)'
+        TE,'CMD(%ETI)'
+       HPU,'CMD(%INZHPU)'
+       OMPE,'CMD(EXEC ''&D1'')'
+       ' ',' '
+         *,'?' )
+ &ZTRAIL = .TRAIL
+ &VMCOPT = .TRAIL
+)END

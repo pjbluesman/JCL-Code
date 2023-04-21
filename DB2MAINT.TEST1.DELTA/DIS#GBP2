@@ -1,0 +1,115 @@
+//UXC401ME JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSF                                <= Change SYSAFF
+//*********************************************************************
+//DISP#F   EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDP.DB2F.RUNLIB.LOAD
+//        DD DISP=SHR,DSN=SDB2F.SDSNLOAD
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DBFG)
+  -DISPLAY GROUPBUFFERPOOL(*) MDETAIL(*)
+  END
+//DISP#WP  EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDP.DWP1.RUNLIB.LOAD
+//        DD DISP=SHR,DSN=SDWP1.SDSNLOAD
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DWPG)
+  -DISPLAY GROUPBUFFERPOOL(*) MDETAIL(*)
+  END
+//UXC401ME JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSR                                <= Change SYSAFF
+//*********************************************************************
+//DISP#WP  EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDP.DWP1.RUNLIB.LOAD
+//        DD DISP=SHR,DSN=SDWP1.SDSNLOAD
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DWPG)
+  -DISPLAY GROUPBUFFERPOOL(*) MDETAIL(*)
+  END
+//
+//*UXC401ME JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSE                                <= Change SYSAFF
+//*********************************************************************
+//* JOB NAME = DISPLAY
+//*********************************************************************
+//DISP#K   EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDT.DSNDBKG.RUNLIB.LOAD
+//        DD DISP=SHR,DSN=SDB2K.SDSNLOAD
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DBKG)
+  -DISPLAY GROUPBUFFERPOOL(*) MDETAIL(*)
+  END
+//*XC401ME JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSN                                <= Change SYSAFF
+//*********************************************************************
+//DISP#N   EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDT.DB2N.RUNLIB.LOAD
+//        DD DISP=SHR,DSN=SDB2N.SDSNLOAD
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DBNG)
+  -DISPLAY GROUPBUFFERPOOL(*) MDETAIL(*)
+  END
+//*********************************************************************
+//DISP#O   EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDT.DSNDBOG.RUNLIB.LOAD
+//        DD DISP=SHR,DSN=SDB2O.SDSNLOAD
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DBOG)
+  -DISPLAY GROUPBUFFERPOOL(*) MDETAIL(*)
+  END
+//*********************************************************************
+//DISP#ES  EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDT.DES1.RUNLIB.LOAD
+//        DD DISP=SHR,DSN=SDES1.SDSNLOAD
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DESG)
+  -DISPLAY GROUPBUFFERPOOL(*) MDETAIL(*)
+  END
+//*********************************************************************
+//*UXC401ME JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSS                                <= Change SYSAFF
+//*********************************************************************
+//DISP#V   EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDT.DB2V.RUNLIB.LOAD
+//        DD DISP=SHR,DSN=SDB2V.SDSNLOAD
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DBVG)
+  -DISPLAY GROUPBUFFERPOOL(*) MDETAIL(*)
+  END
+//

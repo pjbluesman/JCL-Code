@@ -1,0 +1,19 @@
+//DB2NALV9 JOB ,'DB2 V9 UPG',CLASS=S,MSGCLASS=X,                        00010001
+//         NOTIFY=&SYSUID,REGION=0M                                     00020001
+/*JOBPARM SYSAFF=MVSN                                                   00030001
+//********************************************************************* 00040001
+//* SSXDT.DB2N.TAILOR.SDSNSAMP($ALIASV9)                                00050001
+//********************************************************************* 00060001
+//*                                                                     00070001
+//* RE-DEFINE ALIAS FOR NEW DB2 STANDARD DATASETS                       00080001
+//*                                                                     00090001
+//* SDSNLOAD, SDXRRESL, SDSNCLST, SDSNPFPE,                             00100001
+//* SDSNSPFM, SDSNSPFP, SDSNSPFS, SDSNSPFT                              00110001
+//*                                                                     00120001
+//********************************************************************* 00130001
+//DEFALIAS EXEC PGM=IDCAMS                                              00140001
+//SYSPRINT DD  SYSOUT=*                                                 00150001
+//SYSIN    DD  *                                                        00160001
+  DEFINE ALIAS(NAME(SDB2N.SDSNCLST.LIXO) -                              00210001
+         REL(SSXDT.DB2N.SDSNCLST.LIXO))       -                         00211001
+         CAT(CATALOG.MVSICF1.ERP)                                       00220001

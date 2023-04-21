@@ -1,0 +1,26 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00010001
+//         NOTIFY=&SYSUID                                               00020001
+//*        BIND DB2 ADMIN                                               00520000
+//**********************************************************************00530000
+//*    SEARCH FOR "<==="  ON LINES THAT REQUIRE CUSTOMIZATION      *    00540000
+//**********************************************************************00550000
+//BIND     EXEC PGM=IKJEFT01,DYNAMNBR=100                               00560000
+//STEPLIB  DD DSN=SSXDP.DB2F.RUNLIB.LOAD,DISP=SHR  <===                 00570002
+//         DD DSN=SSXDP.DB2F.SDSNEXIT,DISP=SHR         <===             00580002
+//         DD DSN=SDB2F.SDSNLOAD,DISP=SHR         <===                  00590002
+//DBRMLIB  DD DISP=SHR,DSN=SYS2.DB2TOOLS.TEST.SADBDBRM                  00600000
+//SYSTSPRT DD SYSOUT=*                                                  00610000
+//SYSPRINT DD SYSOUT=*                                                  00620000
+//SYSUDUMP DD SYSOUT=*                                                  00630000
+//SYSTSIN  DD *                                                         00640000
+ DSN SYSTEM(DB2F)                  /* VERIFY DB2 SYSTEM <===      */    00650002
+ SET CURRENT SQLID = 'LSEBDB2';                                         00660001
+ BIND PACKAGE(ADBL) -                                                   04720000
+      MEMBER(ADBRIP9) -                                                 04730000
+      QUALIFIER(SYSIBM) -                                               04740000
+      SQLERROR(CONTINUE) -                                              04750000
+      VALIDATE(BIND) -                                                  04760000
+      ISOLATION(CS) -                                                   04770000
+      ENCODING(EBCDIC)  -                                               04780000
+      EXPLAIN(NO)                                                       04790000
+END                                                                     05420000

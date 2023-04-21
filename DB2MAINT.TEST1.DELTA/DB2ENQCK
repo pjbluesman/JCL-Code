@@ -1,0 +1,25 @@
+//DB6VENQK JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,
+//         NOTIFY=&SYSUID,REGION=0M
+/*JOBPARM SYSAFF=MVS3
+//*********************************************************************
+//* This member has been edited by the LOCALJCL edit macro.           *
+//*********************************************************************
+//*********************************************************************
+//*                                                                   *
+//* DB2ENQCK: This job performs the following functions:              *
+//*                                                                   *
+//*  . Check the allocated status of the runtime and staging          *
+//*    libraries.                                                     *
+//*                                                                   *
+//*********************************************************************
+//         JCLLIB ORDER=SSXDT.TOOLKIT.PROCLIB
+//*********************************************************************
+//*                                                                   *
+//* Check the allocated status of the runtime and staging libraries.  *
+//*                                                                   *
+//*********************************************************************
+//ENQLIST  EXEC ISPBATCH,
+//             TKITPRE=SSXDT,ISPPRE=SYS1
+//SYSTSIN  DD  *
+  %ENQLIST DSN(SSXDT.DB2GEO.ACTIVITY)
+/*

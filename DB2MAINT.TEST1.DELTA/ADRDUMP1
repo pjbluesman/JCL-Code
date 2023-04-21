@@ -1,0 +1,23 @@
+//UXC401M  JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSH
+//*---------------------------------------------------------------------
+//** BACKUP - BEFORE DB2 V9 CM PRE-REQS
+//*---------------------------------------------------------------------
+//DFDSSDMP EXEC PGM=ADRDSSU,REGION=4M
+//OUTPUT   DD  DISP=(NEW,CATLG,DELETE),
+//             DSN=SSXDT.DEWQ.DUMPBSDS.AUG2614,
+//             UNIT=SYSDA,SPACE=(CYL,(5,10),RLSE),
+//             DCB=SSXDT.CLONE.DMP1DB2L.MAR24
+//SYSPRINT DD  SYSOUT=*
+//SYSIN    DD  *
+  DUMP    OUTDD(OUTPUT)    -
+          COMPRESS         -
+          TOLERATE(ENQFAILURE) -
+          ALLDATA(*)       -
+          DATASET(INCLUDE( -
+                          DEWQ.DSNDEWG.BSDS0*.**   -
+                          DEWQ.DSNDEWG.LOGCOPY*.** -
+                         ) -
+                 )
+/*

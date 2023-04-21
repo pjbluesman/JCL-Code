@@ -1,0 +1,14 @@
+//DB2ZDEL JOB CLASS=S,MSGCLASS=X,
+//      REGION=0M,TIME=1440,NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSK
+//***************************************************************
+//* DELETE PROCEDURE FROM SYS1.PROCLIB
+//***************************************************************
+//DELPROC EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=X
+//SYSIN    DD  *
+    DELETE SYS1.PROCLIB(DB2ZPGMC)
+    DELETE SYS1.PROCLIB(DB2ZPSMP)
+    DELETE SYS1.PROCLIB(DB2ZUTIL)
+    DELETE SYS1.PROCLIB(DB2ZWLMA)
+

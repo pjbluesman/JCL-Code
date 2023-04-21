@@ -1,0 +1,21 @@
+//DISZOS    JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X,                       00001002
+//         NOTIFY=&SYSUID,USER=SYSPRO                                   00001102
+//*MAIN CLASS=SS,SYSTEM=MVSN                                            00002002
+//ISPF   EXEC PGM=IKJEFT01,DYNAMNBR=40                                  00010000
+//SYSEXEC  DD DSN=SSXQT.TSODAL.CLIST,DISP=(SHR)                         00020000
+//SYSTSPRT DD SYSOUT=*,HOLD=YES                                         00030000
+//ISFULOG  DD SYSOUT=*                                                  00040000
+//ISFMSG   DD SYSOUT=*                                                  00050000
+//ISFMSG2  DD SYSOUT=*                                                  00060000
+//SYSTSIN  DD *                                                         00070000
+ @SYSCMD CMD("D IPLINFO")                                               00080000
+ @SYSCMD CMD("D PROG,APF")                                              00090000
+ @SYSCMD CMD("D PROG,LINKLIST")                                         00100000
+ @SYSCMD CMD("D WLM,APPLENV=*")                                         00110000
+ @SYSCMD CMD("D UNI,ALL")                                               00120000
+ @SYSCMD CMD("D UNI,ALL")                                               00130000
+ @SYSCMD CMD("D VS,HVSHARE")                                            00140000
+ @SYSCMD CMD("D DUMP,O")                                                00150000
+ @SYSCMD CMD("D SMS,OPTIONS")                                           00160000
+ @SYSCMD CMD("D OMVS,FILE")                                             00170000
+ @SYSCMD CMD("D GRS,RES=(SYSDSN,'SYS2.DB2V8.SDSNLOAD')")                00180000

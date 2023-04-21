@@ -1,0 +1,12 @@
+//UXD001M  JOB (,A3),'DB2 V9 ALIAS',REGION=6M,                          00000101
+//             CLASS=S,MSGCLASS=X,MSGLEVEL=(1,1)                        00001000
+//DEFNVSM EXEC PGM=IDCAMS,REGION=62M                                    00470000
+//SYSPRINT DD  SYSOUT=*                                                 00480000
+//***                                                                   00490000
+//*** SUBMIT THIS JOB FOR CATALOGS DBTRS 1 (VOL S7S2W1),                00500000
+//***        DBTRS 2 (VOL S7S2W2) AND DBTRS 3 (VOL S7S2W3)              00510000
+//***                                                                   00520000
+//SYSIN    DD  *                                                        00591000
+ DEF  ALIAS(NAME(DB2TOOLT.SFECDBRM) -                                   00591101
+       RELATE(SYS2.DB2TOOLS.SFECDBRM))  -                               00591201
+       CAT(CATALOG.MVSICF1.DBTRS1)                                      00592001

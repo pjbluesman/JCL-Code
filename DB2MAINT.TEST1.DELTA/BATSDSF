@@ -1,0 +1,13 @@
+//UXC401M  JOB (,A3),'DB2 SYSTEM PROG',NOTIFY=&SYSUID,REGION=122M,
+//         CLASS=S,MSGCLASS=X,MSGLEVEL=(1,1),USER=DB2HCID
+/*JOBPARM SYSAFF=MVSE
+//*______________________________________________________________
+//* COMANDOS SDSF BATCH
+//*______________________________________________________________
+//DSN2     EXEC PGM=SDSF
+//SYSPRINT DD SYSOUT=*
+//ISFOUT   DD SYSOUT=*
+//ISFIN    DD *
+/F LLA,REFRESH
+/*
+**************************** BOTTOM OF DATA ***************************

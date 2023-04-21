@@ -1,0 +1,41 @@
+//UXC401ME JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00000105
+//         NOTIFY=&SYSUID                                               00000205
+/*JOBPARM SYSAFF=MVSE                                                   00000305
+//*                                                                     00000405
+//*-------------------------------------------------------------------*/00010001
+//* Job Function : MOVE DATASET TO ANOTHER VOLUME                       00010102
+//*-------------------------------------------------------------------*/00010201
+//*                                                                     00010305
+//ADRD010  EXEC PGM=ADRDSSU,REGION=4096K                                00030001
+//SYSPRINT DD   SYSOUT=*                                                00040001
+//DASD1    DD   DISP=SHR,UNIT=3390,VOL=SER=S7S2T2                       00050004
+//DASD2    DD   DISP=SHR,UNIT=3390,VOL=SER=S7S2T4                       00060005
+//SYSIN    DD   *                                                       00070001
+     COPY DATASET(INCLUDE(SYS2.DB2TOOLS.SINZ*.**) -                     00071007
+                ) -                                                     00100004
+          LOGINDDNAME(DASD1)        -                                   00110004
+          OUTDDNAME(DASD2)          -                                   00120004
+          TGTA(SOURCE)              -                                   00130004
+          ALLD(*) ALLX              -                                   00131005
+          TOL(ENQF)                 -                                   00150004
+          PERCENTUTILIZED(99)                                           00151004
+/*                                                                      00160001
+//                                                                      00161002
+//                                                                      00162002
+        COPY   DATASET(INCLUDE(          -                              00162104
+            SYS2.DB2TOOL1.SGOC*.**       -                              00162204
+                              ))         -                              00162304
+               OUTDDNAME(DASD2)          -                              00162404
+               TGTA(SOURCE) DELETE PURGE -                              00162504
+               RECATALOG(*) ALLD(*) ALLX                                00162604
+               NULLMGMTCLAS              -                              00162703
+               NULLSTORCLAS                                             00162803
+               CATALOG                   -                              00162903
+               RENUNC(SYS2)                                             00163003
+               LOGINDDNAME(DASD1)        -                              00164002
+               NSC NMC                   -                              00190002
+                                                                        00191004
+                  EXCLUDE( SYS2.DB2TOOLS.#JCL              , -          00200004
+                           SYS2.DB2TOOLS.AADBBASE          , -          00210004
+                           SYS2.DB2TOOLS.SMPSTS            , -          00220004
+                        )  -                                            00230004

@@ -1,0 +1,22 @@
+//DB2WDFD1 JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVS4
+//*---------------------------------------------------------------------
+//** BACKUP - BEFORE DB2 V9 CM PRE-REQS
+//*---------------------------------------------------------------------
+//DFDSSDMP EXEC PGM=ADRDSSU,REGION=4M
+//OUTPUT   DD  DISP=(NEW,CATLG,DELETE),
+//             DSN=SSXDP.DB2V9.MVS4DB2W.DB2DUMP1.CM,
+//             UNIT=CART,VOL=(,,,30),LABEL=(1,SL),RETPD=90
+//SYSPRINT DD  SYSOUT=*
+//SYSIN    DD  *
+  DUMP    OUTDD(OUTPUT)    -
+          COMPRESS         -
+          TOLERATE(ENQFAILURE) -
+          ALLDATA(*)       -
+          DATASET(INCLUDE( -
+                          DB2W.BSDS01.**   -
+                          DB2W.LOGCOPY1.** -
+                         ) -
+                 )
+/*

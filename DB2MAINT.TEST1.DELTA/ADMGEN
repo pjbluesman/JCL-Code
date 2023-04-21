@@ -1,0 +1,69 @@
+//DB2ZXADM JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSK
+//* IVPS JOBS FOR DB2 CHECKOUT MVSK DB2Z
+//*
+//*
+//*
+//*********************************************************************
+//*
+//* DB2 ADMIN GENERATED JOB
+//*
+//*********************************************************************
+//*
+//***********************************************************ADB2GEN2**
+//* STEP GENSQL: GENERATE SQL FROM DB2 CATALOG
+//*********************************************************************
+//GENSQL   EXEC PGM=IKJEFT01,DYNAMNBR=100
+//STEPLIB  DD DISP=SHR,DSN=SSXDT.DB2TOOLS.ADM.SGOCLLIB
+//         DD DISP=SHR,DSN=SSXDT.DB2TOOLS.ADM.SADBLLIB
+//         DD DISP=SHR,DSN=SSXDT.DB2Z.SDSNEXIT
+//         DD DISP=SHR,DSN=SDB2Z.SDSNLOAD
+//         DD DISP=SHR,DSN=SSXDT.DB2TOOLS.ADM.SADBLINK
+//SYSTSPRT DD SYSOUT=*
+//SYSTSIN  DD *
+  DSN SYSTEM(DB2Z)
+  RUN PROG(ADB2GEN) PLAN(ADB2GEN) -
+  PARMS('/REBIND')
+  END
+/*
+//SYSPRINT DD SYSOUT=*
+//SQL      DD SYSOUT=*,DCB=(RECFM=FB,LRECL=80)
+//IN       DD *
+  DB2SYS   = 'DB2Z',
+  DB2ALOC  = '',
+  DB2SERV  = 'DB2Z',
+  DB2AUTH  = 'T032135',
+  DB2REL   = '1015',
+  GENUDT   = '',
+  GENUDF   = '',
+  GENSTP   = 'Y',
+  GENSEQ   = '',
+  GENVAR   = '',
+  ACTVCNTL = 'Y',
+  PENDCHGS = 'N',
+  GENMASK  = 'Y',
+  GENPERM  = 'Y',
+  GENLABEL = '',
+  GENCOMM  = 'Y',
+  GRANTSCH = '',
+  GRANTUDT = '',
+  GRANTUDF = '',
+  GRANTSTP = 'Y',
+  GRANTSEQ = '',
+  GRANTVAR = '',
+  NEWSCH   = '',
+  NEWSQLID = '',
+  NEWGRANTOR = '',
+  ROLEWARN = 'Y',
+  GETDB2ZP = 'Y',
+  TGTDB2   = '';
+  TYPE='SP',
+  QUAL=
+'DLC'
+ ,NAME=
+'ADMIN_UTL_MONITOR'
+ ,VERSION=
+'V1'
+;
+/*

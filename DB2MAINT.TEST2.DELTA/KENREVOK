@@ -1,0 +1,67 @@
+//DB2UREVK JOB ,'REVOKE SYSADM',CLASS=S,MSGCLASS=X,NOTIFY=&SYSUID       00010008
+/*JOBPARM SYSAFF=MVSK                                                   00020007
+//*************************************************************         00030000
+//*  REVOKE    SYSCTRL FROM "606554"  (KEN'S USERID. HE WILL            00042003
+//*  generate a LICENSE(FUNCION : "SYSTOOS"."DB2CON_LIC")               00043003
+//*  used only on V10 CM and he will keep "SYSIBM"."DB2CON_LIC" procedur00044003
+//*  used on V10 NFM                                                    00045003
+//**********************************************************************00046003
+//JOBLIB   DD  DISP=SHR,DSN=SSXDT.DB2U.SDSNLOAD                         00047008
+//         DD  DISP=SHR,DSN=SSXDT.DB2U.RUNLIB.LOAD                      00048008
+//**********************************************************************00050004
+//* DISPLAY BEFORE                                                      00051004
+//**********************************************************************00052004
+//DISPLA1 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     00060004
+//SYSTSPRT DD  SYSOUT=*                                                 00090000
+//SYSPRINT DD  SYSOUT=*                                                 00100000
+//SYSUDUMP DD  SYSOUT=*                                                 00110000
+//SYSTSIN  DD  *                                                        00120000
+  DSN SYSTEM(DB2U)                                                      00130008
+  RUN PROGRAM(DSNTEP2)  PLAN(DSNTEP2) PARMS('/ALIGN(LHS)')              00140000
+  END                                                                   00150000
+//SYSIN    DD  *                                                        00160000
+ SET CURRENT SQLID = 'LSEBDB2';                                         00161000
+                                                                        00161104
+  SELECT 'SYSUSERAUTH',CHAR(GRANTOR,8),                                 00161204
+                       CHAR(GRANTEE,8),DATEGRANTED,                     00161304
+   SYSADMAUTH,SYSOPRAUTH,SYSCTRLAUTH FROM SYSIBM.SYSUSERAUTH            00161404
+  WHERE GRANTOR IN('606554') OR                                         00161504
+        GRANTEE IN('606554') AND                                        00161604
+            (SYSADMAUTH IN('Y','G') OR SYSOPRAUTH IN('Y','G')  OR       00161704
+             SYSCTRLAUTH IN('Y','G'));                                  00161804
+//**********************************************************************00161904
+//* REVOKE                                                              00162004
+//**********************************************************************00162104
+//REVOKE  EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     00163004
+//SYSTSPRT DD  SYSOUT=*                                                 00166004
+//SYSPRINT DD  SYSOUT=*                                                 00167004
+//SYSUDUMP DD  SYSOUT=*                                                 00168004
+//SYSTSIN  DD  *                                                        00169004
+  DSN SYSTEM(DB2U)                                                      00169108
+  RUN PROGRAM(DSNTEP2)  PLAN(DSNTEP2) PARMS('/ALIGN(LHS)')              00169204
+  END                                                                   00169304
+//SYSIN    DD  *                                                        00169404
+ SET CURRENT SQLID = 'LSEBDB2';                                         00169504
+ REVOKE SYSCTRL FROM "606554" ;                                         00170001
+//**********************************************************************00170104
+//* DISPLAY AFTER                                                       00171004
+//**********************************************************************00172004
+//DISPLA2 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     00180004
+//SYSTSPRT DD  SYSOUT=*                                                 00190004
+//SYSPRINT DD  SYSOUT=*                                                 00200004
+//SYSUDUMP DD  SYSOUT=*                                                 00210004
+//SYSTSIN  DD  *                                                        00220004
+  DSN SYSTEM(DB2U)                                                      00230008
+  RUN PROGRAM(DSNTEP2)  PLAN(DSNTEP2) PARMS('/ALIGN(LHS)')              00240004
+  END                                                                   00250004
+//SYSIN    DD  *                                                        00260004
+ SET CURRENT SQLID = 'LSEBDB2';                                         00270004
+                                                                        00280004
+  SELECT 'SYSUSERAUTH',CHAR(GRANTOR,8),                                 00290004
+                       CHAR(GRANTEE,8),DATEGRANTED,                     00300004
+   SYSADMAUTH,SYSOPRAUTH,SYSCTRLAUTH FROM SYSIBM.SYSUSERAUTH            00310004
+  WHERE GRANTOR IN('606554') OR                                         00320004
+        GRANTEE IN('606554') AND                                        00330004
+            (SYSADMAUTH IN('Y','G') OR SYSOPRAUTH IN('Y','G')  OR       00340004
+             SYSCTRLAUTH IN('Y','G'));                                  00350004
+//*                                                                     00360004

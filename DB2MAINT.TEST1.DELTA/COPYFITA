@@ -1,0 +1,21 @@
+//DB2S9S2F  JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X,                       00001003
+//         NOTIFY=&SYSUID                                               00001100
+//*MAIN CLASS=SS,SYSTEM=MVS3                                            00002000
+//**   BACKUP - BEFORE DB2 V9 CM                                        00002100
+//DFDSSDMP EXEC PGM=ADRDSSU,REGION=4M                                   00002200
+//OUTPUT   DD  DISP=(NEW,CATLG,DELETE),                                 00002300
+//             DSN=SSXDT.DB2V9.S9S2F,                                   00002403
+//             UNIT=CART,LABEL=(1,SL)                                   00002501
+//*            SPACE=(CYL,(500,500),RLSE)                               00002601
+//**           UNIT=3490,VOL=(,,,30),LABEL=(1,SL)                       00002700
+//SYSPRINT DD  SYSOUT=*                                                 00002800
+//SYSIN    DD  *                                                        00002900
+  DUMP    OUTDD(OUTPUT)    -                                            00003000
+          COMPRESS         -                                            00004000
+          ALLDATA(*)       -                                            00005000
+          DATASET(INCLUDE( -                                            00006000
+                          SYS2.DB2V9.**             -                   00007003
+                         ) -                                            00080000
+                 )                                                      00090002
+//                                                                      00091000
+          TOLERATE(ENQFAILURE)                                          00100000

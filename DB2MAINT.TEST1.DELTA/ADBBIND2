@@ -1,0 +1,26 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00010000
+//         NOTIFY=&SYSUID                                               00020000
+/*JOBPARM SYSAFF=MVSN                                                   00030001
+//*        BIND DB2 ADMIN                                               00520000
+//**********************************************************************00530000
+//*    SEARCH FOR "<==="  ON LINES THAT REQUIRE CUSTOMIZATION      *    00540000
+//**********************************************************************00550000
+//BIND     EXEC PGM=IKJEFT01,DYNAMNBR=100                               00560000
+//STEPLIB  DD DSN=SSXDT.DB2Y.RUNLIB.LOAD,DISP=SHR                       00591001
+//         DD DSN=SSXDT.DB2Y.SDSNEXIT,DISP=SHR                          00592001
+//         DD DSN=SDB2Y.SDSNLOAD,DISP=SHR                               00593001
+//DBRMLIB  DD DISP=SHR,DSN=SYS2.DB2TOOLS.TEST.SADBDBRM                  00600000
+//SYSTSPRT DD SYSOUT=*                                                  00610000
+//SYSPRINT DD SYSOUT=*                                                  00620000
+//SYSUDUMP DD SYSOUT=*                                                  00630000
+//SYSTSIN  DD *                                                         00640000
+ DSN SYSTEM(DB2Y)                  /* VERIFY DB2 SYSTEM <===      */    00650001
+ SET CURRENT SQLID = 'LSEBDB2';                                         00660000
+ BIND PACKAGE(ADBL) -                                                   05529400
+      MEMBER(ADBRIP9) -                                                 05529500
+      QUALIFIER(SYSIBM) -                                               05529600
+      SQLERROR(CONTINUE) -                                              05529700
+      VALIDATE(BIND) -                                                  05529800
+      ISOLATION(CS) -                                                   05529900
+      ENCODING(EBCDIC)  -                                               05530000
+      OWNER(LSEBDB2) EXPLAIN(NO)                                        05530100

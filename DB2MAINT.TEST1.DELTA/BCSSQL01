@@ -1,0 +1,35 @@
+--                                                                      00010000
+  SET CURRENT SQLID = 'DB2DBA';                                         00020001
+--                                                                      00030000
+  SELECT                                                                00040000
+         AL1.DOTRPP_EFF_DT,                                             00050000
+        ,AL1.DOTRPP_EXP_DT                                              00060000
+        ,AL2.EQP_OWNR_CRR_CD                                            00070000
+        ,AL2.DOTRP_OGTRSTN_CD                                           00080000
+        ,AL2.DOTRP_DSTRSTN_CD                                           00090000
+        ,COUNT(*)                                                       00100000
+   FROM  EBKDP03.DOT_RPTG_EXCTN      AL1,                               00110000
+        ,EBKDP03.MT_DOT_RPTG_CPN     AL2,                               00120000
+        ,EBKDP03.MT_DOTRP_TKT_DOC    AL4                                00130000
+  WHERE  AL4.PRMY_TKT_DOC_NB     =  AL2.PRMY_TKT_DOC_NB                 00140000
+    AND AL4.PRMY_TKDC_ISS_LDT    =  AL2.PRMY_TKDC_ISS_LDT               00150000
+    AND AL4.PRMY_TKT_DOC_SQ_NB   =  AL2.PRMY_TKT_DOC_SQ_NB              00160000
+    AND AL4.DEL_IND              = 'N'                                  00170000
+    AND AL4.DOT_RPTG_YR_NB       =  YEAR(AL1.DOTRPP_EFF_DT)             00180000
+    AND AL4.DOT_RPTG_MO_NB BETWEEN  MONTH(AL1.DOTRPP_EFF_DT)            00190000
+                               AND  MONTH(AL1.DOTRPP_EXP_DT)            00200000
+    AND AL1.DOT_RPTG_CRR_CD      =   AL2.EQP_OWNR_CRR_CD                00210000
+    AND AL1.PROC_EXCTN_STT_NB    <   3                                  00220000
+    AND AL2.CPN_ST_TYP_CD        =  'U'                                 00230000
+    AND AL2.FLT_ORIG_LDT   BETWEEN   AL1.DOTRPP_EFF_DT                  00240000
+                               AND   AL1.DOTRPP_EXP_DT                  00250000
+    AND AL2.DOTRP_OGTRSTN_CD    !=  '-'                                 00260000
+    AND AL2.DOTRP_DSTRSTN_CD    !=  '-'                                 00270000
+    AND AL2.DOTRP_OGTRSTN_CD    !=   AL2.DOTRP_DSTRSTN_CD               00280000
+    GROUP BY                                                            00290000
+             DOTRPP_EFF_DT                                              00300000
+            ,DOTRPP_EXP_DT                                              00310000
+            ,EQP_OWNR_CRR_CD                                            00320000
+            ,DOTRP_OGTRSTN_CD                                           00330000
+            ,DOTRP_DSTRSTN_CD                                           00340000
+    FOR FETCH ONLY WITH UR;                                             00350000

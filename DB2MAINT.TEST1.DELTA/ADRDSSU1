@@ -1,0 +1,24 @@
+//UXC401ME JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              JOB08822
+//         NOTIFY=&SYSUID                                               00000205
+/*JOBPARM SYSAFF=MVSE                                                   00000305
+//*                                                                     00000405
+//*-------------------------------------------------------------------*/00010001
+//* Job Function : COPY dataset to another volume & RENAME              00010102
+//*-------------------------------------------------------------------*/00010201
+//*                                                                     00010305
+//ADRD010  EXEC PGM=ADRDSSU,REGION=4096K                                00030001
+//SYSPRINT DD   SYSOUT=*                                                00040001
+//DASD1    DD   DISP=SHR,UNIT=3390,VOL=SER=S7S2T2                       00050004
+//DASD2    DD   DISP=SHR,UNIT=3390,VOL=SER=E7SU05                       00060005
+//SYSIN    DD   *                                                       00070001
+     COPY DATASET(INCLUDE(SYS2.DB2TOOLS.SINZ*) -                        00071007
+                ) -                                                     00100004
+          LOGINDDNAME(DASD1)        -                                   00110004
+          OUTDDNAME(DASD2)          -                                   00120004
+          TGTA(SOURCE)              -                                   00130004
+          ALLD(*) ALLX              -                                   00131005
+          CATALOG                   -
+          RENUNC(SSXDT)             -
+          TOL(ENQF)                 -                                   00150004
+          PERCENTUTILIZED(99)                                           00151004
+/*                                                                      00160001

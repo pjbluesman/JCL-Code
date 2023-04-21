@@ -1,0 +1,841 @@
+//DB2KADMB JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//**       USER=SYSPRO,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSE
+//**********************************************************************
+//* BIND DB2 ADMIN TOOL.
+//**********************************************************************
+//BIND     EXEC PGM=IKJEFT01,DYNAMNBR=100
+//STEPLIB  DD DISP=SHR,DSN=SSXDT.DB2K.RUNLIB.LOAD
+//         DD DISP=SHR,DSN=SSXDT.DB2K.SDSNLOAD
+//DBRMLIB  DD DISP=SHR,DSN=SSXDT.DB2TOOLS.ADM.SADBDBRM
+//SYSTSPRT DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//SYSTSIN  DD *
+DSN SYSTEM(DBKG)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBMAIN) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2CON) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2GET) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBMCCS) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2REM) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2REY) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2REP) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2RER) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2RES) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2RET) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2PRP) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(NOPACKAGE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2ZP) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2ZPV) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB27AC) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* THE QUALIFIER SHOULD MATCH THE OWNER OF THE CHECKPOINT TABLE        *
+* ADBCHKPT DEFINED IN TCZ JOB ADBCHKPT. THE OWNER WILL BE THE CURRENT *
+* SQLID IN THAT JOB.                                                  *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBTEP2) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC) -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBTEPA)   -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND)    -
+  ISOLATION(CS)     -
+  RELEASE(C)        -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBTEPI)   -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND)    -
+  ISOLATION(CS)     -
+  RELEASE(C)        -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBTEPR)   -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND)    -
+  ISOLATION(CS)     -
+  RELEASE(C)        -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBTEPU)   -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND)    -
+  ISOLATION(CS)     -
+  RELEASE(C)        -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* THE QUALIFIER SHOULD MATCH THE OWNER OF THE CHECKPOINT TABLE        *
+* ADBCHKPT DEFINED IN TCZ JOB ADBCHKPT. THE OWNER WILL BE THE CURRENT *
+* SQLID IN THAT JOB. DATA CURRENCY WITH CS AMBIG CURSOR.              *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2CHK) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  CURRENTD(N) -
+  RELEASE(C) -
+  ENCODING(EBCDIC) -
+  EXPLAIN(NO)
+
+***********************************************************************
+* DB2 V8 OR HIGHER:                                                   *
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHECKPOINT TABLE ADBCHKPT.  *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB8SQL) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC) -
+  EXPLAIN(NO)
+
+***********************************************************************
+* DB2 V9 OR HIGHER                                                    *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB9SQL) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBASW) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB0) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBPARM)  -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC) -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBLI) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD BE IBMIOCM WHICH IS THE SCHEMA FOR OBJECTS IN THE  *
+* INFOSPHERE OPTIM CONFIGURATION MANAGER (OCM) REPOSITORY DATABASE.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBLIO) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(IBMIOCM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(RUN) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC) -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBLIOB) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCEST) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCCM)  -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCPRE) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCRCH) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCRCM) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC) -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCRCR) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2CID) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCUPC) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCVCP) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCVSE) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCVIC) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCVOC) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCVEY) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCIMV) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCMPC) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCMRQ) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCDTW) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCSRV) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCRCC) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCRCP) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBC0)  -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+***********************************************************************
+* QUALIFIER SHOULD MATCH THE OWNER OF THE CHANGE MANAGEMENT TABLES.   *
+***********************************************************************
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBCMPDB) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(ADB) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  RELEASE(C) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+
+***********************************************************************
+* IF PLAN, RUNNING ADMIN, AND THE CHANGE MANAGEMENT "ALLOW CHANGE     *
+* DELETE" IS ENABLED, THE ADBCDCH PACKAGE MUST BE ADDED TO PKLIST.    *
+* E.G. PKLIST(*.ADBL.*,*.ADBCDCH.*)                                   *
+***********************************************************************
+BIND PLAN(ADB) -
+  PKLIST(*.ADBL.*) -
+  ACTION(REPLACE) RETAIN -
+  OWNER(LSEBDB2) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  ACQUIRE(USE) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC) -
+  EXPLAIN(NO)
+
+BIND PLAN(ADB2GEN) -
+  PKLIST(*.ADBL.*) -
+  ACTION(REPLACE) RETAIN -
+  OWNER(LSEBDB2) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  ACQUIRE(USE) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PLAN(ADB27AC) -
+  PKLIST(*.ADBL.*) -
+  ACTION(REPLACE) RETAIN -
+  OWNER(LSEBDB2) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  ACQUIRE(USE) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PLAN(ADB2CID) -
+  PKLIST(*.ADBL.*) -
+  ACTION(REPLACE) RETAIN -
+  OWNER(LSEBDB2) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  ACQUIRE(USE) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PLAN(ADBTEP2) -
+  PKLIST(*.ADBL.*) -
+  ACTION(REPLACE) RETAIN -
+  OWNER(LSEBDB2) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  ACQUIRE(USE) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2RIP) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBRIP9) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PLAN(ADB2RIP) -
+  PKLIST(*.ADBL.*) -
+  ACTION(REPLACE) RETAIN -
+  OWNER(LSEBDB2) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  ACQUIRE(USE) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2WCL) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2RGC) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PLAN(ADB2WCL) -
+  PKLIST(*.ADBL.*) -
+  ACTION(REPLACE) RETAIN -
+  OWNER(LSEBDB2) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  ACQUIRE(USE) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB27SP) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PLAN(ADB27SPC) -
+  PKLIST(*.ADBL.*) -
+  ACTION(REPLACE) RETAIN -
+  OWNER(LSEBDB2) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  ACQUIRE(USE) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADB2SQL) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  ISOLATION(CS) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+BIND PACKAGE(ADBL) -
+  MEMBER(ADBSEL) -
+  OWNER(LSEBDB2) -
+  QUALIFIER(SYSIBM) -
+  SQLERROR(CONTINUE) -
+  VALIDATE(BIND) -
+  DYNAMICRULES(BIND) -
+  ISOLATION(CS) -
+  RELEASE(COMMIT) -
+  ENCODING(EBCDIC)  -
+  EXPLAIN(NO)
+
+
+RUN PROGRAM(DSNTIAD) PLAN(DSNTIAD)
+END
+//SYSIN   DD  *
+  SET CURRENT SQLID='LSEBDB2';
+//
+  GRANT EXECUTE ON PLAN ADB TO PUBLIC;
+  GRANT EXECUTE ON PLAN ADB2GEN TO PUBLIC;
+  GRANT EXECUTE ON PLAN ADB27AC TO PUBLIC;
+  GRANT EXECUTE ON PLAN ADBTEP2 TO PUBLIC;
+  GRANT EXECUTE ON PLAN ADB2RIP TO PUBLIC;
+  GRANT EXECUTE ON PLAN ADB2WCL TO PUBLIC;
+  GRANT EXECUTE ON PLAN ADB27SPC TO PUBLIC;
+  GRANT EXECUTE ON PLAN ADB2CID TO PUBLIC;

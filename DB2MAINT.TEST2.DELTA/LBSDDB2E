@@ -1,0 +1,12 @@
+//UXC401ME JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSE                                <= Change SYSAFF
+//*********************************************************************
+//* JOB NAME = List bsds
+//*********************************************************************
+//STEP1   EXEC PGM=DSNJU004
+//STEPLIB  DD DSN=SDB2E.SDSNLOAD,DISP=SHR
+//GROUP    DD DSN=DB2R.DSNDBRG.BSDS01,DISP=SHR
+//SYSPRINT DD SYSOUT=X
+//SYSIN    DD *
+           MEMBER *

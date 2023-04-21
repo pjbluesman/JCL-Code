@@ -1,0 +1,32 @@
+//DB2VDEFD   JOB ,'DB2 RM 105',CLASS=S,MSGCLASS=X,
+//         NOTIFY=T032135,REGION=0M
+//*MAIN CLASS=SS,SYSTEM=MVS3
+//*
+//*
+//* *************************************************************** */  00370000
+//DSNTIC  PROC                                                          00380000
+//* *************************************************************** */  00390000
+//* DIRECTORY/CATALOG DATASET DEFINITIONS                           */  00400000
+//*                                                                 */
+//* *************************************************************** */  00410000
+//DSNTIC  EXEC PGM=IDCAMS                                               00420000
+//SYSPRINT DD SYSOUT=*                                                  00430000
+//SYSUDUMP DD SYSOUT=*                                                  00440000
+//DSNTIC  PEND                                                          00450000
+//DSNTCPY EXEC DSNTIC                                                   02540000
+//* *********************************************                       06800000
+//*
+//* *********************************************                       06820000
+//SYSIN DD *                                                            06830000
+ DEFINE CLUSTER                             -
+     (NAME( DB2V.DSNDBC.DSNDB01.DSNLLX01.I0001.A003) -
+         LINEAR                             -
+         REUSE                              -
+         VOLUMES(* *)                       -
+         CYLINDER(2650  846)                -
+         SHAREOPTIONS(3 3) )                -
+    DATA                                    -
+       ( NAME(DB2V.DSNDBD.DSNDB01.DSNLLX01.I0001.A003) -
+                            )    CATALOG(DB2V)
+                                                                        08290000
+//*                                                                     08290000

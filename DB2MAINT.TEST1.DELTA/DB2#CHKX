@@ -1,0 +1,15 @@
+//DB2ZCKIX  JOB ,'DB2 V10 UPG',CLASS=S,MSGCLASS=X,
+//         NOTIFY=&SYSUID,REGION=0M
+/*JOBPARM SYSAFF=MVSK
+//*********************************************************************
+//* CHECK INDEX USING SHRLEVEL CHANGE                                 *
+//*********************************************************************
+//         JCLLIB ORDER=SSXDT.TOOLKIT.PROCLIB
+//JOBLIB   DD  DISP=SHR,
+//             DSN=SSXDT.DB2Z.SDSNEXIT
+//         DD  DISP=SHR,
+//             DSN=SSXDT.DB2Z.SDSNLOAD
+//DB2CHKI2 EXEC DB2UPROC,PARM='DB2Z,CHECKINDEX'
+//SYSIN    DD  *
+  CHECK INDEX (ALL) TABLESPACE DSNDB06.SYSJAUXA  SHRLEVEL CHANGE
+  CHECK INDEX (ALL) TABLESPACE DSNDB06.SYSJAUXB  SHRLEVEL CHANGE

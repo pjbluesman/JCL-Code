@@ -1,0 +1,32 @@
+//UXC401MN JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSN                                <= Change SYSAFF
+//*********************************************************************
+//* JOB NAME = ARCHIVE MODE(QUIESCE)
+//*
+//* DESCRIPTIVE NAME = FORCE A SYSTEM CHECKPOINT
+//*
+//*    LICENSED MATERIALS - PROPERTY OF IBM
+//*    5625-DB2
+//*    (C) COPYRIGHT 1982, 2003 IBM CORP.  ALL RIGHTS RESERVED.
+//*
+//*    STATUS = VERSION 8
+//*
+//* NOTES = Run this job on SOURCE DB2 system
+//*
+//*         Verify image copy has been completed or is there a special
+//*         run (especially for prod clone (PXD500M)
+//*
+//*********************************************************************
+//*
+//DB2ARCH  EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDT.DB2O.RUNLIB.LOAD
+//        DD DISP=SHR,DSN=SDB2O.SDSNLOAD
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB2O)
+  -ARCHIVE LOG MODE(QUIESCE)
+  END

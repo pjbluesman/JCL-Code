@@ -1,0 +1,26 @@
+//CDBDISP JOB ,'DB2 SYSPROG CDB',CLASS=S,MSGCLASS=X, TYPRUN=HOLD,       00010006
+//       NOTIFY=&SYSUID                                                 00011003
+/*JOBPARM SYSAFF=MVS3                                                   00012007
+//*                                                                     00020000
+//********************************************************************* 00030000
+//*  JOBNAME: CDBDISP                                                   00031001
+//*  JOB TO DISPLAY UTILITIES ON                                        00032001
+//*                CDB UTILITY TEST SAMPLE JCL                      *** 00040001
+//********************************************************************* 00050000
+//JOBLIB   DD DISP=SHR,DSN=SSXDT.CDB.LOADLIB                            00060000
+//         DD DISP=SHR,DSN=SSXDT.DB6V.SDSNEXIT                          00070004
+//         DD DISP=SHR,DSN=SDB6V.SDSNLOAD                               00080004
+//CDBUSTEP EXEC PGM=CDBUTIL,PARM='DBVG,''CDBDISP'',NORESTART',          00090000
+//         TIME=1440                                                    00100000
+//*                                                                     00110000
+//SYSPRINT  DD SYSOUT=*                                                 00120000
+//SYSTSPRT  DD SYSOUT=*                                                 00130000
+//SYSOUT    DD SYSOUT=*                                                 00140000
+//SYSERROR  DD SYSOUT=*                                                 00150000
+//SUMMARY   DD SYSOUT=*                                                 00160000
+//*                                                                     00190000
+//SYSIN DD  *                                                           00200000
+  CDBDISP                                                               00210009
+/*                                                                      00220004
+//                                                                      00230004
+  CDBDISP PASSWORDS                                                     00231009

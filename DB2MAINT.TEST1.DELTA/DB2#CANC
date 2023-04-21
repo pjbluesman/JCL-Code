@@ -1,0 +1,18 @@
+//UXC401MS JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,
+//         NOTIFY=&SYSUID
+/*JOBPARM SYSAFF=MVSU                                <= Change SYSAFF
+//*********************************************************************
+//* CANCEL THREAD
+//*********************************************************************
+//*
+//DB2V     EXEC PGM=IKJEFT01
+//STEPLIB DD DISP=SHR,DSN=SSXDT.DB2V.RUNLIB.LOAD   <= Change DB2ID
+//        DD DISP=SHR,DSN=SDB2V.SDSNLOAD           <= Change DB2ID
+//*
+//SYSPRINT DD  SYSOUT=*
+//DSNTRACE DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB3V)
+  -CANCEL THD(token)
+  END

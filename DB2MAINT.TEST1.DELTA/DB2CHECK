@@ -1,0 +1,94 @@
+//DB2CHECK JOB ,'DB2 V9 UPG',CLASS=S,MSGCLASS=X,
+//         NOTIFY=&SYSUID,REGION=0M
+//*MAIN CLASS=SS,SYSTEM=MVSN
+//*********************************************************************
+//* DB2DISPL: This job performs the following functions:              *
+//*  . EXecute the commands which will show any outstanding threads,  *
+//*    utilities or restrictions on the Catalog/Directory objects.    *
+//*********************************************************************
+//         JCLLIB ORDER=SSXDT.TOOLKIT.PROCLIB
+//DISPLAY  EXEC TSOBATCH
+//STEPLIB  DD  DISP=SHR,DSN=SSXDP.DB2X.SDSNEXIT
+//         DD  DISP=SHR,DSN=SDB2X.SDSNLOAD
+//SYSTSIN  DD  *
+  DSN SYSTEM(DB2X)
+      -DIS DB(*) SPACENAM(*) LIMIT(*) RESTRICT
+      -DIS THD(*) TYPE(*)
+      -DIS UTIL(*)
+      -DIS GROUP
+  END
+/*
+//********************************************************************
+//* HPU UNLOAD TEST *                                                *
+//********************************************************************
+//STEP1    EXEC PGM=INZUTILB,REGION=0M,DYNAMNBR=99,
+//         PARM='DB2X,DB2ENLOAD'
+//STEPLIB  DD  DSN=SDB2X.SDSNLOAD,DISP=SHR
+//SYSPRINT DD  SYSOUT=*
+//T001SNAP DD  DUMMY
+//SYSIN    DD  *
+    UNLOAD TABLESPACE DSN8D81A.DSN8S81D
+     DB2 YES
+     OPTIONS DATE DATE_A
+      SELECT * FROM DSN8810.DEPT
+       ORDER BY 1 DESC
+       OUTDDN (UNLDDN1)
+        FORMAT DSNTIAUL
+        LOADDDN LOADDDN1 LOADOPT (RESUME NO REPLACE)
+
+/*
+//*
+//********* DDNAMES USED BY THE SELECT STATEMENTS **********
+//*
+//UNLDDN1  DD  DISP=(MOD,CATLG,DELETE),DSN=SSXDT.HPU.UNLDDN1,
+//             SPACE=(CYL,(1,1))
+//LOADDDN1 DD  DISP=(MOD,CATLG,DELETE),DSN=SSXDT.HPU.LOAD,
+//             SPACE=(CYL,(1,1))
+//*  ==== REMOVE '*' IF THIS STEP DO NOT NEED TO RUN
+//                                                                      00010001
+//*********************************************************************
+//* CDB UTILITY TEST SAMPLE JCL                                       *
+//*********************************************************************
+//*                                    T E S T        / P R O D
+//         SET HLQ1='SSXDP' <--------- SSXDT          / SSXDP
+//         SET PARM='DB2X'  <--------- DBVG, DB2X     / DBRG, DB2W
+//         SET SSID='DB2X'  <--------- DB2V,DB3V,DB4V / DB2R,DB3R,DB4R
+//*                                    DB5V,DB6V,DB2X / DB5R,DB6R,DB2W
+//********************************************************************/
+//JOBLIB   DD DISP=SHR,DSN=&HLQ1..CDB.LOADLIB
+//         DD DISP=SHR,DSN=&HLQ1..&SSID..SDSNEXIT
+//         DD DISP=SHR,DSN=S&SSID..SDSNLOAD
+//*********************************************************************
+//* The values that can be used for the restart parameter are:
+//* For utilities detail read DBRGUTIL member
+//*********************************************************************
+//CDBSTEST EXEC PGM=CDBUTIL,TIME=1440,
+//         PARM='&PARM,''TESTUTIL'',NORESTART'
+//**       PARM='&PARM,''TESTUTIL'',QUICKEXIT'
+//*
+//SYSPRINT  DD SYSOUT=*
+//SYSTSPRT  DD SYSOUT=*
+//SYSOUT    DD SYSOUT=*
+//SYSERROR  DD SYSOUT=*
+//SUMMARY   DD SYSOUT=*
+//*
+//UTLPARMS  DD *
+  +SVRDISK(1)
+  +SVRTAPE(0)
+//RRGPARMS  DD *
+ +MAXTASKS(32)
+ +ALLO(KEEPDB2)
+ +PARTRENAME(NO)
+ +INITWINDOW(2000)
+ +PAGEUSE(50)
+ +RUNSTATS(NO)
+//SYSIN     DD *
+  REORG TABLESPACE DSN8D81A.DSN8S81E
+//
+
+                   DSN8D81A.DSN8S81P
+  REORG TABLESPACE DSN8D81A.DSN8S81E
+  REORG TABLESPACE EBKD3S99.CNO0019
+  REORG TABLESPACE DSN8D81A.DSN8S81E
+  REORG TABLESPACE DATABASE.TABLESPC PART 1
+  COPY TABLESPACE DATABASE.TABLESPC DSNUM 1

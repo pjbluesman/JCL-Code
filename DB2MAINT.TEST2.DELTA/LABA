@@ -1,0 +1,15 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,REGION=0M,    00010000
+//         NOTIFY=&SYSUID,USER=SYSPRO                                   00020000
+//RACFLST EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                     00040000
+//SYSPRINT DD  SYSOUT=*                                                 00050000
+//SYSTSPRT DD  SYSOUT=*                                                 00060000
+//SYSTSIN  DD  *                                                        00070000
+ LD DA('DB2F.**')                                                       00080000
+ LD DA('SSXDP.DB2F.**')                                                 00090000
+ LD DA('DB2F.DSNDBFG.**')                                               00100000
+ LD DA('SSXDP.DB2F.ARCH*.**')                                           00110000
+ LD DA('SDB2F.**')                                                      00120000
+ LD DA('DB2F.**')                                                       00130000
+ LD DA('SSXDP.DB2F.RUNLIB.**')                                          00140000
+ LD DA('SSXDP.DSNDBFG.**')                                              00150000
+ LD DA('SSXDP.DSNDBFG.RUNLIB.**')                                       00160000

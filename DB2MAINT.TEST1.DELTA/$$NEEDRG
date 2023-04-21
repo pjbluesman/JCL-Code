@@ -1,0 +1,58 @@
+----------------------------------------------------------------------
+--  QUERY SYSCAT TO DETERMINE WHAT SPACES NEED REORG
+----------------------------------------------------------------------
+    SELECT SUBSTR(CURRENT SERVER,1,8)        AS SSID
+         , 'REORG TS'                        AS ACTION
+         , STRIP(DBNAME) || '.' || TSNAME    AS OBJECT
+         , 'REASON=TP'                       AS X_TS_TB
+    FROM SYSIBM.SYSTABLEPART TP
+    WHERE TP.VCATNAME IN ( '00000001'
+                          , CURRENT SERVER )
+      AND CARD          > 0
+      AND ( FARINDREF   / CARD > .1  OR
+            NEARINDREF  / CARD > .2  OR
+            EXTENTS     > 10 )
+  UNION
+    SELECT SUBSTR(CURRENT SERVER,1,8)
+         , 'REORG TS'
+         , STRIP(TB.DBNAME) || '.' || TB.TSNAME
+         , 'REASON=X '
+    FROM SYSIBM.SYSINDEXES   IX
+       , SYSIBM.SYSINDEXPART IP
+       , SYSIBM.SYSTABLES    TB
+    WHERE IP.VCATNAME IN ( '00000001'
+                          , CURRENT SERVER )
+      AND IP.IXCREATOR  = IX.CREATOR
+      AND IP.IXNAME     = IX.NAME
+      AND TB.DBNAME     = IX.DBNAME
+      AND TB.CREATOR    = IX.TBCREATOR
+      AND TB.NAME       = IX.TBNAME
+      AND TB.CARD       > 0
+      AND IX.CLUSTERING = 'Y'
+      AND IX.CLUSTERRATIO BETWEEN 1 AND 90
+  UNION
+    SELECT SUBSTR(CURRENT SERVER,1,8)
+         , 'REORG X'
+         , STRIP(IP.IXCREATOR) || '.' || IP.IXNAME
+         , TB.DBNAME  || '.' || TB.TSNAME  || '  (' ||
+           STRIP(TB.CREATOR) || '.' || STRIP(TB.NAME) || ')'
+    FROM SYSIBM.SYSINDEXPART IP
+       , SYSIBM.SYSINDEXES   IX
+       , SYSIBM.SYSTABLES    TB
+    WHERE IP.VCATNAME IN ( '00000001'
+                          , CURRENT SERVER )
+      AND TB.TSNAME NOT IN ( 'SYSDBASE'
+                           , 'SYSDBAUT'
+                           , 'SYSGROUP'
+                           , 'SYSPLAN '
+                           , 'SYSVIEWS' )
+      AND IP.IXCREATOR  = IX.CREATOR
+      AND IP.IXNAME     = IX.NAME
+      AND IX.TBCREATOR  = TB.CREATOR
+      AND IX.TBNAME     = TB.NAME
+      AND IX.DBNAME     = TB.DBNAME
+      AND IP.CARD       > 0
+      AND ( IP.FAROFFPOS          / IP.CARD > .1 OR
+            IP.NEAROFFPOS         / IP.CARD > .2 OR
+            IP.PSEUDO_DEL_ENTRIES / IP.CARD > .1 OR
+            IP.LEAFDIST                     > 500   );

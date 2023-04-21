@@ -1,0 +1,21 @@
+//UXC401M  JOB ,'DB2 SYSTEM',CLASS=S,MSGCLASS=X,TIME=1440,              00010000
+//         NOTIFY=&SYSUID,REGION=0M                                     00020000
+/*JOBPARM SYSAFF=MVSE                                                   00030000
+//********************************************************************/ 00060000
+//*                                                                     00070000
+//* RESTORE THE DFDSS DUMP DATASET. */                                  00080000
+//*                                                                     00090000
+//********************************************************************/ 00100000
+//RESTORE EXEC PGM=ADRDSSU,COND=(4,LT)                                  00110000
+//SYSPRINT DD SYSOUT=*                                                  00120000
+//INDD DD DISP=SHR,DSN=SSXDT.SMPBRZ.DFDSSDMP.CQM23B                     00130000
+//OUTDD DD DISP=SHR,UNIT=SYSDA,VOL=SER=S7S2T3                           00140000
+//SYSIN DD *                                                            00150000
+  RESTORE INDDNAME(INDD) -                                              00160000
+  OUTDDNAME(OUTDD) -                                                    00170000
+  NULLMGMTCLAS -                                                        00180000
+  NULLSTORCLAS -                                                        00190000
+  DATASET(INCLUDE(SYS1DB2.**)) -                                        00210000
+  RENAMEU( (SYS1DB2.DQFV23.**  -                                        00220000
+            SYS2.DB2TOOLX.**))                                          00230002
+/*                                                                      00240000

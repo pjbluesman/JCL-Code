@@ -1,0 +1,49 @@
+P  JOB ,'DB2 V10 UPG',CLASS=S,MSGCLASS=X,
+ NOTIFY=&SYSUID,REGION=0M
+ SYSAFF=MVSK
+**************************************************************
+**************************************************************
+**************************************************************
+//*                                                                   *
+//* COPY PROCS                                                        *
+//*                                                                   *
+//*********************************************************************
+//FBKSYS1  EXEC PGM=IEBCOPY,COND=(0,NE)
+//SYSPRINT DD  SYSOUT=*
+//DB2PROCS DD  DISP=SHR,DSN=SSXDT.DB2Z.FBK91.PROCLIB
+//SYSPROCS DD  DISP=SHR,DSN=SYS1.PROCLIB
+//SYSUT3   DD  UNIT=SYSDA,SPACE=(CYL,(25,10),RLSE)
+//SYSUT4   DD  UNIT=SYSDA,SPACE=(CYL,(25,10),RLSE)
+//SYSIN    DD  *
+  COPY INDD=SYSPROCS,OUTDD=DB2PROCS
+       SELECT MEMBER=((DB2ZMSTR,#B2ZMSTR))
+       SELECT MEMBER=((DB2ZDBM1,#B2ZDBM1))
+       SELECT MEMBER=((DB2ZDIST,#B2ZDIST))
+       SELECT MEMBER=((DB2ZIRLM,#B2ZIRLM))
+  COPY INDD=DB2PROCS,OUTDD=DB2PROCS
+/*
+//*********************************************************************
+//FBKSYS2  EXEC PGM=IEBCOPY
+//SYSPRINT DD  SYSOUT=*
+//DB2PROCS DD  DISP=SHR,DSN=SSXDT.DB2Z.FBK91.PROCLIB
+//SYSPROCS DD  DISP=SHR,DSN=SYS1.PROCLIB
+//SYSUT3   DD  UNIT=SYSDA,SPACE=(CYL,(25,10),RLSE)
+//SYSUT4   DD  UNIT=SYSDA,SPACE=(CYL,(25,10),RLSE)
+//SYSIN    DD  *
+  COPY INDD=SYSPROCS,OUTDD=DB2PROCS
+       SELECT MEMBER=((DB2ZAPP1,#B2ZAPP1))
+       SELECT MEMBER=((DB2ZPGMC,#B2ZPGMC))
+       SELECT MEMBER=((DB2ZPSMP,#B2ZPSMP))
+       SELECT MEMBER=((DB2ZUTIL,#B2ZUTIL))
+       SELECT MEMBER=((DB2ZWLM,#B2ZWLM))
+       SELECT MEMBER=((DB2ZWLMA,#B2ZWLMA))
+       SELECT MEMBER=((DB2ZWLMD,#B2ZWLMD))
+       SELECT MEMBER=((DB2ZWLMG,#B2ZWLMG))
+       SELECT MEMBER=((DB2ZWLMJ,#B2ZWLMJ))
+       SELECT MEMBER=((DB2ZWLMP,#B2ZWLMP))
+       SELECT MEMBER=((DB2ZWLMR,#B2ZWLMR))
+       SELECT MEMBER=((DB2ZWLMU,#B2ZWLMU))
+       SELECT MEMBER=((DB2ZWLM1,#B2ZWLM1))
+  COPY INDD=DB2PROCS,OUTDD=DB2PROCS
+/*
+//*********************************************************************
